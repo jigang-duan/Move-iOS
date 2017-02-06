@@ -12,36 +12,37 @@ import RxSwift
 import RxDataSources
 
 
-class AccountController: UIViewController {
+class AccountController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionOfCellData>()
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionOfCellData>()
+        let dataSource = self.dataSource
+        
         dataSource.configureCell = { ds, tv, ip, item in
             if let userData = item as? UserCellData {
                 let cell = tv.dequeueReusableCell(withIdentifier: R.reuseIdentifier.userCell.identifier, for: ip)
                 cell.textLabel?.text = userData.account
+                cell.detailTextLabel?.text = userData.describe
                 return cell
             }
             
             if let devData = item as? DeviceCellData {
                 let cell = tv.dequeueReusableCell(withIdentifier: R.reuseIdentifier.deviceCell.identifier, for: ip)
                 cell.textLabel?.text = devData.devType
+                cell.detailTextLabel?.text = devData.name
                 return cell
             }
             
-            if let sysData = item as? SystemCellData {
-                let cell = tv.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemCellI.identifier, for: ip)
-                cell.textLabel?.text = sysData.title
-                return cell
-            }
             
-            let cell = tv.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemCellI.identifier, for: ip)
+            let sysData = item as? AddDeviceCellData
+            let cell = tv.dequeueReusableCell(withIdentifier: R.reuseIdentifier.addDeviceCellI.identifier, for: ip)
+            cell.textLabel?.text = sysData?.title
             return cell
         }
         dataSource.titleForHeaderInSection = { ds, index in
@@ -49,9 +50,11 @@ class AccountController: UIViewController {
         }
         
         let sections = [
-            SectionOfCellData(header: "", items: [UserCellData(iconUrl: nil, account: "Paul.Wang", describe: "Profile")]),
-            SectionOfCellData(header: "Device", items: [DeviceCellData(devType: "Add device", name: nil, iconUrl: nil) ]),
-            SectionOfCellData(header: "System", items: [SystemCellData(title: "Language for app") ])
+            SectionOfCellData(header: R.string.localizable.id_nil(),
+                              items: [UserCellData(iconUrl: nil, account: "Paul.wang@tcl.com", describe: "Profile, password, achievement")]),
+            SectionOfCellData(header: R.string.localizable.id_section_header_device(),
+                              items: [DeviceCellData(devType: "Family watch 2", name: "Angela", iconUrl: nil),
+                                      AddDeviceCellData() ])
         ]
         
         Observable.just(sections)

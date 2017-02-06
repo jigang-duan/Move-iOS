@@ -24,8 +24,12 @@ struct DeviceCellData: CellDataType {
     var iconUrl: String?
 }
 
-struct SystemCellData: CellDataType {
-    var title: String
+struct AddDeviceCellData: CellDataType {
+    let title: String
+    
+    init () {
+        self.title = R.string.localizable.id_add_device()
+    }
 }
 
 struct SectionOfCellData {
