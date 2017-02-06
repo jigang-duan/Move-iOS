@@ -1,0 +1,70 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '8.0'
+
+target 'Move App' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Move App
+
+  # 仿Android资源文件使用
+  pod 'R.swift'
+
+  # 自动布局
+  # pod 'SnapKit'
+
+  # Log
+  pod 'SwiftyBeaver'
+
+  # 网络
+  pod 'Moya-ObjectMapper/RxSwift'
+  pod 'Moya'
+  pod 'Moya/RxSwift'
+  
+  # Observable
+  pod 'RxOptional'
+  #pod 'RxSwift',    '~> 3.0'
+  pod 'RxCocoa',    '~> 3.0'
+  pod 'RxDataSources', '~> 1.0'
+  # pod 'RxMKMapView'  // 有依赖冲突
+  # 数据库
+  pod 'RxRealm'
+  
+  # 避免键盘遮挡下方输入框
+  pod 'IQKeyboardManager'
+  
+  # 空白页或者出错页封装
+  pod 'DZNEmptyDataSet'
+  
+  # 下拉刷新
+  pod 'MJRefresh'
+  
+  # Image 扩展库
+  pod 'AFImageHelper', :path => './github/ImageHelper-3.2.1'
+  
+  
+  target 'Move AppTests' do
+    inherit! :search_paths
+    # Pods for testing
+    pod 'RxTest'
+    pod 'RxBlocking'
+    # 网络
+    pod 'Moya-ObjectMapper/RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+  end
+
+  target 'Move AppUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '3.0'
+    end
+  end
+end
