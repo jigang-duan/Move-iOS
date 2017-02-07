@@ -19,7 +19,7 @@ struct Configure {
         static let isHTTPS = false
 
         static let testHost = "10.129.60.82:9092"
-        static let Host = "xx.xx.xx.xx"
+        static let Host = "139.196.178.104"
         static let apiPath = ""
         
         // Base
@@ -32,6 +32,8 @@ struct Configure {
                 return "http://" + host + apiPath
             }
         }()
+        
+        static let ApiKey = "whco6R2vfkGjKpH8J5G21xui3wjBLh23pSGFoJ_Q4KfLjwEVezo"
     }
     
     //
