@@ -16,6 +16,9 @@ extension Response {
     /// If the conversion fails, the signal errors.
     public func mapMoveObject<T: BaseMappable>(_ type: T.Type) throws -> T {
         if let object = Mapper<T>().map(JSONObject: try mapJSON()) {
+            if let apie = object as? MoveApi.ApiError, apie.id != 0 {
+                throw apie
+            }
             return object
         }
         

@@ -12,7 +12,24 @@ import RxSwift
 import Moya_ObjectMapper
 
 extension MoveApi {
+    
     class Account {
+        
+        static let defaultProvider = RxMoyaProvider<MoveApi.Account.API>(
+            endpointClosure: MoveApi.Account.endpointMapping,
+            plugins: [MoveAccessTokenPlugin(), NetworkLoggerPlugin(verbose: true)])
+        
+        final class func request(_ target: MoveApi.Account.API) -> Observable<Response> {
+            return defaultProvider.request(target)
+        }
+        
+        final class func isRegistered(account: String) -> Observable<MoveApi.Registered> {
+            return MoveApi.Account.request(.registered(account: account)).mapMoveObject(MoveApi.Registered.self)
+        }
+        
+        final class func logout() -> Observable<MoveApi.ApiError> {
+            return MoveApi.Account.request(.logout).mapMoveObject(MoveApi.ApiError.self)
+        }
         
         enum API {
             case registered(account: String)
@@ -20,42 +37,22 @@ extension MoveApi {
 //            case login(info: LoginInfo)
 //            case tplogin(info: TpLoginInfo)
 //            case refreshToken
-//            case logout
-        }
-        
-        struct AccessToken {
-            var uid: String?
-            var accessToken: String?
-            var expiredAt: String?
-        }
-        
-        struct Registered {
-            var isRegistered: Bool?
-        }
-        
-        struct RegisterInfo {
-            var phone: String?
-            var email: String?
-            var profile: String?
-            var nickname: String?
-            var username: String?
-            var password: String?
-        }
-        
-        struct LoginInfo {
-            var username: String?
-            var password: String?
-        }
-        
-        struct TpLoginInfo {
-            var platform: String?
-            var openif: String?
-            var secret: String?
+            case logout
         }
         
     }
 }
 
+extension MoveApi.Account.API: AccessTokenAuthorizable {
+    var shouldAuthorize: Bool {
+        switch self {
+        case .registered:
+            return false
+        case .logout:
+            return true
+        }
+    }
+}
 
 extension MoveApi.Account.API: TargetType {
     
@@ -67,6 +64,8 @@ extension MoveApi.Account.API: TargetType {
         switch self {
         case .registered(let account):
             return "/\(account)/registered"
+        case .logout:
+            return "/logout"
         }
     }
     
@@ -74,6 +73,8 @@ extension MoveApi.Account.API: TargetType {
     var method: Moya.Method {
         switch self {
         case .registered:
+            return .get
+        case .logout:
             return .post
         }
     }
@@ -81,7 +82,7 @@ extension MoveApi.Account.API: TargetType {
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
         switch self {
-        case .registered:
+        case .registered, .logout:
             return nil
         }
     }
@@ -94,6 +95,8 @@ extension MoveApi.Account.API: TargetType {
         switch self {
         case .registered:
             return "{\"registered\": true}".utf8Encoded
+        case .logout:
+            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         }
     }
     
@@ -113,12 +116,3 @@ extension MoveApi.Account {
     }
 }
 
-
-extension MoveApi.Account.Registered: Mappable {
-    init?(map: Map) {
-    }
-    
-    mutating func mapping(map: Map) {
-        isRegistered <- map["registered"]
-    }
-}

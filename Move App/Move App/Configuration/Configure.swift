@@ -24,7 +24,7 @@ struct Configure {
         
         // Base
         static let BaseURL: String = {
-            let host = testHost
+            let host = Host
             if Configure.App.isHTTPS {
                 return "https://" + host + apiPath
             }

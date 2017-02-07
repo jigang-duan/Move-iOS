@@ -19,6 +19,9 @@
 		E01DF7381E308D7F00EA003D /* CustomViews.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E01DF7301E308D7F00EA003D /* CustomViews.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01DF73F1E308E6B00EA003D /* UIColor+argb.swift */; };
 		E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E01DF7431E3093B300EA003D /* Assets.xcassets */; };
+		E03B1BB61E49C53A006EDB7B /* MoveApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BB51E49C53A006EDB7B /* MoveApiTests.swift */; };
+		E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */; };
+		E03B1BBA1E49EE79006EDB7B /* MoveApi+Account+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BB91E49EE79006EDB7B /* MoveApi+Account+Mappable.swift */; };
 		E04621341E497462007D3BD3 /* MoveApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621331E497462007D3BD3 /* MoveApi+Account.swift */; };
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
@@ -129,6 +132,9 @@
 		E01DF7331E308D7F00EA003D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E01DF73F1E308E6B00EA003D /* UIColor+argb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+argb.swift"; path = "Extensions/Color/UIColor+argb.swift"; sourceTree = "<group>"; };
 		E01DF7431E3093B300EA003D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resource/Assets/Assets.xcassets; sourceTree = "<group>"; };
+		E03B1BB51E49C53A006EDB7B /* MoveApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiTests.swift; sourceTree = "<group>"; };
+		E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveAccessTokenPlugin.swift; path = "Source Code/Models/network/MoveWebAPI/MoveAccessTokenPlugin.swift"; sourceTree = "<group>"; };
+		E03B1BB91E49EE79006EDB7B /* MoveApi+Account+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account+Mappable.swift"; path = "Source Code/Models/network/MoveWebAPI/MoveApi+Account+Mappable.swift"; sourceTree = "<group>"; };
 		E04621331E497462007D3BD3 /* MoveApi+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account.swift"; path = "Source Code/Models/network/MoveWebAPI/MoveApi+Account.swift"; sourceTree = "<group>"; };
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
@@ -278,6 +284,7 @@
 		E01DF6F91E3059A900EA003D /* Move AppTests */ = {
 			isa = PBXGroup;
 			children = (
+				E03B1BB51E49C53A006EDB7B /* MoveApiTests.swift */,
 				E0C228DF1E3458C400BCF83D /* MoyaTests.swift */,
 				E01DF6FA1E3059A900EA003D /* Move_AppTests.swift */,
 				E01DF6FC1E3059A900EA003D /* Info.plist */,
@@ -464,9 +471,11 @@
 			isa = PBXGroup;
 			children = (
 				E04621331E497462007D3BD3 /* MoveApi+Account.swift */,
+				E03B1BB91E49EE79006EDB7B /* MoveApi+Account+Mappable.swift */,
 				E04621351E49755A007D3BD3 /* MoveApi.swift */,
 				E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */,
 				E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */,
+				E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */,
 			);
 			name = MoveWebAPI;
 			sourceTree = "<group>";
@@ -1134,6 +1143,7 @@
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
+				E03B1BBA1E49EE79006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
@@ -1152,6 +1162,7 @@
 				E04621341E497462007D3BD3 /* MoveApi+Account.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
+				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
@@ -1167,6 +1178,7 @@
 			files = (
 				E01DF6FB1E3059A900EA003D /* Move_AppTests.swift in Sources */,
 				E0C228E01E3458C400BCF83D /* MoyaTests.swift in Sources */,
+				E03B1BB61E49C53A006EDB7B /* MoveApiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
