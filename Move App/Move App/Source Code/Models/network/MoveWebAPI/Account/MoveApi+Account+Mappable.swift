@@ -8,9 +8,6 @@
 
 import Foundation
 import ObjectMapper
-import Moya
-import RxSwift
-import Moya_ObjectMapper
 
 
 extension MoveApi {
