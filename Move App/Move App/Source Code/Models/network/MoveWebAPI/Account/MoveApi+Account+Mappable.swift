@@ -15,7 +15,7 @@ extension MoveApi {
     struct AccessToken {
         var uid: String?
         var accessToken: String?
-        var expiredAt: String?
+        var expiredAt: Date?
     }
     
     struct Registered {

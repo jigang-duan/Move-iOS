@@ -23,6 +23,7 @@
 		E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */; };
 		E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */; };
 		E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */; };
+		E03B1BC31E4AD70B006EDB7B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */; };
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
 		E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */; };
@@ -136,6 +137,7 @@
 		E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveAccessTokenPlugin.swift; path = "Source Code/Models/network/MoveWebAPI/MoveAccessTokenPlugin.swift"; sourceTree = "<group>"; };
 		E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account.swift"; path = "Source Code/Models/network/MoveWebAPI/Account/MoveApi+Account.swift"; sourceTree = "<group>"; };
 		E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account+Mappable.swift"; path = "Source Code/Models/network/MoveWebAPI/Account/MoveApi+Account+Mappable.swift"; sourceTree = "<group>"; };
+		E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserInfo.swift; path = "Source Code/Servers/UserInfo/UserInfo.swift"; sourceTree = "<group>"; };
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
@@ -476,6 +478,14 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
+		E03B1BC11E4AD67A006EDB7B /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */,
+			);
+			name = UserInfo;
+			sourceTree = "<group>";
+		};
 		E04621321E49739F007D3BD3 /* MoveWebAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +545,7 @@
 		E0931F1C1E30BC5000755B4A /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				E03B1BC11E4AD67A006EDB7B /* UserInfo */,
 			);
 			name = Servers;
 			sourceTree = "<group>";
@@ -1166,6 +1177,7 @@
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
+				E03B1BC31E4AD70B006EDB7B /* UserInfo.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
