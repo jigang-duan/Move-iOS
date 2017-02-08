@@ -129,6 +129,13 @@ class Logger {
 
 }
 
+extension Logger {
+    static func reversedLog(seperator: String, terminator: String, items: Any...) {
+        debugPrint("🐸")
+        debugPrint(items, separator: seperator, terminator: terminator)
+    }
+}
+
 extension NSError {
 
     class func errorWithMessage(message: String) -> NSError {

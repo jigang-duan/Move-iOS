@@ -17,7 +17,10 @@ extension MoveApi {
         
         static let defaultProvider = RxMoyaProvider<MoveApi.Account.API>(
             endpointClosure: MoveApi.Account.endpointMapping,
-            plugins: [MoveAccessTokenPlugin(), NetworkLoggerPlugin(verbose: true)])
+            plugins: [
+                MoveAccessTokenPlugin(),
+                NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
+            ])
         
         final class func request(_ target: MoveApi.Account.API) -> Observable<Response> {
             return defaultProvider.request(target)
