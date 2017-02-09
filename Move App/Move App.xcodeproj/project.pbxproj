@@ -68,6 +68,7 @@
 		E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290A1E35E5AE00BCF83D /* UIImage+Extensions.swift */; };
 		E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */; };
 		E0C229111E35E65900BCF83D /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C229101E35E65900BCF83D /* Example.swift */; };
+		E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		E0C2290A1E35E5AE00BCF83D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Extensions.swift"; path = "Vendor/RxImage/UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+DownloadableImage.swift"; path = "Vendor/RxImage/UIImageView+DownloadableImage.swift"; sourceTree = "<group>"; };
 		E0C229101E35E65900BCF83D /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Vendor/RxUtilities/Example.swift; sourceTree = "<group>"; };
+		E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapSceneViewController.swift; path = "Source Code/Scenes/Tabs/MainMapSceneViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -649,6 +651,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F501E31D59200755B4A /* TabsViewController.swift */,
+				E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */,
 			);
 			name = Tabs;
 			sourceTree = "<group>";
@@ -1183,6 +1186,7 @@
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
+				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,

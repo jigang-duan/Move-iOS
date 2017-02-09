@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -81,7 +81,7 @@
                     <navigationItem key="navigationItem" id="IOe-3w-obh">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="8Ub-zb-4Wh">
-                            <rect key="frame" x="113" y="6" width="150" height="33"/>
+                            <rect key="frame" x="112.5" y="5.5" width="150" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1yt-4I-fDv">
@@ -106,7 +106,11 @@
         <!--Main Map-->
         <scene sceneID="GoP-ov-haV">
             <objects>
-                <viewController title="Main Map" id="1qy-IZ-lOf" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainMapSceneViewController" title="Main Map" id="1qy-IZ-lOf" customClass="MainMapSceneViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wza-tg-GZf"/>
+                        <viewControllerLayoutGuide type="bottom" id="nsS-Ls-5Dh"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="q7P-JH-3Oz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -123,6 +127,9 @@
                             <constraint firstItem="EZI-JX-nJk" firstAttribute="top" secondItem="q7P-JH-3Oz" secondAttribute="top" id="eHY-fG-gZi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mainMapView" destination="EZI-JX-nJk" id="CmJ-Sw-ers"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdP-O1-Vd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -132,6 +139,10 @@
         <scene sceneID="FPE-pk-ICe">
             <objects>
                 <viewController id="pWo-Za-OdB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fvJ-DO-Eu4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Woq-U6-0cj"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Eg-RG-lJj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
