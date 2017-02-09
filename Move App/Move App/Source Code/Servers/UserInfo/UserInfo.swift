@@ -25,6 +25,46 @@ class UserInfo {
         var refreshToken: String?
         var expiryAt: Date?
     }
+    
+    struct Profile {
+        var username: String?
+        var password: String?
+        
+        var nickname: String?
+        
+        var email: String?
+        var phone: String?
+        
+        var icon: String?
+    }
+    
+    fileprivate var worker: UserInfoWorker = MokUserInfoWorker()
+}
+
+extension UserInfo {
+    
+    func getProfile() -> Observable<UserInfo.Profile> {
+        return worker.fetchProfile()
+    }
+}
+
+
+protocol UserInfoWorker {
+    func fetchProfile() -> Observable<UserInfo.Profile>
+}
+
+
+class MokUserInfoWorker: UserInfoWorker {
+    func fetchProfile() -> Observable<UserInfo.Profile> {
+        return Observable.just(
+            UserInfo.Profile(username: "Paul.wang@tcl.com",
+                             password: "password",
+                             nickname: "Paul.wang",
+                             email: "",
+                             phone: "",
+                             icon: nil)
+        )
+    }
 }
 
 

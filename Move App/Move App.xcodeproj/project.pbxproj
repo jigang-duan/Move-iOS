@@ -24,6 +24,8 @@
 		E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */; };
 		E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */; };
 		E03B1BC31E4AD70B006EDB7B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */; };
+		E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */; };
+		E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */; };
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
 		E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */; };
@@ -139,6 +141,8 @@
 		E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account.swift"; path = "Source Code/Models/network/MoveWebAPI/Account/MoveApi+Account.swift"; sourceTree = "<group>"; };
 		E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account+Mappable.swift"; path = "Source Code/Models/network/MoveWebAPI/Account/MoveApi+Account+Mappable.swift"; sourceTree = "<group>"; };
 		E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserInfo.swift; path = "Source Code/Servers/UserInfo/UserInfo.swift"; sourceTree = "<group>"; };
+		E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderSectionView.swift; path = Shared/Extensisons/View/HeaderSectionView.swift; sourceTree = "<group>"; };
+		E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountViewModel.swift; path = "Source Code/Scenes/Account/ViewModel/AccountViewModel.swift"; sourceTree = "<group>"; };
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
@@ -612,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F311E30C97000755B4A /* Protocol+Extenstion.swift */,
+				E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -684,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F581E31ED6900755B4A /* CellData.swift */,
+				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1152,6 +1158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
 				E0C229071E35E59D00BCF83D /* Dependencies.swift in Sources */,
 				E0C228F01E349F5C00BCF83D /* GeolocationService.swift in Sources */,
 				E0931F281E30C05300755B4A /* SlackReport.swift in Sources */,
@@ -1173,6 +1180,7 @@
 				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
+				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,

@@ -131,7 +131,7 @@ class Logger {
 
 extension Logger {
     static func reversedLog(seperator: String, terminator: String, items: Any...) {
-        debugPrint("🐸")
+        debugPrint("🌐")
         debugPrint(items, separator: seperator, terminator: terminator)
     }
 }
