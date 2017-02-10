@@ -12,13 +12,14 @@ import RxSwift
 import RxCocoa
 
 
-class TargetAnnotation: NSObject, MKAnnotation {
-    public var coordinate: CLLocationCoordinate2D {
-        get {
-            return CLLocationCoordinate2DMake(23.227465,113.190765)
-        }
-    }
-}
+//private extension Reactive where Base: MKMapView {
+//    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
+//        return UIBindingObserver(UIElement: base) { mapView, annotion in
+//            mapView.removeAnnotations(mapView.annotations)
+//            mapView.addAnnotation(annotion)
+//        }
+//    }
+//}
 
 class MainMapController: UIViewController {
     
@@ -39,8 +40,14 @@ class MainMapController: UIViewController {
         // Do any additional setup after loading the view.
         
         let geolocationService = GeolocationService.instance
+        let viewModel = MainMapViewModel(input: (),
+                                         dependency: (
+                                            geolocationService: geolocationService,
+                                            kidInfo: MokKidInfo()
+            )
+        )
         
-        geolocationService.authorized
+        viewModel.authorized
             .drive(noGeolocationView.rx.isHidden)
             .addDisposableTo(disposeBag)
         
@@ -71,16 +78,22 @@ class MainMapController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        geolocationService.location.asObservable()
+        viewModel.kidLocation
+            .asObservable()
             .take(1)
-            .bindNext { [weak self] in
+            .bindNext { [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
-                self?.mapView.setRegion(region, animated: true)
+                self.mapView.setRegion(region, animated: true)
             }
             .addDisposableTo(disposeBag)
         
-        let annotion = TargetAnnotation()
-        mapView.addAnnotation(annotion)
+        viewModel.kidAnnotion.debug()
+            .distinctUntilChanged()
+            .drive(onNext: { [unowned self] annotion in
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                self.mapView.addAnnotation(annotion)
+        })
+            .addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
