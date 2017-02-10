@@ -32,6 +32,7 @@
 		E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */; };
 		E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */; };
 		E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */; };
+		E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */; };
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
 		E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */; };
@@ -157,6 +158,7 @@
 		E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapController.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/MainMapController.swift"; sourceTree = "<group>"; };
 		E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapViewModel.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/MainMapViewModel.swift"; sourceTree = "<group>"; };
 		E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseAnnotation.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/BaseAnnotation.swift"; sourceTree = "<group>"; };
+		E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDFInitialsAvatar.swift; path = CDFInitialsAvatar/CDFInitialsAvatar.swift; sourceTree = "<group>"; };
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				E03B1BDD1E4DB8FC006EDB7B /* CDFInitialsAvatar */,
 				D27230C11E4C61F7009808D3 /* LoginView */,
 				E01DF73D1E308D9C00EA003D /* Extensions */,
 				E01DF7321E308D7F00EA003D /* CustomViews.h */,
@@ -553,6 +556,14 @@
 				E9C7B9591E4DD93100DD6542 /* KidsListCell.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		E03B1BDD1E4DB8FC006EDB7B /* CDFInitialsAvatar */ = {
+			isa = PBXGroup;
+			children = (
+				E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */,
+			);
+			name = CDFInitialsAvatar;
 			sourceTree = "<group>";
 		};
 		E04621321E49739F007D3BD3 /* MoveWebAPI */ = {
@@ -1299,6 +1310,7 @@
 			files = (
 				D27230C71E4C62BE009808D3 /* AccountView.swift in Sources */,
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
+				E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
