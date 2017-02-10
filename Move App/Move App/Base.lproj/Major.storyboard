@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -106,7 +106,7 @@
         <!--Main Map-->
         <scene sceneID="GoP-ov-haV">
             <objects>
-                <viewController storyboardIdentifier="MainMapSceneViewController" title="Main Map" id="1qy-IZ-lOf" customClass="MainMapSceneViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainMapSceneViewController" title="Main Map" id="1qy-IZ-lOf" customClass="MainMapController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wza-tg-GZf"/>
                         <viewControllerLayoutGuide type="bottom" id="nsS-Ls-5Dh"/>
@@ -117,6 +117,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EZI-JX-nJk">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <connections>
+                                    <outlet property="delegate" destination="1qy-IZ-lOf" id="ODX-kp-upO"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,12 +131,59 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainMapView" destination="EZI-JX-nJk" id="CmJ-Sw-ers"/>
+                        <outlet property="mapView" destination="EZI-JX-nJk" id="4Mq-dd-Cqv"/>
+                        <outlet property="noGeolocationView" destination="qq8-s0-eFv" id="AQV-eU-Bf7"/>
+                        <outlet property="openPreferencesBtn" destination="nZf-no-x56" id="fAq-2c-ibZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdP-O1-Vd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="qq8-s0-eFv">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Geolocation is not enabled for this app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFB-LP-DJj">
+                            <rect key="frame" x="48" y="168" width="280" height="68"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="280" id="0Ew-5i-hAr"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                            <color key="textColor" red="0.94901960780000005" green="0.32549019610000002" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enable it in the app preferences" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rY-Ie-vjV">
+                            <rect key="frame" x="48" y="244" width="280" height="43"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZf-no-x56">
+                            <rect key="frame" x="88" y="317" width="200" height="28"/>
+                            <color key="backgroundColor" red="0.17483745810000001" green="0.60840499159999994" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="Ysr-7G-zxq"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                            <state key="normal" title="OPEN APP PREFERENCES"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="2rY-Ie-vjV" firstAttribute="top" secondItem="sFB-LP-DJj" secondAttribute="bottom" constant="8" id="18a-O8-XwX"/>
+                        <constraint firstItem="nZf-no-x56" firstAttribute="top" secondItem="2rY-Ie-vjV" secondAttribute="bottom" constant="30" id="2h6-Jx-u5m"/>
+                        <constraint firstItem="sFB-LP-DJj" firstAttribute="centerY" secondItem="qq8-s0-eFv" secondAttribute="centerY" constant="-100" id="73X-G0-n1S"/>
+                        <constraint firstItem="sFB-LP-DJj" firstAttribute="centerX" secondItem="qq8-s0-eFv" secondAttribute="centerX" id="gPg-ta-WUU"/>
+                        <constraint firstItem="2rY-Ie-vjV" firstAttribute="centerX" secondItem="qq8-s0-eFv" secondAttribute="centerX" id="hta-U6-Zak"/>
+                        <constraint firstItem="nZf-no-x56" firstAttribute="centerX" secondItem="qq8-s0-eFv" secondAttribute="centerX" id="vJy-O6-MpD"/>
+                        <constraint firstItem="2rY-Ie-vjV" firstAttribute="width" secondItem="sFB-LP-DJj" secondAttribute="width" id="ya9-Gz-xmV"/>
+                    </constraints>
+                </view>
             </objects>
-            <point key="canvasLocation" x="2765.5999999999999" y="1526.5367316341831"/>
+            <point key="canvasLocation" x="3598" y="2019"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="FPE-pk-ICe">
