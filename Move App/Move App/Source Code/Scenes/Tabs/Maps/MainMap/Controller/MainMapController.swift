@@ -22,19 +22,27 @@ import SVPulsingAnnotationView
 //    }
 //}
 
-class MainMapController: UIViewController {
+class MainMapController: UIViewController , UIPopoverPresentationControllerDelegate{
     
     var disposeBag = DisposeBag()
-
+    var isOpenList : Bool? = false
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet var noGeolocationView: UIView!
     @IBOutlet weak var openPreferencesBtn: UIButton!
     
+    @IBOutlet weak var objectImageBtn: UIButton!
+    @IBOutlet weak var objectNameL: UILabel!
+    @IBOutlet weak var objectNameLConstraintWidth: NSLayoutConstraint!
+    @IBOutlet weak var objectLocationL: UILabel!
+    @IBOutlet weak var signalImageV: UIImageView!
+    @IBOutlet weak var electricV: UIImageView!
+    @IBOutlet weak var electricL: UILabel!
+    @IBOutlet weak var objectLocationTimeL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         
@@ -96,9 +104,28 @@ class MainMapController: UIViewController {
         })
             .addDisposableTo(disposeBag)
         
-        mapView.addAnnotation(BaseAnnotation(CLLocationCoordinate2DMake(23.227465, 113.190765)))
+//        mapView.addAnnotation(BaseAnnotation(CLLocationCoordinate2DMake(23.227465, 113.190765)))
     }
-
+    
+    @IBAction func locationBtnClick(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func routeBtnClick(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func turnToStepCounterBtnClick(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -108,6 +135,20 @@ class MainMapController: UIViewController {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
     
+    let popsegue : String = "popoverViewToObjectImageList"
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == popsegue {
+            let popoverViewController = segue.destination
+            popoverViewController.popoverPresentationController!.delegate = self
+            popoverViewController.popoverPresentationController?.sourceRect = objectImageBtn.bounds
+//            popoverViewController.preferredContentSize = CGSize(width : 100, height : 100)
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
     /*
     // MARK: - Navigation
 
