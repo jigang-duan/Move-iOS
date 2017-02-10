@@ -9,5 +9,6 @@
 #ifndef MoveApp_Bridging_Header_h
 #define MoveApp_Bridging_Header_h
 
+#import <SVPulsingAnnotationView/SVPulsingAnnotationView.h>
 
 #endif /* MoveApp_Bridging_Header_h */

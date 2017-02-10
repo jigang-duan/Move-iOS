@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import RxSwift
 import RxCocoa
+import SVPulsingAnnotationView
 
 
 //private extension Reactive where Base: MKMapView {
@@ -94,6 +95,8 @@ class MainMapController: UIViewController {
                 self.mapView.addAnnotation(annotion)
         })
             .addDisposableTo(disposeBag)
+        
+        mapView.addAnnotation(BaseAnnotation(CLLocationCoordinate2DMake(23.227465, 113.190765)))
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,14 +123,17 @@ class MainMapController: UIViewController {
 extension MainMapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let reuseIdentifier = "targetAnnoteationReuseIdentifier"
-        var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-        
-        if annoView == nil {
-            annoView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        if annotation is BaseAnnotation {
+            let reuseIdentifier = "targetAnnoteationReuseIdentifier"
+            var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? SVPulsingAnnotationView
+            if annoView == nil {
+                annoView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                annoView?.annotationColor = R.color.appColor.primary()
+            }
+            annoView?.canShowCallout = false
+            return annoView
         }
         
-        return annoView
+        return nil
     }
 }
