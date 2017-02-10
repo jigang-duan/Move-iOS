@@ -64,31 +64,5 @@
             </objects>
             <point key="canvasLocation" x="1912.8" y="-172.26386806596702"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="bkS-4g-abz">
-            <objects>
-                <viewController id="wuX-Rj-nUh" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VIL-PY-PH5"/>
-                        <viewControllerLayoutGuide type="bottom" id="53t-yX-GmO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Pt2-Qb-ieK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gt-5s-4bo">
-                                <frame key="frameInset" minX="67" minY="147" width="240" height="190"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1215686277" green="0.50196081400000003" blue="0.93725490570000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YCW-z0-alF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2645.5999999999999" y="-166.8665667166417"/>
-        </scene>
     </scenes>
 </document>

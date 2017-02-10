@@ -11,8 +11,8 @@
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D27230C31E4C6215009808D3 /* CustomViewsImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27230C21E4C6215009808D3 /* CustomViewsImage.xcassets */; };
-		D27230C51E4C62A8009808D3 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D27230C41E4C62A8009808D3 /* AccountView.xib */; };
 		D27230C71E4C62BE009808D3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27230C61E4C62BE009808D3 /* AccountView.swift */; };
+		D2FFDFEB1E4D6F2C00500831 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D27230C41E4C62A8009808D3 /* AccountView.xib */; };
 		E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6E91E3059A800EA003D /* Main.storyboard */; };
 		E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6EE1E3059A800EA003D /* LaunchScreen.storyboard */; };
 		E01DF6FB1E3059A900EA003D /* Move_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01DF6FA1E3059A900EA003D /* Move_AppTests.swift */; };
@@ -1057,7 +1057,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D27230C51E4C62A8009808D3 /* AccountView.xib in Resources */,
 				D27230C31E4C6215009808D3 /* CustomViewsImage.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1066,6 +1065,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2FFDFEB1E4D6F2C00500831 /* AccountView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
