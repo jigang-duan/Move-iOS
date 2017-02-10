@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,26 +34,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ua4-Pp-a95">
-                                <rect key="frame" x="166" y="318" width="42" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PrI-qF-9nd" customClass="AccountView" customModule="CustomViews">
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PrI-qF-9nd" firstAttribute="leading" secondItem="f5V-vl-uLg" secondAttribute="leading" constant="5" id="Dou-nv-MzI"/>
+                            <constraint firstAttribute="trailing" secondItem="PrI-qF-9nd" secondAttribute="trailing" constant="5" id="JV9-7e-EFC"/>
+                            <constraint firstItem="Q4O-4S-b7o" firstAttribute="top" secondItem="PrI-qF-9nd" secondAttribute="bottom" id="NaZ-bj-D6J"/>
+                            <constraint firstItem="PrI-qF-9nd" firstAttribute="top" secondItem="Cby-Rq-07N" secondAttribute="bottom" id="fF0-fJ-n5z"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="dwi-4Z-s9G">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ua4-Pp-a95">
+                                <rect key="frame" x="16" y="7" width="42" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <segue destination="KlY-9v-raZ" kind="unwind" unwindAction="unwindSegueToDistributionWithSegue:" id="KRB-pg-51P"/>
                                 </connections>
                             </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Ua4-Pp-a95" firstAttribute="centerY" secondItem="f5V-vl-uLg" secondAttribute="centerY" id="Jja-lD-Vv2"/>
-                            <constraint firstItem="Ua4-Pp-a95" firstAttribute="centerX" secondItem="f5V-vl-uLg" secondAttribute="centerX" id="POb-Gh-KCQ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6t-eD-GgA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="KlY-9v-raZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1914" y="-172"/>
+            <point key="canvasLocation" x="1912.8" y="-172.26386806596702"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="bkS-4g-abz">
+            <objects>
+                <viewController id="wuX-Rj-nUh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VIL-PY-PH5"/>
+                        <viewControllerLayoutGuide type="bottom" id="53t-yX-GmO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pt2-Qb-ieK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gt-5s-4bo">
+                                <frame key="frameInset" minX="67" minY="147" width="240" height="190"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1215686277" green="0.50196081400000003" blue="0.93725490570000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YCW-z0-alF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2645.5999999999999" y="-166.8665667166417"/>
         </scene>
     </scenes>
 </document>

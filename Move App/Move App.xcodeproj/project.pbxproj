@@ -10,6 +10,9 @@
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
+		D27230C31E4C6215009808D3 /* CustomViewsImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27230C21E4C6215009808D3 /* CustomViewsImage.xcassets */; };
+		D27230C51E4C62A8009808D3 /* AccountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D27230C41E4C62A8009808D3 /* AccountView.xib */; };
+		D27230C71E4C62BE009808D3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27230C61E4C62BE009808D3 /* AccountView.swift */; };
 		E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6E91E3059A800EA003D /* Main.storyboard */; };
 		E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6EE1E3059A800EA003D /* LaunchScreen.storyboard */; };
 		E01DF6FB1E3059A900EA003D /* Move_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01DF6FA1E3059A900EA003D /* Move_AppTests.swift */; };
@@ -121,6 +124,9 @@
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D27230C21E4C6215009808D3 /* CustomViewsImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomViewsImage.xcassets; sourceTree = "<group>"; };
+		D27230C41E4C62A8009808D3 /* AccountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountView.xib; sourceTree = "<group>"; };
+		D27230C61E4C62BE009808D3 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.release.xcconfig"; sourceTree = "<group>"; };
 		E01DF6E21E3059A800EA003D /* Move App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Move App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E01DF6EA1E3059A800EA003D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -252,6 +258,15 @@
 				BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D27230C11E4C61F7009808D3 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				D27230C61E4C62BE009808D3 /* AccountView.swift */,
+				D27230C41E4C62A8009808D3 /* AccountView.xib */,
+			);
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		E01DF6D91E3059A800EA003D = {
@@ -454,9 +469,11 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				D27230C11E4C61F7009808D3 /* LoginView */,
 				E01DF73D1E308D9C00EA003D /* Extensions */,
 				E01DF7321E308D7F00EA003D /* CustomViews.h */,
 				E01DF7331E308D7F00EA003D /* Info.plist */,
+				D27230C21E4C6215009808D3 /* CustomViewsImage.xcassets */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -1017,6 +1034,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D27230C51E4C62A8009808D3 /* AccountView.xib in Resources */,
+				D27230C31E4C6215009808D3 /* CustomViewsImage.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1262,6 +1281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D27230C71E4C62BE009808D3 /* AccountView.swift in Sources */,
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
