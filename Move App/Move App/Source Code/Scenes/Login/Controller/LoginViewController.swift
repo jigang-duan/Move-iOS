@@ -7,29 +7,43 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController {
+    
     let error = true
+    
+    var disposeBag = DisposeBag()
+    
     @IBOutlet weak var errorTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var emailLineView: UIView!
+    @IBOutlet weak var accountErrorLabel: UILabel!
     
-    @IBOutlet weak var AccounterrorLabel: UILabel!
-    
-    @IBAction func LoginClick(_ sender: AnyObject) {
+    func showAccountError(_ text: String) {
         //当帐号不存在de时候
         if error {
-            errorTopConstraint.constant = 30
             emailLineView.backgroundColor = UIColor.red
-            AccounterrorLabel.isHidden = false
+            accountErrorLabel.isHidden = false
+            errorTopConstraint.constant = 30
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
         }
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        loginBtn.rx.tap
+            .bindNext { [weak self] in
+                self?.showAccountError("")
+            }
+            .addDisposableTo(disposeBag)
     }
     
     

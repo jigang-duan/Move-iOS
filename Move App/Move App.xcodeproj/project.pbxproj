@@ -18,8 +18,12 @@
 		D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D451E4DD57F00F9E33A /* MoveApi+FileStorage.swift */; };
 		D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D481E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift */; };
 		D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D491E4DD57F00F9E33A /* MoveApi+VerificationCode.swift */; };
-		D2FFDFF51E4DB4BD00500831 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FFDFF41E4DB4BD00500831 /* LoginViewController.swift */; };
-		D2FFDFF91E4DBCE500500831 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FFDFF81E4DBCE500500831 /* SignUpViewController.swift */; };
+		D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611C1E4F139900E46F41 /* LoginViewController.swift */; };
+		D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */; };
+		D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */; };
+		D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611F1E4F139900E46F41 /* SignUpViewController.swift */; };
+		D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D661201E4F139900E46F41 /* UpdataPwdController.swift */; };
+		D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D661271E4F13B500E46F41 /* AccountMode.swift */; };
 		E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6E91E3059A800EA003D /* Main.storyboard */; };
 		E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6EE1E3059A800EA003D /* LaunchScreen.storyboard */; };
 		E01DF6FB1E3059A900EA003D /* Move_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01DF6FA1E3059A900EA003D /* Move_AppTests.swift */; };
@@ -144,8 +148,12 @@
 		D24C4D451E4DD57F00F9E33A /* MoveApi+FileStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+FileStorage.swift"; sourceTree = "<group>"; };
 		D24C4D481E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+VerificationCode+Mappable.swift"; sourceTree = "<group>"; };
 		D24C4D491E4DD57F00F9E33A /* MoveApi+VerificationCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+VerificationCode.swift"; sourceTree = "<group>"; };
-		D2FFDFF41E4DB4BD00500831 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		D2FFDFF81E4DBCE500500831 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D2D6611C1E4F139900E46F41 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Source Code/Scenes/Login/Controller/LoginViewController.swift"; sourceTree = "<group>"; };
+		D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtectAccountController.swift; path = "Source Code/Scenes/Login/Controller/ProtectAccountController.swift"; sourceTree = "<group>"; };
+		D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PwdRecoveryController.swift; path = "Source Code/Scenes/Login/Controller/PwdRecoveryController.swift"; sourceTree = "<group>"; };
+		D2D6611F1E4F139900E46F41 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpViewController.swift; path = "Source Code/Scenes/Login/Controller/SignUpViewController.swift"; sourceTree = "<group>"; };
+		D2D661201E4F139900E46F41 /* UpdataPwdController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdataPwdController.swift; path = "Source Code/Scenes/Login/Controller/UpdataPwdController.swift"; sourceTree = "<group>"; };
+		D2D661271E4F13B500E46F41 /* AccountMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountMode.swift; path = "Source Code/Scenes/Login/ViewModel/AccountMode.swift"; sourceTree = "<group>"; };
 		D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.release.xcconfig"; sourceTree = "<group>"; };
 		E01DF6E21E3059A800EA003D /* Move App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Move App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E01DF6EA1E3059A800EA003D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -348,11 +356,22 @@
 			path = "Source Code/Models/network/MoveWebAPI/VerificationCode";
 			sourceTree = "<group>";
 		};
+		D2D661261E4F13A100E46F41 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D2D661271E4F13B500E46F41 /* AccountMode.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
 		D2FFDFF31E4DB49E00500831 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D2FFDFF41E4DB4BD00500831 /* LoginViewController.swift */,
-				D2FFDFF81E4DBCE500500831 /* SignUpViewController.swift */,
+				D2D6611C1E4F139900E46F41 /* LoginViewController.swift */,
+				D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */,
+				D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */,
+				D2D6611F1E4F139900E46F41 /* SignUpViewController.swift */,
+				D2D661201E4F139900E46F41 /* UpdataPwdController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -789,6 +808,7 @@
 		E0931F3E1E31AB3A00755B4A /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D2D661261E4F13A100E46F41 /* ViewModel */,
 				D2FFDFF31E4DB49E00500831 /* Controller */,
 			);
 			name = Login;
@@ -1328,11 +1348,11 @@
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
-				D2FFDFF91E4DBCE500500831 /* SignUpViewController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
+				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
@@ -1342,15 +1362,17 @@
 				E9C7B9581E4DD75A00DD6542 /* PopKidsListVC.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
+				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
-				D2FFDFF51E4DB4BD00500831 /* LoginViewController.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
+				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
+				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
@@ -1372,10 +1394,12 @@
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
+				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				E0931F141E30B10600755B4A /* R.generated.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
+				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

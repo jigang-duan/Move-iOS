@@ -38,7 +38,7 @@ class GeolocationService {
             .asDriver(onErrorJustReturn: CLAuthorizationStatus.notDetermined)
             .map {
                 switch $0 {
-                case .authorizedAlways:
+                case .authorizedAlways, .authorizedWhenInUse:
                     return true
                 default:
                     return false

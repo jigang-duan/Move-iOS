@@ -74,7 +74,7 @@ extension ObservableType where E == MoveApi.AccessToken {
         return flatMap { element -> Observable<UserInfo> in
             UserInfo.share.accessToken.token = element.accessToken
             UserInfo.share.accessToken.refreshToken = element.accessToken
-            UserInfo.share.accessToken.expiryAt = element.expiredAt
+           //UserInfo.share.accessToken.expiryAt = element.expiredAt
             UserInfo.share.id = element.uid
             return Observable.just(UserInfo.share)
         }
