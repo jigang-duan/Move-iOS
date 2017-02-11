@@ -25,10 +25,12 @@ class LoginViewController: UIViewController {
     func showAccountError(_ text: String) {
         //当帐号不存在de时候
         if error {
-            emailLineView.backgroundColor = UIColor.red
-            accountErrorLabel.isHidden = false
             errorTopConstraint.constant = 30
-            UIView.animate(withDuration: 0.3) { [weak self] in
+            accountErrorLabel.isHidden = false
+            accountErrorLabel.alpha = 0.0
+            UIView.animate(withDuration: 0.6) { [weak self] in
+                self?.emailLineView.backgroundColor = UIColor.red
+                self?.accountErrorLabel.alpha = 1.0
                 self?.view.layoutIfNeeded()
             }
         }
