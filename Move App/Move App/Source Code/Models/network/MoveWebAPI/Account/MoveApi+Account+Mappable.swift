@@ -15,7 +15,7 @@ extension MoveApi {
     struct AccessToken {
         var uid: String?
         var accessToken: String?
-        var expiredAt: String?
+        var expiredAt: Date?
     }
     
     struct Registered {
@@ -40,6 +40,17 @@ extension MoveApi {
         var platform: String?
         var openif: String?
         var secret: String?
+    }
+}
+
+extension MoveApi.AccessToken: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        uid <- map["uid"]
+        accessToken <- map["access_token"]
+        expiredAt <- (map["expired_at"], DateTransform())
     }
 }
 

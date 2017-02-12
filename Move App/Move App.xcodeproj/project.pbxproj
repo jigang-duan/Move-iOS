@@ -38,13 +38,13 @@
 		E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */; };
 		E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */; };
 		E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */; };
-		E03B1BC31E4AD70B006EDB7B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */; };
 		E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */; };
 		E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */; };
 		E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */; };
 		E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */; };
 		E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */; };
 		E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */; };
+		E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BE91E50255C006EDB7B /* UserManager.swift */; };
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
 		E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */; };
@@ -178,13 +178,13 @@
 		E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveAccessTokenPlugin.swift; path = "Source Code/Models/network/MoveWebAPI/MoveAccessTokenPlugin.swift"; sourceTree = "<group>"; };
 		E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account.swift"; path = "Source Code/Models/network/MoveWebAPI/Account/MoveApi+Account.swift"; sourceTree = "<group>"; };
 		E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoveApi+Account+Mappable.swift"; path = "Source Code/Models/network/MoveWebAPI/Account/MoveApi+Account+Mappable.swift"; sourceTree = "<group>"; };
-		E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserInfo.swift; path = "Source Code/Servers/UserInfo/UserInfo.swift"; sourceTree = "<group>"; };
 		E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderSectionView.swift; path = Shared/Extensisons/View/HeaderSectionView.swift; sourceTree = "<group>"; };
 		E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountViewModel.swift; path = "Source Code/Scenes/Account/ViewModel/AccountViewModel.swift"; sourceTree = "<group>"; };
 		E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapController.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/MainMapController.swift"; sourceTree = "<group>"; };
 		E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapViewModel.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/MainMapViewModel.swift"; sourceTree = "<group>"; };
 		E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseAnnotation.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/BaseAnnotation.swift"; sourceTree = "<group>"; };
 		E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDFInitialsAvatar.swift; path = CDFInitialsAvatar/CDFInitialsAvatar.swift; sourceTree = "<group>"; };
+		E03B1BE91E50255C006EDB7B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = "Source Code/Servers/UserManager/UserManager.swift"; sourceTree = "<group>"; };
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
@@ -617,12 +617,12 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
-		E03B1BC11E4AD67A006EDB7B /* UserInfo */ = {
+		E03B1BC11E4AD67A006EDB7B /* UserManager */ = {
 			isa = PBXGroup;
 			children = (
-				E03B1BC21E4AD70B006EDB7B /* UserInfo.swift */,
+				E03B1BE91E50255C006EDB7B /* UserManager.swift */,
 			);
-			name = UserInfo;
+			name = UserManager;
 			sourceTree = "<group>";
 		};
 		E03B1BD01E4C67AE006EDB7B /* Maps */ = {
@@ -735,7 +735,7 @@
 		E0931F1C1E30BC5000755B4A /* Servers */ = {
 			isa = PBXGroup;
 			children = (
-				E03B1BC11E4AD67A006EDB7B /* UserInfo */,
+				E03B1BC11E4AD67A006EDB7B /* UserManager */,
 			);
 			name = Servers;
 			sourceTree = "<group>";
@@ -1420,7 +1420,6 @@
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
 				E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
-				E03B1BC31E4AD70B006EDB7B /* UserInfo.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
@@ -1432,6 +1431,7 @@
 				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
+				E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
