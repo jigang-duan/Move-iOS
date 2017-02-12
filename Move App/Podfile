@@ -46,6 +46,10 @@ target 'Move App' do
   pod 'SVPulsingAnnotationView'
   
   
+  target 'CustomViews' do
+      pod "Popover"
+  end
+  
   target 'Move AppTests' do
     inherit! :search_paths
     # Pods for testing
