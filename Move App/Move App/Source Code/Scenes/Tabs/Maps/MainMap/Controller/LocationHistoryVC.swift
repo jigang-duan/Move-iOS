@@ -1,8 +1,8 @@
 //
-//  MainMapController.swift
+//  LocationHistoryVC.swift
 //  Move App
 //
-//  Created by Jiang Duan on 17/2/9.
+//  Created by lx on 17/2/12.
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 
@@ -12,49 +12,40 @@ import RxSwift
 import RxCocoa
 import SVPulsingAnnotationView
 
-
-//private extension Reactive where Base: MKMapView {
-//    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
-//        return UIBindingObserver(UIElement: base) { mapView, annotion in
-//            mapView.removeAnnotations(mapView.annotations)
-//            mapView.addAnnotation(annotion)
-//        }
-//    }
-//}
-
-class MainMapController: UIViewController {
-    
+class LocationHistoryVC: UIViewController {
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
+    @IBOutlet weak var locationMap: MKMapView!
     
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var timeSelectBtn: UIButton!
     
-    @IBOutlet var noGeolocationView: UIView!
-    @IBOutlet weak var openPreferencesBtn: UIButton!
+    @IBOutlet weak var timeBackBtn: UIButton!
     
-    @IBOutlet weak var objectImageBtn: UIButton!
-    @IBOutlet weak var objectNameL: UILabel!
-    @IBOutlet weak var objectNameLConstraintWidth: NSLayoutConstraint!
-    @IBOutlet weak var objectLocationL: UILabel!
-    @IBOutlet weak var signalImageV: UIImageView!
-    @IBOutlet weak var electricV: UIImageView!
-    @IBOutlet weak var electricL: UILabel!
-    @IBOutlet weak var objectLocationTimeL: UILabel!
+    @IBOutlet weak var timeNextBtn: UIButton!
+    
+    @IBOutlet weak var timeZoneL: UILabel!
+    
+    @IBOutlet weak var backPoint: UIButton!
+    
+    @IBOutlet weak var nextPoint: UIButton!
+    
+    @IBOutlet weak var addressDetailL: UILabel!
+    
+    @IBOutlet weak var timeZoneSlider: UISlider!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.title = "Location"
+        self.title = "Location History"
 //        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        noGeolocationView.frame = view.bounds
-        view.addSubview(noGeolocationView)
         
-        // Do any additional setup after loading the view.
+         let geolocationService = GeolocationService.instance
         
-        let geolocationService = GeolocationService.instance
         let viewModel = MainMapViewModel(input: (),
                                          dependency: (
                                             geolocationService: geolocationService,
@@ -62,31 +53,21 @@ class MainMapController: UIViewController {
             )
         )
         
-        viewModel.authorized
-            .drive(noGeolocationView.rx.isHidden)
-            .addDisposableTo(disposeBag)
-        
-        openPreferencesBtn.rx.tap
-            .bindNext { [weak self] in
-                self?.openAppPreferences()
-            }
-            .addDisposableTo(disposeBag)
-        
-        mapView.rx.willStartLoadingMap
+        locationMap.rx.willStartLoadingMap
             .asDriver()
             .drive(onNext: {
                 Logger.debug("地图开始加载!")
             })
             .addDisposableTo(disposeBag)
         
-        mapView.rx.didFinishLoadingMap
+        locationMap.rx.didFinishLoadingMap
             .asDriver()
             .drive(onNext: {
                 Logger.debug("地图结束加载!")
             })
             .addDisposableTo(disposeBag)
         
-        mapView.rx.didAddAnnotationViews
+        locationMap.rx.didAddAnnotationViews
             .asDriver()
             .drive(onNext: {
                 Logger.debug("地图Annotion个数: \($0.count)")
@@ -98,40 +79,21 @@ class MainMapController: UIViewController {
             .take(1)
             .bindNext { [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
-                self.mapView.setRegion(region, animated: true)
+                self.locationMap.setRegion(region, animated: true)
             }
             .addDisposableTo(disposeBag)
         
         viewModel.kidAnnotion.debug()
             .distinctUntilChanged()
             .drive(onNext: { [unowned self] annotion in
-                self.mapView.removeAnnotations(self.mapView.annotations)
-                self.mapView.addAnnotation(annotion)
-        })
+                self.locationMap.removeAnnotations(self.locationMap.annotations)
+                self.locationMap.addAnnotation(annotion)
+            })
             .addDisposableTo(disposeBag)
         
-//        mapView.addAnnotation(BaseAnnotation(CLLocationCoordinate2DMake(23.227465, 113.190765)))
+        // Do any additional setup after loading the view.
     }
-    
-    @IBAction func locationBtnClick(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func routeBtnClick(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func turnToStepCounterBtnClick(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -153,7 +115,7 @@ class MainMapController: UIViewController {
 
 }
 
-extension MainMapController: MKMapViewDelegate {
+extension LocationHistoryVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is BaseAnnotation {
@@ -170,3 +132,4 @@ extension MainMapController: MKMapViewDelegate {
         return nil
     }
 }
+

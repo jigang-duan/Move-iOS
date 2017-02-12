@@ -90,8 +90,7 @@
 		E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */; };
 		E0C229111E35E65900BCF83D /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C229101E35E65900BCF83D /* Example.swift */; };
 		E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */; };
-		E9C7B9581E4DD75A00DD6542 /* PopKidsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B9571E4DD75A00DD6542 /* PopKidsListVC.swift */; };
-		E9C7B95A1E4DD93100DD6542 /* KidsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B9591E4DD93100DD6542 /* KidsListCell.swift */; };
+		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,8 +230,7 @@
 		E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+DownloadableImage.swift"; path = "Vendor/RxImage/UIImageView+DownloadableImage.swift"; sourceTree = "<group>"; };
 		E0C229101E35E65900BCF83D /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Vendor/RxUtilities/Example.swift; sourceTree = "<group>"; };
 		E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapSceneViewController.swift; path = "Source Code/Scenes/Tabs/MainMapSceneViewController.swift"; sourceTree = "<group>"; };
-		E9C7B9571E4DD75A00DD6542 /* PopKidsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopKidsListVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/PopKidsListVC.swift"; sourceTree = "<group>"; };
-		E9C7B9591E4DD93100DD6542 /* KidsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidsListCell.swift; path = "Source Code/Scenes/Tabs/ViewModel/KidsListCell.swift"; sourceTree = "<group>"; };
+		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHistoryVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/LocationHistoryVC.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -646,7 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */,
-				E9C7B9571E4DD75A00DD6542 /* PopKidsListVC.swift */,
+				E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -656,7 +654,6 @@
 			children = (
 				E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */,
 				E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */,
-				E9C7B9591E4DD93100DD6542 /* KidsListCell.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1382,7 +1379,6 @@
 				E0C229071E35E59D00BCF83D /* Dependencies.swift in Sources */,
 				E0C228F01E349F5C00BCF83D /* GeolocationService.swift in Sources */,
 				E0931F281E30C05300755B4A /* SlackReport.swift in Sources */,
-				E9C7B95A1E4DD93100DD6542 /* KidsListCell.swift in Sources */,
 				E0C228EA1E349CC200BCF83D /* MKMapView+Rx.swift in Sources */,
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
@@ -1398,7 +1394,6 @@
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
-				E9C7B9581E4DD75A00DD6542 /* PopKidsListVC.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
@@ -1413,6 +1408,7 @@
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
+				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
