@@ -33,7 +33,7 @@ class MainMapViewModel {
         authorized = dependency.geolocationService.authorized
         userLocation = dependency.geolocationService.location
         
-        kidLocation = Observable<Int>.timer(1, period: Configure.App.LoadDataOfPeriod, scheduler: SerialDispatchQueueScheduler(qos: .background))
+        kidLocation = Observable<Int>.timer(30, period: Configure.App.LoadDataOfPeriod, scheduler: SerialDispatchQueueScheduler(qos: .background))
             .flatMapLatest { Observable.just(CLLocationCoordinate2DMake(23.227465 + Double($0) * 0.0002, 113.190765)) }
             .asDriver(onErrorRecover: { _ in dependency.geolocationService.location } )
         

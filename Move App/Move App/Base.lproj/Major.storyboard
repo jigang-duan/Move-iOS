@@ -463,8 +463,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="dRV-55-TSa"/>
                                         </constraints>
-                                        <color key="minimumTrackTintColor" red="0.21215993230218555" green="0.38120555408851042" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="maximumTrackTintColor" red="0.68387536295322293" green="0.72014900548596916" blue="0.75209287739965092" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="minimumTrackTintColor" red="0.1176470588" green="0.53333333329999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8C-hj-tCa">
                                         <rect key="frame" x="52" y="15" width="271" height="21"/>
@@ -630,6 +629,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="zdh-fa-EmX"/>
                                         </constraints>
+                                        <color key="minimumTrackTintColor" red="0.11764705882352941" green="0.53333333333333333" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </slider>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
