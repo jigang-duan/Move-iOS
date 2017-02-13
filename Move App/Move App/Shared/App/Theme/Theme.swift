@@ -84,7 +84,8 @@ struct ThemeManager {
 
         let sharedApplication = UIApplication.shared
         sharedApplication.delegate?.window??.tintColor = theme.mainColor
-
+        
+        //UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = R.color.appColor.icons()
         UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)

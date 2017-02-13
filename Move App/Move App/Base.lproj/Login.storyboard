@@ -32,7 +32,7 @@
                         <viewControllerLayoutGuide type="bottom" id="B2f-rA-COw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="jmS-Sn-Y7S">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWO-X3-yRJ" userLabel="ShareBtns">
@@ -153,11 +153,11 @@
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
+                                                        <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="3ma-bW-nPx" kind="modal" id="kOX-Tk-Zu0"/>
+                                                    <segue destination="3ma-bW-nPx" kind="modal" id="RNk-e2-pCc"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="960-KP-Uz1">
@@ -281,18 +281,17 @@
                         <viewControllerLayoutGuide type="bottom" id="jrO-Zt-Nac"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kQw-jt-LYW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vp-2y-AOK" userLabel="Navbar">
                                 <subviews>
-                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3b-5e-tKY">
+                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3b-5e-tKY">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="SzK-GN-XGH"/>
                                             <constraint firstAttribute="width" constant="40" id="ujr-Ch-yMB"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                        <state key="normal" title="&lt;">
+                                        <state key="normal" image="general_back">
                                             <color key="titleColor" red="0.3843137324" green="0.3843137324" blue="0.3843137324" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -304,7 +303,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="Jok-PM-mxM"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -414,7 +413,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Al7-ng-1sS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8yw-OF-W2u">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help us protect your.The verification code was sent to your Email xxx@xxx.com." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL5-qI-7nc">
@@ -464,11 +463,10 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lo8-Tu-xXz" userLabel="Navbar">
                                 <subviews>
-                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXZ-AN-6aQ">
-                                        <frame key="frameInset" minX="5" minY="12" width="40" height="40"/>
+                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXZ-AN-6aQ">
+                                        <frame key="frameInset" minX="20" minY="21" width="10" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                        <state key="normal" title="&lt;">
+                                        <state key="normal" image="general_back">
                                             <color key="titleColor" red="0.3843137324" green="0.3843137324" blue="0.3843137324" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -477,10 +475,11 @@
                                             <action selector="BackAction:" destination="3ma-bW-nPx" eventType="touchUpInside" id="gCT-AS-EoJ"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Protect your account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBm-0O-d00">
-                                        <frame key="frameInset" minX="72" minY="19" width="196" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protect your account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBm-0O-d00">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="ctQ-S1-WUB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -488,6 +487,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Wvn-sc-9vL"/>
+                                    <constraint firstItem="vBm-0O-d00" firstAttribute="centerY" secondItem="lo8-Tu-xXz" secondAttribute="centerY" id="v1c-aE-bup"/>
+                                    <constraint firstItem="vBm-0O-d00" firstAttribute="centerX" secondItem="lo8-Tu-xXz" secondAttribute="centerX" id="yKt-Os-4uX"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhK-LQ-Hs2">
@@ -524,11 +525,12 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="HelpLabel" destination="zL5-qI-7nc" id="sdA-Bz-jzC"/>
+                        <outlet property="remendLabel" destination="zL5-qI-7nc" id="0yy-RE-Uaq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="STe-AU-zmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2841" y="552"/>
+            <point key="canvasLocation" x="3739" y="-177"/>
         </scene>
         <!--Updata Pwd Controller-->
         <scene sceneID="JVw-pR-uRf">
@@ -539,7 +541,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rNv-hQ-9gj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Hfe-SB-tlv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7iW-I9-xR0" userLabel="account">
@@ -621,13 +623,12 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8b-nN-6rn" userLabel="Navbar">
                                 <subviews>
-                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2Q-iB-Dnv">
+                                    <button opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2Q-iB-Dnv">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Mbe-7V-jUG"/>
                                             <constraint firstAttribute="height" constant="40" id="ZIi-nc-h63"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                        <state key="normal" title="&lt;">
+                                        <state key="normal" image="general_back">
                                             <color key="titleColor" red="0.3843137324" green="0.3843137324" blue="0.3843137324" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -641,7 +642,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="IRS-gF-yFF"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -700,7 +701,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hec-YD-O2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2499" y="1224"/>
+            <point key="canvasLocation" x="2633" y="1251"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="gTp-2P-yOU">
@@ -711,18 +712,17 @@
                         <viewControllerLayoutGuide type="bottom" id="dem-jq-Hws"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ri4-ln-j4n">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wQo-nw-Gbm" userLabel="Navbar">
                                 <subviews>
-                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcg-Yv-b6c">
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcg-Yv-b6c">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="QWk-Ng-ZYu"/>
                                             <constraint firstAttribute="height" constant="40" id="dnf-bd-eZP"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                        <state key="normal" title="&lt;">
+                                        <state key="normal" image="general_back">
                                             <color key="titleColor" red="0.38431373238563538" green="0.38431373238563538" blue="0.38431373238563538" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -733,7 +733,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="s19-MX-KYI"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -850,6 +850,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="SignAction:" destination="3ma-bW-nPx" eventType="touchUpInside" id="XRB-eL-wab"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3c-vp-Fty">
                                 <constraints>
@@ -895,6 +898,9 @@ Terms of use,Privacy and Secunity</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="tDs-hh-fmn"/>
+                    <connections>
+                        <outlet property="emailTextfield" destination="e4p-6M-NF2" id="shf-Hc-1bi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUo-3z-yhN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -902,6 +908,7 @@ Terms of use,Privacy and Secunity</string>
         </scene>
     </scenes>
     <resources>
+        <image name="general_back" width="10" height="10"/>
         <image name="general_ic_email" width="20" height="20"/>
         <image name="general_ic_facebook" width="48" height="48"/>
         <image name="general_ic_google" width="48" height="48"/>

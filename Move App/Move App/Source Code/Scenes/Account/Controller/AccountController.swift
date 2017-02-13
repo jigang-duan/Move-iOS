@@ -15,6 +15,7 @@ import RxDataSources
 class AccountController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var userInfoView: UIView!
     
     let dataSource = RxTableViewSectionedReloadDataSource<SectionOfCellData>()
     let disposeBag = DisposeBag()
@@ -23,6 +24,8 @@ class AccountController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //userInfoView.backgroundColor = ThemeManager.currentTheme().mainColor
         
         let dataSource = self.dataSource
         

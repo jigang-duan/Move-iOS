@@ -20,9 +20,12 @@ class ViewUtils {
             $0.highlightedTextColor = UIColor.white
             $0.font = UIFont.systemFont(ofSize: 15.0)
             $0.frame = rect
+            $0.frame.origin.y += 22.0
             $0.text = text
             return $0
         } (UILabel())
+        
+        
         
         let view = UIView(frame: rect)
         view.addSubview(label)

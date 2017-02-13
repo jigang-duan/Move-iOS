@@ -22,6 +22,7 @@ class ProtectAccountController: UIViewController {
         self.dismiss(animated: true, completion: nil)
         
     }
+    @IBOutlet weak var remendLabel: UILabel!
     
     
 }
