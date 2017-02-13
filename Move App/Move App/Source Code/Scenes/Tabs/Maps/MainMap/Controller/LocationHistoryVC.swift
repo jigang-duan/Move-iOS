@@ -33,18 +33,42 @@ class LocationHistoryVC: UIViewController {
     
     @IBOutlet weak var timeZoneSlider: UISlider!
     
+    var item : UIBarButtonItem?
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location History"
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        
+        let img=UIImage(named: "nav_location_nor")
+        item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
+        self.navigationItem.rightBarButtonItem=item
     }
     
-    
+    func rightBarButtonClick (sender : UIBarButtonItem){
+        
+        if isOpenList == false {
+            let img=UIImage(named: "nav_slider_nor")
+            sender.image = img
+            addressDetailL.isHidden = true
+            timeZoneSlider.isHidden = false
+            isOpenList = true
+        }else {
+            let img=UIImage(named: "nav_location_nor")
+            sender.image = img
+            addressDetailL.isHidden = false
+            timeZoneSlider.isHidden = true
+            isOpenList = false
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         let geolocationService = GeolocationService.instance
+        let img = UIImage(named : "general_slider_dot")
+        timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
+        
+        let geolocationService = GeolocationService.instance
         
         let viewModel = MainMapViewModel(input: (),
                                          dependency: (

@@ -44,7 +44,9 @@ class MainMapController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location"
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        let img=UIImage(named: "nav_notice_nor")
+        let item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem=item
     }
     
     override func viewDidLoad() {
