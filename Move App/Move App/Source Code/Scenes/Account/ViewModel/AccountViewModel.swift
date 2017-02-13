@@ -40,7 +40,8 @@ class AccountViewModel {
         sections = input
             .filter {$0 > 0}
             .flatMapLatest { _ in
-                Observable.combineLatest(userinof, devsinfo) { $0 + $1 }
+                //Observable.combineLatest(userinof, devsinfo) { $0 + $1 }
+                devsinfo
         }.shareReplay(1)
             .observeOn(MainScheduler.instance)
     }

@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController {
 
    
     
+    @IBOutlet weak var emailTextfield: UITextField!
     //返回上一级页面
     @IBAction func BackAction(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
@@ -29,6 +30,14 @@ class SignUpViewController: UIViewController {
         
     }
     
+    @IBAction func SignAction(_ sender: AnyObject) {
+        
+        let sb = UIStoryboard(name: "Login", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "ProtectAccountController") as! ProtectAccountController
+        self.present(vc, animated: true) {
+            vc.remendLabel.text = "Help us protect your.The verification code was sent to your Email "+self.emailTextfield.text!+"."
+        }
+    }
     
 }
 

@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
             accountErrorLabel.isHidden = false
             accountErrorLabel.alpha = 0.0
             UIView.animate(withDuration: 0.6) { [weak self] in
-                self?.emailLineView.backgroundColor = UIColor.red
+                self?.emailLineView.backgroundColor = R.color.appColor.wrong()
                 self?.accountErrorLabel.alpha = 1.0
                 self?.view.layoutIfNeeded()
             }

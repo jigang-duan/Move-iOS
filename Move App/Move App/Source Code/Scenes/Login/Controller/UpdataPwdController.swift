@@ -22,3 +22,8 @@ class UpdataPwdController: UIViewController {
 
    
 }
+extension UpdataPwdController {
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+}

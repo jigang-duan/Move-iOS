@@ -41,3 +41,9 @@ class PwdRecoveryController: UIViewController {
     
 
 }
+extension PwdRecoveryController {
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+}
+
