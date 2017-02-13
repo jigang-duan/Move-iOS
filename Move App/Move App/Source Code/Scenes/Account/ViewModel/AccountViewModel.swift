@@ -19,7 +19,7 @@ class AccountViewModel {
     
     init(input: (Observable<Int>),
          dependency: (
-            userInfo: UserInfo,
+            userManager: UserManager,
             deviceInfo: MokDevices
         )
         ) {
@@ -33,7 +33,7 @@ class AccountViewModel {
                                   items: $0)]
         }
         
-        let userinof = dependency.userInfo.getProfile()
+        let userinof = dependency.userManager.getProfile()
             .map(AccountViewModel.transferUserProfile)
             .toArray()
         

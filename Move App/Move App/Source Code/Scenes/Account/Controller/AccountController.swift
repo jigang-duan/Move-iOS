@@ -35,7 +35,7 @@ class AccountController: UIViewController, UITableViewDelegate {
         let viewModel = AccountViewModel(
             input: (enterController.asObservable()),
             dependency: (
-                userInfo: UserInfo.share,
+                userManager: UserManager.share,
                 deviceInfo: MokDevices()
             )
         )

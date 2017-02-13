@@ -48,7 +48,7 @@
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
 		E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */; };
-		E0931F101E30A97100755B4A /* App Color.clr in Resources */ = {isa = PBXBuildFile; fileRef = E0931F0E1E30A94B00755B4A /* App Color.clr */; };
+		E0931F101E30A97100755B4A /* appColor.clr in Resources */ = {isa = PBXBuildFile; fileRef = E0931F0E1E30A94B00755B4A /* appColor.clr */; };
 		E0931F141E30B10600755B4A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F131E30B10600755B4A /* R.generated.swift */; };
 		E0931F171E30B9A500755B4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E0931F151E30B9A500755B4A /* Localizable.strings */; };
 		E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F181E30BC0600755B4A /* AppDelegate.swift */; };
@@ -187,7 +187,7 @@
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
-		E0931F0E1E30A94B00755B4A /* App Color.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "App Color.clr"; path = "Resource/Colors/App Color.clr"; sourceTree = "<group>"; };
+		E0931F0E1E30A94B00755B4A /* appColor.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = appColor.clr; path = Resource/Colors/appColor.clr; sourceTree = "<group>"; };
 		E0931F131E30B10600755B4A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		E0931F161E30B9A500755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Move App/Base.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E0931F181E30BC0600755B4A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "App Delegate/AppDelegate.swift"; sourceTree = "<group>"; };
@@ -688,7 +688,7 @@
 		E0931F0D1E30A92E00755B4A /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				E0931F0E1E30A94B00755B4A /* App Color.clr */,
+				E0931F0E1E30A94B00755B4A /* appColor.clr */,
 			);
 			name = Colors;
 			sourceTree = "<group>";
@@ -1160,7 +1160,7 @@
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
 				E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */,
-				E0931F101E30A97100755B4A /* App Color.clr in Resources */,
+				E0931F101E30A97100755B4A /* appColor.clr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

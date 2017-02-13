@@ -11,6 +11,8 @@ import RxSwift
 
 
 class UserManager {
+    
+    static let share = UserManager()
 
     fileprivate var worker: UserWorkerProtocl = MokUserInfoWorker()
     private let userInfo = UserInfo.share
