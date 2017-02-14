@@ -19,13 +19,13 @@ extension MoveApi {
     struct FenceInfo {
         var name: String?
         var location: Fencelocation?
-        var radius: Float64?
+        var radius: Double?
         var active: Bool?
     }
 
     struct Fencelocation {
-        var lat: Float64?
-        var lng: Float64?
+        var lat: Double?
+        var lng: Double?
         var addr: String?
     }
 }
@@ -33,7 +33,7 @@ extension MoveApi {
 extension MoveApi.FenceList: Mappable {
     init?(map: Map) {
     }
-
+    
     mutating func mapping(map: Map) {
         fences <- map["fences"]
     }
@@ -43,7 +43,7 @@ extension MoveApi.FenceInfo: Mappable {
     init?(map: Map) {
     }
     
-    init(name: String, location: MoveApi.Fencelocation, radius: Float64) {
+    init(name: String, location: MoveApi.Fencelocation, radius: Double) {
         self.name = name
         self.location = location
         self.radius = radius
@@ -61,7 +61,7 @@ extension MoveApi.Fencelocation: Mappable {
     init?(map: Map) {
     }
     
-    init(lat: Float64, lng: Float64) {
+    init(lat: Double, lng: Double) {
         self.lat = lat
         self.lng = lng
     }

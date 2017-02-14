@@ -25,31 +25,31 @@ extension MoveApi {
         final class func request(_ target: API) -> Observable<Response> {
             return defaultProvider.request(target)
         }
-        
+//        添加设备
         final class func add(deviceId: String, addInfo: DeviceAdd) -> Observable<ApiError> {
             return request(.add(deviceId: deviceId, addInfo: addInfo)).mapMoveObject(ApiError.self)
         }
-        
+//        获取设备列表
         final class func getDeviceList() -> Observable<DeviceGetListResp> {
             return request(.getDeviceList).mapMoveObject(DeviceGetListResp.self)
         }
-        
+//        获取设备信息
         final class func getDeviceInfo(deviceId: String) -> Observable<DeviceInfo> {
             return request(.getDeviceInfo(deviceId: deviceId)).mapMoveObject(DeviceInfo.self)
         }
-        
+//        修改设备信息
         final class func update(deviceId: String, updateInfo: DeviceUpdate) -> Observable<ApiError> {
             return request(.update(deviceId: deviceId, updateInfo: updateInfo)).mapMoveObject(ApiError.self)
         }
-        
+//        删除设备
         final class func delete(deviceId: String) -> Observable<ApiError> {
             return request(.delete(deviceId: deviceId)).mapMoveObject(ApiError.self)
         }
-        
+//        查看设备配置
         final class func getSetting(deviceId: String) -> Observable<DeviceSetting> {
             return request(.getSetting(deviceId: deviceId)).mapMoveObject(DeviceSetting.self)
         }
-        
+//        设置设备配置
         final class func setting(deviceId: String, settingInfo: DeviceSetting) -> Observable<ApiError> {
             return request(.setting(deviceId: deviceId, settingInfo: settingInfo)).mapMoveObject(ApiError.self)
         }
@@ -135,7 +135,7 @@ extension MoveApi.Device.API: TargetType {
         case .add:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         case .getDeviceList:
-            return (MoveApi.DeviceGetListResp().toJSONString()?.utf8Encoded)!
+            return ([MoveApi.DeviceInfo()].toJSONString()?.utf8Encoded)!
         case .getDeviceInfo:
             return (MoveApi.DeviceInfo().toJSONString()?.utf8Encoded)!
         case .update:

@@ -22,6 +22,12 @@
 		D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */; };
 		D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */; };
 		D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */; };
+		D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937431E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift */; };
+		D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937441E53123C00350E1C /* MoveApi+HistoryMessage.swift */; };
+		D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937481E53125800350E1C /* MoveApi+Location.swift */; };
+		D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */; };
+		D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */; };
+		D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */; };
 		D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611C1E4F139900E46F41 /* LoginViewController.swift */; };
 		D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */; };
 		D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */; };
@@ -161,6 +167,12 @@
 		D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IputIMEIControllerTableController.swift; path = "Source Code/Scenes/Chose Device/Controller/IputIMEIControllerTableController.swift"; sourceTree = "<group>"; };
 		D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerificationCodeController.swift; path = "Source Code/Scenes/Chose Device/Controller/VerificationCodeController.swift"; sourceTree = "<group>"; };
 		D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhoneNumberController.swift; path = "Source Code/Scenes/Chose Device/Controller/PhoneNumberController.swift"; sourceTree = "<group>"; };
+		D29937431E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+HistoryMessage+Mappable.swift"; sourceTree = "<group>"; };
+		D29937441E53123C00350E1C /* MoveApi+HistoryMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+HistoryMessage.swift"; sourceTree = "<group>"; };
+		D29937481E53125800350E1C /* MoveApi+Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Location.swift"; sourceTree = "<group>"; };
+		D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Location+Mappable.swift"; sourceTree = "<group>"; };
+		D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ActivityRecord.swift"; sourceTree = "<group>"; };
+		D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ActivityRecord+Mappable.swift"; sourceTree = "<group>"; };
 		D2D6611C1E4F139900E46F41 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Source Code/Scenes/Login/Controller/LoginViewController.swift"; sourceTree = "<group>"; };
 		D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtectAccountController.swift; path = "Source Code/Scenes/Login/Controller/ProtectAccountController.swift"; sourceTree = "<group>"; };
 		D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PwdRecoveryController.swift; path = "Source Code/Scenes/Login/Controller/PwdRecoveryController.swift"; sourceTree = "<group>"; };
@@ -315,6 +327,8 @@
 		D24C4D3B1E4DD57F00F9E33A /* ActivityRecord */ = {
 			isa = PBXGroup;
 			children = (
+				D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */,
+				D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */,
 			);
 			name = ActivityRecord;
 			path = "Source Code/Models/network/MoveWebAPI/ActivityRecord";
@@ -323,6 +337,8 @@
 		D24C4D3C1E4DD57F00F9E33A /* CloudMessage */ = {
 			isa = PBXGroup;
 			children = (
+				D29937421E53123C00350E1C /* HistoryMessage */,
+				D29937451E53123C00350E1C /* SendMessage */,
 			);
 			name = CloudMessage;
 			path = "Source Code/Models/network/MoveWebAPI/CloudMessage";
@@ -361,6 +377,8 @@
 		D24C4D461E4DD57F00F9E33A /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				D29937481E53125800350E1C /* MoveApi+Location.swift */,
+				D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */,
 			);
 			name = Location;
 			path = "Source Code/Models/network/MoveWebAPI/Location";
@@ -369,11 +387,27 @@
 		D24C4D471E4DD57F00F9E33A /* VerificationCode */ = {
 			isa = PBXGroup;
 			children = (
-				D24C4D481E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift */,
 				D24C4D491E4DD57F00F9E33A /* MoveApi+VerificationCode.swift */,
+				D24C4D481E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift */,
 			);
 			name = VerificationCode;
 			path = "Source Code/Models/network/MoveWebAPI/VerificationCode";
+			sourceTree = "<group>";
+		};
+		D29937421E53123C00350E1C /* HistoryMessage */ = {
+			isa = PBXGroup;
+			children = (
+				D29937431E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift */,
+				D29937441E53123C00350E1C /* MoveApi+HistoryMessage.swift */,
+			);
+			path = HistoryMessage;
+			sourceTree = "<group>";
+		};
+		D29937451E53123C00350E1C /* SendMessage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SendMessage;
 			sourceTree = "<group>";
 		};
 		D2D661261E4F13A100E46F41 /* ViewModel */ = {
@@ -1403,9 +1437,11 @@
 				E0C228EA1E349CC200BCF83D /* MKMapView+Rx.swift in Sources */,
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
+				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
+				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
@@ -1432,10 +1468,12 @@
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
+				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
+				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
@@ -1448,6 +1486,7 @@
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
 				D2EFB04A1E529801000BE93C /* PairWatchController.swift in Sources */,
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
+				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
@@ -1455,6 +1494,7 @@
 				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
+				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,

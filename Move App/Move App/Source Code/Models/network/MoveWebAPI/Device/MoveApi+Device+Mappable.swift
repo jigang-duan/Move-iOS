@@ -31,7 +31,7 @@ extension MoveApi {
         var profile: String?
         var gender: String?
         var height: Int?
-        var birthday: Int64?
+        var birthday: Date?
     }
     
     
@@ -41,7 +41,7 @@ extension MoveApi {
         var profile: String?
         var gender: String?
         var height: Int?
-        var birthday: Int64?
+        var birthday: Date?
     }
     
     struct DeviceSetting {
@@ -93,7 +93,7 @@ extension MoveApi.DeviceAdd: Mappable {
 extension MoveApi.DeviceGetListResp: Mappable{
     init?(map: Map) {
     }
-
+    
     mutating func mapping(map: Map) {
         devices <- map["devices"]
     }
@@ -110,7 +110,7 @@ extension MoveApi.DeviceInfo: Mappable {
         profile <- map["profile"]
         gender <- map["gender"]
         height <- map["height"]
-        birthday <- map["birthday"]
+        birthday <- (map["birthday"], DateTransform())
     }
 }
 
@@ -129,7 +129,7 @@ extension MoveApi.DeviceUpdate: Mappable {
         profile <- map["profile"]
         gender <- map["gender"]
         height <- map["height"]
-        birthday <- map["birthday"]
+        birthday <- (map["birthday"], DateTransform())
     }
 }
 

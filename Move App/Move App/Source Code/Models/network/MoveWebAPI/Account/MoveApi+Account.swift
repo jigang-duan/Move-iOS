@@ -25,22 +25,58 @@ extension MoveApi {
         final class func request(_ target: MoveApi.Account.API) -> Observable<Response> {
             return defaultProvider.request(target)
         }
-        
-        final class func isRegistered(account: String) -> Observable<MoveApi.Registered> {
-            return MoveApi.Account.request(.registered(account: account)).mapMoveObject(MoveApi.Registered.self)
+        //        设备获取Access Token
+        final class func getAccessToken(tokenReq: AccessTokenReq) -> Observable<AccessToken> {
+            return request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self)
         }
-        
-        final class func logout() -> Observable<MoveApi.ApiError> {
-            return MoveApi.Account.request(.logout).mapMoveObject(MoveApi.ApiError.self)
+        //        检查用户名，邮箱，手机号码是否已被使用
+        final class func isRegistered(account: String) -> Observable<Registered> {
+            return request(.registered(account: account)).mapMoveObject(Registered.self)
+        }
+        //        帐号注册
+        final class func register(userInfo: UserInfo) -> Observable<AccessToken> {
+            return request(.register(userInfo: userInfo)).mapMoveObject(AccessToken.self)
+        }
+        //        帐号登录
+        final class func login(info: LoginInfo) -> Observable<AccessToken> {
+            return request(.login(info: info)).mapMoveObject(AccessToken.self)
+        }
+        //        第三方登录
+        final class func tplogin(info: TpLoginInfo) -> Observable<AccessToken> {
+            return request(.tplogin(info: info)).mapMoveObject(AccessToken.self)
+        }
+        //        刷新Access Token
+        final class func refreshToken() -> Observable<AccessToken> {
+            return request(.refreshToken).mapMoveObject(AccessToken.self)
+        }
+        //        帐号注销
+        final class func logout() -> Observable<ApiError> {
+            return request(.logout).mapMoveObject(ApiError.self)
+        }
+        //        获取用户信息
+        final class func getUserInfo(uid: String) -> Observable<UserInfo> {
+            return request(.getUserInfo(uid: uid)).mapMoveObject(UserInfo.self)
+        }
+        //        设置用户信息
+        final class func settingUserInfo(uid: String, info: UserInfoSetting) -> Observable<ApiError> {
+            return request(.settingUserInfo(uid: uid, info: info)).mapMoveObject(ApiError.self)
+        }
+        //        密码找回
+        final class func findPassword(info: UserFindInfo) -> Observable<ApiError> {
+            return request(.findPassword(info: info)).mapMoveObject(ApiError.self)
         }
         
         enum API {
+            case getAccessToken(tokenReq: AccessTokenReq)
             case registered(account: String)
-//            case register(info: RegisterInfo)
-//            case login(info: LoginInfo)
-//            case tplogin(info: TpLoginInfo)
-//            case refreshToken
+            case register(userInfo: UserInfo)
+            case login(info: LoginInfo)
+            case tplogin(info: TpLoginInfo)
+            case refreshToken
             case logout
+            case getUserInfo(uid: String)
+            case settingUserInfo(uid: String, info: UserInfoSetting)
+            case findPassword(info: UserFindInfo)
         }
         
     }
@@ -49,10 +85,10 @@ extension MoveApi {
 extension MoveApi.Account.API: AccessTokenAuthorizable {
     var shouldAuthorize: Bool {
         switch self {
-        case .registered:
-            return false
-        case .logout:
+        case .refreshToken, .logout, .getUserInfo, .settingUserInfo:
             return true
+        default:
+            return false
         }
     }
 }
@@ -60,24 +96,51 @@ extension MoveApi.Account.API: AccessTokenAuthorizable {
 extension MoveApi.Account.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/account")! }
+    var baseURL: URL {
+        switch self {
+        case .getAccessToken:
+             return URL(string: MoveApi.BaseURL + "/token")!
+        default:
+             return URL(string: MoveApi.BaseURL + "/account")!
+        }
+    }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
+        case .getAccessToken:
+            return ""
         case .registered(let account):
             return "/\(account)/registered"
+        case .register:
+            return "/register"
+        case .login:
+            return "/login"
+        case .tplogin:
+            return "/tplogin"
+        case .refreshToken:
+            return "/refresh_token"
         case .logout:
             return "/logout"
+        case .getUserInfo(let uid):
+            return "/\(uid)"
+        case .settingUserInfo(let uid, _):
+            return "/\(uid)"
+        case .findPassword:
+            return "/password"
         }
     }
     
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .registered:
+        case .registered, .getUserInfo:
             return .get
-        case .logout:
+        case .settingUserInfo:
+            return .patch
+        case .findPassword:
+            return .put
+        default:
             return .post
         }
     }
@@ -85,7 +148,19 @@ extension MoveApi.Account.API: TargetType {
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
         switch self {
-        case .registered, .logout:
+        case .getAccessToken(let tokenReq):
+            return tokenReq.toJSON()
+        case .register(let userInfo):
+            return userInfo.toJSON()
+        case .login(let info):
+            return info.toJSON()
+        case  .tplogin(let info):
+            return info.toJSON()
+        case .settingUserInfo(_, let info):
+            return info.toJSON()
+        case .findPassword(let info):
+            return info.toJSON()
+        default:
             return nil
         }
     }
@@ -98,7 +173,7 @@ extension MoveApi.Account.API: TargetType {
         switch self {
         case .registered:
             return "{\"registered\": true}".utf8Encoded
-        case .logout:
+        default:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         }
     }

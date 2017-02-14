@@ -26,16 +26,16 @@ extension MoveApi {
             return defaultProvider.request(target)
         }
         
-        final class func addFence(deviceId: String, fenceList: FenceList) -> Observable<ApiError> {
+        final class func addFence(deviceId: String, fenceList: [FenceInfo]) -> Observable<ApiError> {
             return request(.addFence(deviceId: deviceId, fenceList: fenceList)).mapMoveObject(ApiError.self)
         }
         
-        final class func getFence(deviceId: String) -> Observable<MoveApi.FenceList> {
-            return request(.getFence(deviceId: deviceId)).mapMoveObject(MoveApi.FenceList.self)
+        final class func getFence(deviceId: String) -> Observable<FenceList> {
+            return request(.getFence(deviceId: deviceId)).mapMoveObject(FenceList.self)
         }
         
         enum API {
-            case addFence(deviceId: String, fenceList: FenceList)
+            case addFence(deviceId: String, fenceList: [FenceInfo])
             case getFence(deviceId: String)
         }
         
@@ -77,7 +77,7 @@ extension MoveApi.ElectronicFence.API: TargetType {
     var parameters: [String: Any]? {
         switch self {
         case .addFence(_, let fenceList):
-            return fenceList.toJSON()
+            return ["fences": fenceList.toJSON()]
         case .getFence:
             return nil
         }
@@ -92,7 +92,7 @@ extension MoveApi.ElectronicFence.API: TargetType {
         case .addFence:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         case .getFence:
-            return (MoveApi.FenceList().toJSONString()?.utf8Encoded)!
+            return ([MoveApi.FenceInfo()].toJSONString()?.utf8Encoded)!
         }
     }
     

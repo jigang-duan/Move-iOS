@@ -26,16 +26,16 @@ extension MoveApi {
             return defaultProvider.request(target)
         }
         
-        final class func send(to: String) -> Observable<MoveApi.VerificationCodeSend> {
-            return request(.send(to: to)).mapMoveObject(MoveApi.VerificationCodeSend.self)
+        final class func send(to: String) -> Observable<VerificationCodeSend> {
+            return request(.send(to: to)).mapMoveObject(VerificationCodeSend.self)
         }
         
-        final class func verify(sid: String, vcode: String) -> Observable<MoveApi.ApiError> {
-            return request(.verify(sid: sid, vcode: vcode)).mapMoveObject(MoveApi.ApiError.self)
+        final class func verify(sid: String, vcode: String) -> Observable<ApiError> {
+            return request(.verify(sid: sid, vcode: vcode)).mapMoveObject(ApiError.self)
         }
         
-        final class func delete(sid: String) -> Observable<MoveApi.ApiError> {
-            return request(.delete(sid: sid)).mapMoveObject(MoveApi.ApiError.self)
+        final class func delete(sid: String) -> Observable<ApiError> {
+            return request(.delete(sid: sid)).mapMoveObject(ApiError.self)
         }
         
         enum API {
