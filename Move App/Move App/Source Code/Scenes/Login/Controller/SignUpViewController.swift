@@ -10,6 +10,11 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,7 +27,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailTextfield: UITextField!
     //返回上一级页面
     @IBAction func BackAction(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     //使用条款
     @IBAction func UseTermsAction(_ sender: AnyObject) {
@@ -30,14 +35,8 @@ class SignUpViewController: UIViewController {
         
     }
     
-    @IBAction func SignAction(_ sender: AnyObject) {
-        
-        let sb = UIStoryboard(name: "Login", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "ProtectAccountController") as! ProtectAccountController
-        self.present(vc, animated: true) {
-            vc.remendLabel.text = "Help us protect your.The verification code was sent to your Email "+self.emailTextfield.text!+"."
-        }
-    }
+   
+    
     
 }
 

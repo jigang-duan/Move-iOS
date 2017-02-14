@@ -14,10 +14,15 @@ class ScanCodeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+//        preferredStatusBarStyle = UIStatusBarStyle.LightContent
+        
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
+        
+        
+        self.navigationController?.navigationBar.isHidden = true
         //扫描
         startScan()
     }
@@ -75,15 +80,14 @@ class ScanCodeController: UIViewController {
         return layer!
     }()
     
+   
 }
 extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
     
-    override var preferredStatusBarStyle: UIStatusBarStyle
-        {
-        return UIStatusBarStyle.lightContent
-    }
+    
+    
     //扫描代理方法：只要解析到数据就会调用
-     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
+     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
     {
         print(metadataObjects)
     }

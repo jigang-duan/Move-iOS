@@ -19,7 +19,7 @@ class ProtectAccountController: UIViewController {
     @IBOutlet weak var HelpLabel: UILabel!
     
     @IBAction func BackAction(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
         
     }
     @IBOutlet weak var remendLabel: UILabel!

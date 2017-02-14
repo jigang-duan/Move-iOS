@@ -22,6 +22,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailLineView: UIView!
     @IBOutlet weak var accountErrorLabel: UILabel!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     func showAccountError(_ text: String) {
         //当帐号不存在de时候
         if error {

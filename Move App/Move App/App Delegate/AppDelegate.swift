@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Init Common things
         ApplicationManager.sharedInstance.initCommon()
         
+    
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         return true
     }
 

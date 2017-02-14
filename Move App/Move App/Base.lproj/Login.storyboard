@@ -32,7 +32,7 @@
                         <viewControllerLayoutGuide type="bottom" id="B2f-rA-COw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="jmS-Sn-Y7S">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWO-X3-yRJ" userLabel="ShareBtns">
@@ -141,7 +141,7 @@
                                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Ztt-yH-ztG" kind="modal" id="qMj-Em-S3c"/>
+                                                    <segue destination="Ztt-yH-ztG" kind="push" id="cI6-9c-jLk"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6H-Vw-cBQ">
@@ -157,7 +157,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="3ma-bW-nPx" kind="modal" id="RNk-e2-pCc"/>
+                                                    <segue destination="3ma-bW-nPx" kind="push" id="2DD-bf-WzS"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="960-KP-Uz1">
@@ -281,7 +281,7 @@
                         <viewControllerLayoutGuide type="bottom" id="jrO-Zt-Nac"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kQw-jt-LYW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vp-2y-AOK" userLabel="Navbar">
@@ -374,7 +374,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="DoneAction:" destination="Ztt-yH-ztG" eventType="touchUpInside" id="2TL-4Y-L88"/>
+                                    <segue destination="0SY-sh-nhh" kind="push" id="mNf-Oj-7CC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -395,7 +395,9 @@
                             <constraint firstAttribute="trailing" secondItem="8vp-2y-AOK" secondAttribute="trailing" id="wle-Bn-HZs"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Yw1-9E-SVk"/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="EmailTextField" destination="EyG-71-dzG" id="San-pf-3df"/>
                     </connections>
@@ -413,7 +415,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Al7-ng-1sS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8yw-OF-W2u">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help us protect your.The verification code was sent to your Email xxx@xxx.com." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL5-qI-7nc">
@@ -522,6 +524,7 @@
                             <constraint firstAttribute="trailing" secondItem="VhK-LQ-Hs2" secondAttribute="trailing" constant="10" id="dq1-Jb-Byb"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Lhh-xh-DmB"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="HelpLabel" destination="zL5-qI-7nc" id="sdA-Bz-jzC"/>
@@ -541,7 +544,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rNv-hQ-9gj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Hfe-SB-tlv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7iW-I9-xR0" userLabel="account">
@@ -695,13 +698,14 @@
                             <constraint firstAttribute="trailing" secondItem="7iW-I9-xR0" secondAttribute="trailing" id="xUc-ey-LOx"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hqp-eM-IHc"/>
                     <connections>
                         <outlet property="remindLabel" destination="Vfn-rN-Da0" id="MwI-7E-L6z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hec-YD-O2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2633" y="1251"/>
+            <point key="canvasLocation" x="2778" y="609"/>
         </scene>
         <!--Sign Up-->
         <scene sceneID="gTp-2P-yOU">
@@ -712,7 +716,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dem-jq-Hws"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ri4-ln-j4n">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wQo-nw-Gbm" userLabel="Navbar">
@@ -851,7 +855,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="SignAction:" destination="3ma-bW-nPx" eventType="touchUpInside" id="XRB-eL-wab"/>
+                                    <segue destination="MIe-RW-72l" kind="push" id="adY-wX-acJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3c-vp-Fty">
@@ -884,9 +888,9 @@ Terms of use,Privacy and Secunity</string>
                             <constraint firstItem="I37-75-Jl9" firstAttribute="top" secondItem="o3c-vp-Fty" secondAttribute="bottom" constant="-22" id="7EM-WO-TVc"/>
                             <constraint firstItem="XG8-Tw-Yv4" firstAttribute="centerX" secondItem="Ri4-ln-j4n" secondAttribute="centerX" id="JIX-Xz-YYt"/>
                             <constraint firstItem="XG8-Tw-Yv4" firstAttribute="top" secondItem="hCl-6a-jmh" secondAttribute="bottom" constant="40" id="Qqt-nI-p8r"/>
-                            <constraint firstItem="hCl-6a-jmh" firstAttribute="top" secondItem="Leb-WU-OF3" secondAttribute="bottom" constant="64" id="S0k-Z1-fEM"/>
                             <constraint firstItem="o3c-vp-Fty" firstAttribute="leading" secondItem="Ri4-ln-j4n" secondAttribute="leading" constant="10" id="XHH-WV-y9g"/>
                             <constraint firstItem="hCl-6a-jmh" firstAttribute="leading" secondItem="Ri4-ln-j4n" secondAttribute="leading" id="YgG-JH-cfe"/>
+                            <constraint firstItem="hCl-6a-jmh" firstAttribute="top" secondItem="Leb-WU-OF3" secondAttribute="bottom" constant="64" id="a8W-jU-NIH"/>
                             <constraint firstItem="XG8-Tw-Yv4" firstAttribute="centerY" secondItem="Ri4-ln-j4n" secondAttribute="centerY" id="avr-a2-p0M"/>
                             <constraint firstAttribute="trailing" secondItem="XG8-Tw-Yv4" secondAttribute="trailing" constant="20" id="b06-fQ-dK2"/>
                             <constraint firstAttribute="trailing" secondItem="o3c-vp-Fty" secondAttribute="trailing" constant="10" id="muO-sR-GuS"/>
@@ -898,6 +902,7 @@ Terms of use,Privacy and Secunity</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="tDs-hh-fmn"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="emailTextfield" destination="e4p-6M-NF2" id="shf-Hc-1bi"/>
                     </connections>

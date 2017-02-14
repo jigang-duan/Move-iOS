@@ -16,7 +16,7 @@ class UpdataPwdController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func BackAction(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     @IBOutlet weak var remindLabel: UILabel!
 
