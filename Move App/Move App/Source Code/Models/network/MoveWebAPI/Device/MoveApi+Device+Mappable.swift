@@ -12,11 +12,24 @@ import ObjectMapper
 
 extension MoveApi {
     
+    enum DeviceAddIdentity: String{
+        case mother = "Mother"
+        case father = "Father"
+        case grandmaF = "GrandmaF"
+        case grandPaF = "GrandPaF"
+        case grandmaM = "GrandmaM"
+        case grandpaM = "GrandpaM"
+        case uncle = "Uncle"
+        case aunty = "Aunty"
+        case sister = "Sister"
+        case brother = "Brother"
+    }
+    
     struct DeviceAdd {
         var sid: String?
         var vcode: String?
         var phone: String?
-        var identity: String?
+        var identity: DeviceAddIdentity?
         var profile: String?
     }
     
@@ -26,16 +39,6 @@ extension MoveApi {
     
     struct DeviceInfo {
         var device_id: String?
-        var number: String?
-        var name: String?
-        var profile: String?
-        var gender: String?
-        var height: Int?
-        var birthday: Date?
-    }
-    
-    
-    struct DeviceUpdate {
         var number: String?
         var name: String?
         var profile: String?
@@ -78,7 +81,7 @@ extension MoveApi.DeviceAdd: Mappable {
         self.sid=sid
         self.vcode=vcode
         self.phone=phone
-        self.identity=identity
+        self.identity=MoveApi.DeviceAddIdentity(rawValue: identity)
     }
     
     mutating func mapping(map: Map) {
@@ -113,26 +116,6 @@ extension MoveApi.DeviceInfo: Mappable {
         birthday <- (map["birthday"], DateTransform())
     }
 }
-
-extension MoveApi.DeviceUpdate: Mappable {
-    init?(map: Map) {
-    }
-    
-    init(number: String, name:String) {
-        self.number = number
-        self.name = name
-    }
-    
-    mutating func mapping(map: Map) {
-        number <- map["number"]
-        name <- map["name"]
-        profile <- map["profile"]
-        gender <- map["gender"]
-        height <- map["height"]
-        birthday <- (map["birthday"], DateTransform())
-    }
-}
-
 
 extension MoveApi.DeviceSetting: Mappable {
     init?(map: Map) {

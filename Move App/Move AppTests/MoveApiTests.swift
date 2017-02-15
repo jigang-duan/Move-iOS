@@ -30,30 +30,320 @@ class MoveApiTests: XCTestCase {
     }
     
     func testAccountApi()  {
+        let userInfo = ApiTestInfo.share.userInfo
         
-        let accountName = RandomString.sharedInstance.getRandomStringOfLength(length: 13)
-        guard let registered = try? MoveApi.Account.isRegistered(account: accountName)
+        guard let registered = try? MoveApi.Account.isRegistered(account: userInfo.username!)
             .toBlocking()
             .last() else {
-            
-            XCTFail()
-            return
+                
+                XCTFail()
+                return
         }
-        XCTAssertEqual(registered?.isRegistered, false)
+        XCTAssertEqual(registered?.isRegistered, true)
         
-        if let _ = try? MoveApi.Account.logout().do(onError: {
+        
+        //        if let _ = try? MoveApi.Account.register(userInfo: userInfo).do(onError: {
+        //            Logger.error($0)
+        //            guard let error = $0 as? MoveApi.ApiError else {
+        //                XCTFail()
+        //                return
+        //            }
+        //            XCTAssertEqual(error.id, 7)
+        //            XCTAssertEqual(error.field, "username")
+        //            XCTAssertEqual(error.msg, "Exists")
+        //        }).toBlocking().last() {
+        //            XCTFail()
+        //        }
+        
+        let loginInfo = MoveApi.LoginInfo(username: userInfo.username, password: userInfo.password)
+        guard let loginResp = try? MoveApi.Account.login(info: loginInfo)
+            .toBlocking()
+            .last() else {
+                XCTFail()
+                return
+        }
+        XCTAssertNotNil(loginResp)
+        
+        guard let refreshTokenResp = try? MoveApi.Account.refreshToken()
+            .toBlocking()
+            .last() else {
+                XCTFail()
+                return
+        }
+        XCTAssertNotNil(refreshTokenResp)
+        
+        
+        guard let getUserInfoResp = try? MoveApi.Account.getUserInfo(uid: userInfo.uid!)
+            .toBlocking()
+            .last() else {
+                XCTFail()
+                return
+        }
+        XCTAssertNotNil(getUserInfoResp)
+        
+        
+        let userSetting = MoveApi.UserInfoSetting(phone: userInfo.phone, email: userInfo.email, profile: userInfo.profile, nickname: userInfo.nickname, password: userInfo.password, new_password: userInfo.password)
+        guard let settingUserInfoResp = try? MoveApi.Account.settingUserInfo(uid: userInfo.uid!, info: userSetting)
+            .toBlocking()
+            .last() else {
+                XCTFail()
+                return
+        }
+        XCTAssertEqual(settingUserInfoResp?.id, 0)
+        XCTAssertEqual(settingUserInfoResp?.msg, "ok")
+        
+        //        let findInfo = MoveApi.UserFindInfo(username: userInfo.username, email: userInfo.email, phone: userInfo.phone, password: userInfo.password)
+        //        guard let findPasswordResp = try? MoveApi.Account.findPassword(info: findInfo)
+        //            .toBlocking()
+        //            .last() else {
+        //                XCTFail()
+        //                return
+        //        }
+        //        XCTAssertEqual(findPasswordResp?.id, 0)
+        //        XCTAssertEqual(findPasswordResp?.msg, "ok")
+        
+        //                guard let logoutResp = try? MoveApi.Account.logout().toBlocking().last() else{
+        //                    XCTFail()
+        //                    return
+        //                }
+        //                XCTAssertEqual(logoutResp?.id, 0)
+        //                XCTAssertEqual(logoutResp?.msg, "ok")
+    }
+    
+    func testVerificationApi()  {
+        
+        let userInfo = ApiTestInfo.share.userInfo
+        
+        let loginInfo = MoveApi.LoginInfo(username: userInfo.username, password: userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        guard let sid = try? MoveApi.VerificationCode.send(to: userInfo.email!)
+            .toBlocking()
+            .last() else {
+                XCTFail()
+                return
+        }
+        XCTAssertNotNil(sid?.sid)
+        ApiTestInfo.share.sid = (sid?.sid)!
+        
+        let vcode = RandomString.sharedInstance.getRandomStringOfLength(length: 13)
+        if let _ = try? MoveApi.VerificationCode.verify(sid: (sid?.sid)!, vcode: vcode).do(onError: {
+            Logger.error($0)
+            guard let error = $0 as? MoveApi.ApiError else {
+                XCTFail()
+                return
+            }
+            XCTAssertEqual(error.id, 5)
+            XCTAssertEqual(error.field, "Invalid")
+            XCTAssertEqual(error.msg, "vcode")
+        }).toBlocking().last() {
+            XCTFail()
+        }
+        
+        guard let deleteResp = try? MoveApi.VerificationCode.delete(sid: (sid?.sid)!)
+            .toBlocking()
+            .last() else {
+                XCTFail()
+                return
+        }
+        XCTAssertEqual(deleteResp?.id, 0)
+        XCTAssertEqual(deleteResp?.msg, "ok")
+    }
+    
+    func testDeviceApi() {
+       
+        let testInfo = ApiTestInfo.share
+        
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        let sidResp = try? MoveApi.VerificationCode.send(to: testInfo.userInfo.email!).toBlocking().last()
+        ApiTestInfo.share.sid = (sidResp??.sid)!
+        
+        if let _ = try? MoveApi.Device.add(deviceId: testInfo.deviceInfo.device_id!, addInfo: testInfo.deviceAdd).do(onError: {
             Logger.error($0)
             guard let error = $0 as? MoveApi.ApiError else {
                 XCTFail()
                 return
             }
             XCTAssertEqual(error.id, 11)
-            XCTAssertEqual(error.field, "access_token")
-            XCTAssertEqual(error.msg, "Forbidden")
+            XCTAssertEqual(error.field, "Access Token Invalid")
+            XCTAssertEqual(error.msg, "access_token")
         }).toBlocking().last() {
             XCTFail()
         }
+        
+        
+        guard let getDeviceListResp = try? MoveApi.Device.getDeviceList().toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getDeviceListResp)
+        
+        
+        guard let getDeviceInfoResp = try? MoveApi.Device.getDeviceInfo(deviceId: testInfo.deviceInfo.device_id!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getDeviceInfoResp)
+        //        修改设备信息
+        guard let updateResp = try? MoveApi.Device.update(deviceId: testInfo.deviceInfo.device_id!, updateInfo: testInfo.deviceInfo).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(updateResp?.id, 0)
+        XCTAssertEqual(updateResp?.msg, "ok")
+        //        删除设备
+        guard let deleteResp = try? MoveApi.Device.delete(deviceId: testInfo.deviceInfo.device_id!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(deleteResp?.id, 0)
+        XCTAssertEqual(deleteResp?.msg, "ok")
+        //        查看设备配置
+        guard let getSettingResp = try? MoveApi.Device.getSetting(deviceId: testInfo.deviceInfo.device_id!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getSettingResp)
+        testInfo.deviceSetting = getSettingResp!
+        //        设置设备配置
+        guard let settingResp = try? MoveApi.Device.setting(deviceId: testInfo.deviceInfo.device_id!, settingInfo: testInfo.deviceSetting).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(settingResp?.id, 0)
+        XCTAssertEqual(settingResp?.msg, "ok")
     }
+    
+    func testElectronicFenceApi() {
+        
+        let testInfo = ApiTestInfo.share
+        
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        
+        guard let addFenceResp = try? MoveApi.ElectronicFence.addFence(deviceId: testInfo.deviceInfo.device_id!, fenceList: [testInfo.fenceInfo]).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(addFenceResp?.id, 0)
+        XCTAssertEqual(addFenceResp?.msg, "ok")
+        
+        
+        guard let getFenceResp = try? MoveApi.ElectronicFence.getFence(deviceId: testInfo.deviceInfo.device_id!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getFenceResp)
+        testInfo.fenceInfo = (getFenceResp?.fences?[0])!
+    }
+    
+    
+    
+    func testLocationApi() {
+        
+        let testInfo = ApiTestInfo.share
+        
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        
+        guard let addResp = try? MoveApi.Location.add(deviceId: testInfo.deviceInfo.device_id!, locationAdd: testInfo.locationAdd).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(addResp?.id, 0)
+        XCTAssertEqual(addResp?.msg, "ok")
+        
+        
+        guard let getNewResp = try? MoveApi.Location.getNew(deviceId: testInfo.deviceInfo.device_id!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getNewResp)
+        
+        guard let getHistoryResp = try? MoveApi.Location.getHistory(deviceId: testInfo.deviceInfo.device_id!, locationReq: MoveApi.LocationReq(start: Date(timeIntervalSinceNow: -86400), end: Date())).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getHistoryResp)
+    }
+    
+    
+    func  testActivityRecordApi() {
+        
+        let testInfo = ApiTestInfo.share
+        
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        //        上报活动记录
+        guard let addResp = try? MoveApi.ActivityRecord.addRecord(deviceId: testInfo.deviceInfo.device_id!, activityList: [testInfo.activity]).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(addResp?.id, 0)
+        XCTAssertEqual(addResp?.msg, "ok")
+        
+        //        获取活动记录
+        guard let getRecordResp = try? MoveApi.ActivityRecord.getRecord(deviceId: testInfo.deviceInfo.device_id!, recordReq: MoveApi.RecordReq(start_time: Date(timeIntervalSinceNow: -86400), end_time: Date(), page_token: "", page_size: 20)).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getRecordResp)
+        //        批量获取用户步数
+        guard let getContactListStepResp = try? MoveApi.ActivityRecord.getContactListStep(contactList: [testInfo.contact]).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getContactListStepResp)
+        
+        //        运动点赞
+        guard let sportLikeResp = try? MoveApi.ActivityRecord.sportLike(uid: testInfo.userInfo.uid!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(sportLikeResp?.id, 0)
+        XCTAssertEqual(sportLikeResp?.msg, "ok")
+        //        取消运动点赞
+        guard let cancelSportLikeResp = try? MoveApi.ActivityRecord.cancelSportLike(uid: testInfo.userInfo.uid!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(cancelSportLikeResp?.id, 0)
+        XCTAssertEqual(cancelSportLikeResp?.msg, "ok")
+        //        获取单个用户步数(统计)
+        guard let getContactStepSumResp = try? MoveApi.ActivityRecord.getContactStepSum(deviceId: testInfo.deviceInfo.device_id!, stepSumReq: MoveApi.StepSumReq(start_time: Date(timeIntervalSinceNow: -86400), end_time: Date(), by: "")).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getContactStepSumResp)
+        //        批量获取用户分数
+        guard let getContactListScoreResp = try? MoveApi.ActivityRecord.getContactListScore(contactList: [testInfo.contact]).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getContactListScoreResp)
+        
+        //        游戏点赞
+        guard let gameLikeResp = try? MoveApi.ActivityRecord.gameLike(uid: testInfo.userInfo.uid!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(gameLikeResp?.id, 0)
+        XCTAssertEqual(gameLikeResp?.msg, "ok")
+        //        取消游戏点赞
+        guard let cancelGameLikeResp = try? MoveApi.ActivityRecord.cancelGameLike(uid: testInfo.userInfo.uid!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(cancelGameLikeResp?.id, 0)
+        XCTAssertEqual(cancelGameLikeResp?.msg, "ok")
+    }
+    
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -62,6 +352,35 @@ class MoveApiTests: XCTestCase {
         }
     }
     
+}
+
+class ApiTestInfo {
+    
+    let userInfo = MoveApi.UserInfoMap(uid: "15610609071744479540", phone: "1234567890", email: "zhengwuju@bis.com.cn", profile: "", nickname: "xxx", username: "test003", password: "test003")
+    
+    var sid = ""//验证码ID
+    var vcode = "" //验证码
+    
+    var deviceAdd = MoveApi.DeviceAdd(sid: ApiTestInfo.share.sid, vcode: ApiTestInfo.share.vcode, phone: "1234567890", identity: MoveApi.DeviceAddIdentity.brother, profile: "")
+    var deviceInfo = MoveApi.DeviceInfo(device_id: "device0001", number: "", name: "", profile: "", gender: "", height: 100, birthday: Date(timeIntervalSince1970: 1443245612))
+    var deviceSetting = MoveApi.DeviceSetting()
+    
+    
+    var fenceInfo = MoveApi.FenceInfo(name: "fence001", location: MoveApi.Fencelocation(lat: 31.123456, lng: 121.123456, addr: "China"), radius: 1000, active: true)
+    
+    
+    var locationAdd = MoveApi.LocationAdd()
+    
+    
+    var activity = MoveApi.Activity()
+    
+    var contact = MoveApi.Contact()
+    
+    
+    private init() {
+        
+    }
+    static let share = ApiTestInfo()
 }
 
 /// 随机字符串生成
