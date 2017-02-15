@@ -11,11 +11,19 @@ import MapKit
 import RxSwift
 import RxCocoa
 import SVPulsingAnnotationView
+import CustomViews
 
 class AddSafeZoneVC: UIViewController {
 
+    var currentRadius :Double = 600
+    var kidOverlay: MKCircle!
+    var circleOverlay:MKCircle?
+
+
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
+    
+    @IBOutlet var circleBorderView: NoEventView!
     
     @IBOutlet weak var nameTitleL: UILabel!
     @IBOutlet weak var addressTitleL: UILabel!
@@ -33,9 +41,41 @@ class AddSafeZoneVC: UIViewController {
         
         let item=UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //self.circleBorderView.setNeedsDisplay()
+        //self.circleBorderView.isHidden = true
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
+        
+    }
+    
+    func actionFenceRadiusValueChanged(_ slider:UISlider) {
+        
+        self.currentRadius = Double(slider.value)
+        self.drawOverlay(radius: currentRadius)
+    }
+    
+    func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
+        var centerCoordinate = centerCoordinate
+        centerCoordinate = centerCoordinate ?? self.mainMapView.centerCoordinate
+        
+        guard let coordinate = centerCoordinate, CLLocationCoordinate2DIsValid(coordinate) else {
+            return
+        }
+        self.mainMapView.removeOverlays(self.mainMapView.overlays.filter { !$0.isEqual(self.kidOverlay) } )
+        self.circleOverlay = MKCircle(center:coordinate, radius:radius)
+        
+        self.mainMapView.add(circleOverlay!)
+        self.mainMapView.setNeedsDisplay()
+    }
+    
+    
+    override func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions = [], context: UnsafeMutableRawPointer?) {
         
     }
     
@@ -43,7 +83,8 @@ class AddSafeZoneVC: UIViewController {
         super.viewDidLoad()
         let img = UIImage(named : "general_slider_dot")
         safeZoneSlider.setThumbImage(img, for: UIControlState.normal)
-        
+        self.safeZoneSlider!.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
+
         let geolocationService = GeolocationService.instance
         
         let viewModel = MainMapViewModel(input: (),
@@ -52,6 +93,32 @@ class AddSafeZoneVC: UIViewController {
                                             kidInfo: MokKidInfo()
             )
         )
+        
+        
+        mainMapView.rx.regionWillChangeAnimated
+            .asDriver()
+            .drive(onNext: { _ in
+                if let overflay = self.circleOverlay {
+                    self.mainMapView.remove(overflay)
+                }
+                //self.circleBorderView.isHidden = false
+                
+                self.circleBorderView.frame = self.mainMapView.bounds
+                self.mainMapView.addSubview(self.circleBorderView)
+                
+                self.circleBorderView.radius = self.rectFromCoordinate.height
+                //self.circleBorderView.setNeedsDisplay()
+            }).addDisposableTo(disposeBag)
+        
+        mainMapView.rx.regionDidChangeAnimated
+            .asDriver().drive(onNext: {
+                Logger.debug("地图 \($0)!")
+                self.currentRadius = Double(self.safeZoneSlider.value)
+                self.drawOverlay(radius: self.currentRadius)
+                //self.circleBorderView.isHidden = true
+                
+                self.circleBorderView.removeFromSuperview()
+            }).addDisposableTo(disposeBag)
         
         mainMapView.rx.willStartLoadingMap
             .asDriver()
@@ -78,7 +145,7 @@ class AddSafeZoneVC: UIViewController {
             .asObservable()
             .take(1)
             .bindNext { [unowned self] in
-                let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
+                let region = MKCoordinateRegionMakeWithDistance($0, 1500, 1500)
                 self.mainMapView.setRegion(region, animated: true)
             }
             .addDisposableTo(disposeBag)
@@ -88,18 +155,34 @@ class AddSafeZoneVC: UIViewController {
             .drive(onNext: { [unowned self] annotion in
                 self.mainMapView.removeAnnotations(self.mainMapView.annotations)
                 self.mainMapView.addAnnotation(annotion)
+                if self.circleOverlay == nil
+                {
+                    self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
+                    self.mainMapView.add(self.circleOverlay!)
+                }
+                
             })
             .addDisposableTo(disposeBag)
+        
+        
+        
+        
+
 
         // Do any additional setup after loading the view.
     }
+    
+    private var rectFromCoordinate : CGRect  {
+        let region = MKCoordinateRegionMakeWithDistance(self.mainMapView.centerCoordinate, self.currentRadius, self.currentRadius)
+        return mainMapView.convertRegion(region, toRectTo: self.circleBorderView)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -126,5 +209,26 @@ extension AddSafeZoneVC : MKMapViewDelegate {
         }
         
         return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+//        if overlay.isEqual(self.kidOverlay) {
+//            let renderer = MKCircleRenderer(overlay: overlay)
+//            renderer.fillColor = UIColor.red.withAlphaComponent(0.2)
+//            renderer.strokeColor = UIColor.red.withAlphaComponent(0.7)
+//            renderer.lineWidth = 1
+//            return renderer
+//        }
+        
+        if overlay.isEqual(self.circleOverlay) {
+            let circleRender = MKCircleRenderer(overlay: overlay)
+            circleRender.fillColor = UIColor.cyan.withAlphaComponent(0.2)
+            circleRender.strokeColor = UIColor(red:0.450980, green:0.607843, blue:0.674510, alpha:1.0).withAlphaComponent(0.7)
+            circleRender.lineWidth = 2
+            return circleRender
+        }
+        
+        return MKCircleRenderer(overlay: overlay)
     }
 }

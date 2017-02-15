@@ -331,7 +331,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Geolocation is not enabled for this app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFB-LP-DJj">
-                            <rect key="frame" x="48" y="168.5" width="280" height="67.5"/>
+                            <rect key="frame" x="48" y="168" width="280" height="68"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="280" id="0Ew-5i-hAr"/>
                             </constraints>
@@ -340,13 +340,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enable it in the app preferences" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rY-Ie-vjV">
-                            <rect key="frame" x="48" y="244" width="280" height="42.5"/>
+                            <rect key="frame" x="48" y="244" width="280" height="43"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZf-no-x56">
-                            <rect key="frame" x="88" y="316.5" width="200" height="28"/>
+                            <rect key="frame" x="88" y="317" width="200" height="28"/>
                             <color key="backgroundColor" red="0.17483745810000001" green="0.60840499159999994" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="200" id="Ysr-7G-zxq"/>
@@ -611,6 +611,9 @@
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="czK-ny-rIM">
                                 <rect key="frame" x="0.0" y="90" width="375" height="394"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ag8-PL-g1h" id="qTn-mW-TEF"/>
+                                </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOG-Cq-eA8">
                                 <rect key="frame" x="0.0" y="484" width="375" height="70"/>
@@ -624,7 +627,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Yev-8s-JJr">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="600" minValue="200" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Yev-8s-JJr">
                                         <rect key="frame" x="6" y="27" width="363" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="zdh-fa-EmX"/>
@@ -658,11 +661,13 @@
                             <constraint firstItem="IOG-Cq-eA8" firstAttribute="leading" secondItem="ce8-21-2HQ" secondAttribute="leading" id="vHP-si-Ffd"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="akt-Xk-SHF"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="RadiusL" destination="W1c-em-agX" id="aak-SM-DsZ"/>
                         <outlet property="addressTitleL" destination="5bS-tY-6dM" id="joL-Jz-qD5"/>
+                        <outlet property="circleBorderView" destination="KS7-a1-hQF" id="9cy-Ml-vvs"/>
                         <outlet property="kidaddressL" destination="SaV-KB-vQz" id="69V-MG-GXE"/>
                         <outlet property="kidnameL" destination="OZL-I2-HMf" id="Aaj-n4-Gdu"/>
                         <outlet property="mainMapView" destination="czK-ny-rIM" id="QRa-cU-06y"/>
@@ -671,8 +676,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ug-tD-Bta" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" id="KS7-a1-hQF" customClass="NoEventView" customModule="CustomViews">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="394"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                            <real key="value" value="93"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </objects>
-            <point key="canvasLocation" x="4301.6000000000004" y="2623.5382308845578"/>
+            <point key="canvasLocation" x="4319" y="3298"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="FPE-pk-ICe">

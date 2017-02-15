@@ -108,6 +108,7 @@
 		E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290A1E35E5AE00BCF83D /* UIImage+Extensions.swift */; };
 		E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */; };
 		E0C229111E35E65900BCF83D /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C229101E35E65900BCF83D /* Example.swift */; };
+		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
@@ -267,6 +268,7 @@
 		E0C2290A1E35E5AE00BCF83D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Extensions.swift"; path = "Vendor/RxImage/UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+DownloadableImage.swift"; path = "Vendor/RxImage/UIImageView+DownloadableImage.swift"; sourceTree = "<group>"; };
 		E0C229101E35E65900BCF83D /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Vendor/RxUtilities/Example.swift; sourceTree = "<group>"; };
+		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapSceneViewController.swift; path = "Source Code/Scenes/Tabs/MainMapSceneViewController.swift"; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHistoryVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/LocationHistoryVC.swift"; sourceTree = "<group>"; };
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSafeZoneVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/AddSafeZoneVC.swift"; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 			isa = PBXGroup;
 			children = (
 				D2AC16C71E5460C400815823 /* PrettyRulerClass */,
+				E9B7FA5E1E54331400F46D09 /* NoEventView */,
 				E03B1BDD1E4DB8FC006EDB7B /* CDFInitialsAvatar */,
 				E01DF73D1E308D9C00EA003D /* Extensions */,
 				E01DF7321E308D7F00EA003D /* CustomViews.h */,
@@ -1094,6 +1097,14 @@
 				E0C229031E35E55600BCF83D /* Operators.swift */,
 			);
 			name = RxUtilities;
+			sourceTree = "<group>";
+		};
+		E9B7FA5E1E54331400F46D09 /* NoEventView */ = {
+			isa = PBXGroup;
+			children = (
+				E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */,
+			);
+			name = NoEventView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1552,6 +1563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */,
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
 				E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */,
 				D2AC16CD1E5460C400815823 /* TXHRrettyRuler.m in Sources */,
