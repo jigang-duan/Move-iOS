@@ -28,7 +28,7 @@ extension MoveApi {
         var isRegistered: Bool?
     }
     
-    struct UserInfoMappable {
+    struct UserInfoMap {
         var uid: String?
         var phone: String?
         var email: String?
@@ -97,7 +97,7 @@ extension MoveApi.Registered: Mappable {
     }
 }
 
-extension MoveApi.UserInfoMappable: Mappable{
+extension MoveApi.UserInfoMap: Mappable{
     init?(map: Map) {
     }
     

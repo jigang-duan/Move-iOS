@@ -77,7 +77,7 @@ class MokUserInfoWorker: UserWorkerProtocl {
 
 
 extension ObservableType where E == MoveApi.AccessToken {
-    func cachingToken() -> Observable<UserInfo> {
+    func catchingToken() -> Observable<UserInfo> {
         return flatMap { element -> Observable<UserInfo> in
             UserInfo.share.accessToken.token = element.accessToken
             UserInfo.share.accessToken.refreshToken = element.accessToken

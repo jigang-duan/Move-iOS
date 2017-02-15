@@ -38,7 +38,7 @@ extension MoveApi {
             return request(.getDeviceInfo(deviceId: deviceId)).mapMoveObject(DeviceInfo.self)
         }
 //        修改设备信息
-        final class func update(deviceId: String, updateInfo: DeviceUpdate) -> Observable<ApiError> {
+        final class func update(deviceId: String, updateInfo: DeviceInfo) -> Observable<ApiError> {
             return request(.update(deviceId: deviceId, updateInfo: updateInfo)).mapMoveObject(ApiError.self)
         }
 //        删除设备
@@ -58,7 +58,7 @@ extension MoveApi {
             case add(deviceId: String, addInfo: DeviceAdd)
             case getDeviceList
             case getDeviceInfo(deviceId: String)
-            case update(deviceId: String, updateInfo: DeviceUpdate)
+            case update(deviceId: String, updateInfo: DeviceInfo)
             case delete(deviceId: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)

@@ -47,7 +47,7 @@ extension MoveApi {
         var ssid: String?
     }
     
-    struct LocationNewReq {
+    struct LocationReq {
         var start: Date?
         var end: Date?
     }
@@ -126,7 +126,7 @@ extension MoveApi.Wifi: Mappable {
     }
 }
 
-extension MoveApi.LocationNewReq: Mappable{
+extension MoveApi.LocationReq: Mappable{
     init?(map: Map) {
     }
     

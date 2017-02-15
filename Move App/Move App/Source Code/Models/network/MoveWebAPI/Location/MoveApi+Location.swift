@@ -35,14 +35,14 @@ extension MoveApi {
             return request(.getNew(deviceId: deviceId)).mapMoveObject(LocationNew.self)
         }
 //        历史位置记录
-        final class func getHistory(deviceId: String, locationNewReq: LocationNewReq) -> Observable<LocationHistory> {
-            return request(.getHistory(deviceId: deviceId, locationNewReq: locationNewReq)).mapMoveObject(LocationHistory.self)
+        final class func getHistory(deviceId: String, locationReq: LocationReq) -> Observable<LocationHistory> {
+            return request(.getHistory(deviceId: deviceId, locationReq: locationReq)).mapMoveObject(LocationHistory.self)
         }
         
         enum API {
             case add(deviceId: String, locationAdd: LocationAdd)
             case getNew(deviceId: String)
-            case getHistory(deviceId: String, locationNewReq: LocationNewReq)
+            case getHistory(deviceId: String, locationReq: LocationReq)
         }
         
     }
@@ -88,8 +88,8 @@ extension MoveApi.Location.API: TargetType {
             return locationAdd.toJSON()
         case .getNew:
             return nil
-        case .getHistory(_, let locationNewReq):
-            return locationNewReq.toJSON()
+        case .getHistory(_, let locationReq):
+            return locationReq.toJSON()
         }
     }
     
