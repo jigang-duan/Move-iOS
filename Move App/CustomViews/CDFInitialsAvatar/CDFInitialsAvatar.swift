@@ -16,7 +16,7 @@ public class CDFInitialsAvatar {
     private var initialsColor: UIColor
     private var initialsFont: UIFont?
     
-    init(rect frame: CGRect, fullName: String) {
+    public init(rect frame: CGRect, fullName: String) {
         self.frame = frame
         self.fullName = fullName
         self.backgroundColor = UIColor.lightGray
@@ -24,14 +24,14 @@ public class CDFInitialsAvatar {
         self.initialsFont = nil
     }
     
-    func imageRepresentation() -> UIImage? {
+    public func imageRepresentation() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(frame.size, true, UIScreen.main.scale)
         if let context = UIGraphicsGetCurrentContext() {
             
             let backgroundColor = self.backgroundColor
             
             let initials = self.initials()
-            let fontSize = frame.size.height / 2.8
+            let fontSize = frame.size.height / 1.8
             
             let rectanglePath = UIBezierPath(rect: CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: frame.height))
             backgroundColor.setFill()
@@ -59,12 +59,14 @@ public class CDFInitialsAvatar {
     
     private func initials() -> String {
         let words = self.fullName.components(separatedBy: CharacterSet.whitespaces)
-        return words.filter{
+        let initials = words.filter{
             $0.characters.count > 0
             }
             .map {
                 $0.substring(to: $0.index($0.startIndex, offsetBy: 1))
             }
             .reduce("", {$0 + $1})
+        
+        return initials.characters.count > 2 ? initials.substring(to: initials.index(initials.startIndex, offsetBy: 2)) : initials
     }
 }

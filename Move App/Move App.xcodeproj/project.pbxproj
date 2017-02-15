@@ -56,6 +56,10 @@
 		E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */; };
 		E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */; };
 		E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BE91E50255C006EDB7B /* UserManager.swift */; };
+		E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C561E53E9C8006EDB7B /* PopoverAction.swift */; };
+		E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C571E53E9C8006EDB7B /* PopoverView.swift */; };
+		E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C581E53E9C8006EDB7B /* PopoverViewCell.swift */; };
+		E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C5D1E53EE47006EDB7B /* RxPopover.swift */; };
 		E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621351E49755A007D3BD3 /* MoveApi.swift */; };
 		E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */; };
 		E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */; };
@@ -206,6 +210,10 @@
 		E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseAnnotation.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/BaseAnnotation.swift"; sourceTree = "<group>"; };
 		E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDFInitialsAvatar.swift; path = CDFInitialsAvatar/CDFInitialsAvatar.swift; sourceTree = "<group>"; };
 		E03B1BE91E50255C006EDB7B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = "Source Code/Servers/UserManager/UserManager.swift"; sourceTree = "<group>"; };
+		E03B1C561E53E9C8006EDB7B /* PopoverAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverAction.swift; path = Vendor/Popover/Classes/PopoverAction.swift; sourceTree = "<group>"; };
+		E03B1C571E53E9C8006EDB7B /* PopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverView.swift; path = Vendor/Popover/Classes/PopoverView.swift; sourceTree = "<group>"; };
+		E03B1C581E53E9C8006EDB7B /* PopoverViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverViewCell.swift; path = Vendor/Popover/Classes/PopoverViewCell.swift; sourceTree = "<group>"; };
+		E03B1C5D1E53EE47006EDB7B /* RxPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxPopover.swift; path = Vendor/Popover/Rx/RxPopover.swift; sourceTree = "<group>"; };
 		E04621351E49755A007D3BD3 /* MoveApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApi.swift; path = "Source Code/Models/network/MoveWebAPI/MoveApi.swift"; sourceTree = "<group>"; };
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Response+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MoveObjectMapper.swift"; path = "Source Code/Models/network/MoveWebAPI/Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
@@ -538,6 +546,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				E03B1C541E53E8C4006EDB7B /* Popover */,
 				E0C228FD1E35DC0200BCF83D /* RxUtilities */,
 				E0C228FC1E35DBF600BCF83D /* RxImage */,
 				E0C228FB1E35DBE100BCF83D /* RxReachability */,
@@ -707,6 +716,33 @@
 				E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */,
 			);
 			name = CDFInitialsAvatar;
+			sourceTree = "<group>";
+		};
+		E03B1C541E53E8C4006EDB7B /* Popover */ = {
+			isa = PBXGroup;
+			children = (
+				E03B1C5C1E53EBB3006EDB7B /* Rx */,
+				E03B1C551E53E8DB006EDB7B /* Classes */,
+			);
+			name = Popover;
+			sourceTree = "<group>";
+		};
+		E03B1C551E53E8DB006EDB7B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E03B1C561E53E9C8006EDB7B /* PopoverAction.swift */,
+				E03B1C571E53E9C8006EDB7B /* PopoverView.swift */,
+				E03B1C581E53E9C8006EDB7B /* PopoverViewCell.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		E03B1C5C1E53EBB3006EDB7B /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				E03B1C5D1E53EE47006EDB7B /* RxPopover.swift */,
+			);
+			name = Rx;
 			sourceTree = "<group>";
 		};
 		E04621321E49739F007D3BD3 /* MoveWebAPI */ = {
@@ -1408,6 +1444,7 @@
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
+				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
@@ -1422,6 +1459,7 @@
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
+				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
@@ -1452,6 +1490,7 @@
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
+				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
@@ -1465,6 +1504,7 @@
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
+				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
