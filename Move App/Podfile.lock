@@ -20,7 +20,6 @@ PODS:
     - Moya/Core
     - RxSwift (~> 3.1.0)
   - ObjectMapper (2.2.2)
-  - Popover (1.0.3)
   - R.swift (3.2.0):
     - R.swift.Library (~> 3.0.2)
   - R.swift.Library (3.0.2)
@@ -57,7 +56,6 @@ DEPENDENCIES:
   - Moya
   - Moya-ObjectMapper/RxSwift
   - Moya/RxSwift
-  - Popover
   - R.swift
   - RxBlocking
   - RxCocoa (~> 3.0)
@@ -81,7 +79,6 @@ SPEC CHECKSUMS:
   Moya: 850a166ab8241bd1c1cea6dbe012e3a2ad62944a
   Moya-ObjectMapper: b7f1f44f02b14c97d8a8efe9c6f8e6072252a58c
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
-  Popover: 7cf1377f251fcdeec5262727dc150b806444dfe8
   R.swift: 207a372a2b5977caef440c696a368009460641d1
   R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
   Realm: 69d7de9aa569a11eed490aaabc8f2109e3985ecf
@@ -97,6 +94,6 @@ SPEC CHECKSUMS:
   SVPulsingAnnotationView: f1a8dc7a57ebb5fa231d0ef8b0da59a250005511
   SwiftyBeaver: 2b68694df862381235e32bcfc4ec991e26bf131d
 
-PODFILE CHECKSUM: 91da5d79eae00fd3bd2294e00673313717c2f2e2
+PODFILE CHECKSUM: a6b9d3cfaa5fb17bc5b37979e060f29b34f4d9f1
 
 COCOAPODS: 1.1.1
