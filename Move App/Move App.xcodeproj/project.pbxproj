@@ -27,6 +27,10 @@
 		D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */; };
 		D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */; };
 		D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */; };
+		D2AC16CC1E5460C400815823 /* TXHRrettyRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AC16C81E5460C400815823 /* TXHRrettyRuler.h */; };
+		D2AC16CD1E5460C400815823 /* TXHRrettyRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC16C91E5460C400815823 /* TXHRrettyRuler.m */; };
+		D2AC16CE1E5460C400815823 /* TXHRulerScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AC16CA1E5460C400815823 /* TXHRulerScrollView.h */; };
+		D2AC16CF1E5460C400815823 /* TXHRulerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC16CB1E5460C400815823 /* TXHRulerScrollView.m */; };
 		D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611C1E4F139900E46F41 /* LoginViewController.swift */; };
 		D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */; };
 		D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */; };
@@ -174,6 +178,10 @@
 		D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Location+Mappable.swift"; sourceTree = "<group>"; };
 		D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ActivityRecord.swift"; sourceTree = "<group>"; };
 		D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ActivityRecord+Mappable.swift"; sourceTree = "<group>"; };
+		D2AC16C81E5460C400815823 /* TXHRrettyRuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXHRrettyRuler.h; sourceTree = "<group>"; };
+		D2AC16C91E5460C400815823 /* TXHRrettyRuler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXHRrettyRuler.m; sourceTree = "<group>"; };
+		D2AC16CA1E5460C400815823 /* TXHRulerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXHRulerScrollView.h; sourceTree = "<group>"; };
+		D2AC16CB1E5460C400815823 /* TXHRulerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXHRulerScrollView.m; sourceTree = "<group>"; };
 		D2D6611C1E4F139900E46F41 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Source Code/Scenes/Login/Controller/LoginViewController.swift"; sourceTree = "<group>"; };
 		D2D6611D1E4F139900E46F41 /* ProtectAccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtectAccountController.swift; path = "Source Code/Scenes/Login/Controller/ProtectAccountController.swift"; sourceTree = "<group>"; };
 		D2D6611E1E4F139900E46F41 /* PwdRecoveryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PwdRecoveryController.swift; path = "Source Code/Scenes/Login/Controller/PwdRecoveryController.swift"; sourceTree = "<group>"; };
@@ -412,6 +420,17 @@
 			path = SendMessage;
 			sourceTree = "<group>";
 		};
+		D2AC16C71E5460C400815823 /* PrettyRulerClass */ = {
+			isa = PBXGroup;
+			children = (
+				D2AC16C81E5460C400815823 /* TXHRrettyRuler.h */,
+				D2AC16C91E5460C400815823 /* TXHRrettyRuler.m */,
+				D2AC16CA1E5460C400815823 /* TXHRulerScrollView.h */,
+				D2AC16CB1E5460C400815823 /* TXHRulerScrollView.m */,
+			);
+			path = PrettyRulerClass;
+			sourceTree = "<group>";
+		};
 		D2D661261E4F13A100E46F41 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,9 +539,9 @@
 		E01DF7171E30868500EA003D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E0931F111E30ADAE00755B4A /* Fonts */,
 				E0931F131E30B10600755B4A /* R.generated.swift */,
 				E0931F121E30ADD100755B4A /* Files */,
-				E0931F111E30ADAE00755B4A /* Fonts */,
 				E0931F0D1E30A92E00755B4A /* Colors */,
 				E01DF7221E3087C500EA003D /* Strings */,
 				E01DF7211E3087AB00EA003D /* Assets */,
@@ -633,6 +652,7 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				D2AC16C71E5460C400815823 /* PrettyRulerClass */,
 				E03B1BDD1E4DB8FC006EDB7B /* CDFInitialsAvatar */,
 				E01DF73D1E308D9C00EA003D /* Extensions */,
 				E01DF7321E308D7F00EA003D /* CustomViews.h */,
@@ -1083,6 +1103,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2AC16CC1E5460C400815823 /* TXHRrettyRuler.h in Headers */,
+				D2AC16CE1E5460C400815823 /* TXHRulerScrollView.h in Headers */,
 				E01DF7341E308D7F00EA003D /* CustomViews.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1532,6 +1554,8 @@
 			files = (
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
 				E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */,
+				D2AC16CD1E5460C400815823 /* TXHRrettyRuler.m in Sources */,
+				D2AC16CF1E5460C400815823 /* TXHRulerScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

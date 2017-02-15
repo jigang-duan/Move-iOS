@@ -141,7 +141,7 @@
                                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Ztt-yH-ztG" kind="push" id="cI6-9c-jLk"/>
+                                                    <segue destination="Ztt-yH-ztG" kind="show" id="cI6-9c-jLk"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6H-Vw-cBQ">
@@ -157,7 +157,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="3ma-bW-nPx" kind="push" id="2DD-bf-WzS"/>
+                                                    <segue destination="3ma-bW-nPx" kind="show" id="2DD-bf-WzS"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="960-KP-Uz1">
@@ -249,6 +249,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA">
+                        <barButtonItem key="backBarButtonItem" title=" " id="dL2-4f-iTk"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="dwi-4Z-s9G">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ua4-Pp-a95">
                                 <rect key="frame" x="16" y="7" width="42" height="30"/>
@@ -374,7 +375,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="0SY-sh-nhh" kind="push" id="mNf-Oj-7CC"/>
+                                    <segue destination="0SY-sh-nhh" kind="show" id="mNf-Oj-7CC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -395,7 +396,9 @@
                             <constraint firstAttribute="trailing" secondItem="8vp-2y-AOK" secondAttribute="trailing" id="wle-Bn-HZs"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Yw1-9E-SVk"/>
+                    <navigationItem key="navigationItem" id="Yw1-9E-SVk">
+                        <barButtonItem key="backBarButtonItem" title=" " id="3RG-Gd-d4m"/>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
@@ -524,7 +527,9 @@
                             <constraint firstAttribute="trailing" secondItem="VhK-LQ-Hs2" secondAttribute="trailing" constant="10" id="dq1-Jb-Byb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Lhh-xh-DmB"/>
+                    <navigationItem key="navigationItem" id="Lhh-xh-DmB">
+                        <barButtonItem key="backBarButtonItem" title=" " id="UJv-hc-0D7"/>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="HelpLabel" destination="zL5-qI-7nc" id="sdA-Bz-jzC"/>
@@ -698,7 +703,9 @@
                             <constraint firstAttribute="trailing" secondItem="7iW-I9-xR0" secondAttribute="trailing" id="xUc-ey-LOx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="hqp-eM-IHc"/>
+                    <navigationItem key="navigationItem" id="hqp-eM-IHc">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Usm-oh-nMe"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="remindLabel" destination="Vfn-rN-Da0" id="MwI-7E-L6z"/>
                     </connections>
@@ -855,7 +862,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="MIe-RW-72l" kind="push" id="adY-wX-acJ"/>
+                                    <segue destination="MIe-RW-72l" kind="show" id="adY-wX-acJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3c-vp-Fty">
@@ -901,7 +908,9 @@ Terms of use,Privacy and Secunity</string>
                             <constraint firstItem="XG8-Tw-Yv4" firstAttribute="leading" secondItem="Ri4-ln-j4n" secondAttribute="leading" constant="20" id="whW-No-QN4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign Up" id="tDs-hh-fmn"/>
+                    <navigationItem key="navigationItem" title="Sign Up" id="tDs-hh-fmn">
+                        <barButtonItem key="backBarButtonItem" title=" " id="jk7-ex-Bs9"/>
+                    </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="emailTextfield" destination="e4p-6M-NF2" id="shf-Hc-1bi"/>

@@ -12,7 +12,11 @@ import Moya
 struct MoveAccessTokenPlugin: PluginType {
     
     /// The access token to be applied in the header.
-    public var token: String = ""
+    public var token: String {
+        get {
+            return UserInfo.share.accessToken.token ?? ""
+        }
+    }
     
     private var authVal: String {
         return "key=\(MoveApi.apiKey);token=" + token

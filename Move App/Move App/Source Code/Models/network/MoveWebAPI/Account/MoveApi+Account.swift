@@ -26,36 +26,36 @@ extension MoveApi {
             return defaultProvider.request(target)
         }
         //        设备获取Access Token
-        final class func getAccessToken(tokenReq: AccessTokenReq) -> Observable<AccessToken> {
-            return request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self)
+        final class func getAccessToken(tokenReq: AccessTokenReq) -> Observable<UserInfo> {
+            return request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self).cachingToken()
         }
         //        检查用户名，邮箱，手机号码是否已被使用
         final class func isRegistered(account: String) -> Observable<Registered> {
             return request(.registered(account: account)).mapMoveObject(Registered.self)
         }
         //        帐号注册
-        final class func register(userInfo: UserInfo) -> Observable<AccessToken> {
-            return request(.register(userInfo: userInfo)).mapMoveObject(AccessToken.self)
+        final class func register(userInfo: UserInfoMappable) -> Observable<UserInfo> {
+            return request(.register(userInfo: userInfo)).mapMoveObject(AccessToken.self).cachingToken()
         }
         //        帐号登录
-        final class func login(info: LoginInfo) -> Observable<AccessToken> {
-            return request(.login(info: info)).mapMoveObject(AccessToken.self)
+        final class func login(info: LoginInfo) -> Observable<UserInfo> {
+            return request(.login(info: info)).mapMoveObject(AccessToken.self).cachingToken()
         }
         //        第三方登录
-        final class func tplogin(info: TpLoginInfo) -> Observable<AccessToken> {
-            return request(.tplogin(info: info)).mapMoveObject(AccessToken.self)
+        final class func tplogin(info: TpLoginInfo) -> Observable<UserInfo> {
+            return request(.tplogin(info: info)).mapMoveObject(AccessToken.self).cachingToken()
         }
         //        刷新Access Token
-        final class func refreshToken() -> Observable<AccessToken> {
-            return request(.refreshToken).mapMoveObject(AccessToken.self)
+        final class func refreshToken() -> Observable<UserInfo> {
+            return request(.refreshToken).mapMoveObject(AccessToken.self).cachingToken()
         }
         //        帐号注销
         final class func logout() -> Observable<ApiError> {
             return request(.logout).mapMoveObject(ApiError.self)
         }
         //        获取用户信息
-        final class func getUserInfo(uid: String) -> Observable<UserInfo> {
-            return request(.getUserInfo(uid: uid)).mapMoveObject(UserInfo.self)
+        final class func getUserInfo(uid: String) -> Observable<UserInfoMappable> {
+            return request(.getUserInfo(uid: uid)).mapMoveObject(UserInfoMappable.self)
         }
         //        设置用户信息
         final class func settingUserInfo(uid: String, info: UserInfoSetting) -> Observable<ApiError> {
@@ -69,7 +69,7 @@ extension MoveApi {
         enum API {
             case getAccessToken(tokenReq: AccessTokenReq)
             case registered(account: String)
-            case register(userInfo: UserInfo)
+            case register(userInfo: UserInfoMappable)
             case login(info: LoginInfo)
             case tplogin(info: TpLoginInfo)
             case refreshToken
