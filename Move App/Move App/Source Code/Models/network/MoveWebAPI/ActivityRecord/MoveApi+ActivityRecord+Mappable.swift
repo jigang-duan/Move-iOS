@@ -56,6 +56,8 @@ extension MoveApi {
         var distance: Int?
         var calorie: Int?
         var time: Date?
+        var like_count: Int?
+        var liked: Bool?
     }
     
     struct StepSumReq {
@@ -71,6 +73,8 @@ extension MoveApi {
     struct RecordScore {
         var uid: String?
         var score: Int?
+        var like_count: Int?
+        var liked: Bool?
     }
 }
 
@@ -148,6 +152,8 @@ extension MoveApi.Step: Mappable {
         distance <- map["distance"]
         calorie <- map["calorie"]
         time <- (map["time"], DateTransform())
+        like_count <- map["like_count"]
+        liked <- map["liked"]
     }
 }
 
@@ -179,6 +185,8 @@ extension MoveApi.RecordScore: Mappable {
     mutating func mapping(map: Map) {
         uid <- map["uid"]
         score <- map["score"]
+        like_count <- map["like_count"]
+        liked <- map["liked"]
     }
 }
 

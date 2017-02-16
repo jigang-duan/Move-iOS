@@ -33,6 +33,13 @@ extension MoveApi {
         var profile: String?
     }
     
+    struct DeviceJoinInfo {
+        var phone: String?
+        var identity: DeviceAddIdentity?
+        var profile: String?
+    }
+    
+    
     struct DeviceGetListResp {
         var devices: [DeviceInfo]?
     }
@@ -71,6 +78,10 @@ extension MoveApi {
         var permissions: [Any]?
         var reminders: [Any]?
     }
+    
+    struct  DevicePower {
+        var power: Int?
+    }
 }
 
 extension MoveApi.DeviceAdd: Mappable {
@@ -87,6 +98,22 @@ extension MoveApi.DeviceAdd: Mappable {
     mutating func mapping(map: Map) {
         sid <- map["sid"]
         vcode <- map["vcode"]
+        phone <- map["phone"]
+        identity <- map["identity"]
+        profile <- map["profile"]
+    }
+}
+
+extension MoveApi.DeviceJoinInfo: Mappable {
+    init?(map: Map) {
+    }
+    
+    init(phone: String, identity: String) {
+        self.phone=phone
+        self.identity=MoveApi.DeviceAddIdentity(rawValue: identity)
+    }
+    
+    mutating func mapping(map: Map) {
         phone <- map["phone"]
         identity <- map["identity"]
         profile <- map["profile"]
@@ -147,7 +174,14 @@ extension MoveApi.DeviceSetting: Mappable {
     }
 }
 
-
+extension MoveApi.DevicePower: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        power <- map["power"]
+    }
+}
 
 
 

@@ -29,6 +29,10 @@ extension MoveApi {
         final class func add(deviceId: String, addInfo: DeviceAdd) -> Observable<ApiError> {
             return request(.add(deviceId: deviceId, addInfo: addInfo)).mapMoveObject(ApiError.self)
         }
+//        加入设备群组
+        final class func joinDeviceGroup(deviceId: String, joinInfo: DeviceJoinInfo) ->Observable<ApiError>{
+            return request(.joinDeviceGroup(deviceId: deviceId, joinInfo: joinInfo)).mapMoveObject(ApiError.self)
+        }
 //        获取设备列表
         final class func getDeviceList() -> Observable<DeviceGetListResp> {
             return request(.getDeviceList).mapMoveObject(DeviceGetListResp.self)
@@ -53,15 +57,26 @@ extension MoveApi {
         final class func setting(deviceId: String, settingInfo: DeviceSetting) -> Observable<ApiError> {
             return request(.setting(deviceId: deviceId, settingInfo: settingInfo)).mapMoveObject(ApiError.self)
         }
+//        上报电量
+        final class func addPower(deviceId: String, power: DevicePower) -> Observable<ApiError> {
+            return request(.addPower(deviceId: deviceId, power: power)).mapMoveObject(ApiError.self)
+        }
+//        获取电量
+        final class func getPower(deviceId: String) -> Observable<DevicePower> {
+            return request(.getPower(deviceId: deviceId)).mapMoveObject(DevicePower.self)
+        }
         
         enum API {
             case add(deviceId: String, addInfo: DeviceAdd)
+            case joinDeviceGroup(deviceId: String, joinInfo: DeviceJoinInfo)
             case getDeviceList
             case getDeviceInfo(deviceId: String)
             case update(deviceId: String, updateInfo: DeviceInfo)
             case delete(deviceId: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)
+            case addPower(deviceId: String, power: DevicePower)
+            case getPower(deviceId: String)
         }
         
     }
@@ -83,6 +98,8 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add(let deviceId, _):
             return "/\(deviceId)"
+        case .joinDeviceGroup(let deviceId, _):
+            return "/\(deviceId)/join"
         case .getDeviceList:
             return "/list"
         case .getDeviceInfo(let deviceId):
@@ -95,17 +112,21 @@ extension MoveApi.Device.API: TargetType {
             return "/\(deviceId)/settings"
         case .setting(let deviceId, _):
             return "/\(deviceId)/settings"
+        case .addPower(let deviceId, _):
+            return "/\(deviceId)/power"
+        case .getPower(let deviceId):
+            return "/\(deviceId)/power"
         }
     }
     
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .add:
+        case .add, .joinDeviceGroup:
             return .post
-        case .getDeviceList, .getDeviceInfo, .getSetting:
+        case .getDeviceList, .getDeviceInfo, .getSetting, .getPower:
             return .get
-        case .update, .setting:
+        case .update, .setting, .addPower:
             return .put
         case .delete:
             return .delete
@@ -117,12 +138,16 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add(_, let addInfo):
             return addInfo.toJSON()
-        case .getDeviceList, .getDeviceInfo, .delete, .getSetting:
+        case .joinDeviceGroup(_, let joinInfo):
+            return joinInfo.toJSON()
+        case .getDeviceList, .getDeviceInfo, .delete, .getSetting, .getPower:
             return nil
         case .update(_, let updateInfo):
             return updateInfo.toJSON()
         case .setting(_, let settingInfo):
             return settingInfo.toJSON()
+        case .addPower(_, let power):
+            return power.toJSON()
         }
     }
     
@@ -132,19 +157,13 @@ extension MoveApi.Device.API: TargetType {
     /// Provides stub data for use in testing.
     var sampleData: Data {
         switch self {
-        case .add:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         case .getDeviceList:
             return ([MoveApi.DeviceInfo()].toJSONString()?.utf8Encoded)!
         case .getDeviceInfo:
             return (MoveApi.DeviceInfo().toJSONString()?.utf8Encoded)!
-        case .update:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        case .delete:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         case .getSetting:
             return (MoveApi.DeviceSetting().toJSONString()?.utf8Encoded)!
-        case .setting:
+        default:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         }
     }

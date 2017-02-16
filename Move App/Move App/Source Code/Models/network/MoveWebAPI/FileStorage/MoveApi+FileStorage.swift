@@ -95,8 +95,8 @@ extension MoveApi.FileStorage.API: TargetType {
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
         switch self {
-        case .upload:
-            return nil
+        case .upload(let fileInfo):
+            return ["duration": fileInfo.duration ?? 0]
         case .download:
             return nil
         case .delete:
@@ -120,7 +120,21 @@ extension MoveApi.FileStorage.API: TargetType {
     }
     
     /// The type of HTTP task to be performed.
-    var task: Task { return .request }
+    var task: Task {
+        switch self {
+        case .upload(let fileInfo):
+            return .upload(UploadType.multipart([MultipartFormData(provider: MultipartFormData.FormDataProvider.data(fileInfo.file!), name: "file", mimeType: fileInfo.type)]))
+        case .download:
+            return .download(DownloadType.request({ (_, response) in
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let fileURL = documentsURL.appendingPathComponent("DownloadFiles/\(response.suggestedFilename!)")
+                //两个参数表示如果有同名文件则会覆盖，如果路径中文件夹不存在则会自动创建
+                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+            }))
+        case .delete:
+            return .request
+        }
+    }
     
 }
 
@@ -128,15 +142,9 @@ extension MoveApi.FileStorage {
     
     final class func uploadMapping(for target: API) -> Endpoint<API> {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-        
-//        let filename="xxxx"
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "multipart/form-data",
-            "boundary": "<Boundary>",
-            
-//            "<Boundary>": "--<Boundary>Content-Disposition: 'form-data'; name='file'; filename='\(filename)'; Content-Type:'image/jpeg'; <file-data>--<Boundary>"
-            
             "Authorization": "key=\(MoveApi.apiKey)"])
     }
     
@@ -144,7 +152,7 @@ extension MoveApi.FileStorage {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
-            "Content-Type": "application/json",
+            "Content-Type": "image/png",
             "Authorization": "key=\(MoveApi.apiKey)"])
     }
     
