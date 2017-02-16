@@ -9,8 +9,16 @@
 import Foundation
 import RxSwift
 
+extension UIView {
+    func popover(style: PopoverViewStyle = .default, hasSelected: Bool = false, actions: [PopoverAction]) {
+        let popoerView = PopoverView(hasSelected: hasSelected)
+        popoerView.style = style
+        popoerView.show(toView: self, with: actions)
+    }
+}
+
 class RxPopover {
-    var style = PopoverView.Style.default
+    var style = PopoverViewStyle.default
     var hasSelected = false
     
     func show (toView: UIView, actions: [PopoverAction]) -> Observable<PopoverAction> {

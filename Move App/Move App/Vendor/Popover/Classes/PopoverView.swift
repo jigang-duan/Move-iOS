@@ -12,12 +12,18 @@ fileprivate let kPopoverViewMargin: CGFloat      = 8.0      ///< 边距
 fileprivate let kPopoverViewCellHeight: CGFloat  = 40.0     ///< cell指定高度
 fileprivate let kPopoverViewArrowHeight: CGFloat = 13.0     ///< 箭头高度
 
+
+enum PopoverViewStyle {
+    case `default`
+    case dark
+}
+
 class PopoverView: UIView {
 
-    enum Style {
-        case `default`
-        case dark
-    }
+//    enum Style {
+//        case `default`
+//        case dark
+//    }
     
     var hasSelected = false
     
@@ -38,7 +44,7 @@ class PopoverView: UIView {
         }
     }
     
-    var style = Style.default {          ///< 弹出窗风格, 默认为 PopoverViewStyleDefault(白色).
+    var style = PopoverViewStyle.default {          ///< 弹出窗风格, 默认为 PopoverViewStyleDefault(白色).
         didSet {
             tableView.separatorColor = PopoverViewCell.bottomLineColor(style: style)
             self.backgroundColor = style == .default ? UIColor.white : UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1.0)

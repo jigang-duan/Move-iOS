@@ -17,6 +17,7 @@ target 'Move App' do
   pod 'SwiftyBeaver'
 
   # 网络
+  # https://github.com/Moya/Moya
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'Moya'
   pod 'Moya/RxSwift'
@@ -44,6 +45,10 @@ target 'Move App' do
   
   # Map Annotion View
   pod 'SVPulsingAnnotationView'
+  
+  # 日历视图
+  # https://github.com/WenchaoD/FSCalendar
+  pod 'FSCalendar'
   
   target 'Move AppTests' do
     inherit! :search_paths

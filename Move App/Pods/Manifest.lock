@@ -2,6 +2,7 @@ PODS:
   - AFImageHelper (3.2.1)
   - Alamofire (4.2.0)
   - DZNEmptyDataSet (1.8.1)
+  - FSCalendar (2.7.0)
   - IQKeyboardManager (4.0.8)
   - MJRefresh (3.1.12)
   - Moya (8.0.0):
@@ -51,6 +52,7 @@ PODS:
 DEPENDENCIES:
   - AFImageHelper (from `./github/ImageHelper-3.2.1`)
   - DZNEmptyDataSet
+  - FSCalendar
   - IQKeyboardManager
   - MJRefresh
   - Moya
@@ -74,6 +76,7 @@ SPEC CHECKSUMS:
   AFImageHelper: 63eb32592e2963ae2ba0996180f92de3a0ee2638
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FSCalendar: 4957703ebd99b4fd0bfd46bf3e3c6465c0a25482
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Moya: 850a166ab8241bd1c1cea6dbe012e3a2ad62944a
@@ -94,6 +97,6 @@ SPEC CHECKSUMS:
   SVPulsingAnnotationView: f1a8dc7a57ebb5fa231d0ef8b0da59a250005511
   SwiftyBeaver: 2b68694df862381235e32bcfc4ec991e26bf131d
 
-PODFILE CHECKSUM: a6b9d3cfaa5fb17bc5b37979e060f29b34f4d9f1
+PODFILE CHECKSUM: 859d6df1d28290dd252a752f50b796de15bec6d0
 
 COCOAPODS: 1.1.1

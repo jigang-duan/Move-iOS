@@ -43,7 +43,7 @@ class PopoverViewCell: UITableViewCell {
         }
     }
     
-    var style: PopoverView.Style = .default {
+    var style: PopoverViewStyle = .default {
         didSet {
             bottomLine.backgroundColor = PopoverViewCell.bottomLineColor(style: style)
             button.setTitleColor(style == .default ? UIColor.black : UIColor.white, for: .normal)
@@ -80,7 +80,7 @@ class PopoverViewCell: UITableViewCell {
     }
     
     /*! @brief 底部线条颜色 */
-    class func bottomLineColor(style: PopoverView.Style) -> UIColor {
+    class func bottomLineColor(style: PopoverViewStyle) -> UIColor {
         return style == .default ? UIColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1.0) : UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
     }
     
