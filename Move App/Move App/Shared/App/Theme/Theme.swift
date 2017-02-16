@@ -34,9 +34,15 @@ enum Theme: Int {
       return .black
     }
   }
+    
+    var darkPrimaryColor: UIColor {
+        return R.color.appColor.darkPrimary()
+    }
 
   var navigationBackgroundImage: UIImage? {
-    return self == .graphical ? R.image.navBackground() : UIImage(color: self.mainColor)
+    return self == .graphical ? R.image.navBackground() : UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
+                                                                  size: CGSize(width: 320, height: 44),
+                                                                  locations: [0.0, 1.0])
   }
 
   var tabBarBackgroundImage: UIImage? {
@@ -89,9 +95,10 @@ struct ThemeManager {
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = R.color.appColor.icons()
         UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)
-        UINavigationBar.appearance().backIndicatorImage = R.image.backArrow1()
+        UINavigationBar.appearance().backIndicatorImage = R.image.general_back()
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backArrowMaskFixed()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: R.color.appColor.icons()]
+        UINavigationBar.appearance().isTranslucent = false
         
         UIBarButtonItem.appearance().tintColor = R.color.appColor.icons()
 
