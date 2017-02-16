@@ -10,5 +10,5 @@
 #define MoveApp_Bridging_Header_h
 
 #import <SVPulsingAnnotationView/SVPulsingAnnotationView.h>
-
+#import "TXHRrettyRuler.h"
 #endif /* MoveApp_Bridging_Header_h */

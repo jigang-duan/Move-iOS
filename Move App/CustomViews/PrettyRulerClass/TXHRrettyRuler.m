@@ -30,6 +30,7 @@
                              average:(NSNumber *)average
                         currentValue:(CGFloat)currentValue
                            smallMode:(BOOL)mode {
+    
     NSAssert(rulerScrollView != nil, @"***** 调用此方法前，请先调用 initWithFrame:(CGRect)frame 方法初始化对象 rulerScrollView\n");
     NSAssert(currentValue < [average floatValue] * count, @"***** currentValue 不能大于直尺最大值（count * average）\n");
     rulerScrollView.rulerAverage = average;

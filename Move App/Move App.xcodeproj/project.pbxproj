@@ -10,6 +10,10 @@
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
+		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
+		D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */; };
+		D239B1F11E5589890013E72E /* AccountChoseDeviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1F01E5589890013E72E /* AccountChoseDeviController.swift */; };
+		D239B1F31E55AD520013E72E /* AccountKidsGeneraluserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */; };
 		D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D3E1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift */; };
 		D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D3F1E4DD57F00F9E33A /* MoveApi+Device.swift */; };
 		D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D411E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift */; };
@@ -39,6 +43,8 @@
 		D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D661271E4F13B500E46F41 /* AccountMode.swift */; };
 		D2EFB04A1E529801000BE93C /* PairWatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EFB0481E529801000BE93C /* PairWatchController.swift */; };
 		D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EFB0491E529801000BE93C /* ScanCodeController.swift */; };
+		D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1A4831E553AED00915D9D /* SetYourHeghtController.swift */; };
+		D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */; };
 		D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6BAA1E52F7BF000CD7B7 /* RelationshipTableController.swift */; };
 		E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6E91E3059A800EA003D /* Main.storyboard */; };
 		E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6EE1E3059A800EA003D /* LaunchScreen.storyboard */; };
@@ -162,6 +168,10 @@
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourGenderController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourGenderController.swift"; sourceTree = "<group>"; };
+		D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourBirthdayController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourBirthdayController.swift"; sourceTree = "<group>"; };
+		D239B1F01E5589890013E72E /* AccountChoseDeviController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountChoseDeviController.swift; path = "Source Code/Scenes/Account/Controller/AccountChoseDeviController.swift"; sourceTree = "<group>"; };
+		D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountKidsGeneraluserController.swift; path = "Source Code/Scenes/Account/Controller/AccountKidsGeneraluserController.swift"; sourceTree = "<group>"; };
 		D24C4D3E1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Device+Mappable.swift"; sourceTree = "<group>"; };
 		D24C4D3F1E4DD57F00F9E33A /* MoveApi+Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Device.swift"; sourceTree = "<group>"; };
 		D24C4D411E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ElectronicFence+Mappable.swift"; sourceTree = "<group>"; };
@@ -191,6 +201,8 @@
 		D2D661271E4F13B500E46F41 /* AccountMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountMode.swift; path = "Source Code/Scenes/Login/ViewModel/AccountMode.swift"; sourceTree = "<group>"; };
 		D2EFB0481E529801000BE93C /* PairWatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PairWatchController.swift; path = "Source Code/Scenes/Chose Device/Controller/PairWatchController.swift"; sourceTree = "<group>"; };
 		D2EFB0491E529801000BE93C /* ScanCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanCodeController.swift; path = "Source Code/Scenes/Chose Device/Controller/ScanCodeController.swift"; sourceTree = "<group>"; };
+		D2F1A4831E553AED00915D9D /* SetYourHeghtController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourHeghtController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourHeghtController.swift"; sourceTree = "<group>"; };
+		D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourWeightController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourWeightController.swift"; sourceTree = "<group>"; };
 		D2FE6BAA1E52F7BF000CD7B7 /* RelationshipTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelationshipTableController.swift; path = "Source Code/Scenes/Chose Device/Controller/RelationshipTableController.swift"; sourceTree = "<group>"; };
 		D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.release.xcconfig"; sourceTree = "<group>"; };
 		E01DF6E21E3059A800EA003D /* Move App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Move App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -939,6 +951,10 @@
 				D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */,
 				D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */,
 				D2FE6BAA1E52F7BF000CD7B7 /* RelationshipTableController.swift */,
+				D2F1A4831E553AED00915D9D /* SetYourHeghtController.swift */,
+				D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */,
+				D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */,
+				D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -973,6 +989,8 @@
 			isa = PBXGroup;
 			children = (
 				E0931F551E31E12100755B4A /* AccountController.swift */,
+				D239B1F01E5589890013E72E /* AccountChoseDeviController.swift */,
+				D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1473,6 +1491,7 @@
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
+				D239B1F11E5589890013E72E /* AccountChoseDeviController.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
@@ -1486,16 +1505,19 @@
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
 				D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */,
+				D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
+				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
+				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
 				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
@@ -1514,6 +1536,7 @@
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
 				E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
+				D239B1F31E55AD520013E72E /* AccountKidsGeneraluserController.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
@@ -1535,6 +1558,7 @@
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				E0931F141E30B10600755B4A /* R.generated.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
+				D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,

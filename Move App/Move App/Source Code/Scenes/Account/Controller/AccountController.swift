@@ -24,8 +24,9 @@ class AccountController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //userInfoView.backgroundColor = ThemeManager.currentTheme().mainColor
+     //导航栏微调
+        userInfoView.backgroundColor = ThemeManager.currentTheme().mainColor
+        self.navigationController?.navigationBar.clipsToBounds = true
         
         let dataSource = self.dataSource
         
