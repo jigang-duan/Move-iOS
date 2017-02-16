@@ -46,8 +46,8 @@ extension MoveApi {
             return request(.cancelSportLike(uid: uid)).mapMoveObject(ApiError.self)
         }
 //        获取单个用户步数(统计)
-        final class func getContactStepSum(deviceId: String, stepSumReq: StepSumReq) -> Observable<Step> {
-            return request(.getContactStepSum(deviceId: deviceId, stepSumReq: stepSumReq)).mapMoveObject(Step.self)
+        final class func getContactStepSum(uid: String, stepSumReq: StepSumReq) -> Observable<Step> {
+            return request(.getContactStepSum(uid: uid, stepSumReq: stepSumReq)).mapMoveObject(Step.self)
         }
 //        批量获取用户分数
         final class func getContactListScore(contactList: [Contact]) -> Observable<RecordScoreList> {
@@ -68,7 +68,7 @@ extension MoveApi {
             case getContactListStep(contactList: [Contact])
             case sportLike(uid: String)
             case cancelSportLike(uid: String)
-            case getContactStepSum(deviceId: String, stepSumReq: StepSumReq)
+            case getContactStepSum(uid: String, stepSumReq: StepSumReq)
             case getContactListScore(contactList: [Contact])
             case gameLike(uid: String)
             case cancelGameLike(uid: String)
@@ -98,17 +98,17 @@ extension MoveApi.ActivityRecord.API: TargetType {
         case .getContactListStep:
             return "/steps"
         case .sportLike(let uid):
-            return "/step/\(uid)/like"
+            return "/\(uid)/step/like"
         case .cancelSportLike(let uid):
-            return "/step/\(uid)/unlike"
-        case .getContactStepSum(let deviceId, _):
-            return "/step/\(deviceId)"
+            return "/\(uid)/step/unlike"
+        case .getContactStepSum(let uid, _):
+            return "/\(uid)/steps"
         case .getContactListScore:
             return "/score"
         case .gameLike(let uid):
-            return "/score/\(uid)/like"
+            return "/\(uid)/score/like"
         case .cancelGameLike(let uid):
-            return "/score/\(uid)/unlike"
+            return "/\(uid)/score/unlike"
         }
     }
     

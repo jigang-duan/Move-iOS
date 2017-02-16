@@ -30,6 +30,10 @@ extension MoveApi {
         final class func add(deviceId: String, locationAdd: LocationAdd) -> Observable<ApiError> {
             return request(.add(deviceId: deviceId, locationAdd: locationAdd)).mapMoveObject(ApiError.self)
         }
+//        LBS定位
+        final class func getByLBS(deviceId: String, locationAdd: LocationAdd) -> Observable<LocationNew> {
+            return request(.getByLBS(deviceId: deviceId, locationAdd: locationAdd)).mapMoveObject(LocationNew.self)
+        }
 //        获取最新位置
         final class func getNew(deviceId: String) -> Observable<LocationNew> {
             return request(.getNew(deviceId: deviceId)).mapMoveObject(LocationNew.self)
@@ -41,6 +45,7 @@ extension MoveApi {
         
         enum API {
             case add(deviceId: String, locationAdd: LocationAdd)
+            case getByLBS(deviceId: String, locationAdd: LocationAdd)
             case getNew(deviceId: String)
             case getHistory(deviceId: String, locationReq: LocationReq)
         }
@@ -64,6 +69,8 @@ extension MoveApi.Location.API: TargetType {
         switch self {
         case .add(let deviceId, _):
             return "/\(deviceId)"
+        case .getByLBS(let deviceId, _):
+            return "/\(deviceId)"
         case .getNew(let deviceId):
             return "/\(deviceId)/location"
         case .getHistory(let deviceId, _):
@@ -78,6 +85,8 @@ extension MoveApi.Location.API: TargetType {
             return .post
         case .getNew, .getHistory:
             return .get
+        case .getByLBS:
+            return .put
         }
     }
     
@@ -85,6 +94,8 @@ extension MoveApi.Location.API: TargetType {
     var parameters: [String: Any]? {
         switch self {
         case .add(_, let locationAdd):
+            return locationAdd.toJSON()
+        case .getByLBS(_, let locationAdd):
             return locationAdd.toJSON()
         case .getNew:
             return nil
@@ -101,9 +112,7 @@ extension MoveApi.Location.API: TargetType {
         switch self {
         case .add:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        case .getNew:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        case .getHistory:
+        default:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         }
     }

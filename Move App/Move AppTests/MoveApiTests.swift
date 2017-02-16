@@ -29,6 +29,7 @@ class MoveApiTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    //    Account
     func testAccountApi()  {
         let userInfo = ApiTestInfo.share.userInfo
         
@@ -110,6 +111,7 @@ class MoveApiTests: XCTestCase {
         //                XCTAssertEqual(logoutResp?.msg, "ok")
     }
     
+    //    Verification
     func testVerificationApi()  {
         
         let userInfo = ApiTestInfo.share.userInfo
@@ -150,8 +152,9 @@ class MoveApiTests: XCTestCase {
         XCTAssertEqual(deleteResp?.msg, "ok")
     }
     
+    //    Device
     func testDeviceApi() {
-       
+        
         let testInfo = ApiTestInfo.share
         
         let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
@@ -172,8 +175,14 @@ class MoveApiTests: XCTestCase {
         }).toBlocking().last() {
             XCTFail()
         }
-        
-        
+        //        加入设备群组
+        guard let joinDeviceGroupResp = try? MoveApi.Device.joinDeviceGroup(deviceId: testInfo.deviceInfo.device_id!, joinInfo: MoveApi.DeviceJoinInfo(phone: testInfo.userInfo.phone, identity: MoveApi.DeviceAddIdentity.brother, profile: "")).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(joinDeviceGroupResp?.id, 0)
+        XCTAssertEqual(joinDeviceGroupResp?.msg, "ok")
+        //        获取设备列表
         guard let getDeviceListResp = try? MoveApi.Device.getDeviceList().toBlocking().last() else{
             XCTFail()
             return
@@ -214,8 +223,25 @@ class MoveApiTests: XCTestCase {
         }
         XCTAssertEqual(settingResp?.id, 0)
         XCTAssertEqual(settingResp?.msg, "ok")
+        
+        
+        let power = MoveApi.DevicePower(power: 66)
+        //        上报电量
+        guard let addPowerResp = try? MoveApi.Device.addPower(deviceId: testInfo.deviceInfo.device_id!, power: power).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(addPowerResp?.id, 0)
+        XCTAssertEqual(addPowerResp?.msg, "ok")
+        //        获取电量
+        guard let getPowerResp = try? MoveApi.Device.getPower(deviceId: testInfo.deviceInfo.device_id!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(getPowerResp, power)
     }
     
+    //    ElectronicFence
     func testElectronicFenceApi() {
         
         let testInfo = ApiTestInfo.share
@@ -240,8 +266,94 @@ class MoveApiTests: XCTestCase {
         testInfo.fenceInfo = (getFenceResp?.fences?[0])!
     }
     
+    //    FileStorage
+    func testFileStorageApi(){
+        let testInfo = ApiTestInfo.share
+        
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        
+        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(uploadResp?.fid)
+        
+        guard let downloadResp = try? MoveApi.FileStorage.download(fid: (uploadResp?.fid)!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(downloadResp)
+        
+        guard let deleteResp = try? MoveApi.FileStorage.delete(fid: (uploadResp?.fid)!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(deleteResp?.id, 0)
+        XCTAssertEqual(deleteResp?.msg, "ok")
+        
+    }
     
+    //    Message
+    func testHistoryMessageApi(){
+        let testInfo = ApiTestInfo.share
+        
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        
+        //                查看聊天消息记录
+        guard let getChatRecordResp = try? MoveApi.HistoryMessage.getChatRecord(uid: testInfo.userInfo.uid!, chatReq: testInfo.chatReq).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getChatRecordResp)
+        //        设置消息已读状态
+        guard let settingReadStatusResp = try? MoveApi.HistoryMessage.settingReadStatus(uid: testInfo.userInfo.uid!, msgid: RandomString.sharedInstance.getRandomStringOfLength(length: 10)) .toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(settingReadStatusResp?.id, 0)
+        XCTAssertEqual(settingReadStatusResp?.msg, "ok")
+        //        删除聊天消息
+        guard let deleteByMsgidResp = try? MoveApi.HistoryMessage.deleteByMsgid(uid: testInfo.userInfo.uid!, msgid: RandomString.sharedInstance.getRandomStringOfLength(length: 10)).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(deleteByMsgidResp?.id, 0)
+        XCTAssertEqual(deleteByMsgidResp?.msg, "ok")
+        //        清除聊天消息
+        guard let cleanMessagesResp = try? MoveApi.HistoryMessage.cleanMessages(uid: testInfo.userInfo.uid!).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(cleanMessagesResp?.id, 0)
+        XCTAssertEqual(cleanMessagesResp?.msg, "ok")
+        
+        //        查看通知消息记录
+        guard let getNotificationsResp = try? MoveApi.HistoryMessage.getNotifications(uid: testInfo.userInfo.uid!, chatReq: testInfo.chatReq).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertNotNil(getNotificationsResp)
+        
+        //        设置通知已读状态
+        guard let settingNotificationReadStatusResp = try? MoveApi.HistoryMessage.settingNotificationReadStatus(uid: testInfo.userInfo.uid!, msgid: RandomString.sharedInstance.getRandomStringOfLength(length: 10)) .toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(settingNotificationReadStatusResp?.id, 0)
+        XCTAssertEqual(settingNotificationReadStatusResp?.msg, "ok")
+        //        删除通知消息
+        guard let deleteNotificationResp = try? MoveApi.HistoryMessage.deleteNotification(uid: testInfo.userInfo.uid!, msgid: RandomString.sharedInstance.getRandomStringOfLength(length: 10)).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(deleteNotificationResp?.id, 0)
+        XCTAssertEqual(deleteNotificationResp?.msg, "ok")
+    }
     
+    //    Location
     func testLocationApi() {
         
         let testInfo = ApiTestInfo.share
@@ -271,7 +383,7 @@ class MoveApiTests: XCTestCase {
         XCTAssertNotNil(getHistoryResp)
     }
     
-    
+    //    ActivityRecord
     func  testActivityRecordApi() {
         
         let testInfo = ApiTestInfo.share
@@ -315,7 +427,7 @@ class MoveApiTests: XCTestCase {
         XCTAssertEqual(cancelSportLikeResp?.id, 0)
         XCTAssertEqual(cancelSportLikeResp?.msg, "ok")
         //        获取单个用户步数(统计)
-        guard let getContactStepSumResp = try? MoveApi.ActivityRecord.getContactStepSum(deviceId: testInfo.deviceInfo.device_id!, stepSumReq: MoveApi.StepSumReq(start_time: Date(timeIntervalSinceNow: -86400), end_time: Date(), by: "")).toBlocking().last() else{
+        guard let getContactStepSumResp = try? MoveApi.ActivityRecord.getContactStepSum(uid: testInfo.userInfo.uid!, stepSumReq: MoveApi.StepSumReq(start_time: Date(timeIntervalSinceNow: -86400), end_time: Date(), by: "")).toBlocking().last() else{
             XCTFail()
             return
         }
@@ -369,12 +481,19 @@ class ApiTestInfo {
     var fenceInfo = MoveApi.FenceInfo(name: "fence001", location: MoveApi.Fencelocation(lat: 31.123456, lng: 121.123456, addr: "China"), radius: 1000, active: true)
     
     
+    
+    var fileInfo = MoveApi.FileInfo(type: "image", duration: 0, file: UIImagePNGRepresentation(UIImage.init(named: "Phone_number")!))
+    
+    var chatReq = MoveApi.GetChatReq(prev: "", next: "", count: 20)
+    
     var locationAdd = MoveApi.LocationAdd()
     
     
     var activity = MoveApi.Activity()
     
     var contact = MoveApi.Contact()
+    
+    
     
     
     private init() {
