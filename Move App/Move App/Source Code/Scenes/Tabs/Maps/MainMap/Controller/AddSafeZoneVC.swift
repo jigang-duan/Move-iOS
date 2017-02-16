@@ -18,6 +18,7 @@ class AddSafeZoneVC: UIViewController {
     var currentRadius :Double = 600
     var kidOverlay: MKCircle!
     var circleOverlay:MKCircle?
+    var blPinChBegin = false
 
 
     var disposeBag = DisposeBag()
@@ -34,6 +35,8 @@ class AddSafeZoneVC: UIViewController {
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var RadiusL: UILabel!
     @IBOutlet weak var safeZoneSlider: UISlider!
+    
+    var centerss : CLLocationCoordinate2D?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -74,13 +77,10 @@ class AddSafeZoneVC: UIViewController {
         self.mainMapView.setNeedsDisplay()
     }
     
-    
-    override func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions = [], context: UnsafeMutableRawPointer?) {
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        centerss = mainMapView.centerCoordinate
         let img = UIImage(named : "general_slider_dot")
         safeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         self.safeZoneSlider!.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
@@ -164,12 +164,24 @@ class AddSafeZoneVC: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        
-        
-        
-
 
         // Do any additional setup after loading the view.
+    }
+
+    @IBAction func PinchToChangeZoom(_ sender: UIPinchGestureRecognizer) {
+            
+            switch sender.state {
+            case .began:
+                 self.circleBorderView.removeFromSuperview()
+                self.blPinChBegin = true
+            case .changed:
+                self.drawOverlay(radius: currentRadius)
+            case .ended,.cancelled:
+                self.blPinChBegin = false
+            default:
+                break
+            }
+
     }
     
     private var rectFromCoordinate : CGRect  {
@@ -194,6 +206,17 @@ class AddSafeZoneVC: UIViewController {
     */
 }
 
+class CPinchGuesture :UIPinchGestureRecognizer {
+    
+    func canBePreventedByGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
+        return false
+    }
+    
+    func canPreventGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
+        return false
+    }
+}
+
 extension AddSafeZoneVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -212,14 +235,6 @@ extension AddSafeZoneVC : MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
-//        if overlay.isEqual(self.kidOverlay) {
-//            let renderer = MKCircleRenderer(overlay: overlay)
-//            renderer.fillColor = UIColor.red.withAlphaComponent(0.2)
-//            renderer.strokeColor = UIColor.red.withAlphaComponent(0.7)
-//            renderer.lineWidth = 1
-//            return renderer
-//        }
         
         if overlay.isEqual(self.circleOverlay) {
             let circleRender = MKCircleRenderer(overlay: overlay)

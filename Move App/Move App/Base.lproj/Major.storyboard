@@ -611,8 +611,10 @@
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="czK-ny-rIM">
                                 <rect key="frame" x="0.0" y="90" width="375" height="394"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="Ag8-PL-g1h" id="qTn-mW-TEF"/>
+                                    <outletCollection property="gestureRecognizers" destination="1GH-bF-gJq" appends="YES" id="joi-Ye-g1o"/>
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOG-Cq-eA8">
@@ -686,6 +688,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <pinchGestureRecognizer id="1GH-bF-gJq" customClass="CPinchGuesture" customModule="Move_App" customModuleProvider="target">
+                    <connections>
+                        <action selector="PinchToChangeZoom:" destination="Ag8-PL-g1h" id="IwF-5e-fic"/>
+                        <outlet property="delegate" destination="Ag8-PL-g1h" id="sfa-p2-dYE"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4319" y="3298"/>
         </scene>
