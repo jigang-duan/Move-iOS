@@ -17,13 +17,12 @@ class AccountKidsGeneraluserController: UITableViewController {
     }
     
    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
         return 35
     
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if section == 1
+        if section == 0
         {
             return "Function"
         }else

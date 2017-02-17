@@ -16,7 +16,7 @@ class SetYourWeightController: UIViewController {
         
     }
     func drawRule() -> () {
-        let rect = CGRect(x: -348.6, y: 0, width: RuleView.frame.size.width, height: 140)
+        let rect = CGRect(x: -311.6, y: 0, width: RuleView.frame.size.width, height: 140)
          ruler = TXHRrettyRuler.init(frame: rect)
         
         ruler.rulerDeletate = self

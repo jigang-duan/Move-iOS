@@ -17,7 +17,7 @@ class SetYourHeghtController: UIViewController {
         
     }
     func drawRule() -> () {
-        let rect = CGRect(x: -348.6, y: 0, width: RulesVView.frame.size.width, height: 140)
+        let rect = CGRect(x: -311.6, y: 0, width: RulesVView.frame.size.width, height: 140)
         let ruler = TXHRrettyRuler.init(frame: rect)
         
     

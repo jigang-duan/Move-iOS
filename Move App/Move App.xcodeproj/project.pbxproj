@@ -565,7 +565,6 @@
 			children = (
 				E0931F111E30ADAE00755B4A /* Fonts */,
 				E0931F131E30B10600755B4A /* R.generated.swift */,
-				E0931F121E30ADD100755B4A /* Files */,
 				E0931F0D1E30A92E00755B4A /* Colors */,
 				E01DF7221E3087C500EA003D /* Strings */,
 				E01DF7211E3087AB00EA003D /* Assets */,
@@ -816,6 +815,7 @@
 		E0931F0D1E30A92E00755B4A /* Colors */ = {
 			isa = PBXGroup;
 			children = (
+				E0931F121E30ADD100755B4A /* Files */,
 				E0931F0E1E30A94B00755B4A /* appColor.clr */,
 			);
 			name = Colors;
