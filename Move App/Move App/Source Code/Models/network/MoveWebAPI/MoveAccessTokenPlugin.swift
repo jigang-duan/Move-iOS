@@ -14,7 +14,7 @@ struct MoveAccessTokenPlugin: PluginType {
     /// The access token to be applied in the header.
     public var token: String {
         get {
-            return UserInfo.share.accessToken.token ?? ""
+            return UserInfo.shared.accessToken.token ?? ""
         }
     }
     

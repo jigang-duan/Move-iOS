@@ -24,6 +24,9 @@ class MoveApi {
         var field: String?
         var msg: String?
     }
+    
+    
+    static let canPopToLoginScreen = false
 }
 
 extension MoveApi.ApiError: Swift.Error {
@@ -40,3 +43,12 @@ extension MoveApi.ApiError: Mappable {
     }
 }
 
+extension NSError {
+    
+    /// Move Api User Authorization error
+    static func userAuthorizationError() -> NSError {
+        let userInfo = [NSLocalizedDescriptionKey: "没有有效的用户权限!"]
+        return NSError(domain: "com.tclcom.moveApiError", code: 1999, userInfo: userInfo)
+    }
+    
+}

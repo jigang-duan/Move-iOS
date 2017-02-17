@@ -18,20 +18,22 @@ extension UIView {
 }
 
 class RxPopover {
+    
+    static let shared = RxPopover()
+    
     var style = PopoverViewStyle.default
     var hasSelected = false
     
-    func show (toView: UIView, actions: [PopoverAction]) -> Observable<PopoverAction> {
+    func show<Info> (toView: UIView, actions: [(Info, PopoverAction)]) -> Observable<Info> {
         let _style = self.style
         let _hasSelected = self.hasSelected
         return Observable.create { observer in
             let rxActions = actions.map { action in
-                return BasePopoverAction(imageUrl: action.imageUrl,
-                                     placeholderImage: action.placeholderImage,
-                                     title: action.title,
-                                     handler: {
-                                        observer.on(.next($0))
-                })
+                return BasePopoverAction(imageUrl: action.1.imageUrl,
+                                         placeholderImage: action.1.placeholderImage,
+                                         title: action.1.title) { _ in
+                                            observer.on(.next(action.0))
+                }
             }
             let popoerView = PopoverView(hasSelected: _hasSelected)
             popoerView.style = _style
@@ -40,7 +42,9 @@ class RxPopover {
             }
             popoerView.show(toView: toView, with: rxActions)
             
-            return Disposables.create()
+            return Disposables.create {
+                popoerView.cancel()
+            }
         }
     }
     

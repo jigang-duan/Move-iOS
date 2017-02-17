@@ -24,6 +24,8 @@ protocol PopoverAction {
         title: String?,
         isSelected: Bool,
         handler: ((PopoverAction) -> Void)?)
+    
+    
 }
 
 class BasePopoverAction: PopoverAction {

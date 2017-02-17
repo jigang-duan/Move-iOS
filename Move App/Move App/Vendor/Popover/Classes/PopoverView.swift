@@ -357,6 +357,17 @@ class PopoverView: UIView {
         })
     }
     
+    func cancel() {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.alpha = 0
+            self.shadeView.alpha = 0
+            self.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        }, completion: { _ in
+            self.shadeView.removeFromSuperview()
+            self.removeFromSuperview()
+        })
+    }
+    
     var hideClosure: (()->Void)?
     
     deinit {

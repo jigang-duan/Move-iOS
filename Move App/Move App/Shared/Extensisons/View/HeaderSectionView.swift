@@ -25,8 +25,6 @@ class ViewUtils {
             return $0
         } (UILabel())
         
-        
-        
         let view = UIView(frame: rect)
         view.addSubview(label)
         return view

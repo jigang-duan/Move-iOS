@@ -46,6 +46,7 @@
 		D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1A4831E553AED00915D9D /* SetYourHeghtController.swift */; };
 		D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */; };
 		D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FE6BAA1E52F7BF000CD7B7 /* RelationshipTableController.swift */; };
+		E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01906E61E55A7E100F65852 /* OnlineProvider.swift */; };
 		E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6E91E3059A800EA003D /* Main.storyboard */; };
 		E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E01DF6EE1E3059A800EA003D /* LaunchScreen.storyboard */; };
 		E01DF6FB1E3059A900EA003D /* Move_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01DF6FA1E3059A900EA003D /* Move_AppTests.swift */; };
@@ -95,6 +96,7 @@
 		E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F501E31D59200755B4A /* TabsViewController.swift */; };
 		E0931F561E31E12100755B4A /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F551E31E12100755B4A /* AccountController.swift */; };
 		E0931F591E31ED6900755B4A /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F581E31ED6900755B4A /* CellData.swift */; };
+		E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8BFFD1E5698D500D410B5 /* Router.swift */; };
 		E0C228E01E3458C400BCF83D /* MoyaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C228DF1E3458C400BCF83D /* MoyaTests.swift */; };
 		E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C228E41E347EDB00BCF83D /* String+Helpers.swift */; };
 		E0C228EA1E349CC200BCF83D /* MKMapView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C228E81E349CC200BCF83D /* MKMapView+Rx.swift */; };
@@ -205,6 +207,7 @@
 		D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourWeightController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourWeightController.swift"; sourceTree = "<group>"; };
 		D2FE6BAA1E52F7BF000CD7B7 /* RelationshipTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RelationshipTableController.swift; path = "Source Code/Scenes/Chose Device/Controller/RelationshipTableController.swift"; sourceTree = "<group>"; };
 		D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.release.xcconfig"; sourceTree = "<group>"; };
+		E01906E61E55A7E100F65852 /* OnlineProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnlineProvider.swift; path = "Source Code/Models/network/MoveWebAPI/OnlineProvider.swift"; sourceTree = "<group>"; };
 		E01DF6E21E3059A800EA003D /* Move App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Move App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E01DF6EA1E3059A800EA003D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E01DF6EF1E3059A800EA003D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -261,6 +264,7 @@
 		E0931F501E31D59200755B4A /* TabsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsViewController.swift; path = "Source Code/Scenes/Tabs/TabsViewController.swift"; sourceTree = "<group>"; };
 		E0931F551E31E12100755B4A /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountController.swift; path = "Source Code/Scenes/Account/Controller/AccountController.swift"; sourceTree = "<group>"; };
 		E0931F581E31ED6900755B4A /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellData.swift; path = "Source Code/Scenes/Account/ViewModel/CellData.swift"; sourceTree = "<group>"; };
+		E0A8BFFD1E5698D500D410B5 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = "Source Code/Scenes/Distribution/Extension/Router.swift"; sourceTree = "<group>"; };
 		E0C228DF1E3458C400BCF83D /* MoyaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaTests.swift; sourceTree = "<group>"; };
 		E0C228E41E347EDB00BCF83D /* String+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Helpers.swift"; path = "Shared/Extensisons/String/String+Helpers.swift"; sourceTree = "<group>"; };
 		E0C228E81E349CC200BCF83D /* MKMapView+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MKMapView+Rx.swift"; path = "Vendor/RxMKMapView/Classes/MKMapView+Rx.swift"; sourceTree = "<group>"; };
@@ -795,6 +799,7 @@
 				E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */,
 				E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */,
 				E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */,
+				E01906E61E55A7E100F65852 /* OnlineProvider.swift */,
 			);
 			name = MoveWebAPI;
 			sourceTree = "<group>";
@@ -854,6 +859,7 @@
 		E0931F1D1E30BC6100755B4A /* Distribution */ = {
 			isa = PBXGroup;
 			children = (
+				E0A8BFFA1E56939800D410B5 /* Extension */,
 				E0931F1F1E30BCAD00755B4A /* ViewModel */,
 				E0931F1E1E30BC9100755B4A /* Controller */,
 			);
@@ -1002,6 +1008,14 @@
 				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		E0A8BFFA1E56939800D410B5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E0A8BFFD1E5698D500D410B5 /* Router.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		E0C228E11E347D8700BCF83D /* network */ = {
@@ -1524,6 +1538,7 @@
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
+				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
@@ -1554,6 +1569,7 @@
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
+				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				E0931F141E30B10600755B4A /* R.generated.swift in Sources */,
