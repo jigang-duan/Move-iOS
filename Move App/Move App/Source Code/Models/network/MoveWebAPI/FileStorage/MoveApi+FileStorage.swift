@@ -14,38 +14,23 @@ import Moya_ObjectMapper
 extension MoveApi {
     
     class FileStorage {
-        
-        static let uploadProvider = RxMoyaProvider<API>(
-            endpointClosure: MoveApi.FileStorage.uploadMapping,
-            plugins: [
-                MoveAccessTokenPlugin(),
-                NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
-            ])
-        
-        static let downloadProvider = RxMoyaProvider<API>(
-            endpointClosure: MoveApi.FileStorage.downloadMapping,
-            plugins: [
-                MoveAccessTokenPlugin(),
-                NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
-            ])
-        
-        static let delteProvider = RxMoyaProvider<API>(
-            endpointClosure: MoveApi.FileStorage.deleteMapping,
+        static let defaultProvider = RxMoyaProvider<API>(
+            endpointClosure: MoveApi.FileStorage.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
             ])
         
         final class func upload(fileInfo: FileInfo) -> Observable<FileId> {
-            return uploadProvider.request(.upload(fileInfo: fileInfo)).mapMoveObject(FileId.self)
+            return defaultProvider.request(.upload(fileInfo: fileInfo)).mapMoveObject(FileId.self)
         }
         
         final class func download(fid: String) -> Observable<FileInfo> {
-            return downloadProvider.request(.download(fid: fid)).mapMoveObject(FileInfo.self)
+            return defaultProvider.request(.download(fid: fid)).mapMoveObject(FileInfo.self)
         }
         
         final class func delete(fid: String) -> Observable<ApiError> {
-            return delteProvider.request(.delete(fid: fid)).mapMoveObject(ApiError.self)
+            return defaultProvider.request(.delete(fid: fid)).mapMoveObject(ApiError.self)
         }
         
         enum API {
@@ -139,24 +124,7 @@ extension MoveApi.FileStorage.API: TargetType {
 }
 
 extension MoveApi.FileStorage {
-    
-    final class func uploadMapping(for target: API) -> Endpoint<API> {
-        let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-        return endpoint.adding(newHTTPHeaderFields: [
-            "Accept": "application/json",
-            "Content-Type": "multipart/form-data",
-            "Authorization": "key=\(MoveApi.apiKey)"])
-    }
-    
-    final class func downloadMapping(for target: API) -> Endpoint<API> {
-        let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-        return endpoint.adding(newHTTPHeaderFields: [
-            "Accept": "application/json",
-            "Content-Type": "image/png",
-            "Authorization": "key=\(MoveApi.apiKey)"])
-    }
-    
-    final class func deleteMapping(for target: API) -> Endpoint<API> {
+    final class func endpointMapping(for target: API) -> Endpoint<API> {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",

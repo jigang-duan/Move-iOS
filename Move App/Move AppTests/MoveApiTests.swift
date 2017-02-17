@@ -224,6 +224,14 @@ class MoveApiTests: XCTestCase {
         XCTAssertEqual(settingResp?.id, 0)
         XCTAssertEqual(settingResp?.msg, "ok")
         
+        //        发送提醒
+        guard let sendNotifyResp = try? MoveApi.Device.sendNotify(deviceId: testInfo.deviceInfo.device_id!, sendInfo: MoveApi.DeviceSendNotify(code: 101, value: "")).toBlocking().last() else{
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(sendNotifyResp?.id, 0)
+        XCTAssertEqual(sendNotifyResp?.msg, "ok")
+        
         
         let power = MoveApi.DevicePower(power: 66)
         //        上报电量
@@ -238,7 +246,7 @@ class MoveApiTests: XCTestCase {
             XCTFail()
             return
         }
-        XCTAssertEqual(getPowerResp, power)
+        XCTAssertEqual(getPowerResp?.power, power.power)
     }
     
     //    ElectronicFence

@@ -79,6 +79,11 @@ extension MoveApi {
         var reminders: [Any]?
     }
     
+    struct DeviceSendNotify {
+        var code: Int?
+        var value: String?
+    }
+    
     struct  DevicePower {
         var power: Int?
     }
@@ -171,6 +176,16 @@ extension MoveApi.DeviceSetting: Mappable {
          school_time <- map["school_time"]
          permissions <- map["permissions"]
          reminders <- map["reminders"]
+    }
+}
+
+extension MoveApi.DeviceSendNotify: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        code <- map["code"]
+        value <- map["value"]
     }
 }
 

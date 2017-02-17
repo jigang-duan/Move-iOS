@@ -57,6 +57,10 @@ extension MoveApi {
         final class func setting(deviceId: String, settingInfo: DeviceSetting) -> Observable<ApiError> {
             return request(.setting(deviceId: deviceId, settingInfo: settingInfo)).mapMoveObject(ApiError.self)
         }
+//        发送提醒
+        final class func sendNotify(deviceId: String, sendInfo: DeviceSendNotify) -> Observable<ApiError>{
+            return request(.sendNotify(deviceId: deviceId, sendInfo: sendInfo)).mapMoveObject(ApiError.self)
+        }
 //        上报电量
         final class func addPower(deviceId: String, power: DevicePower) -> Observable<ApiError> {
             return request(.addPower(deviceId: deviceId, power: power)).mapMoveObject(ApiError.self)
@@ -75,6 +79,7 @@ extension MoveApi {
             case delete(deviceId: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)
+            case sendNotify(deviceId: String, sendInfo: DeviceSendNotify)
             case addPower(deviceId: String, power: DevicePower)
             case getPower(deviceId: String)
         }
@@ -112,6 +117,8 @@ extension MoveApi.Device.API: TargetType {
             return "/\(deviceId)/settings"
         case .setting(let deviceId, _):
             return "/\(deviceId)/settings"
+        case .sendNotify(let deviceId, _):
+            return "/\(deviceId)/notify"
         case .addPower(let deviceId, _):
             return "/\(deviceId)/power"
         case .getPower(let deviceId):
@@ -122,7 +129,7 @@ extension MoveApi.Device.API: TargetType {
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .add, .joinDeviceGroup:
+        case .add, .joinDeviceGroup, .sendNotify:
             return .post
         case .getDeviceList, .getDeviceInfo, .getSetting, .getPower:
             return .get
@@ -146,6 +153,8 @@ extension MoveApi.Device.API: TargetType {
             return updateInfo.toJSON()
         case .setting(_, let settingInfo):
             return settingInfo.toJSON()
+        case .sendNotify(_, let sendInfo):
+            return sendInfo.toJSON()
         case .addPower(_, let power):
             return power.toJSON()
         }
