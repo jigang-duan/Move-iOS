@@ -60,7 +60,7 @@ class AddSafeZoneVC: UIViewController {
     func actionFenceRadiusValueChanged(_ slider:UISlider) {
         
         self.currentRadius = Double(slider.value)
-        self.drawOverlay(radius: currentRadius)
+        self.drawOverlay(radius: self.currentRadius)
     }
     
     func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
@@ -101,13 +101,11 @@ class AddSafeZoneVC: UIViewController {
                 if let overflay = self.circleOverlay {
                     self.mainMapView.remove(overflay)
                 }
-                //self.circleBorderView.isHidden = false
                 
                 self.circleBorderView.frame = self.mainMapView.bounds
                 self.mainMapView.addSubview(self.circleBorderView)
-                
                 self.circleBorderView.radius = self.rectFromCoordinate.height
-                //self.circleBorderView.setNeedsDisplay()
+                self.circleBorderView.setNeedsDisplay()
             }).addDisposableTo(disposeBag)
         
         mainMapView.rx.regionDidChangeAnimated
@@ -115,7 +113,6 @@ class AddSafeZoneVC: UIViewController {
                 Logger.debug("地图 \($0)!")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
-                //self.circleBorderView.isHidden = true
                 
                 self.circleBorderView.removeFromSuperview()
             }).addDisposableTo(disposeBag)
@@ -172,10 +169,12 @@ class AddSafeZoneVC: UIViewController {
             
             switch sender.state {
             case .began:
-                 self.circleBorderView.removeFromSuperview()
                 self.blPinChBegin = true
             case .changed:
-                self.drawOverlay(radius: currentRadius)
+                if self.circleBorderView.superview != nil {
+                    self.circleBorderView.removeFromSuperview()
+                    self.drawOverlay(radius: self.currentRadius)
+                }
             case .ended,.cancelled:
                 self.blPinChBegin = false
             default:

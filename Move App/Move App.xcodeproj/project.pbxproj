@@ -90,7 +90,6 @@
 		E0931F3A1E30DE7400755B4A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0931F391E30DE7400755B4A /* MapKit.framework */; };
 		E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0931F3B1E31A61800755B4A /* Login.storyboard */; };
 		E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F411E31AC3A00755B4A /* ChoseDeviceController.swift */; };
-		E0931F451E31B99B00755B4A /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0931F431E31B99B00755B4A /* Major.storyboard */; };
 		E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0931F491E31C6DF00755B4A /* Social.storyboard */; };
 		E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0931F4C1E31C72C00755B4A /* Account.storyboard */; };
 		E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F501E31D59200755B4A /* TabsViewController.swift */; };
@@ -120,6 +119,10 @@
 		E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
+		E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */; };
+		E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */; };
+		E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */; };
+		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,7 +261,6 @@
 		E0931F391E30DE7400755B4A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E0931F3C1E31A61800755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		E0931F411E31AC3A00755B4A /* ChoseDeviceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoseDeviceController.swift; path = "Source Code/Scenes/Chose Device/Controller/ChoseDeviceController.swift"; sourceTree = "<group>"; };
-		E0931F441E31B99B00755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
 		E0931F4A1E31C6DF00755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Social.storyboard; sourceTree = "<group>"; };
 		E0931F4D1E31C72C00755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
 		E0931F501E31D59200755B4A /* TabsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsViewController.swift; path = "Source Code/Scenes/Tabs/TabsViewController.swift"; sourceTree = "<group>"; };
@@ -288,6 +290,10 @@
 		E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapSceneViewController.swift; path = "Source Code/Scenes/Tabs/MainMapSceneViewController.swift"; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHistoryVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/LocationHistoryVC.swift"; sourceTree = "<group>"; };
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSafeZoneVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/AddSafeZoneVC.swift"; sourceTree = "<group>"; };
+		E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneListVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/SafeZoneListVC.swift"; sourceTree = "<group>"; };
+		E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneTabViewCell.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/SafeZoneTabViewCell.swift"; sourceTree = "<group>"; };
+		E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SafeZoneTabViewCell.xib; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/SafeZoneTabViewCell.xib"; sourceTree = "<group>"; };
+		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -642,7 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				E01DF6E91E3059A800EA003D /* Main.storyboard */,
-				E0931F431E31B99B00755B4A /* Major.storyboard */,
+				E9E3F13D1E5704CD00B01E29 /* Major.storyboard */,
 				E0931F4C1E31C72C00755B4A /* Account.storyboard */,
 				E0931F491E31C6DF00755B4A /* Social.storyboard */,
 				E0931F3B1E31A61800755B4A /* Login.storyboard */,
@@ -671,7 +677,7 @@
 			isa = PBXGroup;
 			children = (
 				D2AC16C71E5460C400815823 /* PrettyRulerClass */,
-				E9B7FA5E1E54331400F46D09 /* NoEventView */,
+				E9B7FA5E1E54331400F46D09 /* NoEeventView */,
 				E03B1BDD1E4DB8FC006EDB7B /* CDFInitialsAvatar */,
 				E01DF73D1E308D9C00EA003D /* Extensions */,
 				E01DF7321E308D7F00EA003D /* CustomViews.h */,
@@ -735,6 +741,7 @@
 			children = (
 				E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */,
 				E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */,
+				E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */,
 				E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */,
 			);
 			name = Controller;
@@ -745,6 +752,8 @@
 			children = (
 				E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */,
 				E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */,
+				E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */,
+				E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1131,12 +1140,12 @@
 			name = RxUtilities;
 			sourceTree = "<group>";
 		};
-		E9B7FA5E1E54331400F46D09 /* NoEventView */ = {
+		E9B7FA5E1E54331400F46D09 /* NoEeventView */ = {
 			isa = PBXGroup;
 			children = (
 				E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */,
 			);
-			name = NoEventView;
+			name = NoEeventView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1300,8 +1309,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0931F451E31B99B00755B4A /* Major.storyboard in Resources */,
+				E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */,
 				E0931F171E30B9A500755B4A /* Localizable.strings in Resources */,
+				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
@@ -1542,6 +1552,7 @@
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
+				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
@@ -1573,6 +1584,7 @@
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				E0931F141E30B10600755B4A /* R.generated.swift in Sources */,
+				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
 				D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
@@ -1665,14 +1677,6 @@
 			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
-		E0931F431E31B99B00755B4A /* Major.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E0931F441E31B99B00755B4A /* Base */,
-			);
-			name = Major.storyboard;
-			sourceTree = "<group>";
-		};
 		E0931F491E31C6DF00755B4A /* Social.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1687,6 +1691,14 @@
 				E0931F4D1E31C72C00755B4A /* Base */,
 			);
 			name = Account.storyboard;
+			sourceTree = "<group>";
+		};
+		E9E3F13D1E5704CD00B01E29 /* Major.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9E3F13E1E5704CD00B01E29 /* Base */,
+			);
+			name = Major.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
