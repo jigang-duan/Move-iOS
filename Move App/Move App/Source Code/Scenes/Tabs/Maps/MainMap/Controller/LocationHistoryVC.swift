@@ -35,6 +35,11 @@ class LocationHistoryVC: UIViewController {
     
     var item : UIBarButtonItem?
     
+    var routeLine : MKPolyline?
+    
+    var points : [MKMapPoint]?
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -116,6 +121,11 @@ class LocationHistoryVC: UIViewController {
             .addDisposableTo(disposeBag)
         
         // Do any additional setup after loading the view.
+        
+        self.routeLine = self.polyline()
+        if self.routeLine != nil {
+            locationMap.add(routeLine!)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -136,7 +146,14 @@ class LocationHistoryVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func polyline() -> MKPolyline {
+        var coords = [CLLocationCoordinate2D]()
+        for  i in 0...10  {
+            let location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765)
+            coords .append(location)
+        }
+        return MKPolyline(coordinates : coords, count: 10)
+    }
 }
 
 extension LocationHistoryVC : MKMapViewDelegate {
@@ -154,6 +171,18 @@ extension LocationHistoryVC : MKMapViewDelegate {
         }
         
         return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        if overlay is MKPolyline {
+            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
+            polylineRenderer.fillColor = UIColor.red
+            polylineRenderer.strokeColor = UIColor.blue
+            polylineRenderer.lineWidth = 4.0
+            return polylineRenderer
+        }
+        return MKPolylineRenderer()
     }
 }
 
