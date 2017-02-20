@@ -21,12 +21,31 @@ extension MoveApi {
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
             ])
         
-        final class func upload(fileInfo: FileInfo) -> Observable<FileId> {
-            return defaultProvider.request(.upload(fileInfo: fileInfo)).mapMoveObject(FileId.self)
+        final class func upload(fileInfo: FileInfo) -> Observable<FileUploadResp> {
+            return defaultProvider.request(.upload(fileInfo: fileInfo)).mapMoveObject(FileUploadResp.self)
+//                var uploadResp = FileUploadResp()
+//                print($0.response?.request ?? "request", $0.response?.response ?? "response")
+//                uploadResp.progress = $0.progress
+//                if uploadResp.progress == 1{
+//                    uploadResp.fid = try! $0.response?.mapString(atKeyPath: "fid")
+//                }
+//                return uploadResp
+//            }
         }
         
-        final class func download(fid: String) -> Observable<FileInfo> {
-            return defaultProvider.request(.download(fid: fid)).mapMoveObject(FileInfo.self)
+        final class func download(fid: String) -> Observable<FileStorageInfo> {
+            return defaultProvider.requestWithProgress(.download(fid: fid)).map{
+                
+                var fileStorageInfo = FileStorageInfo()
+                fileStorageInfo.progress = $0.progress
+                fileStorageInfo.name = $0.response?.response?.suggestedFilename
+                fileStorageInfo.type = $0.response?.response?.mimeType
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name)")
+                fileStorageInfo.fid = fid
+                
+                return fileStorageInfo
+            }
         }
         
         final class func delete(fid: String) -> Observable<ApiError> {
@@ -51,7 +70,14 @@ extension MoveApi.FileStorage.API: AccessTokenAuthorizable {
 extension MoveApi.FileStorage.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/fs")! }
+    var baseURL: URL {
+        switch self {
+        case .upload(let fileInfo):
+            return URL(string: MoveApi.BaseURL + "/fs?type=\(fileInfo.type ?? "")&duration=\(fileInfo.duration ?? 0)")! 
+        default:
+            return URL(string: MoveApi.BaseURL + "/fs")!
+        }
+    }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
@@ -79,14 +105,7 @@ extension MoveApi.FileStorage.API: TargetType {
     
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
-        switch self {
-        case .upload(let fileInfo):
-            return ["duration": fileInfo.duration ?? 0]
-        case .download:
-            return nil
-        case .delete:
-            return nil
-        }
+        return nil
     }
     
     /// The method used for parameter encoding.
@@ -108,7 +127,7 @@ extension MoveApi.FileStorage.API: TargetType {
     var task: Task {
         switch self {
         case .upload(let fileInfo):
-            return .upload(UploadType.multipart([MultipartFormData(provider: MultipartFormData.FormDataProvider.data(fileInfo.file!), name: "file", mimeType: fileInfo.type)]))
+            return .upload(UploadType.multipart([MultipartFormData(provider: MultipartFormData.FormDataProvider.data(fileInfo.data!), name: "file", mimeType: fileInfo.type)]))
         case .download:
             return .download(DownloadType.request({ (_, response) in
                 let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]

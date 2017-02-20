@@ -15,11 +15,20 @@ extension MoveApi {
     struct FileInfo {
         var type: String?
         var duration: Int?
-        var file: Data?
+        var data: Data?
     }
     
-    struct FileId {
+    struct FileUploadResp {
         var fid: String?
+        var progress: Double?
+    }
+    
+    struct FileStorageInfo {
+        var name: String?
+        var type: String?
+        var path: URL?
+        var fid: String?
+        var progress: Double?
     }
     
 }
@@ -28,18 +37,18 @@ extension MoveApi.FileInfo: Mappable {
     init?(map: Map) {
     }
     
-    init(file: Data) {
-        self.file = file
+    init(data: Data) {
+        self.data = data
     }
     
     mutating func mapping(map: Map) {
         type <- map["type"]
         duration <- map["duration"]
-        file <- map["file"]
+        data <- map["file"]
     }
 }
 
-extension MoveApi.FileId: Mappable {
+extension MoveApi.FileUploadResp: Mappable {
     init?(map: Map) {
     }
     

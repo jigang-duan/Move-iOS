@@ -15,14 +15,14 @@ extension MoveApi {
     
     class VerificationCode {
         
-        static let defaultProvider = RxMoyaProvider<MoveApi.VerificationCode.API>(
+        static let defaultProvider = RxMoyaProvider<API>(
             endpointClosure: MoveApi.VerificationCode.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
             ])
         
-        final class func request(_ target: MoveApi.VerificationCode.API) -> Observable<Response> {
+        final class func request(_ target: API) -> Observable<Response> {
             return defaultProvider.request(target)
         }
         
@@ -114,7 +114,7 @@ extension MoveApi.VerificationCode.API: TargetType {
 
 extension MoveApi.VerificationCode {
     
-    final class func endpointMapping(for target: MoveApi.VerificationCode.API) -> Endpoint<MoveApi.VerificationCode.API> {
+    final class func endpointMapping(for target: API) -> Endpoint<API> {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",

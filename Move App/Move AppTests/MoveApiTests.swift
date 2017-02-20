@@ -114,19 +114,19 @@ class MoveApiTests: XCTestCase {
     //    Verification
     func testVerificationApi()  {
         
-        let userInfo = ApiTestInfo.share.userInfo
+        let testInfo = ApiTestInfo.share
         
-        let loginInfo = MoveApi.LoginInfo(username: userInfo.username, password: userInfo.password)
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
         let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
-        guard let sid = try? MoveApi.VerificationCode.send(to: userInfo.email!)
+        guard let sid = try? MoveApi.VerificationCode.send(to: testInfo.userInfo.email!)
             .toBlocking()
             .last() else {
                 XCTFail()
                 return
         }
         XCTAssertNotNil(sid?.sid)
-        ApiTestInfo.share.sid = (sid?.sid)!
+        testInfo.deviceAdd.sid = (sid?.sid)!
         
         let vcode = RandomString.sharedInstance.getRandomStringOfLength(length: 13)
         if let _ = try? MoveApi.VerificationCode.verify(sid: (sid?.sid)!, vcode: vcode).do(onError: {
@@ -161,7 +161,7 @@ class MoveApiTests: XCTestCase {
         let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
         let sidResp = try? MoveApi.VerificationCode.send(to: testInfo.userInfo.email!).toBlocking().last()
-        ApiTestInfo.share.sid = (sidResp??.sid)!
+        testInfo.deviceAdd.sid = (sidResp??.sid)!
         
         if let _ = try? MoveApi.Device.add(deviceId: testInfo.deviceInfo.device_id!, addInfo: testInfo.deviceAdd).do(onError: {
             Logger.error($0)
@@ -271,7 +271,7 @@ class MoveApiTests: XCTestCase {
             return
         }
         XCTAssertNotNil(getFenceResp)
-        testInfo.fenceInfo = (getFenceResp?.fences?[0])!
+        XCTAssertEqual(testInfo.fenceInfo.name, getFenceResp?.fences?[0].name)
     }
     
     //    FileStorage
@@ -282,24 +282,28 @@ class MoveApiTests: XCTestCase {
         let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
         
-        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertNotNil(uploadResp?.fid)
+//        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo).do(onNext: { (uploadInfo) in
+//            print("上传进度=====\(uploadInfo.progress)")
+//        }).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertNotNil(uploadResp?.fid)
         
-        guard let downloadResp = try? MoveApi.FileStorage.download(fid: (uploadResp?.fid)!).toBlocking().last() else{
+        guard let downloadResp = try? MoveApi.FileStorage.download(fid: "3,a66fd76088").do(onNext: { (downloadInfo) in
+            print("下载进度=====\(downloadInfo.progress)")
+        }).toBlocking().last() else{
             XCTFail()
             return
         }
         XCTAssertNotNil(downloadResp)
         
-        guard let deleteResp = try? MoveApi.FileStorage.delete(fid: (uploadResp?.fid)!).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(deleteResp?.id, 0)
-        XCTAssertEqual(deleteResp?.msg, "ok")
+//        guard let deleteResp = try? MoveApi.FileStorage.delete(fid: (uploadResp?.fid)!).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertEqual(deleteResp?.id, 0)
+//        XCTAssertEqual(deleteResp?.msg, "ok")
         
     }
     
@@ -478,10 +482,8 @@ class ApiTestInfo {
     
     let userInfo = MoveApi.UserInfoMap(uid: "15610609071744479540", phone: "1234567890", email: "zhengwuju@bis.com.cn", profile: "", nickname: "xxx", username: "test003", password: "test003")
     
-    var sid = ""//验证码ID
-    var vcode = "" //验证码
     
-    var deviceAdd = MoveApi.DeviceAdd(sid: ApiTestInfo.share.sid, vcode: ApiTestInfo.share.vcode, phone: "1234567890", identity: MoveApi.DeviceAddIdentity.brother, profile: "")
+    var deviceAdd = MoveApi.DeviceAdd(sid: "", vcode: "", phone: "1234567890", identity: MoveApi.DeviceAddIdentity.brother, profile: "")
     var deviceInfo = MoveApi.DeviceInfo(device_id: "device0001", number: "", name: "", profile: "", gender: "", height: 100, birthday: Date(timeIntervalSince1970: 1443245612))
     var deviceSetting = MoveApi.DeviceSetting()
     
@@ -490,7 +492,7 @@ class ApiTestInfo {
     
     
     
-    var fileInfo = MoveApi.FileInfo(type: "image", duration: 0, file: UIImagePNGRepresentation(UIImage.init(named: "Phone_number")!))
+    var fileInfo = MoveApi.FileInfo(type: "image", duration: 0, data: UIImagePNGRepresentation(UIImage.init(named: "Phone_number")!))
     
     var chatReq = MoveApi.GetChatReq(prev: "", next: "", count: 20)
     
