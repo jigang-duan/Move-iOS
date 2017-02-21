@@ -24,6 +24,9 @@
 		D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */; };
 		D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */; };
 		D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */; };
+		D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */; };
+		D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */; };
+		D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */; };
 		D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937431E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift */; };
 		D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937441E53123C00350E1C /* MoveApi+HistoryMessage.swift */; };
 		D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937481E53125800350E1C /* MoveApi+Location.swift */; };
@@ -200,6 +203,9 @@
 		D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IputIMEIControllerTableController.swift; path = "Source Code/Scenes/Chose Device/Controller/IputIMEIControllerTableController.swift"; sourceTree = "<group>"; };
 		D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerificationCodeController.swift; path = "Source Code/Scenes/Chose Device/Controller/VerificationCodeController.swift"; sourceTree = "<group>"; };
 		D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhoneNumberController.swift; path = "Source Code/Scenes/Chose Device/Controller/PhoneNumberController.swift"; sourceTree = "<group>"; };
+		D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountAndChoseDeviceController.swift; path = "Source Code/Scenes/Account/Controller/AccountAndChoseDeviceController.swift"; sourceTree = "<group>"; };
+		D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountAndChoseDeviceViewModel.swift; path = "Source Code/Scenes/Account/ViewModel/AccountAndChoseDeviceViewModel.swift"; sourceTree = "<group>"; };
+		D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountKidsRulesuserController.swift; path = "Source Code/Scenes/Account/Controller/AccountKidsRulesuserController.swift"; sourceTree = "<group>"; };
 		D29937431E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+HistoryMessage+Mappable.swift"; sourceTree = "<group>"; };
 		D29937441E53123C00350E1C /* MoveApi+HistoryMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+HistoryMessage.swift"; sourceTree = "<group>"; };
 		D29937481E53125800350E1C /* MoveApi+Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Location.swift"; sourceTree = "<group>"; };
@@ -1027,6 +1033,8 @@
 			children = (
 				E0931F551E31E12100755B4A /* AccountController.swift */,
 				D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */,
+				D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */,
+				D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1036,6 +1044,7 @@
 			children = (
 				E0931F581E31ED6900755B4A /* CellData.swift */,
 				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
+				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1180,7 +1189,7 @@
 			path = UserManager;
 			sourceTree = "<group>";
 		};
-		E9B7FA5E1E54331400F46D09 /* NoEventView */ = {
+		E9B7FA5E1E54331400F46D09 /* NoEeventView */ = {
 			isa = PBXGroup;
 			children = (
 				E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */,
@@ -1578,6 +1587,7 @@
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
+				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
@@ -1627,10 +1637,12 @@
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
+				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
+				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,

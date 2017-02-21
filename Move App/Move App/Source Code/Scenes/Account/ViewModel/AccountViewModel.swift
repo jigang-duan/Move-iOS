@@ -62,4 +62,8 @@ class MokDevices {
     func getDeviceTerse() -> Observable<[DeviceCellData]> {
         return Observable.just(devcells)
     }
+    
+    func getDeviceList() -> Observable<[SectionOfCellData]> {
+        return Observable.just([SectionOfCellData(header: "Devices", items: devcells)])
+    }
 }

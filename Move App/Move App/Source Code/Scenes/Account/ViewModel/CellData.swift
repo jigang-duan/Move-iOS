@@ -44,3 +44,9 @@ extension SectionOfCellData: SectionModelType {
         self.items = items
     }
 }
+
+extension SectionOfCellData {
+    static func null() -> [SectionOfCellData] {
+        return [SectionOfCellData]()
+    }
+}

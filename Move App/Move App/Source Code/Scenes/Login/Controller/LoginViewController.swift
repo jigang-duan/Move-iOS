@@ -56,12 +56,14 @@ class LoginViewController: UIViewController {
         }
     }
     
+    var viewModel: LoginViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let viewModel = LoginViewModel(
+        viewModel = LoginViewModel(
             input:(
                 email: emailOutlet.rx.text.orEmpty.asDriver(),
                 passwd: passwordOutlet.rx.text.orEmpty.asDriver(),
@@ -88,12 +90,6 @@ class LoginViewController: UIViewController {
 //            .drive(passwordValidationOutlet.rx.validationResult)
 //            .addDisposableTo(disposeBag)
         
-        viewModel.validatedEmail
-            .drive(onNext: { [weak self] _ in
-                self?.revertAccountError()
-            })
-            .addDisposableTo(disposeBag)
-        
         viewModel.logedIn
             .drive(onNext: { logedIn in
                 switch logedIn {
@@ -105,6 +101,16 @@ class LoginViewController: UIViewController {
                     break
                 }
             })
+            .addDisposableTo(disposeBag)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.validatedEmail
+            .drive(onNext: { [weak self] _ in
+                self?.revertAccountError()
+                })
             .addDisposableTo(disposeBag)
     }
     

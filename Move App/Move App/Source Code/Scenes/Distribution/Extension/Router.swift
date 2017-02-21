@@ -70,4 +70,15 @@ class Distribution {
             self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
         })
     }
+    
+    func showChoseDeviceScreen() {
+        self.backToDistribution(completion: {
+            self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
+        })
+    }
+    
+    func showUserInformationScreen() {
+        let toVC = R.storyboard.kidInformation().instantiateInitialViewController()!
+        self.currentViewCotroller?.navigationController?.pushViewController(toVC, animated: true)
+    }
 }
