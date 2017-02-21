@@ -57,7 +57,11 @@ class Distribution {
     }
     
     func backToDistribution(completion: (() -> Void)? = nil) {
-        self.currentViewCotroller?.navigationController?.tabBarController?.dismiss(animated: false, completion: completion)
+        if let tabVC = self.currentViewCotroller?.navigationController?.tabBarController {
+            tabVC.dismiss(animated: false, completion: completion)
+        } else if let navVC = self.currentViewCotroller?.navigationController {
+            navVC.dismiss(animated: false, completion: completion)
+        }
     }
     
     

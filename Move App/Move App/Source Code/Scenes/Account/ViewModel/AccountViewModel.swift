@@ -48,7 +48,7 @@ class AccountViewModel {
     
     private class func transferUserProfile(_ profile: UserInfo.Profile) -> SectionOfCellData {
         return SectionOfCellData(header: R.string.localizable.id_nil(),
-                          items: [UserCellData(iconUrl: profile.icon,
+                          items: [UserCellData(iconUrl: profile.iconUrl,
                                          account: profile.username ?? "",
                                          describe: profile.nickname ?? "")
             ])

@@ -12,32 +12,47 @@ import RxCocoa
 
 class LoginViewController: UIViewController {
     
-    let error = true
+    @IBOutlet weak var emailOutlet: UITextField!
+    @IBOutlet weak var emailValidationOutlet: UILabel!
+    @IBOutlet weak var passwordOutlet: UITextField!
+    @IBOutlet weak var passwordValidationOutlet: UILabel!
+    @IBOutlet weak var loginOutlet: UIButton!
+    @IBOutlet weak var emailLine: UIView!
+    @IBOutlet weak var passwordLine: UIView!
     
     var disposeBag = DisposeBag()
     
     @IBOutlet weak var errorTopConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var emailLineView: UIView!
-    @IBOutlet weak var accountErrorLabel: UILabel!
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
     }
     
     func showAccountError(_ text: String) {
-        //当帐号不存在de时候
-        if error {
-            errorTopConstraint.constant = 30
-            accountErrorLabel.isHidden = false
-            accountErrorLabel.alpha = 0.0
-            UIView.animate(withDuration: 0.6) { [weak self] in
-                self?.emailLineView.backgroundColor = R.color.appColor.wrong()
-                self?.accountErrorLabel.alpha = 1.0
-                self?.view.layoutIfNeeded()
-            }
+        errorTopConstraint.constant = 30
+        emailValidationOutlet.isHidden = false
+        emailValidationOutlet.alpha = 0.0
+        emailValidationOutlet.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.emailValidationOutlet.textColor = ValidationColors.errorColor
+            self?.emailLine.backgroundColor = ValidationColors.errorColor
+            self?.emailValidationOutlet.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    func revertAccountError() {
+        errorTopConstraint.constant = 15
+        emailValidationOutlet.isHidden = true
+        emailValidationOutlet.alpha = 1.0
+        emailValidationOutlet.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.emailValidationOutlet.textColor = ValidationColors.okColor
+            self?.emailLine.backgroundColor = ValidationColors.okColor
+            self?.emailValidationOutlet.alpha = 0.0
+            self?.view.layoutIfNeeded()
         }
     }
     
@@ -46,10 +61,50 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        loginBtn.rx.tap
-            .bindNext { [weak self] in
-                self?.showAccountError("")
-            }
+        let viewModel = LoginViewModel(
+            input:(
+                email: emailOutlet.rx.text.orEmpty.asDriver(),
+                passwd: passwordOutlet.rx.text.orEmpty.asDriver(),
+                loginTaps: loginOutlet.rx.tap.asDriver()
+            ),
+            dependency: (
+                userManager: UserManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+            ))
+        
+        viewModel.loginEnabled
+            .drive(onNext: { [weak self] valid in
+                self?.loginOutlet.isEnabled = valid
+                self?.loginOutlet.alpha = valid ? 1.0 : 0.5
+            })
+            .addDisposableTo(disposeBag)
+        
+//        viewModel.validatedEmail
+//            .drive(emailValidationOutlet.rx.validationResult)
+//            .addDisposableTo(disposeBag)
+        
+//        viewModel.validatedPassword
+//            .drive(passwordValidationOutlet.rx.validationResult)
+//            .addDisposableTo(disposeBag)
+        
+        viewModel.validatedEmail
+            .drive(onNext: { [weak self] _ in
+                self?.revertAccountError()
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.logedIn
+            .drive(onNext: { logedIn in
+                switch logedIn {
+                case .failed(let message):
+                    self.showAccountError(message)
+                case .ok:
+                    Distribution.shared.backToDistribution()
+                default:
+                    break
+                }
+            })
             .addDisposableTo(disposeBag)
     }
     

@@ -68,7 +68,6 @@
 		E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */; };
 		E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */; };
 		E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */; };
-		E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BE91E50255C006EDB7B /* UserManager.swift */; };
 		E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C561E53E9C8006EDB7B /* PopoverAction.swift */; };
 		E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C571E53E9C8006EDB7B /* PopoverView.swift */; };
 		E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1C581E53E9C8006EDB7B /* PopoverViewCell.swift */; };
@@ -117,6 +116,11 @@
 		E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290A1E35E5AE00BCF83D /* UIImage+Extensions.swift */; };
 		E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */; };
 		E0C229111E35E65900BCF83D /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C229101E35E65900BCF83D /* Example.swift */; };
+		E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02931E5AD3F7004A55BA /* LoginViewModel.swift */; };
+		E0FA02961E5AEA05004A55BA /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02951E5AEA05004A55BA /* Validation.swift */; };
+		E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029D1E5C05A6004A55BA /* UserManager.swift */; };
+		E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */; };
+		E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02A11E5C061D004A55BA /* WorkerError.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
@@ -247,7 +251,6 @@
 		E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapViewModel.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/MainMapViewModel.swift"; sourceTree = "<group>"; };
 		E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseAnnotation.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/BaseAnnotation.swift"; sourceTree = "<group>"; };
 		E03B1BDE1E4DB922006EDB7B /* CDFInitialsAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CDFInitialsAvatar.swift; path = CDFInitialsAvatar/CDFInitialsAvatar.swift; sourceTree = "<group>"; };
-		E03B1BE91E50255C006EDB7B /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = "Source Code/Servers/UserManager/UserManager.swift"; sourceTree = "<group>"; };
 		E03B1C561E53E9C8006EDB7B /* PopoverAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverAction.swift; path = Vendor/Popover/Classes/PopoverAction.swift; sourceTree = "<group>"; };
 		E03B1C571E53E9C8006EDB7B /* PopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverView.swift; path = Vendor/Popover/Classes/PopoverView.swift; sourceTree = "<group>"; };
 		E03B1C581E53E9C8006EDB7B /* PopoverViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopoverViewCell.swift; path = Vendor/Popover/Classes/PopoverViewCell.swift; sourceTree = "<group>"; };
@@ -297,6 +300,11 @@
 		E0C2290A1E35E5AE00BCF83D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Extensions.swift"; path = "Vendor/RxImage/UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		E0C2290B1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+DownloadableImage.swift"; path = "Vendor/RxImage/UIImageView+DownloadableImage.swift"; sourceTree = "<group>"; };
 		E0C229101E35E65900BCF83D /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Vendor/RxUtilities/Example.swift; sourceTree = "<group>"; };
+		E0FA02931E5AD3F7004A55BA /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = "Source Code/Scenes/Login/ViewModel/LoginViewModel.swift"; sourceTree = "<group>"; };
+		E0FA02951E5AEA05004A55BA /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = "Source Code/Scenes/Login/ViewModel/Validation.swift"; sourceTree = "<group>"; };
+		E0FA029D1E5C05A6004A55BA /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiUserWorker.swift; path = Workers/MoveApiUserWorker.swift; sourceTree = "<group>"; };
+		E0FA02A11E5C061D004A55BA /* WorkerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerError.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapSceneViewController.swift; path = "Source Code/Scenes/Tabs/MainMapSceneViewController.swift"; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHistoryVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/LocationHistoryVC.swift"; sourceTree = "<group>"; };
@@ -477,6 +485,8 @@
 			isa = PBXGroup;
 			children = (
 				D2D661271E4F13B500E46F41 /* AccountMode.swift */,
+				E0FA02931E5AD3F7004A55BA /* LoginViewModel.swift */,
+				E0FA02951E5AEA05004A55BA /* Validation.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -554,7 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F1B1E30BC4600755B4A /* Models */,
-				E0931F1C1E30BC5000755B4A /* Servers */,
+				E0FA029B1E5C0544004A55BA /* Servers */,
 				E0931F1A1E30BC3000755B4A /* Scenes */,
 			);
 			name = "Source Code";
@@ -729,14 +739,6 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
-		E03B1BC11E4AD67A006EDB7B /* UserManager */ = {
-			isa = PBXGroup;
-			children = (
-				E03B1BE91E50255C006EDB7B /* UserManager.swift */,
-			);
-			name = UserManager;
-			sourceTree = "<group>";
-		};
 		E03B1BD01E4C67AE006EDB7B /* Maps */ = {
 			isa = PBXGroup;
 			children = (
@@ -881,14 +883,6 @@
 				E0C228E11E347D8700BCF83D /* network */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		E0931F1C1E30BC5000755B4A /* Servers */ = {
-			isa = PBXGroup;
-			children = (
-				E03B1BC11E4AD67A006EDB7B /* UserManager */,
-			);
-			name = Servers;
 			sourceTree = "<group>";
 		};
 		E0931F1D1E30BC6100755B4A /* Distribution */ = {
@@ -1167,7 +1161,26 @@
 			name = RxUtilities;
 			sourceTree = "<group>";
 		};
-		E9B7FA5E1E54331400F46D09 /* NoEeventView */ = {
+		E0FA029B1E5C0544004A55BA /* Servers */ = {
+			isa = PBXGroup;
+			children = (
+				E0FA029C1E5C057B004A55BA /* UserManager */,
+				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
+			);
+			name = Servers;
+			path = "Source Code/Servers";
+			sourceTree = "<group>";
+		};
+		E0FA029C1E5C057B004A55BA /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */,
+				E0FA029D1E5C05A6004A55BA /* UserManager.swift */,
+			);
+			path = UserManager;
+			sourceTree = "<group>";
+		};
+		E9B7FA5E1E54331400F46D09 /* NoEventView */ = {
 			isa = PBXGroup;
 			children = (
 				E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */,
@@ -1581,16 +1594,19 @@
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
+				E0FA02961E5AEA05004A55BA /* Validation.swift in Sources */,
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				D29988CF1E5AD13100D23899 /* ToDoListController.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
+				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,
+				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
-				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,
+				E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
@@ -1613,11 +1629,11 @@
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
-				E03B1BEA1E50255C006EDB7B /* UserManager.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
+				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				E0931F141E30B10600755B4A /* R.generated.swift in Sources */,
 				E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */,
 				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
@@ -1625,6 +1641,7 @@
 				D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
+				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

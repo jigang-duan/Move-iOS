@@ -15,8 +15,12 @@ class UserManager {
     
     static let shared = UserManager()
 
-    fileprivate var worker: UserWorkerProtocl = MokUserInfoWorker()
+    fileprivate var worker: UserWorkerProtocl!
     private let userInfo = UserInfo.shared
+    
+    init() {
+        worker = MoveApiUserWorker()
+    }
 }
 
 extension UserManager {
@@ -24,12 +28,20 @@ extension UserManager {
     func getProfile() -> Observable<UserInfo.Profile> {
         return worker.fetchProfile()
     }
+    
+    func login(email: String, password: String) -> Observable<Bool> {
+        return worker.login(email: email, password: password)
+    }
 }
 
 
 /// User Worker Protocl
 protocol UserWorkerProtocl {
+    
+    func login(email: String, password: String) -> Observable<Bool>
+    
     func fetchProfile() -> Observable<UserInfo.Profile>
+    
 }
 
 
@@ -59,7 +71,7 @@ class UserInfo {
         var email: String?
         var phone: String?
         
-        var icon: String?
+        var iconUrl: String?
     }
 }
 
@@ -80,25 +92,11 @@ extension UserInfo.AccessToken {
             return false
         }
         
-        guard expiryAt.compare(Date()) == .orderedAscending else {
+        guard expiryAt.compare(Date()) == .orderedDescending else {
             return false
         }
         
         return true
-    }
-}
-
-
-class MokUserInfoWorker: UserWorkerProtocl {
-    func fetchProfile() -> Observable<UserInfo.Profile> {
-        return Observable.just(
-            UserInfo.Profile(username: "Paul.wang@tcl.com",
-                             password: "password",
-                             nickname: "Paul.wang",
-                             email: "",
-                             phone: "",
-                             icon: nil)
-        )
     }
 }
 
