@@ -1,0 +1,32 @@
+@startuml
+
+title User Register
+
+actor User
+control App
+boundary Server
+
+User -> App: 点击注册按钮
+App --> App: 进入Sign up界面
+activate App
+
+User -> App: 输入Email
+App --> App: 检验Email是否合理
+
+User -> App: 输入密码
+App --> App: 检验password是否合理
+
+User -> App: 点击Sign up按钮
+App -> Server: 用户信息检查请求 \n检查邮箱，是否已被使用
+Server --> App: 响应用户信息检查请求
+Server --> User: 发送验证码邮件
+
+User -> App: 输入验证码 \n完成按钮
+App -> Server: 帐号注册请求
+Server --> App: 响应帐号注册请求
+
+App --> App: 进入Main界面
+deactivate App
+
+
+@enduml
