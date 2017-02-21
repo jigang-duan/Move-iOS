@@ -18,7 +18,7 @@ class NoticeDetailCell: UITableViewCell {
         set{
             _textstr = newValue
             var size = CGRect()
-            let size2 = CGSize(width: self.contextTextView.frame.size.width, height: 0)//设置label的最大宽度
+            let size2 = CGSize(width: self.contextTextView.frame.size.width, height: 0)
             let attibute = [NSFontAttributeName:self.contextTextView.font]
             size = (_textstr?.boundingRect(with: size2, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attibute , context: nil))!;
             if size.height > self.contextTextView.frame.size.height {

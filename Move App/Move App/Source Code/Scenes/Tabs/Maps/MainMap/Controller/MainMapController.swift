@@ -11,7 +11,8 @@ import MapKit
 import RxSwift
 import RxCocoa
 import SVPulsingAnnotationView
-
+import Realm
+import RealmSwift
 
 //private extension Reactive where Base: MKMapView {
 //    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
@@ -48,6 +49,7 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         
