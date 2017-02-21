@@ -12,7 +12,6 @@
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
 		D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */; };
-		D239B1F11E5589890013E72E /* AccountChoseDeviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1F01E5589890013E72E /* AccountChoseDeviController.swift */; };
 		D239B1F31E55AD520013E72E /* AccountKidsGeneraluserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */; };
 		D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D3E1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift */; };
 		D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24C4D3F1E4DD57F00F9E33A /* MoveApi+Device.swift */; };
@@ -31,6 +30,9 @@
 		D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */; };
 		D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */; };
 		D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */; };
+		D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D29988C61E5A952000D23899 /* KidInformation.storyboard */; };
+		D29988CA1E5AB58A00D23899 /* SafeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29988C91E5AB58A00D23899 /* SafeZoneController.swift */; };
+		D29988CF1E5AD13100D23899 /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29988CE1E5AD13100D23899 /* ToDoListController.swift */; };
 		D2AC16CC1E5460C400815823 /* TXHRrettyRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AC16C81E5460C400815823 /* TXHRrettyRuler.h */; };
 		D2AC16CD1E5460C400815823 /* TXHRrettyRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = D2AC16C91E5460C400815823 /* TXHRrettyRuler.m */; };
 		D2AC16CE1E5460C400815823 /* TXHRulerScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = D2AC16CA1E5460C400815823 /* TXHRulerScrollView.h */; };
@@ -182,7 +184,6 @@
 		C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourGenderController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourGenderController.swift"; sourceTree = "<group>"; };
 		D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetYourBirthdayController.swift; path = "Source Code/Scenes/Chose Device/Controller/SetYourBirthdayController.swift"; sourceTree = "<group>"; };
-		D239B1F01E5589890013E72E /* AccountChoseDeviController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountChoseDeviController.swift; path = "Source Code/Scenes/Account/Controller/AccountChoseDeviController.swift"; sourceTree = "<group>"; };
 		D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountKidsGeneraluserController.swift; path = "Source Code/Scenes/Account/Controller/AccountKidsGeneraluserController.swift"; sourceTree = "<group>"; };
 		D24C4D3E1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Device+Mappable.swift"; sourceTree = "<group>"; };
 		D24C4D3F1E4DD57F00F9E33A /* MoveApi+Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Device.swift"; sourceTree = "<group>"; };
@@ -201,6 +202,9 @@
 		D29937491E53125800350E1C /* MoveApi+Location+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Location+Mappable.swift"; sourceTree = "<group>"; };
 		D299374C1E53126400350E1C /* MoveApi+ActivityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ActivityRecord.swift"; sourceTree = "<group>"; };
 		D299374D1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+ActivityRecord+Mappable.swift"; sourceTree = "<group>"; };
+		D29988C71E5A952000D23899 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/KidInformation.storyboard; sourceTree = "<group>"; };
+		D29988C91E5AB58A00D23899 /* SafeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneController.swift; path = "Source Code/Scenes/KidsHome/SafeZoneController.swift"; sourceTree = "<group>"; };
+		D29988CE1E5AD13100D23899 /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToDoListController.swift; path = "Source Code/Scenes/KidsHome/ToDoListController.swift"; sourceTree = "<group>"; };
 		D2AC16C81E5460C400815823 /* TXHRrettyRuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXHRrettyRuler.h; sourceTree = "<group>"; };
 		D2AC16C91E5460C400815823 /* TXHRrettyRuler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXHRrettyRuler.m; sourceTree = "<group>"; };
 		D2AC16CA1E5460C400815823 /* TXHRulerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXHRulerScrollView.h; sourceTree = "<group>"; };
@@ -661,6 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				E01DF6E91E3059A800EA003D /* Main.storyboard */,
+				D29988C61E5A952000D23899 /* KidInformation.storyboard */,
 				E9E3F13D1E5704CD00B01E29 /* Major.storyboard */,
 				E0931F4C1E31C72C00755B4A /* Account.storyboard */,
 				E0931F491E31C6DF00755B4A /* Social.storyboard */,
@@ -1008,6 +1013,8 @@
 		E0931F521E31E08F00755B4A /* KidsHome */ = {
 			isa = PBXGroup;
 			children = (
+				D29988C91E5AB58A00D23899 /* SafeZoneController.swift */,
+				D29988CE1E5AD13100D23899 /* ToDoListController.swift */,
 			);
 			name = KidsHome;
 			sourceTree = "<group>";
@@ -1025,7 +1032,6 @@
 			isa = PBXGroup;
 			children = (
 				E0931F551E31E12100755B4A /* AccountController.swift */,
-				D239B1F01E5589890013E72E /* AccountChoseDeviController.swift */,
 				D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */,
 			);
 			name = Controller;
@@ -1337,6 +1343,7 @@
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
+				D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */,
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
 				E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */,
@@ -1540,7 +1547,6 @@
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
-				D239B1F11E5589890013E72E /* AccountChoseDeviController.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
@@ -1571,11 +1577,13 @@
 				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
+				D29988CA1E5AB58A00D23899 /* SafeZoneController.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
+				D29988CF1E5AD13100D23899 /* ToDoListController.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
@@ -1672,6 +1680,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D29988C61E5A952000D23899 /* KidInformation.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D29988C71E5A952000D23899 /* Base */,
+			);
+			name = KidInformation.storyboard;
+			sourceTree = "<group>";
+		};
 		E01DF6E91E3059A800EA003D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
