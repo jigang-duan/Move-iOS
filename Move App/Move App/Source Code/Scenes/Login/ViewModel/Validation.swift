@@ -81,6 +81,19 @@ class DefaultValidation {
     let minEmailCount = 5
     let minPasswordCount = 5
     
+    func validateAccount(_ account: String) -> ValidationResult {
+        let numberOfCharacters = account.characters.count
+        if account.characters.count == 0 {
+            return .empty
+        }
+        
+        if numberOfCharacters < minEmailCount {
+            return .failed(message: "Account must be at least \(minEmailCount) characters")
+        }
+        
+        return .ok(message: "Account available")
+    }
+    
     func validateEmail(_ email: String) -> ValidationResult {
         let numberOfCharacters = email.characters.count
         if email.characters.count == 0 {
@@ -89,6 +102,10 @@ class DefaultValidation {
         
         if numberOfCharacters < minEmailCount {
             return .failed(message: "Email must be at least \(minEmailCount) characters")
+        }
+        
+        if !email.contains("@"){
+            return .failed(message: "Email address not correct")
         }
         
         return .ok(message: "Email available")
@@ -102,6 +119,14 @@ class DefaultValidation {
         
         if numberOfCharacters < minPasswordCount {
             return .failed(message: "Password must be at least \(minPasswordCount) characters")
+        }
+        
+        return .ok(message: "Password acceptable")
+    }
+    
+    func validateRePassword(_ password: String, rePasswd: String) -> ValidationResult {
+        if password != rePasswd {
+            return .failed(message: "Twice input password not same")
         }
         
         return .ok(message: "Password acceptable")

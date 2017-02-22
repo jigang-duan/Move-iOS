@@ -29,6 +29,7 @@ extension MoveApi {
         var path: URL?
         var fid: String?
         var progress: Double?
+        var progressObject: Progress?
     }
     
 }
@@ -57,3 +58,11 @@ extension MoveApi.FileUploadResp: Mappable {
     }
 }
 
+extension MoveApi.FileStorageInfo: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        
+    }
+}

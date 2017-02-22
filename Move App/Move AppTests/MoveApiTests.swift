@@ -492,7 +492,7 @@ class ApiTestInfo {
     
     
     
-    var fileInfo = MoveApi.FileInfo(type: "image", duration: 0, data: UIImagePNGRepresentation(UIImage.init(named: "Phone_number")!))
+    var fileInfo = MoveApi.FileInfo(type: "image", duration: 0, data: UIImagePNGRepresentation(R.image.phone_number()!))
     
     var chatReq = MoveApi.GetChatReq(prev: "", next: "", count: 20)
     

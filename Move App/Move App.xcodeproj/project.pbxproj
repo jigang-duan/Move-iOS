@@ -144,6 +144,8 @@
 		E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */; };
 		E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */; };
 		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
+		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
+		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,6 +338,8 @@
 		E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneTabViewCell.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/SafeZoneTabViewCell.swift"; sourceTree = "<group>"; };
 		E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SafeZoneTabViewCell.xib; path = "Source Code/Scenes/Tabs/Maps/MainMap/ViewModel/SafeZoneTabViewCell.xib"; sourceTree = "<group>"; };
 		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
+		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtectAccountViewModel.swift; path = "Source Code/Scenes/Login/ViewModel/ProtectAccountViewModel.swift"; sourceTree = "<group>"; };
+		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpViewModel.swift; path = "Source Code/Scenes/Login/ViewModel/SignUpViewModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -502,6 +506,8 @@
 			children = (
 				D2D661271E4F13B500E46F41 /* AccountMode.swift */,
 				E0FA02931E5AD3F7004A55BA /* LoginViewModel.swift */,
+				FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */,
+				FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */,
 				E0FA02951E5AEA05004A55BA /* Validation.swift */,
 			);
 			name = ViewModel;
@@ -1635,6 +1641,7 @@
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				D29988CF1E5AD13100D23899 /* ToDoListController.swift in Sources */,
+				FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdataPwdController.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
@@ -1677,6 +1684,7 @@
 				E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */,
 				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
+				FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */,
 				D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,

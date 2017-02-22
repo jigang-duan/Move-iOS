@@ -12,7 +12,6 @@ class PwdRecoveryController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
     }
     
     @IBOutlet weak var EmailTextField: UITextField!
@@ -23,7 +22,7 @@ class PwdRecoveryController: UIViewController {
     }
 
     @IBAction func BackAction(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
    
    

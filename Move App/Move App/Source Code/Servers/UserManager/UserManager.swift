@@ -32,6 +32,15 @@ extension UserManager {
     func login(email: String, password: String) -> Observable<Bool> {
         return worker.login(email: email, password: password)
     }
+    
+    func signUp(email: String, password: String) -> Observable<Bool> {
+        return worker.signUp(email: email, password: password)
+    }
+    
+    func sendVcode(to: String) -> Observable<Bool>  {
+        return worker.sendVcode(to: to)
+    }
+    
 }
 
 
@@ -42,6 +51,9 @@ protocol UserWorkerProtocl {
     
     func fetchProfile() -> Observable<UserInfo.Profile>
     
+    func signUp(email: String, password: String) -> Observable<Bool>
+    
+    func sendVcode(to: String) -> Observable<Bool>
 }
 
 

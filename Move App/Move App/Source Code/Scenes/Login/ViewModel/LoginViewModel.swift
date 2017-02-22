@@ -48,7 +48,7 @@ class LoginViewModel {
         
         validatedEmail = input.email
             .map { email in
-                return validation.validateEmail(email)
+                return validation.validateAccount(email)
             }
         
         validatedPassword = input.passwd

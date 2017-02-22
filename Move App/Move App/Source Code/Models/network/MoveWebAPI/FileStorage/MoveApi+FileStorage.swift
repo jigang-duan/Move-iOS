@@ -37,12 +37,28 @@ extension MoveApi {
             return defaultProvider.requestWithProgress(.download(fid: fid)).map{
                 
                 var fileStorageInfo = FileStorageInfo()
-                fileStorageInfo.progress = $0.progress
-                fileStorageInfo.name = $0.response?.response?.suggestedFilename
-                fileStorageInfo.type = $0.response?.response?.mimeType
-                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name)")
-                fileStorageInfo.fid = fid
+                fileStorageInfo.progressObject = $0.progressObject
+                
+                if $0.response != nil{
+                    let res = $0.response
+                    if (res?.statusCode)! >= 200 && (res?.statusCode)! < 400{
+                        fileStorageInfo.progress = $0.progress
+                        fileStorageInfo.name = $0.response?.response?.suggestedFilename
+                        fileStorageInfo.type = $0.response?.response?.mimeType
+                        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                        fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name)")
+                        fileStorageInfo.fid = fid
+                        
+                    }else{
+                        guard let json = try? res?.mapJSON() else {
+                            throw MoyaError.jsonMapping(res!)
+                        }
+                        
+                        if let apiError = Mapper<MoveApi.ApiError>().map(JSONObject: json),let errId = apiError.id, errId != 0 {
+                            throw apiError
+                        }
+                    }
+                }
                 
                 return fileStorageInfo
             }
