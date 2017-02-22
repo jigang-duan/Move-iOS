@@ -129,6 +129,10 @@
 		E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
+		E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */; };
+		E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA01E5D342100367A04 /* MessageHistory.swift */; };
+		E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA21E5D3D4200367A04 /* NotificationList.swift */; };
+		E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */; };
 		E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */; };
 		E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F951E5AC97400752863 /* NotificationListVC.swift */; };
 		E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */; };
@@ -317,6 +321,10 @@
 		E9C2E1DF1E4B1B1A00D75978 /* MainMapSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMapSceneViewController.swift; path = "Source Code/Scenes/Tabs/MainMapSceneViewController.swift"; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHistoryVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/LocationHistoryVC.swift"; sourceTree = "<group>"; };
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSafeZoneVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/AddSafeZoneVC.swift"; sourceTree = "<group>"; };
+		E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceList.swift; path = "Source Code/Models/database/DeviceList.swift"; sourceTree = "<group>"; };
+		E9D77FA01E5D342100367A04 /* MessageHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageHistory.swift; path = "Source Code/Models/database/MessageHistory.swift"; sourceTree = "<group>"; };
+		E9D77FA21E5D3D4200367A04 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationList.swift; path = "Source Code/Models/database/NotificationList.swift"; sourceTree = "<group>"; };
+		E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationEntity.swift; path = "Source Code/Models/database/LocationEntity.swift"; sourceTree = "<group>"; };
 		E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneAddressSearchVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/SafeZoneAddressSearchVC.swift"; sourceTree = "<group>"; };
 		E9DD0F951E5AC97400752863 /* NotificationListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationListVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/NotificationListVC.swift"; sourceTree = "<group>"; };
 		E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDetailVC.swift; path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/NotificationDetailVC.swift"; sourceTree = "<group>"; };
@@ -1204,6 +1212,10 @@
 			isa = PBXGroup;
 			children = (
 				E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */,
+				E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */,
+				E9D77FA01E5D342100367A04 /* MessageHistory.swift */,
+				E9D77FA21E5D3D4200367A04 /* NotificationList.swift */,
+				E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */,
 			);
 			name = database;
 			sourceTree = "<group>";
@@ -1565,6 +1577,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
 				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
 				D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */,
@@ -1597,7 +1610,9 @@
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
+				E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
+				E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */,
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
@@ -1666,6 +1681,7 @@
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
+				E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
