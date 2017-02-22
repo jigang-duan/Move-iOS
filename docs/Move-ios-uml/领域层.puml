@@ -1,0 +1,205 @@
+@startuml
+
+skinparam backgroundColor #EEEBDC
+title 业务层类图
+
+class Me {
+
+}
+
+Class Account {
+    String name
+    String passwrod
+}
+
+Class AccessToken {
+    String uid
+    String token
+    String expiredAt
+}
+
+interface Role
+note right
+角色
+我可以有多个角色
+对于KidWatch我的角色是监护人
+end note
+
+Class Guardian {
+    Relation relation
+}
+note left
+监护人
+监护多个小孩
+end note
+
+Class Kid
+note left
+小孩
+关联一个KidWatch设备
+拥有多个监护人
+end note
+
+Class KidProfile {
+    String phone
+    String nickname
+    Url headImage
+    Gender gender
+    int height
+    int weight
+    int birthday
+}
+
+Class KidWatch
+note left
+KidWatch设备
+关联一个小孩
+end note
+
+Class WatchProfile {
+    String deviceId
+}
+note right
+Watch Profile
+可以判定类型或身份的数据
+end note
+
+Class WatchSetting {
+    String period
+    PositioningMode mode
+    bool vibrate
+    bool mute
+    array muteTime
+    Stirng ring
+    int timezone
+    bool roaming
+    bool autoAnswer
+    bool savePower
+    array languages
+    String language
+    bool hour24
+    bool autoTime
+    bool dst
+    bool autoPowerOnoff
+    int bootTime
+    int shutdownTime
+    array reminders
+}
+note right
+Watch Setting
+在设置时更改的数据
+end note
+
+Class WatchState {
+    int power
+}
+note right
+Watch状态
+需要实时更新的数据
+end note
+
+Class KidSetting {
+    array sos
+    SchoolTime schoolTime
+    array permissions
+}
+
+Class KidFence {
+    String name
+    Location location
+    double radius
+    bool active
+}
+Class KidState {
+}
+Class Location {
+    Loc curLoacatio
+    array historyLocation
+}
+
+Class User {
+}
+Class UserProfile {
+    String phone
+    String email
+    Url headImage
+    String nickname
+}
+
+Class Message {
+    array historyItems
+    void send()
+    void read()
+    void delete()
+    void clean()
+}
+
+Class Notification {
+    array historyItems
+    void read()
+    void delete()
+    void clean()
+}
+note right
+通知
+end note
+
+Class Authority {
+}
+note right
+权限
+能做什么的权力
+一般用管理员和非管理员区分
+end note
+
+Role <|-- Guardian
+Me o--"n" Role
+Me o-- User
+Me o-- Account
+
+Guardian "n"-->"n" Kid
+Kid "1"-->"1" KidWatch
+
+Account "1"*- AccessToken
+User "1"*- UserProfile
+
+Kid "1"*- KidProfile
+Kid "1"*- KidSetting
+Kid "1"*- KidState
+KidState *- Location
+
+KidWatch "1"*- WatchProfile
+KidWatch "1"*- WatchSetting
+KidWatch "1"*- WatchState
+WatchSetting "n"*- KidFence
+
+Guardian "1"*- Message
+Guardian .> Authority
+Me "1"*- Notification
+
+
+enum Relation {
+1 - mother
+2 - father
+3 - grandmaF
+4 - grandPaF
+5 - grandmaM
+6 - grandpaM
+7 - uncle
+8 - aunty
+9 - sister
+10 - brother
+}
+
+enum Gender {
+male
+female
+}
+
+enum PositioningMode {
+accurate
+normal
+savepower
+}
+
+@enduml

@@ -1,0 +1,70 @@
+@startuml
+
+skinparam backgroundColor #EEEBDC
+
+title 普通用户加入
+
+actor 普通用户 as user
+control  普通用户APP as otherApp
+control 管理员用户App as app
+actor 管理员用户 as manage #red
+boundary Server
+
+user --> otherApp
+activate otherApp
+app --> app
+activate app
+
+group 设备id
+    alt 从管理员获取
+        opt 选择项，普通用户信息
+            app --> manage: 进入普通用户信息界面
+            note right
+            可选项,
+            管理员填写普通用户号码和关系
+            生成二维码时包含这些信息
+            end note
+            manage -> app: 输入Phone number和\n选择与小孩的关系
+        end
+
+        app --> app: 生成二维码
+        otherApp -> app: 扫描二维码
+        otherApp --> otherApp: 获得设备ID
+    else 从IMEI号获取
+        user -> app: 输入IMEI或扫描说明书二维码
+        app -->x user:  无法获取设备ID
+    end
+    otherApp -> Server: 设备是否绑定请求
+    Server --> otherApp: 检查设备是否判定
+end
+deactivate app
+
+alt 二维码不包含普通用户信息
+    otherApp --> user: 进入普通用户信息界面
+    note left
+    选择项,
+    若二维码不包含
+    通用户信息
+    end note
+    user -> otherApp: 输入Phone number和\n选择与小孩的关系
+else 二维码包含普通用户信息
+    otherApp --> user: 显示不完整用户信息
+    note left
+    若二维码里包含
+    普通用户信息
+    就不需要再次填写
+    end note
+    user -> otherApp: 填写缺失的后几位号码
+    otherApp ->o otherApp: 判断号码是否正确
+end
+
+group 加入
+    user -> otherApp: next按键
+    otherApp -> Server: 加入请求
+    Server --> otherApp: 响应加入请求
+end
+
+otherApp --> user
+deactivate otherApp
+
+@enduml

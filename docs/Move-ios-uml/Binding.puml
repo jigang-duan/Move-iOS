@@ -1,0 +1,56 @@
+@startuml
+
+skinparam backgroundColor #EEEBDC
+
+title Binding Kid Watch
+
+actor 管理员用户 as User #red
+control App
+boundary Server
+participant watch
+
+User -> App: 点击添加Kid Watch
+App --> App: 进入绑定界面
+activate App
+
+group 设备id
+User -> App: 扫描二维码\n或输入IMEI
+App --> App: 获得设备ID
+end
+
+group 验证码过程
+App --> User: 进入验证码界面
+User -> App: 验证码发送按键
+App -> Server: 验证码请求
+Server --> App: 返回验证码SID
+Server --> watch: 验证码反馈
+User --> watch: 查看验证码
+User -> App: 输入验证码
+App --> App: 验证码+SID
+App -> Server: 设备ID是否绑定请求
+Server --> App: 检查设备ID是否判定
+end
+
+group 监护人信息
+App --> User: 进入Phone number界面
+User -> App: 输入Phone number
+
+App --> User: 进入Relationship界面
+User -> App: 选择与小孩的关系
+end
+
+group 小孩信息
+App --> User: 进入小孩信息界面
+User -> App: 填写小孩信息\n（昵称，号码，性别，身高，体重，生日）
+end
+
+group 绑定
+User -> App: next按键
+App -> Server: 绑定请求
+Server --> App: 响应绑定请求
+end
+
+App --> User: 进入Main界面
+deactivate App
+
+@enduml
