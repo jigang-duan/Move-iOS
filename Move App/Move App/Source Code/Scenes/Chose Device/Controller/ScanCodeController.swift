@@ -80,14 +80,53 @@ class ScanCodeController: UIViewController {
         return layer!
     }()
     
+    @IBAction func openAbum(_ sender: AnyObject) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            
+            let picker = UIImagePickerController()
+            
+            picker.delegate = self
+            
+            picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            picker.allowsEditing = true
+            
+            self.present(picker, animated: true, completion: { 
+                
+            })
+        }
+        else
+            {
+                print("读取相册错误")
+            }
+            
+            
+        
+        
+    }
+    
+    
    
 }
-extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
+extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let image:UIImage!
+        image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        let imageview = UIImageView()
+        imageview.frame = CGRect(x: 50, y: 50, width: 100, height: 100)
+        self.view .addSubview(imageview)
+        imageview.image = image
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
     
     
     //扫描代理方法：只要解析到数据就会调用
-     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
+     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
     {
         print(metadataObjects)
     }

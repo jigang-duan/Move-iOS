@@ -730,7 +730,7 @@
                                                         <constraint firstAttribute="width" constant="25" id="sO2-63-U6n"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYA-bq-Xfh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regular shutdown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYA-bq-Xfh">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="CDx-Wa-8Ag"/>
                                                     </constraints>
@@ -1691,7 +1691,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HF-et-P09">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HF-et-P09">
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="WLt-zq-iLs"/>
@@ -1739,7 +1739,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xS3-uc-0RS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xS3-uc-0RS">
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="YkS-2G-Wnu"/>
@@ -2474,7 +2474,7 @@
         <!--Regular shutdown-->
         <scene sceneID="32P-xZ-1Ei">
             <objects>
-                <viewController id="jDZ-hb-19c" sceneMemberID="viewController">
+                <viewController id="jDZ-hb-19c" customClass="RegularshutdownController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1ie-MF-CXu"/>
                         <viewControllerLayoutGuide type="bottom" id="YtJ-KS-Yfc"/>
@@ -2500,6 +2500,9 @@
                                         </constraints>
                                         <state key="normal" image="general_btn_off"/>
                                         <state key="selected" image="general_btn_on"/>
+                                        <connections>
+                                            <action selector="AutomaticPowerAction:" destination="jDZ-hb-19c" eventType="touchUpInside" id="f2Z-Gc-1AV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2520,12 +2523,18 @@
                                                     <constraint firstAttribute="height" constant="30" id="Bdw-36-s7g"/>
                                                 </constraints>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="CancelAction:" destination="jDZ-hb-19c" eventType="touchUpInside" id="4Aa-B2-p70"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lR3-Z2-UYe">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="WHB-TB-mPK"/>
                                                 </constraints>
                                                 <state key="normal" title="Comfirm"/>
+                                                <connections>
+                                                    <action selector="Comfirm:" destination="jDZ-hb-19c" eventType="touchUpInside" id="QLo-Bc-4DI"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -2581,6 +2590,12 @@
                                         <state key="normal" title="07:15">
                                             <color key="titleColor" red="0.13333334029999999" green="0.13333334029999999" blue="0.13333334029999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="timetwoAction:" destination="jDZ-hb-19c" eventType="touchUpInside" id="FJm-Cv-TKH"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shutdown time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1S1-F7-lpr">
                                         <constraints>
@@ -2597,6 +2612,12 @@
                                         <state key="normal" title="07:15">
                                             <color key="titleColor" red="0.13333334029999999" green="0.13333334029999999" blue="0.13333334029999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="timeoneAction:" destination="jDZ-hb-19c" eventType="touchUpInside" id="9br-ED-tIR"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2632,28 +2653,21 @@
                     </view>
                     <navigationItem key="navigationItem" title="Regular shutdown" id="9cA-Ty-755">
                         <barButtonItem key="backBarButtonItem" title=" " id="AbL-eR-TEr"/>
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="bBt-1L-N6c">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jDK-Uc-S1N" userLabel="add">
-                                    <rect key="frame" x="286" y="11" width="18" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="nav_add_nor"/>
-                                    <state key="highlighted" image="nav_add_pre"/>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="Roj-Kg-vlW">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iqE-Qu-HMS" userLabel="add">
-                                    <rect key="frame" x="260" y="11" width="18" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="nav_add_nor"/>
-                                    <state key="highlighted" image="nav_add_pre"/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="bBt-1L-N6c">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jDK-Uc-S1N" userLabel="add">
+                                <rect key="frame" x="286" y="11" width="18" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="nav_add_nor"/>
+                                <state key="highlighted" image="nav_add_pre"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outletCollection property="DateViewBottomConstrain" destination="uAC-3b-RLN" collectionClass="NSMutableArray" id="geI-TI-c0h"/>
+                        <outlet property="DatePick" destination="A5d-xI-zmx" id="IYd-dD-TGU"/>
+                        <outlet property="DatepickView" destination="I0S-3d-4ce" id="Iq4-08-HZF"/>
+                        <outlet property="timeone" destination="E9i-7N-RL4" id="TxC-w4-Naw"/>
+                        <outlet property="timetwo" destination="qwG-PC-ugy" id="bNw-rs-owW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vCd-3H-IjJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2818,15 +2832,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ZN5-Ej-K0B">
-                                <frame key="frameInset" minY="32" maxY="32"/>
+                                <frame key="frameInset" minX="-0.5" minY="32" maxX="-0.5" maxY="31.5"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rKe-Es-TzZ">
-                                        <rect key="frame" x="0.0" y="56" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="321" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rKe-Es-TzZ" id="41M-rz-WP1">
-                                            <frame key="frameInset" width="320" height="43"/>
+                                            <frame key="frameInset" width="321" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bluetooth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAq-qZ-vjd">
