@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
+		1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */; };
+		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
+		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
+		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
@@ -192,6 +196,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionViewModel.swift; sourceTree = "<group>"; };
+		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
+		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
+		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
 		141858BC35771DF061629EC7 /* Pods_Move_App_CustomViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App_CustomViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E731807D2860715DF8F413 /* Pods_Move_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,6 +395,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11D0BECA1E5EBC09006F957E /* MeManager */ = {
+			isa = PBXGroup;
+			children = (
+				11D0BECB1E5EBC73006F957E /* MeManager.swift */,
+				11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */,
+			);
+			name = MeManager;
+			sourceTree = "<group>";
+		};
 		37564730C81CD14DEFBABA0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -942,6 +959,7 @@
 		E0931F1F1E30BCAD00755B4A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1195,8 +1213,10 @@
 		E0FA029B1E5C0544004A55BA /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				11D0BECA1E5EBC09006F957E /* MeManager */,
 				E0FA029C1E5C057B004A55BA /* UserManager */,
 				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
+				11D0BEC81E5E784F006F957E /* Business.swift */,
 			);
 			path = Servers;
 			sourceTree = "<group>";
@@ -1598,6 +1618,7 @@
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
 				E9DD0F9B1E5ACB4600752863 /* NoticeListCell.swift in Sources */,
+				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
@@ -1622,6 +1643,7 @@
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
+				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
 				E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */,
@@ -1655,6 +1677,7 @@
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				D2637B791E5E7C40005D82D9 /* ToDoListController.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
+				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
@@ -1672,6 +1695,7 @@
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
+				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,

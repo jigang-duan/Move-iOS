@@ -7,13 +7,50 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
 
 class DistributionViewController: UIViewController {
+    
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let viewModel = DistributionViewModel(
+            dependency: (
+                meManager: MeManager.shared,
+                userManager: UserManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+            )
+        )
+        
+        viewModel.enterLogin
+            .drive(onNext: { enter in
+                if enter {
+                    Distribution.shared.enterLoginScreen()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.enterChoose.debug()
+            .drive(onNext: { enter in
+                if enter {
+                    Distribution.shared.enterChoseDeviceScreen()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.enterMain
+            .drive(onNext: { enter in
+                if enter {
+                    Distribution.shared.enterChoseDeviceScreen()
+                }
+            })
+            .addDisposableTo(disposeBag)
         
     }
     

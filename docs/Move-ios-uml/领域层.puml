@@ -4,9 +4,10 @@ skinparam backgroundColor #EEEBDC
 title 业务层类图
 
 class Me {
-
+    - void checkRoles()
 }
 
+package UserInfo {
 Class Account {
     String name
     String passwrod
@@ -18,7 +19,19 @@ Class AccessToken {
     String expiredAt
 }
 
-interface Role
+Class User {
+}
+Class UserProfile {
+    String phone
+    String email
+    Url headImage
+    String nickname
+
+}
+}
+
+interface Role {
+}
 note right
 角色
 我可以有多个角色
@@ -27,13 +40,20 @@ end note
 
 Class Guardian {
     Relation relation
+
+    + void applyGuardianship(Relation, Kid)
+    + void joinGuardianship(Relation, Kid)
 }
 note left
 监护人
 监护多个小孩
 end note
 
-Class Kid
+package Kid {
+Class Kid {
+    String kidId
+    + void acceptGuardianship(Guardian)
+}
 note left
 小孩
 关联一个KidWatch设备
@@ -41,16 +61,58 @@ note left
 end note
 
 Class KidProfile {
+    String kidId
     String phone
     String nickname
-    Url headImage
+    Url headPortrait
     Gender gender
     int height
     int weight
     int birthday
+
+    + read()
+    + write()
 }
 
-Class KidWatch
+Class KidSetting {
+    String kidId
+    array sos
+    SchoolTime schoolTime
+    array permissions
+
+    + read()
+    + write()
+
+    + getFences()
+    + addFence(Fence)
+    + updateFence(Fence)
+    + delectFence(Fence)
+}
+Class KidFence {
+    String kidId
+    String name
+    Location location
+    double radius
+    bool active
+}
+
+Class KidState {
+    String kidId
+}
+
+Class Location {
+    String kidId
+    Loc curLoacatio
+    array historyLocation
+}
+
+}
+
+package Watch {
+
+Class KidWatch {
+    String watchId
+}
 note left
 KidWatch设备
 关联一个小孩
@@ -63,6 +125,10 @@ note right
 Watch Profile
 可以判定类型或身份的数据
 end note
+
+Class WatchState {
+    int power
+}
 
 Class WatchSetting {
     String period
@@ -84,47 +150,20 @@ Class WatchSetting {
     int bootTime
     int shutdownTime
     array reminders
+
+    + read()
+    + write()
 }
 note right
 Watch Setting
 在设置时更改的数据
 end note
 
-Class WatchState {
-    int power
-}
-note right
-Watch状态
-需要实时更新的数据
-end note
 
-Class KidSetting {
-    array sos
-    SchoolTime schoolTime
-    array permissions
 }
 
-Class KidFence {
-    String name
-    Location location
-    double radius
-    bool active
-}
-Class KidState {
-}
-Class Location {
-    Loc curLoacatio
-    array historyLocation
-}
 
-Class User {
-}
-Class UserProfile {
-    String phone
-    String email
-    Url headImage
-    String nickname
-}
+
 
 Class Message {
     array historyItems
@@ -144,7 +183,7 @@ note right
 通知
 end note
 
-Class Authority {
+interface Authority {
 }
 note right
 权限
@@ -153,7 +192,7 @@ note right
 end note
 
 Role <|-- Guardian
-Me o--"n" Role
+Me "n" o-- Role
 Me o-- User
 Me o-- Account
 
@@ -167,11 +206,12 @@ Kid "1"*- KidProfile
 Kid "1"*- KidSetting
 Kid "1"*- KidState
 KidState *- Location
+KidSetting "n"*- KidFence
 
 KidWatch "1"*- WatchProfile
 KidWatch "1"*- WatchSetting
 KidWatch "1"*- WatchState
-WatchSetting "n"*- KidFence
+
 
 Guardian "1"*- Message
 Guardian .> Authority
