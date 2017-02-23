@@ -10,41 +10,63 @@ import UIKit
 
 class ToDoListController: UIViewController {
 
+    
+    @IBOutlet weak var titleLabel: UITextField!
+    @IBOutlet weak var timeBtn: UIButton!
+    @IBOutlet weak var DatePicekerView: UIView!
+    @IBOutlet weak var PickerView: UIDatePicker!
+    
+    
+    @IBAction func WeekAction(_ sender: UIButton) {
+        
+        sender.isSelected = !sender.isSelected
+        
+        if !sender.isSelected {
+            sender.backgroundColor = UIColor.blue
+        }else
+        {
+            sender.backgroundColor = UIColor.lightGray
+        }
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    @IBAction func timeAction(_ sender: UIButton) {
+        sender.isEnabled = false
+        DatePicekerView.isHidden = false
         
+    }
+    @IBAction func CancelAction(_ sender: UIButton) {
+        DatePicekerView.isHidden = true
+        timeBtn.isEnabled = true
+    }
+    @IBAction func ComfirmAction(_ sender: UIButton) {
+        timeBtn.setTitle(showPickerTime(), for: UIControlState.normal)
+        timeBtn.isEnabled = true
+        DatePicekerView.isHidden = true
     }
     
-    @IBAction func WeekAction(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
+    private func showPickerTime() -> String {
+        let date = PickerView.date
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "HH:mm"
+        let dateStr = dformatter.string(from: date)
         
-        
-    }
-    @IBOutlet weak var DatePickView: UIView!
-    @IBOutlet var DateViewBottomConstrain: [NSLayoutConstraint]!
-    
-    @IBAction func comfimAction(_ sender: AnyObject) {
-        print(DatePick.date)
-        
-    }
-    @IBAction func CancelAction(_ sender: AnyObject) {
-        DatePickView.isHidden = true
-        
-    }
-    @IBOutlet weak var DatePick: UIDatePicker!
-    
-    @IBAction func timeChange(_ sender: AnyObject) {
-        
-        DatePickView.isHidden = false
-        
+        return dateStr
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DatePicekerView.isHidden = true
+        timeBtn.isEnabled = true
+    }
+    
+    
+   
 
    
 }
