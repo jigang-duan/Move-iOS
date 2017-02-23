@@ -20,3 +20,15 @@ class BaseAnnotation: NSObject, MKAnnotation {
         self.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
     }
 }
+
+class LocationAnnotation: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    
+    init(_ coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+    }
+    
+    init(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
+        self.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+    }
+}

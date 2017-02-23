@@ -115,8 +115,7 @@ class LocationHistoryVC: UIViewController {
         viewModel.kidAnnotion.debug()
             .distinctUntilChanged()
             .drive(onNext: { [unowned self] annotion in
-                self.locationMap.removeAnnotations(self.locationMap.annotations)
-                self.locationMap.addAnnotation(annotion)
+                
             })
             .addDisposableTo(disposeBag)
         
@@ -148,26 +147,37 @@ class LocationHistoryVC: UIViewController {
     */
     func polyline() -> MKPolyline {
         var coords = [CLLocationCoordinate2D]()
+        var locationarr = [LocationAnnotation]()
         for  i in 0...10  {
-            let location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765)
+            var location = CLLocationCoordinate2D()
+            if i%2 != 0 {
+                 location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
+            }else{
+                 location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
+            }
             coords .append(location)
+            let annotation = LocationAnnotation(location)
+            locationarr.append(annotation)
         }
+        locationMap.addAnnotations(locationarr)
         return MKPolyline(coordinates : coords, count: 10)
+        
     }
 }
 
 extension LocationHistoryVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is BaseAnnotation {
-            let reuseIdentifier = "targetAnnoteationReuseIdentifier"
-            var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? SVPulsingAnnotationView
-            if annoView == nil {
-                annoView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                annoView?.annotationColor = R.color.appColor.primary()
+        if annotation is LocationAnnotation {
+            let identifier = "LocationAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-            annoView?.canShowCallout = false
-            return annoView
+            annotationView?.canShowCallout = false
+            let detailImage = UIImage(named: "positioning_ic_1")
+            annotationView?.image = detailImage
+            return annotationView
         }
         
         return nil
@@ -178,7 +188,7 @@ extension LocationHistoryVC : MKMapViewDelegate {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
             polylineRenderer.fillColor = UIColor.red
-            polylineRenderer.strokeColor = UIColor.blue
+            polylineRenderer.strokeColor = R.color.appColor.primary()
             polylineRenderer.lineWidth = 4.0
             return polylineRenderer
         }
