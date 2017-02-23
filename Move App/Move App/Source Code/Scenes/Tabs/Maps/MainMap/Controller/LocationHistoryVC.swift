@@ -11,7 +11,7 @@ import MapKit
 import RxSwift
 import RxCocoa
 import SVPulsingAnnotationView
-
+import FSCalendar
 class LocationHistoryVC: UIViewController {
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
@@ -33,6 +33,10 @@ class LocationHistoryVC: UIViewController {
     
     @IBOutlet weak var timeZoneSlider: UISlider!
     
+    @IBOutlet weak var calendar: FSCalendar!
+    
+    var isCalendarOpen : Bool = false
+    
     var item : UIBarButtonItem?
     
     var routeLine : MKPolyline?
@@ -44,7 +48,7 @@ class LocationHistoryVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location History"
-        
+        calendar.delegate = self
         let img=UIImage(named: "nav_location_nor")
         item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
@@ -69,7 +73,8 @@ class LocationHistoryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        calendar.select(calendar.today)
+        timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         let img = UIImage(named : "general_slider_dot")
         timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         
@@ -161,8 +166,46 @@ class LocationHistoryVC: UIViewController {
         }
         locationMap.addAnnotations(locationarr)
         return MKPolyline(coordinates : coords, count: 10)
+    }
+    
+    @IBAction func CalenderOpenBtnClick(_ sender: UIButton) {
+        if isCalendarOpen == false {
+            calendar.isHidden = false
+            isCalendarOpen = true
+        }else{
+            calendar.isHidden = true
+            isCalendarOpen = false
+        }
         
     }
+    
+    var selectDate = Date()
+    
+    @IBAction func LastBtnClick(_ sender: UIButton) {
+        let curday = calendar.selectedDate
+        let perivday = calendar.date(bySubstractingDays: 1, from: curday)
+        calendar.select(perivday)
+//        if perivday.compare(calendar.today!) == .orderedAscending {
+        
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
+        let diffString = dateComponentsFormatter.string(from: perivday, to: calendar.today!)
+        
+        print("\(diffString)")
+//        }
+    }
+    @IBAction func NextBtnClick(_ sender: UIButton) {
+        let curday = calendar.selectedDate
+        let nextday = calendar.date(byAddingDays: 1, to: curday)
+        calendar .select(nextday)
+        
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
+        let diffString = dateComponentsFormatter.string(from: nextday, to: calendar.today!)
+        print("\(diffString)")
+    }
+    
+    
 }
 
 extension LocationHistoryVC : MKMapViewDelegate {
@@ -196,3 +239,6 @@ extension LocationHistoryVC : MKMapViewDelegate {
     }
 }
 
+extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
+    
+}
