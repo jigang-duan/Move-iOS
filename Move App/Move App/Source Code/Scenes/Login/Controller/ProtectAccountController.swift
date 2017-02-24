@@ -23,16 +23,47 @@ class ProtectAccountController: UIViewController {
     var viewModel: ProtectAccountViewModel!
     var disposeBag = DisposeBag()
 
+    
+    
+    
+    func showValidateError(_ text: String) {
+        vcodeValidation.isHidden = false
+        vcodeValidation.alpha = 0.0
+        vcodeValidation.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.vcodeValidation.textColor = ValidationColors.errorColor
+            self?.vcodeValidation.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    func revertValidateError() {
+        vcodeValidation.isHidden = true
+        vcodeValidation.alpha = 1.0
+        vcodeValidation.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.vcodeValidation.textColor = ValidationColors.okColor
+            self?.vcodeValidation.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(email)."
         
+        email = "491339607@qq.com"
+        
+        vcodeValidation.isHidden = true
         
         viewModel = ProtectAccountViewModel(
             input:(
+                email: self.email!,
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
-                sendTaps: sendBun.rx.tap.asDriver(),
+                sendTaps: sendBun.rx.tap.asObservable(),
                 doneTaps: doneBun.rx.tap.asDriver()
             ),
             dependency: (
@@ -41,6 +72,8 @@ class ProtectAccountController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        
+        
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in
@@ -56,31 +89,29 @@ class ProtectAccountController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-//        viewModel.sendResult
-//            .drive(onNext: { sendResult in
-//                switch sendResult {
-//                case .failed(let message):
-//                    self.showAccountError(message)
-//                    self.gotoProtectVC()
-//                case .ok:
-//                self.gotoProtectVC()
-//                default:
-//                    break
-//                }
-//            })
-//            .addDisposableTo(disposeBag)
+        viewModel.sendResult
+            .drive(onNext: { sendResult in
+                switch sendResult {
+                case .failed(let message):
+                   self.showValidateError(message)
+                case .ok:
+                    print(sendResult)
+                default:
+                    self.revertValidateError()
+                }
+            })
+            .addDisposableTo(disposeBag)
         
         
         viewModel.doneResult
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.vcodeValidation.text = message
-                    self.vcodeValidation.isHidden = false
+                    self.showValidateError(message)
                 case .ok:
                     _ = self.navigationController?.popViewController(animated: true)
                 default:
-                    self.vcodeValidation.isHidden = true
+                    self.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -88,6 +119,20 @@ class ProtectAccountController: UIViewController {
     }
     
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.vcodeInvalidte.drive(onNext: { result in
+            switch result{
+            case .failed(let message):
+                self.showValidateError(message)
+            default:
+                self.revertValidateError()
+            }
+        })
+            .addDisposableTo(disposeBag)
+   
+    }
     
     
     

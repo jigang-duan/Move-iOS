@@ -37,10 +37,17 @@ extension UserManager {
         return worker.signUp(email: email, password: password)
     }
     
-    func sendVcode(to: String) -> Observable<Bool>  {
+    func sendVcode(to: String) -> Observable<MoveApi.VerificationCodeSend>  {
         return worker.sendVcode(to: to)
     }
     
+    func checkVcode(sid: String, vcode: String) -> Observable<Bool>{
+        return worker.checkVcode(sid: sid, vcode: vcode)
+    }
+    
+    func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool> {
+        return worker.updatePasssword(sid: sid, vcode: vcode, email: email, password: password)
+    }
 }
 
 
@@ -53,7 +60,11 @@ protocol UserWorkerProtocl {
     
     func signUp(email: String, password: String) -> Observable<Bool>
     
-    func sendVcode(to: String) -> Observable<Bool>
+    func sendVcode(to: String) -> Observable<MoveApi.VerificationCodeSend>
+    
+    func checkVcode(sid: String, vcode: String) -> Observable<Bool>
+    
+    func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool>
 }
 
 

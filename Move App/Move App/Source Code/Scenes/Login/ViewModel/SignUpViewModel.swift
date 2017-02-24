@@ -17,7 +17,7 @@ class SignUpViewModel {
     //
     let validatedEmail: Driver<ValidationResult>
     let validatedPassword: Driver<ValidationResult>
-    let validatedRePassword: Driver<ValidationResult>
+    var validatedRePassword: Driver<ValidationResult>
     
 
     let signUpEnabled: Driver<Bool>
@@ -55,14 +55,8 @@ class SignUpViewModel {
                 return validation.validatePassword(password)
         }
         
-        validatedRePassword = input.rePasswd
-            .map { rePasswd in
-                var pd = ""
-                _ = input.passwd.asObservable().map{
-                    pd = $0
-                    print($0)
-                }
-                return validation.validateRePassword(rePasswd, rePasswd: rePasswd)
+        validatedRePassword = Driver.combineLatest(input.passwd, input.rePasswd){
+            return validation.validateRePassword($0, rePasswd: $1)
         }
         
         let signingIn = ActivityIndicator()

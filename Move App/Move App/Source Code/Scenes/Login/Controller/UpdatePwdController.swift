@@ -1,8 +1,8 @@
 //
-//  SignUpViewController.swift
+//  UpdataPwdController.swift
 //  Move App
 //
-//  Created by Vernon yellow on 17/2/10.
+//  Created by Vernon yellow on 17/2/11.
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 
@@ -10,49 +10,48 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SignUpViewController: UIViewController {
+class UpdatePwdController: UIViewController {
 
-    @IBOutlet weak var emailTf: UITextField!
-    @IBOutlet weak var emailValidation: UILabel!
-    @IBOutlet weak var emailValidHConstrain: NSLayoutConstraint!
+    @IBOutlet weak var helpLabel: UILabel!
+    @IBOutlet weak var vcodeTf: UITextField!
+    @IBOutlet weak var vcodeValidation: UILabel!
+    @IBOutlet weak var vcodeValidHConstrain: NSLayoutConstraint!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var passwordValidation: UILabel!
     @IBOutlet weak var passwdValidHConstrain: NSLayoutConstraint!
     @IBOutlet weak var rePasswordTf: UITextField!
     @IBOutlet weak var rePasswordValidation: UILabel!
-    @IBOutlet weak var rePasswdValidHConstrain: NSLayoutConstraint!
     
-    @IBOutlet weak var signUpBtn: UIButton!
- 
+    @IBOutlet weak var sendBun: UIButton!
+    @IBOutlet weak var doneBun: UIButton!
+    
+    var sid = ""
+    
+    var viewModel: UpdatePswdViewModel!
     var disposeBag = DisposeBag()
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
     
-    }
-    
-    func showAccountError(_ text: String) {
-        emailValidHConstrain.constant = 16
-        emailValidation.isHidden = false
-        emailValidation.alpha = 0.0
-        emailValidation.text = text
+    func showVcodeError(_ text: String) {
+        vcodeValidHConstrain.constant = 16
+        vcodeValidation.isHidden = false
+        vcodeValidation.alpha = 0.0
+        vcodeValidation.text = text
         UIView.animate(withDuration: 0.6) { [weak self] in
-            self?.emailValidation.textColor = ValidationColors.errorColor
-            self?.emailValidation.alpha = 1.0
+            self?.vcodeValidation.textColor = ValidationColors.errorColor
+            self?.vcodeValidation.alpha = 1.0
             self?.view.layoutIfNeeded()
         }
     }
     
-    func revertAccountError() {
-        emailValidHConstrain.constant = 0
-        emailValidation.isHidden = true
-        emailValidation.alpha = 1.0
-        emailValidation.text = ""
+    func revertVcodeError() {
+        vcodeValidHConstrain.constant = 0
+        vcodeValidation.isHidden = true
+        vcodeValidation.alpha = 1.0
+        vcodeValidation.text = ""
         UIView.animate(withDuration: 0.6) { [weak self] in
-            self?.emailValidation.textColor = ValidationColors.okColor
-            self?.emailValidation.alpha = 0.0
+            self?.vcodeValidation.textColor = ValidationColors.okColor
+            self?.vcodeValidation.alpha = 0.0
             self?.view.layoutIfNeeded()
         }
     }
@@ -82,7 +81,6 @@ class SignUpViewController: UIViewController {
     }
     
     func showRePswdError(_ text: String) {
-        rePasswdValidHConstrain.constant = 16
         rePasswordValidation.isHidden = false
         rePasswordValidation.alpha = 0.0
         rePasswordValidation.text = text
@@ -94,7 +92,6 @@ class SignUpViewController: UIViewController {
     }
     
     func revertRePswdError() {
-        rePasswdValidHConstrain.constant = 0
         rePasswordValidation.isHidden = true
         rePasswordValidation.alpha = 1.0
         rePasswordValidation.text = ""
@@ -106,15 +103,14 @@ class SignUpViewController: UIViewController {
     }
     
     func initUI() {
-        emailValidation.isHidden = true
-        emailValidHConstrain.constant = 0
+        vcodeValidation.isHidden = true
+        vcodeValidHConstrain.constant = 0
         passwordValidation.isHidden = true
         passwdValidHConstrain.constant = 0
         rePasswordValidation.isHidden = true
-        rePasswdValidHConstrain.constant = 0
     }
     
-    var viewModel: SignUpViewModel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,12 +118,14 @@ class SignUpViewController: UIViewController {
         self.initUI()
         // Do any additional setup after loading the view.
         
-        viewModel = SignUpViewModel(
+        viewModel = UpdatePswdViewModel(
             input:(
-                email: emailTf.rx.text.orEmpty.asDriver(),
+                sid: self.sid,
+                vcode: vcodeTf.rx.text.orEmpty.asDriver(),
                 passwd: passwordTf.rx.text.orEmpty.asDriver(),
                 rePasswd: rePasswordTf.rx.text.orEmpty.asDriver(),
-                signUpTaps: signUpBtn.rx.tap.asDriver()
+                sendTaps: sendBun.rx.tap.asDriver(),
+                doneTaps: doneBun.rx.tap.asDriver()
             ),
             dependency: (
                 userManager: UserManager.shared,
@@ -136,44 +134,61 @@ class SignUpViewController: UIViewController {
             )
         )
         
-        viewModel.signUpEnabled
+        viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in
-                self?.signUpBtn.isEnabled = valid
-                self?.signUpBtn.alpha = valid ? 1.0 : 0.5
+                self?.sendBun.isEnabled = valid
+                self?.sendBun.alpha = valid ? 1.0 : 0.5
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.signUped
+        viewModel.doneEnabled
+            .drive(onNext: { [weak self] valid in
+                self?.doneBun.isEnabled = valid
+                self?.doneBun.alpha = valid ? 1.0 : 0.5
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.sendResult
             .drive(onNext: { signUped in
                 switch signUped {
                 case .failed(let message):
-                    self.showAccountError(message)
-                    self.gotoProtectVC()
-                case .ok:
-                    self.gotoProtectVC()
+                    self.showVcodeError(message)
+//                    self.gotoProtectVC()
+//                case .ok:
+//                    self.gotoProtectVC()
                 default:
-                    break
+                    self.revertVcodeError()
                 }
             })
             .addDisposableTo(disposeBag)
+        
+        viewModel.doneResult
+            .drive(onNext: { signUped in
+                switch signUped {
+                case .failed(let message):
+                    self.showVcodeError(message)
+                    self.BackAction(self)
+                case .ok:
+                    self.BackAction(self)
+                default:
+                    self.revertVcodeError()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
     }
     
-    func gotoProtectVC(){
-        let vc = R.storyboard.login.protectAccountController()!
-        vc.email = self.emailTf.text!
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.validatedEmail
+        viewModel.validatedVcode
             .drive(onNext: { result in
                 switch result{
                 case .failed(let message):
-                    self.showAccountError(message)
+                    self.showVcodeError(message)
                 default:
-                    self.revertAccountError()
+                    self.revertVcodeError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -201,30 +216,22 @@ class SignUpViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
-    
 
-   
-    
-    //返回上一级页面
-    @IBAction func BackAction(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    //使用条款
-    @IBAction func UseTermsAction(_ sender: AnyObject) {
-        
-        
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        emailTf.resignFirstResponder()
+        vcodeTf.resignFirstResponder()
         passwordTf.resignFirstResponder()
         rePasswordTf.resignFirstResponder()
     }
     
-}
+    
+    @IBAction func BackAction(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
 
-extension SignUpViewController {
+   
+}
+extension UpdatePwdController {
     override var prefersStatusBarHidden: Bool {
         return true
     }

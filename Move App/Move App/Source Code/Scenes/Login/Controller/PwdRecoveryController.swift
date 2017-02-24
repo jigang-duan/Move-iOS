@@ -7,27 +7,123 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PwdRecoveryController: UIViewController {
 
+    @IBOutlet weak var helpLabel: UILabel!
+    @IBOutlet weak var emailTf: UITextField!
+    @IBOutlet weak var emailValidation: UILabel!
+    @IBOutlet weak var doneBun: UIButton!
+    
+    
+    var viewModel: PwdRecoveryViewModel!
+    var disposeBag = DisposeBag()
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    @IBOutlet weak var EmailTextField: UITextField!
+
+    func showValidateError(_ text: String) {
+        emailValidation.isHidden = false
+        emailValidation.alpha = 0.0
+        emailValidation.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.emailValidation.textColor = ValidationColors.errorColor
+            self?.emailValidation.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    func revertValidateError() {
+        emailValidation.isHidden = true
+        emailValidation.alpha = 1.0
+        emailValidation.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.emailValidation.textColor = ValidationColors.okColor
+            self?.emailValidation.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+        emailValidation.isHidden = true
+        
+        viewModel = PwdRecoveryViewModel(
+            input:(
+                email: emailTf.rx.text.orEmpty.asDriver(),
+                doneTaps: doneBun.rx.tap.asDriver()
+            ),
+            dependency: (
+                userManager: UserManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+            )
+        )
+        
+        
+        viewModel.doneEnabled
+            .drive(onNext: { [weak self] valid in
+                self?.doneBun.isEnabled = valid
+                self?.doneBun.alpha = valid ? 1.0 : 0.5
+            })
+            .addDisposableTo(disposeBag)
+        
+        
+        
+        viewModel.doneResult
+            .drive(onNext: { doneResult in
+                switch doneResult {
+                case .failed(let message):
+                    self.showValidateError(message)
+                    self.gotoUpdatePswdVC(message) //////for test
+                case .ok(let message):
+                    self.gotoUpdatePswdVC(message)
+                default:
+                    self.revertValidateError()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
     }
-
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.emailInvalidte.drive(onNext: { result in
+            switch result{
+            case .failed(let message):
+                self.showValidateError(message)
+            default:
+                self.revertValidateError()
+            }
+        })
+            .addDisposableTo(disposeBag)
+        
+    }
+    
+    
+    
+    
     @IBAction func BackAction(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
     }
-   
-   
     
-    
+
+    func gotoUpdatePswdVC(_ sid: String){
+        let vc = R.storyboard.login.updatePwdController()!
+        vc.sid = sid
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 
 }
 extension PwdRecoveryController {

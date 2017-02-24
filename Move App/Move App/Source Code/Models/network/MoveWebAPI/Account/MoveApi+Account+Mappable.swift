@@ -59,9 +59,9 @@ extension MoveApi {
     }
     
     struct UserFindInfo {
-        var username: String?
+        var sid: String?
+        var vcode: String?
         var email: String?
-        var phone: String?
         var password: String?
     }
 }
@@ -160,14 +160,11 @@ extension MoveApi.UserFindInfo: Mappable{
     init?(map: Map) {
     }
     
-    init(username: String) {
-        self.username = username
-    }
-    
+
     mutating func mapping(map: Map) {
-        phone <- map["phone"]
+        sid <- map["sid"]
+        vcode <- map["vcode"]
         email <- map["email"]
-        username <- map["username"]
         password <- map["password"]
     }
 }

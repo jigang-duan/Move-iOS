@@ -56,13 +56,41 @@ class MoveApiUserWorker: UserWorkerProtocl {
         }
     }
     
-    func sendVcode(to: String) -> Observable<Bool> {
+    func sendVcode(to: String) -> Observable<MoveApi.VerificationCodeSend> {
         return MoveApi.VerificationCode.send(to: to)
-            .map { info in
-                if info.sid == nil {
-                    throw WorkerError.emptyField("vcode is empty!")
+            .map { $0 }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
                 }
-                return true
+                throw error
+        }
+    }
+    
+    func checkVcode(sid: String, vcode: String) -> Observable<Bool> {
+        return MoveApi.VerificationCode.verify(sid: sid, vcode: vcode)
+            .map { info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
+    
+    func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool> {
+        let info = MoveApi.UserFindInfo(sid: sid, vcode: vcode, email: email, password: password)
+        return MoveApi.Account.findPassword(info: info)
+            .map { info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
             }
             .catchError { error in
                 if let _error = WorkerError.workerError(form: error) {

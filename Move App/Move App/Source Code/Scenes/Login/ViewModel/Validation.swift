@@ -104,9 +104,9 @@ class DefaultValidation {
             return .failed(message: "Email must be at least \(minEmailCount) characters")
         }
         
-        if !email.contains("@"){
-            return .failed(message: "Email address not correct")
-        }
+//        if !email.contains("@"){
+//            return .failed(message: "Email address not correct")
+//        }
         
         return .ok(message: "Email available")
     }
@@ -125,6 +125,10 @@ class DefaultValidation {
     }
     
     func validateRePassword(_ password: String, rePasswd: String) -> ValidationResult {
+        if rePasswd.characters.count == 0{
+            return .empty
+        }
+        
         if password != rePasswd {
             return .failed(message: "Twice input password not same")
         }
