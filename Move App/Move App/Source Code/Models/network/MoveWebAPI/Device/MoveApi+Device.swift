@@ -15,7 +15,7 @@ extension MoveApi {
     
     class Device {
         
-        static let defaultProvider = RxMoyaProvider<API>(
+        static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.Device.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),

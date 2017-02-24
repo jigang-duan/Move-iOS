@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
 		1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */; };
+		1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */; };
+		1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */; };
+		1109C64A1E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */; };
+		1109C64D1E5FD601005B4AFD /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C64C1E5FD601005B4AFD /* WeekView.swift */; };
+		1109C64F1E5FDB06005B4AFD /* Rx+WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C64E1E5FDB06005B4AFD /* Rx+WeekView.swift */; };
+		1109C6511E604558005B4AFD /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */; };
+		1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6531E604BF6005B4AFD /* KidSettingManager.swift */; };
+		1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */; };
+		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -156,7 +165,6 @@
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
-		FFDAF7411E5EF19600852B64 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDAF7401E5EF19600852B64 /* R.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +207,15 @@
 
 /* Begin PBXFileReference section */
 		1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionViewModel.swift; sourceTree = "<group>"; };
+		1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
+		1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+SwitchButton.swift"; sourceTree = "<group>"; };
+		1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
+		1109C64C1E5FD601005B4AFD /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekView.swift; path = Views/WeekView.swift; sourceTree = "<group>"; };
+		1109C64E1E5FDB06005B4AFD /* Rx+WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+WeekView.swift"; path = "Views/Rx+WeekView.swift"; sourceTree = "<group>"; };
+		1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeViewModel.swift; sourceTree = "<group>"; };
+		1109C6531E604BF6005B4AFD /* KidSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidSettingManager.swift; path = KidSettingManager/KidSettingManager.swift; sourceTree = "<group>"; };
+		1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiKidSettingsWorker.swift; path = KidSettingManager/MoveApiKidSettingsWorker.swift; sourceTree = "<group>"; };
+		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -359,7 +376,6 @@
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		FFDAF7401E5EF19600852B64 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +415,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1109C6441E5FCB01005B4AFD /* SwitchButton */ = {
+			isa = PBXGroup;
+			children = (
+				1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */,
+			);
+			name = SwitchButton;
+			sourceTree = "<group>";
+		};
+		1109C64B1E5FD5D0005B4AFD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1109C64C1E5FD601005B4AFD /* WeekView.swift */,
+				1109C64E1E5FDB06005B4AFD /* Rx+WeekView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		1109C6521E604BAA005B4AFD /* KidSettingManager */ = {
+			isa = PBXGroup;
+			children = (
+				1109C6531E604BF6005B4AFD /* KidSettingManager.swift */,
+				1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */,
+			);
+			name = KidSettingManager;
+			sourceTree = "<group>";
+		};
 		11D0BECA1E5EBC09006F957E /* MeManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +541,7 @@
 		D2637B711E5E7C40005D82D9 /* FuntionList */ = {
 			isa = PBXGroup;
 			children = (
+				1109C64B1E5FD5D0005B4AFD /* Views */,
 				D2637B721E5E7C40005D82D9 /* LanguageTableController.swift */,
 				D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */,
 				D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */,
@@ -650,7 +693,7 @@
 		E01DF7171E30868500EA003D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				FFDAF7401E5EF19600852B64 /* R.generated.swift */,
+				116F815C1E60535F003CEC39 /* R.generated.swift */,
 				E0931F111E30ADAE00755B4A /* Fonts */,
 				E0931F0D1E30A92E00755B4A /* Colors */,
 				E01DF7221E3087C500EA003D /* Strings */,
@@ -763,6 +806,7 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				1109C6441E5FCB01005B4AFD /* SwitchButton */,
 				D2AC16C71E5460C400815823 /* PrettyRulerClass */,
 				E9B7FA5E1E54331400F46D09 /* NoEeventView */,
 				E03B1BDD1E4DB8FC006EDB7B /* CDFInitialsAvatar */,
@@ -1005,6 +1049,8 @@
 		E0931F2F1E30C94200755B4A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */,
+				1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */,
 				E0931F311E30C97000755B4A /* Protocol+Extenstion.swift */,
 				E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */,
 			);
@@ -1091,6 +1137,7 @@
 				E0931F581E31ED6900755B4A /* CellData.swift */,
 				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
+				1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1219,6 +1266,7 @@
 		E0FA029B1E5C0544004A55BA /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				1109C6521E604BAA005B4AFD /* KidSettingManager */,
 				11D0BECA1E5EBC09006F957E /* MeManager */,
 				E0FA029C1E5C057B004A55BA /* UserManager */,
 				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
@@ -1638,9 +1686,11 @@
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
+				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
+				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				D2637B7B1E5E7C81005D82D9 /* RegularshutdownController.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
 				D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */,
@@ -1648,8 +1698,10 @@
 				D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
+				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
+				1109C64A1E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift in Sources */,
 				E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */,
@@ -1662,6 +1714,7 @@
 				E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */,
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
+				1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
@@ -1700,18 +1753,20 @@
 				D2EFB04A1E529801000BE93C /* PairWatchController.swift in Sources */,
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
-				FFDAF7411E5EF19600852B64 /* R.generated.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
+				1109C6511E604558005B4AFD /* SchoolTimeViewModel.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
+				1109C64D1E5FD601005B4AFD /* WeekView.swift in Sources */,
 				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
+				1109C64F1E5FDB06005B4AFD /* Rx+WeekView.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
@@ -1758,6 +1813,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */,
+				1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */,
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
 				E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */,
 				D2AC16CD1E5460C400815823 /* TXHRrettyRuler.m in Sources */,

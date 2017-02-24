@@ -1,0 +1,110 @@
+//
+//  WeekView.swift
+//  Move App
+//
+//  Created by jiang.duan on 2017/2/24.
+//  Copyright © 2017年 TCL Com. All rights reserved.
+//
+
+import Foundation
+
+enum WeekType: Int {
+    case mon = 801
+    case tue = 802
+    case wed = 803
+    case thu = 804
+    case fir = 805
+    case sat = 806
+    case sun = 807
+}
+
+class WeekView: UIView {
+    
+    @IBOutlet weak var delegate: WeekViewDelegate?
+    
+    private var _weekSelected: [Bool] = [false, false, false, false, false, false, false]
+    
+    var weekSelected: [Bool] {
+        get {
+            return _weekSelected
+        }
+        set(newVal) {
+            if newVal.count < _weekSelected.count {
+                for i in 0 ..< newVal.count {
+                    _weekSelected[i] = newVal[i]
+                }
+                for i in newVal.count ..< _weekSelected.count {
+                    _weekSelected[i] = false
+                }
+            } else {
+                for i in 0 ..< _weekSelected.count {
+                    _weekSelected[i] = newVal[i]
+                }
+            }
+            for i in 0 ..< 7 {
+                buttons[i].isSelected = _weekSelected[i]
+            }
+            for btn in buttons {
+                btn.backgroundColor = btn.isSelected ? R.color.appColor.primary() : R.color.appColor.fourthlyText()
+            }
+        }
+    }
+    
+    var isEnable: Bool = true {
+        didSet {
+            for btn in buttons {
+                if isEnable {
+                    btn.backgroundColor = btn.isSelected ? R.color.appColor.primary() : R.color.appColor.fourthlyText()
+                } else {
+                    btn.backgroundColor = R.color.appColor.fourthlyText()
+                }
+            }
+            self.isUserInteractionEnabled = isEnable
+        }
+    }
+    
+    private var buttons: [UIButton] = []
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let monButton = self.viewWithTag(WeekType.mon.rawValue) as? UIButton
+        let tueButton = self.viewWithTag(WeekType.tue.rawValue) as? UIButton
+        let wedButton = self.viewWithTag(WeekType.wed.rawValue) as? UIButton
+        let thuButton = self.viewWithTag(WeekType.thu.rawValue) as? UIButton
+        let firButton = self.viewWithTag(WeekType.fir.rawValue) as? UIButton
+        let satButton = self.viewWithTag(WeekType.sat.rawValue) as? UIButton
+        let sunButton = self.viewWithTag(WeekType.sun.rawValue) as? UIButton
+        buttons.append(monButton!)
+        buttons.append(tueButton!)
+        buttons.append(wedButton!)
+        buttons.append(thuButton!)
+        buttons.append(firButton!)
+        buttons.append(satButton!)
+        buttons.append(sunButton!)
+        
+        monButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+        tueButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+        wedButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+        thuButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+        firButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+        satButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+        sunButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
+    }
+    
+    func weekAction(_ sender: UIButton) {
+        let index = number(tag: WeekType(rawValue: sender.tag)!)
+        weekSelected[index] = !sender.isSelected
+        delegate?.weekViewDidSelected?(self, selecteds: weekSelected)
+    }
+    
+    private func number(tag: WeekType) -> Int {
+        return tag.rawValue - 801
+    }
+    
+}
+
+@objc
+protocol WeekViewDelegate {
+    @objc optional func weekViewDidSelected(_ sender: WeekView, selecteds: [Bool])
+}

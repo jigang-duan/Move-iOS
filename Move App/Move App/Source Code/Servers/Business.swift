@@ -13,9 +13,20 @@ class Me {
     
     var roles: [Role] = []
     var user: UserInfo
+    var currRole = -1
     
     init() {
         self.user = UserInfo.shared
+    }
+    
+    func getCurrRole() -> Role? {
+        guard currRole >= 0 else {
+            fatalError("curr Role not can < 0")
+        }
+        guard currRole < self.roles.count else {
+            fatalError("curr Role not can > roles count")
+        }
+        return self.roles[currRole]
     }
 }
 
@@ -31,9 +42,20 @@ class Grardian: Role {
     private(set) var type: RoleType = .guardian
     
     var kids: [(Relation, Kid)] = []
+    var currKid: Int = -1
     
     var message: MessageManager?
     var authority: Authority?
+    
+    func getCurrKid() -> Kid? {
+        guard currKid >= 0 else {
+            fatalError("curr kid not can < 0")
+        }
+        guard currKid < self.kids.count else {
+            fatalError("curr kid not can > roles count")
+        }
+        return self.kids[currKid].1
+    }
 }
 
 class Kid {
@@ -95,6 +117,17 @@ class KidLocationManager {
 }
 
 struct KidSetting {
+    
+    struct SchoolTime {
+        var amStartPeriod: Date?
+        var amEndPeriod: Date?
+        var pmStartPeriod: Date?
+        var pmEndPeriod: Date?
+        var days: [Bool] = []
+    }
+    
+    var schoolTime: SchoolTime?
+    
 }
 
 struct WatchProfile {

@@ -29,29 +29,28 @@ class DistributionViewController: UIViewController {
         )
         
         viewModel.enterLogin
-            .drive(onNext: { enter in
+            .drive(onNext: { [weak self] enter in
                 if enter {
-                    Distribution.shared.enterLoginScreen()
+                    self?.enterLoginScreen()
                 }
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.enterChoose.debug()
-            .drive(onNext: { enter in
+        viewModel.enterChoose
+            .drive(onNext: { [weak self] enter in
                 if enter {
-                    Distribution.shared.enterChoseDeviceScreen()
+                    self?.enterChoseDeviceScreen()
                 }
             })
             .addDisposableTo(disposeBag)
         
         viewModel.enterMain
-            .drive(onNext: { enter in
+            .drive(onNext: { [weak self] enter in
                 if enter {
-                    Distribution.shared.enterChoseDeviceScreen()
+                    self?.enterMainScreen()
                 }
             })
             .addDisposableTo(disposeBag)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +73,19 @@ class DistributionViewController: UIViewController {
         }
         
     }
+    
+    func enterLoginScreen() {
+        self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+    }
+    
+    func enterChoseDeviceScreen() {
+        self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
+    }
+    
+    func enterMainScreen() {
+        fatalError("enterMainScreen(:) has not been implemented")
+    }
 
 }
+
 

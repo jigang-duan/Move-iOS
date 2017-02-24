@@ -64,26 +64,12 @@ class Distribution {
         }
     }
     
-    func enterLoginScreen() {
-        if let vc = self.currentViewCotroller as? DistributionViewController {
-            vc.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
-            return
-        }
-        self.popToLoginScreen()
-    }
+    
     
     func popToLoginScreen() {
         self.backToDistribution(completion: {
             self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
         })
-    }
-    
-    func enterChoseDeviceScreen() {
-        if let vc = self.currentViewCotroller as? DistributionViewController {
-            vc.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
-            return
-        }
-        self.showChoseDeviceScreen()
     }
     
     func showChoseDeviceScreen() {
