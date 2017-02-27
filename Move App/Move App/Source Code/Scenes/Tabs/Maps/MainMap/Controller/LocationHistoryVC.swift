@@ -185,27 +185,69 @@ class LocationHistoryVC: UIViewController {
         let curday = calendar.selectedDate
         let perivday = calendar.date(bySubstractingDays: 1, from: curday)
         calendar.select(perivday)
-//        if perivday.compare(calendar.today!) == .orderedAscending {
-        
-        let dateComponentsFormatter = DateComponentsFormatter()
-        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
-        let diffString = dateComponentsFormatter.string(from: perivday, to: calendar.today!)
-        
-        print("\(diffString)")
-//        }
+        let time = self.calenderConversion(from: calendar.today!, to: perivday)
+        print("\(time)")
+        if time == 1 {
+            timeSelectBtn.setTitle("Tomorrow", for: UIControlState.normal)
+        }else if time == -1 {
+            timeSelectBtn.setTitle("Yesterday", for: UIControlState.normal)
+        }else if time == 0{
+            timeSelectBtn.setTitle("Today", for: UIControlState.normal)
+        }else{
+            let string = self.dateNowAsString(date: perivday)
+            timeSelectBtn.setTitle(string, for: UIControlState.normal)
+        }
     }
+    
     @IBAction func NextBtnClick(_ sender: UIButton) {
         let curday = calendar.selectedDate
         let nextday = calendar.date(byAddingDays: 1, to: curday)
         calendar .select(nextday)
-        
-        let dateComponentsFormatter = DateComponentsFormatter()
-        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
-        let diffString = dateComponentsFormatter.string(from: nextday, to: calendar.today!)
-        print("\(diffString)")
+        let time = self.calenderConversion(from: calendar.today!, to: nextday)
+        print("\(time)")
+        if time == 1 {
+            timeSelectBtn.setTitle("Tomorrow", for: UIControlState.normal)
+        }else if time == -1 {
+            timeSelectBtn.setTitle("Yesterday", for: UIControlState.normal)
+        }else if time == 0{
+            timeSelectBtn.setTitle("Today", for: UIControlState.normal)
+        }else{
+            let string = self.dateNowAsString(date: nextday)
+            timeSelectBtn.setTitle(string, for: UIControlState.normal)
+        }
+
     }
     
+    func calenderConversion(from : Date , to : Date) -> Int {
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
+        let diffString = dateComponentsFormatter.string(from: from as Date, to: to as Date)
+        
+        let range = diffString?.range(of: "-")
+        var remainInt : Int = 0
+        if range != nil{
+            let nondigit =  CharacterSet.decimalDigits.inverted
+            remainInt = Int((diffString?.trimmingCharacters(in: nondigit))!)!
+            remainInt = -remainInt      //负数
+        }else{
+            let nondigit =  CharacterSet.decimalDigits.inverted
+            remainInt = Int((diffString?.trimmingCharacters(in: nondigit))!)!
+            //正数
+        }
+        return remainInt
+    }
     
+    func dateNowAsString(date : Date) -> String {
+        
+        let timeZone = TimeZone.init(identifier: "UTC")
+        let formatter = DateFormatter()
+        formatter.timeZone = timeZone
+        formatter.locale = Locale.init(identifier: "zh_CN")
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        let datestr = formatter.string(from: date)
+        return datestr
+    }
 }
 
 extension LocationHistoryVC : MKMapViewDelegate {
