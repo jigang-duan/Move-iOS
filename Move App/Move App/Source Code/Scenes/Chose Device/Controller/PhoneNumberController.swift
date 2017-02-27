@@ -24,7 +24,7 @@ class PhoneNumberController: UIViewController {
     }
 
    
-    @IBAction func BackAction(_ sender: AnyObject) {
+    @IBAction func backAction(_ sender: AnyObject) {
         let _ = self.navigationController?.popViewController(animated: true)
     }
     

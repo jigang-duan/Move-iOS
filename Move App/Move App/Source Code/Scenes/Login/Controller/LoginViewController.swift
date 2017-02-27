@@ -21,8 +21,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordLine: UIView!
     
     var disposeBag = DisposeBag()
-    
-    @IBOutlet weak var errorTopConstraint: NSLayoutConstraint!
+    var viewModel: LoginViewModel!
+
+    @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
+    @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
 
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +32,7 @@ class LoginViewController: UIViewController {
     }
     
     func showAccountError(_ text: String) {
-        errorTopConstraint.constant = 30
+        accountValidationHCon.constant = 16
         emailValidationOutlet.isHidden = false
         emailValidationOutlet.alpha = 0.0
         emailValidationOutlet.text = text
@@ -43,7 +45,7 @@ class LoginViewController: UIViewController {
     }
     
     func revertAccountError() {
-        errorTopConstraint.constant = 15
+        accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
         emailValidationOutlet.alpha = 1.0
         emailValidationOutlet.text = ""
@@ -55,12 +57,43 @@ class LoginViewController: UIViewController {
         }
     }
     
-    var viewModel: LoginViewModel!
+    func showPasswordError(_ text: String) {
+        passwordValidationHCon.constant = 16
+        passwordValidationOutlet.isHidden = false
+        passwordValidationOutlet.alpha = 0.0
+        passwordValidationOutlet.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.passwordValidationOutlet.textColor = ValidationColors.errorColor
+            self?.passwordLine.backgroundColor = ValidationColors.errorColor
+            self?.passwordValidationOutlet.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    func revertPasswordError() {
+        passwordValidationHCon.constant = 0
+        passwordValidationOutlet.isHidden = true
+        passwordValidationOutlet.alpha = 1.0
+        passwordValidationOutlet.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.passwordValidationOutlet.textColor = ValidationColors.okColor
+            self?.passwordLine.backgroundColor = ValidationColors.okColor
+            self?.passwordValidationOutlet.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        accountValidationHCon.constant = 0
+        emailValidationOutlet.isHidden = true
+        passwordValidationHCon.constant = 0
+        passwordValidationOutlet.isHidden = true
+        
         
         viewModel = LoginViewModel(
             input:(
@@ -107,9 +140,25 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         
         viewModel.validatedEmail
-            .drive(onNext: { [weak self] _ in
-                self?.revertAccountError()
+            .drive(onNext: { result in
+                    switch result{
+                    case .failed(let message):
+                        self.showAccountError(message)
+                    default:
+                        self.revertAccountError()
+                    }
                 })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.validatedPassword
+            .drive(onNext: { result in
+                switch result{
+                case .failed(let message):
+                    self.showPasswordError(message)
+                default:
+                    self.revertPasswordError()
+                }
+            })
             .addDisposableTo(disposeBag)
     }
     

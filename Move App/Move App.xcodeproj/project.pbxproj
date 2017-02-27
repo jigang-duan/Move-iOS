@@ -165,6 +165,8 @@
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
+		FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */; };
+		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -376,6 +378,8 @@
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
+		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1077,6 +1081,7 @@
 		E0931F3F1E31AB4200755B4A /* Chose Device */ = {
 			isa = PBXGroup;
 			children = (
+				FFB811FC1E63E5590049D85C /* ViewModel */,
 				E0931F401E31AB7A00755B4A /* Controller */,
 			);
 			path = "Chose Device";
@@ -1302,6 +1307,15 @@
 				E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */,
 			);
 			path = database;
+			sourceTree = "<group>";
+		};
+		FFB811FC1E63E5590049D85C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */,
+				FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1671,6 +1685,7 @@
 				E0C228EA1E349CC200BCF83D /* MKMapView+Rx.swift in Sources */,
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
+				FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */,
 				E9DD0F9B1E5ACB4600752863 /* NoticeListCell.swift in Sources */,
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
@@ -1760,6 +1775,7 @@
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
+				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				1109C64D1E5FD601005B4AFD /* WeekView.swift in Sources */,
 				E9C2E1E01E4B1B1A00D75978 /* MainMapSceneViewController.swift in Sources */,

@@ -7,9 +7,45 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class IputIMEIControllerTableController: UITableViewController {
 
+    @IBOutlet weak var IMEITextF: UITextField!
+    @IBOutlet weak var confirmBun: UIButton!
+    
+    
+    var disposeBag = DisposeBag()
+    var viewModel: InputIMEIViewModel!
+    
+    
+    func showValidateError(_ text: String) {
+        
+//        emailValidation.isHidden = false
+//        emailValidation.alpha = 0.0
+//        emailValidation.text = text
+//        UIView.animate(withDuration: 0.6) { [weak self] in
+//            self?.emailValidation.textColor = ValidationColors.errorColor
+//            self?.emailValidation.alpha = 1.0
+//            self?.view.layoutIfNeeded()
+//        }
+        IMEITextF.placeholder = text
+    }
+    
+    func revertValidateError() {
+//        emailValidation.isHidden = true
+//        emailValidation.alpha = 1.0
+//        emailValidation.text = ""
+//        UIView.animate(withDuration: 0.6) { [weak self] in
+//            self?.emailValidation.textColor = ValidationColors.okColor
+//            self?.emailValidation.alpha = 0.0
+//            self?.view.layoutIfNeeded()
+//        }
+        
+        IMEITextF.placeholder = "please input IMEI"
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
@@ -24,63 +60,81 @@ class IputIMEIControllerTableController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
+      
+        
+        viewModel = InputIMEIViewModel(
+            input:(
+                imei: IMEITextF.rx.text.orEmpty.asDriver(),
+                confirmTaps: confirmBun.rx.tap.asDriver()
+            ),
+            dependency: (
+                userManager: UserManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+            )
+        )
+        
+        
+        viewModel.confirmEnabled
+            .drive(onNext: { [weak self] valid in
+                self?.confirmBun.isEnabled = valid
+                self?.confirmBun.alpha = valid ? 1.0 : 0.5
+            })
+            .addDisposableTo(disposeBag)
+        
+        
+        
+        viewModel.confirmResult
+            .drive(onNext: { doneResult in
+                switch doneResult {
+                case .failed(let message):
+                    self.showValidateError(message)
+                    self.gotoVerifyVC(message) //////for test
+                case .ok(let message):
+                    self.gotoVerifyVC(message)
+                default:
+                    self.revertValidateError()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
     }
-
-  
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.imeiInvalidte.drive(onNext: { result in
+            switch result{
+            case .failed(let message):
+                self.showValidateError(message)
+            default:
+                self.revertValidateError()
+            }
+        })
+            .addDisposableTo(disposeBag)
+        
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IMEITextF.resignFirstResponder()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    
+    
+    func gotoVerifyVC(_ sid: String){
+        let vc = R.storyboard.main().instantiateViewController(withIdentifier: "VerificationCodeController") as! VerificationCodeController
+        vc.sid = sid
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    */
+    
+    
+    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
