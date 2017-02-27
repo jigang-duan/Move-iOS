@@ -11,7 +11,8 @@ import RxSwift
 
 /// User KidSettings Protocl
 protocol KidSettingsWorkerProtocl {
-    func fetchSchoolTime() -> Observable<KidSetting.SchoolTime>
+    func fetchSchoolTime(id: String) -> Observable<KidSetting.SchoolTime>
+    func updateSchoolTime(id: String, _ schoolTime: KidSetting.SchoolTime) -> Observable<Bool>
 }
 
 
@@ -19,13 +20,22 @@ class KidSettingsManager {
     static let shared = KidSettingsManager()
     
     fileprivate var worker: KidSettingsWorkerProtocl!
-    private let kidSettings = KidSettingsManager.shared
     
     init() {
-        worker = nil
+        worker = MoveApiKidSettingsWorker()
     }
     
     func fetchSchoolTime() -> Observable<KidSetting.SchoolTime> {
-        return self.worker.fetchSchoolTime()
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<KidSetting.SchoolTime>.empty()
+        }
+        return self.worker.fetchSchoolTime(id: deviceId)
+    }
+    
+    func updateSchoolTime(_ schoolTime: KidSetting.SchoolTime) -> Observable<Bool> {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return worker.updateSchoolTime(id: deviceId, schoolTime)
     }
 }

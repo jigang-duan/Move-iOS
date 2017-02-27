@@ -11,82 +11,15 @@ import Foundation
 class Me {
     static let shared = Me()
     
-    var roles: [Role] = []
     var user: UserInfo
-    var currRole = -1
+    var currDeviceID: String?
     
     init() {
         self.user = UserInfo.shared
     }
     
-    func getCurrRole() -> Role? {
-        guard currRole >= 0 else {
-            fatalError("curr Role not can < 0")
-        }
-        guard currRole < self.roles.count else {
-            fatalError("curr Role not can > roles count")
-        }
-        return self.roles[currRole]
-    }
 }
 
-protocol Role {
-    var type: RoleType {get}
-}
-
-enum RoleType {
-    case guardian
-}
-
-class Grardian: Role {
-    private(set) var type: RoleType = .guardian
-    
-    var kids: [(Relation, Kid)] = []
-    var currKid: Int = -1
-    
-    var message: MessageManager?
-    var authority: Authority?
-    
-    func getCurrKid() -> Kid? {
-        guard currKid >= 0 else {
-            fatalError("curr kid not can < 0")
-        }
-        guard currKid < self.kids.count else {
-            fatalError("curr kid not can > roles count")
-        }
-        return self.kids[currKid].1
-    }
-}
-
-class Kid {
-    var id: String
-    
-    var relations: [Relation] = []
-    
-    var profile: KidProfile
-    var state: KidSate?
-    var settings: KidSetting?
-    
-    var watch: KidWatch?
-    
-    init (id: String, profile: KidProfile) {
-        self.id = id
-        self.profile = profile
-    }
-}
-
-class KidWatch {
-    var id: String
-    
-    var profile: WatchProfile
-    var state: WatchState?
-    var settings: WatchSetting?
-    
-    init(id: String, profile: WatchProfile) {
-        self.id = id
-        self.profile = profile
-    }
-}
 
 class MessageManager {
 }

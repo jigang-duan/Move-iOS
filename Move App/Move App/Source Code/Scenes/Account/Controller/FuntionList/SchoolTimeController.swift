@@ -27,6 +27,11 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var pmStartTimeOutlet: UIButton!
     @IBOutlet weak var pmEndTimeOutlet: UIButton!
     
+    var amStartTimeVariable = Variable(DateUtility.zone7hour())
+    var amEndTimeVariable = Variable(DateUtility.zone12hour())
+    var pmStartTimeVariable = Variable(DateUtility.zone14hour())
+    var pmEndTimeVariable = Variable(DateUtility.zone16hour())
+    
     
     @IBOutlet weak var saveOutlet: UIBarButtonItem!
     @IBOutlet weak var weekOutlet: WeekView!
@@ -51,6 +56,30 @@ class SchoolTimeController: UIViewController {
         
         openEnable
             .drive(touchesBeganEnable)
+            .addDisposableTo(disposeBag)
+        
+        amStartTimeVariable.asDriver()
+            .drive(onNext: { date in
+                self.amStartTime = date
+            })
+            .addDisposableTo(disposeBag)
+        
+        amEndTimeVariable.asDriver()
+            .drive(onNext: { date in
+                self.amEndTime = date
+            })
+            .addDisposableTo(disposeBag)
+        
+        pmStartTimeVariable.asDriver()
+            .drive(onNext: { date in
+                self.pmStartTime = date
+            })
+            .addDisposableTo(disposeBag)
+        
+        pmEndTimeVariable.asDriver()
+            .drive(onNext: { date in
+                self.pmEndTime = date
+            })
             .addDisposableTo(disposeBag)
         
         self.amStartTimeOutlet.rx.tap
@@ -89,7 +118,61 @@ class SchoolTimeController: UIViewController {
             .drive(confirmOutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
         
-        //let viewModel = SchoolTimeViewModel()
+        let viewModel = SchoolTimeViewModel(
+            input: (
+                save: saveOutlet.rx.tap.asDriver(),
+                week: weekOutlet.rx.weekSelected.asDriver(),
+                amStart: amStartTimeVariable.asDriver(),
+                amEnd: amEndTimeVariable.asDriver(),
+                pmStart: pmStartTimeVariable.asDriver(),
+                pmEnd: pmEndTimeVariable.asDriver()
+            ),
+            dependency: (
+                kidSettingsManager: KidSettingsManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance)
+        )
+        
+        viewModel.amStartDate
+            .drive(self.amStartTimeVariable)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.amEndDate
+            .drive(self.amEndTimeVariable)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.pmStartDate
+            .drive(self.pmStartTimeVariable)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.pmEndDate
+            .drive(self.pmEndTimeVariable)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.saveFinish
+            .drive(onNext: { [weak self] finish in
+                if finish {
+                    let _ = self?.navigationController?.popViewController(animated: true)
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.openEnable
+            .drive(openSchoolSwitch.rx.on)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.openEnable
+            .drive(onNext: enableView)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.openEnable
+            .drive(touchesBeganEnable)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.activityIn
+            .map { !$0 }
+            .drive(saveOutlet.rx.isEnabled)
+            .addDisposableTo(disposeBag)
     }
     
     //
@@ -113,7 +196,8 @@ class SchoolTimeController: UIViewController {
         self.amEndTimeOutlet.isEnabled = true
         self.pmStartTimeOutlet.isEnabled = true
         self.pmEndTimeOutlet.isEnabled = true
-        self.showTimePicker(time: self.amStartTimeOutlet.titleLabel?.text ?? "")
+        self.datepicke.date = amStartTime
+        self.datePickView.isHidden = false
     }
     
     private func selectAmEndTime() {
@@ -123,8 +207,10 @@ class SchoolTimeController: UIViewController {
         self.amEndTimeOutlet.isEnabled = false
         self.pmStartTimeOutlet.isEnabled = true
         self.pmEndTimeOutlet.isEnabled = true
-        self.showTimePicker(time: self.amEndTimeOutlet.titleLabel?.text ?? "")
+        self.datepicke.date = amEndTime
+        self.datePickView.isHidden = false
     }
+    
     private func selectPmStartTime() {
         self.datepicke.minimumDate = self.pmMin
         self.datepicke.maximumDate = self.pmMax
@@ -132,8 +218,10 @@ class SchoolTimeController: UIViewController {
         self.amEndTimeOutlet.isEnabled = true
         self.pmStartTimeOutlet.isEnabled = false
         self.pmEndTimeOutlet.isEnabled = true
-        self.showTimePicker(time: self.pmStartTimeOutlet.titleLabel?.text ?? "")
+        self.datepicke.date = pmStartTime
+        self.datePickView.isHidden = false
     }
+    
     private func selectPmEndTime() {
         self.datepicke.minimumDate = self.pmMin
         self.datepicke.maximumDate = self.pmMax
@@ -141,7 +229,8 @@ class SchoolTimeController: UIViewController {
         self.amEndTimeOutlet.isEnabled = true
         self.pmStartTimeOutlet.isEnabled = true
         self.pmEndTimeOutlet.isEnabled = false
-        self.showTimePicker(time: self.pmEndTimeOutlet.titleLabel?.text ?? "")
+        self.datepicke.date = pmEndTime
+        self.datePickView.isHidden = false
     }
     
     private func cancelDatepicker() {
@@ -153,19 +242,19 @@ class SchoolTimeController: UIViewController {
     
     private func comfirmDatepicker() {
         if !amStartTimeOutlet.isEnabled {
-            amStartTimeOutlet.setTitle(self.showPickerTime(), for: .normal)
+            amStartTimeVariable.value = datepicke.date
             amStartTimeOutlet.isEnabled = true
         }
         if !amEndTimeOutlet.isEnabled {
-            amEndTimeOutlet.setTitle(self.showPickerTime(), for: .normal)
+            amEndTimeVariable.value = datepicke.date
             amEndTimeOutlet.isEnabled = true
         }
         if !pmStartTimeOutlet.isEnabled {
-            pmStartTimeOutlet.setTitle(self.showPickerTime(), for: .normal)
+            pmStartTimeVariable.value = datepicke.date
             pmStartTimeOutlet.isEnabled = true
         }
         if !pmEndTimeOutlet.isEnabled {
-            pmEndTimeOutlet.setTitle(self.showPickerTime(), for: .normal)
+            pmEndTimeVariable.value = datepicke.date
             pmEndTimeOutlet.isEnabled = true
         }
         
@@ -174,26 +263,22 @@ class SchoolTimeController: UIViewController {
     
     private func dateOtherFromSelected(date: Date) -> Bool {
         if !amStartTimeOutlet.isEnabled {
-            let time = DateUtility.zoneDayOfHMS(
-                date: DateUtility.date(from: amEndTimeOutlet.titleLabel?.text))
+            let time = self.amEndTime
             let comp = time.compare(date)
             return (comp == .orderedDescending)
         }
         if !amEndTimeOutlet.isEnabled {
-            let time = DateUtility.zoneDayOfHMS(
-                date: DateUtility.date(from: amStartTimeOutlet.titleLabel?.text))
+            let time = self.amStartTime
             let comp = time.compare(date)
             return comp == .orderedAscending
         }
         if !pmStartTimeOutlet.isEnabled {
-            let time = DateUtility.zoneDayOfHMS(
-                date: DateUtility.date(from: pmEndTimeOutlet.titleLabel?.text))
+            let time = self.pmEndTime
             let comp = time.compare(date)
             return comp == .orderedDescending
         }
         if !pmEndTimeOutlet.isEnabled {
-            let time = DateUtility.zoneDayOfHMS(
-                date: DateUtility.date(from: pmStartTimeOutlet.titleLabel?.text))
+            let time = self.pmStartTime
             let comp = time.compare(date)
             return comp == .orderedAscending
         }
@@ -210,8 +295,11 @@ class SchoolTimeController: UIViewController {
         }
     }
     
-   private func showPickerTime() -> String {
-        let date = datepicke.date
+}
+
+extension SchoolTimeController {
+    
+    private func zoneDateString(form date: Date) -> String {
         let dformatter = DateFormatter()
         dformatter.timeZone = TimeZone(secondsFromGMT: 0)
         dformatter.dateFormat = "HH:mm"
@@ -219,66 +307,55 @@ class SchoolTimeController: UIViewController {
         return dateStr
     }
     
-    private func showTimePicker(time: String) {
-        self.datePickView.isHidden = false
-        self.datepicke.date = DateUtility.zoneDayOfHMS(
-            date: DateUtility.date(from: time))
-        Logger.info(self.datepicke.date)
+    fileprivate var amStartTime: Date {
+        get {
+            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amStartTimeOutlet.titleLabel?.text))
+        }
+        set(newValue) {
+            amStartTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
+        }
+    }
+    fileprivate var amEndTime: Date {
+        get {
+            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amEndTimeOutlet.titleLabel?.text))
+        }
+        set(newValue) {
+            amEndTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
+        }
+    }
+    fileprivate var pmStartTime: Date {
+        get {
+            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: pmStartTimeOutlet.titleLabel?.text))
+        }
+        set(newValue) {
+            pmStartTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
+        }
+    }
+    fileprivate var pmEndTime: Date {
+        get {
+            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: pmEndTimeOutlet.titleLabel?.text))
+        }
+        set(newValue) {
+            pmEndTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
+        }
     }
     
     
-    private var amMin: Date {
+    fileprivate var amMin: Date {
         return DateUtility.zoneDay().startDate
     }
     
-    private var amMax: Date {
+    fileprivate var amMax: Date {
         return DateUtility.zoneDay().startDate.addingTimeInterval(DateUtility.SEC_HDAY-1)
     }
     
-    private var pmMin: Date {
+    fileprivate var pmMin: Date {
         return DateUtility.zoneDay().startDate.addingTimeInterval(DateUtility.SEC_HDAY)
     }
     
-    private var pmMax: Date {
+    fileprivate var pmMax: Date {
         return DateUtility.zoneDay().endDate
     }
-}
-
-class DateUtility {
     
-    static let SEC_DAY: TimeInterval = 24 * 60 * 60
-    static let SEC_HDAY: TimeInterval = DateUtility.SEC_DAY * 0.5
-    
-    static func date(from text: String?) -> Date {
-        guard let _text = text else {
-            return Date(timeIntervalSince1970: 0)
-        }
-        let dformatter = DateFormatter()
-        dformatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dformatter.dateFormat = "HH:mm"
-        return dformatter.date(from: _text) ?? Date(timeIntervalSince1970: 0)
-    }
-    
-    static func zoneDay() -> (startDate: Date, endDate: Date) {
-        let now = Date(timeIntervalSince1970: 0)
-        return (now,now.addingTimeInterval(DateUtility.SEC_DAY))
-    }
-    
-    static func zoneDayOfHMS(date: Date) -> Date {
-        return Date(timeIntervalSince1970: date.timeIntervalSince1970.truncatingRemainder(dividingBy: SEC_DAY))
-    }
-    
-    func today() -> (startDate: Date, endDate: Date) {
-        let calendar = Calendar.current
-        let now = Date()
-        var set = Set<Calendar.Component>()
-        set.insert(.year)
-        set.insert(.month)
-        set.insert(.day)
-        let components = calendar.dateComponents(set, from: now)
-        let startDate = calendar.date(from: components)
-        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate!)
-        return (startDate!, endDate!)
-    }
 }
 

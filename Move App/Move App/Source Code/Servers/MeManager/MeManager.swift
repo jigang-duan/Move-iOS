@@ -11,8 +11,6 @@ import RxSwift
 
 /// User Me Protocl
 protocol MeWorkerProtocl {
-    func checkRoles() -> Observable<[Role]>
-    func checkCurrentRole() -> Observable<Role?>
 }
 
 
@@ -20,19 +18,15 @@ class MeManager {
     static let shared = MeManager()
     
     fileprivate var worker: MeWorkerProtocl!
-    private let me = Me.shared
     
     init() {
         worker = MoveApiMeWorker()
     }
     
-    func checkRoles() -> Observable<[Role]> {
-        return worker.checkRoles()
+    func checkCurrentRole() -> Observable<Bool?> {
+        return Observable.empty()
     }
     
-    func checkCurrentRole() -> Observable<Role?> {
-        return worker.checkCurrentRole()
-    }
 }
 
 extension UserManager {

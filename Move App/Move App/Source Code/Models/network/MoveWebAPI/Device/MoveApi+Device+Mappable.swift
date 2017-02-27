@@ -74,9 +74,19 @@ extension MoveApi {
         var boot_time: Int64?
         var shutdown_time: Int64?
         var sos: [String]?
-        var school_time: Any?
+        var school_time: SchoolTime?
         var permissions: [Any]?
         var reminders: [Any]?
+    }
+    
+    struct SchoolTime {
+        var periods: [SchoolTimePeriod]?
+        var days: [Int]?
+    }
+    
+    struct SchoolTimePeriod {
+        var start: Date?
+        var end: Date?
     }
     
     struct DeviceSendNotify {
@@ -86,6 +96,25 @@ extension MoveApi {
     
     struct  DevicePower {
         var power: Int?
+    }
+}
+
+extension MoveApi.SchoolTime: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        periods <- map["periods"]
+        days <- map["days"]
+    }
+}
+
+extension MoveApi.SchoolTimePeriod: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        start <- (map["start"], DateTransform())
+        end <- (map["days"], DateTransform())
     }
 }
 
