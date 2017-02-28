@@ -186,17 +186,7 @@ class LocationHistoryVC: UIViewController {
         let perivday = calendar.date(bySubstractingDays: 1, from: curday)
         calendar.select(perivday)
         let time = self.calenderConversion(from: calendar.today!, to: perivday)
-        print("\(time)")
-        if time == 1 {
-            timeSelectBtn.setTitle("Tomorrow", for: UIControlState.normal)
-        }else if time == -1 {
-            timeSelectBtn.setTitle("Yesterday", for: UIControlState.normal)
-        }else if time == 0{
-            timeSelectBtn.setTitle("Today", for: UIControlState.normal)
-        }else{
-            let string = self.dateNowAsString(date: perivday)
-            timeSelectBtn.setTitle(string, for: UIControlState.normal)
-        }
+        self .changeBtnType(time: time , date : perivday)
     }
     
     @IBAction func NextBtnClick(_ sender: UIButton) {
@@ -204,7 +194,11 @@ class LocationHistoryVC: UIViewController {
         let nextday = calendar.date(byAddingDays: 1, to: curday)
         calendar .select(nextday)
         let time = self.calenderConversion(from: calendar.today!, to: nextday)
-        print("\(time)")
+        self .changeBtnType(time: time , date : nextday)
+
+    }
+    
+    func changeBtnType(time : Int , date : Date){
         if time == 1 {
             timeSelectBtn.setTitle("Tomorrow", for: UIControlState.normal)
         }else if time == -1 {
@@ -212,10 +206,9 @@ class LocationHistoryVC: UIViewController {
         }else if time == 0{
             timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         }else{
-            let string = self.dateNowAsString(date: nextday)
+            let string = self.dateNowAsString(date: date)
             timeSelectBtn.setTitle(string, for: UIControlState.normal)
         }
-
     }
     
     func calenderConversion(from : Date , to : Date) -> Int {
