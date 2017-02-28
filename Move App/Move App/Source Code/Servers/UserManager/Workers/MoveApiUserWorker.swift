@@ -34,17 +34,27 @@ class MoveApiUserWorker: UserWorkerProtocl {
             }
     }
     
-    func signUp(email: String, password: String) -> Observable<Bool> {
-        var info = MoveApi.UserInfoMap()
-        info.username = email
+    func isRegistered(account: String) -> Observable<Bool> {
+        return MoveApi.Account.isRegistered(account: account)
+            .map { $0.isRegistered! }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
+    
+    func signUp(username: String, password: String, sid: String, vcode: String) -> Observable<Bool> {
+        var info = MoveApi.RegisterInfo()
+        info.username = username
         info.password = password
-        return MoveApi.Account.register(userInfo: info)
+        info.sid = sid
+        info.vcode = vcode
+        return MoveApi.Account.register(registerInfo: info)
             .map { info in
                 if info.id == nil {
                     throw WorkerError.emptyField("user id is empty!")
-                }
-                if !info.accessToken.isValidAndNotExpired {
-                    throw WorkerError.expired("access token is expired!")
                 }
                 return true
             }

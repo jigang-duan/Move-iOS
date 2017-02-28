@@ -62,14 +62,16 @@ class SignUpViewModel {
         let signingIn = ActivityIndicator()
         self.signUping = signingIn.asDriver()
         
-        let emailAndPassword = Driver.combineLatest(input.email, input.passwd) { ($0, $1) }
-        
-        self.signUped = input.signUpTaps.withLatestFrom(emailAndPassword)
-            .flatMapLatest({ (email, password) in
-                return userManager.signUp(email: email, password: password)
+        self.signUped = input.signUpTaps.withLatestFrom(input.email)
+            .flatMapLatest({ email in
+                return userManager.isRegistered(account: email)
                     .trackActivity(signingIn)
-                    .map { _ in
-                        ValidationResult.ok(message: "SignUp Success.")
+                    .map { flag in
+                        if flag == false{
+                           return ValidationResult.ok(message: "Account avaliable")
+                        }else{
+                           return ValidationResult.failed(message: "Account is exitsted")
+                        }
                     }
                     .asDriver(onErrorRecover: signUpErrorRecover)
             })

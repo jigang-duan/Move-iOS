@@ -28,6 +28,17 @@ extension MoveApi {
         var isRegistered: Bool?
     }
     
+    struct RegisterInfo {
+        var sid: String?
+        var vcode: String?
+        var phone: String?
+        var email: String?
+        var profile: String?
+        var nickname: String?
+        var username: String?
+        var password: String?
+    }
+    
     struct UserInfoMap {
         var uid: String?
         var phone: String?
@@ -94,6 +105,29 @@ extension MoveApi.Registered: Mappable {
     
     mutating func mapping(map: Map) {
         isRegistered <- map["registered"]
+    }
+}
+
+extension MoveApi.RegisterInfo: Mappable{
+    init?(map: Map) {
+    }
+    
+    init(username: String, password: String, sid: String, vcode: String) {
+        self.username = username
+        self.password = password
+        self.sid = sid
+        self.vcode = vcode
+    }
+    
+    mutating func mapping(map: Map) {
+        sid <- map["sid"]
+        vcode <- map["vcode"]
+        phone <- map["phone"]
+        email <- map["email"]
+        profile <- map["profile"]
+        nickname <- map["nickname"]
+        username <- map["username"]
+        password <- map["password"]
     }
 }
 

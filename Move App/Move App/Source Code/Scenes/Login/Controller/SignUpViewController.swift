@@ -148,7 +148,6 @@ class SignUpViewController: UIViewController {
                 switch signUped {
                 case .failed(let message):
                     self.showAccountError(message)
-                    self.gotoProtectVC()
                 case .ok:
                     self.gotoProtectVC()
                 default:
@@ -225,7 +224,10 @@ class SignUpViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.signUpViewController.showProtectAccount(segue: segue) {
-            sg.destination.email = emailTf.text!
+            var info = MoveApi.RegisterInfo()
+            info.username = emailTf.text
+            info.password = passwordTf.text
+            sg.destination.registerInfo = info
         }
     }
     

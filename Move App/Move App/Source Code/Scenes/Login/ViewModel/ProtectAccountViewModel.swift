@@ -24,6 +24,7 @@ class ProtectAccountViewModel {
     var doneResult: Driver<ValidationResult>?
     
     var email: String?
+    var password: String?
     var sid: String?
     
     init(
@@ -77,10 +78,10 @@ class ProtectAccountViewModel {
 
         self.doneResult = input.doneTaps.withLatestFrom(input.vcode)
             .flatMapLatest({ (vcode) in
-                return userManager.checkVcode(sid: self.sid!, vcode: vcode)
+                return userManager.signUp(username: self.email!, password: self.password!, sid: self.sid!, vcode: vcode)
                     .trackActivity(activity)
                     .map { _ in
-                        ValidationResult.ok(message: "Verify Success.")
+                        ValidationResult.ok(message: "SignUp Success.")
                     }
                     .asDriver(onErrorRecover: protectAccountErrorRecover)
             })

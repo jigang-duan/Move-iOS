@@ -18,7 +18,7 @@ class ProtectAccountController: UIViewController {
     @IBOutlet weak var vcodeValidation: UILabel!
     @IBOutlet weak var doneBun: UIButton!
     
-    public var email: String?
+    public var registerInfo: MoveApi.RegisterInfo?
     
     var viewModel: ProtectAccountViewModel!
     var disposeBag = DisposeBag()
@@ -53,9 +53,9 @@ class ProtectAccountController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(email)."
+        HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email)."
         
-        email = "491339607@qq.com"
+        registerInfo?.email = "491339607@qq.com"
         
         vcodeValidation.isHidden = true
         
@@ -72,7 +72,10 @@ class ProtectAccountController: UIViewController {
             )
         )
         
-        viewModel.email = email
+        viewModel.email = registerInfo?.email
+        viewModel.password = registerInfo?.password
+        //TODO: for test
+        viewModel.sid = "xxxx"
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in

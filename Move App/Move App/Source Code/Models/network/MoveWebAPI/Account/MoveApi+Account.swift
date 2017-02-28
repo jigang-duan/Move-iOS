@@ -34,8 +34,8 @@ extension MoveApi {
             return request(.registered(account: account)).mapMoveObject(Registered.self)
         }
         //        帐号注册
-        final class func register(userInfo: UserInfoMap) -> Observable<UserInfo> {
-            return request(.register(userInfo: userInfo)).mapMoveObject(AccessToken.self).catchingToken()
+        final class func register(registerInfo: RegisterInfo) -> Observable<UserInfo> {
+            return request(.register(registerInfo: registerInfo)).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        帐号登录
         final class func login(info: LoginInfo) -> Observable<UserInfo> {
@@ -69,7 +69,7 @@ extension MoveApi {
         enum API {
             case getAccessToken(tokenReq: AccessTokenReq)
             case registered(account: String)
-            case register(userInfo: UserInfoMap)
+            case register(registerInfo: RegisterInfo)
             case login(info: LoginInfo)
             case tplogin(info: TpLoginInfo)
             case refreshToken
