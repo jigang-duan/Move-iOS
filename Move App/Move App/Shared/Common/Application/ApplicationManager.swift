@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import IQKeyboardManager
 
 /// Application Manager
 class ApplicationManager {
@@ -43,6 +44,8 @@ class ApplicationManager {
         
         // Global Appearance
         self.initGlobalAppearance()
+        
+        IQKeyboardManager.shared().isEnabled = true
     }
 }
 
@@ -65,3 +68,4 @@ extension ApplicationManager {
         Logger.initLogger()
     }
 }
+

@@ -26,44 +26,44 @@ class LanguageTableController: UITableViewController {
     private func BaseSetting(){
 
         tableView.contentInset = UIEdgeInsetsMake(-34, 0, 0, 0)
-        oneCell.selectionStyle = UITableViewCellSelectionStyle.none
-        twoCell.selectionStyle = UITableViewCellSelectionStyle.none
-        threeCell.selectionStyle = UITableViewCellSelectionStyle.none
-        fourCell.selectionStyle = UITableViewCellSelectionStyle.none
-        fiveCel.selectionStyle = UITableViewCellSelectionStyle.none
+        oneCell.selectionStyle = .none
+        twoCell.selectionStyle = .none
+        threeCell.selectionStyle = .none
+        fourCell.selectionStyle = .none
+        fiveCel.selectionStyle = .none
         
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        oneCell.accessoryType = UITableViewCellAccessoryType.none
-        twoCell.accessoryType = UITableViewCellAccessoryType.none
-        threeCell.accessoryType = UITableViewCellAccessoryType.none
-        fourCell.accessoryType = UITableViewCellAccessoryType.none
-        fiveCel.accessoryType = UITableViewCellAccessoryType.none
+        oneCell.accessoryType = .none
+        twoCell.accessoryType = .none
+        threeCell.accessoryType = .none
+        fourCell.accessoryType = .none
+        fiveCel.accessoryType = .none
 
 
         
         if indexPath.row == 0 {
             
-            oneCell.accessoryType = UITableViewCellAccessoryType.checkmark
+            oneCell.accessoryType = .checkmark
             
         }else if indexPath.row == 1
         {
-            twoCell.accessoryType = UITableViewCellAccessoryType.checkmark
+            twoCell.accessoryType = .checkmark
             
         }else if indexPath.row == 2
         {
-             threeCell.accessoryType = UITableViewCellAccessoryType.checkmark
+             threeCell.accessoryType = .checkmark
             
         }else if indexPath.row == 3
         {
-             fourCell.accessoryType = UITableViewCellAccessoryType.checkmark
+             fourCell.accessoryType = .checkmark
             
         }else if indexPath.row == 4
         {
-            fiveCel.accessoryType = UITableViewCellAccessoryType.checkmark
+            fiveCel.accessoryType = .checkmark
         }
         
     }
