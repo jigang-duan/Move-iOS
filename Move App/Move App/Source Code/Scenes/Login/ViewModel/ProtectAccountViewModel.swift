@@ -18,16 +18,18 @@ class ProtectAccountViewModel {
     let sendEnabled: Driver<Bool>
     // Is signing process in progress
     let sending: Driver<Bool>
-    let sendResult: Driver<ValidationResult>
+    var sendResult: Driver<ValidationResult>?
     
     let doneEnabled: Driver<Bool>
-    let doneResult: Driver<ValidationResult>
+    var doneResult: Driver<ValidationResult>?
+    
+    var email: String?
+    var sid: String?
     
     init(
         input: (
-        email: String,
         vcode: Driver<String>,
-        sendTaps: Observable<Void>,
+        sendTaps: Driver<Void>,
         doneTaps: Driver<Void>
         ),
         dependency: (
@@ -62,19 +64,20 @@ class ProtectAccountViewModel {
             }
             .distinctUntilChanged()
         
-        let sid = input.sendTaps
+        self.sendResult = input.sendTaps
             .flatMapLatest({ _ in
-                return userManager.sendVcode(to: input.email)
-                    .map({$0.sid})
-                    .filterNil()
+                return userManager.sendVcode(to: self.email!)
+                    .map({info in
+                        self.sid = info.sid
+                        return ValidationResult.ok(message: "Send Success")
+                    })
+                    .asDriver(onErrorRecover: protectAccountErrorRecover)
             })
-        self.sendResult = sid.map({ ValidationResult.ok(message: $0) }).asDriver(onErrorRecover: protectAccountErrorRecover)
         
-        let sidAndvcode = Driver.combineLatest(sid.asDriver(onErrorJustReturn: ""), input.vcode) { ($0, $1) }
 
-        self.doneResult = input.doneTaps.withLatestFrom(sidAndvcode)
-            .flatMapLatest({ (sid, vcode) in
-                return userManager.checkVcode(sid: sid, vcode: vcode)
+        self.doneResult = input.doneTaps.withLatestFrom(input.vcode)
+            .flatMapLatest({ (vcode) in
+                return userManager.checkVcode(sid: self.sid!, vcode: vcode)
                     .trackActivity(activity)
                     .map { _ in
                         ValidationResult.ok(message: "Verify Success.")

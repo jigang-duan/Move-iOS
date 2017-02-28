@@ -162,5 +162,11 @@ class LoginViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        emailOutlet.resignFirstResponder()
+        passwordOutlet.resignFirstResponder()
+    }
+    
     
 }

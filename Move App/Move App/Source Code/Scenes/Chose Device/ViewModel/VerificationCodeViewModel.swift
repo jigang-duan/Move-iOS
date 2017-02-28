@@ -18,16 +18,17 @@ class VerificationCodeViewModel {
     let sendEnabled: Driver<Bool>
     // Is signing process in progress
     let sending: Driver<Bool>
-    let sendResult: Driver<ValidationResult>
+    var sendResult: Driver<ValidationResult>?
     
     let nextEnabled: Driver<Bool>
-    let nextResult: Driver<ValidationResult>
+    var nextResult: Driver<ValidationResult>?
+    
+    var sid: String?
     
     init(
         input: (
-        sid: String,
         vcode: Driver<String>,
-        sendTaps: Observable<Void>,
+        sendTaps: Driver<Void>,
         nextTaps: Driver<Void>
         ),
         dependency: (
@@ -62,19 +63,22 @@ class VerificationCodeViewModel {
             }
             .distinctUntilChanged()
         
-        let sid = input.sendTaps
-            .flatMapLatest({ _ in
-                return userManager.sendVcode(to: input.sid)
-                    .map({$0.sid})
-                    .filterNil()
+        let email = userManager.getProfile().map({$0.email}).filterNil().asDriver(onErrorJustReturn: "")
+        
+        self.sendResult = input.sendTaps.withLatestFrom(email)
+            .flatMapLatest({ email in
+                return userManager.sendVcode(to: email)
+                    .map({info in
+                        self.sid = info.sid
+                        return  ValidationResult.ok(message: "Send Success")
+                    })
+                    .asDriver(onErrorRecover: protectAccountErrorRecover)
             })
-        self.sendResult = sid.map({ ValidationResult.ok(message: $0) }).asDriver(onErrorRecover: protectAccountErrorRecover)
         
-        let sidAndvcode = Driver.combineLatest(sid.asDriver(onErrorJustReturn: ""), input.vcode) { ($0, $1) }
         
-        self.nextResult = input.nextTaps.withLatestFrom(sidAndvcode)
-            .flatMapLatest({ (sid, vcode) in
-                return userManager.checkVcode(sid: sid, vcode: vcode)
+        self.nextResult = input.nextTaps.withLatestFrom(input.vcode)
+            .flatMapLatest({ (vcode) in
+                return userManager.checkVcode(sid: self.sid!, vcode: vcode)
                     .trackActivity(activity)
                     .map { _ in
                         ValidationResult.ok(message: "Verify Success.")

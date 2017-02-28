@@ -61,9 +61,8 @@ class ProtectAccountController: UIViewController {
         
         viewModel = ProtectAccountViewModel(
             input:(
-                email: self.email!,
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
-                sendTaps: sendBun.rx.tap.asObservable(),
+                sendTaps: sendBun.rx.tap.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
             ),
             dependency: (
@@ -73,7 +72,7 @@ class ProtectAccountController: UIViewController {
             )
         )
         
-        
+        viewModel.email = email
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in
@@ -89,7 +88,7 @@ class ProtectAccountController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.sendResult
+        viewModel.sendResult?
             .drive(onNext: { sendResult in
                 switch sendResult {
                 case .failed(let message):
@@ -103,7 +102,7 @@ class ProtectAccountController: UIViewController {
             .addDisposableTo(disposeBag)
         
         
-        viewModel.doneResult
+        viewModel.doneResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):

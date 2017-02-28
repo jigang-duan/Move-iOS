@@ -1,8 +1,8 @@
 //
-//  PwdRecoveryViewModel.swift
+//  PhoneNumberViewModel.swift
 //  Move App
 //
-//  Created by Wuju Zheng on 2017/2/23.
+//  Created by Wuju Zheng on 2017/2/28.
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 
@@ -11,21 +11,20 @@ import RxSwift
 import RxCocoa
 
 
-class PwdRecoveryViewModel {
+class PhoneNumberViewModel {
     
-    let emailInvalidte: Driver<ValidationResult>
+    let phoneInvalidte: Driver<ValidationResult>
     
     let sending: Driver<Bool>
     
-    let doneEnabled: Driver<Bool>
-    var doneResult: Driver<ValidationResult>?
+    let nextEnabled: Driver<Bool>
+    let nextResult: Driver<ValidationResult>
     
-    var sid: String?
     
     init(
         input: (
-        email: Driver<String>,
-        doneTaps: Driver<Void>
+        phone: Driver<String>,
+        nextTaps: Driver<Void>
         ),
         dependency: (
         userManager: UserManager,
@@ -35,41 +34,43 @@ class PwdRecoveryViewModel {
         ) {
         
         let userManager = dependency.userManager
-        let validation = dependency.validation
+        _ = dependency.validation
         _ = dependency.wireframe
         
         let activity = ActivityIndicator()
         self.sending = activity.asDriver()
         
         
-        emailInvalidte = input.email
-            .map { email in
-                return validation.validateEmail(email)
+        phoneInvalidte = input.phone
+            .map {  phone in
+                if phone.characters.count > 0{
+                    return ValidationResult.ok(message: "")
+                }
+                return ValidationResult.empty
         }
         
         
-        self.doneEnabled = Driver.combineLatest(
-            emailInvalidte,
-            sending) { vcode, sending in
-                vcode.isValid &&
+        self.nextEnabled = Driver.combineLatest(
+            phoneInvalidte,
+            sending) { imei, sending in
+                imei.isValid &&
                     !sending
             }
             .distinctUntilChanged()
         
         
+        let email = userManager.getProfile().map({$0.email}).filterNil().asDriver(onErrorJustReturn: "")
         
-        self.doneResult  = input.doneTaps.withLatestFrom(input.email)
-            .flatMapLatest({email in
+        self.nextResult = input.nextTaps.withLatestFrom(email)
+            .flatMapLatest({ email in
                 return userManager.sendVcode(to: email)
                     .trackActivity(activity)
-                    .map{ info in
-                        self.sid = info.sid
+                    .map({_ in
                         return ValidationResult.ok(message: "Send Success.")
-                    }
+                    })
                     .asDriver(onErrorRecover: pwdRecoveryErrorRecover)
             })
         
-    
     }
     
 }

@@ -86,12 +86,14 @@ class IputIMEIControllerTableController: UITableViewController {
         
         
         
-        viewModel.confirmResult
+        viewModel.confirmResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                    self.gotoVerifyVC(message) //////for test
+                    //TODO: for test
+                    self.viewModel.sid = "xxxxx"
+                    self.gotoVerifyVC(message)
                 case .ok(let message):
                     self.gotoVerifyVC(message)
                 default:
@@ -123,19 +125,18 @@ class IputIMEIControllerTableController: UITableViewController {
         IMEITextF.resignFirstResponder()
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let sg = R.segue.iputIMEIControllerTableController.showVerification(segue: segue) {
+            sg.destination.sid = viewModel.sid!
+        }
+        
+    }
     
     func gotoVerifyVC(_ sid: String){
-        let vc = R.storyboard.main().instantiateViewController(withIdentifier: "VerificationCodeController") as! VerificationCodeController
-        vc.sid = sid
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.performSegue(withIdentifier: R.segue.iputIMEIControllerTableController.showVerification, sender: nil)
     }
     
     
-    
-
-
-
 }
 
 

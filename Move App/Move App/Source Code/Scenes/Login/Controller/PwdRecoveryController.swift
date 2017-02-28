@@ -79,12 +79,11 @@ class PwdRecoveryController: UIViewController {
         
         
         
-        viewModel.doneResult
+        viewModel.doneResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                    self.gotoUpdatePswdVC(message) //////for test
                 case .ok(let message):
                     self.gotoUpdatePswdVC(message)
                 default:
@@ -111,7 +110,10 @@ class PwdRecoveryController: UIViewController {
         
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        emailTf.resignFirstResponder()
+    }
     
     
     @IBAction func BackAction(_ sender: AnyObject) {
@@ -120,11 +122,16 @@ class PwdRecoveryController: UIViewController {
     
 
     func gotoUpdatePswdVC(_ sid: String){
-        let vc = R.storyboard.login.updatePwdController()!
-        vc.sid = sid
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.performSegue(withIdentifier: R.segue.pwdRecoveryController.showUpdatePassword, sender: nil)
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let sg = R.segue.pwdRecoveryController.showUpdatePassword(segue: segue) {
+            sg.destination.sid = viewModel.sid!
+        }
+    }
+    
 }
 extension PwdRecoveryController {
     override var prefersStatusBarHidden: Bool {

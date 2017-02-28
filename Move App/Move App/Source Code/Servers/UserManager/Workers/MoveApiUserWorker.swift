@@ -58,7 +58,12 @@ class MoveApiUserWorker: UserWorkerProtocl {
     
     func sendVcode(to: String) -> Observable<MoveApi.VerificationCodeSend> {
         return MoveApi.VerificationCode.send(to: to)
-            .map { $0 }
+            .map { info in
+                if info.sid == nil {
+                     throw WorkerError.emptyField("vcode is empty!")
+                }
+               return info
+            }
             .catchError { error in
                 if let _error = WorkerError.workerError(form: error) {
                     throw _error
@@ -100,9 +105,28 @@ class MoveApiUserWorker: UserWorkerProtocl {
         }
     }
     
+    private func wrapProfile(_ profile: MoveApi.UserInfoMap) -> UserInfo.Profile {
+        UserInfo.shared.profile = UserInfo.Profile(
+            username: profile.username,
+            password: profile.password,
+            nickname: profile.nickname,
+            email: profile.email,
+            phone: profile.phone,
+            iconUrl: profile.profile)
+        return UserInfo.shared.profile!
+    }
+    
     // Mock
     func fetchProfile() -> Observable<UserInfo.Profile> {
-        return Observable.just(UserInfo.Profile())
+        if let profile = UserInfo.shared.profile {
+            return Observable.just(profile)
+        }
+        guard let userId = UserInfo.shared.id else {
+            return Observable.empty()
+        }
+        return MoveApi.Account.getUserInfo(uid: userId)
+            .map(wrapProfile)
     }
+    
     
 }

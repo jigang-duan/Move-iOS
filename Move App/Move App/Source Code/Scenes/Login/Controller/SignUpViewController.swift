@@ -158,11 +158,6 @@ class SignUpViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
-    func gotoProtectVC(){
-        let vc = R.storyboard.login.protectAccountController()!
-        vc.email = self.emailTf.text!
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -220,6 +215,18 @@ class SignUpViewController: UIViewController {
         emailTf.resignFirstResponder()
         passwordTf.resignFirstResponder()
         rePasswordTf.resignFirstResponder()
+    }
+    
+    
+    func gotoProtectVC(){
+        self.performSegue(withIdentifier: R.segue.signUpViewController.showProtectAccount, sender: nil)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let sg = R.segue.signUpViewController.showProtectAccount(segue: segue) {
+            sg.destination.email = emailTf.text!
+        }
     }
     
 }

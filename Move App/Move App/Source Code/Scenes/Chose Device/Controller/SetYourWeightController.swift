@@ -16,14 +16,14 @@ class SetYourWeightController: UIViewController {
         
     }
     func drawRule() -> () {
-        let rect = CGRect(x: -311.6, y: 0, width: RuleView.frame.size.width, height: 140)
-         ruler = TXHRrettyRuler.init(frame: rect)
-        
+        let rect = CGRect(x: 0, y: 0, width: RuleView.frame.size.width, height: 140)
+        ruler = TXHRrettyRuler.init(frame: rect)
         ruler.rulerDeletate = self
         ruler.showScrollView(withCount: 248, average: NSNumber(value: 1), currentValue: 70, smallMode: true)
-        self.RuleView .insertSubview(ruler, at: 0)
         
+        self.RuleView.insertSubview(ruler, at: 0)
     }
+    
     var ruler = TXHRrettyRuler()
     var currentValue : CGFloat = 50
     @IBOutlet weak var weightValue: UILabel!

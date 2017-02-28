@@ -68,9 +68,8 @@ class VerificationCodeController: UIViewController {
         
         viewModel = VerificationCodeViewModel(
             input:(
-                sid: self.sid,
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
-                sendTaps: sendBun.rx.tap.asObservable(),
+                sendTaps: sendBun.rx.tap.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver()
             ),
             dependency: (
@@ -80,6 +79,7 @@ class VerificationCodeController: UIViewController {
             )
         )
         
+        viewModel.sid = self.sid
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in
@@ -95,7 +95,7 @@ class VerificationCodeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.sendResult
+        viewModel.sendResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
@@ -106,7 +106,7 @@ class VerificationCodeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.nextResult
+        viewModel.nextResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
@@ -147,9 +147,15 @@ class VerificationCodeController: UIViewController {
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func gotoPhoneNumberVC(_ sid: String){
-        let vc = R.storyboard.main().instantiateViewController(withIdentifier: "PhoneNumberController") as! PhoneNumberController
-        self.navigationController?.pushViewController(vc, animated: true)
+    func gotoPhoneNumberVC(_ msg: String){
+        self.performSegue(withIdentifier: R.segue.verificationCodeController.showPhoneNumber, sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let _ = R.segue.verificationCodeController.showPhoneNumber(segue: segue) {
+            
+            ///
+        }
     }
     
     override var prefersStatusBarHidden: Bool {

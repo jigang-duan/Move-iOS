@@ -18,8 +18,9 @@ class InputIMEIViewModel {
     let sending: Driver<Bool>
     
     let confirmEnabled: Driver<Bool>
-    let confirmResult: Driver<ValidationResult>
+    var confirmResult: Driver<ValidationResult>?
     
+    var sid: String?
     
     init(
         input: (
@@ -59,21 +60,18 @@ class InputIMEIViewModel {
             .distinctUntilChanged()
         
         
+        let email = userManager.getProfile().map({$0.email}).filterNil().asDriver(onErrorJustReturn: "")
         
-        let sid = input.confirmTaps.withLatestFrom(input.imei)
+        self.confirmResult = input.confirmTaps.withLatestFrom(email)
             .flatMapLatest({ email in
                 return userManager.sendVcode(to: email)
                     .trackActivity(activity)
-                    .map({$0.sid})
-                    .filterNil()
-                    .asDriver(onErrorJustReturn: "")
+                    .map({info in
+                        self.sid = info.sid
+                        return ValidationResult.ok(message: "Send Success.")
+                    })
+                    .asDriver(onErrorRecover: pwdRecoveryErrorRecover)
             })
-        
-        
-        self.confirmResult = sid.map{_ in
-            return ValidationResult.ok(message: "Send Success.")
-        }
-        
         
     }
     

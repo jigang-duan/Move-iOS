@@ -74,6 +74,7 @@ class UserInfo {
     
     var accessToken: AccessToken
     var id: String?
+    var profile: Profile?
     
     private init() {
         accessToken = AccessToken()

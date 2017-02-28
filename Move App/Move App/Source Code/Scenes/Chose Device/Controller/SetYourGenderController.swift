@@ -13,7 +13,7 @@ class SetYourGenderController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        girlBtn.isSelected = true
     }
     
     @IBOutlet weak var girlBtn: UIButton!
@@ -23,13 +23,13 @@ class SetYourGenderController: UIViewController {
     }
 
     @IBAction func girAction(_ sender: UIButton) {
-        sender.isEnabled = false
-        boyBtn.isEnabled = true
+        sender.isSelected = true
+        boyBtn.isSelected = false
     }
     
     @IBAction func boyAction(_ sender: UIButton) {
-        sender.isEnabled = false
-        girlBtn.isEnabled = true
+        sender.isSelected = true
+        girlBtn.isSelected = false
     }
     
 
