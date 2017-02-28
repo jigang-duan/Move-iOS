@@ -212,22 +212,9 @@ class LocationHistoryVC: UIViewController {
     }
     
     func calenderConversion(from : Date , to : Date) -> Int {
-        let dateComponentsFormatter = DateComponentsFormatter()
-        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
-        let diffString = dateComponentsFormatter.string(from: from as Date, to: to as Date)
-        
-        let range = diffString?.range(of: "-")
-        var remainInt : Int = 0
-        if range != nil{
-            let nondigit =  CharacterSet.decimalDigits.inverted
-            remainInt = Int((diffString?.trimmingCharacters(in: nondigit))!)!
-            remainInt = -remainInt      //负数
-        }else{
-            let nondigit =  CharacterSet.decimalDigits.inverted
-            remainInt = Int((diffString?.trimmingCharacters(in: nondigit))!)!
-            //正数
-        }
-        return remainInt
+        let gregorian = Calendar(identifier: Calendar.Identifier.chinese)
+        let result = gregorian.dateComponents([Calendar.Component.day], from: from, to: to)
+        return result.day!
     }
     
     func dateNowAsString(date : Date) -> String {
