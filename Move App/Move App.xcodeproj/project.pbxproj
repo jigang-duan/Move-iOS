@@ -19,6 +19,9 @@
 		1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
+		116F81621E641D96003CEC39 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81611E641D96003CEC39 /* RemindersController.swift */; };
+		116F81641E643FEB003CEC39 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81631E643FEB003CEC39 /* AlarmController.swift */; };
+		116F81661E644524003CEC39 /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81651E644524003CEC39 /* AlarmViewModel.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -220,6 +223,9 @@
 		1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiKidSettingsWorker.swift; path = KidSettingManager/MoveApiKidSettingsWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
+		116F81611E641D96003CEC39 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
+		116F81631E643FEB003CEC39 /* AlarmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
+		116F81651E644524003CEC39 /* AlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -553,6 +559,8 @@
 				D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */,
 				D2637B751E5E7C40005D82D9 /* ToDoListController.swift */,
 				D2637B7A1E5E7C81005D82D9 /* RegularshutdownController.swift */,
+				116F81611E641D96003CEC39 /* RemindersController.swift */,
+				116F81631E643FEB003CEC39 /* AlarmController.swift */,
 			);
 			name = FuntionList;
 			path = Controller/FuntionList;
@@ -1145,6 +1153,7 @@
 				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
 				1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */,
+				116F81651E644524003CEC39 /* AlarmViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1694,6 +1703,7 @@
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
+				116F81661E644524003CEC39 /* AlarmViewModel.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
@@ -1734,6 +1744,7 @@
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
 				1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */,
+				116F81621E641D96003CEC39 /* RemindersController.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
@@ -1796,6 +1807,7 @@
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
+				116F81641E643FEB003CEC39 /* AlarmController.swift in Sources */,
 				E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */,
 				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,

@@ -29,10 +29,62 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
         
     }
     
-    private func unwrapping(schoolTime: KidSetting.SchoolTime) -> MoveApi.SchoolTime {
+    func updateAlarm(deviceId: String, old : KidSetting.Reminder.Alarm, new: KidSetting.Reminder.Alarm) -> Observable<Bool> {
+        return MoveApi.Device
+            .getSetting(deviceId: deviceId)
+            .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
+                var _setting = settings
+                let oldAlarm = self.unwrappingAlarm(old)
+                let newAlarm = self.unwrappingAlarm(new)
+                if let alarms = _setting.reminders?.alarms {
+                    for (index, alarm) in alarms.enumerated() {
+                        if alarm == oldAlarm {
+                            _setting.reminders?.alarms?.remove(at: index)
+                            _setting.reminders?.alarms?.insert(newAlarm, at: index)
+                            break
+                        }
+                    }
+                }
+                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
+    func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
+        return MoveApi.Device
+            .getSetting(deviceId: deviceId)
+            .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
+                var _setting = settings
+                if _setting.reminders == nil {
+                    _setting.reminders = MoveApi.Reminder()
+                }
+                if _setting.reminders?.alarms == nil {
+                    _setting.reminders?.alarms = []
+                }
+                _setting.reminders?.alarms?.append(self.unwrappingAlarm(alarm))
+                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
+}
+
+extension MoveApiKidSettingsWorker {
+    
+    func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
+        var days: [Int] = []
+        for i in 1 ... 7 {
+            if alarm.day[i - 1] {
+                days.append(i)
+            }
+        }
+        return MoveApi.Alarm(alarmAt: alarm.alarmAt, days: days)
+    }
+    
+     func unwrapping(schoolTime: KidSetting.SchoolTime) -> MoveApi.SchoolTime {
         var wrap = MoveApi.SchoolTime()
         wrap.periods = [MoveApi.SchoolTimePeriod(start: schoolTime.amStartPeriod, end: schoolTime.amEndPeriod),
-                      MoveApi.SchoolTimePeriod(start: schoolTime.pmStartPeriod, end: schoolTime.pmEndPeriod)]
+                        MoveApi.SchoolTimePeriod(start: schoolTime.pmStartPeriod, end: schoolTime.pmEndPeriod)]
         var days: [Int] = []
         for i in 1 ... 7 {
             if schoolTime.days[i - 1] {
@@ -43,11 +95,11 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
         return wrap
     }
     
-    private func wrappingSchoolTime(_ settings: MoveApi.DeviceSetting) -> KidSetting.SchoolTime {
+     func wrappingSchoolTime(_ settings: MoveApi.DeviceSetting) -> KidSetting.SchoolTime {
         return self.wrapping(schoolTime: settings.school_time)
     }
     
-    private func wrapping(schoolTime: MoveApi.SchoolTime?) -> KidSetting.SchoolTime {
+     func wrapping(schoolTime: MoveApi.SchoolTime?) -> KidSetting.SchoolTime {
         guard let time = schoolTime else {
             return KidSetting.SchoolTime(
                 amStartPeriod: DateUtility.zone7hour(),
@@ -72,5 +124,5 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
         
     }
     
-}
 
+}

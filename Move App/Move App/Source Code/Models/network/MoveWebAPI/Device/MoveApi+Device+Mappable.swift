@@ -76,7 +76,25 @@ extension MoveApi {
         var sos: [String]?
         var school_time: SchoolTime?
         var permissions: [Any]?
-        var reminders: [Any]?
+        var reminders: Reminder?
+    }
+    
+    struct Reminder {
+        var alarms: [Alarm]?
+        var todo:[Todo]?
+    }
+    
+    struct Todo {
+        var topic: String?
+        var content: String?
+        var start: Date?
+        var end: Date?
+        var repeatCount: Int?
+    }
+    
+    struct Alarm {
+        var alarmAt: Date?
+        var days: [Int]?
     }
     
     struct SchoolTime {
@@ -99,6 +117,58 @@ extension MoveApi {
     }
 }
 
+extension MoveApi.Todo: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        topic <- map["topic"]
+        content <- map["content"]
+        start <- map["start"]
+        end <- map["end"]
+        repeatCount <- map["repeat"]
+    }
+    
+}
+
+extension MoveApi.Alarm: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        alarmAt <- map["alarm"]
+        days <- map["days"]
+    }
+}
+
+func ==(lhs: MoveApi.Alarm, rhs: MoveApi.Alarm) -> Bool {
+    guard lhs.alarmAt == rhs.alarmAt else {
+        return false
+    }
+    
+    guard let lhsDays = lhs.days, let rhsDays = rhs.days else {
+        if lhs.days == nil && rhs.days == nil {
+            return true
+        }
+        return false
+    }
+    
+    guard lhsDays == rhsDays else {
+        return false
+    }
+    
+    return true
+}
+
+
+extension MoveApi.Reminder: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        alarms <- map["alarms"]
+        todo <- map["todo"]
+    }
+    
+}
+
 extension MoveApi.SchoolTime: Mappable {
     init?(map: Map) {
     }
@@ -114,7 +184,7 @@ extension MoveApi.SchoolTimePeriod: Mappable {
     
     mutating func mapping(map: Map) {
         start <- (map["start"], DateTransform())
-        end <- (map["days"], DateTransform())
+        end <- (map["end"], DateTransform())
     }
 }
 

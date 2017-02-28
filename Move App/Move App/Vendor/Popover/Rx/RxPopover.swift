@@ -48,4 +48,36 @@ class RxPopover {
         }
     }
     
+    func promptFor<Action : BasePopoverAction>(toView: UIView, actions: [Action]) -> Observable<BasePopoverAction> {
+        let _style = self.style
+        let _hasSelected = self.hasSelected
+        
+        return Observable.create { observer in
+            
+            var popoverActions: [BasePopoverAction] = []
+                for action in actions {
+                    let item = BasePopoverAction(
+                        imageUrl: action.imageUrl,
+                        placeholderImage: action.placeholderImage,
+                        title: action.title,
+                        isSelected: action.isSelected,
+                        handler: {
+                            observer.on(.next($0 as! BasePopoverAction))
+                    })
+                    popoverActions.append(item)
+                }
+                
+            let popoerView = PopoverView(hasSelected: _hasSelected)
+            popoerView.style = _style
+            popoerView.hideClosure = {
+                observer.on(.completed)
+            }
+            popoerView.show(toView: toView, with: popoverActions)
+            
+            return Disposables.create {
+                popoerView.cancel()
+            }
+        }
+    }
+    
 }

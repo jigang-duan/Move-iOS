@@ -59,6 +59,25 @@ struct KidSetting {
         var days: [Bool] = []
     }
     
+    struct Reminder {
+        struct Alarm {
+            var alarmAt: Date?
+            var day: [Bool] = []
+        }
+        
+        struct ToDo {
+            var topic: String?
+            var content: String?
+            var start: Date?
+            var end: Date?
+            var repeatCount: Int?
+        }
+        
+        var alarms: [Alarm] = []
+        var todo: [ToDo] = []
+    }
+    
+    var reminders: [Reminder]?
     var schoolTime: SchoolTime?
     
 }
@@ -89,14 +108,12 @@ struct WatchSetting {
     var autoPowerOn: Bool?
     var bootTime: Int?
     var shutdowTime: Int?
-    var reminders: [Reminder]?
+    
 }
 
 struct MuteTime {
 }
 
-struct Reminder {
-}
 
 enum Gender {
     case male
