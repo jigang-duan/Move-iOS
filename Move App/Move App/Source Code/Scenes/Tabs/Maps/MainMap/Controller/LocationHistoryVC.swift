@@ -15,6 +15,13 @@ import FSCalendar
 class LocationHistoryVC: UIViewController {
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
+    
+    fileprivate let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
     @IBOutlet weak var locationMap: MKMapView!
     
     @IBOutlet weak var timeSelectBtn: UIButton!
@@ -48,7 +55,6 @@ class LocationHistoryVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location History"
-        calendar.delegate = self
         let img=UIImage(named: "nav_location_nor")
         item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
@@ -74,6 +80,7 @@ class LocationHistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         calendar.select(calendar.today)
+        
         timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         let img = UIImage(named : "general_slider_dot")
         timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
@@ -206,7 +213,7 @@ class LocationHistoryVC: UIViewController {
         }else if time == 0{
             timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         }else{
-            let string = self.dateNowAsString(date: date)
+            let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: UIControlState.normal)
         }
     }
@@ -218,6 +225,8 @@ class LocationHistoryVC: UIViewController {
     }
     
     func dateNowAsString(date : Date) -> String {
+        
+        
         
         let timeZone = TimeZone.init(identifier: "UTC")
         let formatter = DateFormatter()
@@ -262,5 +271,11 @@ extension LocationHistoryVC : MKMapViewDelegate {
 }
 
 extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
-    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition)
+    {
+        let time = self.calenderConversion(from: calendar.today!, to: date)
+        self .changeBtnType(time: time , date : date)
+        print("did select date \(self.formatter.string(from: date))")
+    }
+
 }

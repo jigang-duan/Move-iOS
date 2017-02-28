@@ -455,7 +455,7 @@
             </objects>
             <point key="canvasLocation" x="3597.5999999999999" y="2018.5907046476764"/>
         </scene>
-        <!--Location History-->
+        <!--Data Source-->
         <scene sceneID="0XR-iv-C57">
             <objects>
                 <viewController storyboardIdentifier="LocationHistoryVC" title="Location History" hidesBottomBarWhenPushed="YES" id="VGt-kf-yJX" customClass="LocationHistoryVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -591,6 +591,18 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="190" id="fTF-eK-VDc"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" red="0.99215686321258545" green="0.73725491762161255" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" red="0.37183148649999997" green="0.82844859329999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="VGt-kf-yJX" id="xsz-sh-38B"/>
+                                    <outlet property="delegate" destination="VGt-kf-yJX" id="PQd-bp-wnC"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

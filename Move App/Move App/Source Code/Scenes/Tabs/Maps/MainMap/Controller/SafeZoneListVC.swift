@@ -11,6 +11,20 @@ import CustomViews
 class SafeZoneListVC: UIViewController , UITableViewDelegate , UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var item : UIBarButtonItem?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let img=UIImage(named: "nav_add_nor")
+        item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
+        self.navigationItem.rightBarButtonItem=item
+    }
+    
+    func rightBarButtonClick (sender : UIBarButtonItem){
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
