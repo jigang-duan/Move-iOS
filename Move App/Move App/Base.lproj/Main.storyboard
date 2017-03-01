@@ -632,6 +632,96 @@
             </objects>
             <point key="canvasLocation" x="2258" y="797"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="e2f-rQ-ITY">
+            <objects>
+                <viewController id="XfT-Ow-wuY" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7AD-R8-Viv"/>
+                        <viewControllerLayoutGuide type="bottom" id="ICu-xE-fOh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Szr-dN-odg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1, Week up the watch check if there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot;Singal in the state bar, and the time is correct." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5w-u2-58J">
+                                <rect key="frame" x="42" y="84" width="290" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="nhV-KU-YTT">
+                                <rect key="frame" x="84" y="212" width="206" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6kc-ZR-XSg">
+                                <rect key="frame" x="229" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="no"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcZ-8J-q7H">
+                                <rect key="frame" x="42" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="yes"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q7e-Ah-KrK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3734" y="1517"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="38g-k7-esJ">
+            <objects>
+                <viewController id="apW-GE-wBu" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wkq-Lw-Gq7"/>
+                        <viewControllerLayoutGuide type="bottom" id="0ov-13-lDZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tOP-ZE-njY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="If there is no &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is wrong, press below &quot;APN setting&quot; to set APN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-hT-VjF">
+                                <rect key="frame" x="42" y="83" width="290" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="Juq-pd-B70">
+                                <rect key="frame" x="84" y="211" width="206" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZn-Oq-hbp">
+                                <rect key="frame" x="136" y="451" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="APN Setting"/>
+                                <connections>
+                                    <segue destination="48K-Vm-bJI" kind="show" identifier="" id="pPS-Qr-8MH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NBn-3O-Mqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4532" y="1517"/>
+        </scene>
+        <!--APN-->
+        <scene sceneID="SQh-gW-vGs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="APN" id="48K-Vm-bJI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="14h-F5-tUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5161" y="1516"/>
+        </scene>
         <!--Input IMEI-->
         <scene sceneID="PTK-8r-OCB">
             <objects>
@@ -692,7 +782,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83A-Bd-1Qz" id="0Ih-bq-mgF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="please input IMEI" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2BU-zJ-o4u">
@@ -870,19 +960,51 @@
                                     <constraint firstAttribute="height" constant="178" id="w6A-bf-82p"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can 't pair with Watch?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mr-GJ-WAd">
+                                <rect key="frame" x="113" y="616" width="149" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="dnK-Qj-o0q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-NY-CaF">
+                                <rect key="frame" x="270" y="614" width="32" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="EAy-o4-Bfi"/>
+                                </constraints>
+                                <state key="normal" title="Help">
+                                    <color key="titleColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="hZ8-Ro-6rk" kind="show" id="vIb-5g-x2A"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="If there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is correct, press &quot;resend&quot; to  resend Verification Code." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evq-pB-sEQ">
+                                <rect key="frame" x="16" y="72" width="343" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ls1-7Y-bi6" firstAttribute="centerY" secondItem="OoE-sQ-T7L" secondAttribute="centerY" constant="87" id="2qw-SX-ezR"/>
                             <constraint firstItem="ls1-7Y-bi6" firstAttribute="centerX" secondItem="OoE-sQ-T7L" secondAttribute="centerX" id="IMx-In-h8l"/>
+                            <constraint firstItem="UFl-j8-7TJ" firstAttribute="top" secondItem="1mr-GJ-WAd" secondAttribute="bottom" constant="30" id="Jwv-Wg-GXM"/>
+                            <constraint firstItem="1mr-GJ-WAd" firstAttribute="centerX" secondItem="GR2-RM-Mei" secondAttribute="centerX" id="Kjp-6y-KsG"/>
                             <constraint firstItem="n75-Sz-36j" firstAttribute="top" secondItem="OoE-sQ-T7L" secondAttribute="top" id="MAm-zQ-gfg"/>
                             <constraint firstItem="GR2-RM-Mei" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" id="N75-bY-0Qd"/>
                             <constraint firstItem="ls1-7Y-bi6" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" id="Rq5-70-cLy"/>
+                            <constraint firstItem="rEP-NY-CaF" firstAttribute="leading" secondItem="1mr-GJ-WAd" secondAttribute="trailing" constant="8" id="RuZ-r2-Qdv"/>
                             <constraint firstAttribute="trailing" secondItem="ls1-7Y-bi6" secondAttribute="trailing" id="UaU-q3-Uz6"/>
                             <constraint firstItem="GR2-RM-Mei" firstAttribute="top" secondItem="OoE-sQ-T7L" secondAttribute="top" id="XMB-Nn-G5Y"/>
                             <constraint firstAttribute="trailing" secondItem="GR2-RM-Mei" secondAttribute="trailing" id="eUI-Cj-BJG"/>
                             <constraint firstItem="UFl-j8-7TJ" firstAttribute="top" secondItem="GR2-RM-Mei" secondAttribute="bottom" id="fFq-mX-Wr1"/>
                             <constraint firstAttribute="trailing" secondItem="n75-Sz-36j" secondAttribute="trailing" id="gqw-8R-w8j"/>
+                            <constraint firstItem="rEP-NY-CaF" firstAttribute="centerY" secondItem="1mr-GJ-WAd" secondAttribute="centerY" id="hus-Rg-L5q"/>
                             <constraint firstItem="n75-Sz-36j" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" id="wga-dB-eNO"/>
                         </constraints>
                     </view>
@@ -899,7 +1021,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ppa-ry-3vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3735" y="797"/>
+            <point key="canvasLocation" x="3733.5999999999999" y="796.55172413793105"/>
         </scene>
         <!--Navigation QR Code-->
         <scene sceneID="dSS-h7-dSQ">
@@ -1068,6 +1190,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="441-a0-A7p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4532" y="797"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qqY-6R-0D8">
+            <objects>
+                <viewController id="Oe9-Uc-fZq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Ys-sN-Enf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zz2-LY-ggf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qzK-gC-J1c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1, Week up the watch check if there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot;Singal in the state bar, and the time is correct." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bt-lY-UyJ">
+                                <rect key="frame" x="42" y="84" width="290" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="sCd-ct-AIF">
+                                <rect key="frame" x="84" y="212" width="206" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86v-uz-tVc">
+                                <rect key="frame" x="229" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="no"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GjR-zA-pB6">
+                                <rect key="frame" x="42" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="yes"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ioq-4Q-T07" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3734" y="1517"/>
         </scene>
         <!--Relationship-->
         <scene sceneID="slR-we-v9d">
@@ -1383,15 +1548,15 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="IFf-nS-Sfs"/>
                     </navigationItem>
                     <connections>
-                        <outletCollection property="cells" destination="Kvd-vx-fQF" id="NPt-ul-cDY"/>
-                        <outletCollection property="cells" destination="sMU-mq-eEZ" id="6Cs-X1-7MV"/>
-                        <outletCollection property="cells" destination="aTh-Xr-KVa" id="ecF-L8-XwU"/>
-                        <outletCollection property="cells" destination="0Vn-hd-rb1" id="SbO-o0-D9o"/>
-                        <outletCollection property="cells" destination="XAt-Mx-Frk" id="fQ3-l9-YV0"/>
-                        <outletCollection property="cells" destination="PFy-vf-6J3" id="0bL-PZ-N8t"/>
-                        <outletCollection property="cells" destination="9Oo-ga-kJ3" id="R9q-hq-Ade"/>
-                        <outletCollection property="cells" destination="CNL-a1-wpA" id="RG6-MP-hCT"/>
-                        <outletCollection property="cells" destination="k51-9p-uqa" id="4iq-ec-4Kr"/>
+                        <outletCollection property="cells" destination="Kvd-vx-fQF" collectionClass="NSMutableArray" id="NPt-ul-cDY"/>
+                        <outletCollection property="cells" destination="sMU-mq-eEZ" collectionClass="NSMutableArray" id="6Cs-X1-7MV"/>
+                        <outletCollection property="cells" destination="aTh-Xr-KVa" collectionClass="NSMutableArray" id="ecF-L8-XwU"/>
+                        <outletCollection property="cells" destination="0Vn-hd-rb1" collectionClass="NSMutableArray" id="SbO-o0-D9o"/>
+                        <outletCollection property="cells" destination="XAt-Mx-Frk" collectionClass="NSMutableArray" id="fQ3-l9-YV0"/>
+                        <outletCollection property="cells" destination="PFy-vf-6J3" collectionClass="NSMutableArray" id="0bL-PZ-N8t"/>
+                        <outletCollection property="cells" destination="9Oo-ga-kJ3" collectionClass="NSMutableArray" id="R9q-hq-Ade"/>
+                        <outletCollection property="cells" destination="CNL-a1-wpA" collectionClass="NSMutableArray" id="RG6-MP-hCT"/>
+                        <outletCollection property="cells" destination="k51-9p-uqa" collectionClass="NSMutableArray" id="4iq-ec-4Kr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6k-66-jZy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1405,6 +1570,138 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qfS-8Y-dzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5959" y="796"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="V1w-7W-KUf">
+            <objects>
+                <viewController id="VQD-hX-eZF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zeo-sL-353"/>
+                        <viewControllerLayoutGuide type="bottom" id="w0z-xW-wxM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ous-LZ-xkG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1, Week up the watch check if there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot;Singal in the state bar, and the time is correct." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVx-WS-Rj9">
+                                <rect key="frame" x="42" y="84" width="290" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="BLt-9i-ej8">
+                                <rect key="frame" x="84" y="212" width="206" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rC-wz-EbF">
+                                <rect key="frame" x="229" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="no"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B13-3H-iNh">
+                                <rect key="frame" x="42" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="yes"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lR3-z3-ptK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3734" y="1517"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4BJ-6D-0IM">
+            <objects>
+                <viewController id="KGS-cT-VlL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="q8J-xr-g4w"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rf3-5q-zXM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4P5-mk-XTZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1, Week up the watch check if there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot;Singal in the state bar, and the time is correct." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rI-Q2-5Kt">
+                                <rect key="frame" x="42" y="84" width="290" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="mc3-V0-Xb0">
+                                <rect key="frame" x="84" y="212" width="206" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYr-l4-q8k">
+                                <rect key="frame" x="229" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="no"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCV-bO-7rD">
+                                <rect key="frame" x="42" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="yes"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6hF-5j-7jc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3734" y="1517"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="oPH-2L-fBf">
+            <objects>
+                <viewController id="hZ8-Ro-6rk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iGl-pN-rcJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="xEG-g6-Q3t"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KKS-uK-mhn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1, Week up the watch check if there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot;Singal in the state bar, and the time is correct." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-FJ-Qrb">
+                                <rect key="frame" x="42" y="84" width="290" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="NPB-7P-DLp">
+                                <rect key="frame" x="84" y="212" width="206" height="152"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buJ-Iy-irB">
+                                <rect key="frame" x="229" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="no"/>
+                                <connections>
+                                    <segue destination="apW-GE-wBu" kind="show" id="SE2-r0-2Aj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K24-xb-SfL">
+                                <rect key="frame" x="42" y="453" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="yes"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L1s-ko-fIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3734" y="1517"/>
         </scene>
     </scenes>
     <resources>

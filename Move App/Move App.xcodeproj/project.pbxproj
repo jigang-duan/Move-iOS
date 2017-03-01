@@ -171,6 +171,8 @@
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
+		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
+		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
 		FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */; };
 		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -391,6 +393,8 @@
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
+		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -809,6 +813,8 @@
 				D29988C61E5A952000D23899 /* KidInformation.storyboard */,
 				E9E3F13D1E5704CD00B01E29 /* Major.storyboard */,
 				E0931F4C1E31C72C00755B4A /* Account.storyboard */,
+				FF4ABDB91E66D9C00029C643 /* APN.storyboard */,
+				FF4ABDB11E669CA30029C643 /* Contact.storyboard */,
 				E0931F491E31C6DF00755B4A /* Social.storyboard */,
 				E0931F3B1E31A61800755B4A /* Login.storyboard */,
 				E01DF6EE1E3059A800EA003D /* LaunchScreen.storyboard */,
@@ -1515,9 +1521,11 @@
 				E0931F171E30B9A500755B4A /* Localizable.strings in Resources */,
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				E9DD0F9C1E5ACB4600752863 /* NoticeListCell.xib in Resources */,
+				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
+				FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */,
 				D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */,
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
@@ -1959,6 +1967,22 @@
 				E9E3F13E1E5704CD00B01E29 /* Base */,
 			);
 			name = Major.storyboard;
+			sourceTree = "<group>";
+		};
+		FF4ABDB11E669CA30029C643 /* Contact.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF4ABDB21E669CA30029C643 /* Base */,
+			);
+			name = Contact.storyboard;
+			sourceTree = "<group>";
+		};
+		FF4ABDB91E66D9C00029C643 /* APN.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF4ABDBA1E66D9C00029C643 /* Base */,
+			);
+			name = APN.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
