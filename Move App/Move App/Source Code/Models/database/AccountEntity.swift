@@ -32,3 +32,17 @@ class AccountEntity: Object {
         return "uid"
     }
 }
+
+
+enum DeviceTokenID: Int {
+    case local = 0
+}
+
+class DeviceTokenEntity: Object {
+    dynamic var tokenId: Int = DeviceTokenID.local.rawValue
+    dynamic var deviceToken: String? = nil
+    
+    override static func primaryKey() -> String? {
+        return "tokenId"
+    }
+}

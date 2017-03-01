@@ -8,6 +8,8 @@
 
 import Foundation
 import IQKeyboardManager
+import UserNotifications
+
 
 /// Application Manager
 class ApplicationManager {
@@ -46,6 +48,11 @@ class ApplicationManager {
         self.initGlobalAppearance()
         
         IQKeyboardManager.shared().isEnabled = true
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        
+        // Notification
+        self.initNotification()
     }
 }
 
@@ -68,4 +75,6 @@ extension ApplicationManager {
         Logger.initLogger()
     }
 }
+
+
 

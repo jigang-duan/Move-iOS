@@ -22,6 +22,8 @@
 		116F81621E641D96003CEC39 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81611E641D96003CEC39 /* RemindersController.swift */; };
 		116F81641E643FEB003CEC39 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81631E643FEB003CEC39 /* AlarmController.swift */; };
 		116F81661E644524003CEC39 /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81651E644524003CEC39 /* AlarmViewModel.swift */; };
+		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
+		116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818C1E665C74003CEC39 /* NotificationServer.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -227,6 +229,8 @@
 		116F81631E643FEB003CEC39 /* AlarmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
 		116F81651E644524003CEC39 /* AlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
+		116F818A1E6599D6003CEC39 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Shared/Common/Application/Notification.swift; sourceTree = "<group>"; };
+		116F818C1E665C74003CEC39 /* NotificationServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationServer.swift; path = Shared/Common/Application/Notification/NotificationServer.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -452,6 +456,14 @@
 				1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */,
 			);
 			name = KidSettingManager;
+			sourceTree = "<group>";
+		};
+		116F818E1E665C83003CEC39 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				116F818C1E665C74003CEC39 /* NotificationServer.swift */,
+			);
+			name = Notification;
 			sourceTree = "<group>";
 		};
 		11D0BECA1E5EBC09006F957E /* MeManager */ = {
@@ -775,6 +787,7 @@
 		E01DF71E1E30876300EA003D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				116F818E1E665C83003CEC39 /* Notification */,
 				E0931F241E30BF8B00755B4A /* Utils */,
 				E0931F231E30BF8100755B4A /* Application */,
 				E0931F221E30BF7400755B4A /* Logger */,
@@ -1043,6 +1056,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F2C1E30C63500755B4A /* ApplicationManager.swift */,
+				116F818A1E6599D6003CEC39 /* Notification.swift */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -1450,7 +1464,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1704,6 +1718,7 @@
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
 				FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */,
+				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
 				E9DD0F9B1E5ACB4600752863 /* NoticeListCell.swift in Sources */,
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
@@ -1724,6 +1739,7 @@
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
+				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				D2637B7B1E5E7C81005D82D9 /* RegularshutdownController.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
@@ -2047,6 +2063,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				INFOPLIST_FILE = "Move App/Info.plist";
@@ -2066,6 +2083,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				INFOPLIST_FILE = "Move App/Info.plist";

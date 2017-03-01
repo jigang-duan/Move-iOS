@@ -13,13 +13,19 @@ extension NSError {
     /// Unknow error
     static func unknowError() -> NSError {
         let userInfo = [NSLocalizedDescriptionKey: "Unknow error"]
-        return NSError(domain: "com.fe.defaultError", code: 999, userInfo: userInfo)
+        return NSError(domain: "com.tclcom.defaultError", code: 999, userInfo: userInfo)
     }
     
     
-    /// JSON Mapper Error
+    /// JSON Mapper error
     static func jsonMapperError() -> NSError {
         let userInfo = [NSLocalizedDescriptionKey: "JSON Mapper error"]
-        return NSError(domain: "com.fe.defaultError", code: 998, userInfo: userInfo)
+        return NSError(domain: "com.clcom.defaultError", code: 998, userInfo: userInfo)
+    }
+    
+    /// None Device Token error
+    static func deviceTokenError() -> NSError {
+        let userInfo = [NSLocalizedDescriptionKey: "None Device Token error"]
+        return NSError(domain: "com.clcom.defaultError", code: 996, userInfo: userInfo)
     }
 }
