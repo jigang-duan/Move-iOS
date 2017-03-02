@@ -49,6 +49,10 @@ extension MoveApi {
         final class func delete(deviceId: String) -> Observable<ApiError> {
             return request(.delete(deviceId: deviceId)).mapMoveObject(ApiError.self)
         }
+//        删除设备绑定成员
+        final class func deleteBindUser(deviceId: String, uid: String) -> Observable<ApiError> {
+            return request(.deleteBindUser(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
+        }
 //        查看设备配置
         final class func getSetting(deviceId: String) -> Observable<DeviceSetting> {
             return request(.getSetting(deviceId: deviceId)).mapMoveObject(DeviceSetting.self)
@@ -77,6 +81,7 @@ extension MoveApi {
             case getDeviceInfo(deviceId: String)
             case update(deviceId: String, updateInfo: DeviceInfo)
             case delete(deviceId: String)
+            case deleteBindUser(deviceId: String, uid: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)
             case sendNotify(deviceId: String, sendInfo: DeviceSendNotify)
@@ -96,33 +101,35 @@ extension MoveApi.Device.API: AccessTokenAuthorizable {
 extension MoveApi.Device.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/device")! }
+    var baseURL: URL { return URL(string: MoveApi.BaseURL)! }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
         case .add(let deviceId, _):
-            return "/\(deviceId)"
+            return "/v1.0/device/\(deviceId)"
         case .joinDeviceGroup(let deviceId, _):
-            return "/\(deviceId)/join"
+            return "/v1.0/device/\(deviceId)/join"
         case .getDeviceList:
-            return "/list"
+            return "/v1.1/device/devices"
         case .getDeviceInfo(let deviceId):
-            return "/\(deviceId)"
+            return "/v1.1/device/\(deviceId)"
         case .update(let deviceId, _):
-            return "/\(deviceId)"
+            return "/v1.1/device/\(deviceId)"
         case .delete(let deviceId):
-            return "/\(deviceId)"
+            return "/v1.0/device/\(deviceId)"
+        case .deleteBindUser(let deviceId, let uid):
+            return "/v1.0/device/\(deviceId)/user/\(uid)"
         case .getSetting(let deviceId):
-            return "/\(deviceId)/settings"
+            return "/v1.0/device/\(deviceId)/settings"
         case .setting(let deviceId, _):
-            return "/\(deviceId)/settings"
+            return "/v1.0/device/\(deviceId)/settings"
         case .sendNotify(let deviceId, _):
             return "/\(deviceId)/notify"
         case .addPower(let deviceId, _):
-            return "/\(deviceId)/power"
+            return "/v1.0/device/\(deviceId)/power"
         case .getPower(let deviceId):
-            return "/\(deviceId)/power"
+            return "/v1.0/device/\(deviceId)/power"
         }
     }
     
@@ -135,7 +142,7 @@ extension MoveApi.Device.API: TargetType {
             return .get
         case .update, .setting, .addPower:
             return .put
-        case .delete:
+        case .delete, .deleteBindUser:
             return .delete
         }
     }
@@ -147,7 +154,7 @@ extension MoveApi.Device.API: TargetType {
             return addInfo.toJSON()
         case .joinDeviceGroup(_, let joinInfo):
             return joinInfo.toJSON()
-        case .getDeviceList, .getDeviceInfo, .delete, .getSetting, .getPower:
+        case .getDeviceList, .getDeviceInfo, .delete, .deleteBindUser, .getSetting, .getPower:
             return nil
         case .update(_, let updateInfo):
             return updateInfo.toJSON()
@@ -189,6 +196,6 @@ extension MoveApi.Device {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }

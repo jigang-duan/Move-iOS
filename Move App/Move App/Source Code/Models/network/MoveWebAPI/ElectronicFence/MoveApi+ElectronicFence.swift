@@ -51,7 +51,7 @@ extension MoveApi.ElectronicFence.API: AccessTokenAuthorizable {
 extension MoveApi.ElectronicFence.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/fence")! }
+    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/v1.0/fence")! }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
@@ -108,6 +108,6 @@ extension MoveApi.ElectronicFence {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }

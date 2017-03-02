@@ -21,6 +21,7 @@ struct Configure {
         static let testHost = "10.129.60.82:9092"
         static let Host = "139.196.178.104"
         static let apiPath = ""
+        static let pid = 0xffff
         
         // Base
         static let BaseURL: String = {
@@ -33,7 +34,9 @@ struct Configure {
             }
         }()
         
-        static let ApiKey = "whco6R2vfkGjKpH8J5G21xui3wjBLh23pSGFoJ_Q4KfLjwEVezo"
+        static let ApiKey = "vEWZapEpW5OezzEs5Su44xAbCiy9-arCJz7eoLJfjac2h1r4VF0"
+        
+        static let pidAndKey = "pid=\(pid);key=\(ApiKey)"
         
         // Scenes
         static let LoadDataOfPeriod = 30.0

@@ -76,7 +76,7 @@ extension MoveApi.HistoryMessage.API: AccessTokenAuthorizable {
 extension MoveApi.HistoryMessage.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/cms")! }
+    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/v1.0/cms")! }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
@@ -147,7 +147,7 @@ extension MoveApi.HistoryMessage {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }
 

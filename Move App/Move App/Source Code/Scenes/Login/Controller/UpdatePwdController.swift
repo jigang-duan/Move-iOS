@@ -25,7 +25,8 @@ class UpdatePwdController: UIViewController {
     @IBOutlet weak var sendBun: UIButton!
     @IBOutlet weak var doneBun: UIButton!
     
-    var sid = ""
+    var sid: String?
+    var email: String?
     
     var viewModel: UpdatePswdViewModel!
     var disposeBag = DisposeBag()
@@ -120,7 +121,6 @@ class UpdatePwdController: UIViewController {
         
         viewModel = UpdatePswdViewModel(
             input:(
-                sid: self.sid,
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
                 passwd: passwordTf.rx.text.orEmpty.asDriver(),
                 rePasswd: rePasswordTf.rx.text.orEmpty.asDriver(),
@@ -133,6 +133,9 @@ class UpdatePwdController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        
+        viewModel.sid = self.sid
+        viewModel.email = self.email
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in
@@ -148,26 +151,22 @@ class UpdatePwdController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.sendResult
+        viewModel.sendResult?
             .drive(onNext: { signUped in
                 switch signUped {
                 case .failed(let message):
                     self.showVcodeError(message)
-//                    self.gotoProtectVC()
-//                case .ok:
-//                    self.gotoProtectVC()
                 default:
                     self.revertVcodeError()
                 }
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.doneResult
+        viewModel.doneResult?
             .drive(onNext: { signUped in
                 switch signUped {
                 case .failed(let message):
                     self.showVcodeError(message)
-                    self.BackAction(self)
                 case .ok:
                     self.BackAction(self)
                 default:
@@ -226,7 +225,9 @@ class UpdatePwdController: UIViewController {
     
     
     @IBAction func BackAction(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
+        let vcs = self.navigationController?.viewControllers
+        let vc = vcs?[(vcs?.count)! - 3]
+        _ = self.navigationController?.popToViewController(vc!, animated: true)
     }
 
    

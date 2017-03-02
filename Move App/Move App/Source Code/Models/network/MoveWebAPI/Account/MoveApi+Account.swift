@@ -65,6 +65,11 @@ extension MoveApi {
         final class func findPassword(info: UserFindInfo) -> Observable<ApiError> {
             return request(.findPassword(info: info)).mapMoveObject(ApiError.self)
         }
+        //        设置设备推送TOKEN
+        final class func settingPushToken(pushTokenInfo: PushTokenInfo) -> Observable<ApiError> {
+            return request(.settingPushToken(pushTokenInfo: pushTokenInfo)).mapMoveObject(ApiError.self)
+        }
+        
         
         enum API {
             case getAccessToken(tokenReq: AccessTokenReq)
@@ -77,6 +82,7 @@ extension MoveApi {
             case getUserInfo(uid: String)
             case settingUserInfo(uid: String, info: UserInfoSetting)
             case findPassword(info: UserFindInfo)
+            case settingPushToken(pushTokenInfo: PushTokenInfo)
         }
         
     }
@@ -85,7 +91,7 @@ extension MoveApi {
 extension MoveApi.Account.API: AccessTokenAuthorizable {
     var shouldAuthorize: Bool {
         switch self {
-        case .refreshToken, .logout, .getUserInfo, .settingUserInfo:
+        case .refreshToken, .logout, .getUserInfo, .settingUserInfo, .settingPushToken:
             return true
         default:
             return false
@@ -97,37 +103,34 @@ extension MoveApi.Account.API: TargetType {
     
     /// The target's base `URL`.
     var baseURL: URL {
-        switch self {
-        case .getAccessToken:
-             return URL(string: MoveApi.BaseURL + "/token")!
-        default:
-             return URL(string: MoveApi.BaseURL + "/account")!
-        }
+        return URL(string: MoveApi.BaseURL + "/v1.0")!
     }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
         case .getAccessToken:
-            return ""
+            return "token"
         case .registered(let account):
-            return "/\(account)/registered"
+            return "account/\(account)/registered"
         case .register:
-            return "/register"
+            return "account/register"
         case .login:
-            return "/login"
+            return "account/login"
         case .tplogin:
-            return "/tplogin"
+            return "account/tplogin"
         case .refreshToken:
-            return "/refresh_token"
+            return "account/refresh_token"
         case .logout:
-            return "/logout"
+            return "account/logout"
         case .getUserInfo(let uid):
-            return "/\(uid)"
+            return "account/\(uid)"
         case .settingUserInfo(let uid, _):
-            return "/\(uid)"
+            return "account/\(uid)"
         case .findPassword:
-            return "/password"
+            return "account/password"
+        case .settingPushToken:
+            return "account/push_token"
         }
     }
     
@@ -138,7 +141,7 @@ extension MoveApi.Account.API: TargetType {
             return .get
         case .settingUserInfo:
             return .patch
-        case .findPassword:
+        case .findPassword, .settingPushToken:
             return .put
         default:
             return .post
@@ -154,11 +157,13 @@ extension MoveApi.Account.API: TargetType {
             return userInfo.toJSON()
         case .login(let info):
             return info.toJSON()
-        case  .tplogin(let info):
+        case .tplogin(let info):
             return info.toJSON()
         case .settingUserInfo(_, let info):
             return info.toJSON()
         case .findPassword(let info):
+            return info.toJSON()
+        case .settingPushToken(let info):
             return info.toJSON()
         default:
             return nil
@@ -190,7 +195,7 @@ extension MoveApi.Account {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }
 

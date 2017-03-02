@@ -76,7 +76,7 @@ extension MoveApi {
         var sos: [String]?
         var school_time: SchoolTime?
         var permissions: [Any]?
-        var reminders: Reminder?
+        var reminder: Reminder?
     }
     
     struct Reminder {
@@ -95,11 +95,13 @@ extension MoveApi {
     struct Alarm {
         var alarmAt: Date?
         var days: [Int]?
+        var active: Bool?
     }
     
     struct SchoolTime {
         var periods: [SchoolTimePeriod]?
         var days: [Int]?
+        var active: Bool?
     }
     
     struct SchoolTimePeriod {
@@ -136,6 +138,7 @@ extension MoveApi.Alarm: Mappable {
     mutating func mapping(map: Map) {
         alarmAt <- map["alarm"]
         days <- map["days"]
+        active <- map["active"]
     }
 }
 
@@ -175,6 +178,7 @@ extension MoveApi.SchoolTime: Mappable {
     mutating func mapping(map: Map) {
         periods <- map["periods"]
         days <- map["days"]
+        active <- map["active"]
     }
 }
 
@@ -274,7 +278,7 @@ extension MoveApi.DeviceSetting: Mappable {
          sos <- map["sos"]
          school_time <- map["school_time"]
          permissions <- map["permissions"]
-         reminders <- map["reminders"]
+         reminder <- map["reminder"]
     }
 }
 

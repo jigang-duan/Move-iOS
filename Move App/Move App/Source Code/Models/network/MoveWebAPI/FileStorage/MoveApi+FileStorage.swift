@@ -87,23 +87,18 @@ extension MoveApi.FileStorage.API: TargetType {
     
     /// The target's base `URL`.
     var baseURL: URL {
-        switch self {
-        case .upload(let fileInfo):
-            return URL(string: MoveApi.BaseURL + "/fs?type=\(fileInfo.type ?? "")&duration=\(fileInfo.duration ?? 0)")! 
-        default:
-            return URL(string: MoveApi.BaseURL + "/fs")!
-        }
+        return URL(string: MoveApi.BaseURL + "/v1.0")!
     }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
-        case .upload:
-            return ""
+        case .upload(let fileInfo):
+            return "fs?type=\(fileInfo.type ?? "")&duration=\(fileInfo.duration ?? 0)"
         case .download(let fid):
-            return "/\(fid)"
+            return "fs/\(fid)"
         case .delete(let fid):
-            return "/\(fid)"
+            return "fs/\(fid)"
         }
     }
     
@@ -164,6 +159,6 @@ extension MoveApi.FileStorage {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }

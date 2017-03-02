@@ -128,7 +128,8 @@ class PwdRecoveryController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.pwdRecoveryController.showUpdatePassword(segue: segue) {
-            sg.destination.sid = viewModel.sid!
+            sg.destination.sid = viewModel.sid
+            sg.destination.email = emailTf.text
         }
     }
     

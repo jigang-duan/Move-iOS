@@ -75,6 +75,11 @@ extension MoveApi {
         var email: String?
         var password: String?
     }
+    
+    struct PushTokenInfo {
+        var type: String?
+        var deviceId: String?
+    }
 }
 
 extension MoveApi.AccessTokenReq: Mappable {
@@ -200,5 +205,15 @@ extension MoveApi.UserFindInfo: Mappable{
         vcode <- map["vcode"]
         email <- map["email"]
         password <- map["password"]
+    }
+}
+
+extension MoveApi.PushTokenInfo: Mappable{
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        type <- map["type"]
+        deviceId <- map["device_id"]
     }
 }

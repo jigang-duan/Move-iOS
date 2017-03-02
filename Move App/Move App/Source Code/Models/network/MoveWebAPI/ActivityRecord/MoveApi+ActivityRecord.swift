@@ -86,7 +86,7 @@ extension MoveApi.ActivityRecord.API: AccessTokenAuthorizable {
 extension MoveApi.ActivityRecord.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/activity")! }
+    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/v1.0/activity")! }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
@@ -165,7 +165,7 @@ extension MoveApi.ActivityRecord {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }
 

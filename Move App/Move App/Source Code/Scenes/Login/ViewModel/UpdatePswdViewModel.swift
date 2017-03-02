@@ -24,15 +24,17 @@ class UpdatePswdViewModel {
     let sending: Driver<Bool>
     
     let sendEnabled: Driver<Bool>
-    let sendResult: Driver<ValidationResult>
+    var sendResult: Driver<ValidationResult>?
     
     
     let doneEnabled: Driver<Bool>
-    let doneResult: Driver<ValidationResult>
+    var doneResult: Driver<ValidationResult>?
+    
+    var sid: String?
+    var email: String?
     
     init(
         input: (
-        sid: String,
         vcode: Driver<String>,
         passwd: Driver<String>,
         rePasswd: Driver<String>,
@@ -87,23 +89,23 @@ class UpdatePswdViewModel {
         
         
         
-        let email = userManager.getProfile().map{ $0.email }.asDriver(onErrorJustReturn: "")
-        
-        let sid = input.sendTaps.withLatestFrom(email)
+        self.sendResult = input.sendTaps
             .flatMapLatest({ email in
-                return userManager.sendVcode(to: email!)
+                return userManager.sendVcode(to: self.email!)
                     .trackActivity(activity)
-                    .map({$0.sid})
-                    .filterNil()
-                    .asDriver(onErrorJustReturn: "")
+                    .map({info in
+                        self.sid = info.sid
+                        return ValidationResult.ok(message: "Send Success.")
+                    })
+                    .asDriver(onErrorRecover: updatePswdErrorRecover)
             })
-        self.sendResult = sid.map({ ValidationResult.ok(message: $0) })
+       
         
-        let com = Driver.combineLatest(sid, input.vcode, email, input.passwd){ ($0, $1, $2, $3) }
+        let com = Driver.combineLatest(input.vcode, input.passwd){ ($0, $1) }
         
         self.doneResult = input.doneTaps.withLatestFrom(com)
-            .flatMapLatest({ (sid, vcode, email, password) in
-                return userManager.updatePasssword(sid: sid, vcode: vcode, email: email!, password: password)
+            .flatMapLatest({ (vcode, password) in
+                return userManager.updatePasssword(sid: self.sid!, vcode: vcode, email: self.email!, password: password)
                     .trackActivity(activity)
                     .map { _ in
                         ValidationResult.ok(message: "Update Success.")

@@ -55,8 +55,6 @@ class ProtectAccountController: UIViewController {
 
         HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email)."
         
-        registerInfo?.email = "491339607@qq.com"
-        
         vcodeValidation.isHidden = true
         
         viewModel = ProtectAccountViewModel(
@@ -74,8 +72,6 @@ class ProtectAccountController: UIViewController {
         
         viewModel.email = registerInfo?.email
         viewModel.password = registerInfo?.password
-        //TODO: for test
-        viewModel.sid = "xxxx"
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in

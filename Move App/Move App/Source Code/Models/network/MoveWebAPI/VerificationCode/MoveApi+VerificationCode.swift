@@ -56,17 +56,17 @@ extension MoveApi.VerificationCode.API: AccessTokenAuthorizable {
 extension MoveApi.VerificationCode.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/vcs")! }
+    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/v1.0")! }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
         case .send:
-            return ""
+            return "vcs"
         case .verify(let sid,_):
-            return "/\(sid)"
+            return "vcs/\(sid)"
         case .delete(let sid):
-            return "/\(sid)"
+            return "vcs/\(sid)"
         }
     }
     
@@ -119,7 +119,7 @@ extension MoveApi.VerificationCode {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }
 

@@ -62,7 +62,7 @@ extension MoveApi.Location.API: AccessTokenAuthorizable {
 extension MoveApi.Location.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/lbs")! }
+    var baseURL: URL { return URL(string: MoveApi.BaseURL + "/v1.0/lbs")! }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
@@ -129,7 +129,7 @@ extension MoveApi.Location {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": "key=\(MoveApi.apiKey)"])
+            "Authorization": MoveApi.apiKey])
     }
 }
 

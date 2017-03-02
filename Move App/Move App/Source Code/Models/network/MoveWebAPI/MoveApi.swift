@@ -13,11 +13,9 @@ import Moya_ObjectMapper
 
 class MoveApi {
     
-    static let version: String = "/v1.0"
+    static let BaseURL: String = Configure.App.BaseURL
     
-    static let BaseURL: String = Configure.App.BaseURL + version
-    
-    static let apiKey: String = Configure.App.ApiKey
+    static let apiKey: String = Configure.App.pidAndKey
     
     struct ApiError {
         var id: Int?
