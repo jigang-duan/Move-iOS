@@ -18,6 +18,44 @@ protocol KidSettingsWorkerProtocl {
     func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool>
 }
 
+protocol WatchSettingWorkerProtocl {
+    func fetchLanguages(id: String) ->  Observable<[String]>
+    func fetchLanguage(id: String) ->  Observable<String>
+    func updateLanguage(id: String, _ language: String) -> Observable<Bool>
+}
+
+class WatchSettingsManager  {
+    static let share = WatchSettingsManager()
+    
+    fileprivate var worker: WatchSettingWorkerProtocl!
+    
+    init() {
+        worker = MoveApiWatchSettingsWorker()
+    }
+    
+    func fetchLanguages() ->  Observable<[String]>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<[String]>.empty()
+        }
+        return self.worker.fetchLanguages(id: deviceId)
+    }
+    
+    func fetchLanguage() -> Observable<String> {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<String>.empty()
+        }
+        return self.worker.fetchLanguage(id: deviceId)
+    }
+    
+    func updateLanguage(_ language: String) -> Observable<Bool> {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateLanguage(id: deviceId, language)
+    }
+    
+}
+
 
 class KidSettingsManager {
     static let shared = KidSettingsManager()

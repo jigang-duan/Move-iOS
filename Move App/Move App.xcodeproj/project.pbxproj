@@ -43,7 +43,6 @@
 		D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */; };
 		D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */; };
 		D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */; };
-		D2637B761E5E7C40005D82D9 /* LanguageTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B721E5E7C40005D82D9 /* LanguageTableController.swift */; };
 		D2637B771E5E7C40005D82D9 /* SafeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */; };
 		D2637B781E5E7C40005D82D9 /* SchoolTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */; };
 		D2637B791E5E7C40005D82D9 /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B751E5E7C40005D82D9 /* ToDoListController.swift */; };
@@ -147,6 +146,8 @@
 		E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029D1E5C05A6004A55BA /* UserManager.swift */; };
 		E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */; };
 		E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02A11E5C061D004A55BA /* WorkerError.swift */; };
+		E918E6651E67CBDB00112AF7 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E918E6641E67CBDB00112AF7 /* LanguageViewController.swift */; };
+		E918E66A1E67E1AA00112AF7 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E918E6691E67E1AA00112AF7 /* LanguageViewModel.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
@@ -259,7 +260,6 @@
 		D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIControllerTableController.swift; sourceTree = "<group>"; };
 		D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeController.swift; sourceTree = "<group>"; };
 		D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberController.swift; sourceTree = "<group>"; };
-		D2637B721E5E7C40005D82D9 /* LanguageTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageTableController.swift; sourceTree = "<group>"; };
 		D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneController.swift; sourceTree = "<group>"; };
 		D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeController.swift; sourceTree = "<group>"; };
 		D2637B751E5E7C40005D82D9 /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
@@ -369,6 +369,8 @@
 		E0FA029D1E5C05A6004A55BA /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiUserWorker.swift; path = Workers/MoveApiUserWorker.swift; sourceTree = "<group>"; };
 		E0FA02A11E5C061D004A55BA /* WorkerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerError.swift; sourceTree = "<group>"; };
+		E918E6641E67CBDB00112AF7 /* LanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
+		E918E6691E67E1AA00112AF7 /* LanguageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
@@ -567,19 +569,19 @@
 			path = VerificationCode;
 			sourceTree = "<group>";
 		};
-		D2637B711E5E7C40005D82D9 /* FuntionList */ = {
+		D2637B711E5E7C40005D82D9 /* FuntionListController */ = {
 			isa = PBXGroup;
 			children = (
 				1109C64B1E5FD5D0005B4AFD /* Views */,
-				D2637B721E5E7C40005D82D9 /* LanguageTableController.swift */,
 				D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */,
 				D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */,
 				D2637B751E5E7C40005D82D9 /* ToDoListController.swift */,
 				D2637B7A1E5E7C81005D82D9 /* RegularshutdownController.swift */,
 				116F81611E641D96003CEC39 /* RemindersController.swift */,
 				116F81631E643FEB003CEC39 /* AlarmController.swift */,
+				E918E6641E67CBDB00112AF7 /* LanguageViewController.swift */,
 			);
-			name = FuntionList;
+			name = FuntionListController;
 			path = Controller/FuntionList;
 			sourceTree = "<group>";
 		};
@@ -1150,7 +1152,7 @@
 		E0931F531E31E0B000755B4A /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				D2637B711E5E7C40005D82D9 /* FuntionList */,
+				D2637B711E5E7C40005D82D9 /* FuntionListController */,
 				E0931F571E31ED2800755B4A /* ViewModel */,
 				E0931F541E31E0C800755B4A /* Controller */,
 			);
@@ -1176,6 +1178,7 @@
 				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
 				1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */,
 				116F81651E644524003CEC39 /* AlarmViewModel.swift */,
+				E918E6691E67E1AA00112AF7 /* LanguageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1743,6 +1746,7 @@
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
+				E918E6651E67CBDB00112AF7 /* LanguageViewController.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
@@ -1767,7 +1771,6 @@
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
-				D2637B761E5E7C40005D82D9 /* LanguageTableController.swift in Sources */,
 				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
 				E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */,
@@ -1809,6 +1812,7 @@
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				D2E5E8531E5D229D0024D20C /* (null) in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
+				E918E66A1E67E1AA00112AF7 /* LanguageViewModel.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
 				D2EFB04A1E529801000BE93C /* PairWatchController.swift in Sources */,
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,

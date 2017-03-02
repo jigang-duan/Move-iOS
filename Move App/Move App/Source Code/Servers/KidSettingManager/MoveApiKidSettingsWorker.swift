@@ -69,6 +69,30 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
     
 }
 
+class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
+    
+    func fetchLanguages(id: String) ->  Observable<[String]> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.languages ?? [] })
+    }
+    
+    func fetchLanguage(id: String) ->  Observable<String> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.language ?? "" })
+    }
+    
+    func updateLanguage(id: String, _ language: String) -> Observable<Bool> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.language = language
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
+}
+
 extension MoveApiKidSettingsWorker {
     
     func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
