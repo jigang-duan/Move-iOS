@@ -19,7 +19,7 @@ struct MoveAccessTokenPlugin: PluginType {
     }
     
     private var authVal: String {
-        return "key=\(MoveApi.apiKey);token=" + token
+        return "\(MoveApi.apiKey);token=\(token)"
     }
     
     /**

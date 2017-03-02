@@ -18,6 +18,7 @@ class PhoneNumberController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: PhoneNumberViewModel!
     
+    var deviceAddInfo: DeviceFirstBindInfo?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -111,8 +112,6 @@ class PhoneNumberController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                    //TODO: for test
-                    self.gotoRelationVC(message)
                 case .ok(let message):
                     self.gotoRelationVC(message)
                 default:
@@ -130,7 +129,8 @@ class PhoneNumberController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.phoneNumberController.showRelationship(segue: segue) {
-            sg.destination.phoneNumber = phoneTf.text
+            self.deviceAddInfo?.phone = phoneTf.text
+            sg.destination.deviceAddInfo = self.deviceAddInfo
         }
     }
     

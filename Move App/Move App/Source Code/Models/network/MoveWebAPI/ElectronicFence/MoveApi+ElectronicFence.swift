@@ -15,7 +15,7 @@ extension MoveApi {
     
     class ElectronicFence {
         
-        static let defaultProvider = RxMoyaProvider<API>(
+        static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.ElectronicFence.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),

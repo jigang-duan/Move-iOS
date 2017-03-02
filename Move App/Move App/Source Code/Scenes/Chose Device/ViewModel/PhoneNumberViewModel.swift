@@ -33,7 +33,7 @@ class PhoneNumberViewModel {
         )
         ) {
         
-        let userManager = dependency.userManager
+        _ = dependency.userManager
         _ = dependency.validation
         _ = dependency.wireframe
         
@@ -59,17 +59,11 @@ class PhoneNumberViewModel {
             .distinctUntilChanged()
         
         
-        let email = userManager.getProfile().map({$0.email}).filterNil().asDriver(onErrorJustReturn: "")
-        
-        self.nextResult = input.nextTaps.withLatestFrom(email)
-            .flatMapLatest({ email in
-                return userManager.sendVcode(to: email)
-                    .trackActivity(activity)
-                    .map({_ in
-                        return ValidationResult.ok(message: "Send Success.")
-                    })
-                    .asDriver(onErrorRecover: pwdRecoveryErrorRecover)
+        self.nextResult = input.nextTaps
+            .map({ _ in
+                return ValidationResult.ok(message: "Send Success.")
             })
+            .asDriver(onErrorRecover: pwdRecoveryErrorRecover)
         
     }
     

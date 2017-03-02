@@ -14,7 +14,7 @@ import Moya_ObjectMapper
 extension MoveApi {
     
     class FileStorage {
-        static let defaultProvider = RxMoyaProvider<API>(
+        static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.FileStorage.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),

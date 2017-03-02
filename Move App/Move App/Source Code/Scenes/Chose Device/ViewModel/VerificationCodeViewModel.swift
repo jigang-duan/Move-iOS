@@ -24,6 +24,7 @@ class VerificationCodeViewModel {
     var nextResult: Driver<ValidationResult>?
     
     var sid: String?
+    var imei: String?
     
     init(
         input: (
@@ -62,12 +63,10 @@ class VerificationCodeViewModel {
                     !sending
             }
             .distinctUntilChanged()
-        
-        let email = userManager.getProfile().map({$0.email}).filterNil().asDriver(onErrorJustReturn: "")
-        
-        self.sendResult = input.sendTaps.withLatestFrom(email)
-            .flatMapLatest({ email in
-                return userManager.sendVcode(to: email)
+     
+        self.sendResult = input.sendTaps
+            .flatMapLatest({ _ in
+                return userManager.sendVcode(to: self.imei!)
                     .map({info in
                         self.sid = info.sid
                         return  ValidationResult.ok(message: "Send Success")

@@ -167,6 +167,9 @@
 		E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */; };
 		E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */; };
 		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
+		FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */; };
+		FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */; };
+		FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */; };
 		FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07DA5F1E652011000E87B7 /* PhoneNumberViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
@@ -390,6 +393,9 @@
 		E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
 		E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
 		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
+		FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
+		FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiDeviceWorker.swift; sourceTree = "<group>"; };
+		FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareQRcodeController.swift; sourceTree = "<group>"; };
 		FF07DA5F1E652011000E87B7 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
@@ -1009,6 +1015,7 @@
 				E0931F531E31E0B000755B4A /* Account */,
 				E0931F4F1E31D4E200755B4A /* Tabs */,
 				E0931F3F1E31AB4200755B4A /* Chose Device */,
+				FF02FBC21E67F625008D0C84 /* Contact */,
 				E0931F3E1E31AB3A00755B4A /* Login */,
 				E0931F1D1E30BC6100755B4A /* Distribution */,
 			);
@@ -1310,6 +1317,7 @@
 				1109C6521E604BAA005B4AFD /* KidSettingManager */,
 				11D0BECA1E5EBC09006F957E /* MeManager */,
 				E0FA029C1E5C057B004A55BA /* UserManager */,
+				FF02FBC51E6804C8008D0C84 /* DeviceManager */,
 				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
 				11D0BEC81E5E784F006F957E /* Business.swift */,
 			);
@@ -1343,6 +1351,39 @@
 				E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */,
 			);
 			path = database;
+			sourceTree = "<group>";
+		};
+		FF02FBC21E67F625008D0C84 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				FF02FBCC1E6838E1008D0C84 /* ViewModel */,
+				FF02FBCA1E6838E1008D0C84 /* Controller */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		FF02FBC51E6804C8008D0C84 /* DeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */,
+				FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */,
+			);
+			path = DeviceManager;
+			sourceTree = "<group>";
+		};
+		FF02FBCA1E6838E1008D0C84 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FF02FBCC1E6838E1008D0C84 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FFB811FC1E63E5590049D85C /* ViewModel */ = {
@@ -1730,6 +1771,7 @@
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
 				FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */,
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
+				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
 				E9DD0F9B1E5ACB4600752863 /* NoticeListCell.swift in Sources */,
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
@@ -1786,6 +1828,7 @@
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
+				FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
 				E0FA02961E5AEA05004A55BA /* Validation.swift in Sources */,
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
@@ -1839,6 +1882,7 @@
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
+				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
 				116F81641E643FEB003CEC39 /* AlarmController.swift in Sources */,

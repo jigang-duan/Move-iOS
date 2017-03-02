@@ -16,7 +16,7 @@ extension MoveApi {
     
     class Location {
         
-        static let defaultProvider = RxMoyaProvider<API>(
+        static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.Location.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),

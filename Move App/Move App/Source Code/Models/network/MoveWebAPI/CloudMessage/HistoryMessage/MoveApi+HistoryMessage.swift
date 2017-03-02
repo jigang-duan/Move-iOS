@@ -15,7 +15,7 @@ extension MoveApi {
     
     class HistoryMessage {
         
-        static let defaultProvider = RxMoyaProvider<API>(
+        static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.HistoryMessage.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),

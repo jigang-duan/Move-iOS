@@ -15,59 +15,63 @@ extension MoveApi {
     
     class Account {
         
-        static let defaultProvider = RxMoyaProvider<MoveApi.Account.API>(
+        static let defaultProvider = RxMoyaProvider<API>(
             endpointClosure: MoveApi.Account.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
             ])
         
-        final class func request(_ target: MoveApi.Account.API) -> Observable<Response> {
-            return defaultProvider.request(target)
-        }
+        static let onlineProvider = OnlineProvider<API>(
+            endpointClosure: MoveApi.Account.endpointMapping,
+            plugins: [
+                MoveAccessTokenPlugin(),
+                NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
+            ])
+        
         //        设备获取Access Token
         final class func getAccessToken(tokenReq: AccessTokenReq) -> Observable<UserInfo> {
-            return request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self).catchingToken()
+            return defaultProvider.request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        检查用户名，邮箱，手机号码是否已被使用
         final class func isRegistered(account: String) -> Observable<Registered> {
-            return request(.registered(account: account)).mapMoveObject(Registered.self)
+            return defaultProvider.request(.registered(account: account)).mapMoveObject(Registered.self)
         }
         //        帐号注册
         final class func register(registerInfo: RegisterInfo) -> Observable<UserInfo> {
-            return request(.register(registerInfo: registerInfo)).mapMoveObject(AccessToken.self).catchingToken()
+            return defaultProvider.request(.register(registerInfo: registerInfo)).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        帐号登录
         final class func login(info: LoginInfo) -> Observable<UserInfo> {
-            return request(.login(info: info)).mapMoveObject(AccessToken.self).catchingToken()
+            return defaultProvider.request(.login(info: info)).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        第三方登录
         final class func tplogin(info: TpLoginInfo) -> Observable<UserInfo> {
-            return request(.tplogin(info: info)).mapMoveObject(AccessToken.self).catchingToken()
+            return defaultProvider.request(.tplogin(info: info)).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        刷新Access Token
         final class func refreshToken() -> Observable<UserInfo> {
-            return request(.refreshToken).mapMoveObject(AccessToken.self).catchingToken()
+            return onlineProvider.request(.refreshToken).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        帐号注销
         final class func logout() -> Observable<ApiError> {
-            return request(.logout).mapMoveObject(ApiError.self)
+            return onlineProvider.request(.logout).mapMoveObject(ApiError.self)
         }
         //        获取用户信息
         final class func getUserInfo(uid: String) -> Observable<UserInfoMap> {
-            return request(.getUserInfo(uid: uid)).mapMoveObject(UserInfoMap.self)
+            return onlineProvider.request(.getUserInfo(uid: uid)).mapMoveObject(UserInfoMap.self)
         }
         //        设置用户信息
         final class func settingUserInfo(uid: String, info: UserInfoSetting) -> Observable<ApiError> {
-            return request(.settingUserInfo(uid: uid, info: info)).mapMoveObject(ApiError.self)
+            return onlineProvider.request(.settingUserInfo(uid: uid, info: info)).mapMoveObject(ApiError.self)
         }
         //        密码找回
         final class func findPassword(info: UserFindInfo) -> Observable<ApiError> {
-            return request(.findPassword(info: info)).mapMoveObject(ApiError.self)
+            return defaultProvider.request(.findPassword(info: info)).mapMoveObject(ApiError.self)
         }
         //        设置设备推送TOKEN
         final class func settingPushToken(pushTokenInfo: PushTokenInfo) -> Observable<ApiError> {
-            return request(.settingPushToken(pushTokenInfo: pushTokenInfo)).mapMoveObject(ApiError.self)
+            return onlineProvider.request(.settingPushToken(pushTokenInfo: pushTokenInfo)).mapMoveObject(ApiError.self)
         }
         
         

@@ -20,7 +20,8 @@ class VerificationCodeController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: VerificationCodeViewModel!
     
-    public var sid = ""
+    var sid: String?
+    var imei: String?
     
     func showValidateError(_ text: String) {
         
@@ -80,6 +81,7 @@ class VerificationCodeController: UIViewController {
         )
         
         viewModel.sid = self.sid
+        viewModel.imei = self.imei
         
         viewModel.sendEnabled
             .drive(onNext: { [weak self] valid in
@@ -111,7 +113,8 @@ class VerificationCodeController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                    self.gotoPhoneNumberVC(message) //////for test
+//                    TODO:   for test
+                    self.gotoPhoneNumberVC(message)
                 case .ok(let message):
                     self.gotoPhoneNumberVC(message)
                 default:
@@ -152,9 +155,12 @@ class VerificationCodeController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let _ = R.segue.verificationCodeController.showPhoneNumber(segue: segue) {
-            
-            ///
+        if let sg = R.segue.verificationCodeController.showPhoneNumber(segue: segue) {
+            var addInfo = DeviceFirstBindInfo()
+            addInfo.deviceId = self.imei
+            addInfo.sid = self.sid
+            addInfo.vcode = vcodeTf.text
+            sg.destination.deviceAddInfo = addInfo
         }
     }
     

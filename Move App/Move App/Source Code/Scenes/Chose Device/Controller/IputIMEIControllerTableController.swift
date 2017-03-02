@@ -91,9 +91,6 @@ class IputIMEIControllerTableController: UITableViewController {
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                    //TODO: for test
-                    self.viewModel.sid = "xxxxx"
-                    self.gotoVerifyVC(message)
                 case .ok(let message):
                     self.gotoVerifyVC(message)
                 default:
@@ -127,7 +124,8 @@ class IputIMEIControllerTableController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.iputIMEIControllerTableController.showVerification(segue: segue) {
-            sg.destination.sid = viewModel.sid!
+            sg.destination.sid = viewModel.sid
+            sg.destination.imei = IMEITextF.text
         }
         
     }

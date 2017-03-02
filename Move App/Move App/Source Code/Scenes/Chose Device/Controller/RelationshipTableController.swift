@@ -22,8 +22,7 @@ class RelationshipTableController: UITableViewController {
     
     @IBOutlet var cells: [UITableViewCell]!
     
-    
-    var phoneNumber: String?
+    var deviceAddInfo: DeviceFirstBindInfo?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,9 +31,20 @@ class RelationshipTableController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         self.BaseSetting()
+        
+        
+        
+        
+        
+        
     }
+    
+    
+    
+    
     private func BaseSetting(){
         
         tableView.contentInset = UIEdgeInsetsMake(-34, 0, 0, 0)

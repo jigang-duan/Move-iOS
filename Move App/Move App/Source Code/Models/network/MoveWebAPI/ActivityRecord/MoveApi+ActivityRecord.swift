@@ -15,7 +15,7 @@ extension MoveApi {
     
     class ActivityRecord {
         
-        static let defaultProvider = RxMoyaProvider<API>(
+        static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.ActivityRecord.endpointMapping,
             plugins: [
                 MoveAccessTokenPlugin(),

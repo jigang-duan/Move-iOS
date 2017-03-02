@@ -108,9 +108,9 @@ class LoginViewController: UIViewController {
             ))
         
         viewModel.loginEnabled
-            .drive(onNext: { [weak self] valid in
-                self?.loginOutlet.isEnabled = valid
-                self?.loginOutlet.alpha = valid ? 1.0 : 0.5
+            .drive(onNext: { [unowned self] valid in
+                self.loginOutlet.isEnabled = valid
+                self.loginOutlet.alpha = valid ? 1.0 : 0.5
             })
             .addDisposableTo(disposeBag)
         
@@ -123,7 +123,9 @@ class LoginViewController: UIViewController {
 //            .addDisposableTo(disposeBag)
         
         viewModel.logedIn
-            .drive(onNext: { logedIn in
+            .drive(onNext: { [unowned self] logedIn in
+                self.emailOutlet.resignFirstResponder()
+                self.passwordOutlet.resignFirstResponder()
                 switch logedIn {
                 case .failed(let message):
                     self.showAccountError(message)

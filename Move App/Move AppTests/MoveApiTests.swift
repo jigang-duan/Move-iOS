@@ -480,7 +480,7 @@ class MoveApiTests: XCTestCase {
 
 class ApiTestInfo {
     
-    let userInfo = MoveApi.UserInfoMap(uid: "15610609071744479540", phone: "1234567890", email: "zhengwuju@bis.com.cn", profile: "", nickname: "xxx", username: "test003", password: "test003")
+    let userInfo = MoveApi.UserInfoMap(uid: "15610241104716362019", phone: "15926230358", email: "491339607@qq.com", profile: "", nickname: "xxx", username: "test001", password: "test001")
     
     
     var deviceAdd = MoveApi.DeviceAdd(sid: "", vcode: "", phone: "1234567890", identity: MoveApi.DeviceAddIdentity.brother, profile: "")

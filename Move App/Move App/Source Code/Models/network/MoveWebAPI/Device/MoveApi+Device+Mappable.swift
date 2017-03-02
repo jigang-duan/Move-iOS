@@ -31,6 +31,12 @@ extension MoveApi {
         var phone: String?
         var identity: DeviceAddIdentity?
         var profile: String?
+        var nickName: String?
+        var number: String?
+        var gender: String?
+        var height: Int?
+        var weight: Int?
+        var birthday: Date?
     }
     
     struct DeviceJoinInfo {
@@ -196,11 +202,14 @@ extension MoveApi.DeviceAdd: Mappable {
     init?(map: Map) {
     }
     
-    init(sid: String, vcode:String, phone: String, identity: String) {
+    init(sid: String, vcode:String, phone: String, identity: String, nickname: String, number: String, gender: String) {
         self.sid=sid
         self.vcode=vcode
         self.phone=phone
         self.identity=MoveApi.DeviceAddIdentity(rawValue: identity)
+        self.nickName = nickname
+        self.number = number
+        self.gender = gender
     }
     
     mutating func mapping(map: Map) {
@@ -209,6 +218,12 @@ extension MoveApi.DeviceAdd: Mappable {
         phone <- map["phone"]
         identity <- map["identity"]
         profile <- map["profile"]
+        nickName <- map["nickName"]
+        number <- map["number"]
+        gender <- map["gender"]
+        height <- map["height"]
+        weight <- map["weight"]
+        birthday <- (map["birthday"], DateTransform())
     }
 }
 

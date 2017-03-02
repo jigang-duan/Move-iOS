@@ -60,11 +60,9 @@ class InputIMEIViewModel {
             .distinctUntilChanged()
         
         
-        let email = userManager.getProfile().map({$0.email}).filterNil().asDriver(onErrorJustReturn: "")
-        
-        self.confirmResult = input.confirmTaps.withLatestFrom(email)
-            .flatMapLatest({ email in
-                return userManager.sendVcode(to: email)
+        self.confirmResult = input.confirmTaps.withLatestFrom(input.imei)
+            .flatMapLatest({ imei in
+                return userManager.sendVcode(to: imei)
                     .trackActivity(activity)
                     .map({info in
                         self.sid = info.sid
