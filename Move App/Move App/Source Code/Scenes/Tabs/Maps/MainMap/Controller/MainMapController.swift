@@ -151,6 +151,22 @@ class MainMapController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func powerToAnimation(num : Int) {
+        electricL.text = String(format:"%d%",num)
+        if num == 0{
+            electricV.image = UIImage(named: "home_ic_battery0")
+        }else if num < 20 && num > 0{
+            electricV.image = UIImage(named: "home_ic_battery1")
+        }else if num < 40 && num > 20 {
+            electricV.image = UIImage(named: "home_ic_battery2")
+        }else if num < 60 && num > 40 {
+            electricV.image = UIImage(named: "home_ic_battery3")
+        }else if num < 80 && num > 60 {
+            electricV.image = UIImage(named: "home_ic_battery4")
+        }else if num < 100 && num > 80 {
+            electricV.image = UIImage(named: "home_ic_battery5")
+        }
+    }
 }
 
 extension MainMapController: MKMapViewDelegate {
