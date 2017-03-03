@@ -40,7 +40,9 @@ class DateUtility {
     static func zone16hour() -> Date {
         return DateUtility.zoneDay().startDate.addingTimeInterval(61200)
     }
-    
+    static func zone24hour() -> Date {
+        return DateUtility.zoneDay().startDate.addingTimeInterval(86399)
+    }
     
     static func zoneDayOfHMS(date: Date) -> Date {
         return Date(timeIntervalSince1970: date.timeIntervalSince1970.truncatingRemainder(dividingBy: SEC_DAY))
@@ -58,4 +60,25 @@ class DateUtility {
         let endDate = calendar.date(byAdding: .day, value: 1, to: startDate!)
         return (startDate!, endDate!)
     }
+    
+    static func TimeStamp(time: Date) -> Int64 {
+        
+        let dateStamp = time.timeIntervalSince1970
+        
+        let dateSt: Int64 = Int64(dateStamp)
+        
+        return dateSt
+    
+    }
+    
+    static func StampTime(Stamp: Int64) -> Date {
+    
+        let timeSta:TimeInterval = TimeInterval(Stamp)
+        let date = NSDate(timeIntervalSince1970: timeSta)
+        
+        return date as Date
+        
+    }
+    
 }
+

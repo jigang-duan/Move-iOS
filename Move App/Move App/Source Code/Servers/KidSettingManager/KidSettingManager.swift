@@ -22,6 +22,12 @@ protocol WatchSettingWorkerProtocl {
     func fetchLanguages(id: String) ->  Observable<[String]>
     func fetchLanguage(id: String) ->  Observable<String>
     func updateLanguage(id: String, _ language: String) -> Observable<Bool>
+    
+    func fetchshutTime(id: String) -> Observable<Date>
+    func fetchbootTime(id: String) -> Observable<Date>
+    func fetchoAutopoweronoff(id: String) -> Observable<Bool>
+    func updateTime(id: String, bootTime: Date, shuntTime: Date,Autopoweronoff: Bool) -> Observable<Bool>
+
 }
 
 class WatchSettingsManager  {
@@ -53,6 +59,35 @@ class WatchSettingsManager  {
         }
         return self.worker.updateLanguage(id: deviceId, language)
     }
+    
+    func fetchshutTime() -> Observable<Date>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Date>.empty()
+        }
+        return self.worker.fetchshutTime(id: deviceId)
+        
+    }
+    func fetchbootTime() -> Observable<Date>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Date>.empty()
+        }
+        return self.worker.fetchbootTime(id: deviceId)
+
+    }
+    func fetchoAutopoweronoff() -> Observable<Bool> {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.fetchoAutopoweronoff(id: deviceId)
+    }
+    
+    func updateTime(_ bootTime: Date, shuntTime: Date,Autopoweronoff: Bool) -> Observable<Bool>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateTime(id: deviceId, bootTime: bootTime, shuntTime: shuntTime,Autopoweronoff: Autopoweronoff)
+    }
+    
     
 }
 

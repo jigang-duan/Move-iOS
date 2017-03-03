@@ -31,6 +31,7 @@ class SchoolTimeViewModel {
         input: (
         save: Driver<Void>,
         week: Driver<[Bool]>,
+        openEnable: Driver<Bool>,
         amStart: Driver<Date>,
         amEnd: Driver<Date>,
         pmStart: Driver<Date>,
@@ -76,19 +77,25 @@ class SchoolTimeViewModel {
             .filterNil()
             .asDriver(onErrorJustReturn: DateUtility.zone16hour())
         
-        self.openEnable = Driver.just(true)
+        self.openEnable = schoolTimeFromNetwork
+            .map({$0.active})
+            .filterNil()
+            .asDriver(onErrorJustReturn: false)
+            .startWith(false)
         
         let schoolTime = Driver.combineLatest(input.amStart,
                                               input.amEnd,
                                               input.pmStart,
                                               input.pmEnd,
-                                              input.week) {
+                                              input.week,
+                                              input.openEnable) {
             KidSetting.SchoolTime(
                 amStartPeriod: $0,
                 amEndPeriod: $1,
                 pmStartPeriod: $2,
                 pmEndPeriod: $3,
-                days: $4)
+                days: $4,
+                active: $5)
         }
         self.saveFinish = input.save
             .withLatestFrom(schoolTime)

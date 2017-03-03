@@ -12,16 +12,10 @@
 		1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */; };
 		1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */; };
 		1109C64A1E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */; };
-		1109C64D1E5FD601005B4AFD /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C64C1E5FD601005B4AFD /* WeekView.swift */; };
-		1109C64F1E5FDB06005B4AFD /* Rx+WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C64E1E5FDB06005B4AFD /* Rx+WeekView.swift */; };
-		1109C6511E604558005B4AFD /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */; };
 		1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6531E604BF6005B4AFD /* KidSettingManager.swift */; };
 		1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
-		116F81621E641D96003CEC39 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81611E641D96003CEC39 /* RemindersController.swift */; };
-		116F81641E643FEB003CEC39 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81631E643FEB003CEC39 /* AlarmController.swift */; };
-		116F81661E644524003CEC39 /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F81651E644524003CEC39 /* AlarmViewModel.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
 		116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818C1E665C74003CEC39 /* NotificationServer.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
@@ -43,10 +37,6 @@
 		D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */; };
 		D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */; };
 		D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */; };
-		D2637B771E5E7C40005D82D9 /* SafeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */; };
-		D2637B781E5E7C40005D82D9 /* SchoolTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */; };
-		D2637B791E5E7C40005D82D9 /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B751E5E7C40005D82D9 /* ToDoListController.swift */; };
-		D2637B7B1E5E7C81005D82D9 /* RegularshutdownController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2637B7A1E5E7C81005D82D9 /* RegularshutdownController.swift */; };
 		D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */; };
 		D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */; };
 		D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */; };
@@ -146,8 +136,19 @@
 		E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029D1E5C05A6004A55BA /* UserManager.swift */; };
 		E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */; };
 		E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02A11E5C061D004A55BA /* WorkerError.swift */; };
-		E918E6651E67CBDB00112AF7 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E918E6641E67CBDB00112AF7 /* LanguageViewController.swift */; };
-		E918E66A1E67E1AA00112AF7 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E918E6691E67E1AA00112AF7 /* LanguageViewModel.swift */; };
+		E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */; };
+		E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAF1E6942A300C0B944 /* WeekView.swift */; };
+		E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBA1E69432000C0B944 /* AlarmController.swift */; };
+		E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBB1E69432000C0B944 /* LanguageViewController.swift */; };
+		E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBC1E69432000C0B944 /* RegularshutdownController.swift */; };
+		E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBD1E69432000C0B944 /* RemindersController.swift */; };
+		E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBE1E69432000C0B944 /* SafeZoneController.swift */; };
+		E9735EC61E69432000C0B944 /* SchoolTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */; };
+		E9735EC71E69432000C0B944 /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EC01E69432000C0B944 /* ToDoListController.swift */; };
+		E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EC91E69434300C0B944 /* AlarmViewModel.swift */; };
+		E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */; };
+		E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */; };
+		E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
@@ -227,16 +228,10 @@
 		1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+SwitchButton.swift"; sourceTree = "<group>"; };
 		1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
-		1109C64C1E5FD601005B4AFD /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeekView.swift; path = Views/WeekView.swift; sourceTree = "<group>"; };
-		1109C64E1E5FDB06005B4AFD /* Rx+WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+WeekView.swift"; path = "Views/Rx+WeekView.swift"; sourceTree = "<group>"; };
-		1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeViewModel.swift; sourceTree = "<group>"; };
 		1109C6531E604BF6005B4AFD /* KidSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidSettingManager.swift; path = KidSettingManager/KidSettingManager.swift; sourceTree = "<group>"; };
 		1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiKidSettingsWorker.swift; path = KidSettingManager/MoveApiKidSettingsWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
-		116F81611E641D96003CEC39 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
-		116F81631E643FEB003CEC39 /* AlarmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
-		116F81651E644524003CEC39 /* AlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
 		116F818A1E6599D6003CEC39 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Shared/Common/Application/Notification.swift; sourceTree = "<group>"; };
 		116F818C1E665C74003CEC39 /* NotificationServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationServer.swift; path = Shared/Common/Application/Notification/NotificationServer.swift; sourceTree = "<group>"; };
@@ -266,10 +261,6 @@
 		D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIControllerTableController.swift; sourceTree = "<group>"; };
 		D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeController.swift; sourceTree = "<group>"; };
 		D24F835F1E52EC820035CB17 /* PhoneNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberController.swift; sourceTree = "<group>"; };
-		D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneController.swift; sourceTree = "<group>"; };
-		D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeController.swift; sourceTree = "<group>"; };
-		D2637B751E5E7C40005D82D9 /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
-		D2637B7A1E5E7C81005D82D9 /* RegularshutdownController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularshutdownController.swift; sourceTree = "<group>"; };
 		D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAndChoseDeviceController.swift; sourceTree = "<group>"; };
 		D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAndChoseDeviceViewModel.swift; sourceTree = "<group>"; };
 		D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountKidsRulesuserController.swift; sourceTree = "<group>"; };
@@ -375,8 +366,19 @@
 		E0FA029D1E5C05A6004A55BA /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiUserWorker.swift; path = Workers/MoveApiUserWorker.swift; sourceTree = "<group>"; };
 		E0FA02A11E5C061D004A55BA /* WorkerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerError.swift; sourceTree = "<group>"; };
-		E918E6641E67CBDB00112AF7 /* LanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
-		E918E6691E67E1AA00112AF7 /* LanguageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
+		E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+WeekView.swift"; sourceTree = "<group>"; };
+		E9735EAF1E6942A300C0B944 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		E9735EBA1E69432000C0B944 /* AlarmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
+		E9735EBB1E69432000C0B944 /* LanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
+		E9735EBC1E69432000C0B944 /* RegularshutdownController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularshutdownController.swift; sourceTree = "<group>"; };
+		E9735EBD1E69432000C0B944 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
+		E9735EBE1E69432000C0B944 /* SafeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneController.swift; sourceTree = "<group>"; };
+		E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeController.swift; sourceTree = "<group>"; };
+		E9735EC01E69432000C0B944 /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
+		E9735EC91E69434300C0B944 /* AlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
+		E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
+		E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularshutdownViewModel.swift; sourceTree = "<group>"; };
+		E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeViewModel.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
@@ -456,15 +458,6 @@
 				1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */,
 			);
 			name = SwitchButton;
-			sourceTree = "<group>";
-		};
-		1109C64B1E5FD5D0005B4AFD /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1109C64C1E5FD601005B4AFD /* WeekView.swift */,
-				1109C64E1E5FDB06005B4AFD /* Rx+WeekView.swift */,
-			);
-			name = Views;
 			sourceTree = "<group>";
 		};
 		1109C6521E604BAA005B4AFD /* KidSettingManager */ = {
@@ -579,22 +572,6 @@
 				D24C4D481E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift */,
 			);
 			path = VerificationCode;
-			sourceTree = "<group>";
-		};
-		D2637B711E5E7C40005D82D9 /* FuntionListController */ = {
-			isa = PBXGroup;
-			children = (
-				1109C64B1E5FD5D0005B4AFD /* Views */,
-				D2637B731E5E7C40005D82D9 /* SafeZoneController.swift */,
-				D2637B741E5E7C40005D82D9 /* SchoolTimeController.swift */,
-				D2637B751E5E7C40005D82D9 /* ToDoListController.swift */,
-				D2637B7A1E5E7C81005D82D9 /* RegularshutdownController.swift */,
-				116F81611E641D96003CEC39 /* RemindersController.swift */,
-				116F81631E643FEB003CEC39 /* AlarmController.swift */,
-				E918E6641E67CBDB00112AF7 /* LanguageViewController.swift */,
-			);
-			name = FuntionListController;
-			path = Controller/FuntionList;
 			sourceTree = "<group>";
 		};
 		D29937421E53123C00350E1C /* HistoryMessage */ = {
@@ -1022,6 +999,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F531E31E0B000755B4A /* Account */,
+				E9735EA51E6942A300C0B944 /* FuntionList */,
 				E0931F4F1E31D4E200755B4A /* Tabs */,
 				E0931F3F1E31AB4200755B4A /* Chose Device */,
 				FF02FBC21E67F625008D0C84 /* Contact */,
@@ -1168,7 +1146,6 @@
 		E0931F531E31E0B000755B4A /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				D2637B711E5E7C40005D82D9 /* FuntionListController */,
 				E0931F571E31ED2800755B4A /* ViewModel */,
 				E0931F541E31E0C800755B4A /* Controller */,
 			);
@@ -1192,9 +1169,6 @@
 				E0931F581E31ED6900755B4A /* CellData.swift */,
 				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
-				1109C6501E604558005B4AFD /* SchoolTimeViewModel.swift */,
-				116F81651E644524003CEC39 /* AlarmViewModel.swift */,
-				E918E6691E67E1AA00112AF7 /* LanguageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1340,6 +1314,50 @@
 				E0FA029D1E5C05A6004A55BA /* UserManager.swift */,
 			);
 			path = UserManager;
+			sourceTree = "<group>";
+		};
+		E9735EA51E6942A300C0B944 /* FuntionList */ = {
+			isa = PBXGroup;
+			children = (
+				E9735EC81E69434300C0B944 /* ViewModel */,
+				E9735EB91E69432000C0B944 /* Controller */,
+				E9735EAD1E6942A300C0B944 /* Views */,
+			);
+			path = FuntionList;
+			sourceTree = "<group>";
+		};
+		E9735EAD1E6942A300C0B944 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */,
+				E9735EAF1E6942A300C0B944 /* WeekView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E9735EB91E69432000C0B944 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E9735EBA1E69432000C0B944 /* AlarmController.swift */,
+				E9735EBB1E69432000C0B944 /* LanguageViewController.swift */,
+				E9735EBC1E69432000C0B944 /* RegularshutdownController.swift */,
+				E9735EBD1E69432000C0B944 /* RemindersController.swift */,
+				E9735EBE1E69432000C0B944 /* SafeZoneController.swift */,
+				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
+				E9735EC01E69432000C0B944 /* ToDoListController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E9735EC81E69434300C0B944 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E9735EC91E69434300C0B944 /* AlarmViewModel.swift */,
+				E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */,
+				E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */,
+				E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E9B7FA5E1E54331400F46D09 /* NoEeventView */ = {
@@ -1768,7 +1786,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9735EC71E69432000C0B944 /* ToDoListController.swift in Sources */,
 				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
+				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
 				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
 				D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */,
@@ -1786,8 +1806,8 @@
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
+				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
-				116F81661E644524003CEC39 /* AlarmViewModel.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
@@ -1798,17 +1818,14 @@
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
-				E918E6651E67CBDB00112AF7 /* LanguageViewController.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
-				D2637B7B1E5E7C81005D82D9 /* RegularshutdownController.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
 				D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */,
-				D2637B771E5E7C40005D82D9 /* SafeZoneController.swift in Sources */,
 				D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
@@ -1824,12 +1841,13 @@
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,
+				E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */,
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
 				E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */,
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
+				E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
 				1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */,
-				116F81621E641D96003CEC39 /* RemindersController.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
@@ -1845,12 +1863,12 @@
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
+				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
 				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,
 				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
-				D2637B791E5E7C40005D82D9 /* ToDoListController.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
@@ -1865,48 +1883,49 @@
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				D2E5E8531E5D229D0024D20C /* (null) in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
-				E918E66A1E67E1AA00112AF7 /* LanguageViewModel.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
 				D2EFB04A1E529801000BE93C /* PairWatchController.swift in Sources */,
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
-				1109C6511E604558005B4AFD /* SchoolTimeViewModel.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
+				E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				E9D1F0951E691D7900C3D20E /* ContactAnnotationView.swift in Sources */,
-				1109C64D1E5FD601005B4AFD /* WeekView.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
-				1109C64F1E5FDB06005B4AFD /* Rx+WeekView.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
+				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
+				E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */,
+				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
+				E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */,
 				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
-				116F81641E643FEB003CEC39 /* AlarmController.swift in Sources */,
 				E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */,
 				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
-				D2637B781E5E7C40005D82D9 /* SchoolTimeController.swift in Sources */,
+				E9735EC61E69432000C0B944 /* SchoolTimeController.swift in Sources */,
 				FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */,
 				D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */,
+				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -91,6 +91,33 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             .map({ $0.id == 0 })
     }
     
+    
+    func fetchshutTime(id: String) -> Observable<Date>{
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.shutdown_time ?? DateUtility.zone16hour() })
+    }
+    func fetchbootTime(id: String) -> Observable<Date>{
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.boot_time ?? DateUtility.zone7hour() })
+    }
+    func fetchoAutopoweronoff(id: String) -> Observable<Bool> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.auto_power_onoff ?? false })
+    }
+    
+    func updateTime(id: String, bootTime: Date, shuntTime: Date, Autopoweronoff: Bool) -> Observable<Bool>{
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.boot_time = bootTime
+                _setting.shutdown_time = shuntTime
+                _setting.auto_power_onoff = Autopoweronoff
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
+    
 }
 
 extension MoveApiKidSettingsWorker {
@@ -130,7 +157,9 @@ extension MoveApiKidSettingsWorker {
                 amEndPeriod: DateUtility.zone12hour(),
                 pmStartPeriod: DateUtility.zone14hour(),
                 pmEndPeriod: DateUtility.zone16hour(),
-                days: [false, false, false, false, false, false, false])
+                days: [false, false, false, false, false, false, false],
+                active: false)
+            
         }
         
         var days = [false, false, false, false, false, false, false]
@@ -144,7 +173,8 @@ extension MoveApiKidSettingsWorker {
             amEndPeriod: time.periods?[0].end ?? DateUtility.zone12hour(),
             pmStartPeriod: time.periods?[1].start ?? DateUtility.zone14hour(),
             pmEndPeriod: time.periods?[1].end ?? DateUtility.zone16hour(),
-            days: days)
+            days: days,active: false)
+        
         
     }
     

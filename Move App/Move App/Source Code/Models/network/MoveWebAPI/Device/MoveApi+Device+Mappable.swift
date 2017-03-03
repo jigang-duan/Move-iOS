@@ -77,8 +77,8 @@ extension MoveApi {
         var auto_time: Bool?
         var dst: Bool?
         var auto_power_onoff: Bool?
-        var boot_time: Int64?
-        var shutdown_time: Int64?
+        var boot_time: Date?
+        var shutdown_time: Date?
         var sos: [String]?
         var school_time: SchoolTime?
         var permissions: [Any]?
@@ -288,8 +288,8 @@ extension MoveApi.DeviceSetting: Mappable {
          auto_time <- map["auto_time"]
          dst <- map["dst"]
          auto_power_onoff <- map["auto_power_onoff"]
-         boot_time <- map["boot_time"]
-         shutdown_time <- map["shutdown_time"]
+         boot_time <- (map["boot_time"], DateTransform())
+         shutdown_time <- (map["shutdown_time"],DateTransform())
          sos <- map["sos"]
          school_time <- map["school_time"]
          permissions <- map["permissions"]

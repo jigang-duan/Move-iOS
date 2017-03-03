@@ -125,7 +125,8 @@ class SchoolTimeController: UIViewController {
                 amStart: amStartTimeVariable.asDriver(),
                 amEnd: amEndTimeVariable.asDriver(),
                 pmStart: pmStartTimeVariable.asDriver(),
-                pmEnd: pmEndTimeVariable.asDriver()
+                pmEnd: pmEndTimeVariable.asDriver(),
+                openEnable: openEnable.asDriver()
             ),
             dependency: (
                 kidSettingsManager: KidSettingsManager.shared,

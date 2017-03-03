@@ -57,6 +57,7 @@ struct KidSetting {
         var pmStartPeriod: Date?
         var pmEndPeriod: Date?
         var days: [Bool] = []
+        var active: Bool?
     }
     
     struct Reminder {
