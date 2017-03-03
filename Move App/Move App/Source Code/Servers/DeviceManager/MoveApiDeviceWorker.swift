@@ -12,12 +12,12 @@ import RxSwift
 
 class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
-    func adddevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool> {
+    func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool> {
         var addInfo = MoveApi.DeviceAdd()
         addInfo.sid = firstBindInfo.sid
         addInfo.vcode = firstBindInfo.vcode
         addInfo.phone = firstBindInfo.phone
-//        addInfo.identity = firstBindInfo.identity
+        addInfo.identity = MoveApi.DeviceAddIdentity.transform(input:(firstBindInfo.identity?.rawValue)!)
         addInfo.profile = firstBindInfo.profile
         addInfo.nickName = firstBindInfo.nickName
         addInfo.number = firstBindInfo.number

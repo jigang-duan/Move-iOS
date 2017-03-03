@@ -23,6 +23,7 @@ class RelationshipTableController: UITableViewController {
     @IBOutlet var cells: [UITableViewCell]!
     
     var deviceAddInfo: DeviceFirstBindInfo?
+    var selectedRelation: Relation?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,15 +35,7 @@ class RelationshipTableController: UITableViewController {
         
 
         self.BaseSetting()
-        
-        
-        
-        
-        
-        
     }
-    
-    
     
     
     private func BaseSetting(){
@@ -61,7 +54,35 @@ class RelationshipTableController: UITableViewController {
                 cell.accessoryType = UITableViewCellAccessoryType.none
             }
         }
+        self.selectedRelation = Relation(rawValue: indexPath.row + 1)
+        self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)
     }
-
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let sg = R.segue.relationshipTableController.showKidInformation(segue: segue) {
+            sg.destination.deviceAddInfo = self.deviceAddInfo
+            sg.destination.deviceAddInfo?.identity = self.selectedRelation
+        }
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

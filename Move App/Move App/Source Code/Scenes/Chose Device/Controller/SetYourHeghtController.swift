@@ -11,6 +11,10 @@ import UIKit
 
 class SetYourHeghtController: UIViewController {
 
+    var heightBlock: ((Int) -> Void)?
+    
+    var selectedHeight = 160
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self .drawRule()
@@ -20,7 +24,7 @@ class SetYourHeghtController: UIViewController {
         let rect = CGRect(x: 0, y: 0, width: RulesVView.frame.size.width, height: 140)
         let ruler = TXHRrettyRuler.init(frame: rect)
         ruler.rulerDeletate = self
-        ruler.showScrollView(withCount: 230, average: NSNumber(value: 1), currentValue: 160, smallMode: true)
+        ruler.showScrollView(withCount: 230, average: NSNumber(value: 1), currentValue: CGFloat(selectedHeight), smallMode: true)
         
         self.RulesVView .insertSubview(ruler, at: 0)
     }
@@ -32,17 +36,24 @@ class SetYourHeghtController: UIViewController {
     
     
     
-    @IBAction func BackAction(_ sender: AnyObject) {
+    @IBAction func BackAction(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
     }
     
     
+    @IBAction func saveAction(_ sender: UIButton) {
+        if self.heightBlock != nil {
+            self.heightBlock!(selectedHeight)
+        }
+        self.BackAction(nil)
+    }
    
 }
 extension SetYourHeghtController: TXHRrettyRulerDelegate{
 
     func txhRrettyRuler(_ rulerScrollView: TXHRulerScrollView!) {
         print(rulerScrollView.rulerValue)
-        heighLabel.text = String(describing: Int(rulerScrollView.rulerValue))
+        selectedHeight = Int(rulerScrollView.rulerValue)
+        heighLabel.text = String(describing: selectedHeight)
     }
 }

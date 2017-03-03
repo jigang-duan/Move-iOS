@@ -10,6 +10,10 @@ import UIKit
 
 class SetYourGenderController: UIViewController {
 
+    
+    var genderBlock: ((String) -> Void)?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,7 +22,7 @@ class SetYourGenderController: UIViewController {
     
     @IBOutlet weak var girlBtn: UIButton!
     @IBOutlet weak var boyBtn: UIButton!
-    @IBAction func BackAction(_ sender: AnyObject) {
+    @IBAction func BackAction(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -33,5 +37,16 @@ class SetYourGenderController: UIViewController {
     }
     
 
+ 
+    @IBAction func saveAction(_ sender: UIButton) {
+        if self.genderBlock != nil {
+            if self.girlBtn.isSelected {
+                self.genderBlock!("female")
+            }else{
+                self.genderBlock!("male")
+            }
+            self.BackAction(nil)
+        }
+    }
     
 }

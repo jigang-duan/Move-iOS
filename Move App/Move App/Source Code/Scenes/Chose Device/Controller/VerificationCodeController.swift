@@ -113,8 +113,6 @@ class VerificationCodeController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-//                    TODO:   for test
-                    self.gotoPhoneNumberVC(message)
                 case .ok(let message):
                     self.gotoPhoneNumberVC(message)
                 default:

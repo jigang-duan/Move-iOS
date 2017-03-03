@@ -10,17 +10,29 @@ import UIKit
 
 class SetYourBirthdayController: UIViewController {
 
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    var birthdayBlock: ((Date) -> Void)?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
 
-    @IBAction func BackAction(_ sender: AnyObject) {
+    @IBAction func BackAction(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
     }
    
 
   
+    @IBAction func saveAction(_ sender: UIButton) {
+        if self.birthdayBlock != nil {
+            self.birthdayBlock!(datePicker.date)
+        }
+        self.BackAction(nil)
+    }
 
 }

@@ -137,6 +137,16 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                 self.showMessage("未检测到二维码")
             }else{
                 let feature = features![0] as! CIQRCodeFeature
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: (feature.messageString?.utf8Encoded)!, options: JSONSerialization.ReadingOptions.allowFragments)
+                    if json is ShareQRcodeController.QRcodeInfo {
+                        
+                    }
+                } catch {
+                    
+                    
+                }
                 self.showMessage("二维码信息：" + feature.messageString!)
             }
         }

@@ -23,13 +23,16 @@ class DeviceManager {
 
 extension DeviceManager {
     
+    func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool>{
+        return worker.addDevice(firstBindInfo: firstBindInfo)
+    }
    
 }
 
 
 protocol DeviceWorkerProtocl {
     
-   
+   func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool>
     
 }
 
