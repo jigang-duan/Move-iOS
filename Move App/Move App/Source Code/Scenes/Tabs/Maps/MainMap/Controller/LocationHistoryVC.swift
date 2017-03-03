@@ -119,7 +119,7 @@ class LocationHistoryVC: UIViewController {
             .asObservable()
             .take(1)
             .bindNext { [unowned self] in
-                let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
+                let region = MKCoordinateRegionMakeWithDistance($0, 1000, 1000)
                 self.locationMap.setRegion(region, animated: true)
             }
             .addDisposableTo(disposeBag)
@@ -225,9 +225,7 @@ class LocationHistoryVC: UIViewController {
     }
     
     func dateNowAsString(date : Date) -> String {
-        
-        
-        
+
         let timeZone = TimeZone.init(identifier: "UTC")
         let formatter = DateFormatter()
         formatter.timeZone = timeZone
@@ -246,28 +244,26 @@ extension LocationHistoryVC : MKMapViewDelegate {
             let identifier = "LocationAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if annotationView == nil {
-                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
             annotationView?.canShowCallout = false
-            let detailImage = UIImage(named: "positioning_ic_1")
-            annotationView?.image = detailImage
             return annotationView
         }
         
         return nil
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
-        if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
-            polylineRenderer.fillColor = UIColor.red
-            polylineRenderer.strokeColor = R.color.appColor.primary()
-            polylineRenderer.lineWidth = 4.0
-            return polylineRenderer
-        }
-        return MKPolylineRenderer()
-    }
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        
+//        if overlay is MKPolyline {
+//            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
+//            polylineRenderer.fillColor = UIColor.red
+//            polylineRenderer.strokeColor = R.color.appColor.primary()
+//            polylineRenderer.lineWidth = 4.0
+//            return polylineRenderer
+//        }
+//        return MKPolylineRenderer()
+//    }
 }
 
 extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
