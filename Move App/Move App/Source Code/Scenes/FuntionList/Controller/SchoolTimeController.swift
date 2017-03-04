@@ -193,10 +193,10 @@ class SchoolTimeController: UIViewController {
     private func selectAmStartTime() {
         self.datepicke.minimumDate = self.amMin
         self.datepicke.maximumDate = self.amMax
-        self.amStartTimeOutlet.isEnabled = false
-        self.amEndTimeOutlet.isEnabled = true
-        self.pmStartTimeOutlet.isEnabled = true
-        self.pmEndTimeOutlet.isEnabled = true
+        self.amStartTimeOutlet.isSelected = true
+        self.amEndTimeOutlet.isSelected = false
+        self.pmStartTimeOutlet.isSelected = false
+        self.pmEndTimeOutlet.isSelected = false
         self.datepicke.date = amStartTime
         self.datePickView.isHidden = false
     }
@@ -204,10 +204,10 @@ class SchoolTimeController: UIViewController {
     private func selectAmEndTime() {
         self.datepicke.minimumDate = self.amMin
         self.datepicke.maximumDate = self.amMax
-        self.amStartTimeOutlet.isEnabled = true
-        self.amEndTimeOutlet.isEnabled = false
-        self.pmStartTimeOutlet.isEnabled = true
-        self.pmEndTimeOutlet.isEnabled = true
+        self.amStartTimeOutlet.isSelected = false
+        self.amEndTimeOutlet.isSelected = true
+        self.pmStartTimeOutlet.isSelected = false
+        self.pmEndTimeOutlet.isSelected = false
         self.datepicke.date = amEndTime
         self.datePickView.isHidden = false
     }
@@ -215,10 +215,10 @@ class SchoolTimeController: UIViewController {
     private func selectPmStartTime() {
         self.datepicke.minimumDate = self.pmMin
         self.datepicke.maximumDate = self.pmMax
-        self.amStartTimeOutlet.isEnabled = true
-        self.amEndTimeOutlet.isEnabled = true
-        self.pmStartTimeOutlet.isEnabled = false
-        self.pmEndTimeOutlet.isEnabled = true
+        self.amStartTimeOutlet.isSelected = false
+        self.amEndTimeOutlet.isSelected = false
+        self.pmStartTimeOutlet.isSelected = true
+        self.pmEndTimeOutlet.isSelected = false
         self.datepicke.date = pmStartTime
         self.datePickView.isHidden = false
     }
@@ -226,37 +226,37 @@ class SchoolTimeController: UIViewController {
     private func selectPmEndTime() {
         self.datepicke.minimumDate = self.pmMin
         self.datepicke.maximumDate = self.pmMax
-        self.amStartTimeOutlet.isEnabled = true
-        self.amEndTimeOutlet.isEnabled = true
-        self.pmStartTimeOutlet.isEnabled = true
-        self.pmEndTimeOutlet.isEnabled = false
+        self.amStartTimeOutlet.isSelected = false
+        self.amEndTimeOutlet.isSelected = false
+        self.pmStartTimeOutlet.isSelected = false
+        self.pmEndTimeOutlet.isSelected = true
         self.datepicke.date = pmEndTime
         self.datePickView.isHidden = false
     }
     
     private func cancelDatepicker() {
         datePickView.isHidden = true
-        amStartTimeOutlet.isEnabled = true
-        amEndTimeOutlet.isEnabled = true
-        pmStartTimeOutlet.isEnabled = true
+        amStartTimeOutlet.isSelected = false
+        amEndTimeOutlet.isSelected = false
+        pmStartTimeOutlet.isSelected = false
     }
     
     private func comfirmDatepicker() {
-        if !amStartTimeOutlet.isEnabled {
+        if amStartTimeOutlet.isSelected {
             amStartTimeVariable.value = datepicke.date
-            amStartTimeOutlet.isEnabled = true
+            amStartTimeOutlet.isSelected = false
         }
-        if !amEndTimeOutlet.isEnabled {
+        if amEndTimeOutlet.isSelected {
             amEndTimeVariable.value = datepicke.date
-            amEndTimeOutlet.isEnabled = true
+            amEndTimeOutlet.isSelected = false
         }
-        if !pmStartTimeOutlet.isEnabled {
+        if pmStartTimeOutlet.isSelected {
             pmStartTimeVariable.value = datepicke.date
-            pmStartTimeOutlet.isEnabled = true
+            pmStartTimeOutlet.isSelected = false
         }
-        if !pmEndTimeOutlet.isEnabled {
+        if pmEndTimeOutlet.isSelected {
             pmEndTimeVariable.value = datepicke.date
-            pmEndTimeOutlet.isEnabled = true
+            pmEndTimeOutlet.isSelected = false
         }
         
         datePickView.isHidden = true
@@ -289,10 +289,10 @@ class SchoolTimeController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesBeganEnable.value {
             datePickView.isHidden = true
-            amStartTimeOutlet.isEnabled = true
-            amEndTimeOutlet.isEnabled = true
-            pmStartTimeOutlet.isEnabled = true
-            pmEndTimeOutlet.isEnabled = true
+            amStartTimeOutlet.isSelected = false
+            amEndTimeOutlet.isSelected = false
+            pmStartTimeOutlet.isSelected = false
+            pmEndTimeOutlet.isSelected = false
         }
     }
     

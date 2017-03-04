@@ -167,8 +167,8 @@ class RegularshutdownController: UIViewController {
     private func enableView(_ enable: Bool){
         self.bootTimeOutlet.isEnabled = enable
         self.shutdownTimeQutlet.isEnabled = enable
-        self.booTimeLabel.isEnabled = enable
-        self.shutdownLabel.isEnabled = enable
+       
+       
         self.datePickView.isHidden = enable ? self.datePickView.isHidden : true
         self.timeView.isHidden = !enable
     }

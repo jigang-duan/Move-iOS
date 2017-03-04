@@ -7,66 +7,103 @@
 //
 
 import UIKit
+import CustomViews
+import RxSwift
+import RxCocoa
 
 class ToDoListController: UIViewController {
 
+    @IBOutlet weak var datePickView: UIView!
+    @IBOutlet weak var datepicke: UIDatePicker!
+    @IBOutlet weak var cancelQutlet: UIButton!
+    @IBOutlet weak var confirmQulet: UIButton!
     
-    @IBOutlet weak var titleLabel: UITextField!
-    @IBOutlet weak var timeBtn: UIButton!
-    @IBOutlet weak var DatePicekerView: UIView!
-    @IBOutlet weak var PickerView: UIDatePicker!
+   
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var eventTimeQutlet: UIButton!
     
+    @IBOutlet weak var weekQutlet: WeekView!
+    @IBOutlet weak var saveQutlet: UIBarButtonItem!
     
-    @IBAction func WeekAction(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
-        
-        if !sender.isSelected {
-            sender.backgroundColor = UIColor.blue
-        }else
-        {
-            sender.backgroundColor = UIColor.lightGray
-        }
-
-    }
+    var eventTimeVariable = Variable(DateUtility.zone12hour())
+    
+    var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
     
-    @IBAction func timeAction(_ sender: UIButton) {
-        sender.isEnabled = false
-        DatePicekerView.isHidden = false
+        self.datepicke.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        self.eventTimeQutlet.rx.tap
+            .asDriver()
+            .drive(onNext: selectEventTime)
+            .addDisposableTo(disposeBag)
+        
+        self.cancelQutlet.rx.tap
+            .asDriver()
+            .drive(onNext:  cancelDatepicker)
+            .addDisposableTo(disposeBag)
+        
+        self.confirmQulet.rx.tap
+            .asDriver()
+            .drive(onNext:  confirmDatepicker)
+            .addDisposableTo(disposeBag)
+        
+        eventTimeVariable.asDriver()
+            .drive(onNext: { date in
+                self.EventTime = date
+            })
+            .addDisposableTo(disposeBag)
         
     }
-    @IBAction func CancelAction(_ sender: UIButton) {
-        DatePicekerView.isHidden = true
-        timeBtn.isEnabled = true
-    }
-    @IBAction func ComfirmAction(_ sender: UIButton) {
-        timeBtn.setTitle(showPickerTime(), for: UIControlState.normal)
-        timeBtn.isEnabled = true
-        DatePicekerView.isHidden = true
+    
+    func confirmDatepicker() {
+        
+        self.eventTimeQutlet.isSelected = false
+        self.titleTextField.isEnabled = true
+        self.eventTimeVariable.value = datepicke.date
+        self.datePickView.isHidden = true
+        
     }
     
-    private func showPickerTime() -> String {
-        let date = PickerView.date
-        let dformatter = DateFormatter()
-        dformatter.dateFormat = "HH:mm"
-        let dateStr = dformatter.string(from: date)
+    func cancelDatepicker() -> () {
+        datePickView.isHidden = true
+        self.eventTimeQutlet.isSelected  = true
+        self.titleTextField.isEnabled = true
         
-        return dateStr
+    }
+    
+    func selectEventTime() {
+        self.eventTimeQutlet.isSelected = true
+        self.datePickView.isHidden = false
+        self.datepicke.date = EventTime
+        self.titleTextField.isEnabled = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        DatePicekerView.isHidden = true
-        timeBtn.isEnabled = true
+        datePickView.isHidden = true
+        self.eventTimeQutlet.isSelected = false
+        self.view.endEditing(true)
     }
     
-    
-   
 
    
+
+    fileprivate var EventTime: Date {
+        get {
+            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: eventTimeQutlet.titleLabel?.text))
+        }
+        set(newValue) {
+            eventTimeQutlet.setTitle(zoneDateString(form: newValue), for: .normal)
+        }
+    }
+    
+    private func zoneDateString(form date: Date) -> String {
+        let dformatter = DateFormatter()
+        dformatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dformatter.dateFormat = "HH:mm"
+        let dateStr = dformatter.string(from: date)
+        return dateStr
+    }
+
 }
