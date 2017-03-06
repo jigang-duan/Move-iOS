@@ -24,30 +24,6 @@ class RxPopover {
     var style = PopoverViewStyle.default
     var hasSelected = false
     
-    func show<Info> (toView: UIView, actions: [(Info, PopoverAction)]) -> Observable<Info> {
-        let _style = self.style
-        let _hasSelected = self.hasSelected
-        return Observable.create { observer in
-            let rxActions = actions.map { action in
-                return BasePopoverAction(imageUrl: action.1.imageUrl,
-                                         placeholderImage: action.1.placeholderImage,
-                                         title: action.1.title) { _ in
-                                            observer.on(.next(action.0))
-                }
-            }
-            let popoerView = PopoverView(hasSelected: _hasSelected)
-            popoerView.style = _style
-            popoerView.hideClosure = {
-                observer.on(.completed)
-            }
-            popoerView.show(toView: toView, with: rxActions)
-            
-            return Disposables.create {
-                popoerView.cancel()
-            }
-        }
-    }
-    
     func promptFor<Action : BasePopoverAction>(toView: UIView, actions: [Action]) -> Observable<BasePopoverAction> {
         let _style = self.style
         let _hasSelected = self.hasSelected
