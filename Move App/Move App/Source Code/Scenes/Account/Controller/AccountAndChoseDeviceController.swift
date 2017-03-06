@@ -15,7 +15,6 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var headOutlet: UIImageView!
     @IBOutlet weak var accountNameOutlet: UILabel!
-    @IBOutlet weak var personalInformationOutlet: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,12 +24,6 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        personalInformationOutlet.rx.tap
-            .bindNext { _ in
-                Distribution.shared.showUserInformationScreen()
-            }
-            .addDisposableTo(disposeBag)
         
         let viewModel = AccountAndChoseDeviceViewModel(
             input: (enterCount.asObservable()),
