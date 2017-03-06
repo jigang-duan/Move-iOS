@@ -1,0 +1,54 @@
+@startuml
+
+class Contact {
+    uid
+    type
+    username
+    nickname
+    headPortrait
+    identity
+    sex
+    phone
+    email
+    flag
+}
+
+class ChatGroup {
+    gid
+    topic
+    headPortrait
+    owner
+    contacts
+    ctime
+    flag
+}
+
+class Message {
+    msg_id
+    type
+    fromUid
+    toUid
+    toGid
+    Content content
+    contentStatus
+    status
+    ctime
+}
+
+class Content {
+    text
+    pictureUrl
+    voiceUrl
+    videoUrl
+}
+
+class Synckey {
+    message_sync
+    contact_sync
+    chatGroup_sync
+}
+
+ChatGroup "n" o-- Contact
+Message --> Content
+
+@enduml

@@ -58,12 +58,6 @@ class DistributionViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        NotificationService.shared.fetchDeviceToken()
-            .bindNext({
-                Logger.debug($0)
-            })
-            .addDisposableTo(disposeBag)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
