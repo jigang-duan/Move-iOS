@@ -116,8 +116,20 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             })
             .map({ $0.id == 0 })
     }
+    func fetchUsePermission(id: String) -> Observable<[Bool]>{
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.permissions ?? [false,false,false,false,false] })
     
-    
+    }
+    func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool>{
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.permissions = btns
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
 }
 
 extension MoveApiKidSettingsWorker {

@@ -109,7 +109,7 @@ struct WatchSetting {
     var autoPowerOn: Bool?
     var bootTime: Int?
     var shutdowTime: Int?
-    
+    var permissions: [Bool]?
 }
 
 struct MuteTime {

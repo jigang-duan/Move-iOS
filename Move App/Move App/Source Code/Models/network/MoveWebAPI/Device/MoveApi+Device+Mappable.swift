@@ -112,7 +112,7 @@ extension MoveApi {
         var shutdown_time: Date?
         var sos: [String]?
         var school_time: SchoolTime?
-        var permissions: [Any]?
+        var permissions: [Bool]?
         var reminder: Reminder?
     }
     

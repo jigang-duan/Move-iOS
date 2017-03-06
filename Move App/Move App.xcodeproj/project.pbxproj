@@ -167,6 +167,8 @@
 		E9DD0F9C1E5ACB4600752863 /* NoticeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DD0F9A1E5ACB4600752863 /* NoticeListCell.xib */; };
 		E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F9D1E5AD3B700752863 /* NoticeDetailCell.swift */; };
 		E9DD0FA01E5AD3B700752863 /* NoticeDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DD0F9E1E5AD3B700752863 /* NoticeDetailCell.xib */; };
+		E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC61E6A909000B66979 /* UsepermissionController.swift */; };
+		E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */; };
 		E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */; };
 		E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */; };
 		E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */; };
@@ -400,6 +402,8 @@
 		E9DD0F9A1E5ACB4600752863 /* NoticeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeListCell.xib; sourceTree = "<group>"; };
 		E9DD0F9D1E5AD3B700752863 /* NoticeDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeDetailCell.swift; sourceTree = "<group>"; };
 		E9DD0F9E1E5AD3B700752863 /* NoticeDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeDetailCell.xib; sourceTree = "<group>"; };
+		E9E30CC61E6A909000B66979 /* UsepermissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionController.swift; sourceTree = "<group>"; };
+		E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionViewModel.swift; sourceTree = "<group>"; };
 		E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneListVC.swift; sourceTree = "<group>"; };
 		E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
 		E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
@@ -1353,6 +1357,7 @@
 				E9735EBE1E69432000C0B944 /* SafeZoneController.swift */,
 				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
 				E9735EC01E69432000C0B944 /* ToDoListController.swift */,
+				E9E30CC61E6A909000B66979 /* UsepermissionController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1364,6 +1369,7 @@
 				E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */,
 				E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */,
 				E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */,
+				E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1799,6 +1805,7 @@
 				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
 				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
 				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
+				E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */,
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
 				D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */,
 				E0C229071E35E59D00BCF83D /* Dependencies.swift in Sources */,
@@ -1917,6 +1924,7 @@
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
+				E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,

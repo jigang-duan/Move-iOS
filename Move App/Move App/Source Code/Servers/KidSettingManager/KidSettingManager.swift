@@ -27,7 +27,10 @@ protocol WatchSettingWorkerProtocl {
     func fetchbootTime(id: String) -> Observable<Date>
     func fetchoAutopoweronoff(id: String) -> Observable<Bool>
     func updateTime(id: String, bootTime: Date, shuntTime: Date,Autopoweronoff: Bool) -> Observable<Bool>
-
+    
+    func fetchUsePermission(id: String) -> Observable<[Bool]>
+    func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool>
+    
 }
 
 class WatchSettingsManager  {
@@ -88,6 +91,18 @@ class WatchSettingsManager  {
         return self.worker.updateTime(id: deviceId, bootTime: bootTime, shuntTime: shuntTime,Autopoweronoff: Autopoweronoff)
     }
     
+    func fetchUsePermission() -> Observable<[Bool]>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<[Bool]>.empty()
+        }
+        return self.worker.fetchUsePermission(id: deviceId)
+    }
+    func upUsePermission(_ btns: [Bool]) -> Observable<Bool>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.upUsePermission(id: deviceId, btns: btns)
+    }
     
 }
 

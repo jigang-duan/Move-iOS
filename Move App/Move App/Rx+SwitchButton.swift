@@ -36,6 +36,10 @@ extension Reactive where Base: SwitchButton {
             sw.isOn = on
         }
     }
+    
+    public var value: ControlProperty<Bool> {
+        return ControlProperty<Bool>(values: self.switch.asObservable(), valueSink: on)
+    }
 }
 
 
