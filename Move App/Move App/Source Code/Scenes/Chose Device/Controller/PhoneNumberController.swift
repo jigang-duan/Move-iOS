@@ -122,6 +122,11 @@ class PhoneNumberController: UIViewController {
         
     }
     
+//    选择国家代号
+    @IBAction func selectCountryCode(_ sender: UIButton) {
+        let vc = CountryCodeViewController()
+        self.navigationController?.show(vc, sender: nil)
+    }
     
     func gotoRelationVC(_ msg: String){
         self.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)

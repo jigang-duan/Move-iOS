@@ -171,12 +171,13 @@
 		E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */; };
 		E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */; };
 		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
+		F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293A1E69160F002F4606 /* KidInformationController.swift */; };
+		F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68238531E6C57E50056EBE5 /* CountryCodeController.swift */; };
 		FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */; };
 		FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */; };
 		FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */; };
 		FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07DA5F1E652011000E87B7 /* PhoneNumberViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
-		FF0E293B1E69160F002F4606 /* KidInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293A1E69160F002F4606 /* KidInformationController.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
@@ -403,6 +404,7 @@
 		E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
 		E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
 		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
+		F68238531E6C57E50056EBE5 /* CountryCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeController.swift; sourceTree = "<group>"; };
 		FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiDeviceWorker.swift; sourceTree = "<group>"; };
 		FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareQRcodeController.swift; sourceTree = "<group>"; };
@@ -1135,6 +1137,7 @@
 				D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */,
 				D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */,
 				D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */,
+				F68238531E6C57E50056EBE5 /* CountryCodeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1837,6 +1840,7 @@
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
+				F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
@@ -1896,6 +1900,7 @@
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
+				F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */,

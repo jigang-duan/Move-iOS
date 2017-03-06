@@ -41,8 +41,7 @@ class PhoneNumberViewModel {
         self.sending = activity.asDriver()
         
         
-        phoneInvalidte = input.phone
-            .map {  phone in
+        phoneInvalidte = input.phone.map { phone in
                 if phone.characters.count > 0{
                     return ValidationResult.ok(message: "")
                 }
@@ -50,16 +49,15 @@ class PhoneNumberViewModel {
         }
         
         
-        self.nextEnabled = Driver.combineLatest(
+        nextEnabled = Driver.combineLatest(
             phoneInvalidte,
-            sending) { imei, sending in
-                imei.isValid &&
-                    !sending
+            sending) { phone, sending in
+                phone.isValid && !sending
             }
             .distinctUntilChanged()
         
         
-        self.nextResult = input.nextTaps
+        nextResult = input.nextTaps
             .map({ _ in
                 return ValidationResult.ok(message: "Send Success.")
             })
