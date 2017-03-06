@@ -39,5 +39,10 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 throw error
         }
     }
+    
+    func getDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
+        return MoveApi.Device.getDeviceList()
+                .map({ $0.devices ?? [] })
+    }
 }
 

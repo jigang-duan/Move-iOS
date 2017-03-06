@@ -75,7 +75,7 @@ class DistributionViewController: UIViewController {
     }
 
     @IBAction func unwindSegueToDistribution(segue: UIStoryboardSegue) {
-        if let typeInfoChoseDevice = R.segue.choseDeviceController.unwindChoseDevice(segue: segue) {
+        if let typeInfoChoseDevice = R.segue.accountAndChoseDeviceController.unwindChoseDevice(segue: segue) {
             Logger.debug(typeInfoChoseDevice)
         }
         

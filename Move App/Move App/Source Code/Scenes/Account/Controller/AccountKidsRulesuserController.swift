@@ -30,7 +30,7 @@ class AccountKidsRulesuserController: UITableViewController {
             input: (enterCount.asObservable()),
             dependency:(
                 userManager: UserManager.shared,
-                validation: DefaultValidation.shared,
+                deviceManager: DeviceManager.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )

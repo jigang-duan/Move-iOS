@@ -27,12 +27,17 @@ extension DeviceManager {
         return worker.addDevice(firstBindInfo: firstBindInfo)
     }
    
+    func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>  {
+        return worker.getDeviceList()
+    }
 }
 
 
 protocol DeviceWorkerProtocl {
     
-   func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool>
+    func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool>
+    
+    func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>
     
 }
 

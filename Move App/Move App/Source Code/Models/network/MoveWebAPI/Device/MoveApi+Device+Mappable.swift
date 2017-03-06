@@ -82,14 +82,36 @@ extension MoveApi {
     }
     
     struct DeviceInfo {
-        var device_id: String?
+        var pid: Int?
+        var deviceId: String?
+        var user: DeviceUser?
+        var property: DeviceProperty?
+    }
+    
+    struct DeviceUser {
+        var uid: String?
         var number: String?
-        var name: String?
+        var nickname: String?
         var profile: String?
         var gender: String?
         var height: Int?
+        var weight: Int?
         var birthday: Date?
     }
+    
+    struct DeviceProperty {
+        var active: Bool?
+        var bluetooth_address: String?
+        var device_model :String?
+        var firmware_version :String?
+        var ip_address :String?
+        var kernel_version :String?
+        var mac_address :String?
+        var phone_number :String?
+        var languages: [String]?
+        var power :Int?
+    }
+    
     
     struct DeviceSetting {
         var period: String?
@@ -288,13 +310,44 @@ extension MoveApi.DeviceInfo: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        device_id <- map["device_id"]
+        pid <- map["pid"]
+        deviceId <- map["device_id"]
+        user <- map["user"]
+        property <- map["properties"]
+    }
+}
+
+extension MoveApi.DeviceUser: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        uid <- map["uid"]
         number <- map["number"]
-        name <- map["name"]
+        nickname <- map["nickname"]
         profile <- map["profile"]
         gender <- map["gender"]
         height <- map["height"]
+        weight <- map["weight"]
         birthday <- (map["birthday"], DateTransform())
+    }
+}
+
+extension MoveApi.DeviceProperty: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        active <- map["active"]
+        bluetooth_address <- map["bluetooth_address"]
+        device_model <- map["device_model"]
+        firmware_version <- map["firmware_version"]
+        ip_address <- map["ip_address"]
+        kernel_version <- map["kernel_version"]
+        mac_address <- map["mac_address"]
+        phone_number <- map["phone_number"]
+        languages <- map["languages"]
+        power <- map["power"]
     }
 }
 

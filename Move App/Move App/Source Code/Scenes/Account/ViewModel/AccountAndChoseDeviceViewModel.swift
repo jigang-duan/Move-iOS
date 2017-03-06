@@ -15,20 +15,20 @@ class AccountAndChoseDeviceViewModel {
     
     let head: Driver<String>
     let accountName: Driver<String>
-    let sections: Driver<[SectionOfCellData]>
+    let cellDatas: Observable<[DeviceCellData]>
     
     // }
     
     init (input: (Observable<Int>),
         dependency: (
         userManager: UserManager,
-        validation: DefaultValidation,
+        deviceManager: DeviceManager,
         wireframe: Wireframe
         )
         ) {
         
         let userManger = dependency.userManager
-        let _ = dependency.validation
+        let deviceManager = dependency.deviceManager
         let _ = dependency.wireframe
         
         let enter = input.filter({ $0 > 0 })
@@ -43,10 +43,23 @@ class AccountAndChoseDeviceViewModel {
                 .map({ $0.iconUrl ?? "" })
         }).asDriver(onErrorJustReturn: "")
         
-        let deviceInfo = MokDevices()
-        self.sections = enter.flatMapLatest({ _ in
-            deviceInfo.getDeviceList()
-        }).asDriver(onErrorJustReturn: [])
+     
+        self.cellDatas = enter.flatMapLatest({ _ in
+            deviceManager.getDeviceList().map{ deviceInfos in
+                var cellDatas: [DeviceCellData] = []
+                for info in deviceInfos {
+//                    MARK: for test
+                    let cellData = DeviceCellData(devType: info.property?.device_model ?? "kid watch", name: info.user?.nickname, iconUrl: info.user?.profile ?? "")
+                    cellDatas.append(cellData)
+                }
+                return cellDatas
+            }
+        })
         
     }
 }
+
+
+
+
+

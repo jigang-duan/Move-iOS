@@ -15,24 +15,16 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var headOutlet: UIImageView!
     @IBOutlet weak var accountNameOutlet: UILabel!
-    @IBOutlet weak var addDeviceOutlet: UIButton!
     @IBOutlet weak var personalInformationOutlet: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     
     let disposeBag = DisposeBag()
     let enterCount = Variable(0)
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionOfCellData>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        addDeviceOutlet.rx.tap
-            .bindNext { _ in
-                Distribution.shared.showChoseDeviceScreen()
-            }
-            .addDisposableTo(disposeBag)
         
         personalInformationOutlet.rx.tap
             .bindNext { _ in
@@ -44,7 +36,7 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             input: (enterCount.asObservable()),
             dependency:(
                 userManager: UserManager.shared,
-                validation: DefaultValidation.shared,
+                deviceManager: DeviceManager.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
@@ -59,17 +51,19 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             .drive(accountNameOutlet.rx.text)
             .addDisposableTo(disposeBag)
         
-        let dataSource = self.dataSource
-        dataSource.configureCell = skinTableViewDataSource
-        dataSource.titleForHeaderInSection = { ds, index in
-            return ds.sectionModels[index].header
-        }
+      
         tableView.rx
             .setDelegate(self)
             .addDisposableTo(disposeBag)
-        viewModel.sections
-            .drive(tableView.rx.items(dataSource: dataSource))
+        
+        viewModel.cellDatas
+            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier, cellType: UITableViewCell.self)){ (row, element, cell) in
+                cell.textLabel?.text = element.devType
+                cell.detailTextLabel?.text = element.name
+                cell.imageView?.imageFromURL(element.iconUrl!, placeholder:  R.image.member_btn_contact_nor()!)
+            }
             .addDisposableTo(disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,25 +86,16 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    func skinTableViewDataSource(_ ds: TableViewSectionedDataSource<SectionOfCellData>,
-                                 _ tv: UITableView,
-                                 _ ip: IndexPath,
-                                 _ item: SectionOfCellData.Item) -> UITableViewCell {
-        
-        let devData = item as! DeviceCellData
-        let cell = tv.dequeueReusableCell(withIdentifier: R.reuseIdentifier.choseDevice.identifier, for: ip)
-        cell.textLabel?.text = devData.devType
-        cell.detailTextLabel?.text = devData.name
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return ViewUtils.viewForHeaderInSection(text: dataSource[section].header)
-    }
+
     
     // to prevent swipe to delete behavior
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AccountKidsRulesuserController()
+        self.navigationController?.show(vc, sender: nil)
+    }
+    
 }

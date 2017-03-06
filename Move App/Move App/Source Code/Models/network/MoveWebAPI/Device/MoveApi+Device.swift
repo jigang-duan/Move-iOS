@@ -34,8 +34,8 @@ extension MoveApi {
             return request(.joinDeviceGroup(deviceId: deviceId, joinInfo: joinInfo)).mapMoveObject(ApiError.self)
         }
 //        获取设备列表
-        final class func getDeviceList() -> Observable<DeviceGetListResp> {
-            return request(.getDeviceList).mapMoveObject(DeviceGetListResp.self)
+        final class func getDeviceList(pid: Int = 0) -> Observable<DeviceGetListResp> {
+            return request(.getDeviceList(pid: pid)).mapMoveObject(DeviceGetListResp.self)
         }
 //        获取设备信息
         final class func getDeviceInfo(deviceId: String) -> Observable<DeviceInfo> {
@@ -49,7 +49,11 @@ extension MoveApi {
         final class func delete(deviceId: String) -> Observable<ApiError> {
             return request(.delete(deviceId: deviceId)).mapMoveObject(ApiError.self)
         }
-//        删除设备绑定成员
+//        添加设备联系人: 添加非注册用户为设备联系人，仅管理员调用
+        final class func addNoRegisterMember(deviceId: String) -> Observable<ApiError> {
+            return request(.addNoRegisterMember(deviceId: deviceId)).mapMoveObject(ApiError.self)
+        }
+//        删除设备绑定成员:  解绑设备的绑定成员，仅设备管理员调用
         final class func deleteBindUser(deviceId: String, uid: String) -> Observable<ApiError> {
             return request(.deleteBindUser(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
         }
@@ -60,6 +64,14 @@ extension MoveApi {
 //        设置设备配置
         final class func setting(deviceId: String, settingInfo: DeviceSetting) -> Observable<ApiError> {
             return request(.setting(deviceId: deviceId, settingInfo: settingInfo)).mapMoveObject(ApiError.self)
+        }
+//        查看设备属性
+        final class func getProperty(deviceId: String) -> Observable<DeviceProperty> {
+            return request(.getProperty(deviceId: deviceId)).mapMoveObject(DeviceProperty.self)
+        }
+//        设置设备属性
+        final class func settingProperty(deviceId: String, settingInfo: DeviceProperty) -> Observable<ApiError> {
+            return request(.settingProperty(deviceId: deviceId, settingInfo: settingInfo)).mapMoveObject(ApiError.self)
         }
 //        发送提醒
         final class func sendNotify(deviceId: String, sendInfo: DeviceSendNotify) -> Observable<ApiError>{
@@ -77,13 +89,16 @@ extension MoveApi {
         enum API {
             case add(deviceId: String, addInfo: DeviceAdd)
             case joinDeviceGroup(deviceId: String, joinInfo: DeviceJoinInfo)
-            case getDeviceList
+            case getDeviceList(pid: Int)
             case getDeviceInfo(deviceId: String)
             case update(deviceId: String, updateInfo: DeviceInfo)
             case delete(deviceId: String)
+            case addNoRegisterMember(deviceId: String)
             case deleteBindUser(deviceId: String, uid: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)
+            case getProperty(deviceId: String)
+            case settingProperty(deviceId: String, settingInfo: DeviceProperty)
             case sendNotify(deviceId: String, sendInfo: DeviceSendNotify)
             case addPower(deviceId: String, power: DevicePower)
             case getPower(deviceId: String)
@@ -118,12 +133,18 @@ extension MoveApi.Device.API: TargetType {
             return "/v1.1/device/\(deviceId)"
         case .delete(let deviceId):
             return "/v1.0/device/\(deviceId)"
+        case .addNoRegisterMember(let deviceId):
+            return "/v1.0/device/\(deviceId)/member"
         case .deleteBindUser(let deviceId, let uid):
-            return "/v1.0/device/\(deviceId)/user/\(uid)"
+            return "/v1.0/device/\(deviceId)/member/\(uid)"
         case .getSetting(let deviceId):
             return "/v1.0/device/\(deviceId)/settings"
         case .setting(let deviceId, _):
             return "/v1.0/device/\(deviceId)/settings"
+        case .getProperty(let deviceId):
+            return "/v1.0/device/\(deviceId)/properties"
+        case .settingProperty(let deviceId, _):
+            return "/v1.0/device/\(deviceId)/properties"
         case .sendNotify(let deviceId, _):
             return "/\(deviceId)/notify"
         case .addPower(let deviceId, _):
@@ -136,11 +157,11 @@ extension MoveApi.Device.API: TargetType {
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .add, .joinDeviceGroup, .sendNotify:
+        case .add, .joinDeviceGroup, .sendNotify, .addNoRegisterMember:
             return .post
-        case .getDeviceList, .getDeviceInfo, .getSetting, .getPower:
+        case .getDeviceList, .getDeviceInfo, .getSetting, .getProperty, .getPower:
             return .get
-        case .update, .setting, .addPower:
+        case .update, .setting, .settingProperty, .addPower:
             return .put
         case .delete, .deleteBindUser:
             return .delete
@@ -154,11 +175,15 @@ extension MoveApi.Device.API: TargetType {
             return addInfo.toJSON()
         case .joinDeviceGroup(_, let joinInfo):
             return joinInfo.toJSON()
-        case .getDeviceList, .getDeviceInfo, .delete, .deleteBindUser, .getSetting, .getPower:
+        case .getDeviceList(let pid):
+            return ["pid": pid]
+        case .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getSetting, .getProperty, .getPower:
             return nil
         case .update(_, let updateInfo):
             return updateInfo.toJSON()
         case .setting(_, let settingInfo):
+            return settingInfo.toJSON()
+        case .settingProperty(_, let settingInfo):
             return settingInfo.toJSON()
         case .sendNotify(_, let sendInfo):
             return sendInfo.toJSON()
