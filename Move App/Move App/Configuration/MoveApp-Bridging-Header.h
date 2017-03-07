@@ -11,4 +11,8 @@
 
 #import <SVPulsingAnnotationView/SVPulsingAnnotationView.h>
 #import "TXHRrettyRuler.h"
+
+#import "Mp3Recorder.h"
+#import "UUProgressHUD.h"
+
 #endif /* MoveApp_Bridging_Header_h */

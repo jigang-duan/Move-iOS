@@ -10,8 +10,6 @@
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
 		1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */; };
 		1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */; };
-		1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */; };
-		1109C64A1E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */; };
 		1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6531E604BF6005B4AFD /* KidSettingManager.swift */; };
 		1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
@@ -21,6 +19,19 @@
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
+		11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3041E6D7B14002906F1 /* UUMessage.swift */; };
+		11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */; };
+		11EAC30D1E6D7B14002906F1 /* UUMessageContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3061E6D7B14002906F1 /* UUMessageContentButton.swift */; };
+		11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3071E6D7B14002906F1 /* UUMessageCell.swift */; };
+		11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3081E6D7B14002906F1 /* UUAVAudioPlayer.swift */; };
+		11EAC3101E6D7B14002906F1 /* UUImageAvatarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3091E6D7B14002906F1 /* UUImageAvatarBrowser.swift */; };
+		11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */; };
+		11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
+		11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */; };
+		11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */; };
+		11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC31F1E6E42B8002906F1 /* Rx+SwitchButton.swift */; };
+		11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */; };
+		11EAC3241E6E4307002906F1 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EAC3231E6E4307002906F1 /* libmp3lame.a */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
@@ -231,8 +242,6 @@
 /* Begin PBXFileReference section */
 		1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionViewModel.swift; sourceTree = "<group>"; };
 		1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
-		1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+SwitchButton.swift"; sourceTree = "<group>"; };
-		1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
 		1109C6531E604BF6005B4AFD /* KidSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidSettingManager.swift; path = KidSettingManager/KidSettingManager.swift; sourceTree = "<group>"; };
 		1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiKidSettingsWorker.swift; path = KidSettingManager/MoveApiKidSettingsWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
@@ -243,6 +252,22 @@
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
+		11EAC3041E6D7B14002906F1 /* UUMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessage.swift; path = Vendor/UUChat/Sources/UUMessage.swift; sourceTree = "<group>"; };
+		11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessageFrame.swift; path = Vendor/UUChat/Sources/UUMessageFrame.swift; sourceTree = "<group>"; };
+		11EAC3061E6D7B14002906F1 /* UUMessageContentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessageContentButton.swift; path = Vendor/UUChat/Sources/UUMessageContentButton.swift; sourceTree = "<group>"; };
+		11EAC3071E6D7B14002906F1 /* UUMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessageCell.swift; path = Vendor/UUChat/Sources/UUMessageCell.swift; sourceTree = "<group>"; };
+		11EAC3081E6D7B14002906F1 /* UUAVAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUAVAudioPlayer.swift; path = Vendor/UUChat/Sources/UUAVAudioPlayer.swift; sourceTree = "<group>"; };
+		11EAC3091E6D7B14002906F1 /* UUImageAvatarBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUImageAvatarBrowser.swift; path = Vendor/UUChat/Sources/UUImageAvatarBrowser.swift; sourceTree = "<group>"; };
+		11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUInputFunctionView.swift; path = Vendor/UUChat/Sources/UUInputFunctionView.swift; sourceTree = "<group>"; };
+		11EAC3121E6D7B24002906F1 /* UUProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UUProgressHUD.h; path = Vendor/UUChat/OtherResources/UUProgressHUD/UUProgressHUD.h; sourceTree = "<group>"; };
+		11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UUProgressHUD.m; path = Vendor/UUChat/OtherResources/UUProgressHUD/UUProgressHUD.m; sourceTree = "<group>"; };
+		11EAC3151E6D7B32002906F1 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lame.h; path = Vendor/UUChat/OtherResources/VoiceLib/lame.h; sourceTree = "<group>"; };
+		11EAC3171E6D7B32002906F1 /* Mp3Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mp3Recorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/Mp3Recorder.h; sourceTree = "<group>"; };
+		11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mp3Recorder.m; path = Vendor/UUChat/OtherResources/VoiceLib/Mp3Recorder.m; sourceTree = "<group>"; };
+		11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Utils.swift"; path = "Vendor/UUChat/OtherResources/Utils/Date+Utils.swift"; sourceTree = "<group>"; };
+		11EAC31F1E6E42B8002906F1 /* Rx+SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+SwitchButton.swift"; path = "Shared/Extensisons/View/Rx+SwitchButton.swift"; sourceTree = "<group>"; };
+		11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSwitchButtonDelegateProxy.swift; path = Shared/Extensisons/View/RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
+		11EAC3231E6E4307002906F1 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmp3lame.a; path = Vendor/UUChat/OtherResources/VoiceLib/libmp3lame.a; sourceTree = "<group>"; };
 		141858BC35771DF061629EC7 /* Pods_Move_App_CustomViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App_CustomViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E731807D2860715DF8F413 /* Pods_Move_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -431,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E01DF7371E308D7F00EA003D /* CustomViews.framework in Frameworks */,
+				11EAC3241E6E4307002906F1 /* libmp3lame.a in Frameworks */,
 				E0931F3A1E30DE7400755B4A /* MapKit.framework in Frameworks */,
 				3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */,
 			);
@@ -494,6 +520,67 @@
 				11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */,
 			);
 			name = MeManager;
+			sourceTree = "<group>";
+		};
+		11EAC2FE1E6D796F002906F1 /* UUChat */ = {
+			isa = PBXGroup;
+			children = (
+				11EAC2FF1E6D7981002906F1 /* Sources */,
+				11EAC3001E6D79FE002906F1 /* OtherResources */,
+			);
+			name = UUChat;
+			sourceTree = "<group>";
+		};
+		11EAC2FF1E6D7981002906F1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				11EAC3041E6D7B14002906F1 /* UUMessage.swift */,
+				11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */,
+				11EAC3061E6D7B14002906F1 /* UUMessageContentButton.swift */,
+				11EAC3071E6D7B14002906F1 /* UUMessageCell.swift */,
+				11EAC3081E6D7B14002906F1 /* UUAVAudioPlayer.swift */,
+				11EAC3091E6D7B14002906F1 /* UUImageAvatarBrowser.swift */,
+				11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		11EAC3001E6D79FE002906F1 /* OtherResources */ = {
+			isa = PBXGroup;
+			children = (
+				11EAC3031E6D7A2E002906F1 /* UUProgressHUD */,
+				11EAC3021E6D7A22002906F1 /* VoiceLib */,
+				11EAC3011E6D7A1A002906F1 /* Utils */,
+			);
+			name = OtherResources;
+			sourceTree = "<group>";
+		};
+		11EAC3011E6D7A1A002906F1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		11EAC3021E6D7A22002906F1 /* VoiceLib */ = {
+			isa = PBXGroup;
+			children = (
+				11EAC3231E6E4307002906F1 /* libmp3lame.a */,
+				11EAC3151E6D7B32002906F1 /* lame.h */,
+				11EAC3171E6D7B32002906F1 /* Mp3Recorder.h */,
+				11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */,
+			);
+			name = VoiceLib;
+			sourceTree = "<group>";
+		};
+		11EAC3031E6D7A2E002906F1 /* UUProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				11EAC3121E6D7B24002906F1 /* UUProgressHUD.h */,
+				11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */,
+			);
+			name = UUProgressHUD;
 			sourceTree = "<group>";
 		};
 		37564730C81CD14DEFBABA0F /* Frameworks */ = {
@@ -751,6 +838,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				11EAC2FE1E6D796F002906F1 /* UUChat */,
 				E03B1C541E53E8C4006EDB7B /* Popover */,
 				E0C228FD1E35DC0200BCF83D /* RxUtilities */,
 				E0C228FC1E35DBF600BCF83D /* RxImage */,
@@ -1092,8 +1180,8 @@
 		E0931F2F1E30C94200755B4A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1109C6491E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift */,
-				1109C6471E5FCB51005B4AFD /* Rx+SwitchButton.swift */,
+				11EAC31F1E6E42B8002906F1 /* Rx+SwitchButton.swift */,
+				11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */,
 				E0931F311E30C97000755B4A /* Protocol+Extenstion.swift */,
 				E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */,
 			);
@@ -1805,6 +1893,7 @@
 				E9735EC71E69432000C0B944 /* ToDoListController.swift in Sources */,
 				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
 				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
+				11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */,
 				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
 				E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */,
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
@@ -1831,11 +1920,14 @@
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
+				11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
+				11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */,
+				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
@@ -1851,8 +1943,9 @@
 				F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */,
 				D2D661281E4F13B500E46F41 /* AccountMode.swift in Sources */,
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
+				11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
-				1109C64A1E5FD452005B4AFD /* RxSwitchButtonDelegateProxy.swift in Sources */,
+				11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */,
 				E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */,
@@ -1864,9 +1957,9 @@
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
 				E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */,
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
+				11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */,
 				E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
-				1109C6481E5FCB51005B4AFD /* Rx+SwitchButton.swift in Sources */,
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
@@ -1886,12 +1979,15 @@
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
 				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,
+				11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */,
 				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
+				11EAC30D1E6D7B14002906F1 /* UUMessageContentButton.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */,
+				11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
@@ -1930,6 +2026,7 @@
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
+				11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */,
 				E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */,
 				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
 				E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */,
@@ -1938,6 +2035,7 @@
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
 				E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */,
 				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
+				11EAC3101E6D7B14002906F1 /* UUImageAvatarBrowser.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
 				E9735EC61E69432000C0B944 /* SchoolTimeController.swift in Sources */,
 				FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */,
@@ -2189,8 +2287,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Move App/Vendor/UUChat/OtherResources/VoiceLib\"",
+					"\"$(PROJECT_DIR)/Move App\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
@@ -2209,8 +2313,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Move App/Vendor/UUChat/OtherResources/VoiceLib\"",
+					"\"$(PROJECT_DIR)/Move App\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";

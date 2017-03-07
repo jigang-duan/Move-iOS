@@ -8,6 +8,7 @@ target 'Move App' do
   # Pods for Move App
 
   # 仿Android资源文件使用
+  # https://github.com/mac-cain13/R.swift
   pod 'R.swift'
 
   # 自动布局
@@ -23,13 +24,18 @@ target 'Move App' do
   pod 'Moya/RxSwift'
   
   # Observable
-  pod 'RxOptional'
+  # https://github.com/ReactiveX/RxSwift
   #pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
   pod 'RxDataSources', '~> 1.0'
+  pod 'RxOptional'
   # pod 'RxMKMapView'  // 有依赖冲突
   # 数据库
   pod 'RxRealm'
+  
+  # 图片下载和缓存库，取代 SDWebImage
+  # https://github.com/onevcat/Kingfisher
+  pod 'Kingfisher', '~> 3.0'
   
   # 避免键盘遮挡下方输入框
   pod 'IQKeyboardManager'
