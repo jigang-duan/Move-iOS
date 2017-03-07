@@ -130,6 +130,44 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             })
             .map({ $0.id == 0 })
     }
+    
+    func fetchHoursFormat(id: String) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.hour24 ?? false })
+    }
+    
+    func fetchGetTimeAuto(id: String) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.auto_time ?? false })
+    }
+    func fetchTimezone(id:String) -> Observable<Date> //发服务器为int
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.timezone ?? DateUtility.zone7hour() })
+    }
+    func fetchSummerTime(id: String) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.dst ?? false })
+    }
+    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,Timezone: Date, summertime: Bool) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.dst = summertime
+                _setting.auto_time = autotime
+                _setting.hour24 = hourformat
+                _setting.timezone = Timezone
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
+    
+    
 }
 
 extension MoveApiKidSettingsWorker {

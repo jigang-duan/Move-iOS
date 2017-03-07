@@ -120,7 +120,7 @@ extension MoveApi {
         var mute: Bool?
         var mute_time: [Any]?
         var ring: String?
-        var timezone: Int?
+        var timezone: Date?
         var roaming: Bool?
         var auto_answer: Bool?
         var save_power: Bool?
@@ -362,7 +362,7 @@ extension MoveApi.DeviceSetting: Mappable {
          mute <- map["mute"]
          mute_time <- map["mute_time"]
          ring <- map["ring"]
-         timezone <- map["timezone"]
+         timezone <- (map["timezone"], DateTransform())
          roaming <- map["roaming"]
          auto_answer <- map["auto_answer"]
          save_power <- map["save_power"]

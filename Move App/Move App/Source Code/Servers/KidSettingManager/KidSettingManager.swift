@@ -31,6 +31,12 @@ protocol WatchSettingWorkerProtocl {
     func fetchUsePermission(id: String) -> Observable<[Bool]>
     func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool>
     
+    func fetchHoursFormat(id: String) -> Observable<Bool>
+    func fetchGetTimeAuto(id: String) -> Observable<Bool>
+    func fetchTimezone(id:String) -> Observable<Date> //发服务器为int
+    func fetchSummerTime(id: String) -> Observable<Bool>
+    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,Timezone: Date, summertime: Bool) -> Observable<Bool>
+    
 }
 
 class WatchSettingsManager  {
@@ -103,6 +109,40 @@ class WatchSettingsManager  {
         }
         return self.worker.upUsePermission(id: deviceId, btns: btns)
     }
+    
+    
+    func fetchHoursFormat() -> Observable<Bool>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.fetchHoursFormat(id: deviceId)
+    }
+    func fetchGetTimeAuto() -> Observable<Bool>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.fetchGetTimeAuto(id: deviceId)
+    }
+    func fetchTimezone() -> Observable<Date> //发服务器为int
+    {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Date>.empty()
+        }
+        return self.worker.fetchTimezone(id: deviceId)
+    }
+    func fetchSummerTime() -> Observable<Bool>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.fetchSummerTime(id: deviceId)
+    }
+    func updateTimezones(_ hourformat: Bool, autotime: Bool,Timezone: Date, summertime: Bool) -> Observable<Bool>{
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateTimezones(id: deviceId, hourformat: hourformat, autotime: autotime, Timezone: Timezone, summertime: summertime)
+    }
+    
     
 }
 

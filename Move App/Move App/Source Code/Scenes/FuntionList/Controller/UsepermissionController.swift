@@ -26,13 +26,6 @@ class UsepermissionController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-//        let switchSelect = Driver.combineLatest(myfriendQulet.rx.value.asDriver(),
-//                                                calltofriendQulet.rx.value.asDriver(),
-//                                                groupchatQulet.rx.value.asDriver(),
-//                                                voicechagerQulet.rx.value.asDriver(),
-//                                                playinghamsterQulet.rx.value.asDriver()) { [$0, $1, $2, $3, $4] }
         
         let viewModel = UsepermissionViewModel(
             input: (
@@ -49,12 +42,22 @@ class UsepermissionController: UITableViewController {
             )
         )
         
-        viewModel.selectBtns.map({ $0[0] }).drive(myfriendQulet.rx.value).addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[1] }).drive(calltofriendQulet.rx.value).addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[2] }).drive(groupchatQulet.rx.value).addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[3] }).drive(voicechagerQulet.rx.value).addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[4] }).drive(playinghamsterQulet.rx.value).addDisposableTo(disposeBag)
-        
+        viewModel.selectBtns.map({ $0[0] })
+            .drive(myfriendQulet.rx.value)
+            .addDisposableTo(disposeBag)
+        viewModel.selectBtns.map({ $0[1] })
+            .drive(calltofriendQulet.rx.value)
+            .addDisposableTo(disposeBag)
+        viewModel.selectBtns.map({ $0[2] })
+            .drive(groupchatQulet.rx.value)
+            .addDisposableTo(disposeBag)
+        viewModel.selectBtns.map({ $0[3] })
+            .drive(voicechagerQulet.rx.value)
+            .addDisposableTo(disposeBag)
+        viewModel.selectBtns.map({ $0[4] })
+            .drive(playinghamsterQulet.rx.value)
+            .addDisposableTo(disposeBag)
+      //网络请求的时候都不用点击
         viewModel.activityIn
             .map { !$0 }
             .drive(saveQulet.rx.isEnabled)

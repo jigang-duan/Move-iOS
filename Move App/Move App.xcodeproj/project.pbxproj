@@ -160,6 +160,9 @@
 		E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */; };
 		E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */; };
 		E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */; };
+		E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */; };
+		E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */; };
+		E98C32791E6D3609002EF0C8 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
@@ -409,6 +412,9 @@
 		E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
 		E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularshutdownViewModel.swift; sourceTree = "<group>"; };
 		E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeViewModel.swift; sourceTree = "<group>"; };
+		E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeZoneController.swift; sourceTree = "<group>"; };
+		E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeZoneController.swift; sourceTree = "<group>"; };
+		E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeZoneViewModel.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
@@ -1431,6 +1437,7 @@
 			children = (
 				E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */,
 				E9735EAF1E6942A300C0B944 /* WeekView.swift */,
+				E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1446,6 +1453,7 @@
 				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
 				E9735EC01E69432000C0B944 /* ToDoListController.swift */,
 				E9E30CC61E6A909000B66979 /* UsepermissionController.swift */,
+				E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1458,6 +1466,7 @@
 				E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */,
 				E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */,
 				E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */,
+				E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1931,6 +1940,7 @@
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
+				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
@@ -1996,6 +2006,7 @@
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
 				D239B1F31E55AD520013E72E /* AccountKidsGeneraluserController.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
+				E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */,
 				D2E5E8531E5D229D0024D20C /* (null) in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,

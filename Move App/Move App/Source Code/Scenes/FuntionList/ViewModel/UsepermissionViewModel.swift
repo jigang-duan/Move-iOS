@@ -18,6 +18,7 @@ class UsepermissionViewModel {
     let selectBtns: Driver<[Bool]>
     let saveFinish: Driver<Bool>
     
+    
     let activityIn: Driver<Bool>
     
     // }

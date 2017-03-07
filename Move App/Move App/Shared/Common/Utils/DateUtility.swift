@@ -40,8 +40,9 @@ class DateUtility {
     static func zone16hour() -> Date {
         return DateUtility.zoneDay().startDate.addingTimeInterval(61200)
     }
-    static func zone24hour() -> Date {
-        return DateUtility.zoneDay().startDate.addingTimeInterval(86399)
+    static func zone11hour() -> Date
+    {
+        return DateUtility.zoneDay().startDate.addingTimeInterval(39600)
     }
     
     static func zoneDayOfHMS(date: Date) -> Date {
