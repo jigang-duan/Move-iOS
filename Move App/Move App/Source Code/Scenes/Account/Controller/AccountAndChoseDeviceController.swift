@@ -18,6 +18,8 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var viewModel: AccountAndChoseDeviceViewModel!
+    
     let disposeBag = DisposeBag()
     let enterCount = Variable(0)
     
@@ -25,7 +27,7 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         
-        let viewModel = AccountAndChoseDeviceViewModel(
+        viewModel = AccountAndChoseDeviceViewModel(
             input: (enterCount.asObservable()),
             dependency:(
                 userManager: UserManager.shared,
@@ -49,7 +51,7 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             .setDelegate(self)
             .addDisposableTo(disposeBag)
         
-        viewModel.cellDatas
+        viewModel.cellDatas?
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier, cellType: UITableViewCell.self)){ (row, element, cell) in
                 cell.textLabel?.text = element.devType
                 cell.detailTextLabel?.text = element.name
@@ -87,7 +89,8 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = AccountKidsRulesuserController()
+        let vc = R.storyboard.account.accountKidsRulesuserController()!
+        DeviceManager.shared.currentDevice = viewModel.devices?[indexPath.row]
         self.navigationController?.show(vc, sender: nil)
     }
     

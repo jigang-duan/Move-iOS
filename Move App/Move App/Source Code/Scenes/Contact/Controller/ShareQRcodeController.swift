@@ -7,59 +7,70 @@
 //
 
 import UIKit
-import ObjectMapper
 
 
 class ShareQRcodeController: UIViewController {
     
+    @IBOutlet weak var headImgV: UIImageView!
+    @IBOutlet weak var kidName: UILabel!
+    @IBOutlet weak var QRimgV: UIImageView!
+    @IBOutlet weak var countDownTime: UILabel!
+    
+    @IBOutlet weak var screenShotView: UIView!
+    
+    var relation: String?
+    var memberName: String?
+    var memberPhone: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+ 
         let info = self.makeQRinfo()
-        let img = self.createQRForString(qrString: info)
+        QRimgV.image = self.createQRForString(qrString: info)
     }
-    
-    
-    struct QRcodeInfo : Mappable{
-        var _embeded: Embeded?
-        var _links: Links?
-        
-        init() {
-        }
-        
-        init?(map: Map) {
-        }
-        
-        mutating func mapping(map: Map) {
-            _embeded <- map["_embeded"]
-            _links <- map["_links"]
-        }
-    }
-    
-    struct Embeded {
-        var imei: String?
-        var expired_at: Date?
-        var phone: String?
-        var identity: String?
-    }
-    
-    struct Links {
-        var join: Join?
-    }
-    
-    struct Join {
-        var href: String?
-    }
+
     
     
     func makeQRinfo() -> String{
-        let info = QRcodeInfo()
+        let device = DeviceManager.shared.currentDevice!
         
+        let downTime = Date(timeIntervalSinceNow: 3600)
         
+        headImgV.imageFromURL(device.user?.profile ?? "", placeholder: R.image.relationship_ic_other()!)
+        kidName.text = device.user?.nickname
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        countDownTime.text = format.string(from: downTime)
         
-        return info.toJSONString()!
+        let embededDic = ["imei": device.deviceId ?? "", "expired_at": countDownTime.text ?? "", "phone":self.memberPhone ?? "", "identity":self.relation ?? ""]
+        
+        let linksDic = ["join":["href": "/v1.0/device/" + device.deviceId! + "join"]]
+        
+        let dic = ["_embeded": embededDic, "_links":linksDic] as [String : Any]
+        
+        return self.jsonToString(dic)!
     }
     
+    
+    func jsonToString(_ JSONObject: Dictionary<String, Any>) -> String? {
+        if JSONSerialization.isValidJSONObject(JSONObject) {
+            var JSONData: Data?
+            do {
+                JSONData = try JSONSerialization.data(withJSONObject: JSONObject, options: JSONSerialization.WritingOptions.prettyPrinted)
+            } catch let error {
+                print(error)
+            }
+            
+            if let json = JSONData {
+                if let str = String(data: json, encoding: String.Encoding.utf8) {
+                    return str
+                }
+            }
+        }
+        
+        return ""
+    }
     
     func createQRForString(qrString: String, qrImageName: String = "") -> UIImage?{
         let stringData = qrString.data(using: String.Encoding.utf8, allowLossyConversion: false)
@@ -95,8 +106,25 @@ class ShareQRcodeController: UIViewController {
     }
     
     
+    func screenShot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(screenShotView.bounds.size, false, 0.0)
+        
+        screenShotView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
     
-    
+    @IBAction func shareQRImage(_ sender: Any) {
+        let activity = UIActivity()
+        
+        let vc = UIActivityViewController(activityItems: ["分享标题", self.screenShot()], applicationActivities: [activity])
+        vc.excludedActivityTypes = [UIActivityType.assignToContact, UIActivityType.mail, UIActivityType.message,UIActivityType.postToWeibo, UIActivityType.postToFacebook];
+        self.present(vc, animated: true, completion: {
+        
+        })
+    }
     
 }
 

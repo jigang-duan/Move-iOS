@@ -76,7 +76,7 @@ extension MoveApi.LocationAdd: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        time <- (map["time"], DateTransform())
+        time <- (map["time"], DateIntTransform())
         gps <- map["gps"]
         network <- map["network"]
         imei <- map["imei"]
@@ -131,8 +131,8 @@ extension MoveApi.LocationReq: Mappable{
     }
     
     mutating func mapping(map: Map) {
-        start <- (map["start"], DateTransform())
-        end <- (map["end"], DateTransform())
+        start <- (map["start"], DateIntTransform())
+        end <- (map["end"], DateIntTransform())
     }
 }
 
@@ -165,7 +165,7 @@ extension MoveApi.LocationInfo: Mappable{
         lng <- map["lng"]
         addr <- map["addr"]
         accuracy <- map["accuracy"]
-        time <- (map["time"], DateTransform())
+        time <- (map["time"], DateIntTransform())
     }
 }
 

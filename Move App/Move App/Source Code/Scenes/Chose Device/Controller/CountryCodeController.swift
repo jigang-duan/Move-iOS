@@ -11,6 +11,10 @@ import UIKit
 
 class CountryCodeViewController: UITableViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

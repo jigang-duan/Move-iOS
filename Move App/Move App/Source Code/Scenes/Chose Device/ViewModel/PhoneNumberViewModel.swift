@@ -37,8 +37,8 @@ class PhoneNumberViewModel {
         _ = dependency.validation
         _ = dependency.wireframe
         
-        let activity = ActivityIndicator()
-        self.sending = activity.asDriver()
+//        let activity = ActivityIndicator()
+        self.sending = Driver.just(false)
         
         
         phoneInvalidte = input.phone.map { phone in

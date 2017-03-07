@@ -246,8 +246,8 @@ extension MoveApi.SchoolTimePeriod: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        start <- (map["start"], DateTransform())
-        end <- (map["end"], DateTransform())
+        start <- (map["start"], DateIntTransform())
+        end <- (map["end"], DateIntTransform())
     }
 }
 
@@ -276,7 +276,7 @@ extension MoveApi.DeviceAdd: Mappable {
         gender <- map["gender"]
         height <- map["height"]
         weight <- map["weight"]
-        birthday <- (map["birthday"], DateTransform())
+        birthday <- (map["birthday"], DateIntTransform())
     }
 }
 
@@ -329,7 +329,7 @@ extension MoveApi.DeviceUser: Mappable {
         gender <- map["gender"]
         height <- map["height"]
         weight <- map["weight"]
-        birthday <- (map["birthday"], DateTransform())
+        birthday <- (map["birthday"], DateIntTransform())
     }
 }
 
@@ -372,8 +372,8 @@ extension MoveApi.DeviceSetting: Mappable {
          auto_time <- map["auto_time"]
          dst <- map["dst"]
          auto_power_onoff <- map["auto_power_onoff"]
-         boot_time <- (map["boot_time"], DateTransform())
-         shutdown_time <- (map["shutdown_time"],DateTransform())
+         boot_time <- (map["boot_time"], DateIntTransform())
+         shutdown_time <- (map["shutdown_time"],DateIntTransform())
          sos <- map["sos"]
          school_time <- map["school_time"]
          permissions <- map["permissions"]

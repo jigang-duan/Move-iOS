@@ -14,6 +14,8 @@ class DeviceManager {
     
     static let shared = DeviceManager()
     
+    var currentDevice: DeviceInfo?
+    
     fileprivate var worker: DeviceWorkerProtocl!
     
     init() {
@@ -42,6 +44,36 @@ protocol DeviceWorkerProtocl {
 }
 
 
+struct DeviceInfo {
+    var pid: Int?
+    var deviceId: String?
+    var user: DeviceUser?
+    var property: DeviceProperty?
+}
+
+struct DeviceUser {
+    var uid: String?
+    var number: String?
+    var nickname: String?
+    var profile: String?
+    var gender: String?
+    var height: Int?
+    var weight: Int?
+    var birthday: Date?
+}
+
+struct DeviceProperty {
+    var active: Bool?
+    var bluetooth_address: String?
+    var device_model :String?
+    var firmware_version :String?
+    var ip_address :String?
+    var kernel_version :String?
+    var mac_address :String?
+    var phone_number :String?
+    var languages: [String]?
+    var power :Int?
+}
 
 struct DeviceFirstBindInfo {
     var deviceId: String?

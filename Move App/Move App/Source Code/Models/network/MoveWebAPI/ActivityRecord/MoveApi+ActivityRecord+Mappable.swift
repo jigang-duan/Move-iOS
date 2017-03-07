@@ -85,8 +85,8 @@ extension MoveApi.Activity: Mappable {
     
     mutating func mapping(map: Map) {
         id <- map["id"]
-        start_time <- (map["start_time"], DateTransform())
-        end_time <- (map["end_time"], DateTransform())
+        start_time <- (map["start_time"], DateIntTransform())
+        end_time <- (map["end_time"], DateIntTransform())
         action_type <- map["action_type"]
         total_distance <- map["total_distance"]
         total_calories <- map["total_calories"]
@@ -116,8 +116,8 @@ extension MoveApi.RecordReq: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        start_time <- (map["start_time"], DateTransform())
-        end_time <- (map["end_time"], DateTransform())
+        start_time <- (map["start_time"], DateIntTransform())
+        end_time <- (map["end_time"], DateIntTransform())
         page_token <- map["page_token"]
         page_size <- map["page_size"]
     }
@@ -151,7 +151,7 @@ extension MoveApi.Step: Mappable {
         step <- map["step"]
         distance <- map["distance"]
         calorie <- map["calorie"]
-        time <- (map["time"], DateTransform())
+        time <- (map["time"], DateIntTransform())
         like_count <- map["like_count"]
         liked <- map["liked"]
     }
@@ -162,8 +162,8 @@ extension MoveApi.StepSumReq: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        start_time <- (map["start_time"], DateTransform())
-        end_time <- (map["end_time"], DateTransform())
+        start_time <- (map["start_time"], DateIntTransform())
+        end_time <- (map["end_time"], DateIntTransform())
         by <- map["by"]
     }
 }

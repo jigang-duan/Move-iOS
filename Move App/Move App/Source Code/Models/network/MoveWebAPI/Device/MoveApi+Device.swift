@@ -122,7 +122,7 @@ extension MoveApi.Device.API: TargetType {
     var path: String {
         switch self {
         case .add(let deviceId, _):
-            return "/v1.0/device/\(deviceId)"
+            return "/v1.1/device/\(deviceId)"
         case .joinDeviceGroup(let deviceId, _):
             return "/v1.0/device/\(deviceId)/join"
         case .getDeviceList:
@@ -175,8 +175,8 @@ extension MoveApi.Device.API: TargetType {
             return addInfo.toJSON()
         case .joinDeviceGroup(_, let joinInfo):
             return joinInfo.toJSON()
-        case .getDeviceList(let pid):
-            return ["pid": pid]
+        case .getDeviceList:
+            return nil
         case .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getSetting, .getProperty, .getPower:
             return nil
         case .update(_, let updateInfo):
@@ -218,9 +218,19 @@ extension MoveApi.Device {
     
     final class func endpointMapping(for target: API) -> Endpoint<API> {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-        return endpoint.adding(newHTTPHeaderFields: [
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": MoveApi.apiKey])
+        switch target {
+        case .getDeviceList(let pid):
+            return endpoint.adding(newHTTPHeaderFields: [
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Language": Locale.preferredLanguages[0],
+                "Authorization": "pid=\(pid);\(MoveApi.apiKey)"])
+        default:
+            return endpoint.adding(newHTTPHeaderFields: [
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Accept-Language": Locale.preferredLanguages[0],
+                "Authorization": MoveApi.apiKey])
+        }
     }
 }

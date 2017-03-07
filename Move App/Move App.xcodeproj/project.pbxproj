@@ -162,7 +162,6 @@
 		E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */; };
 		E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */; };
 		E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */; };
-		E98C32791E6D3609002EF0C8 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
@@ -200,8 +199,18 @@
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
+		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
+		FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
+		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
+		FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */; };
+		FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */; };
 		FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */; };
 		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
+		FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */; };
+		FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */; };
+		FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */; };
+		FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */; };
+		FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -452,8 +461,17 @@
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
+		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
+		FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailController.swift; sourceTree = "<group>"; };
+		FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddController.swift; sourceTree = "<group>"; };
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
+		FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateIntTransform.swift; sourceTree = "<group>"; };
+		FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberController.swift; sourceTree = "<group>"; };
+		FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsController.swift; sourceTree = "<group>"; };
+		FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsListController.swift; sourceTree = "<group>"; };
+		FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
+		FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FamilyMemberTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1072,6 +1090,7 @@
 				E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */,
 				E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */,
 				E01906E61E55A7E100F65852 /* OnlineProvider.swift */,
+				FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */,
 			);
 			path = MoveWebAPI;
 			sourceTree = "<group>";
@@ -1513,6 +1532,11 @@
 			isa = PBXGroup;
 			children = (
 				FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */,
+				FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */,
+				FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */,
+				FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */,
+				FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */,
+				FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1520,6 +1544,9 @@
 		FF02FBCC1E6838E1008D0C84 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */,
+				FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */,
+				FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1706,6 +1733,7 @@
 				E9DD0F9C1E5ACB4600752863 /* NoticeListCell.xib in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
+				FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
 				FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */,
@@ -1899,7 +1927,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */,
+				FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */,
 				E9735EC71E69432000C0B944 /* ToDoListController.swift in Sources */,
+				FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */,
 				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
 				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
 				11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */,
@@ -1925,6 +1956,7 @@
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
+				FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */,
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
@@ -1932,13 +1964,17 @@
 				11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
+				FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */,
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
+				FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
 				11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
+				FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */,
+				FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
@@ -1983,6 +2019,7 @@
 				E0FA02961E5AEA05004A55BA /* Validation.swift in Sources */,
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
+				FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */,
 				FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
 				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,

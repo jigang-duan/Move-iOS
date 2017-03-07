@@ -124,7 +124,7 @@ class PhoneNumberController: UIViewController {
     
 //    选择国家代号
     @IBAction func selectCountryCode(_ sender: UIButton) {
-        let vc = CountryCodeViewController()
+        let vc = R.storyboard.kidInformation.countryCodeViewController()!
         self.navigationController?.show(vc, sender: nil)
     }
     

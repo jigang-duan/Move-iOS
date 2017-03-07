@@ -84,7 +84,7 @@ extension MoveApi.MessageInfo: Mappable {
         to <- map["to"]
         message <- map["message"]
         read <- map["read"]
-        time <- (map["time"], DateTransform())
+        time <- (map["time"], DateIntTransform())
     }
 }
 
@@ -116,7 +116,7 @@ extension MoveApi.NotificationInfo: Mappable {
         msg_id <- map["msg_id"]
         notification <- map["notification"]
         read <- map["read"]
-        time <- (map["time"], DateTransform())
+        time <- (map["time"], DateIntTransform())
     }
 }
 

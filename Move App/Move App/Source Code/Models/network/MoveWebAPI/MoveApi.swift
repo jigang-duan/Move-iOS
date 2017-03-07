@@ -15,7 +15,7 @@ class MoveApi {
     
     static let BaseURL: String = Configure.App.BaseURL
     
-    static let apiKey: String = Configure.App.pidAndKey
+    static let apiKey: String = "key=\(Configure.App.ApiKey)"
     
     struct ApiError {
         var id: Int?

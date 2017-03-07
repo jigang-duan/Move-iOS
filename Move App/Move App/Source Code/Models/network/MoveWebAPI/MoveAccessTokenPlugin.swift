@@ -36,7 +36,11 @@ struct MoveAccessTokenPlugin: PluginType {
         }
         
         var request = request
-        request.setValue(authVal, forHTTPHeaderField: "Authorization")
+        if let strAuth = request.allHTTPHeaderFields?["Authorization"] {
+            request.setValue("\(strAuth);token=\(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            request.setValue(authVal, forHTTPHeaderField: "Authorization")
+        }
         
         return request
     }

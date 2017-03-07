@@ -140,7 +140,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                 
                 do {
                     let json = try JSONSerialization.jsonObject(with: (feature.messageString?.utf8Encoded)!, options: JSONSerialization.ReadingOptions.allowFragments)
-                    if json is ShareQRcodeController.QRcodeInfo {
+                    if json is Dictionary<String, Any> {
                         
                     }
                 } catch {

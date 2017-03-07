@@ -100,7 +100,7 @@ extension MoveApi.AccessToken: Mappable {
     mutating func mapping(map: Map) {
         uid <- map["uid"]
         accessToken <- map["access_token"]
-        expiredAt <- (map["expired_at"], DateTransform())
+        expiredAt <- (map["expired_at"], DateIntTransform())
     }
 }
 
