@@ -23,6 +23,7 @@ class BaseAnnotation: NSObject, MKAnnotation {
 
 class LocationAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
+    var tag : Int = 0
     
     init(_ coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate

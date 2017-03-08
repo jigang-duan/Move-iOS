@@ -12,9 +12,11 @@ import RxSwift
 import RxCocoa
 import SVPulsingAnnotationView
 import FSCalendar
+
 class LocationHistoryVC: UIViewController {
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
+    var index : Int = 0
     
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -169,6 +171,7 @@ class LocationHistoryVC: UIViewController {
             }
             coords .append(location)
             let annotation = LocationAnnotation(location)
+            annotation.tag = i
             locationarr.append(annotation)
         }
         locationMap.addAnnotations(locationarr)
@@ -186,7 +189,6 @@ class LocationHistoryVC: UIViewController {
         
     }
     
-    var selectDate = Date()
     
     @IBAction func LastBtnClick(_ sender: UIButton) {
         let curday = calendar.selectedDate
@@ -204,6 +206,32 @@ class LocationHistoryVC: UIViewController {
         self .changeBtnType(time: time , date : nextday)
 
     }
+    
+    @IBAction func NextPointClick(_ sender: UIButton) {
+        locationMap.removeAnnotations(self.locationMap.annotations)
+        if index == 11 {
+            
+        }else {
+            index += 1
+        }
+        self.routeLine = self.polyline()
+        if self.routeLine != nil {
+            locationMap.add(routeLine!)
+        }
+    }
+
+    @IBAction func LastPointClick(_ sender: UIButton) {
+        locationMap.removeAnnotations(self.locationMap.annotations)
+        if index == 0 {
+        }else {
+            index -= 1
+        }
+        self.routeLine = self.polyline()
+        if self.routeLine != nil {
+            locationMap.add(routeLine!)
+        }
+    }
+    
     
     func changeBtnType(time : Int , date : Date){
         if time == 1 {
@@ -235,19 +263,30 @@ class LocationHistoryVC: UIViewController {
         let datestr = formatter.string(from: date)
         return datestr
     }
+    
+    
 }
 
 extension LocationHistoryVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is LocationAnnotation {
-            let identifier = "LocationAnnotation"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            if annotationView == nil {
-                annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            
+            let reuseIdentifier = "targetAnnoteationReuseIdentifier"
+            var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+            if annoView == nil {
+                annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             }
-            annotationView?.canShowCallout = false
-            return annotationView
+            let point = annotation as! LocationAnnotation
+            if point.tag ==  index{
+                annoView?.image = UIImage(named : "history_dot_pre")
+            }else{
+                annoView?.image = UIImage(named : "history_dot_nor")
+            }
+            
+            //history_dot_pre选中
+            annoView?.canShowCallout = false
+            return annoView
         }
         
         return nil

@@ -42,6 +42,10 @@ class MainMapController: UIViewController {
     @IBOutlet weak var electricL: UILabel!
     @IBOutlet weak var objectLocationTimeL: UILabel!
     
+    
+    
+    var mapDeviceList : MapDeviceListView?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location"
@@ -49,6 +53,11 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapDeviceList = Bundle.main.loadNibNamed("MapDeviceListView", owner: self, options: nil)?.first as! MapDeviceListView?
+        mapDeviceList?.frame = CGRect(x: objectImageBtn.frame.minX, y : mapView.frame.minY, width : objectImageBtn.frame.size.width*2, height : objectImageBtn.frame.size.height*5)
+        self.view.addSubview(mapDeviceList!)
+        mapDeviceList?.isHidden = true
         
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
@@ -138,6 +147,17 @@ class MainMapController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func AvatarImageClick(_ sender: UIButton) {
+        if isOpenList == false {
+            mapDeviceList?.isHidden = false
+            isOpenList = true
+        }else {
+            mapDeviceList?.isHidden = true
+            isOpenList = false
+        }
+    }
+    
+    
     private func openAppPreferences() {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
@@ -173,14 +193,13 @@ extension MainMapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is BaseAnnotation {
-            let reuseIdentifier = "targetAnnoteationReuseIdentifier"
-            var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? SVPulsingAnnotationView
-            if annoView == nil {
-                annoView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                annoView?.annotationColor = R.color.appColor.primary()
+            let identifier = "LocationAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil {
+                annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-            annoView?.canShowCallout = false
-            return annoView
+            annotationView?.canShowCallout = false
+            return annotationView
         }
         
         return nil

@@ -166,25 +166,29 @@
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
-		E9D1F0911E69183F00C3D20E /* contactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1F0901E69183F00C3D20E /* contactCell.swift */; };
-		E9D1F0931E69184F00C3D20E /* contactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D1F0921E69184F00C3D20E /* contactCell.xib */; };
-		E9D1F0951E691D7900C3D20E /* ContactAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1F0941E691D7900C3D20E /* ContactAnnotationView.swift */; };
 		E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */; };
 		E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA01E5D342100367A04 /* MessageHistory.swift */; };
 		E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA21E5D3D4200367A04 /* NotificationList.swift */; };
 		E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */; };
+		E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C301E6FD960009A9189 /* ContactAnnotationView.swift */; };
+		E9DA9C3A1E6FD960009A9189 /* contactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C311E6FD960009A9189 /* contactCell.swift */; };
+		E9DA9C3B1E6FD960009A9189 /* contactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C321E6FD960009A9189 /* contactCell.xib */; };
+		E9DA9C3C1E6FD960009A9189 /* NoticeDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C331E6FD960009A9189 /* NoticeDetailCell.swift */; };
+		E9DA9C3D1E6FD960009A9189 /* NoticeDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C341E6FD960009A9189 /* NoticeDetailCell.xib */; };
+		E9DA9C3E1E6FD960009A9189 /* NoticeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C351E6FD960009A9189 /* NoticeListCell.swift */; };
+		E9DA9C3F1E6FD960009A9189 /* NoticeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C361E6FD960009A9189 /* NoticeListCell.xib */; };
+		E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */; };
+		E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */; };
+		E9DA9C431E6FD9D3009A9189 /* MapDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C421E6FD9D3009A9189 /* MapDeviceListView.swift */; };
+		E9DA9C451E6FDA15009A9189 /* MapDeviceListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C441E6FDA15009A9189 /* MapDeviceListView.xib */; };
+		E9DA9C481E6FDC80009A9189 /* MapDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C461E6FDC80009A9189 /* MapDeviceCell.swift */; };
+		E9DA9C491E6FDC80009A9189 /* MapDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C471E6FDC80009A9189 /* MapDeviceCell.xib */; };
 		E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */; };
 		E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F951E5AC97400752863 /* NotificationListVC.swift */; };
 		E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */; };
-		E9DD0F9B1E5ACB4600752863 /* NoticeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F991E5ACB4600752863 /* NoticeListCell.swift */; };
-		E9DD0F9C1E5ACB4600752863 /* NoticeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DD0F9A1E5ACB4600752863 /* NoticeListCell.xib */; };
-		E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F9D1E5AD3B700752863 /* NoticeDetailCell.swift */; };
-		E9DD0FA01E5AD3B700752863 /* NoticeDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DD0F9E1E5AD3B700752863 /* NoticeDetailCell.xib */; };
 		E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC61E6A909000B66979 /* UsepermissionController.swift */; };
 		E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */; };
 		E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */; };
-		E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */; };
-		E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */; };
 		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
 		F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293A1E69160F002F4606 /* KidInformationController.swift */; };
 		F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68238531E6C57E50056EBE5 /* CountryCodeController.swift */; };
@@ -428,25 +432,29 @@
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSafeZoneVC.swift; sourceTree = "<group>"; };
-		E9D1F0901E69183F00C3D20E /* contactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactCell.swift; sourceTree = "<group>"; };
-		E9D1F0921E69184F00C3D20E /* contactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = contactCell.xib; sourceTree = "<group>"; };
-		E9D1F0941E691D7900C3D20E /* ContactAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAnnotationView.swift; sourceTree = "<group>"; };
 		E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		E9D77FA01E5D342100367A04 /* MessageHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHistory.swift; sourceTree = "<group>"; };
 		E9D77FA21E5D3D4200367A04 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
 		E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationEntity.swift; sourceTree = "<group>"; };
+		E9DA9C301E6FD960009A9189 /* ContactAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAnnotationView.swift; sourceTree = "<group>"; };
+		E9DA9C311E6FD960009A9189 /* contactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactCell.swift; sourceTree = "<group>"; };
+		E9DA9C321E6FD960009A9189 /* contactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = contactCell.xib; sourceTree = "<group>"; };
+		E9DA9C331E6FD960009A9189 /* NoticeDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeDetailCell.swift; sourceTree = "<group>"; };
+		E9DA9C341E6FD960009A9189 /* NoticeDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeDetailCell.xib; sourceTree = "<group>"; };
+		E9DA9C351E6FD960009A9189 /* NoticeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeListCell.swift; sourceTree = "<group>"; };
+		E9DA9C361E6FD960009A9189 /* NoticeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeListCell.xib; sourceTree = "<group>"; };
+		E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
+		E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
+		E9DA9C421E6FD9D3009A9189 /* MapDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDeviceListView.swift; sourceTree = "<group>"; };
+		E9DA9C441E6FDA15009A9189 /* MapDeviceListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDeviceListView.xib; sourceTree = "<group>"; };
+		E9DA9C461E6FDC80009A9189 /* MapDeviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDeviceCell.swift; sourceTree = "<group>"; };
+		E9DA9C471E6FDC80009A9189 /* MapDeviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDeviceCell.xib; sourceTree = "<group>"; };
 		E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
 		E9DD0F951E5AC97400752863 /* NotificationListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListVC.swift; sourceTree = "<group>"; };
 		E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailVC.swift; sourceTree = "<group>"; };
-		E9DD0F991E5ACB4600752863 /* NoticeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeListCell.swift; sourceTree = "<group>"; };
-		E9DD0F9A1E5ACB4600752863 /* NoticeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeListCell.xib; sourceTree = "<group>"; };
-		E9DD0F9D1E5AD3B700752863 /* NoticeDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeDetailCell.swift; sourceTree = "<group>"; };
-		E9DD0F9E1E5AD3B700752863 /* NoticeDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeDetailCell.xib; sourceTree = "<group>"; };
 		E9E30CC61E6A909000B66979 /* UsepermissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionController.swift; sourceTree = "<group>"; };
 		E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionViewModel.swift; sourceTree = "<group>"; };
 		E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneListVC.swift; sourceTree = "<group>"; };
-		E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
-		E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
 		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
 		F68238531E6C57E50056EBE5 /* CountryCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeController.swift; sourceTree = "<group>"; };
 		FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
@@ -1024,17 +1032,9 @@
 		E03B1BD71E4C9792006EDB7B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E9DA9C2F1E6FD91D009A9189 /* MapCusCell */,
 				E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */,
 				E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */,
-				E9E3F1391E56F83A00B01E29 /* SafeZoneTabViewCell.swift */,
-				E9E3F13A1E56F83A00B01E29 /* SafeZoneTabViewCell.xib */,
-				E9DD0F991E5ACB4600752863 /* NoticeListCell.swift */,
-				E9DD0F9A1E5ACB4600752863 /* NoticeListCell.xib */,
-				E9DD0F9D1E5AD3B700752863 /* NoticeDetailCell.swift */,
-				E9DD0F9E1E5AD3B700752863 /* NoticeDetailCell.xib */,
-				E9D1F0901E69183F00C3D20E /* contactCell.swift */,
-				E9D1F0921E69184F00C3D20E /* contactCell.xib */,
-				E9D1F0941E691D7900C3D20E /* ContactAnnotationView.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1510,6 +1510,26 @@
 			path = database;
 			sourceTree = "<group>";
 		};
+		E9DA9C2F1E6FD91D009A9189 /* MapCusCell */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA9C301E6FD960009A9189 /* ContactAnnotationView.swift */,
+				E9DA9C311E6FD960009A9189 /* contactCell.swift */,
+				E9DA9C321E6FD960009A9189 /* contactCell.xib */,
+				E9DA9C331E6FD960009A9189 /* NoticeDetailCell.swift */,
+				E9DA9C341E6FD960009A9189 /* NoticeDetailCell.xib */,
+				E9DA9C351E6FD960009A9189 /* NoticeListCell.swift */,
+				E9DA9C361E6FD960009A9189 /* NoticeListCell.xib */,
+				E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */,
+				E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */,
+				E9DA9C421E6FD9D3009A9189 /* MapDeviceListView.swift */,
+				E9DA9C441E6FDA15009A9189 /* MapDeviceListView.xib */,
+				E9DA9C461E6FDC80009A9189 /* MapDeviceCell.swift */,
+				E9DA9C471E6FDC80009A9189 /* MapDeviceCell.xib */,
+			);
+			path = MapCusCell;
+			sourceTree = "<group>";
+		};
 		FF02FBC21E67F625008D0C84 /* Contact */ = {
 			isa = PBXGroup;
 			children = (
@@ -1727,22 +1747,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9E3F13C1E56F83A00B01E29 /* SafeZoneTabViewCell.xib in Resources */,
+				E9DA9C3B1E6FD960009A9189 /* contactCell.xib in Resources */,
+				E9DA9C3F1E6FD960009A9189 /* NoticeListCell.xib in Resources */,
+				E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */,
 				E0931F171E30B9A500755B4A /* Localizable.strings in Resources */,
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
-				E9DD0F9C1E5ACB4600752863 /* NoticeListCell.xib in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
+				E9DA9C3D1E6FD960009A9189 /* NoticeDetailCell.xib in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */,
+				E9DA9C451E6FDA15009A9189 /* MapDeviceListView.xib in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
 				FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */,
+				E9DA9C491E6FDC80009A9189 /* MapDeviceCell.xib in Resources */,
 				D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */,
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
-				E9D1F0931E69184F00C3D20E /* contactCell.xib in Resources */,
 				E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */,
-				E9DD0FA01E5AD3B700752863 /* NoticeDetailCell.xib in Resources */,
 				E0931F101E30A97100755B4A /* appColor.clr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1942,20 +1964,22 @@
 				E0C228F01E349F5C00BCF83D /* GeolocationService.swift in Sources */,
 				E0931F281E30C05300755B4A /* SlackReport.swift in Sources */,
 				E0C228EA1E349CC200BCF83D /* MKMapView+Rx.swift in Sources */,
-				E9D1F0911E69183F00C3D20E /* contactCell.swift in Sources */,
 				E04621361E49755A007D3BD3 /* MoveApi.swift in Sources */,
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
+				E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */,
 				FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */,
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
 				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
-				E9DD0F9B1E5ACB4600752863 /* NoticeListCell.swift in Sources */,
 				FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */,
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
+				E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */,
+				E9DA9C3C1E6FD960009A9189 /* NoticeDetailCell.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
+				E9DA9C3A1E6FD960009A9189 /* contactCell.swift in Sources */,
 				FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */,
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
@@ -1969,6 +1993,7 @@
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
+				E9DA9C3E1E6FD960009A9189 /* NoticeListCell.swift in Sources */,
 				11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
@@ -1979,6 +2004,7 @@
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
+				E9DA9C481E6FDC80009A9189 /* MapDeviceCell.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
 				D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */,
@@ -2024,7 +2050,6 @@
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
 				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
-				E9E3F13B1E56F83A00B01E29 /* SafeZoneTabViewCell.swift in Sources */,
 				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,
 				11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */,
 				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
@@ -2060,7 +2085,7 @@
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
-				E9D1F0951E691D7900C3D20E /* ContactAnnotationView.swift in Sources */,
+				E9DA9C431E6FD9D3009A9189 /* MapDeviceListView.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
@@ -2081,7 +2106,6 @@
 				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
-				E9DD0F9F1E5AD3B700752863 /* NoticeDetailCell.swift in Sources */,
 				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
 				11EAC3101E6D7B14002906F1 /* UUImageAvatarBrowser.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,

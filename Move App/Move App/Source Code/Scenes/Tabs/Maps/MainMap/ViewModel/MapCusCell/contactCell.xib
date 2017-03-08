@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ohg-dK-LSA">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="member_btn_contact_nor" translatesAutoresizingMaskIntoConstraints="NO" id="ohg-dK-LSA">
                     <rect key="frame" x="13" y="7" width="54" height="54"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -46,5 +46,6 @@
     </objects>
     <resources>
         <image name="all_loaction_nor" width="52" height="52"/>
+        <image name="member_btn_contact_nor" width="21" height="21"/>
     </resources>
 </document>
