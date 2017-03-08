@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="QHa-5K-y3G" customClass="contactCell" customModule="Move_App" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="all_loaction_nor" translatesAutoresizingMaskIntoConstraints="NO" id="HRq-ad-LW6">
@@ -31,9 +31,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ohg-dK-LSA" secondAttribute="trailing" constant="13" id="0N6-gd-Thz"/>
-                <constraint firstItem="HRq-ad-LW6" firstAttribute="centerY" secondItem="QHa-5K-y3G" secondAttribute="centerY" id="2fv-AT-hzl"/>
+                <constraint firstItem="HRq-ad-LW6" firstAttribute="centerY" secondItem="QHa-5K-y3G" secondAttribute="centerY" constant="-20" id="2fv-AT-hzl"/>
                 <constraint firstItem="HRq-ad-LW6" firstAttribute="centerX" secondItem="QHa-5K-y3G" secondAttribute="centerX" id="5Jd-kA-aoS"/>
-                <constraint firstAttribute="bottom" secondItem="ohg-dK-LSA" secondAttribute="bottom" constant="19" id="KF9-8g-HL2"/>
+                <constraint firstAttribute="bottom" secondItem="ohg-dK-LSA" secondAttribute="bottom" constant="59" id="KF9-8g-HL2"/>
                 <constraint firstItem="ohg-dK-LSA" firstAttribute="leading" secondItem="QHa-5K-y3G" secondAttribute="leading" constant="13" id="T4X-BI-bc2"/>
                 <constraint firstItem="HRq-ad-LW6" firstAttribute="top" secondItem="QHa-5K-y3G" secondAttribute="top" id="hbt-Pt-4Di"/>
                 <constraint firstItem="HRq-ad-LW6" firstAttribute="leading" secondItem="QHa-5K-y3G" secondAttribute="leading" id="oro-Rp-bCU"/>

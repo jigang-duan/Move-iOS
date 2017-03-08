@@ -209,7 +209,7 @@ class LocationHistoryVC: UIViewController {
     
     @IBAction func NextPointClick(_ sender: UIButton) {
         locationMap.removeAnnotations(self.locationMap.annotations)
-        if index == 11 {
+        if index == 10 {
             
         }else {
             index += 1
@@ -272,24 +272,37 @@ extension LocationHistoryVC : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is LocationAnnotation {
             
-            let reuseIdentifier = "targetAnnoteationReuseIdentifier"
-            var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-            if annoView == nil {
-                annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-            }
             let point = annotation as! LocationAnnotation
             if point.tag ==  index{
-                annoView?.image = UIImage(named : "history_dot_pre")
+                let identifier = "LocationAnnotation"
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                if annotationView == nil {
+                    annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                }
+                annotationView?.canShowCallout = false
+                return annotationView
+//                annoView?.image = UIImage(named : "history_dot_pre")
             }else{
+                let reuseIdentifier = "targetAnnoteationReuseIdentifier"
+                var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+                if annoView == nil {
+                    annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                }
+
                 annoView?.image = UIImage(named : "history_dot_nor")
+                annoView?.canShowCallout = false
+                return annoView
             }
             
             //history_dot_pre选中
-            annoView?.canShowCallout = false
-            return annoView
+            
         }
         
         return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
     }
     
 //    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
