@@ -75,9 +75,9 @@ class DistributionViewController: UIViewController {
     }
 
     @IBAction func unwindSegueToDistribution(segue: UIStoryboardSegue) {
-        if let typeInfoChoseDevice = R.segue.accountAndChoseDeviceController.unwindChoseDevice(segue: segue) {
-            Logger.debug(typeInfoChoseDevice)
-        }
+//        if let typeInfoChoseDevice = R.segue.accountAndChoseDeviceController.unwindChoseDevice(segue: segue) {
+//            Logger.debug(typeInfoChoseDevice)
+//        }
         
     }
     
@@ -86,7 +86,7 @@ class DistributionViewController: UIViewController {
     }
     
     func enterChoseDeviceScreen() {
-        self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
+//        self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
     }
     
     func enterMainScreen() {

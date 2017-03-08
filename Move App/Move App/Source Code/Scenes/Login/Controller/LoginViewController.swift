@@ -130,7 +130,9 @@ class LoginViewController: UIViewController {
                 case .failed(let message):
                     self.showAccountError(message)
                 case .ok:
-                    Distribution.shared.backToDistribution()
+                    self.dismiss(animated: true, completion: { 
+                        
+                    })
                 default:
                     break
                 }

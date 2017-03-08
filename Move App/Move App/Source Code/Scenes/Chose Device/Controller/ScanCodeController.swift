@@ -137,17 +137,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                 self.showMessage("未检测到二维码")
             }else{
                 let feature = features![0] as! CIQRCodeFeature
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: (feature.messageString?.utf8Encoded)!, options: JSONSerialization.ReadingOptions.allowFragments)
-                    if json is Dictionary<String, Any> {
-                        
-                    }
-                } catch {
-                    
-                    
-                }
-                self.showMessage("二维码信息：" + feature.messageString!)
+                self.makeDeviceAdd(with: feature.messageString!)
             }
         }
         
@@ -178,9 +168,8 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
             qrCodeFrameView.frame = barCodeObject.bounds;
             
             if metadataObj.stringValue != nil {
-                self.showMessage("二维码信息：" + metadataObj.stringValue)
+                self.makeDeviceAdd(with: metadataObj.stringValue)
                 self.session.stopRunning()
-//                self.navigationController?.show(VerificationCodeController(), sender: self)
             }else{
                 self.showMessage("未检测到二维码")
             }
@@ -197,4 +186,23 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
         }
     }
 
+    
+    func makeDeviceAdd(with infoStr:String) {
+        do {
+            if let json = try JSONSerialization.jsonObject(with: infoStr.utf8Encoded, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
+                print(json)
+                
+                if let embeded = json["_embeded"] as? [String: Any], let links = json["_links"] as? [String: Any] {
+                    print(embeded["imei"] ?? "")
+                    if let join = links["join"] as? [String: Any] {
+                        print(join["href"] ?? "")
+                    }
+                }
+                
+            }
+        } catch {
+            print("二维码信息错误")
+        }
+    }
+    
 }

@@ -74,7 +74,7 @@ class Distribution {
     
     func showChoseDeviceScreen() {
         self.backToDistribution(completion: {
-            self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
+          //  self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
         })
     }
     

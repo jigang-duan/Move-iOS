@@ -13,12 +13,20 @@ class TabsViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
+        
         // Do any additional setup after loading the view.
         viewControllers = [
             R.storyboard.major.navHomeController()!,
-            R.storyboard.account.instantiateInitialViewController()!,
+            R.storyboard.main.instantiateInitialViewController()!,
             R.storyboard.social.instantiateInitialViewController()!
         ]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.checkLogin()
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,5 +34,11 @@ class TabsViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    func checkLogin() {
+        if UserInfo.shared.accessToken.isValidAndNotExpired == false {
+            self.performSegue(withIdentifier: R.segue.tabsViewController.presentLogin, sender: nil)
+        }
+    }
+
 
 }
