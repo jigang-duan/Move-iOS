@@ -11,8 +11,9 @@ import UIKit
 class ContactAnnotationView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        let view = Bundle.main.loadNibNamed("contactCell", owner: self, options: nil)?.first
-        self.addSubview(view as! UIView)
+        let subview = Bundle.main.loadNibNamed("contactCell", owner: self, options: nil)?.first as! contactCell
+        self.centerOffset = CGPoint(x : -40,y : -80)
+        self.addSubview(subview)
     }
     
     required init?(coder aDecoder: NSCoder) {
