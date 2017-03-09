@@ -89,12 +89,12 @@ class LocationHistoryVC: UIViewController {
         
         let geolocationService = GeolocationService.instance
         
-        let viewModel = MainMapViewModel(input: (),
-                                         dependency: (
-                                            geolocationService: geolocationService,
-                                            kidInfo: MokKidInfo()
-            )
-        )
+//        let viewModel = MainMapViewModel(input: (),
+//                                         dependency: (
+//                                            geolocationService: geolocationService,
+//                                            kidInfo: MokKidInfo()
+//            )
+//        )
         
         locationMap.rx.willStartLoadingMap
             .asDriver()
@@ -117,21 +117,21 @@ class LocationHistoryVC: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.kidLocation
-            .asObservable()
-            .take(1)
-            .bindNext { [unowned self] in
-                let region = MKCoordinateRegionMakeWithDistance($0, 1000, 1000)
-                self.locationMap.setRegion(region, animated: true)
-            }
-            .addDisposableTo(disposeBag)
-        
-        viewModel.kidAnnotion.debug()
-            .distinctUntilChanged()
-            .drive(onNext: { [unowned self] annotion in
-                
-            })
-            .addDisposableTo(disposeBag)
+//        viewModel.kidLocation
+//            .asObservable()
+//            .take(1)
+//            .bindNext { [unowned self] in
+//                let region = MKCoordinateRegionMakeWithDistance($0, 1000, 1000)
+//                self.locationMap.setRegion(region, animated: true)
+//            }
+//            .addDisposableTo(disposeBag)
+//        
+//        viewModel.kidAnnotion.debug()
+//            .distinctUntilChanged()
+//            .drive(onNext: { [unowned self] annotion in
+//                
+//            })
+//            .addDisposableTo(disposeBag)
         
         // Do any additional setup after loading the view.
         

@@ -40,6 +40,8 @@ class RxPopover {
                         handler: {
                             observer.on(.next($0 as! BasePopoverAction))
                     })
+                    item.canAvatar = action.canAvatar
+                    item.data = action.data
                     popoverActions.append(item)
                 }
                 

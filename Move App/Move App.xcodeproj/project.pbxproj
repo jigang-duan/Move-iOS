@@ -169,6 +169,9 @@
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
+		E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */; };
+		E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */; };
+		E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */; };
 		E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */; };
 		E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA01E5D342100367A04 /* MessageHistory.swift */; };
 		E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA21E5D3D4200367A04 /* NotificationList.swift */; };
@@ -182,10 +185,6 @@
 		E9DA9C3F1E6FD960009A9189 /* NoticeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C361E6FD960009A9189 /* NoticeListCell.xib */; };
 		E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */; };
 		E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */; };
-		E9DA9C431E6FD9D3009A9189 /* MapDeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C421E6FD9D3009A9189 /* MapDeviceListView.swift */; };
-		E9DA9C451E6FDA15009A9189 /* MapDeviceListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C441E6FDA15009A9189 /* MapDeviceListView.xib */; };
-		E9DA9C481E6FDC80009A9189 /* MapDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C461E6FDC80009A9189 /* MapDeviceCell.swift */; };
-		E9DA9C491E6FDC80009A9189 /* MapDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C471E6FDC80009A9189 /* MapDeviceCell.xib */; };
 		E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */; };
 		E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F951E5AC97400752863 /* NotificationListVC.swift */; };
 		E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */; };
@@ -440,6 +439,9 @@
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSafeZoneVC.swift; sourceTree = "<group>"; };
+		E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiLocationWorker.swift; sourceTree = "<group>"; };
+		E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllKidsLocationVC.swift; sourceTree = "<group>"; };
 		E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		E9D77FA01E5D342100367A04 /* MessageHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHistory.swift; sourceTree = "<group>"; };
 		E9D77FA21E5D3D4200367A04 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
@@ -453,10 +455,6 @@
 		E9DA9C361E6FD960009A9189 /* NoticeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoticeListCell.xib; sourceTree = "<group>"; };
 		E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
 		E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
-		E9DA9C421E6FD9D3009A9189 /* MapDeviceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDeviceListView.swift; sourceTree = "<group>"; };
-		E9DA9C441E6FDA15009A9189 /* MapDeviceListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDeviceListView.xib; sourceTree = "<group>"; };
-		E9DA9C461E6FDC80009A9189 /* MapDeviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDeviceCell.swift; sourceTree = "<group>"; };
-		E9DA9C471E6FDC80009A9189 /* MapDeviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDeviceCell.xib; sourceTree = "<group>"; };
 		E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
 		E9DD0F951E5AC97400752863 /* NotificationListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListVC.swift; sourceTree = "<group>"; };
 		E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailVC.swift; sourceTree = "<group>"; };
@@ -1036,6 +1034,7 @@
 				E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */,
 				E9DD0F951E5AC97400752863 /* NotificationListVC.swift */,
 				E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */,
+				E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1435,6 +1434,7 @@
 		E0FA029B1E5C0544004A55BA /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				E9CF8A681E71369500E8D8E7 /* LocationManager */,
 				1109C6521E604BAA005B4AFD /* KidSettingManager */,
 				11D0BECA1E5EBC09006F957E /* MeManager */,
 				E0FA029C1E5C057B004A55BA /* UserManager */,
@@ -1525,6 +1525,15 @@
 			path = database;
 			sourceTree = "<group>";
 		};
+		E9CF8A681E71369500E8D8E7 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */,
+				E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
 		E9DA9C2F1E6FD91D009A9189 /* MapCusCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1537,10 +1546,6 @@
 				E9DA9C361E6FD960009A9189 /* NoticeListCell.xib */,
 				E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */,
 				E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */,
-				E9DA9C421E6FD9D3009A9189 /* MapDeviceListView.swift */,
-				E9DA9C441E6FDA15009A9189 /* MapDeviceListView.xib */,
-				E9DA9C461E6FDC80009A9189 /* MapDeviceCell.swift */,
-				E9DA9C471E6FDC80009A9189 /* MapDeviceCell.xib */,
 			);
 			path = MapCusCell;
 			sourceTree = "<group>";
@@ -1771,11 +1776,9 @@
 				E9DA9C3D1E6FD960009A9189 /* NoticeDetailCell.xib in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */,
-				E9DA9C451E6FDA15009A9189 /* MapDeviceListView.xib in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
 				FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */,
-				E9DA9C491E6FDC80009A9189 /* MapDeviceCell.xib in Resources */,
 				D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */,
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
@@ -2017,10 +2020,10 @@
 				FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */,
 				FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
+				E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */,
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
-				E9DA9C481E6FDC80009A9189 /* MapDeviceCell.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
 				D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */,
@@ -2094,6 +2097,7 @@
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
+				E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */,
 				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
 				F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
@@ -2103,7 +2107,6 @@
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
-				E9DA9C431E6FD9D3009A9189 /* MapDeviceListView.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
@@ -2113,6 +2116,7 @@
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
 				E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */,
+				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationVC.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,

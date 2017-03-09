@@ -42,9 +42,8 @@ class MainMapController: UIViewController {
     @IBOutlet weak var electricL: UILabel!
     @IBOutlet weak var objectLocationTimeL: UILabel!
     
-    
-    
-    var mapDeviceList : MapDeviceListView?
+    var accountViewModel: AccountAndChoseDeviceViewModel!
+    let enterCount = Variable(0)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -54,23 +53,31 @@ class MainMapController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapDeviceList = Bundle.main.loadNibNamed("MapDeviceListView", owner: self, options: nil)?.first as! MapDeviceListView?
-        mapDeviceList?.frame = CGRect(x: objectImageBtn.frame.minX, y : mapView.frame.minY, width : objectImageBtn.frame.size.width*2, height : objectImageBtn.frame.size.height*5)
-        self.view.addSubview(mapDeviceList!)
-        mapDeviceList?.isHidden = true
-        
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         
         // Do any additional setup after loading the view.
         
         let geolocationService = GeolocationService.instance
-        let viewModel = MainMapViewModel(input: (),
-                                         dependency: (
-                                            geolocationService: geolocationService,
-                                            kidInfo: MokKidInfo()
+        
+        let viewModel = MainMapViewModel(
+            input: (
+                avatarTap: objectImageBtn.rx.tap.asDriver(),
+                avatarView: objectImageBtn
+            ),
+            dependency: (
+                geolocationService: geolocationService,
+                deviceManager: DeviceManager.shared,
+                locationManager: LocationManager.share
             )
         )
+        
+        viewModel.selecedAction
+            .bindNext({
+                Logger.info($0)
+                self.KidInfoToAnimation(dataSource: $0)
+            })
+            .addDisposableTo(disposeBag)
         
         viewModel.authorized
             .drive(noGeolocationView.rx.isHidden)
@@ -121,6 +128,9 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
 //        mapView.addAnnotation(BaseAnnotation(CLLocationCoordinate2DMake(23.227465, 113.190765)))
+        
+        self.goSearch()
+        
     }
     
     @IBAction func locationBtnClick(_ sender: UIButton) {
@@ -147,16 +157,16 @@ class MainMapController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func AvatarImageClick(_ sender: UIButton) {
-        if isOpenList == false {
-            mapDeviceList?.isHidden = false
-            isOpenList = true
-        }else {
-            mapDeviceList?.isHidden = true
-            isOpenList = false
-        }
-    }
-    
+//    @IBAction func AvatarImageClick(_ sender: UIButton) {
+//        if isOpenList == false {
+//            mapDeviceList?.isHidden = false
+//            isOpenList = true
+//        }else {
+//            mapDeviceList?.isHidden = true
+//            isOpenList = false
+//        }
+//    }
+//    
     
     private func openAppPreferences() {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
@@ -171,20 +181,67 @@ class MainMapController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func powerToAnimation(num : Int) {
-        electricL.text = String(format:"%d%",num)
-        if num == 0{
-            electricV.image = UIImage(named: "home_ic_battery0")
-        }else if num < 20 && num > 0{
-            electricV.image = UIImage(named: "home_ic_battery1")
-        }else if num < 40 && num > 20 {
-            electricV.image = UIImage(named: "home_ic_battery2")
-        }else if num < 60 && num > 40 {
-            electricV.image = UIImage(named: "home_ic_battery3")
-        }else if num < 80 && num > 60 {
-            electricV.image = UIImage(named: "home_ic_battery4")
-        }else if num < 100 && num > 80 {
-            electricV.image = UIImage(named: "home_ic_battery5")
+    func KidInfoToAnimation(dataSource : BasePopoverAction) {
+        if dataSource.title == "ALL" {
+            self.navigationController?.pushViewController((self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC"))!, animated: true)
+        }else {
+            objectNameL.text = dataSource.title
+            
+            let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
+            if device?.property != nil {
+                let property : MoveApi.DeviceProperty = (device?.property)!
+                let power = (property.power)!
+                electricL.text = String(format:"%d%",(property.power)!)
+                if power == 0{
+                    electricV.image = UIImage(named: "home_ic_battery0")
+                }else if power < 20 && power > 0{
+                    electricV.image = UIImage(named: "home_ic_battery1")
+                }else if power < 40 && power > 20 {
+                    electricV.image = UIImage(named: "home_ic_battery2")
+                }else if power < 60 && power > 40 {
+                    electricV.image = UIImage(named: "home_ic_battery3")
+                }else if power < 80 && power > 60 {
+                    electricV.image = UIImage(named: "home_ic_battery4")
+                }else if power < 100 && power > 80 {
+                    electricV.image = UIImage(named: "home_ic_battery5")
+                }
+            }
+        }
+    }
+    
+    
+    func goSearch(){
+        let fromCoordinate = CLLocationCoordinate2D(latitude: 22.546036, longitude: 113.960423)
+        let tofromCoordinate = CLLocationCoordinate2D(latitude: 22.588416, longitude: 113.972166)
+        let fromPlaceMark = MKPlacemark(coordinate: fromCoordinate, addressDictionary: nil)
+        let toPlaceMark = MKPlacemark(coordinate: tofromCoordinate, addressDictionary: nil)
+        let fromItem = MKMapItem(placemark: fromPlaceMark)
+        let toItem = MKMapItem(placemark: toPlaceMark)
+        self.findDirectionsFrom(source: fromItem, destination: toItem)
+    }
+    
+    func findDirectionsFrom(source:MKMapItem,destination:MKMapItem){
+        let request = MKDirectionsRequest()
+        request.source = source
+        request.destination = destination
+        request.transportType = MKDirectionsTransportType.walking
+        request.requestsAlternateRoutes = true;
+        let directions = MKDirections(request: request)
+        directions.calculate { (response, error) in
+            if error == nil {
+                self.showRoute(response: response!)
+            }else{
+                print("trace the error \(error?.localizedDescription)")
+            }
+        }
+    }
+    
+    func showRoute(response:MKDirectionsResponse) {
+        for route in response.routes {
+            mapView.add(route.polyline,level: MKOverlayLevel.aboveRoads)
+            let routeSeconds = route.expectedTravelTime
+            let routeDistance = route.distance
+            print("distance between two points is \(routeSeconds) and \(routeDistance)")
         }
     }
 }
@@ -203,5 +260,37 @@ extension MainMapController: MKMapViewDelegate {
         }
         
         return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        //        let render = MKPolygonRenderer(overlay: overlay)
+        
+        //        render.strokeColor = UIColor.redColor()
+        
+        //        render.lineWidth = 4.0
+        
+        //        return render
+        
+        //        if overlay is MKPolyline {
+        
+        let  polylineRenderer = MKPolylineRenderer(overlay: overlay)
+        
+        //      polylineRenderer.lineDashPattern = [14,10,6,10,4,10]
+        
+        polylineRenderer.strokeColor = UIColor.red
+        
+        //      polylineRenderer.strokeColor = UIColor(red: 0.012, green: 0.012, blue: 0.012, alpha: 1.00)
+        
+        polylineRenderer.fillColor = UIColor.blue
+        
+        polylineRenderer.lineWidth = 2.5
+        
+        return polylineRenderer
+        
+        //        }
+        
+        //        return nil
+        
     }
 }

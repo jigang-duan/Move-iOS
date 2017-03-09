@@ -39,6 +39,8 @@ class BasePopoverAction: PopoverAction {
     var canAvatar: Bool = false
     var isSelected: Bool = false
     
+    var data: Any?
+    
     required init (imageUrl: String? = nil,
           placeholderImage: UIImage? = nil,
           title: String? = nil,

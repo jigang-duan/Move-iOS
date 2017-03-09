@@ -39,10 +39,12 @@ struct KidProfile {
 }
 
 class KidSate {
-    var locaationManager: KidLocationManager
     
-    init() {
-        locaationManager = KidLocationManager()
+    struct LocationInfo {
+        var location: CLLocationCoordinate2D?
+        var address: String?
+        var accuracy: CLLocationDistance?
+        var time: Date?
     }
 }
 
