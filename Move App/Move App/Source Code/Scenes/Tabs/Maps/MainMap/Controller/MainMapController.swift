@@ -152,6 +152,9 @@ class MainMapController: UIViewController {
     
     @IBAction func GuideToWalk(_ sender: UIButton) {
         mapView.removeOverlays(mapView.overlays)
+        if (userLocation == nil || selectLocation == nil ){
+            return
+        }
         self.goSearch(fromCoordinate: userLocation!, tofromCoordinate: selectLocation!)
     }
     override func didReceiveMemoryWarning() {
