@@ -38,33 +38,32 @@ class UsepermissionController: UITableViewController {
             dependency: (
                 settingsManager: WatchSettingsManager.share,
                 validation: DefaultValidation.shared,
-                wireframe: DefaultWireframe.sharedInstance
+                wireframe: DefaultWireframe.sharedInstance,
+                disposeBag: disposeBag
             )
         )
         
-        viewModel.selectBtns.map({ $0[0] })
-            .drive(myfriendQulet.rx.value)
-            .addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[1] })
-            .drive(calltofriendQulet.rx.value)
-            .addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[2] })
-            .drive(groupchatQulet.rx.value)
-            .addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[3] })
-            .drive(voicechagerQulet.rx.value)
-            .addDisposableTo(disposeBag)
-        viewModel.selectBtns.map({ $0[4] })
-            .drive(playinghamsterQulet.rx.value)
-            .addDisposableTo(disposeBag)
+        viewModel.selected0Variable.asDriver().drive(myfriendQulet.rx.value).addDisposableTo(disposeBag)
+        viewModel.selected1Variable.asDriver().drive(calltofriendQulet.rx.value).addDisposableTo(disposeBag)
+        viewModel.selected2Variable.asDriver().drive(groupchatQulet.rx.value).addDisposableTo(disposeBag)
+        viewModel.selected3Variable.asDriver().drive(voicechagerQulet.rx.value).addDisposableTo(disposeBag)
+        viewModel.selected4Variable.asDriver().drive(playinghamsterQulet.rx.value).addDisposableTo(disposeBag)
+        
       //网络请求的时候都不用点击
         viewModel.activityIn
             .map { !$0 }
-            .drive(saveQulet.rx.isEnabled)
+            .drive(onNext: userInteractionEnabled)
             .addDisposableTo(disposeBag)
-        
-        
-        
     }
+    
+    func userInteractionEnabled(enable: Bool) {
+        myfriendQulet.isEnabled = enable
+        calltofriendQulet.isEnabled = enable
+        groupchatQulet.isEnabled = enable
+        voicechagerQulet.isEnabled = enable
+        playinghamsterQulet.isUserInteractionEnabled = enable
+        saveQulet.isEnabled = enable
+    }
+
     
 }

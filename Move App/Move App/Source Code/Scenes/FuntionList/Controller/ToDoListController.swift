@@ -2,108 +2,72 @@
 //  ToDoListController.swift
 //  Move App
 //
-//  Created by Vernon yellow on 17/2/20.
+//  Created by LX on 2017/3/8.
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 
 import UIKit
-import CustomViews
-import RxSwift
-import RxCocoa
 
-class ToDoListController: UIViewController {
-
-    @IBOutlet weak var datePickView: UIView!
-    @IBOutlet weak var datepicke: UIDatePicker!
-    @IBOutlet weak var cancelQutlet: UIButton!
-    @IBOutlet weak var confirmQulet: UIButton!
-    
+class ToDoListController: UITableViewController {
+    @IBOutlet weak var titleTextFieldQutle: UITextField!
+    @IBOutlet weak var remarkTextFieldQutlet: UITextField!
+    @IBOutlet weak var beginTimeQutlet: UITextField!
+    @IBOutlet weak var endTimeQutlet: UITextField!
    
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var eventTimeQutlet: UIButton!
-    
-    @IBOutlet weak var weekQutlet: WeekView!
-    @IBOutlet weak var saveQutlet: UIBarButtonItem!
-    
-    var eventTimeVariable = Variable(DateUtility.zone12hour())
-    
-    var disposeBag = DisposeBag()
+    var datePickView: UIView?
+    var datePicker: UIDatePicker?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.datepicke.timeZone = TimeZone(secondsFromGMT: 0)
         
-        self.eventTimeQutlet.rx.tap
-            .asDriver()
-            .drive(onNext: selectEventTime)
-            .addDisposableTo(disposeBag)
+        tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
+        beginTimeQutlet.inputView = self.datepickerInput()
+        endTimeQutlet.inputView = self.datepickerInput()
         
-        self.cancelQutlet.rx.tap
-            .asDriver()
-            .drive(onNext:  cancelDatepicker)
-            .addDisposableTo(disposeBag)
-        
-        self.confirmQulet.rx.tap
-            .asDriver()
-            .drive(onNext:  confirmDatepicker)
-            .addDisposableTo(disposeBag)
-        
-        eventTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.EventTime = date
-            })
-            .addDisposableTo(disposeBag)
         
     }
     
-    func confirmDatepicker() {
+    
+    func datepickerInput() -> (UIView) {
         
-        self.eventTimeQutlet.isSelected = false
-        self.titleTextField.isEnabled = true
-        self.eventTimeVariable.value = datepicke.date
-        self.datePickView.isHidden = true
-        
+        datePickView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 210))
+        datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 180))
+        datePicker?.locale = NSLocale(localeIdentifier: "en_GB") as Locale
+        self.datePickView?.addSubview(self.datePicker!)
+        return self.datePickView!
     }
     
-    func cancelDatepicker() -> () {
-        datePickView.isHidden = true
-        self.eventTimeQutlet.isSelected  = true
-        self.titleTextField.isEnabled = true
-        
-    }
-    
-    func selectEventTime() {
-        self.eventTimeQutlet.isSelected = true
-        self.datePickView.isHidden = false
-        self.datepicke.date = EventTime
-        self.titleTextField.isEnabled = false
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        datePickView.isHidden = true
-        self.eventTimeQutlet.isSelected = false
-        self.view.endEditing(true)
-    }
-    
+}
 
-   
+extension ToDoListController: UITextFieldDelegate {
+    
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if textField.tag == 1 {
+            self.beginTimeQutlet.text = timechangeString(date: (self.datePicker?.date)!)
+            
+        }else
+        {
+            self.endTimeQutlet.text = timechangeString(date: (self.datePicker?.date)!)
 
-    fileprivate var EventTime: Date {
-        get {
-            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: eventTimeQutlet.titleLabel?.text))
         }
-        set(newValue) {
-            eventTimeQutlet.setTitle(zoneDateString(form: newValue), for: .normal)
-        }
+       
     }
     
-    private func zoneDateString(form date: Date) -> String {
+    private func timechangeString(date : Date) -> String!{
         let dformatter = DateFormatter()
-        dformatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dformatter.dateFormat = "HH:mm"
+        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
         let dateStr = dformatter.string(from: date)
         return dateStr
     }
-
+    
+    private func stringchangeTime(dateString : String) -> Date{
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
+        return dformatter.date(from: dateString)!
+        
+    }
+    
 }

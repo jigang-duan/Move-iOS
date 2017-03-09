@@ -155,13 +155,13 @@
 		E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBD1E69432000C0B944 /* RemindersController.swift */; };
 		E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBE1E69432000C0B944 /* SafeZoneController.swift */; };
 		E9735EC61E69432000C0B944 /* SchoolTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */; };
-		E9735EC71E69432000C0B944 /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EC01E69432000C0B944 /* ToDoListController.swift */; };
 		E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EC91E69434300C0B944 /* AlarmViewModel.swift */; };
 		E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */; };
 		E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */; };
 		E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */; };
 		E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */; };
 		E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */; };
+		E993C5DD1E6FA3DD0057DECA /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
@@ -420,7 +420,6 @@
 		E9735EBD1E69432000C0B944 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
 		E9735EBE1E69432000C0B944 /* SafeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneController.swift; sourceTree = "<group>"; };
 		E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeController.swift; sourceTree = "<group>"; };
-		E9735EC01E69432000C0B944 /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
 		E9735EC91E69434300C0B944 /* AlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
 		E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
 		E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularshutdownViewModel.swift; sourceTree = "<group>"; };
@@ -428,6 +427,7 @@
 		E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeZoneController.swift; sourceTree = "<group>"; };
 		E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeZoneController.swift; sourceTree = "<group>"; };
 		E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeZoneViewModel.swift; sourceTree = "<group>"; };
+		E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
@@ -1470,9 +1470,9 @@
 				E9735EBD1E69432000C0B944 /* RemindersController.swift */,
 				E9735EBE1E69432000C0B944 /* SafeZoneController.swift */,
 				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
-				E9735EC01E69432000C0B944 /* ToDoListController.swift */,
 				E9E30CC61E6A909000B66979 /* UsepermissionController.swift */,
 				E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */,
+				E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1951,7 +1951,6 @@
 			files = (
 				FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */,
 				FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */,
-				E9735EC71E69432000C0B944 /* ToDoListController.swift in Sources */,
 				FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */,
 				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
 				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
@@ -2073,6 +2072,7 @@
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
 				D2EFB04A1E529801000BE93C /* PairWatchController.swift in Sources */,
+				E993C5DD1E6FA3DD0057DECA /* ToDoListController.swift in Sources */,
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,

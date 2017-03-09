@@ -49,62 +49,62 @@ class WatchSettingsManager  {
     }
     
     func fetchLanguages() ->  Observable<[String]>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<[String]>.empty()
         }
         return self.worker.fetchLanguages(id: deviceId)
     }
     
     func fetchLanguage() -> Observable<String> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<String>.empty()
         }
         return self.worker.fetchLanguage(id: deviceId)
     }
     
     func updateLanguage(_ language: String) -> Observable<Bool> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.updateLanguage(id: deviceId, language)
     }
     
     func fetchshutTime() -> Observable<Date>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Date>.empty()
         }
         return self.worker.fetchshutTime(id: deviceId)
         
     }
     func fetchbootTime() -> Observable<Date>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Date>.empty()
         }
         return self.worker.fetchbootTime(id: deviceId)
 
     }
     func fetchoAutopoweronoff() -> Observable<Bool> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.fetchoAutopoweronoff(id: deviceId)
     }
     
     func updateTime(_ bootTime: Date, shuntTime: Date,Autopoweronoff: Bool) -> Observable<Bool>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.updateTime(id: deviceId, bootTime: bootTime, shuntTime: shuntTime,Autopoweronoff: Autopoweronoff)
     }
     
     func fetchUsePermission() -> Observable<[Bool]>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<[Bool]>.empty()
         }
         return self.worker.fetchUsePermission(id: deviceId)
     }
     func upUsePermission(_ btns: [Bool]) -> Observable<Bool>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.upUsePermission(id: deviceId, btns: btns)
@@ -112,32 +112,32 @@ class WatchSettingsManager  {
     
     
     func fetchHoursFormat() -> Observable<Bool>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.fetchHoursFormat(id: deviceId)
     }
     func fetchGetTimeAuto() -> Observable<Bool>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.fetchGetTimeAuto(id: deviceId)
     }
     func fetchTimezone() -> Observable<Date> //发服务器为int
     {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Date>.empty()
         }
         return self.worker.fetchTimezone(id: deviceId)
     }
     func fetchSummerTime() -> Observable<Bool>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.fetchSummerTime(id: deviceId)
     }
     func updateTimezones(_ hourformat: Bool, autotime: Bool,Timezone: Date, summertime: Bool) -> Observable<Bool>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return self.worker.updateTimezones(id: deviceId, hourformat: hourformat, autotime: autotime, Timezone: Timezone, summertime: summertime)
@@ -157,28 +157,28 @@ class KidSettingsManager {
     }
     
     func fetchSchoolTime() -> Observable<KidSetting.SchoolTime> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId else {
             return Observable<KidSetting.SchoolTime>.empty()
         }
         return self.worker.fetchSchoolTime(id: deviceId)
     }
     
     func updateSchoolTime(_ schoolTime: KidSetting.SchoolTime) -> Observable<Bool> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return worker.updateSchoolTime(id: deviceId, schoolTime)
     }
     
     func updateAlarm(old: KidSetting.Reminder.Alarm, new: KidSetting.Reminder.Alarm) -> Observable<Bool> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return worker.updateAlarm(deviceId: deviceId, old: old, new: new)
     }
     
     func creadAlarm(_ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
         return worker.creadAlarm(deviceId: deviceId, alarm)

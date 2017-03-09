@@ -17,61 +17,70 @@ protocol SelectTimeZoneDelegate {
 
 class SelectTimeZoneController: UIViewController {
     
-    @IBOutlet weak var SearchBarQutlet: UISearchBar!
     @IBOutlet weak var tableviewQulet: UITableView!
-    
     @IBOutlet weak var delegate: SelectTimeZoneDelegate?
     
-    var showTimezone: [TimeZone]!
-    var showTimeZoneIdentifiers: [String]!
-    var showIndexs: [[String]]!
+    var searchController: UISearchController?
+    var visibleResultsIdentifiers: [String]!
+    var visibleResultsIndexs: [[String]]!
+    
+    fileprivate let IndexLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.map({String($0)})
+    
+    var ableTimeZoneIdentifiers: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showTimezone = TimeZone.knownTimeZoneIdentifiers
+        let showTimezone = TimeZone.knownTimeZoneIdentifiers
             .map({ TimeZone(identifier: $0) })
             .filter({ $0 != nil })
             .map({$0!})
-            .filter({ ($0.abbreviation()?.contains("GMT"))! })
+            //.filter({ ($0.abbreviation()?.contains("GMT"))! })
         
-        showTimeZoneIdentifiers = showTimezone.map({$0.identifier})
-        showIndexs = IndexLetter.map({ c in showTimeZoneIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
+        ableTimeZoneIdentifiers = showTimezone.map({$0.identifier})
+        visibleResultsIdentifiers = ableTimeZoneIdentifiers
+        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
         
-        SearchBarQutlet.delegate = self
         tableviewQulet.delegate = self
+        
+        searchController = UISearchController(searchResultsController: nil)
+        self.searchController?.searchResultsUpdater = self
+        self.searchController?.dimsBackgroundDuringPresentation = false
+        self.searchController?.delegate = self
+        self.searchController?.searchBar .sizeToFit()
+        self.tableviewQulet.tableHeaderView = self.searchController?.searchBar
+        self.definesPresentationContext = true
+        
     }
-    
 }
 
-extension SelectTimeZoneController: UISearchBarDelegate{
+
+extension SelectTimeZoneController: UISearchResultsUpdating,UISearchControllerDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //如果不写东西就显示全部
-        if searchText == "" {
-            
-        }else{
-            //for循环过滤
+    func willDismissSearchController(_ searchController: UISearchController) {
+        visibleResultsIdentifiers = ableTimeZoneIdentifiers
+        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
+        self.tableviewQulet.reloadData()
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text,
+            let count = searchController.searchBar.text?.characters.count, count > 0 {
+            visibleResultsIdentifiers = ableTimeZoneIdentifiers.filter({ $0.contains(text) })
+        } else {
+            visibleResultsIdentifiers = ableTimeZoneIdentifiers
         }
-        print("s11111111")
+        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
         self.tableviewQulet.reloadData()
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-         searchBar.resignFirstResponder()
-        print("s222222")
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        //显示全部
-        print("s33333")
-        self.tableviewQulet.reloadData()
-    }
     
 }
 
-fileprivate let IndexLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.map({String($0)})
 
 extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
     
@@ -80,18 +89,18 @@ extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showIndexs[section].count
+        return self.visibleResultsIndexs[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellTimeZone.identifier, for: indexPath)
-        cell.textLabel?.text = showIndexs[indexPath.section][indexPath.row]
-        cell.detailTextLabel?.text = TimeZone(identifier: showIndexs[indexPath.section][indexPath.row])?.abbreviation()
+        cell.textLabel?.text = visibleResultsIndexs[indexPath.section][indexPath.row]
+        cell.detailTextLabel?.text = TimeZone(identifier: visibleResultsIndexs[indexPath.section][indexPath.row])?.abbreviation()
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let timeZone = TimeZone(identifier: showIndexs[indexPath.section][indexPath.row]) {
+        if let timeZone = TimeZone(identifier: visibleResultsIndexs[indexPath.section][indexPath.row]) {
             self.delegate?.selectedTimeZone?(timeZone)
         }
         _ = self.navigationController?.popViewController(animated: true)

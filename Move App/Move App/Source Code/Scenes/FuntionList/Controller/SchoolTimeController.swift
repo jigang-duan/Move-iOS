@@ -131,22 +131,26 @@ class SchoolTimeController: UIViewController {
             dependency: (
                 kidSettingsManager: KidSettingsManager.shared,
                 validation: DefaultValidation.shared,
-                wireframe: DefaultWireframe.sharedInstance)
+                wireframe: DefaultWireframe.sharedInstance,
+                disposeBag: disposeBag
+                )
         )
         
-        viewModel.amStartDate
+        viewModel.amStartDateVariable.asDriver()
             .drive(self.amStartTimeVariable)
             .addDisposableTo(disposeBag)
         
-        viewModel.amEndDate
+        viewModel.amEndDateVariable.asDriver()
             .drive(self.amEndTimeVariable)
             .addDisposableTo(disposeBag)
         
-        viewModel.pmStartDate
+        //viewModel.pmStartDate
+        viewModel.pmStartDateVariable.asDriver()
             .drive(self.pmStartTimeVariable)
             .addDisposableTo(disposeBag)
         
-        viewModel.pmEndDate
+        //viewModel.pmEndDate
+        viewModel.pmEndDateVariable.asDriver()
             .drive(self.pmEndTimeVariable)
             .addDisposableTo(disposeBag)
         
@@ -158,15 +162,16 @@ class SchoolTimeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.openEnable
+        //viewModel.openEnable
+        viewModel.openEnableVariable.asDriver()
             .drive(openSchoolSwitch.rx.on)
             .addDisposableTo(disposeBag)
         
-        viewModel.openEnable
+        viewModel.openEnableVariable.asDriver()
             .drive(onNext: enableView)
             .addDisposableTo(disposeBag)
         
-        viewModel.openEnable
+        viewModel.openEnableVariable.asDriver()
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
         
@@ -332,6 +337,7 @@ extension SchoolTimeController {
             pmStartTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
         }
     }
+    
     fileprivate var pmEndTime: Date {
         get {
             return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: pmEndTimeOutlet.titleLabel?.text))

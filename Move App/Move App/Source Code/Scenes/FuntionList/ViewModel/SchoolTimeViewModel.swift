@@ -15,12 +15,19 @@ class SchoolTimeViewModel {
     // outputs {
     
     //
-    let openEnable: Driver<Bool>
-    let amStartDate: Driver<Date>
-    let amEndDate: Driver<Date>
-    let pmStartDate: Driver<Date>
-    let pmEndDate: Driver<Date>
-    let dayFromWeek: Driver<[Bool]>
+    //let openEnable: Driver<Bool>
+//    let amStartDate: Driver<Date>
+//    let amEndDate: Driver<Date>
+//    let pmStartDate: Driver<Date>
+//    let pmEndDate: Driver<Date>
+//    let dayFromWeek: Driver<[Bool]>
+    let openEnableVariable = Variable(false)
+    let amStartDateVariable = Variable(DateUtility.zone7hour())
+    let amEndDateVariable = Variable(DateUtility.zone12hour())
+    let pmStartDateVariable = Variable(DateUtility.zone14hour())
+    let pmEndDateVariable = Variable(DateUtility.zone16hour())
+    let dayFromWeekVariable = Variable([false, false, false, false, false, false, false])
+    
     let saveFinish: Driver<Bool>
     
     let activityIn: Driver<Bool>
@@ -40,11 +47,13 @@ class SchoolTimeViewModel {
         dependency: (
         kidSettingsManager: KidSettingsManager,
         validation: DefaultValidation,
-        wireframe: Wireframe
+        wireframe: Wireframe,
+        disposeBag: DisposeBag
         )
         ) {
         
         let manager = dependency.kidSettingsManager
+        let disposeBag = dependency.disposeBag
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
@@ -53,42 +62,60 @@ class SchoolTimeViewModel {
             .trackActivity(activitying)
             .shareReplay(1)
         
-        self.dayFromWeek = schoolTimeFromNetwork
+        //self.dayFromWeek =
+        schoolTimeFromNetwork
             .map({$0.days})
             .asDriver(onErrorJustReturn: [])
+            .drive(self.dayFromWeekVariable)
+            .addDisposableTo(disposeBag)
         
-        self.amStartDate = schoolTimeFromNetwork
+        //self.amStartDate =
+        schoolTimeFromNetwork
             .map({$0.amStartPeriod})
             .filterNil()
             .asDriver(onErrorJustReturn: DateUtility.zone7hour())
+            .drive(self.amStartDateVariable)
+            .addDisposableTo(disposeBag)
         
-        self.amEndDate = schoolTimeFromNetwork
+        //self.amEndDate =
+        schoolTimeFromNetwork
             .map({$0.amEndPeriod})
             .filterNil()
             .asDriver(onErrorJustReturn: DateUtility.zone12hour())
+            .drive(self.amEndDateVariable)
+            .addDisposableTo(disposeBag)
         
-        self.pmStartDate = schoolTimeFromNetwork
+        //self.pmStartDate =
+        schoolTimeFromNetwork
             .map({$0.pmStartPeriod})
             .filterNil()
             .asDriver(onErrorJustReturn: DateUtility.zone14hour())
+            .drive(self.pmStartDateVariable)
+            .addDisposableTo(disposeBag)
         
-        self.pmEndDate = schoolTimeFromNetwork
+        //self.pmEndDate =
+        schoolTimeFromNetwork
             .map({$0.pmEndPeriod})
             .filterNil()
             .asDriver(onErrorJustReturn: DateUtility.zone16hour())
+            .drive(self.pmEndDateVariable)
+            .addDisposableTo(disposeBag)
         
-        self.openEnable = schoolTimeFromNetwork
+        //self.openEnable =
+        schoolTimeFromNetwork
             .map({$0.active})
             .filterNil()
             .asDriver(onErrorJustReturn: false)
             .startWith(false)
+            .drive(self.openEnableVariable)
+            .addDisposableTo(disposeBag)
         
-        let schoolTime = Driver.combineLatest(input.amStart,
-                                              input.amEnd,
-                                              input.pmStart,
-                                              input.pmEnd,
-                                              input.week,
-                                              input.openEnable) {
+        let schoolTime = Driver.combineLatest(amStartDateVariable.asDriver(),
+                                              amEndDateVariable.asDriver(),
+                                              pmStartDateVariable.asDriver(),
+                                              pmEndDateVariable.asDriver(),
+                                              dayFromWeekVariable.asDriver(),
+                                              openEnableVariable.asDriver()) {
             KidSetting.SchoolTime(
                 amStartPeriod: $0,
                 amEndPeriod: $1,
@@ -97,6 +124,7 @@ class SchoolTimeViewModel {
                 days: $4,
                 active: $5)
         }
+        
         self.saveFinish = input.save
             .withLatestFrom(schoolTime)
             .flatMapLatest { schoolTime in
