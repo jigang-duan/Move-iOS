@@ -9,6 +9,8 @@
 import Foundation
 import IQKeyboardManager
 import UserNotifications
+import RxSwift
+import RxCocoa
 
 
 /// Application Manager
@@ -16,6 +18,8 @@ class ApplicationManager {
     
     //
     // MARK: - Variable
+    var disposeBag = DisposeBag()
+    
     
     // singleton
     static let sharedInstance = ApplicationManager()

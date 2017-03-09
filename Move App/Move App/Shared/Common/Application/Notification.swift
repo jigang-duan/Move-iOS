@@ -15,6 +15,13 @@ extension ApplicationManager {
     /// initialize Notification
     func initNotification() {
         NotificationService.shared.initNotification()
+        
+        NotificationService.shared.rx.userInfo
+            .asDriver()
+            .drive(onNext: {
+                Logger.info($0)
+            })
+            .addDisposableTo(disposeBag)
     }
 }
 

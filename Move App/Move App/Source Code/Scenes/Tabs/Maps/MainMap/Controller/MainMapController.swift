@@ -112,7 +112,7 @@ class MainMapController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
-        viewModel.kidAnnotion.debug()
+        viewModel.kidAnnotion
             .distinctUntilChanged()
             .drive(onNext: { [unowned self] annotion in
                 self.mapView.removeAnnotations(self.mapView.annotations)

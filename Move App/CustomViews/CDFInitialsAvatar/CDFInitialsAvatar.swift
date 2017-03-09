@@ -60,7 +60,7 @@ public class CDFInitialsAvatar {
     private func initials() -> String {
         let words = self.fullName.components(separatedBy: CharacterSet.whitespaces)
         let initials = words.filter{
-            $0.characters.count > 0
+                $0.characters.count > 0
             }
             .map {
                 $0.substring(to: $0.index($0.startIndex, offsetBy: 1))
