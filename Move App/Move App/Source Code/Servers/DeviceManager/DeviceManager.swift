@@ -40,6 +40,12 @@ extension DeviceManager {
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>  {
         return worker.getDeviceList()
     }
+    
+    func setCurrentDevice(deviceInfo: DeviceInfo) -> Observable<DeviceInfo> {
+        self.currentDevice = deviceInfo
+        Me.shared.currDeviceID = deviceInfo.deviceId
+        return Observable.just(deviceInfo)
+    }
 }
 
 

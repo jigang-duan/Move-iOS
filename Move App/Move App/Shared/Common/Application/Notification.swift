@@ -17,8 +17,11 @@ extension ApplicationManager {
         NotificationService.shared.initNotification()
         
         NotificationService.shared.rx.userInfo
-            .asDriver()
-            .drive(onNext: {
+            .asObservable()
+            .flatMapLatest({ _ in
+                AlertWireframe.shared.prompt("Your message Here", cancel: .ok)
+            })
+            .bindNext({
                 Logger.info($0)
             })
             .addDisposableTo(disposeBag)

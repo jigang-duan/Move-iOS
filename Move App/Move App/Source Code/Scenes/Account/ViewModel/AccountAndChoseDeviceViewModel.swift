@@ -17,9 +17,14 @@ class AccountAndChoseDeviceViewModel {
     let accountName: Driver<String>
     var cellDatas: Observable<[DeviceCellData]>?
     
+    let selected: Driver<Void>
+    
     var devices: [DeviceInfo]?
     
-    init (input: (Observable<Int>),
+    init (input: (
+        enterCount: Observable<Int>,
+        selectedDeviceInfo: Observable<DeviceInfo>
+        ),
         dependency: (
         userManager: UserManager,
         deviceManager: DeviceManager,
@@ -31,7 +36,7 @@ class AccountAndChoseDeviceViewModel {
         let deviceManager = dependency.deviceManager
         let _ = dependency.wireframe
         
-        let enter = input.filter({ $0 > 0 })
+        let enter = input.enterCount.filter({ $0 > 0 })
         
         self.accountName = enter.flatMapLatest { _ in
             userManger.getProfile()
@@ -42,6 +47,11 @@ class AccountAndChoseDeviceViewModel {
             userManger.getProfile()
                 .map({ $0.iconUrl ?? "" })
         }).asDriver(onErrorJustReturn: "")
+        
+        self.selected = input.selectedDeviceInfo
+            .flatMapLatest(deviceManager.setCurrentDevice)
+            .map({ _ in Void() })
+            .asDriver(onErrorJustReturn: ())
         
      
         self.cellDatas = enter.flatMapLatest({ _ in

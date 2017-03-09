@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import RxOptional
+
 
 class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
 
@@ -27,8 +29,15 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         
+        let selectedDeviceInfo = tableView.rx.itemSelected.asObservable()
+            .map({ self.viewModel.devices?[$0.row] })
+            .filterNil()
+        
         viewModel = AccountAndChoseDeviceViewModel(
-            input: (enterCount.asObservable()),
+            input: (
+                enterCount: enterCount.asObservable(),
+                selectedDeviceInfo: selectedDeviceInfo
+            ),
             dependency:(
                 userManager: UserManager.shared,
                 deviceManager: DeviceManager.shared,
@@ -59,6 +68,14 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             }
             .addDisposableTo(disposeBag)
         
+        viewModel.selected
+            .drive(onNext: { [weak self] in
+                let vc = R.storyboard.account.accountKidsRulesuserController()!
+                self?.navigationController?.show(vc, sender: nil)
+            })
+            .addDisposableTo(disposeBag)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,12 +105,12 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         return .none
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.selectionStyle = UITableViewCellSelectionStyle.none
-        let vc = R.storyboard.account.accountKidsRulesuserController()!
-        DeviceManager.shared.currentDevice = viewModel.devices?[indexPath.row]
-        self.navigationController?.show(vc, sender: nil)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell?.selectionStyle = UITableViewCellSelectionStyle.none
+//        let vc = R.storyboard.account.accountKidsRulesuserController()!
+//        DeviceManager.shared.currentDevice = viewModel.devices?[indexPath.row]
+//        self.navigationController?.show(vc, sender: nil)
+//    }
     
 }

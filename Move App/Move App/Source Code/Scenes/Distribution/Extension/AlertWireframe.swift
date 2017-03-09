@@ -14,6 +14,7 @@ enum AlertResult {
     case cancel
     case ok
     case confirm
+    case empty
 }
 
 
@@ -82,6 +83,8 @@ extension AlertResult : CustomStringConvertible {
             return "Cancel"
         case .confirm:
             return "Confirm"
+        case .empty:
+            return "Empty"
         }
     }
 }

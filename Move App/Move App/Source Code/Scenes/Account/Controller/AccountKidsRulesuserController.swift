@@ -27,7 +27,11 @@ class AccountKidsRulesuserController: UITableViewController {
         .addDisposableTo(disposeBag)
         
         let viewModel = AccountAndChoseDeviceViewModel(
-            input: (enterCount.asObservable()),
+            input: (
+                enterCount: enterCount.asObservable(),
+                selectedDeviceInfo: Observable<DeviceInfo>.empty()
+                
+            ),
             dependency:(
                 userManager: UserManager.shared,
                 deviceManager: DeviceManager.shared,
