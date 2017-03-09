@@ -186,6 +186,8 @@
 		E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */; };
 		E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F951E5AC97400752863 /* NotificationListVC.swift */; };
 		E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */; };
+		E9E2B8AA1E711D9800149257 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2B8A91E711D9800149257 /* RepeatViewController.swift */; };
+		E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */; };
 		E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC61E6A909000B66979 /* UsepermissionController.swift */; };
 		E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */; };
 		E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */; };
@@ -452,6 +454,8 @@
 		E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
 		E9DD0F951E5AC97400752863 /* NotificationListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListVC.swift; sourceTree = "<group>"; };
 		E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailVC.swift; sourceTree = "<group>"; };
+		E9E2B8A91E711D9800149257 /* RepeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
+		E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		E9E30CC61E6A909000B66979 /* UsepermissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionController.swift; sourceTree = "<group>"; };
 		E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionViewModel.swift; sourceTree = "<group>"; };
 		E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneListVC.swift; sourceTree = "<group>"; };
@@ -1457,6 +1461,7 @@
 				E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */,
 				E9735EAF1E6942A300C0B944 /* WeekView.swift */,
 				E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */,
+				E9E2B8A91E711D9800149257 /* RepeatViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1465,6 +1470,7 @@
 			isa = PBXGroup;
 			children = (
 				E9735EBA1E69432000C0B944 /* AlarmController.swift */,
+				E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */,
 				E9735EBB1E69432000C0B944 /* LanguageViewController.swift */,
 				E9735EBC1E69432000C0B944 /* RegularshutdownController.swift */,
 				E9735EBD1E69432000C0B944 /* RemindersController.swift */,
@@ -1472,7 +1478,6 @@
 				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
 				E9E30CC61E6A909000B66979 /* UsepermissionController.swift */,
 				E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */,
-				E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1486,6 +1491,7 @@
 				E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */,
 				E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */,
 				E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */,
+				E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2062,6 +2068,7 @@
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
+				E9E2B8AA1E711D9800149257 /* RepeatViewController.swift in Sources */,
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
 				E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
@@ -2117,6 +2124,7 @@
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
+				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

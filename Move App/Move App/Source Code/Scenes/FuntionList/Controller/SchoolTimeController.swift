@@ -27,12 +27,6 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var pmStartTimeOutlet: UIButton!
     @IBOutlet weak var pmEndTimeOutlet: UIButton!
     
-    var amStartTimeVariable = Variable(DateUtility.zone7hour())
-    var amEndTimeVariable = Variable(DateUtility.zone12hour())
-    var pmStartTimeVariable = Variable(DateUtility.zone14hour())
-    var pmEndTimeVariable = Variable(DateUtility.zone16hour())
-    
-    
     @IBOutlet weak var saveOutlet: UIBarButtonItem!
     @IBOutlet weak var weekOutlet: WeekView!
     
@@ -42,6 +36,8 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var pmOutlet: UILabel!
     
     var touchesBeganEnable = Variable(false)
+    
+    var viewModel: SchoolTimeViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,30 +52,6 @@ class SchoolTimeController: UIViewController {
         
         openEnable
             .drive(touchesBeganEnable)
-            .addDisposableTo(disposeBag)
-        
-        amStartTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.amStartTime = date
-            })
-            .addDisposableTo(disposeBag)
-        
-        amEndTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.amEndTime = date
-            })
-            .addDisposableTo(disposeBag)
-        
-        pmStartTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.pmStartTime = date
-            })
-            .addDisposableTo(disposeBag)
-        
-        pmEndTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.pmEndTime = date
-            })
             .addDisposableTo(disposeBag)
         
         self.amStartTimeOutlet.rx.tap
@@ -118,15 +90,10 @@ class SchoolTimeController: UIViewController {
             .drive(confirmOutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
         
-        let viewModel = SchoolTimeViewModel(
+        viewModel = SchoolTimeViewModel(
             input: (
                 save: saveOutlet.rx.tap.asDriver(),
-                week: weekOutlet.rx.weekSelected.asDriver(),
-                amStart: amStartTimeVariable.asDriver(),
-                amEnd: amEndTimeVariable.asDriver(),
-                pmStart: pmStartTimeVariable.asDriver(),
-                pmEnd: pmEndTimeVariable.asDriver(),
-                openEnable: openEnable.asDriver()
+                empty: Void()
             ),
             dependency: (
                 kidSettingsManager: KidSettingsManager.shared,
@@ -136,36 +103,21 @@ class SchoolTimeController: UIViewController {
                 )
         )
         
-        viewModel.amStartDateVariable.asDriver()
-            .drive(self.amStartTimeVariable)
-            .addDisposableTo(disposeBag)
-        
-        viewModel.amEndDateVariable.asDriver()
-            .drive(self.amEndTimeVariable)
-            .addDisposableTo(disposeBag)
-        
-        //viewModel.pmStartDate
-        viewModel.pmStartDateVariable.asDriver()
-            .drive(self.pmStartTimeVariable)
-            .addDisposableTo(disposeBag)
-        
-        //viewModel.pmEndDate
-        viewModel.pmEndDateVariable.asDriver()
-            .drive(self.pmEndTimeVariable)
-            .addDisposableTo(disposeBag)
+        viewModel.amStartDateVariable.asDriver().drive(onNext: { date in self.amStartTime = date }).addDisposableTo(disposeBag)
+        viewModel.amEndDateVariable.asDriver() .drive(onNext: { date in self.amEndTime = date }).addDisposableTo(disposeBag)
+        viewModel.pmStartDateVariable.asDriver().drive(onNext: { date in self.pmStartTime = date }).addDisposableTo(disposeBag)
+        viewModel.pmEndDateVariable.asDriver().drive(onNext: { date in self.pmEndTime = date }).addDisposableTo(disposeBag)
         
         viewModel.saveFinish
             .drive(onNext: { [weak self] finish in
                 if finish {
-                    let _ = self?.navigationController?.popViewController(animated: true)
+                    _ = self?.navigationController?.popViewController(animated: true)
                 }
             })
             .addDisposableTo(disposeBag)
         
-        //viewModel.openEnable
-        viewModel.openEnableVariable.asDriver()
-            .drive(openSchoolSwitch.rx.on)
-            .addDisposableTo(disposeBag)
+        (weekOutlet.rx.value <-> viewModel.dayFromWeekVariable).addDisposableTo(disposeBag)
+        (openSchoolSwitch.rx.value <-> viewModel.openEnableVariable).addDisposableTo(disposeBag)
         
         viewModel.openEnableVariable.asDriver()
             .drive(onNext: enableView)
@@ -248,19 +200,19 @@ class SchoolTimeController: UIViewController {
     
     private func comfirmDatepicker() {
         if amStartTimeOutlet.isSelected {
-            amStartTimeVariable.value = datepicke.date
+            viewModel.amStartDateVariable.value = datepicke.date
             amStartTimeOutlet.isSelected = false
         }
         if amEndTimeOutlet.isSelected {
-            amEndTimeVariable.value = datepicke.date
+            viewModel.amEndDateVariable.value = datepicke.date
             amEndTimeOutlet.isSelected = false
         }
         if pmStartTimeOutlet.isSelected {
-            pmStartTimeVariable.value = datepicke.date
+            viewModel.pmStartDateVariable.value = datepicke.date
             pmStartTimeOutlet.isSelected = false
         }
         if pmEndTimeOutlet.isSelected {
-            pmEndTimeVariable.value = datepicke.date
+            viewModel.pmEndDateVariable.value = datepicke.date
             pmEndTimeOutlet.isSelected = false
         }
         
@@ -321,6 +273,7 @@ extension SchoolTimeController {
             amStartTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
         }
     }
+    
     fileprivate var amEndTime: Date {
         get {
             return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amEndTimeOutlet.titleLabel?.text))
@@ -329,6 +282,7 @@ extension SchoolTimeController {
             amEndTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
         }
     }
+    
     fileprivate var pmStartTime: Date {
         get {
             return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: pmStartTimeOutlet.titleLabel?.text))

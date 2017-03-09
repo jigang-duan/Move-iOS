@@ -24,7 +24,7 @@ class SelectTimeZoneController: UIViewController {
     var visibleResultsIdentifiers: [String]!
     var visibleResultsIndexs: [[String]]!
     
-    fileprivate let IndexLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.map({String($0)})
+    fileprivate var IndexLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.map({String($0)})
     
     var ableTimeZoneIdentifiers: [String]!
     

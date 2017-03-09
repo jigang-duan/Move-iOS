@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ToDoListController: UITableViewController {
     @IBOutlet weak var titleTextFieldQutle: UITextField!
     @IBOutlet weak var remarkTextFieldQutlet: UITextField!
     @IBOutlet weak var beginTimeQutlet: UITextField!
     @IBOutlet weak var endTimeQutlet: UITextField!
-   
+
+    @IBOutlet weak var repeatStateQutlet: UILabel!
+    
+    var disposeBag = DisposeBag()
+    
     var datePickView: UIView?
     var datePicker: UIDatePicker?
     
@@ -23,6 +29,12 @@ class ToDoListController: UITableViewController {
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         beginTimeQutlet.inputView = self.datepickerInput()
         endTimeQutlet.inputView = self.datepickerInput()
+        
+        
+        
+        
+        
+        
         
         
     }
@@ -68,6 +80,14 @@ extension ToDoListController: UITextFieldDelegate {
         dformatter.dateFormat = "MM-dd-yyyy HH:mm"
         return dformatter.date(from: dateString)!
         
+    }
+    
+}
+
+extension ToDoListController: RepeatViewControlleDelegate {
+
+    func selectedRepeat(_ Repeat: String) {
+        self.repeatStateQutlet.text = Repeat
     }
     
 }

@@ -14,18 +14,12 @@ import RxOptional
 class SchoolTimeViewModel {
     // outputs {
     
-    //
-    //let openEnable: Driver<Bool>
-//    let amStartDate: Driver<Date>
-//    let amEndDate: Driver<Date>
-//    let pmStartDate: Driver<Date>
-//    let pmEndDate: Driver<Date>
-//    let dayFromWeek: Driver<[Bool]>
     let openEnableVariable = Variable(false)
     let amStartDateVariable = Variable(DateUtility.zone7hour())
     let amEndDateVariable = Variable(DateUtility.zone12hour())
     let pmStartDateVariable = Variable(DateUtility.zone14hour())
     let pmEndDateVariable = Variable(DateUtility.zone16hour())
+    
     let dayFromWeekVariable = Variable([false, false, false, false, false, false, false])
     
     let saveFinish: Driver<Bool>
@@ -37,12 +31,7 @@ class SchoolTimeViewModel {
     init(
         input: (
         save: Driver<Void>,
-        week: Driver<[Bool]>,
-        openEnable: Driver<Bool>,
-        amStart: Driver<Date>,
-        amEnd: Driver<Date>,
-        pmStart: Driver<Date>,
-        pmEnd: Driver<Date>
+        empty: Void
         ),
         dependency: (
         kidSettingsManager: KidSettingsManager,
@@ -62,14 +51,12 @@ class SchoolTimeViewModel {
             .trackActivity(activitying)
             .shareReplay(1)
         
-        //self.dayFromWeek =
         schoolTimeFromNetwork
             .map({$0.days})
             .asDriver(onErrorJustReturn: [])
             .drive(self.dayFromWeekVariable)
             .addDisposableTo(disposeBag)
         
-        //self.amStartDate =
         schoolTimeFromNetwork
             .map({$0.amStartPeriod})
             .filterNil()
@@ -77,7 +64,6 @@ class SchoolTimeViewModel {
             .drive(self.amStartDateVariable)
             .addDisposableTo(disposeBag)
         
-        //self.amEndDate =
         schoolTimeFromNetwork
             .map({$0.amEndPeriod})
             .filterNil()
@@ -85,7 +71,6 @@ class SchoolTimeViewModel {
             .drive(self.amEndDateVariable)
             .addDisposableTo(disposeBag)
         
-        //self.pmStartDate =
         schoolTimeFromNetwork
             .map({$0.pmStartPeriod})
             .filterNil()
@@ -93,7 +78,6 @@ class SchoolTimeViewModel {
             .drive(self.pmStartDateVariable)
             .addDisposableTo(disposeBag)
         
-        //self.pmEndDate =
         schoolTimeFromNetwork
             .map({$0.pmEndPeriod})
             .filterNil()
@@ -101,12 +85,10 @@ class SchoolTimeViewModel {
             .drive(self.pmEndDateVariable)
             .addDisposableTo(disposeBag)
         
-        //self.openEnable =
         schoolTimeFromNetwork
             .map({$0.active})
             .filterNil()
             .asDriver(onErrorJustReturn: false)
-            .startWith(false)
             .drive(self.openEnableVariable)
             .addDisposableTo(disposeBag)
         

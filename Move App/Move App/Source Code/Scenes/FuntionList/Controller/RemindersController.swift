@@ -9,16 +9,27 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CustomViews
 
 class RemindersController: UIViewController {
 
     @IBOutlet weak var addOutlet: UIButton!
+    @IBOutlet weak var tableViw: UITableView!
     
     var disposeBag = DisposeBag()
     
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addFuntion()
+        self.tableViw.delegate = self
+        self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
+        
+    }
 
+    func addFuntion() {
         // Do any additional setup after loading the view.
         let popover = RxPopover.shared
         popover.style = .dark
@@ -34,26 +45,33 @@ class RemindersController: UIViewController {
             }
             .bindNext(showSubController)
             .addDisposableTo(disposeBag)
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+extension RemindersController:UITableViewDelegate,UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellAlarm.identifier, for: indexPath)
+        cell.textLabel?.text = "08:00"
+        cell.detailTextLabel?.text = "School time"
+        let imag = UIImage.init(named: "reminder_school")
+        cell.imageView?.image = imag
+       
+        return cell
+    }
+    
+    
+
+}
+
 
 extension RemindersController {
 

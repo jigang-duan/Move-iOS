@@ -51,6 +51,10 @@ extension Reactive where Base: WeekView {
             week.weekSelected = sels
         }
     }
+    
+    var value: ControlProperty<[Bool]> {
+        return ControlProperty<[Bool]>(values: self.weekSelected.asObservable(), valueSink: week)
+    }
 }
 
 fileprivate func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {

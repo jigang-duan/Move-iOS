@@ -67,6 +67,29 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .map({ $0.id == 0 })
     }
     
+//    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
+//    {
+//       
+//    }
+    
+    func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>{
+        return MoveApi.Device
+            .getSetting(deviceId: deviceId)
+            .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
+                var _setting = settings
+                if _setting.reminder == nil {
+                    _setting.reminder = MoveApi.Reminder()
+                }
+                if _setting.reminder?.todo == nil {
+                    _setting.reminder?.todo = []
+                }
+                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+
+    
+    
 }
 
 class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
