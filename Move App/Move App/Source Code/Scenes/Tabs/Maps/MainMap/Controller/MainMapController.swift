@@ -28,6 +28,9 @@ class MainMapController: UIViewController {
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     
+    var userLocation : CLLocationCoordinate2D?
+    var selectLocation : CLLocationCoordinate2D?
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet var noGeolocationView: UIView!
@@ -52,12 +55,8 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
-        
-        // Do any additional setup after loading the view.
-        
         let geolocationService = GeolocationService.instance
         
         let viewModel = MainMapViewModel(
@@ -127,9 +126,7 @@ class MainMapController: UIViewController {
         })
             .addDisposableTo(disposeBag)
         
-//        mapView.addAnnotation(BaseAnnotation(CLLocationCoordinate2DMake(23.227465, 113.190765)))
         
-        self.goSearch()
         
     }
     
@@ -150,37 +147,22 @@ class MainMapController: UIViewController {
     }
     
     @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
+        
     }
     
+    @IBAction func GuideToWalk(_ sender: UIButton) {
+        mapView.removeOverlays(mapView.overlays)
+        self.goSearch(fromCoordinate: userLocation!, tofromCoordinate: selectLocation!)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-//    @IBAction func AvatarImageClick(_ sender: UIButton) {
-//        if isOpenList == false {
-//            mapDeviceList?.isHidden = false
-//            isOpenList = true
-//        }else {
-//            mapDeviceList?.isHidden = true
-//            isOpenList = false
-//        }
-//    }
-//    
-    
     private func openAppPreferences() {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     func KidInfoToAnimation(dataSource : BasePopoverAction) {
         if dataSource.title == "ALL" {
             self.navigationController?.pushViewController((self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC"))!, animated: true)
@@ -210,9 +192,7 @@ class MainMapController: UIViewController {
     }
     
     
-    func goSearch(){
-        let fromCoordinate = CLLocationCoordinate2D(latitude: 22.546036, longitude: 113.960423)
-        let tofromCoordinate = CLLocationCoordinate2D(latitude: 22.588416, longitude: 113.972166)
+    func goSearch(fromCoordinate:CLLocationCoordinate2D ,tofromCoordinate : CLLocationCoordinate2D){
         let fromPlaceMark = MKPlacemark(coordinate: fromCoordinate, addressDictionary: nil)
         let toPlaceMark = MKPlacemark(coordinate: tofromCoordinate, addressDictionary: nil)
         let fromItem = MKMapItem(placemark: fromPlaceMark)
@@ -263,34 +243,17 @@ extension MainMapController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
         //        let render = MKPolygonRenderer(overlay: overlay)
-        
         //        render.strokeColor = UIColor.redColor()
-        
         //        render.lineWidth = 4.0
-        
         //        return render
-        
         //        if overlay is MKPolyline {
-        
         let  polylineRenderer = MKPolylineRenderer(overlay: overlay)
-        
         //      polylineRenderer.lineDashPattern = [14,10,6,10,4,10]
-        
         polylineRenderer.strokeColor = UIColor.red
-        
         //      polylineRenderer.strokeColor = UIColor(red: 0.012, green: 0.012, blue: 0.012, alpha: 1.00)
-        
         polylineRenderer.fillColor = UIColor.blue
-        
         polylineRenderer.lineWidth = 2.5
-        
         return polylineRenderer
-        
-        //        }
-        
-        //        return nil
-        
     }
 }

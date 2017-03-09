@@ -192,7 +192,6 @@
 		E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */; };
 		E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC61E6A909000B66979 /* UsepermissionController.swift */; };
 		E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */; };
-		E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */; };
 		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
 		F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293A1E69160F002F4606 /* KidInformationController.swift */; };
 		F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68238531E6C57E50056EBE5 /* CountryCodeController.swift */; };
@@ -465,7 +464,6 @@
 		E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		E9E30CC61E6A909000B66979 /* UsepermissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionController.swift; sourceTree = "<group>"; };
 		E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionViewModel.swift; sourceTree = "<group>"; };
-		E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneListVC.swift; sourceTree = "<group>"; };
 		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
 		F68238531E6C57E50056EBE5 /* CountryCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeController.swift; sourceTree = "<group>"; };
 		FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
@@ -1034,13 +1032,12 @@
 			isa = PBXGroup;
 			children = (
 				E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */,
+				E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */,
 				E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */,
-				E9E3F1351E56EE6300B01E29 /* SafeZoneListVC.swift */,
 				E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */,
 				E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */,
 				E9DD0F951E5AC97400752863 /* NotificationListVC.swift */,
 				E9DD0F971E5AC9E900752863 /* NotificationDetailVC.swift */,
-				E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2140,7 +2137,6 @@
 				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
-				E9E3F1361E56EE6300B01E29 /* SafeZoneListVC.swift in Sources */,
 				11EAC3101E6D7B14002906F1 /* UUImageAvatarBrowser.swift in Sources */,
 				E0931F211E30BDD700755B4A /* DistributionViewController.swift in Sources */,
 				E9735EC61E69432000C0B944 /* SchoolTimeController.swift in Sources */,

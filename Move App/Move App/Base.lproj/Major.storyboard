@@ -293,6 +293,9 @@
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="GuideToWalk:" destination="1qy-IZ-lOf" eventType="touchUpInside" id="q6g-4w-ELv"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_battery0" translatesAutoresizingMaskIntoConstraints="NO" id="819-oq-ciP">
                                         <rect key="frame" x="161" y="8" width="21" height="21"/>
@@ -376,7 +379,6 @@
                                 <state key="normal" image="home_btn_steps_nor"/>
                                 <connections>
                                     <action selector="turnToStepCounterBtnClick:" destination="1qy-IZ-lOf" eventType="touchUpInside" id="7rx-5F-3qJ"/>
-                                    <segue destination="yba-RN-heb" kind="push" id="i0H-hX-vfI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -909,43 +911,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RB6-SU-Y7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2130" y="3355"/>
-        </scene>
-        <!--Safe Zone ListVC-->
-        <scene sceneID="R7I-zR-h6e">
-            <objects>
-                <viewController storyboardIdentifier="SafeZoneListVC" hidesBottomBarWhenPushed="YES" id="yba-RN-heb" customClass="SafeZoneListVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kaF-rw-FPP"/>
-                        <viewControllerLayoutGuide type="bottom" id="elC-3C-CI0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wyg-qb-1mg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U6Q-l6-plD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="yba-RN-heb" id="Njt-Wd-yqS"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="U6Q-l6-plD" firstAttribute="top" secondItem="kaF-rw-FPP" secondAttribute="bottom" id="9Kc-ke-6Ke"/>
-                            <constraint firstItem="U6Q-l6-plD" firstAttribute="leading" secondItem="wyg-qb-1mg" secondAttribute="leading" id="9hF-6k-X6D"/>
-                            <constraint firstAttribute="trailing" secondItem="U6Q-l6-plD" secondAttribute="trailing" id="YSi-Ap-xiJ"/>
-                            <constraint firstItem="elC-3C-CI0" firstAttribute="top" secondItem="U6Q-l6-plD" secondAttribute="bottom" id="as1-af-AfI"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="LJM-dW-kP6"/>
-                    <connections>
-                        <outlet property="tableView" destination="U6Q-l6-plD" id="xyc-hd-KQb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hAv-Mp-0fH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2831" y="3298"/>
         </scene>
         <!--All Kids LocationVC-->
         <scene sceneID="o21-tY-rna">
