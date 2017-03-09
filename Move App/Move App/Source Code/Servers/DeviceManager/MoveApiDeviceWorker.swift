@@ -12,7 +12,12 @@ import RxSwift
 
 class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
-    func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool> {
+    func checkBind(deviceId: String) -> Observable<Bool> {
+        return MoveApi.Device.checkBind(deviceId: deviceId)
+            .map({$0.bind ?? true})
+    }
+    
+    func addDevice(firstBindInfo: DeviceBindInfo) -> Observable<Bool> {
         var addInfo = MoveApi.DeviceAdd()
         addInfo.sid = firstBindInfo.sid
         addInfo.vcode = firstBindInfo.vcode
@@ -39,6 +44,28 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 throw error
         }
     }
+    
+    func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
+        var info = MoveApi.DeviceJoinInfo()
+        info.identity = MoveApi.DeviceAddIdentity.transform(input:(joinInfo.identity?.rawValue)!)
+        info.phone = joinInfo.phone
+        info.profile = joinInfo.profile
+    
+        return MoveApi.Device.joinDeviceGroup(deviceId: joinInfo.deviceId!, joinInfo: info)
+            .map {info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
+    
     
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
         return MoveApi.Device.getDeviceList()

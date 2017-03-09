@@ -71,6 +71,7 @@ class IputIMEIControllerTableController: UITableViewController {
             ),
             dependency: (
                 userManager: UserManager.shared,
+                deviceManager: DeviceManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
@@ -90,7 +91,7 @@ class IputIMEIControllerTableController: UITableViewController {
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self.showMessage(message)
                 case .ok(let message):
                     self.gotoVerifyVC(message)
                 default:
@@ -101,6 +102,15 @@ class IputIMEIControllerTableController: UITableViewController {
         
     }
     
+    
+    func showMessage(_ text: String) {
+        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(action)
+        self.present(vc, animated: true) {
+            
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

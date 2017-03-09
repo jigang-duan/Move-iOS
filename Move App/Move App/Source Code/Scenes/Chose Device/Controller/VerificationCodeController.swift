@@ -154,10 +154,11 @@ class VerificationCodeController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.verificationCodeController.showPhoneNumber(segue: segue) {
-            var addInfo = DeviceFirstBindInfo()
+            var addInfo = DeviceBindInfo()
             addInfo.deviceId = self.imei
             addInfo.sid = self.sid
             addInfo.vcode = vcodeTf.text
+            addInfo.isMaster = true
             sg.destination.deviceAddInfo = addInfo
         }
     }

@@ -10,20 +10,11 @@ import UIKit
 
 class RelationshipTableController: UITableViewController {
     
-//    @IBOutlet weak var MotherCell: UITableViewCell!
-//    @IBOutlet weak var FatherCell: UITableViewCell!
-//    @IBOutlet weak var GrandmaCell: UITableViewCell!
-//    @IBOutlet weak var GrandapaCell: UITableViewCell!
-//    @IBOutlet weak var AntyCell: UITableViewCell!
-//    @IBOutlet weak var UncleCell: UITableViewCell!
-//    @IBOutlet weak var BrotherCell: UITableViewCell!
-//    @IBOutlet weak var SisterCell: UITableViewCell!
-//    @IBOutlet weak var OtherCell: UITableViewCell!
+    var relationBlock: ((Int) -> Void)?
     
     @IBOutlet var cells: [UITableViewCell]!
     
-    var deviceAddInfo: DeviceFirstBindInfo?
-    var selectedRelation: Relation?
+    var deviceAddInfo: DeviceBindInfo?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,8 +45,29 @@ class RelationshipTableController: UITableViewController {
                 cell.accessoryType = UITableViewCellAccessoryType.none
             }
         }
-        self.selectedRelation = Relation(rawValue: indexPath.row + 1)
-        self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)
+        
+        if self.relationBlock != nil {
+            self.relationBlock!(indexPath.row + 1)
+            _ = self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        deviceAddInfo?.identity = Relation(rawValue: indexPath.row + 1)
+        
+        if deviceAddInfo?.isMaster == true {
+            self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)
+        }else{
+            _ = DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!).subscribe({ (event) in
+                switch event{
+                case .next(let value):
+                    print(value)
+                case .completed:
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                case .error(let error):
+                    print(error)
+                }
+            })
+        }
     }
     
     
@@ -63,7 +75,6 @@ class RelationshipTableController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.relationshipTableController.showKidInformation(segue: segue) {
             sg.destination.deviceAddInfo = self.deviceAddInfo
-            sg.destination.deviceAddInfo?.identity = self.selectedRelation
         }
     }
     

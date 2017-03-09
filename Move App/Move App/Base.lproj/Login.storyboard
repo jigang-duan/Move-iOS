@@ -258,18 +258,7 @@
                             <constraint firstItem="Czz-QO-uP3" firstAttribute="leading" secondItem="ZnH-CB-kaZ" secondAttribute="trailing" constant="15" id="sh6-ZZ-7fd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="dwi-4Z-s9G">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ua4-Pp-a95">
-                                <rect key="frame" x="16" y="7" width="42" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Log in"/>
-                                <connections>
-                                    <segue destination="KlY-9v-raZ" kind="unwind" unwindAction="unwindSegueToDistributionWithSegue:" id="KRB-pg-51P"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA"/>
                     <connections>
                         <outlet property="accountValidationHCon" destination="K8T-RU-Xy5" id="jpK-Yo-DQG"/>
                         <outlet property="emailLine" destination="llT-7X-wmS" id="mtd-FK-lz9"/>
@@ -283,7 +272,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6t-eD-GgA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="KlY-9v-raZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1908.75" y="-177.5"/>
         </scene>

@@ -89,6 +89,8 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = UITableViewCellSelectionStyle.none
         let vc = R.storyboard.account.accountKidsRulesuserController()!
         DeviceManager.shared.currentDevice = viewModel.devices?[indexPath.row]
         self.navigationController?.show(vc, sender: nil)

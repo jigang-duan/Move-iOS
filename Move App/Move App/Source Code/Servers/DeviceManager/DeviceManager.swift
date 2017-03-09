@@ -25,8 +25,16 @@ class DeviceManager {
 
 extension DeviceManager {
     
-    func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool>{
+    func checkBind(deviceId: String) -> Observable<Bool> {
+        return worker.checkBind(deviceId: deviceId)
+    }
+    
+    func addDevice(firstBindInfo: DeviceBindInfo) -> Observable<Bool>{
         return worker.addDevice(firstBindInfo: firstBindInfo)
+    }
+    
+    func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
+        return worker.joinGroup(joinInfo: joinInfo)
     }
    
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>  {
@@ -37,7 +45,11 @@ extension DeviceManager {
 
 protocol DeviceWorkerProtocl {
     
-    func addDevice(firstBindInfo: DeviceFirstBindInfo) -> Observable<Bool>
+    func checkBind(deviceId: String) -> Observable<Bool>
+    
+    func addDevice(firstBindInfo: DeviceBindInfo) -> Observable<Bool>
+    
+    func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool>
     
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>
     
@@ -75,7 +87,8 @@ struct DeviceProperty {
     var power :Int?
 }
 
-struct DeviceFirstBindInfo {
+struct DeviceBindInfo {
+    var isMaster: Bool?
     var deviceId: String?
     var sid: String?
     var vcode: String?
@@ -89,3 +102,4 @@ struct DeviceFirstBindInfo {
     var weight: Int?
     var birthday: Date?
 }
+

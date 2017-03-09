@@ -200,6 +200,7 @@
 		FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */; };
 		FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */; };
 		FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07DA5F1E652011000E87B7 /* PhoneNumberViewModel.swift */; };
+		FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
@@ -214,6 +215,8 @@
 		FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */; };
 		FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */; };
 		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
+		FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D931E7021F2006B80AE /* UpgradeController.swift */; };
+		FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D951E702464006B80AE /* UpgradeViewModel.swift */; };
 		FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */; };
 		FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */; };
 		FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */; };
@@ -469,6 +472,7 @@
 		FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiDeviceWorker.swift; sourceTree = "<group>"; };
 		FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareQRcodeController.swift; sourceTree = "<group>"; };
 		FF07DA5F1E652011000E87B7 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
+		FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddViewModel.swift; sourceTree = "<group>"; };
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
@@ -482,6 +486,8 @@
 		FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddController.swift; sourceTree = "<group>"; };
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
+		FFE84D931E7021F2006B80AE /* UpgradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeController.swift; sourceTree = "<group>"; };
+		FFE84D951E702464006B80AE /* UpgradeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
 		FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateIntTransform.swift; sourceTree = "<group>"; };
 		FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberController.swift; sourceTree = "<group>"; };
 		FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsController.swift; sourceTree = "<group>"; };
@@ -1295,6 +1301,7 @@
 				D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */,
 				D239B1F21E55AD520013E72E /* AccountKidsGeneraluserController.swift */,
 				D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */,
+				FFE84D931E7021F2006B80AE /* UpgradeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1305,6 +1312,7 @@
 				E0931F581E31ED6900755B4A /* CellData.swift */,
 				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
+				FFE84D951E702464006B80AE /* UpgradeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1587,6 +1595,7 @@
 				FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */,
 				FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */,
 				FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */,
+				FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2025,6 +2034,7 @@
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
+				FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */,
 				D24F83601E52EC820035CB17 /* PhoneNumberController.swift in Sources */,
 				D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
@@ -2046,6 +2056,7 @@
 				E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */,
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
 				E9DD0F981E5AC9E900752863 /* NotificationDetailVC.swift in Sources */,
+				FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */,
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
 				11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */,
 				E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */,
@@ -2086,6 +2097,7 @@
 				E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
 				D239B1F31E55AD520013E72E /* AccountKidsGeneraluserController.swift in Sources */,
+				FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */,
 				D2E5E8531E5D229D0024D20C /* (null) in Sources */,

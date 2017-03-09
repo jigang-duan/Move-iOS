@@ -31,7 +31,7 @@ class FamilyMemberController: UIViewController {
         
         tableView.register(R.nib.familyMemberTableViewCell)
         
-        items =  Observable.just([FamilyMemberCellData(headUrl: "", isHeartOn: true, relation: "xxxxxxxx")])
+        items =  Observable.just([FamilyMemberCellData(headUrl: "", isHeartOn: true, relation: "5")])
     
         items?
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ (row, element, cell) in

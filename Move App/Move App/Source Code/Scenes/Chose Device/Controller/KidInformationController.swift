@@ -14,7 +14,7 @@ class KidInformationController: UIViewController {
     
     @IBOutlet weak var nextBun: UIButton!
     
-    var deviceAddInfo: DeviceFirstBindInfo?
+    var deviceAddInfo: DeviceBindInfo?
     
     var viewModel: KidInformationViewModel!
     var disposeBag = DisposeBag()

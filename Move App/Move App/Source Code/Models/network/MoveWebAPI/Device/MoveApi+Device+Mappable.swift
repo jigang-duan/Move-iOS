@@ -56,6 +56,10 @@ extension MoveApi {
         }
     }
     
+    struct DeviceBind {
+        var bind: Bool?
+    }
+    
     struct DeviceAdd {
         var sid: String?
         var vcode: String?
@@ -248,6 +252,15 @@ extension MoveApi.SchoolTimePeriod: Mappable {
     mutating func mapping(map: Map) {
         start <- (map["start"], DateIntTransform())
         end <- (map["end"], DateIntTransform())
+    }
+}
+
+extension MoveApi.DeviceBind: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        bind <- map["bind"]
     }
 }
 

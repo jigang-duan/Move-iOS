@@ -18,7 +18,7 @@ class PhoneNumberController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: PhoneNumberViewModel!
     
-    var deviceAddInfo: DeviceFirstBindInfo?
+    var deviceAddInfo: DeviceBindInfo?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

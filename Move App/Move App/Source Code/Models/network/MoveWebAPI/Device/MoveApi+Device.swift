@@ -25,6 +25,10 @@ extension MoveApi {
         final class func request(_ target: API) -> Observable<Response> {
             return defaultProvider.request(target)
         }
+//        检查设备绑定状态
+        final class func checkBind(deviceId: String) ->Observable<DeviceBind>{
+            return request(.checkBind(deviceId: deviceId)).mapMoveObject(DeviceBind.self)
+        }
 //        添加设备
         final class func add(deviceId: String, addInfo: DeviceAdd) -> Observable<ApiError> {
             return request(.add(deviceId: deviceId, addInfo: addInfo)).mapMoveObject(ApiError.self)
@@ -87,6 +91,7 @@ extension MoveApi {
         }
         
         enum API {
+            case checkBind(deviceId: String)
             case add(deviceId: String, addInfo: DeviceAdd)
             case joinDeviceGroup(deviceId: String, joinInfo: DeviceJoinInfo)
             case getDeviceList(pid: Int)
@@ -121,6 +126,8 @@ extension MoveApi.Device.API: TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
+        case .checkBind(let deviceId):
+            return "/v1.0/device/\(deviceId)/bind"
         case .add(let deviceId, _):
             return "/v1.1/device/\(deviceId)"
         case .joinDeviceGroup(let deviceId, _):
@@ -159,7 +166,7 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add, .joinDeviceGroup, .sendNotify, .addNoRegisterMember:
             return .post
-        case .getDeviceList, .getDeviceInfo, .getSetting, .getProperty, .getPower:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .getSetting, .getProperty, .getPower:
             return .get
         case .update, .setting, .settingProperty, .addPower:
             return .put
@@ -175,9 +182,7 @@ extension MoveApi.Device.API: TargetType {
             return addInfo.toJSON()
         case .joinDeviceGroup(_, let joinInfo):
             return joinInfo.toJSON()
-        case .getDeviceList:
-            return nil
-        case .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getSetting, .getProperty, .getPower:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getSetting, .getProperty, .getPower:
             return nil
         case .update(_, let updateInfo):
             return updateInfo.toJSON()

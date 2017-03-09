@@ -28,7 +28,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="bSo-2W-MHM" kind="presentation" identifier="presentLogin" id="Tj2-eP-X5J"/>
+                        <segue destination="bSo-2W-MHM" kind="presentation" identifier="presentLogin" modalTransitionStyle="flipHorizontal" id="Tj2-eP-X5J"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDy-cv-cA6" userLabel="First Responder" sceneMemberID="firstResponder"/>

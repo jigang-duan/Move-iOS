@@ -18,7 +18,7 @@ class KidInformationViewModel {
     let nextEnabled: Driver<Bool>
     var nextResult: Driver<ValidationResult>?
     
-    var addInfo: DeviceFirstBindInfo?
+    var addInfo: DeviceBindInfo?
     
     init(
         input: (
