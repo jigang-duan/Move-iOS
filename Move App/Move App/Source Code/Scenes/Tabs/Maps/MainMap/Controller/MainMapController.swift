@@ -13,6 +13,7 @@ import RxCocoa
 import SVPulsingAnnotationView
 import Realm
 import RealmSwift
+import MessageUI
 
 //private extension Reactive where Base: MKMapView {
 //    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
@@ -23,13 +24,13 @@ import RealmSwift
 //    }
 //}
 
-class MainMapController: UIViewController {
+class MainMapController: UIViewController , MFMessageComposeViewControllerDelegate{
     
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     
-    var userLocation : CLLocationCoordinate2D?
-    var selectLocation : CLLocationCoordinate2D?
+    var userPoint : CLLocationCoordinate2D?
+    var selectPoint : CLLocationCoordinate2D?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -44,6 +45,8 @@ class MainMapController: UIViewController {
     @IBOutlet weak var electricV: UIImageView!
     @IBOutlet weak var electricL: UILabel!
     @IBOutlet weak var objectLocationTimeL: UILabel!
+    
+    var currentDeviceData : BasePopoverAction?
     
     var accountViewModel: AccountAndChoseDeviceViewModel!
     let enterCount = Variable(0)
@@ -74,6 +77,7 @@ class MainMapController: UIViewController {
         viewModel.selecedAction
             .bindNext({
                 Logger.info($0)
+                self.currentDeviceData = $0
                 self.KidInfoToAnimation(dataSource: $0)
             })
             .addDisposableTo(disposeBag)
@@ -131,7 +135,9 @@ class MainMapController: UIViewController {
     }
     
     @IBAction func locationBtnClick(_ sender: UIButton) {
-        
+        if (currentDeviceData != nil) {
+            
+        }
     }
     
     @IBAction func routeBtnClick(_ sender: UIButton) {
@@ -143,19 +149,65 @@ class MainMapController: UIViewController {
     }
     
     @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
-        
+        if (currentDeviceData != nil) {
+            let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+            
+//            let callWebView = UIWebView()
+//            callWebView.loadRequest(URLRequest(url:URL(string: "tel:\(device.user?.number)")!))
+//            self.view.addSubview(callWebView)
+            //2.有提示
+            UIApplication.shared.openURL(URL(string: "telprompt://\(device.user?.number)")!)
+            //3.无提示
+//            UIApplication.shared.openURL(URL(string: "tel://10086")!)
+        }
     }
     
     @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-        
+        if (currentDeviceData != nil) {
+            if MFMessageComposeViewController.canSendText(){
+                let controller = MFMessageComposeViewController()
+                //设置短信内容
+                controller.body = ""
+                //设置收件人列表
+                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+                controller.recipients = [(device.user?.number)!]
+                //设置代理
+                controller.messageComposeDelegate = self
+                //打开界面
+                self.present(controller, animated: true, completion: { () -> Void in
+                    
+                })
+            }else{
+                print("本设备不能发送短信")
+            }
+        }
+    }
+    
+    
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+        switch result{
+            case MessageComposeResult.sent :
+            print("短信已发送")
+            
+            case MessageComposeResult.cancelled:
+            print("短信取消发送")
+            
+            case MessageComposeResult.failed:
+            print("短信发送失败")
+            
+        default :
+            print("没有匹配的")
+        }
     }
     
     @IBAction func GuideToWalk(_ sender: UIButton) {
         mapView.removeOverlays(mapView.overlays)
-        if (userLocation == nil || selectLocation == nil ){
+        if (userPoint == nil || selectPoint == nil ){
             return
         }
-        self.goSearch(fromCoordinate: userLocation!, tofromCoordinate: selectLocation!)
+        self.goSearch(fromCoordinate: userPoint!, tofromCoordinate: selectPoint!)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
