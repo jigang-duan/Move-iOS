@@ -116,13 +116,7 @@ class MoveApiUserWorker: UserWorkerProtocl {
     }
     
     private func wrapProfile(_ profile: MoveApi.UserInfoMap) -> UserInfo.Profile {
-        UserInfo.shared.profile = UserInfo.Profile(
-            username: profile.username,
-            password: profile.password,
-            nickname: profile.nickname,
-            email: profile.email,
-            phone: profile.phone,
-            iconUrl: profile.profile)
+        UserInfo.shared.profile = UserInfo.Profile(username: profile.username, password: profile.password, nickname: profile.nickname, email: profile.email, phone: profile.phone, iconUrl: profile.profile, gender: profile.gender, height: profile.height, weight: profile.weight, unit_value: profile.unit_value, unit_weight_value: profile.unit_weight_value, orientation: profile.orientation, birthday: profile.birthday, mtime: profile.mtime)
         return UserInfo.shared.profile!
     }
     
@@ -138,5 +132,73 @@ class MoveApiUserWorker: UserWorkerProtocl {
             .map(wrapProfile)
     }
     
+    func setUserInfo(userInfo: UserInfo.Profile, newPassword: String) -> Observable<Bool> {
+        var info = MoveApi.UserInfoSetting()
+        info.nickname = userInfo.nickname
+        info.password = userInfo.password
+        info.new_password = newPassword == "" ? nil : newPassword
+        info.phone = userInfo.phone
+        info.email = userInfo.email
+        info.gender = userInfo.gender
+        info.height = userInfo.height
+        info.weight = userInfo.weight
+        info.unit_value = userInfo.unit_value
+        info.unit_weight_value = userInfo.unit_weight_value
+        info.orientation = userInfo.orientation
+        info.birthday = userInfo.birthday
+        info.mtime = userInfo.mtime
+        return MoveApi.Account.settingUserInfo(uid: UserInfo.shared.id!, info: info)
+            .map { info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
+    
+    
+    
+    func logout() -> Observable<Bool> {
+        return MoveApi.Account.logout()
+            .map { info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+
+    }
+    
+    
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

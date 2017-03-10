@@ -47,6 +47,14 @@ extension MoveApi {
         var nickname: String?
         var username: String?
         var password: String?
+        var gender: String?
+        var height: Int?
+        var weight: Int?
+        var unit_value: Int?
+        var unit_weight_value: Int?
+        var orientation:Int?
+        var birthday: Date?
+        var mtime: Date?
     }
     
     struct LoginInfo {
@@ -67,6 +75,14 @@ extension MoveApi {
         var nickname: String?
         var password: String?
         var new_password: String?
+        var gender: String?
+        var height: Int?
+        var weight: Int?
+        var unit_value: Int?
+        var unit_weight_value: Int?
+        var orientation:Int?
+        var birthday: Date?
+        var mtime: Date?
     }
     
     struct UserFindInfo {
@@ -153,6 +169,14 @@ extension MoveApi.UserInfoMap: Mappable{
         nickname <- map["nickname"]
         username <- map["username"]
         password <- map["password"]
+        gender <- map["gender"]
+        height <- map["height"]
+        weight <- map["weight"]
+        unit_value <- map["unit_value"]
+        unit_weight_value <- map["unit_weight_value"]
+        orientation <- map["orientation"]
+        birthday <- (map["birthday"], DateIntTransform())
+        mtime <- (map["mtime"], DateIntTransform())
     }
 }
 
@@ -192,6 +216,14 @@ extension MoveApi.UserInfoSetting: Mappable{
         nickname <- map["nickname"]
         new_password <- map["new_password"]
         password <- map["password"]
+        gender <- map["gender"]
+        height <- map["height"]
+        weight <- map["weight"]
+        unit_value <- map["unit_value"]
+        unit_weight_value <- map["unit_weight_value"]
+        orientation <- map["orientation"]
+        birthday <- (map["birthday"], DateIntTransform())
+        mtime <- (map["mtime"], DateIntTransform())
     }
 }
 

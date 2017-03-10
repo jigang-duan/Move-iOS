@@ -80,7 +80,18 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         enterCount.value += 1
+        self.navigationController?.navigationBar.isHidden = true
+        UIApplication.shared.isStatusBarHidden = true
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
+        UIApplication.shared.isStatusBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {

@@ -482,7 +482,7 @@
         <!--Set Your Weight Controller-->
         <scene sceneID="tgS-SX-MmP">
             <objects>
-                <viewController id="Bbf-Ce-9Jh" customClass="SetYourWeightController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetYourWeightController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bbf-Ce-9Jh" customClass="SetYourWeightController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YjA-IO-KCj"/>
                         <viewControllerLayoutGuide type="bottom" id="LVQ-iG-3nT"/>
@@ -616,7 +616,7 @@
         <!--Set Your Gender Controller-->
         <scene sceneID="yek-4p-KUQ">
             <objects>
-                <viewController id="f0O-Dy-3UW" customClass="SetYourGenderController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetYourGenderController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="f0O-Dy-3UW" customClass="SetYourGenderController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3ih-Hi-wbd"/>
                         <viewControllerLayoutGuide type="bottom" id="6ZX-jB-mko"/>
@@ -725,7 +725,7 @@
         <!--Set Your Heght Controller-->
         <scene sceneID="l06-tE-8Fd">
             <objects>
-                <viewController id="gyc-sv-BHv" customClass="SetYourHeghtController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetYourHeghtController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gyc-sv-BHv" customClass="SetYourHeghtController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eAN-Ss-XxP"/>
                         <viewControllerLayoutGuide type="bottom" id="ulG-3m-SS7"/>
@@ -833,7 +833,7 @@
         <!--Set Your Birthday Controller-->
         <scene sceneID="itV-EM-Dzw">
             <objects>
-                <viewController id="M0b-OA-Gky" customClass="SetYourBirthdayController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetYourBirthdayController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M0b-OA-Gky" customClass="SetYourBirthdayController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Ty-v3-QhN"/>
                         <viewControllerLayoutGuide type="bottom" id="jFg-y0-U65"/>
@@ -868,14 +868,11 @@
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="30" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlE-cz-Owa">
                                 <rect key="frame" x="27.5" y="243.5" width="320" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="508827600.569695">
-                                    <!--2017-02-15 05:00:00 +0000-->
+                                <date key="date" timeIntervalSinceReferenceDate="504939600.569695">
+                                    <!--2017-01-01 05:00:00 +0000-->
                                 </date>
-                                <date key="minimumDate" timeIntervalSinceReferenceDate="-3187256743">
-                                    <!--1900-01-01 10:54:17 +0000-->
-                                </date>
-                                <date key="maximumDate" timeIntervalSinceReferenceDate="946638000">
-                                    <!--2030-12-31 11:00:00 +0000-->
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-3187281943">
+                                    <!--1900-01-01 03:54:17 +0000-->
                                 </date>
                                 <locale key="locale" localeIdentifier="en_AS"/>
                             </datePicker>

@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import CustomViews
 
 
 class ShareQRcodeController: UIViewController {
+    
+    @IBOutlet weak var backImgV: UIImageView!
     
     @IBOutlet weak var headImgV: UIImageView!
     @IBOutlet weak var kidName: UILabel!
@@ -22,10 +25,31 @@ class ShareQRcodeController: UIViewController {
     var memberName: String?
     var memberPhone: String?
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = true
+        UIApplication.shared.isStatusBarHidden = true
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
+        UIApplication.shared.isStatusBarHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
- 
+        let startColor = UIColor.init(red: 26/255, green: 189/255, blue: 241/255, alpha: 1)
+        let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
+        
+        let backImg = UIImage(gradientColors: [startColor, endColor],size: CGSize(width: self.backImgV.frame.width, height: self.backImgV.frame.height),locations: [0.0,1.0])
+        backImgV.image = backImg
+        
         let info = self.makeQRinfo()
         QRimgV.image = self.createQRForString(qrString: info)
     }
@@ -37,7 +61,9 @@ class ShareQRcodeController: UIViewController {
         
         let downTime = Date(timeIntervalSinceNow: 3600)
         
-        headImgV.imageFromURL(device.user?.profile ?? "", placeholder: R.image.relationship_ic_other()!)
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headImgV.frame.width, height: headImgV.frame.height), fullName: device.user?.nickname ?? "").imageRepresentation()!
+        headImgV.imageFromURL(device.user?.profile ?? "", placeholder: placeImg)
+        
         kidName.text = device.user?.nickname
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -124,6 +150,11 @@ class ShareQRcodeController: UIViewController {
         self.present(vc, animated: true, completion: {
         
         })
+    }
+    
+    
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
 }

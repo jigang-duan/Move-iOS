@@ -52,6 +52,14 @@ extension UserManager {
     func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool> {
         return worker.updatePasssword(sid: sid, vcode: vcode, email: email, password: password)
     }
+    
+    func setUserInfo(userInfo: UserInfo.Profile, newPassword: String = "") -> Observable<Bool> {
+        return worker.setUserInfo(userInfo: userInfo, newPassword: newPassword)
+    }
+    
+    func logout() -> Observable<Bool> {
+        return worker.logout()
+    }
 }
 
 
@@ -71,6 +79,10 @@ protocol UserWorkerProtocl {
     func checkVcode(sid: String, vcode: String) -> Observable<Bool>
     
     func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool>
+    
+    func setUserInfo(userInfo: UserInfo.Profile, newPassword: String) -> Observable<Bool>
+    
+    func logout() -> Observable<Bool>
 }
 
 
@@ -102,6 +114,14 @@ class UserInfo {
         var phone: String?
         
         var iconUrl: String?
+        var gender: String?
+        var height: Int?
+        var weight: Int?
+        var unit_value: Int?
+        var unit_weight_value: Int?
+        var orientation:Int?
+        var birthday: Date?
+        var mtime: Date?
     }
 }
 
