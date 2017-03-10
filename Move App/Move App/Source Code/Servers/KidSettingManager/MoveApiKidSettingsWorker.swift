@@ -83,6 +83,7 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
                 if _setting.reminder?.todo == nil {
                     _setting.reminder?.todo = []
                 }
+                _setting.reminder?.todo?.append(self.unwrapping(todo: todolist))
                 return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
             })
             .map({ $0.id == 0 })
@@ -194,6 +195,12 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
 }
 
 extension MoveApiKidSettingsWorker {
+    
+    func unwrapping(todo: KidSetting.Reminder.ToDo) -> MoveApi.Todo {
+        return MoveApi.Todo(topic: todo.topic, content: todo.content, start: todo.start, end: todo.end, repeatCount: todo.repeatCount)
+    }
+
+    
     
     func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
         var days: [Int] = []

@@ -8,10 +8,6 @@
 
 import UIKit
 
-@objc
-protocol RepeatViewControlleDelegate {
-    @objc optional func selectedRepeat(_ Repeat: String)
-}
 
 
 class RepeatViewController: UITableViewController {
@@ -21,7 +17,7 @@ class RepeatViewController: UITableViewController {
     @IBOutlet weak var everyweekcell: UITableViewCell!
     @IBOutlet weak var everymonthcell: UITableViewCell!
     
-     @IBOutlet weak var delegate: RepeatViewControlleDelegate?
+     var repeatBlock: ((String) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +38,8 @@ extension RepeatViewController {
         
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
-        self.delegate?.selectedRepeat!((cell?.textLabel?.text)!)
+//        self.delegate?.selectedRepeat!((cell?.textLabel?.text)!)
+        self.repeatBlock!((cell?.textLabel?.text)!)
         
       _ = self.navigationController?.popViewController(animated: true)
         

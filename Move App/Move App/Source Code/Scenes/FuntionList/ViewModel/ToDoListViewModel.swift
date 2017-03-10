@@ -14,28 +14,48 @@ class ToDoListViewModel {
     
     // outputs {
     
-    //
-//    let saveFinish: Driver<Bool>
-//    
-//    let activityIn: Driver<Bool>
-//    // }
-//    
-//    init(
-//        input: (
-//        save: Driver<Void>,
-//        todolistBegin: Driver<Date>,
-//        
-//        ),
-//        dependency: (
-//        kidSettingsManager: KidSettingsManager,
-//        validation: DefaultValidation,
-//        wireframe: Wireframe
-//        )
-//        ) {
-//        
-//       
-//        
-//    }
+    let saveFinish: Driver<Bool>
+    
+    let activityIn: Driver<Bool>
+    
+    // }
+    
+    init(
+        input: (
+        save: Driver<Void>,
+        topic: Driver<String>,
+        content: Driver<String>,
+        startime: Driver<Date>,
+        endtime: Driver<Date>,
+        repeatcount: Driver<Int>
+        ),
+        dependency: (
+        kidSettingsManager: KidSettingsManager,
+        validation: DefaultValidation,
+        wireframe: Wireframe
+        )
+        ) {
+        
+        let manager = dependency.kidSettingsManager
+        
+        let activitying = ActivityIndicator()
+        self.activityIn = activitying.asDriver()
+        
+        
+        
+        let newtodolist = Driver.combineLatest(input.topic,input.content,input.startime,input.endtime,input.repeatcount) {
+            KidSetting.Reminder.ToDo(topic: $0, content: $1, start: $2, end: $3, repeatCount: $4)
+            
+        }
+        self.saveFinish = input.save.withLatestFrom(newtodolist).asObservable()
+            .flatMapLatest({ todolist -> Observable<Bool> in
+                return
+                    manager.creadTodoLis( todolist).trackActivity(activitying)
+            })
+            .asDriver(onErrorJustReturn: false)
+
+        
+    }
 
     
 }

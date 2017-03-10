@@ -152,6 +152,21 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     }
     
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        
+        return .delete
+    }
+    //删除数据源数据
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            print("删除");
+//            [self.arrayValue   removeObjectAtIndex:[indexPathrow]];  //删除数组里的数据
+//            [tableview   deleteRowsAtIndexPaths:[NSMutableArrayarrayWithObject:indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];  //删除对应数据的cell
+        }
+        
+    }
+    
 
 }
 extension RemindersController {

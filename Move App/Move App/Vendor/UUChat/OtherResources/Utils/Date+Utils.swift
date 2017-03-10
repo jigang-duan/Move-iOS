@@ -85,6 +85,12 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var stringYearMonthDayHourMinute: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = Date.timestampFormatString
+        return formatter.string(from: self)
+    }
+    
     var stringYearMonthDay: String {
         let formatter = DateFormatter()
         formatter.dateFormat = Date.dateFormatString
