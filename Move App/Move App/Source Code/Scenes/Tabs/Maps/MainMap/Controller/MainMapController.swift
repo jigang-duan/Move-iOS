@@ -142,10 +142,12 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "LocationHistory" {
-            let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-            //主要就是通过类型强转,然后通过拿到的对象进行成员变量的赋值,相对于Android,这真的是简单粗暴
-            let nav2Controller = segue.destination as! LocationHistoryVC
-            nav2Controller.deviceId = device.deviceId
+            if (currentDeviceData != nil) {
+                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+                //主要就是通过类型强转,然后通过拿到的对象进行成员变量的赋值,相对于Android,这真的是简单粗暴
+                let nav2Controller = segue.destination as! LocationHistoryVC
+                nav2Controller.deviceId = device.deviceId
+            }
         }
     }
     
