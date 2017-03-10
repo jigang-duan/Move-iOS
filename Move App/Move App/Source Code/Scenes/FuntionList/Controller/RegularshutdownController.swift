@@ -27,7 +27,7 @@ class RegularshutdownController: UIViewController {
     @IBOutlet weak var cancelQutlet: UIButton!
     @IBOutlet weak var comfirmQutlet: UIButton!
     
-    @IBOutlet weak var SaveQutlet: UIButton!
+    @IBOutlet weak var SaveQutlet: UIBarButtonItem!
     
     var bootTimeVariable = Variable(DateUtility.zone7hour())
     var shutdownTimeVariable = Variable(DateUtility.zone16hour())
