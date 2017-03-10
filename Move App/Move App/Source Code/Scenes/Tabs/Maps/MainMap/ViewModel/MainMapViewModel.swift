@@ -48,14 +48,16 @@ class MainMapViewModel {
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-        kidLocation = Observable<Int>.timer(2, period: Configure.App.LoadDataOfPeriod, scheduler: SerialDispatchQueueScheduler(qos: .background))
+        kidLocation = Driver<Int>.timer(2, period: Configure.App.LoadDataOfPeriod)
             .flatMapLatest ({_ in
                 locationManager.getCurrentLocation()
                     .trackActivity(activitying)
+                    .map({  $0.location })
+                    .filterNil()
+                    .asDriver(onErrorRecover: {_ in
+                        dependency.geolocationService.location
+                    })
             })
-            .map{  $0.location }
-            .filterNil()
-            .asDriver(onErrorRecover: { _ in dependency.geolocationService.location } )
         
         kidAnnotion = kidLocation
             .map { BaseAnnotation($0) }

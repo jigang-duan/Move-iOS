@@ -17,7 +17,8 @@ class LocationHistoryVC: UIViewController {
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     var index : Int = 0
-    
+    var dataSource : Observable<MoveApi.LocationHistory>? 
+        
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -52,6 +53,7 @@ class LocationHistoryVC: UIViewController {
     
     var points : [MKMapPoint]?
     
+    var deviceId : String?
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +62,7 @@ class LocationHistoryVC: UIViewController {
         let img=UIImage(named: "nav_location_nor")
         item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
+        self.GetHistoryListData(date: calendar.today!)
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
@@ -87,15 +90,6 @@ class LocationHistoryVC: UIViewController {
         let img = UIImage(named : "general_slider_dot")
         timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         
-        let geolocationService = GeolocationService.instance
-        
-//        let viewModel = MainMapViewModel(input: (),
-//                                         dependency: (
-//                                            geolocationService: geolocationService,
-//                                            kidInfo: MokKidInfo()
-//            )
-//        )
-        
         locationMap.rx.willStartLoadingMap
             .asDriver()
             .drive(onNext: {
@@ -117,30 +111,30 @@ class LocationHistoryVC: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-//        viewModel.kidLocation
-//            .asObservable()
-//            .take(1)
-//            .bindNext { [unowned self] in
-//                let region = MKCoordinateRegionMakeWithDistance($0, 1000, 1000)
-//                self.locationMap.setRegion(region, animated: true)
-//            }
-//            .addDisposableTo(disposeBag)
-//        
-//        viewModel.kidAnnotion.debug()
-//            .distinctUntilChanged()
-//            .drive(onNext: { [unowned self] annotion in
-//                
-//            })
-//            .addDisposableTo(disposeBag)
-        
-        // Do any additional setup after loading the view.
-        
         self.routeLine = self.polyline()
         if self.routeLine != nil {
             locationMap.add(routeLine!)
         }
     }
 
+    func GetHistoryListData(date : Date){
+        let formatter = DateFormatter()
+        let timeZone = TimeZone.init(identifier: "UTC")
+        formatter.timeZone = timeZone
+        formatter.locale = Locale.init(identifier: "zh_CN")
+        formatter.dateFormat = "yyyy-MM-dd"
+        let datestr = formatter.string(from: calendar.today!)
+        let start = datestr + " 00:00:00"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let startdate = formatter.date(from: start)
+        let end = datestr + " 23:59:59"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let enddate = formatter.date(from: end)
+        
+        let req = MoveApi.LocationReq(start : startdate , end : enddate)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -150,15 +144,6 @@ class LocationHistoryVC: UIViewController {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     func polyline() -> MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         var locationarr = [LocationAnnotation]()
@@ -305,17 +290,17 @@ extension LocationHistoryVC : MKMapViewDelegate {
         
     }
     
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        
-//        if overlay is MKPolyline {
-//            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
-//            polylineRenderer.fillColor = UIColor.red
-//            polylineRenderer.strokeColor = R.color.appColor.primary()
-//            polylineRenderer.lineWidth = 4.0
-//            return polylineRenderer
-//        }
-//        return MKPolylineRenderer()
-//    }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        if overlay is MKPolyline {
+            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
+            polylineRenderer.fillColor = UIColor.red
+            polylineRenderer.strokeColor = R.color.appColor.primary()
+            polylineRenderer.lineWidth = 4.0
+            return polylineRenderer
+        }
+        return MKPolylineRenderer()
+    }
 }
 
 extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{

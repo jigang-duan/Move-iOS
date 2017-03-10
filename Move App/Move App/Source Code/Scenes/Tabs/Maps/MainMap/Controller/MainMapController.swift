@@ -114,12 +114,10 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .addDisposableTo(disposeBag)
         
         viewModel.kidLocation
-            .asObservable()
-            .take(1)
-            .bindNext { [unowned self] in
+            .drive(onNext: { [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
-            }
+            })
             .addDisposableTo(disposeBag)
         
         viewModel.kidAnnotion
@@ -140,8 +138,15 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         }
     }
     
-    @IBAction func routeBtnClick(_ sender: UIButton) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "LocationHistory" {
+            let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+            //主要就是通过类型强转,然后通过拿到的对象进行成员变量的赋值,相对于Android,这真的是简单粗暴
+            let nav2Controller = segue.destination as! LocationHistoryVC
+            nav2Controller.deviceId = device.deviceId
+        }
     }
     
     @IBAction func turnToStepCounterBtnClick(_ sender: UIButton) {
@@ -152,13 +157,11 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         if (currentDeviceData != nil) {
             let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
             
-//            let callWebView = UIWebView()
-//            callWebView.loadRequest(URLRequest(url:URL(string: "tel:\(device.user?.number)")!))
-//            self.view.addSubview(callWebView)
-            //2.有提示
-            UIApplication.shared.openURL(URL(string: "telprompt://\(device.user?.number)")!)
-            //3.无提示
-//            UIApplication.shared.openURL(URL(string: "tel://10086")!)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:(device.user?.number)!)!, options: ["":""], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
     
