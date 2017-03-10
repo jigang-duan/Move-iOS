@@ -33,7 +33,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDy-cv-cA6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="532" y="844"/>
+            <point key="canvasLocation" x="816" y="844"/>
         </scene>
         <!--Home-->
         <scene sceneID="iZ7-WJ-EPx">
@@ -87,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDP-3R-43Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1585" y="1749"/>
+            <point key="canvasLocation" x="1916" y="1748"/>
         </scene>
         <!--Notification ListVC-->
         <scene sceneID="xmA-Zb-1ZD">
@@ -366,8 +366,7 @@
                                 </constraints>
                                 <state key="normal" image="home_btn_locatio_nor"/>
                                 <connections>
-                                    <action selector="routeBtnClick:" destination="1qy-IZ-lOf" eventType="touchUpInside" id="IMr-Qr-ryu"/>
-                                    <segue destination="VGt-kf-yJX" kind="push" id="zMZ-Z0-dtW"/>
+                                    <segue destination="VGt-kf-yJX" kind="push" identifier="LocationHistory" id="67f-ca-zri"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2n-Cm-dk9">
@@ -849,7 +848,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2130" y="2545"/>
+            <point key="canvasLocation" x="2404" y="2544"/>
         </scene>
         <!--Safe Zone Address SearchVC-->
         <scene sceneID="JeL-zy-KNt">
@@ -910,7 +909,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RB6-SU-Y7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2130" y="3355"/>
+            <point key="canvasLocation" x="2404" y="3343"/>
         </scene>
         <!--All Kids LocationVC-->
         <scene sceneID="o21-tY-rna">
@@ -992,7 +991,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLV-vw-L6x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3226" y="800"/>
+            <point key="canvasLocation" x="3222" y="843"/>
         </scene>
     </scenes>
     <resources>
