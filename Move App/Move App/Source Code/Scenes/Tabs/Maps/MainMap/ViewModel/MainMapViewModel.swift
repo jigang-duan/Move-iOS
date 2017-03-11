@@ -62,21 +62,22 @@ class MainMapViewModel {
         kidAnnotion = kidLocation
             .map { BaseAnnotation($0) }
         
-        
         let kidInfos = input.avatarTap
             .flatMapLatest({
                 deviceManager.getDeviceList()
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: [])
             })
+        
         let popoer = RxPopover.shared
+        
         popoer.style = .dark
+        
         selecedAction = kidInfos.asObservable()
             .map(allAndTransformAction)
             .flatMapLatest({ actions in
                 return popoer.promptFor(toView: input.avatarView, actions: actions)
             })
-        
     }
 }
 

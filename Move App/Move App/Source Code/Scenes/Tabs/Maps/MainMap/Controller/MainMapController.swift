@@ -151,10 +151,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         }
     }
     
-    @IBAction func turnToStepCounterBtnClick(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
         if (currentDeviceData != nil) {
             let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo

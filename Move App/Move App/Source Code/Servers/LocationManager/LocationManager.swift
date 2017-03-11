@@ -35,6 +35,6 @@ class LocationManager  {
         guard let deviceId = Me.shared.currDeviceID else {
             return Observable<[KidSate.LocationInfo]>.empty()
         }
-        return self.worker.getHistoryLocation(id: deviceId, start: start, end: start)
+        return self.worker.getHistoryLocation(id: deviceId, start: start, end: end)
     }
 }
