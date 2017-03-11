@@ -123,10 +123,14 @@ class LocationHistoryVC: UIViewController {
                 LocationManager.share.getHistoryLocation(start: $0, end: $1)
                     .asDriver(onErrorJustReturn: [])
             })
-            .map({   $0.flatMap({ $0.location }).map({  BaseAnnotation($0)   })     })
+            .map({
+                $0.flatMap({ $0.location }).map({  BaseAnnotation($0)   })
+            })
             .drive(onNext: { [unowned self] in
                 self.locationMap.removeAnnotations(self.locationMap.annotations)
                 self.locationMap.addAnnotations($0)
+                self.locationMap.showAnnotations($0, animated: true)
+                
             })
             .addDisposableTo(disposeBag)
         
