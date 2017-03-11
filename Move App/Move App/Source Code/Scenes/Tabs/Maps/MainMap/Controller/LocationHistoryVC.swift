@@ -56,6 +56,7 @@ class LocationHistoryVC: UIViewController {
     var deviceId : String?
     
     var selectedDate = Variable(Date())
+    var LocationsVariable: Variable<[KidSate.LocationInfo]> = Variable([])
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,24 +118,60 @@ class LocationHistoryVC: UIViewController {
 //            locationMap.add(routeLine!)
 //        }
         
-        selectedDate.asDriver()
-            .map({  $0.todayStartEnd  }).debug()
+        let historyLocations = selectedDate.asDriver()
+            .map({  $0.todayStartEnd  })
             .flatMapLatest({
                 LocationManager.share.getHistoryLocation(start: $0, end: $1)
                     .asDriver(onErrorJustReturn: [])
             })
+        
+        historyLocations.drive(LocationsVariable).addDisposableTo(disposeBag)
+        
+        LocationsVariable.asDriver()
             .map({
-                $0.flatMap({ $0.location }).map({  BaseAnnotation($0)   })
+                $0.flatMap({ $ -> TagAnnotation?  in
+                    if let location = $.location {
+                        let annotation = TagAnnotation(location)
+                        let info = KidSate.LocationInfo(location: location, address: $.address, accuracy: $.accuracy, time: $.time)
+                        annotation.info = info
+                        return annotation
+                    }
+                    return nil
+                })
             })
             .drive(onNext: { [unowned self] in
-                self.locationMap.removeAnnotations(self.locationMap.annotations)
-                self.locationMap.addAnnotations($0)
-                self.locationMap.showAnnotations($0, animated: true)
+                if $0.count == 0 {
+                    self.locationMap.removeAnnotations(self.locationMap.annotations)
+                    self.annotationArr.removeAll()
+                }else{
+                    self.locationMap.removeAnnotations(self.locationMap.annotations)
+                    self.locationMap.addAnnotations($0)
+                    self.locationMap.showAnnotations($0, animated: true)
+                    var arr = $0
+                    for i in 0..<arr.count {
+                        let annotation = arr[i]
+                        annotation.tag = i
+                        arr[i] = annotation
+                    }
+                    self.annotationArr = arr
+                    self.TimePointSelect(index: self.index)
+                }
                 
             })
             .addDisposableTo(disposeBag)
-        
     }
+    
+    func TimePointSelect(index : Int){
+        if self.annotationArr.count > 0 {
+            let annotation = annotationArr[index]
+            let datestr = String.init(format: "(%d/%d)%@", annotation.tag + 1 , annotationArr.count , (annotation.info?.time?.stringYearMonthDayHourMinuteSecond)!)
+            timeZoneL.text = datestr
+            addressDetailL.text = annotation.info?.address
+        }
+    }
+    
+    var annotationArr = [TagAnnotation]()
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -145,24 +182,24 @@ class LocationHistoryVC: UIViewController {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
     
-    func polyline() -> MKPolyline {
-        var coords = [CLLocationCoordinate2D]()
-        var locationarr = [LocationAnnotation]()
-        for  i in 0...10  {
-            var location = CLLocationCoordinate2D()
-            if i%2 != 0 {
-                 location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
-            }else{
-                 location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
-            }
-            coords .append(location)
-            let annotation = LocationAnnotation(location)
-            annotation.tag = i
-            locationarr.append(annotation)
-        }
-        locationMap.addAnnotations(locationarr)
-        return MKPolyline(coordinates : coords, count: coords.count)
-    }
+//    func polyline() -> MKPolyline {
+//        var coords = [CLLocationCoordinate2D]()
+//        var locationarr = [LocationAnnotation]()
+//        for  i in 0...10  {
+//            var location = CLLocationCoordinate2D()
+//            if i%2 != 0 {
+//                 location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
+//            }else{
+//                 location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
+//            }
+//            coords .append(location)
+//            let annotation = LocationAnnotation(location)
+//            annotation.tag = i
+//            locationarr.append(annotation)
+//        }
+//        locationMap.addAnnotations(locationarr)
+//        return MKPolyline(coordinates : coords, count: coords.count)
+//    }
     
     @IBAction func CalenderOpenBtnClick(_ sender: UIButton) {
         if isCalendarOpen == false {
@@ -195,27 +232,35 @@ class LocationHistoryVC: UIViewController {
     
     @IBAction func NextPointClick(_ sender: UIButton) {
         locationMap.removeAnnotations(self.locationMap.annotations)
-        if index == 10 {
-            
-        }else {
-            index += 1
+        if annotationArr.count>0 {
+            if index == self.annotationArr.count - 1{
+                
+            }else {
+                index += 1
+            }
+            self.locationMap.addAnnotations(self.annotationArr)
+            self.TimePointSelect(index: index)
         }
-        self.routeLine = self.polyline()
-        if self.routeLine != nil {
-            locationMap.add(routeLine!)
-        }
+        //        self.routeLine = self.polyline()
+//        if self.routeLine != nil {
+//            locationMap.add(routeLine!)
+//        }
     }
 
     @IBAction func LastPointClick(_ sender: UIButton) {
         locationMap.removeAnnotations(self.locationMap.annotations)
-        if index == 0 {
-        }else {
-            index -= 1
+        if annotationArr.count>0 {
+            if index == 0 {
+            }else {
+                index -= 1
+            }
+            self.locationMap.addAnnotations(self.annotationArr)
+            self.TimePointSelect(index: index)
         }
-        self.routeLine = self.polyline()
-        if self.routeLine != nil {
-            locationMap.add(routeLine!)
-        }
+       //        self.routeLine = self.polyline()
+//        if self.routeLine != nil {
+//            locationMap.add(routeLine!)
+//        }
     }
     
     
@@ -250,15 +295,19 @@ class LocationHistoryVC: UIViewController {
         return datestr
     }
     
-    
+    func timePointSelect(index : Int) {
+        if annotationArr.count > 0 {
+            
+        }
+    }
 }
 
 extension LocationHistoryVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is BaseAnnotation {
+        if annotation is TagAnnotation {
             
-            let point = annotation as! BaseAnnotation
+            let point = annotation as! TagAnnotation
             if point.tag ==  index{
                 let identifier = "LocationAnnotation"
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -311,6 +360,7 @@ extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
         self .changeBtnType(time: time , date : date)
         print("did select date \(self.formatter.string(from: date))")
         selectedDate.value = date
+        index = 0
     }
 
 }
