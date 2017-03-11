@@ -30,7 +30,7 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
     }
     
     private func transformHistoryLocation(_ history: MoveApi.LocationHistory) -> Observable<[KidSate.LocationInfo]> {
-        guard let  locs = history.locations , locs.count > 0 else {
+        guard let  locs = history.locations  else {
             return Observable.empty()
         }
         return  Observable.just(locs.flatMap(transform))

@@ -11,7 +11,7 @@ import MapKit
 
 class BaseAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-    var tag : Int = 0
+    
     init(_ coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
     }
@@ -23,7 +23,20 @@ class BaseAnnotation: NSObject, MKAnnotation {
 
 class LocationAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-    var tag : Int = 0
+    
+    init(_ coordinate: CLLocationCoordinate2D , address : String,accuracy: CLLocationDistance,time: Date) {
+        self.coordinate = coordinate
+    }
+    
+    init(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees) {
+        self.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+    }
+}
+
+class TagAnnotation: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    var tag: Int = -1
+    var info: KidSate.LocationInfo?
     
     init(_ coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
