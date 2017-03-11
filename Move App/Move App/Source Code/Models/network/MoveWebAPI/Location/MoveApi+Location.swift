@@ -105,7 +105,14 @@ extension MoveApi.Location.API: TargetType {
     }
     
     /// The method used for parameter encoding.
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding {
+        switch self {
+        case .add, .getByLBS, .getNew:
+            return JSONEncoding.default
+        case .getHistory:
+            return URLEncoding.default
+        }
+    }
     
     /// Provides stub data for use in testing.
     var sampleData: Data {
