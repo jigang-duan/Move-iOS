@@ -108,6 +108,35 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 throw error
         }
     }
+    
+    
+    func updateKidInfo(updateInfo: DeviceUser) -> Observable<Bool> {
+        var info = MoveApi.DeviceUpdateReq()
+        info.device = MoveApi.DeviceUpdateInfo()
+        info.device?.user = MoveApi.DeviceUser()
+        info.device?.user?.nickname = updateInfo.nickname
+        info.device?.user?.number = updateInfo.number
+        info.device?.user?.profile = updateInfo.profile
+        info.device?.user?.gender = updateInfo.gender
+        info.device?.user?.height = updateInfo.height
+        info.device?.user?.weight = updateInfo.weight
+        info.device?.user?.birthday = updateInfo.birthday
+        
+        return MoveApi.Device.update(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!, updateInfo: info)
+            .map{info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    
+    }
 }
 
 

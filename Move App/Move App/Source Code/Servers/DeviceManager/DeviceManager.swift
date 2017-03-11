@@ -54,6 +54,10 @@ extension DeviceManager {
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
         return worker.settingContactInfo(deviceId: deviceId, contactInfo: contactInfo)
     }
+    
+    func updateKidInfo(updateInfo: DeviceUser) -> Observable<Bool> {
+        return worker.updateKidInfo(updateInfo: updateInfo)
+    }
 }
 
 
@@ -70,6 +74,8 @@ protocol DeviceWorkerProtocl {
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool>
     
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool>
+    
+    func updateKidInfo(updateInfo: DeviceUser) -> Observable<Bool>
 }
 
 
@@ -109,11 +115,11 @@ struct DeviceBindInfo {
     var deviceId: String?
     var sid: String?
     var vcode: String?
-    var phone: String?
+    var phone: String? //用户号码
     var identity: Relation?
     var profile: String?
     var nickName: String?
-    var number: String?
+    var number: String? //设备号码
     var gender: String?
     var height: Int?
     var weight: Int?

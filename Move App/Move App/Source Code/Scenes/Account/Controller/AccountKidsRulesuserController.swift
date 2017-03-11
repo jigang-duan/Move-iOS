@@ -9,53 +9,58 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CustomViews
+
 
 class AccountKidsRulesuserController: UITableViewController {
 
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
     @IBOutlet weak var personalInformationQutlet: UIButton!
+    
     let disposeBag = DisposeBag()
-    let enterCount = Variable(0)
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let deviceInfo = DeviceManager.shared.currentDevice
+        
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headQutlet.frame.width, height: headQutlet.frame.height), fullName: deviceInfo?.user?.nickname ?? "").imageRepresentation()!
+     
+        headQutlet.imageFromURL(deviceInfo?.user?.profile ?? "", placeholder: placeImg)
+        
+        accountNameQutlet.text = deviceInfo?.user?.nickname
+        
+    }
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         personalInformationQutlet.rx.tap.bindNext { _ in
-                Distribution.shared.showUserInformationScreen()
+            let vc = R.storyboard.kidInformation.kidInformationController()!
+            vc.isForSetting = Variable(true)
+            let kidInfo = DeviceManager.shared.currentDevice?.user
+            var info = DeviceBindInfo()
+            info.nickName = kidInfo?.nickname
+            info.number = kidInfo?.number
+            info.gender = kidInfo?.gender
+            info.height = kidInfo?.height
+            info.weight = kidInfo?.weight
+            info.birthday = kidInfo?.birthday
+            info.profile = kidInfo?.profile
+            
+            vc.deviceAddInfo = info
+            self.navigationController?.show(vc, sender: nil)
         }
         .addDisposableTo(disposeBag)
         
-        let viewModel = AccountAndChoseDeviceViewModel(
-            input: (
-                enterCount: enterCount.asObservable(),
-                selectedDeviceInfo: Observable<DeviceInfo>.empty()
-                
-            ),
-            dependency:(
-                userManager: UserManager.shared,
-                deviceManager: DeviceManager.shared,
-                wireframe: DefaultWireframe.sharedInstance
-            )
-        )
-        
-        viewModel.head
-            .drive(onNext: { [weak self] in
-                self?.headQutlet.imageFromURL($0, placeholder: R.image.member_btn_contact_nor()!)
-                })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.accountName
-            .drive(accountNameQutlet.rx.text)
-            .addDisposableTo(disposeBag)
-
 
     
-}
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        enterCount.value += 1
     }
-
+    
     
 }

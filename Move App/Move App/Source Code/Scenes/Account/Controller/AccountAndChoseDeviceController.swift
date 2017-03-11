@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import RxOptional
+import CustomViews
 
 
 class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
@@ -45,16 +46,6 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             )
         )
         
-        viewModel.head
-            .drive(onNext: { [weak self] in
-                self?.headOutlet.imageFromURL($0, placeholder: R.image.member_btn_contact_nor()!)
-            })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.accountName
-            .drive(accountNameOutlet.rx.text)
-            .addDisposableTo(disposeBag)
-        
       
         tableView.rx
             .setDelegate(self)
@@ -64,7 +55,7 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier, cellType: UITableViewCell.self)){ (row, element, cell) in
                 cell.textLabel?.text = element.devType
                 cell.detailTextLabel?.text = element.name
-                cell.imageView?.imageFromURL(element.iconUrl!, placeholder:  R.image.member_btn_contact_nor()!)
+                cell.imageView?.image = UIImage(named: element.iconUrl!)
             }
             .addDisposableTo(disposeBag)
         
@@ -84,8 +75,18 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         enterCount.value += 1
         self.navigationController?.navigationBar.isHidden = true
         UIApplication.shared.isStatusBarHidden = true
+        
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headOutlet.frame.width, height: headOutlet.frame.height), fullName: UserInfo.shared.profile?.nickname ?? "").imageRepresentation()!
+        viewModel.head
+            .drive(onNext: { [weak self] in
+                self?.headOutlet.imageFromURL($0, placeholder: placeImg)
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.accountName
+            .drive(accountNameOutlet.rx.text)
+            .addDisposableTo(disposeBag)
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

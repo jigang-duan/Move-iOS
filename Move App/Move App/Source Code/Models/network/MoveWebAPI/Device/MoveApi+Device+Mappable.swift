@@ -92,6 +92,14 @@ extension MoveApi {
         var property: DeviceProperty?
     }
     
+    struct DeviceUpdateReq {
+        var device: DeviceUpdateInfo?
+    }
+    
+    struct DeviceUpdateInfo {
+        var user: DeviceUser?
+    }
+    
     struct DeviceUser {
         var uid: String?
         var number: String?
@@ -327,6 +335,25 @@ extension MoveApi.DeviceInfo: Mappable {
         deviceId <- map["device_id"]
         user <- map["user"]
         property <- map["properties"]
+    }
+}
+
+extension MoveApi.DeviceUpdateReq: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        device <- map["device"]
+    }
+}
+
+
+extension MoveApi.DeviceUpdateInfo: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        user <- map["user"]
     }
 }
 

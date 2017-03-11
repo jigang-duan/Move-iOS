@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class RelationshipTableController: UITableViewController {
     
@@ -75,6 +76,7 @@ class RelationshipTableController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.relationshipTableController.showKidInformation(segue: segue) {
             sg.destination.deviceAddInfo = self.deviceAddInfo
+            sg.destination.isForSetting = Variable(false)
         }
     }
     

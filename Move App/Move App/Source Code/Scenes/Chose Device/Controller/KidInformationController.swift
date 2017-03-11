@@ -14,6 +14,17 @@ class KidInformationController: UIViewController {
     
     @IBOutlet weak var nextBun: UIButton!
     
+    @IBOutlet weak var nameTf: UITextField!
+    @IBOutlet weak var phoneTf: UITextField!
+    
+    @IBOutlet weak var genderLab: UILabel!
+    @IBOutlet weak var dateLab: UILabel!
+    @IBOutlet weak var weightLab: UILabel!
+    @IBOutlet weak var heightLab: UILabel!
+    
+    
+    var isForSetting: Variable<Bool>?
+    
     var deviceAddInfo: DeviceBindInfo?
     
     var viewModel: KidInformationViewModel!
@@ -26,27 +37,52 @@ class KidInformationController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
+    
+    func  setupUI() {
+        if deviceAddInfo?.nickName == nil {
+            deviceAddInfo?.nickName = "baby"
+            nameTf.text = "baby"
+        }else{
+            nameTf.text = deviceAddInfo?.nickName
+        }
+        
+        phoneTf.text = deviceAddInfo?.number
+        
+        //        if deviceAddInfo?.profile == nil {
+        //            deviceAddInfo?.profile = ""
+        //        }
+        
+        genderLab.text = deviceAddInfo?.gender ?? "Gender"
+        if let height = deviceAddInfo?.height {
+             heightLab.text =  "\(height) cm"
+        }else{
+             heightLab.text = "Height"
+        }
+        
+        if let weight = deviceAddInfo?.weight {
+            weightLab.text =  "\(weight) kg"
+        }else{
+            weightLab.text = "Weight"
+        }
+        
+        if let birthday = deviceAddInfo?.birthday {
+            dateLab.text =  birthday.stringYearMonthDay
+        }else{
+            dateLab.text = "Birthday"
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if deviceAddInfo?.nickName == nil {
-            deviceAddInfo?.nickName = "baby"
-        }
-        if deviceAddInfo?.number == nil {
-            deviceAddInfo?.number = "18665313976"
-        }
-        if deviceAddInfo?.gender == nil {
-            deviceAddInfo?.gender = "female"
-        }
-//        if deviceAddInfo?.profile == nil {
-//            deviceAddInfo?.profile = ""
-//        }
-        
+        self.setupUI()
         
         
         viewModel = KidInformationViewModel(
             input:(
+                name: nameTf.rx.text.orEmpty.asDriver(),
+                phone: phoneTf.rx.text.orEmpty.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver()
             ),
             dependency: (
@@ -55,6 +91,7 @@ class KidInformationController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        viewModel.isForSetting = isForSetting
         
         viewModel.addInfo = self.deviceAddInfo
         
@@ -67,17 +104,16 @@ class KidInformationController: UIViewController {
         
         
         viewModel.nextResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: {[unowned self] doneResult in
                 switch doneResult {
                 case .failed(let message):
                     self.showMessage(message)
-                case .ok(let message):
-                    self.showMessage(message)
+                case .ok(_):
                     let vcs = self.navigationController?.viewControllers
                     for vc in vcs! {
-                        if vc is ChoseDeviceController {
+                        if vc.isKind(of: ChoseDeviceController.self) {
                             _ = self.navigationController?.popToViewController(vc, animated: true)
-                            break
+                            return
                         }
                     }
                     _ = self.navigationController?.popViewController(animated: true)
@@ -120,24 +156,28 @@ class KidInformationController: UIViewController {
         if let sg = R.segue.kidInformationController.setGenderVC(segue: segue) {
             sg.destination.genderBlock = { (gender) in
                 self.deviceAddInfo?.gender = gender
+                self.genderLab.text = gender
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let sg = R.segue.kidInformationController.setBirthdayVC(segue: segue) {
             sg.destination.birthdayBlock = { (birthday) in
                 self.deviceAddInfo?.birthday = birthday
+                self.dateLab.text = birthday.stringYearMonthDay
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let sg = R.segue.kidInformationController.setWeightVC(segue: segue) {
             sg.destination.weightBlock = { (weight) in
                 self.deviceAddInfo?.weight = weight
+                self.weightLab.text = "\(weight) kg"
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let sg = R.segue.kidInformationController.setHeightVC(segue: segue) {
             sg.destination.heightBlock = { (height) in
                 self.deviceAddInfo?.height = height
+                self.heightLab.text = "\(height) cm"
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }

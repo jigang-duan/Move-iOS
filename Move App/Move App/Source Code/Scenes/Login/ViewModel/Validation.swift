@@ -94,6 +94,20 @@ class DefaultValidation {
         return .ok(message: "Account available")
     }
     
+    func validatePhone(_ phone: String) -> ValidationResult {
+        let numberOfCharacters = phone.characters.count
+        if phone.characters.count == 0 {
+            return .empty
+        }
+        
+        if numberOfCharacters < minEmailCount {
+            return .failed(message: "Phone must be at least \(minEmailCount) characters")
+        }
+        
+        return .ok(message: "Phone available")
+    }
+
+    
     func validateEmail(_ email: String) -> ValidationResult {
         let numberOfCharacters = email.characters.count
         if email.characters.count == 0 {

@@ -40,7 +40,7 @@ class AccountAndChoseDeviceViewModel {
         
         self.accountName = enter.flatMapLatest { _ in
             userManger.getProfile()
-                .map{ $0.username ?? "" }
+                .map{ $0.nickname ?? "" }
         }.asDriver(onErrorJustReturn: "")
         
         self.head = enter.flatMapLatest({ _ in
@@ -59,8 +59,20 @@ class AccountAndChoseDeviceViewModel {
                 self.setDevice(deviceInfos: deviceInfos)
                 var cellDatas: [DeviceCellData] = []
                 for info in deviceInfos {
-//                    MARK: for test
-                    let cellData = DeviceCellData(devType: info.property?.device_model ?? "kid watch", name: info.user?.nickname, iconUrl: info.user?.profile ?? "")
+                    var deviceType = ""
+                    var icon = ""
+                    switch info.pid! {
+                    case 0x101:
+                        deviceType = "MB12"
+                        icon = "device_ic_mb12"
+                    case 0x201:
+                        deviceType = "Kids Watch 2"
+                        icon = "device_ic_kids"
+                    default:
+                        deviceType = "Other"
+                        icon = "device_ic_mb22"
+                    }
+                    let cellData = DeviceCellData(devType: deviceType, name: info.user?.nickname, iconUrl: icon)
                     cellDatas.append(cellData)
                 }
                 return cellDatas

@@ -22,22 +22,24 @@ class MeLogoutController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: MeLogoutViewModel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         let info = UserInfo.shared.profile
         
         nameLab.text = info?.nickname
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
-       
+        
         var imgResouce: ImageResource?
         if let imgUrl = URL(string: info?.iconUrl ?? "") {
             imgResouce = ImageResource(downloadURL: imgUrl)
         }
         headBun.kf.setBackgroundImage(with: imgResouce, for: UIControlState.normal, placeholder: placeImg)
-        
-        
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         
         viewModel = MeLogoutViewModel(

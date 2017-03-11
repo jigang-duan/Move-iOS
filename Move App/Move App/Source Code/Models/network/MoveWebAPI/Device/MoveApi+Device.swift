@@ -46,7 +46,7 @@ extension MoveApi {
             return request(.getDeviceInfo(deviceId: deviceId)).mapMoveObject(DeviceInfo.self)
         }
 //        修改设备信息
-        final class func update(deviceId: String, updateInfo: DeviceInfo) -> Observable<ApiError> {
+        final class func update(deviceId: String, updateInfo: DeviceUpdateReq) -> Observable<ApiError> {
             return request(.update(deviceId: deviceId, updateInfo: updateInfo)).mapMoveObject(ApiError.self)
         }
 //        删除设备
@@ -100,7 +100,7 @@ extension MoveApi {
             case joinDeviceGroup(deviceId: String, joinInfo: DeviceContactInfo)
             case getDeviceList(pid: Int)
             case getDeviceInfo(deviceId: String)
-            case update(deviceId: String, updateInfo: DeviceInfo)
+            case update(deviceId: String, updateInfo: DeviceUpdateReq)
             case delete(deviceId: String)
             case addNoRegisterMember(deviceId: String)
             case deleteBindUser(deviceId: String, uid: String)
