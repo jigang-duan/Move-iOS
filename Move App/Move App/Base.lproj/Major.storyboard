@@ -87,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDP-3R-43Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1593" y="1747"/>
+            <point key="canvasLocation" x="1753" y="1603"/>
         </scene>
         <!--Notification ListVC-->
         <scene sceneID="xmA-Zb-1ZD">
@@ -129,7 +129,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2404" y="1748"/>
+            <point key="canvasLocation" x="3954" y="1765"/>
         </scene>
         <!--Home-->
         <scene sceneID="jBe-dd-zGa">
@@ -376,9 +376,6 @@
                                     <constraint firstAttribute="height" constant="30" id="xni-zE-0of"/>
                                 </constraints>
                                 <state key="normal" image="home_btn_steps_nor"/>
-                                <connections>
-                                    <action selector="turnToStepCounterBtnClick:" destination="1qy-IZ-lOf" eventType="touchUpInside" id="7rx-5F-3qJ"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -465,7 +462,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2831" y="2488"/>
+            <point key="canvasLocation" x="2855" y="2977"/>
         </scene>
         <!--Data Source-->
         <scene sceneID="0XR-iv-C57">
@@ -848,7 +845,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2142" y="2537"/>
+            <point key="canvasLocation" x="1348" y="2863"/>
         </scene>
         <!--Safe Zone Address SearchVC-->
         <scene sceneID="JeL-zy-KNt">
@@ -909,7 +906,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RB6-SU-Y7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2142" y="3340"/>
+            <point key="canvasLocation" x="2070" y="2863"/>
         </scene>
         <!--All Kids LocationVC-->
         <scene sceneID="o21-tY-rna">

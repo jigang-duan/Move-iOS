@@ -55,6 +55,8 @@ class LocationHistoryVC: UIViewController {
     
     var deviceId : String?
     
+    var selectedDate = Variable(Date())
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -62,7 +64,6 @@ class LocationHistoryVC: UIViewController {
         let img=UIImage(named: "nav_location_nor")
         item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
-        self.GetHistoryListData(date: calendar.today!)
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
@@ -111,27 +112,23 @@ class LocationHistoryVC: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        self.routeLine = self.polyline()
-        if self.routeLine != nil {
-            locationMap.add(routeLine!)
-        }
-    }
-
-    func GetHistoryListData(date : Date){
-        let formatter = DateFormatter()
-        let timeZone = TimeZone.init(identifier: "UTC")
-        formatter.timeZone = timeZone
-        formatter.locale = Locale.init(identifier: "zh_CN")
-        formatter.dateFormat = "yyyy-MM-dd"
-        let datestr = formatter.string(from: calendar.today!)
-        let start = datestr + " 00:00:00"
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let startdate = formatter.date(from: start)
-        let end = datestr + " 23:59:59"
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let enddate = formatter.date(from: end)
+//        self.routeLine = self.polyline()
+//        if self.routeLine != nil {
+//            locationMap.add(routeLine!)
+//        }
         
-        let req = MoveApi.LocationReq(start : startdate , end : enddate)
+        selectedDate.asDriver()
+            .map({  $0.todayStartEnd  }).debug()
+            .flatMapLatest({
+                LocationManager.share.getHistoryLocation(start: $0, end: $1)
+                    .asDriver(onErrorJustReturn: [])
+            })
+            .map({   $0.flatMap({ $0.location }).map({  BaseAnnotation($0)   })     })
+            .drive(onNext: { [unowned self] in
+                self.locationMap.removeAnnotations(self.locationMap.annotations)
+                self.locationMap.addAnnotations($0)
+            })
+            .addDisposableTo(disposeBag)
         
     }
     
@@ -160,7 +157,7 @@ class LocationHistoryVC: UIViewController {
             locationarr.append(annotation)
         }
         locationMap.addAnnotations(locationarr)
-        return MKPolyline(coordinates : coords, count: 10)
+        return MKPolyline(coordinates : coords, count: coords.count)
     }
     
     @IBAction func CalenderOpenBtnClick(_ sender: UIButton) {
@@ -255,9 +252,9 @@ class LocationHistoryVC: UIViewController {
 extension LocationHistoryVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is LocationAnnotation {
+        if annotation is BaseAnnotation {
             
-            let point = annotation as! LocationAnnotation
+            let point = annotation as! BaseAnnotation
             if point.tag ==  index{
                 let identifier = "LocationAnnotation"
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -290,17 +287,17 @@ extension LocationHistoryVC : MKMapViewDelegate {
         
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        
-        if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
-            polylineRenderer.fillColor = UIColor.red
-            polylineRenderer.strokeColor = R.color.appColor.primary()
-            polylineRenderer.lineWidth = 4.0
-            return polylineRenderer
-        }
-        return MKPolylineRenderer()
-    }
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        
+//        if overlay is MKPolyline {
+//            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
+//            polylineRenderer.fillColor = UIColor.red
+//            polylineRenderer.strokeColor = R.color.appColor.primary()
+//            polylineRenderer.lineWidth = 4.0
+//            return polylineRenderer
+//        }
+//        return MKPolylineRenderer()
+//    }
 }
 
 extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
@@ -309,6 +306,25 @@ extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
         let time = self.calenderConversion(from: calendar.today!, to: date)
         self .changeBtnType(time: time , date : date)
         print("did select date \(self.formatter.string(from: date))")
+        selectedDate.value = date
+    }
+
+}
+
+
+fileprivate extension Date {
+    
+    var todayStartEnd: (Date, Date) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let datestr = formatter.string(from: self)
+        let start = datestr + " 00:00:00"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let startdate = formatter.date(from: start)
+        let end = datestr + " 23:59:59"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let enddate = formatter.date(from: end)
+        return (startdate!, enddate!)
     }
 
 }
