@@ -74,10 +74,10 @@ extension MoveApi {
         var birthday: Date?
     }
     
-    struct DeviceJoinInfo {
+    struct DeviceContactInfo {
         var phone: String?
         var identity: DeviceAddIdentity?
-        var profile: String?
+        var flag: Int?
     }
     
     
@@ -293,7 +293,7 @@ extension MoveApi.DeviceAdd: Mappable {
     }
 }
 
-extension MoveApi.DeviceJoinInfo: Mappable {
+extension MoveApi.DeviceContactInfo: Mappable {
     init?(map: Map) {
     }
     
@@ -305,7 +305,7 @@ extension MoveApi.DeviceJoinInfo: Mappable {
     mutating func mapping(map: Map) {
         phone <- map["phone"]
         identity <- (map["identity"], EnumTransform())
-        profile <- map["profile"]
+        flag <- map["flag"]
     }
 }
 

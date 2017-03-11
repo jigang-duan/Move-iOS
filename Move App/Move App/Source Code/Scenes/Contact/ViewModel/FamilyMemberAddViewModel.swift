@@ -76,16 +76,4 @@ class FamilyMemberAddViewModel {
     
 }
 
-fileprivate func protectAccountErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.vcodeIsIncorrect == _error {
-        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Send faild"))
-}
 

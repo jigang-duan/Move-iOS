@@ -34,7 +34,7 @@ extension MoveApi {
             return request(.add(deviceId: deviceId, addInfo: addInfo)).mapMoveObject(ApiError.self)
         }
 //        加入设备群组
-        final class func joinDeviceGroup(deviceId: String, joinInfo: DeviceJoinInfo) ->Observable<ApiError>{
+        final class func joinDeviceGroup(deviceId: String, joinInfo: DeviceContactInfo) ->Observable<ApiError>{
             return request(.joinDeviceGroup(deviceId: deviceId, joinInfo: joinInfo)).mapMoveObject(ApiError.self)
         }
 //        获取设备列表
@@ -53,13 +53,17 @@ extension MoveApi {
         final class func delete(deviceId: String) -> Observable<ApiError> {
             return request(.delete(deviceId: deviceId)).mapMoveObject(ApiError.self)
         }
-//        添加设备联系人: 添加非注册用户为设备联系人，仅管理员调用
+//        添加设备联系人:  添加非注册用户为设备联系人，仅管理员调用
         final class func addNoRegisterMember(deviceId: String) -> Observable<ApiError> {
             return request(.addNoRegisterMember(deviceId: deviceId)).mapMoveObject(ApiError.self)
         }
-//        删除设备绑定成员:  解绑设备的绑定成员，仅设备管理员调用
+//        删除设备联系人:  解绑设备的绑定成员，仅设备管理员调用
         final class func deleteBindUser(deviceId: String, uid: String) -> Observable<ApiError> {
             return request(.deleteBindUser(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
+        }
+//        设置联系人信息:  由管理员或联系人自己调用
+        final class func settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String) -> Observable<ApiError> {
+            return request(.settingContactInfo(deviceId: deviceId, info: info, uid: uid)).mapMoveObject(ApiError.self)
         }
 //        查看设备配置
         final class func getSetting(deviceId: String) -> Observable<DeviceSetting> {
@@ -93,13 +97,14 @@ extension MoveApi {
         enum API {
             case checkBind(deviceId: String)
             case add(deviceId: String, addInfo: DeviceAdd)
-            case joinDeviceGroup(deviceId: String, joinInfo: DeviceJoinInfo)
+            case joinDeviceGroup(deviceId: String, joinInfo: DeviceContactInfo)
             case getDeviceList(pid: Int)
             case getDeviceInfo(deviceId: String)
             case update(deviceId: String, updateInfo: DeviceInfo)
             case delete(deviceId: String)
             case addNoRegisterMember(deviceId: String)
             case deleteBindUser(deviceId: String, uid: String)
+            case settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)
             case getProperty(deviceId: String)
@@ -141,9 +146,11 @@ extension MoveApi.Device.API: TargetType {
         case .delete(let deviceId):
             return "/v1.0/device/\(deviceId)"
         case .addNoRegisterMember(let deviceId):
-            return "/v1.0/device/\(deviceId)/member"
+            return "/v1.0/device/\(deviceId)/contact"
         case .deleteBindUser(let deviceId, let uid):
-            return "/v1.0/device/\(deviceId)/member/\(uid)"
+            return "/v1.0/device/\(deviceId)/contact/\(uid)"
+        case .settingContactInfo(let deviceId, _, let uid):
+            return "/v1.0/device/\(deviceId)/contact/\(uid)"
         case .getSetting(let deviceId):
             return "/v1.0/device/\(deviceId)/settings"
         case .setting(let deviceId, _):
@@ -168,7 +175,7 @@ extension MoveApi.Device.API: TargetType {
             return .post
         case .checkBind, .getDeviceList, .getDeviceInfo, .getSetting, .getProperty, .getPower:
             return .get
-        case .update, .setting, .settingProperty, .addPower:
+        case .update, .setting, .settingContactInfo, .settingProperty, .addPower:
             return .put
         case .delete, .deleteBindUser:
             return .delete
@@ -188,6 +195,8 @@ extension MoveApi.Device.API: TargetType {
             return updateInfo.toJSON()
         case .setting(_, let settingInfo):
             return settingInfo.toJSON()
+        case .settingContactInfo(_, let info, _):
+            return info.toJSON()
         case .settingProperty(_, let settingInfo):
             return settingInfo.toJSON()
         case .sendNotify(_, let sendInfo):

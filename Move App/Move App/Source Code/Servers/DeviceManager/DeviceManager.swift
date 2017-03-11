@@ -46,6 +46,14 @@ extension DeviceManager {
         Me.shared.currDeviceID = deviceInfo.deviceId
         return Observable.just(deviceInfo)
     }
+    
+    func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
+        return worker.deleteContact(deviceId: deviceId, uid: uid)
+    }
+    
+    func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
+        return worker.settingContactInfo(deviceId: deviceId, contactInfo: contactInfo)
+    }
 }
 
 
@@ -59,6 +67,9 @@ protocol DeviceWorkerProtocl {
     
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>
     
+    func deleteContact(deviceId: String, uid: String) -> Observable<Bool>
+    
+    func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool>
 }
 
 

@@ -16,5 +16,7 @@ struct FamilyMemberCellData: ContactCellType {
     var headUrl: String?
     var isHeartOn: Bool
     var relation: String
+    var isOwner: Bool
+    var isMe: Bool
 }
 

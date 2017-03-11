@@ -205,10 +205,17 @@
 		FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF08590F1E7238E300EB81D9 /* MeSetPasswordViewModel.swift */; };
 		FF0859121E72892F00EB81D9 /* OtherSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0859111E72892F00EB81D9 /* OtherSettingsVC.swift */; };
 		FF0859141E7294F200EB81D9 /* MeLogoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0859131E7294F200EB81D9 /* MeLogoutViewModel.swift */; };
+		FF0859171E72A38800EB81D9 /* MoveIM+ImApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0859161E72A38800EB81D9 /* MoveIM+ImApi.swift */; };
+		FF0859191E72A3A100EB81D9 /* MoveIM+ImApi+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0859181E72A3A100EB81D9 /* MoveIM+ImApi+Mappable.swift */; };
+		FF08591C1E72A93D00EB81D9 /* IMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF08591B1E72A93D00EB81D9 /* IMManager.swift */; };
+		FF08591E1E72A96300EB81D9 /* MoveApiIMWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF08591D1E72A96300EB81D9 /* MoveApiIMWorker.swift */; };
+		FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */; };
 		FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
+		FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */; };
+		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
@@ -484,11 +491,18 @@
 		FF08590F1E7238E300EB81D9 /* MeSetPasswordViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeSetPasswordViewModel.swift; sourceTree = "<group>"; };
 		FF0859111E72892F00EB81D9 /* OtherSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsVC.swift; sourceTree = "<group>"; };
 		FF0859131E7294F200EB81D9 /* MeLogoutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeLogoutViewModel.swift; sourceTree = "<group>"; };
+		FF0859161E72A38800EB81D9 /* MoveIM+ImApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveIM+ImApi.swift"; sourceTree = "<group>"; };
+		FF0859181E72A3A100EB81D9 /* MoveIM+ImApi+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveIM+ImApi+Mappable.swift"; sourceTree = "<group>"; };
+		FF08591B1E72A93D00EB81D9 /* IMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMManager.swift; sourceTree = "<group>"; };
+		FF08591D1E72A96300EB81D9 /* MoveApiIMWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiIMWorker.swift; sourceTree = "<group>"; };
+		FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddViewModel.swift; sourceTree = "<group>"; };
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
+		FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailViewModel.swift; sourceTree = "<group>"; };
+		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
@@ -1114,7 +1128,9 @@
 				D24C4D3C1E4DD57F00F9E33A /* CloudMessage */,
 				D24C4D461E4DD57F00F9E33A /* Location */,
 				D24C4D3B1E4DD57F00F9E33A /* ActivityRecord */,
+				FF0859151E729D2E00EB81D9 /* IM */,
 				E04621351E49755A007D3BD3 /* MoveApi.swift */,
+				FF1C4FB01E73CBFD008248FE /* MoveIM.swift */,
 				E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */,
 				E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */,
 				E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */,
@@ -1468,6 +1484,7 @@
 				11D0BECA1E5EBC09006F957E /* MeManager */,
 				E0FA029C1E5C057B004A55BA /* UserManager */,
 				FF02FBC51E6804C8008D0C84 /* DeviceManager */,
+				FF08591A1E72A93300EB81D9 /* IMManager */,
 				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
 				11D0BEC81E5E784F006F957E /* Business.swift */,
 			);
@@ -1616,9 +1633,29 @@
 				FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */,
 				FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */,
 				FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */,
+				FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */,
 				FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */,
+				FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FF0859151E729D2E00EB81D9 /* IM */ = {
+			isa = PBXGroup;
+			children = (
+				FF0859161E72A38800EB81D9 /* MoveIM+ImApi.swift */,
+				FF0859181E72A3A100EB81D9 /* MoveIM+ImApi+Mappable.swift */,
+			);
+			path = IM;
+			sourceTree = "<group>";
+		};
+		FF08591A1E72A93300EB81D9 /* IMManager */ = {
+			isa = PBXGroup;
+			children = (
+				FF08591B1E72A93D00EB81D9 /* IMManager.swift */,
+				FF08591D1E72A96300EB81D9 /* MoveApiIMWorker.swift */,
+			);
+			path = IMManager;
 			sourceTree = "<group>";
 		};
 		FFB811FC1E63E5590049D85C /* ViewModel */ = {
@@ -2009,6 +2046,7 @@
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
 				D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */,
 				11EAC3291E6F99DE002906F1 /* SocialController.swift in Sources */,
+				FF0859191E72A3A100EB81D9 /* MoveIM+ImApi+Mappable.swift in Sources */,
 				E0C229071E35E59D00BCF83D /* Dependencies.swift in Sources */,
 				E0C228F01E349F5C00BCF83D /* GeolocationService.swift in Sources */,
 				E0931F281E30C05300755B4A /* SlackReport.swift in Sources */,
@@ -2038,6 +2076,7 @@
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
 				11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
+				FF0859171E72A38800EB81D9 /* MoveIM+ImApi.swift in Sources */,
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
 				FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */,
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
@@ -2071,6 +2110,7 @@
 				11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
 				11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */,
+				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
 				E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */,
@@ -2098,6 +2138,7 @@
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
 				FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
+				FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */,
 				E0FA02961E5AEA05004A55BA /* Validation.swift in Sources */,
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
@@ -2127,6 +2168,7 @@
 				FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */,
+				FF08591E1E72A96300EB81D9 /* MoveApiIMWorker.swift in Sources */,
 				D2E5E8531E5D229D0024D20C /* (null) in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
 				E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */,
@@ -2134,11 +2176,13 @@
 				E993C5DD1E6FA3DD0057DECA /* ToDoListController.swift in Sources */,
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				FF08590E1E7238D100EB81D9 /* MeSetNameViewModel.swift in Sources */,
+				FF08591C1E72A93D00EB81D9 /* IMManager.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */,
 				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
 				F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */,
+				FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */,

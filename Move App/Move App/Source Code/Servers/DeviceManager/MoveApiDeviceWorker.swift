@@ -46,10 +46,9 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     }
     
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
-        var info = MoveApi.DeviceJoinInfo()
+        var info = MoveApi.DeviceContactInfo()
         info.identity = MoveApi.DeviceAddIdentity.transform(input:(joinInfo.identity?.rawValue)!)
         info.phone = joinInfo.phone
-        info.profile = joinInfo.profile
     
         return MoveApi.Device.joinDeviceGroup(deviceId: joinInfo.deviceId!, joinInfo: info)
             .map {info in
@@ -71,5 +70,60 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         return MoveApi.Device.getDeviceList()
                 .map({ $0.devices ?? [] })
     }
+    
+    //        删除设备联系人:  解绑设备的绑定成员，仅设备管理员调用
+    func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
+        return MoveApi.Device.deleteBindUser(deviceId: deviceId, uid: uid)
+            .map{info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
+    //        设置联系人信息:  由管理员或联系人自己调用
+    func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
+        var info = MoveApi.DeviceContactInfo()
+        info.flag = contactInfo.flag
+        info.identity = MoveApi.DeviceAddIdentity(rawValue: contactInfo.identity ?? "Other")
+        info.phone = contactInfo.phone
+        
+        return MoveApi.Device.settingContactInfo(deviceId: deviceId, info: info, uid: contactInfo.uid!)
+            .map{info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
