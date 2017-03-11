@@ -14,7 +14,8 @@ class LanguageViewModel {
     // outputs {
     
     //
-    let language: Driver<String>
+    let languageVariable = Variable("en")
+    let lauguage: Driver<String>
     let lauguages: Driver<[String]>
     
     let activityIn: Driver<Bool>
@@ -24,8 +25,8 @@ class LanguageViewModel {
     
     init(
         input: (
-        language: Driver<String>,
-        save: Driver<Void>
+        selectedlanguage: Driver<String>,
+        empty: Void
         ),
         dependency: (
         settingsManager: WatchSettingsManager,
@@ -43,11 +44,11 @@ class LanguageViewModel {
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: [])
         
-        self.language = manager.fetchLanguage()
+        self.lauguage = manager.fetchLanguage()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: "")
         
-        self.saveFinish = input.save.withLatestFrom(language)
+        self.saveFinish = input.selectedlanguage
             .flatMapFirst { language in
                 manager.updateLanguage(language)
                     .trackActivity(activitying)

@@ -88,9 +88,14 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             })
             .map({ $0.id == 0 })
     }
-
+   /*
+    func fetchreminder(id: String) -> Observable<KidSetting.Reminder>{
+        return MoveApi.Device
+            .getSetting(deviceId: id)
+            .map(wrappingReminder)
+    }
     
-    
+    */
 }
 
 class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
@@ -102,7 +107,9 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     
     func fetchLanguage(id: String) ->  Observable<String> {
         return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.language ?? "" })
+            .map({
+                $0.language ?? ""
+            })
     }
     
     func updateLanguage(id: String, _ language: String) -> Observable<Bool> {
@@ -223,6 +230,7 @@ extension MoveApiKidSettingsWorker {
             }
         }
         wrap.days = days
+        wrap.active = schoolTime.active
         return wrap
     }
     
@@ -230,6 +238,10 @@ extension MoveApiKidSettingsWorker {
         return self.wrapping(schoolTime: settings.school_time)
     }
     
+  /*  func wrappingReminder(_ settings: MoveApi.DeviceSetting) -> KidSetting.Reminder {
+        return self.wrappingr(reminder: settings.reminder)
+    }
+    */
      func wrapping(schoolTime: MoveApi.SchoolTime?) -> KidSetting.SchoolTime {
         guard let time = schoolTime else {
             return KidSetting.SchoolTime(
@@ -238,7 +250,7 @@ extension MoveApiKidSettingsWorker {
                 pmStartPeriod: DateUtility.zone14hour(),
                 pmEndPeriod: DateUtility.zone16hour(),
                 days: [false, false, false, false, false, false, false],
-                active: false)
+                active: false )
             
         }
         
@@ -253,10 +265,34 @@ extension MoveApiKidSettingsWorker {
             amEndPeriod: time.periods?[0].end ?? DateUtility.zone12hour(),
             pmStartPeriod: time.periods?[1].start ?? DateUtility.zone14hour(),
             pmEndPeriod: time.periods?[1].end ?? DateUtility.zone16hour(),
-            days: days,active: false)
+            days: days,active: time.active ?? false)
         
         
     }
+   
+ /*
+    func wrappingr(reminder: MoveApi.Reminder?) -> KidSetting.Reminder{
+        let todo = KidSetting.Reminder.ToDo(
+            topic: "",
+            content: "",
+            start:  DateUtility.zone7hour(),
+            end: DateUtility.zone7hour(),
+            repeatCount: 1
+        )
+        let alarm = KidSetting.Reminder.Alarm (
+            alarmAt: DateUtility.zone7hour(),
+            day: [false,false,false,false,false]
+        )
+
+        guard let re = reminder else {
+            return KidSetting.Reminder(
+                Alarm: [alarm],
+                Todo:  [todo]
+            )
+            
+    }
+        */
+}
+    
     
 
-}

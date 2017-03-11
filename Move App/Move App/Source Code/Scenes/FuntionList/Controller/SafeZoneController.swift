@@ -7,23 +7,30 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class SafeZoneController: UITableViewController {
 
+    @IBOutlet weak var addSafezone: UIBarButtonItem!
+    var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        tableView.contentInset = UIEdgeInsetsMake(-40, 0, 0, 0)
         
-        return "When kid enter or leave the safe zone,warming will be send to you app"
+        addSafezone.rx.tap
+            .asDriver()
+            .drive(onNext: showAddSafeZoneVC)
+            .addDisposableTo(disposeBag)
+        
     }
+    
+    func showAddSafeZoneVC() {
+        if let vc = R.storyboard.major.addSafeZoneVC() {
+            self.navigationController?.show(vc, sender: nil)
+        }
+    }
+    
 
     
 

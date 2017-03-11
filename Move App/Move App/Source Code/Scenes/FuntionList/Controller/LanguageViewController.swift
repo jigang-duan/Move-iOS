@@ -17,7 +17,6 @@ class LanguageViewController: UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
     
-    var currentVariable = Variable("aL")
     
     let disposeBag = DisposeBag()
     
@@ -29,15 +28,11 @@ class LanguageViewController: UIViewController {
         let selected = tableview.rx.itemSelected.asDriver()
             .map({ self.tableview.cellForRow(at: $0)?.textLabel?.text })
             .filterNil()
-        selected.drive(currentVariable)
-            .addDisposableTo(disposeBag)
-        
-        let save = selected.map({_ in Void() })
         
         let viewModel = LanguageViewModel(
             input: (
-                language: selected,
-                save: save
+                selectedlanguage: selected,
+                empty: Void()
             ),
             dependency: (
                 settingsManager: WatchSettingsManager.share,
@@ -46,9 +41,12 @@ class LanguageViewController: UIViewController {
             )
         )
         
-        let data = viewModel.lauguages  //Observable.just(itemStringArr)
-        let current = currentVariable.asDriver()
-        let cellData = Driver.combineLatest(data, current) { data, current in data.map({ ($0, current) }) }
+        selected.drive(viewModel.languageVariable).addDisposableTo(disposeBag)
+        viewModel.saveFinish.drive(onNext: back).addDisposableTo(disposeBag)
+        
+        viewModel.lauguage.drive(viewModel.languageVariable).addDisposableTo(disposeBag)
+        
+        let cellData = Driver.combineLatest(viewModel.lauguages, viewModel.languageVariable.asDriver()) { data, current in data.map({ ($0, current) }) }
         
         cellData.drive(tableview.rx.items(cellIdentifier: R.reuseIdentifier.cellLanguage.identifier)) { index, model, cell in
             cell.textLabel?.text = model.0
@@ -56,6 +54,12 @@ class LanguageViewController: UIViewController {
             cell.selectionStyle = .none
         }.addDisposableTo(disposeBag)
         
+    }
+    
+    func back(_ $: Bool) {
+        if $ {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
 
 }

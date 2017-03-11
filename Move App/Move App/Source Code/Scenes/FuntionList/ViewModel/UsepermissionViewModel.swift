@@ -48,7 +48,7 @@ class UsepermissionViewModel {
         fetchPermissions.map({$0[3]}).drive(selected3Variable).addDisposableTo(disposeBag)
         fetchPermissions.map({$0[4]}).drive(selected4Variable).addDisposableTo(disposeBag)
         
-        //问题：延迟一个按钮上传数据
+        
         let selectPermission = Observable.combineLatest(selected0Variable.asObservable(),
                                                     selected1Variable.asObservable(),
                                                     selected2Variable.asObservable(),

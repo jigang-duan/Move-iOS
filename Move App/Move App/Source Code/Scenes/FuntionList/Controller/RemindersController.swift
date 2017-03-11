@@ -39,12 +39,10 @@ class RemindersController: UIViewController {
         self.addFuntion()
         self.tableViw.delegate = self
         self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
-        
-        
+    
         calendar.select(calendar.today)
         timeSelectBtn.setTitle("Today", for: .normal)
-        
-        
+
         timeSelectBtn.rx.tap
             .asDriver()
             .drive(onNext: calenderIsOpen)
@@ -110,8 +108,6 @@ class RemindersController: UIViewController {
         let result = gregorian.dateComponents([Calendar.Component.day], from: from, to: to)
         return result.day!
     }
-    
-  
     
     func addFuntion() {
         // Do any additional setup after loading the view.

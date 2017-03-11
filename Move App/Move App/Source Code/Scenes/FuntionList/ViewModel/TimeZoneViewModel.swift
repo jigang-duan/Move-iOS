@@ -15,8 +15,9 @@ class TimeZoneViewModel {
     // outputs {
     let hourformEnable: Driver<Bool>
     let autotimeEnable: Driver<Bool>
-    let timezoneIdentifier: Driver<String>
+    //let timezoneIdentifier: Driver<String>
     let summertimeEnable: Driver<Bool>
+    let fetchtimezoneDate: Driver<Date>
     
     let saveFinish: Driver<Bool>
     
@@ -27,7 +28,7 @@ class TimeZoneViewModel {
         input: (
         hourform: Driver<Bool>,
         autotime: Driver<Bool>,
-        timezone: Driver<Date>,
+        timezone: Driver<TimeZone>,
         summertime: Driver<Bool>
         ),
         dependency: (
@@ -52,24 +53,20 @@ class TimeZoneViewModel {
             .asDriver(onErrorJustReturn: false)
         self.autotimeEnable = Driver.of(fetchAutotime, input.autotime).merge()
         
-        let fetchtimezoneDate = manager.fetchTimezone()
+        fetchtimezoneDate = manager.fetchTimezone()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: Date(timeIntervalSince1970: TimeInterval(TimeZone.current.secondsFromGMT())) )
-        let timezoneTamp = Driver.of(fetchtimezoneDate, input.timezone)
-            .merge()
-        self.timezoneIdentifier = timezoneTamp
-            .map({ $0.timeZone()?.identifier })
-            .filterNil()
-            .asDriver(onErrorJustReturn: "")
-        
+
         let fetchsummertime = manager.fetchSummerTime()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
         self.summertimeEnable = Driver.of(fetchsummertime, input.summertime).merge()
         
+        let timezoneTamp = input.timezone.asDriver().map({ Date(timeIntervalSince1970: TimeInterval($0.secondsFromGMT()))  })
+        
         let down = Driver.combineLatest(hourformEnable , autotimeEnable, timezoneTamp, summertimeEnable) { ($0, $1, $2, $3) }
 
-        //缺一个保存
+        
         self.saveFinish = down
             .flatMapLatest { (hourform, autotime, timezone, summertime) in
                 manager.updateTimezones(hourform, autotime: autotime, Timezone: timezone, summertime: summertime)
@@ -81,9 +78,5 @@ class TimeZoneViewModel {
 }
 
 
-fileprivate extension Date {
-    func timeZone() -> TimeZone? {
-        return TimeZone(secondsFromGMT: Int(self.timeIntervalSince1970))
-    }
-}
+
 

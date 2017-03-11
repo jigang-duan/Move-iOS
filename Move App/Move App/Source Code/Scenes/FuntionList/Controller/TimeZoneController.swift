@@ -24,7 +24,6 @@ class TimeZoneController: UITableViewController {
     @IBOutlet weak var backQutlet: UIBarButtonItem!
     //var selectTimeZoneController: SelectTimeZoneController?
     
-    var timetampVariable = Variable(Date(timeIntervalSince1970: TimeInterval(TimeZone.current.secondsFromGMT())))
     var selectedTimeZone = Variable(TimeZone.current)
     
     var disposeBag = DisposeBag()
@@ -32,24 +31,16 @@ class TimeZoneController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         selectedTimeZone.asDriver()
-            .map({ $0.identifier })
+            .map({ $0.abbreviation() })
             .drive(timezoneCityQutlet.rx.text)
             .addDisposableTo(disposeBag)
-        
-        selectedTimeZone.asDriver()
-            .map({ $0.identifier })
-            .drive(timezoneCityQutlet.rx.text)
-            .addDisposableTo(disposeBag)
-        
         
         let viewModel = TimeZoneViewModel(
             input: (
                 hourform: hourFormatQutlet.rx.value.asDriver(),
                 autotime: autoGetTimeQutlet.rx.value.asDriver(),
-                timezone: timetampVariable.asDriver(),
+                timezone: selectedTimeZone.asDriver(),
                 summertime: summerTimeQutlet.rx.value.asDriver()
             ),
             dependency: (
@@ -63,16 +54,11 @@ class TimeZoneController: UITableViewController {
             .drive(onNext: {_ in
             }).addDisposableTo(disposeBag)
 
-        viewModel.hourformEnable.drive(hourFormatQutlet.rx.on)
-            .addDisposableTo(disposeBag)
-        viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on)
-            .addDisposableTo(disposeBag)
-        viewModel.timezoneIdentifier.drive(self.timezoneCityQutlet.rx.text)
-            .addDisposableTo(disposeBag)
-        viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on)
-            .addDisposableTo(disposeBag)
+        viewModel.hourformEnable.drive(hourFormatQutlet.rx.on).addDisposableTo(disposeBag)
+        viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on).addDisposableTo(disposeBag)
+        viewModel.fetchtimezoneDate.map({ $0.timeZone() }).filterNil().drive(selectedTimeZone).addDisposableTo(disposeBag)
+        viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
         
-      
         viewModel.activityIn
             .map{ !$0 }
             .drive(onNext: userInteractionEnabled)
@@ -100,4 +86,10 @@ class TimeZoneController: UITableViewController {
     }
 
 
+}
+
+fileprivate extension Date {
+    func timeZone() -> TimeZone? {
+        return TimeZone(secondsFromGMT: Int(self.timeIntervalSince1970))
+    }
 }

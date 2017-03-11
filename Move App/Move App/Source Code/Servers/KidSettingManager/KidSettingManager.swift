@@ -20,12 +20,17 @@ protocol KidSettingsWorkerProtocl {
     //func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
     func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>
     
+    
+  //  func fetchreminder(id: String) -> Observable<KidSetting.Reminder>
+    
 }
 
 protocol WatchSettingWorkerProtocl {
     func fetchLanguages(id: String) ->  Observable<[String]>
     func fetchLanguage(id: String) ->  Observable<String>
     func updateLanguage(id: String, _ language: String) -> Observable<Bool>
+    
+    
     
     func fetchshutTime(id: String) -> Observable<Date>
     func fetchbootTime(id: String) -> Observable<Date>
@@ -202,4 +207,12 @@ class KidSettingsManager {
         }
         return worker.creadTodoLis(deviceId: deviceId, todolist)
     }
+   /*
+    func fetchreminder() -> Observable<KidSetting.Reminder>{
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId else {
+            return Observable<KidSetting.Reminder>.empty()
+        }
+        return self.worker.fetchreminder(id: deviceId)
+    }
+    */
 }
