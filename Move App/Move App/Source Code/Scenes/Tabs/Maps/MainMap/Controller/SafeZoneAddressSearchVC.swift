@@ -89,4 +89,9 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
         cell?.textLabel?.text = item.name
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item : MKMapItem = resultArr?.object(at: indexPath.row) as! MKMapItem
+        print("\(item)")
+    }
 }

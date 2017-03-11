@@ -51,9 +51,17 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     var accountViewModel: AccountAndChoseDeviceViewModel!
     let enterCount = Variable(0)
     
+    var isAtThisPage = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location"
+        self.isAtThisPage = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.isAtThisPage = false
     }
     
     override func viewDidLoad() {
@@ -65,7 +73,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         let viewModel = MainMapViewModel(
             input: (
                 avatarTap: objectImageBtn.rx.tap.asDriver(),
-                avatarView: objectImageBtn
+                avatarView: objectImageBtn,
+                isAtThisPage: isAtThisPage
             ),
             dependency: (
                 geolocationService: geolocationService,
@@ -77,7 +86,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         viewModel.selecedAction
             .bindNext({
                 Logger.info($0)
-                self.currentDeviceData = $0
                 self.KidInfoToAnimation(dataSource: $0)
             })
             .addDisposableTo(disposeBag)
@@ -224,7 +232,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             self.navigationController?.pushViewController((self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC"))!, animated: true)
         }else {
             objectNameL.text = dataSource.title
-            
+            self.currentDeviceData = dataSource
             let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
             if device?.property != nil {
                 let property : MoveApi.DeviceProperty = (device?.property)!

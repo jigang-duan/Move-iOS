@@ -31,7 +31,8 @@ class MainMapViewModel {
     
     init(input: (
         avatarTap: Driver<Void>,
-        avatarView: UIView
+        avatarView: UIView,
+        isAtThisPage: Bool
         ),
          dependency: (
             geolocationService: GeolocationService,
@@ -49,6 +50,7 @@ class MainMapViewModel {
         self.activityIn = activitying.asDriver()
         
         kidLocation = Driver<Int>.timer(2, period: Configure.App.LoadDataOfPeriod)
+            .filter({ _ in input.isAtThisPage })
             .flatMapLatest ({_ in
                 locationManager.getCurrentLocation()
                     .trackActivity(activitying)
