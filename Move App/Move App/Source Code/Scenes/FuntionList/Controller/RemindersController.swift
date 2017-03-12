@@ -14,6 +14,8 @@ import FSCalendar
 
 class RemindersController: UIViewController {
 
+    
+    
     @IBOutlet weak var addOutlet: UIButton!
     @IBOutlet weak var tableViw: UITableView!
     
@@ -23,7 +25,10 @@ class RemindersController: UIViewController {
     @IBOutlet weak var timeNextBtn: UIButton!
     
     var isCalendarOpen : Bool = false
-   
+    
+    var alarms: [NSDictionary]?
+    var todos: [NSDictionary]?
+    var btnbool : Bool = true
     
     fileprivate let formatter: DateFormatter = {
         
@@ -37,32 +42,29 @@ class RemindersController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addFuntion()
-        self.tableViw.delegate = self
-        self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
-    
-        calendar.select(calendar.today)
-        timeSelectBtn.setTitle("Today", for: .normal)
+        self.initView()
 
-        timeSelectBtn.rx.tap
-            .asDriver()
-            .drive(onNext: calenderIsOpen)
-            .addDisposableTo(disposeBag)
+        timeSelectBtn.rx.tap.asDriver().drive(onNext: calenderIsOpen).addDisposableTo(disposeBag)
+        timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
+        timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
         
-        timeBackBtn.rx.tap
-            .asDriver()
-            .drive(onNext: lastDayClick)
-            .addDisposableTo(disposeBag)
-      
+        let path = (Bundle.main.path(forResource: "reminder.plist", ofType: nil)) ?? ""
         
-        timeNextBtn.rx.tap
-            .asDriver()
-            .drive(onNext: nextDayClick)
-            .addDisposableTo(disposeBag)
+        let data: NSDictionary? = NSDictionary(contentsOfFile: path)
         
-        
+        alarms = data?.object(forKey: "Alarms") as! [NSDictionary]?
+        todos = data?.object(forKey: "ToDo") as! [NSDictionary]?
         
     }
 
+    func initView() {
+        self.tableViw.delegate = self
+        self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
+        calendar.select(calendar.today)
+        
+        timeSelectBtn.setTitle("Today", for: .normal)
+    }
+    
     func calenderIsOpen() {
         
         if isCalendarOpen == false {
@@ -133,17 +135,32 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return ((self.alarms?.count)!+(self.todos?.count)!)
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellAlarm.identifier, for: indexPath)
-        cell.textLabel?.text = "08:00"
-        cell.detailTextLabel?.text = "School time"
-        let imag = UIImage.init(named: "reminder_school")
-        cell.imageView?.image = imag
-       
+        //删除自定义会崩溃
+        let a = cell.contentView.subviews[2] as! SwitchButton
+        
+//        for i in 0 ..< cell.contentView.subviews.count{ print(cell.contentView.subviews[i])}
+        
+        if indexPath.row < (self.alarms?.count)! {
+        cell.textLabel?.text =  DateUtility.dateTostring(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
+        cell.detailTextLabel?.text = "School day"
+        cell.imageView?.image = UIImage.init(named: "reminder_school")
+        a.isOn = self.alarms?[indexPath.row]["active"] as! Bool
+        }
+        else
+        {
+            cell.textLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
+            cell.detailTextLabel?.text = "aa"
+            cell.imageView?.image = UIImage.init(named: "reminder_homework")
+            a.isHidden = true
+        }
         return cell
     }
     
@@ -152,14 +169,24 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         
         return .delete
     }
+    
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            print("删除");
-//            [self.arrayValue   removeObjectAtIndex:[indexPathrow]];  //删除数组里的数据
-//            [tableview   deleteRowsAtIndexPaths:[NSMutableArrayarrayWithObject:indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];  //删除对应数据的cell
+            if indexPath.row < (self.alarms?.count)! {
+                self.alarms?.remove(at: indexPath.row)
+            }
+            else
+            {
+               self.todos?.remove(at: indexPath.row-(self.alarms?.count)!)
+            }
+            self.tableViw.deleteRows(at: [indexPath], with: .top)
+            
+            tableView.reloadData()
         }
+        
+        
         
     }
     

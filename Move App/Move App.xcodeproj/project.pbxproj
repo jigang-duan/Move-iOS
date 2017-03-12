@@ -150,6 +150,8 @@
 		E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029D1E5C05A6004A55BA /* UserManager.swift */; };
 		E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */; };
 		E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02A11E5C061D004A55BA /* WorkerError.swift */; };
+		E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */; };
+		E956E7F41E752B3500E4298D /* reminder.plist in Resources */ = {isa = PBXBuildFile; fileRef = E956E7F31E752B3500E4298D /* reminder.plist */; };
 		E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */; };
 		E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAF1E6942A300C0B944 /* WeekView.swift */; };
 		E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBA1E69432000C0B944 /* AlarmController.swift */; };
@@ -436,6 +438,8 @@
 		E0FA029D1E5C05A6004A55BA /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiUserWorker.swift; path = Workers/MoveApiUserWorker.swift; sourceTree = "<group>"; };
 		E0FA02A11E5C061D004A55BA /* WorkerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerError.swift; sourceTree = "<group>"; };
+		E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersViewModel.swift; sourceTree = "<group>"; };
+		E956E7F31E752B3500E4298D /* reminder.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reminder.plist; sourceTree = "<group>"; };
 		E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+WeekView.swift"; sourceTree = "<group>"; };
 		E9735EAF1E6942A300C0B944 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		E9735EBA1E69432000C0B944 /* AlarmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
@@ -1547,6 +1551,8 @@
 				E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */,
 				E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */,
 				E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */,
+				E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */,
+				E956E7F31E752B3500E4298D /* reminder.plist */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1834,6 +1840,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E956E7F41E752B3500E4298D /* reminder.plist in Resources */,
 				E9DA9C3B1E6FD960009A9189 /* contactCell.xib in Resources */,
 				E9DA9C3F1E6FD960009A9189 /* NoticeListCell.xib in Resources */,
 				E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */,
@@ -2086,6 +2093,7 @@
 				E9DA9C3E1E6FD960009A9189 /* NoticeListCell.swift in Sources */,
 				11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
+				E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */,

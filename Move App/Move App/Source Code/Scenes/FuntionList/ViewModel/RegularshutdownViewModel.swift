@@ -56,18 +56,18 @@ class RegularshutdownViewModel {
         self.openEnable = manager.fetchoAutopoweronoff()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
-            //.startWith(false)
         
-        let down = Driver.combineLatest(shutdownTime, bootTime,openEnable) { ($0, $1, $2) }
+        
+        let down = Driver.combineLatest(input.shutdownTime, input.bootTime, input.openEnable) { ($0, $1, $2) }
         
         self.saveFinish = input.save
             .withLatestFrom(down)
-            .flatMapLatest { (shutdownTime, bootTime, openEnable) in
+            .flatMapLatest { (bootTime,shutdownTime,openEnable) in
                 manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: openEnable)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
             }
-
+        
         
         
     }

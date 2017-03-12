@@ -21,7 +21,7 @@ protocol KidSettingsWorkerProtocl {
     func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>
     
     
-  //  func fetchreminder(id: String) -> Observable<KidSetting.Reminder>
+    func fetchreminder(id: String) -> Observable<KidSetting.Reminder>
     
 }
 
@@ -207,12 +207,12 @@ class KidSettingsManager {
         }
         return worker.creadTodoLis(deviceId: deviceId, todolist)
     }
-   /*
+   
     func fetchreminder() -> Observable<KidSetting.Reminder>{
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId else {
             return Observable<KidSetting.Reminder>.empty()
         }
         return self.worker.fetchreminder(id: deviceId)
     }
-    */
+    
 }

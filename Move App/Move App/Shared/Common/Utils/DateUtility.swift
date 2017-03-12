@@ -23,6 +23,16 @@ class DateUtility {
         return dformatter.date(from: _text) ?? Date(timeIntervalSince1970: 0)
     }
     
+    static func dateTostring(date: Date?) -> String {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "HH:mm"
+        return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
+        
+    }
+    
+    
+    
     static func zoneDay() -> (startDate: Date, endDate: Date) {
         let now = Date(timeIntervalSince1970: 0)
         return (now,now.addingTimeInterval(DateUtility.SEC_DAY))

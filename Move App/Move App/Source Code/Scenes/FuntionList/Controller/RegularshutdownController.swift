@@ -50,12 +50,6 @@ class RegularshutdownController: UIViewController {
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
         
-        shutdownTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.shutdownTime = date
-            })
-            .addDisposableTo(disposeBag)
-        
         bootTimeVariable.asDriver()
             .drive(onNext: {date in
                 self.bootTime = date
@@ -66,6 +60,13 @@ class RegularshutdownController: UIViewController {
             .asDriver()
             .drive(onNext: selectBootTime)
             .addDisposableTo(disposeBag)
+        
+        shutdownTimeVariable.asDriver()
+            .drive(onNext: { date in
+                self.shutdownTime = date
+            })
+            .addDisposableTo(disposeBag)
+        
         
         self.shutdownTimeQutlet.rx.tap
             .asDriver()
@@ -119,8 +120,16 @@ class RegularshutdownController: UIViewController {
             .map{ !$0 }
             .drive(SaveQutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
+        
+        viewModel.saveFinish.drive(onNext: back).addDisposableTo(disposeBag)
     }
 
+    func back(_ $: Bool) {
+        if $ {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     private func cancelDatepicker() {
         datePickView.isHidden = true
         bootTimeOutlet.isEnabled = true

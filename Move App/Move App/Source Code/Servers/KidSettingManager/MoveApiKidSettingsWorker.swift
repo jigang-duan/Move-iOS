@@ -88,14 +88,14 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             })
             .map({ $0.id == 0 })
     }
-   /*
+   
     func fetchreminder(id: String) -> Observable<KidSetting.Reminder>{
         return MoveApi.Device
             .getSetting(deviceId: id)
             .map(wrappingReminder)
     }
     
-    */
+    
 }
 
 class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
@@ -238,10 +238,10 @@ extension MoveApiKidSettingsWorker {
         return self.wrapping(schoolTime: settings.school_time)
     }
     
-  /*  func wrappingReminder(_ settings: MoveApi.DeviceSetting) -> KidSetting.Reminder {
+    func wrappingReminder(_ settings: MoveApi.DeviceSetting) -> KidSetting.Reminder {
         return self.wrappingr(reminder: settings.reminder)
     }
-    */
+    
      func wrapping(schoolTime: MoveApi.SchoolTime?) -> KidSetting.SchoolTime {
         guard let time = schoolTime else {
             return KidSetting.SchoolTime(
@@ -270,29 +270,26 @@ extension MoveApiKidSettingsWorker {
         
     }
    
- /*
-    func wrappingr(reminder: MoveApi.Reminder?) -> KidSetting.Reminder{
-        let todo = KidSetting.Reminder.ToDo(
-            topic: "",
-            content: "",
-            start:  DateUtility.zone7hour(),
-            end: DateUtility.zone7hour(),
-            repeatCount: 1
-        )
-        let alarm = KidSetting.Reminder.Alarm (
-            alarmAt: DateUtility.zone7hour(),
-            day: [false,false,false,false,false]
-        )
-
-        guard let re = reminder else {
-            return KidSetting.Reminder(
-                Alarm: [alarm],
-                Todo:  [todo]
-            )
-            
+ 
+    func wrappingr(reminder: MoveApi.Reminder?) -> KidSetting.Reminder {
+        let todos = reminder?.todo?.flatMap({ KidSetting.Reminder.ToDo(topic: $0.topic, content: $0.content, start: $0.start, end: $0.end, repeatCount: $0.repeatCount) })
+        
+        let alarms = reminder?.alarms?.flatMap({ KidSetting.Reminder.Alarm(alarmAt: $0.alarmAt, day: daysToBool(timeDays: $0.days) ) })
+        
+        return KidSetting.Reminder(alarms: alarms ?? [], todo: todos ?? [])
     }
-        */
+    
+    private func daysToBool(timeDays: [Int]?) -> [Bool] {
+        var days = [false, false, false, false, false, false, false]
+        for i in 1 ... 7 {
+            if let _days = timeDays, _days.contains(i) {
+                days[i - 1] = true
+            }
+        }
+        return days
+    }
+    
 }
-    
-    
+
+
 
