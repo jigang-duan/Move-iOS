@@ -9,12 +9,16 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import AVFoundation
 
 
 class FamilyMemberDetailController: UIViewController {
     
     
     @IBOutlet weak var selectPhotoBun: UIButton!
+    @IBOutlet weak var selectRelationBun: UIButton!
+    @IBOutlet weak var selectPhoneBun: UIButton!
+    
     @IBOutlet weak var photoImgV: UIImageView!
     
     @IBOutlet weak var nameTf: UITextField!
@@ -46,6 +50,18 @@ class FamilyMemberDetailController: UIViewController {
         var isMaster = false
         var isMe = false
     }
+    
+    
+    let relations = ["mun","dad","grandmaF","grandpaF","grandmaM","grandpaM","aunt","uncle","brother","sister","other"]
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        nameTf.resignFirstResponder()
+        numberTf.resignFirstResponder()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +158,8 @@ class FamilyMemberDetailController: UIViewController {
             deleteBun.isHidden = true
             if info?.isMe == false {
                 selectPhotoBun.isHidden = true
+                selectRelationBun.isHidden = true
+                selectPhoneBun.isHidden = true
                 nameTf.isEnabled = false
                 numberTf.isEnabled = false
                 saveBun.isEnabled = false
@@ -152,6 +170,47 @@ class FamilyMemberDetailController: UIViewController {
         nameTf.text = info?.contactInfo?.nickname
         numberTf.text = info?.contactInfo?.phone
     }
+    
+    
+    @IBAction func selectPhoto(_ sender: Any) {
+        if cameraPermissions() {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.allowsEditing = true
+            imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }else{
+            self.showMessage("没有相机权限")
+        }
+    }
+    
+    func cameraPermissions() -> Bool{
+        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        
+        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
+            return false
+        }
+        return true
+    }
+    
+
+    @IBAction func selectRelation(_ sender: Any) {
+        let vc = R.storyboard.main.relationshipTableController()!
+        vc.relationBlock = {[weak self] relation in
+            self?.viewModel.contactInfo?.value.identity = String(relation)
+            self?.nameTf.text =  self?.relations[relation - 1]
+        }
+        self.navigationController?.show(vc, sender: nil)
+    }
+    
+    
+    @IBAction func selectPhone(_ sender: Any) {
+        
+        
+    }
+    
+    
+    
     
     
     func showMessage(_ text: String) {
@@ -165,4 +224,19 @@ class FamilyMemberDetailController: UIViewController {
     
     
 }
+
+extension FamilyMemberDetailController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.photoImgV.image = image
+        }
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    
+}
+
 

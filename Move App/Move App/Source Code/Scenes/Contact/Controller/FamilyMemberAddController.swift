@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import AVFoundation
 
 class FamilyMemberAddController: UIViewController {
     
@@ -18,18 +19,17 @@ class FamilyMemberAddController: UIViewController {
     
     @IBOutlet weak var nameTf: UITextField!
     @IBOutlet weak var numberTf: UITextField!
-    @IBOutlet weak var selectNumberBun: UIButton!
     
     @IBOutlet weak var doneBun: UIButton!
     
     var identityVaraiable = Variable(0)
     
-    let photos = ["relationship_ic_mun","relationship_ic_dad","relationship_ic_grandma","relationship_ic_grandpa","relationship_ic_grandma","relationship_ic_grandpa","relationship_ic_aunt","relationship_ic_uncle","relationship_ic_brother","relationship_ic_sister","relationship_ic_other"]
+    let relations = ["mun","dad","grandmaF","grandpaF","grandmaM","grandpaM","aunt","uncle","brother","sister","other"]
     
     var viewModel: FamilyMemberAddViewModel!
     var disposeBag = DisposeBag()
 
-    
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -112,16 +112,73 @@ class FamilyMemberAddController: UIViewController {
         }
     }
     
+    
     @IBAction func selectPhoto(_ sender: Any) {
+        if cameraPermissions() {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.allowsEditing = true
+            imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }else{
+            self.showMessage("没有相机权限")
+        }
+    }
+    
+    func cameraPermissions() -> Bool{
+        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        
+        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
+            return false
+        }
+        return true
+    }
+    
+    @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
-        vc.relationBlock = { relation in
-            self.identityVaraiable.value = relation
-            self.photoImgV.image = UIImage(named: self.photos[relation - 1])
+        vc.relationBlock = {[weak self] relation in
+            self?.identityVaraiable.value = relation
+            self?.nameTf.text =  self?.relations[relation - 1]
         }
         self.navigationController?.show(vc, sender: nil)
     }
     
+    
+    @IBAction func selectPhone(_ sender: Any) {
+        
+        
+    }
+    
+    
+    
+    
+    
+    func showMessage(_ text: String) {
+        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(action)
+        self.present(vc, animated: true) {
+            
+        }
+    }
+    
+    
 }
+
+extension FamilyMemberAddController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.photoImgV.image = image
+        }
+        picker.dismiss(animated: true) { 
+            
+        }
+    }
+    
+
+}
+
 
 extension FamilyMemberAddController {
     override var prefersStatusBarHidden: Bool {
