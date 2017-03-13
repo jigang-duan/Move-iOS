@@ -23,8 +23,13 @@ class MeManager {
         worker = MoveApiMeWorker()
     }
     
-    func checkCurrentRole() -> Observable<Bool?> {
-        return Observable.empty()
+    func checkCurrentRole() -> Observable<String?> {
+
+        return MoveApi.Device.getDeviceList()
+            .map({
+                Me.shared.currDeviceID = $0.devices?.first?.deviceId
+                return Me.shared.currDeviceID
+            })
     }
     
 }
@@ -32,7 +37,9 @@ class MeManager {
 extension UserManager {
     
     func isValid() -> Observable<Bool> {
-        return Observable.just(UserInfo.shared.accessToken.isValidAndNotExpired)
+        
+        return UserInfo.shared.isValid()
+        
     }
     
 }

@@ -134,33 +134,66 @@ extension UserInfo {
         self.accessToken.expiryAt = nil
         self.accessToken.token = nil
         self.accessToken.refreshToken = nil
+        let realm = try! Realm()
+        if let myAccount = realm.object(ofType: AccountEntity.self, forPrimaryKey: 0) {
+            try! realm.write {
+                realm.delete(myAccount)
+            }
+        }
+        
+    }
+    
+    fileprivate func fetchUserInfo() -> UserInfo {
+        let realm = try! Realm()
+        if let myAccount = realm.object(ofType: AccountEntity.self, forPrimaryKey: 0) {
+            UserInfo.shared.id = myAccount.uid
+            UserInfo.shared.accessToken.token = myAccount.token
+            UserInfo.shared.accessToken.refreshToken = myAccount.refreshToken
+            UserInfo.shared.accessToken.expiryAt = myAccount.expired_at
+        }
+        
+        return UserInfo.shared
     }
     
     fileprivate func saveAccessToken() {
         let realm = try! Realm()
-        if let myAccount = realm.object(ofType: MeEntity.self, forPrimaryKey: 0) {
+        if let myAccount = realm.object(ofType: AccountEntity.self, forPrimaryKey: 0) {
             try! realm.write {
-                if myAccount.account == nil {
-                    myAccount.account = AccountEntity()
-                }
-                myAccount.account?.uid = self.id
-                myAccount.account?.token = self.accessToken.token
-                myAccount.account?.refreshToken = self.accessToken.refreshToken
-                myAccount.account?.expired_at = self.accessToken.expiryAt
+                myAccount.uid = self.id
+                myAccount.token = self.accessToken.token
+                myAccount.refreshToken = self.accessToken.refreshToken
+                myAccount.expired_at = self.accessToken.expiryAt
             }
         } else {
-            let entity = MeEntity()
-            let account = AccountEntity()
-            entity.account = account
-            entity.account?.uid = self.id
-            entity.account?.token = self.accessToken.token
-            entity.account?.refreshToken = self.accessToken.refreshToken
-            entity.account?.expired_at = self.accessToken.expiryAt
+            let entity = AccountEntity()
+            entity.uid = self.id
+            entity.token = self.accessToken.token
+            entity.refreshToken = self.accessToken.refreshToken
+            entity.expired_at = self.accessToken.expiryAt
             try! realm.write {
                 realm.add(entity)
             }
         }
     }
+    
+    func isValid() -> Observable<Bool> {
+        let _ = fetchUserInfo()
+        guard accessToken.isValidAndNotExpired else {
+            return Observable.just(false)
+        }
+        
+        guard let uid = id else {
+            return Observable.just(false)
+        }
+        
+        return MoveApi.Account.getUserInfo(uid: uid)
+            .catchingUserProfile()
+            .map({
+                $0.username != nil
+            })
+            .catchErrorJustReturn(false)
+    }
+    
 }
 
 extension UserInfo.AccessToken {
@@ -190,6 +223,29 @@ extension ObservableType where E == MoveApi.AccessToken {
             UserInfo.shared.id = element.uid
             UserInfo.shared.saveAccessToken()
             return Observable.just(UserInfo.shared)
+        }
+    }
+}
+
+extension ObservableType where E == MoveApi.UserInfoMap {
+    func catchingUserProfile() -> Observable<UserInfo.Profile> {
+        return flatMap { $ -> Observable<UserInfo.Profile> in
+            let profile = UserInfo.Profile(username: $.username,
+                                           password: $.password,
+                                           nickname: $.nickname,
+                                           email: $.email,
+                                           phone: $.phone,
+                                           iconUrl: $.profile,
+                                           gender: $.gender,
+                                           height: $.height,
+                                           weight: $.weight,
+                                           unit_value: $.unit_value,
+                                           unit_weight_value: $.unit_weight_value,
+                                           orientation: $.orientation,
+                                           birthday: $.birthday,
+                                           mtime: $.mtime)
+            UserInfo.shared.profile = profile
+            return Observable.just(profile)
         }
     }
 }

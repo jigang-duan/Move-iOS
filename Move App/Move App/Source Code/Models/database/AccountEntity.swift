@@ -9,16 +9,17 @@
 import Realm
 import RealmSwift
 
-class MeEntity: Object {
-    dynamic var id: Int = 0
-    dynamic var account: AccountEntity? = nil
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-}
+//class MeEntity: Object {
+//    dynamic var id: Int = 0
+//    dynamic var account: AccountEntity? = nil
+//    
+//    override static func primaryKey() -> String? {
+//        return "id"
+//    }
+//}
 
 class AccountEntity: Object {
+    dynamic var id: Int = 0
     dynamic var uid: String? = nil
     
     dynamic var token : String? = nil
@@ -29,7 +30,7 @@ class AccountEntity: Object {
     dynamic var password : String? = nil
     
     override static func primaryKey() -> String? {
-        return "uid"
+        return "id"
     }
 }
 

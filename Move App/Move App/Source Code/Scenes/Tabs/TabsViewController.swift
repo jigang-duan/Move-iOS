@@ -19,14 +19,15 @@ class TabsViewController: UITabBarController {
         // Do any additional setup after loading the view.
         viewControllers = [
             R.storyboard.major.navHomeController()!,
-            R.storyboard.main.instantiateInitialViewController()!,
-            R.storyboard.social.instantiateInitialViewController()!
+            R.storyboard.main.choseDevice()!
+//            R.storyboard.main.instantiateInitialViewController()!,
+//            R.storyboard.social.instantiateInitialViewController()!
         ]
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.checkLogin()
+        //self.checkLogin()
     }
 
     override func didReceiveMemoryWarning() {

@@ -28,7 +28,7 @@ class DistributionViewController: UIViewController {
             )
         )
         
-        viewModel.enterLogin
+        viewModel.enterLogin.debug()
             .drive(onNext: { [weak self] enter in
                 if enter {
                     self?.enterLoginScreen()
@@ -36,7 +36,7 @@ class DistributionViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.enterChoose
+        viewModel.enterChoose.debug()
             .drive(onNext: { [weak self] enter in
                 if enter {
                     self?.enterChoseDeviceScreen()
@@ -44,7 +44,7 @@ class DistributionViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.enterMain
+        viewModel.enterMain.debug()
             .drive(onNext: { [weak self] enter in
                 if enter {
                     self?.enterMainScreen()
@@ -82,15 +82,15 @@ class DistributionViewController: UIViewController {
     }
     
     func enterLoginScreen() {
-        self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+        self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin, sender: nil)
     }
     
     func enterChoseDeviceScreen() {
-//        self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice.identifier, sender: nil)
+//        self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice, sender: nil)
     }
     
     func enterMainScreen() {
-        fatalError("enterMainScreen(:) has not been implemented")
+        self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
     }
 
 }

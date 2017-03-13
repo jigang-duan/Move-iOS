@@ -30,7 +30,7 @@ target 'Move App' do
   pod 'RxDataSources', '~> 1.0'
   pod 'RxOptional'
   # pod 'RxMKMapView'  // 有依赖冲突
-  # 数据库
+  # 数据库 https://realm.io
   pod 'RxRealm'
   
   # 图片下载和缓存库，取代 SDWebImage

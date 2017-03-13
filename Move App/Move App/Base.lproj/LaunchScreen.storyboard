@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Pair_Verification_Code" translatesAutoresizingMaskIntoConstraints="NO" id="hot-fx-NTX">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="defult" translatesAutoresizingMaskIntoConstraints="NO" id="hot-fx-NTX">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
@@ -40,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Pair_Verification_Code" width="375" height="667"/>
+        <image name="defult" width="621" height="1104"/>
     </resources>
 </document>

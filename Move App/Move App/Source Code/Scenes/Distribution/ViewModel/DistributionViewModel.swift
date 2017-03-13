@@ -33,8 +33,7 @@ class DistributionViewModel {
         let meManager = dependency.meManager
         let userManager = dependency.userManager
         
-        let delay = Observable.just(1)
-            .delay(5, scheduler: MainScheduler.instance)
+        let delay = Observable.just(1).delay(5, scheduler: MainScheduler.instance)
         
         self.enterLogin =  delay
             .flatMap { _ in
@@ -43,19 +42,22 @@ class DistributionViewModel {
             }
             .asDriver(onErrorJustReturn: true)
         
-        let hasRole = delay
+        let hasRole = enterLogin
+            .filter({ !$0 })
             .flatMap ({_ in
                 meManager.checkCurrentRole()
-                    .map { $0 != nil }
+                    .map {
+                        $0 != nil
+                    }
+                    .asDriver(onErrorJustReturn: false)
             })
-            .asDriver(onErrorJustReturn: false)
         
         self.enterChoose = Driver.combineLatest(
             enterLogin,
             hasRole) { enterLogin, hasRole in
                 !enterLogin && !hasRole
-        }
+            }
         
-        self.enterMain = self.enterChoose.map {$0}
+        self.enterMain = self.enterChoose.map {!$0}
     }
 }

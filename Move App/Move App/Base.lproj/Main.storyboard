@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="19J-6S-tcL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -46,10 +46,10 @@
                                 </constraints>
                                 <state key="normal" title="Tabs"/>
                                 <connections>
-                                    <segue destination="FQe-cn-qUn" kind="presentation" modalTransitionStyle="crossDissolve" id="82M-v9-NKd"/>
+                                    <segue destination="FQe-cn-qUn" kind="presentation" identifier="showMajor" modalTransitionStyle="crossDissolve" id="82M-v9-NKd"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Pair_Verification_Code" translatesAutoresizingMaskIntoConstraints="NO" id="tyX-9e-tfJ">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="defult" translatesAutoresizingMaskIntoConstraints="NO" id="tyX-9e-tfJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
@@ -1010,7 +1010,7 @@
         <!--Navigation Chose Device-->
         <scene sceneID="I9J-hU-vHI">
             <objects>
-                <navigationController title="Navigation Chose Device" id="19J-6S-tcL" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="choseDevice" title="Navigation Chose Device" useStoryboardIdentifierAsRestorationIdentifier="YES" id="19J-6S-tcL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Account" image="tab_me_nor" id="2yB-aN-gI1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qp6-q2-omV">
@@ -2729,6 +2729,7 @@
         <image name="account_add" width="18" height="18"/>
         <image name="cannot_pair_3g" width="160" height="160"/>
         <image name="cannot_pari_apn" width="160" height="160"/>
+        <image name="defult" width="621" height="1104"/>
         <image name="device_ic_kids" width="36" height="36"/>
         <image name="device_ic_mb12" width="36" height="36"/>
         <image name="device_ic_mb22" width="36" height="36"/>
