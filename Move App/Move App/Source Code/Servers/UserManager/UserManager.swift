@@ -9,6 +9,9 @@
 
 import Foundation
 import RxSwift
+import Realm
+import RealmSwift
+import RxRealm
 
 
 class UserManager {
@@ -132,6 +135,32 @@ extension UserInfo {
         self.accessToken.token = nil
         self.accessToken.refreshToken = nil
     }
+    
+    fileprivate func saveAccessToken() {
+        let realm = try! Realm()
+        if let myAccount = realm.object(ofType: MeEntity.self, forPrimaryKey: 0) {
+            try! realm.write {
+                if myAccount.account == nil {
+                    myAccount.account = AccountEntity()
+                }
+                myAccount.account?.uid = self.id
+                myAccount.account?.token = self.accessToken.token
+                myAccount.account?.refreshToken = self.accessToken.refreshToken
+                myAccount.account?.expired_at = self.accessToken.expiryAt
+            }
+        } else {
+            let entity = MeEntity()
+            let account = AccountEntity()
+            entity.account = account
+            entity.account?.uid = self.id
+            entity.account?.token = self.accessToken.token
+            entity.account?.refreshToken = self.accessToken.refreshToken
+            entity.account?.expired_at = self.accessToken.expiryAt
+            try! realm.write {
+                realm.add(entity)
+            }
+        }
+    }
 }
 
 extension UserInfo.AccessToken {
@@ -148,6 +177,7 @@ extension UserInfo.AccessToken {
         
         return true
     }
+    
 }
 
 
@@ -158,6 +188,7 @@ extension ObservableType where E == MoveApi.AccessToken {
             UserInfo.shared.accessToken.refreshToken = element.accessToken
             UserInfo.shared.accessToken.expiryAt = element.expiredAt
             UserInfo.shared.id = element.uid
+            UserInfo.shared.saveAccessToken()
             return Observable.just(UserInfo.shared)
         }
     }

@@ -21,6 +21,7 @@ class ApplicationManager {
     var disposeBag = DisposeBag()
     
     
+    
     // singleton
     static let sharedInstance = ApplicationManager()
     
@@ -57,6 +58,8 @@ class ApplicationManager {
         
         // Notification
         self.initNotification()
+        
+        Logger.verbose(NSHomeDirectory())
     }
 }
 

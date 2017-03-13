@@ -174,10 +174,6 @@
 		E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */; };
 		E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */; };
 		E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */; };
-		E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */; };
-		E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA01E5D342100367A04 /* MessageHistory.swift */; };
-		E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA21E5D3D4200367A04 /* NotificationList.swift */; };
-		E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */; };
 		E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C301E6FD960009A9189 /* ContactAnnotationView.swift */; };
 		E9DA9C3A1E6FD960009A9189 /* contactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C311E6FD960009A9189 /* contactCell.swift */; };
 		E9DA9C3B1E6FD960009A9189 /* contactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C321E6FD960009A9189 /* contactCell.xib */; };
@@ -463,10 +459,6 @@
 		E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiLocationWorker.swift; sourceTree = "<group>"; };
 		E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllKidsLocationVC.swift; sourceTree = "<group>"; };
-		E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
-		E9D77FA01E5D342100367A04 /* MessageHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHistory.swift; sourceTree = "<group>"; };
-		E9D77FA21E5D3D4200367A04 /* NotificationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
-		E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationEntity.swift; sourceTree = "<group>"; };
 		E9DA9C301E6FD960009A9189 /* ContactAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAnnotationView.swift; sourceTree = "<group>"; };
 		E9DA9C311E6FD960009A9189 /* contactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactCell.swift; sourceTree = "<group>"; };
 		E9DA9C321E6FD960009A9189 /* contactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = contactCell.xib; sourceTree = "<group>"; };
@@ -1569,10 +1561,6 @@
 			isa = PBXGroup;
 			children = (
 				E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */,
-				E9D77F9E1E5D1E8200367A04 /* DeviceList.swift */,
-				E9D77FA01E5D342100367A04 /* MessageHistory.swift */,
-				E9D77FA21E5D3D4200367A04 /* NotificationList.swift */,
-				E9D77FA41E5D3F7E00367A04 /* LocationEntity.swift */,
 			);
 			path = database;
 			sourceTree = "<group>";
@@ -2044,7 +2032,6 @@
 				FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */,
 				FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */,
 				FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */,
-				E9D77F9F1E5D1E8200367A04 /* DeviceList.swift in Sources */,
 				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
 				11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */,
 				11EAC32B1E6FA1BC002906F1 /* AlertController.swift in Sources */,
@@ -2119,9 +2106,7 @@
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
 				11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */,
 				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
-				E9D77FA51E5D3F7E00367A04 /* LocationEntity.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
-				E9D77FA31E5D3D4200367A04 /* NotificationList.swift in Sources */,
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
@@ -2230,7 +2215,6 @@
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
-				E9D77FA11E5D342100367A04 /* MessageHistory.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
