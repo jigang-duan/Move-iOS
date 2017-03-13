@@ -23,15 +23,20 @@ class DateUtility {
         return dformatter.date(from: _text) ?? Date(timeIntervalSince1970: 0)
     }
     
-    static func dateTostring(date: Date?) -> String {
+    static func dateTostringHHmm(date: Date?) -> String {
         
         let dformatter = DateFormatter()
         dformatter.dateFormat = "HH:mm"
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         
     }
-    
-    
+    static func dateTostringyyMMdd(date: Date?) -> String {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "yyyy-MM-dd"
+        return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
+        
+    }
     
     static func zoneDay() -> (startDate: Date, endDate: Date) {
         let now = Date(timeIntervalSince1970: 0)
@@ -41,6 +46,7 @@ class DateUtility {
     static func zone7hour() -> Date {
         return DateUtility.zoneDay().startDate.addingTimeInterval(25200)
     }
+    
     static func zone12hour() -> Date {
         return DateUtility.zoneDay().startDate.addingTimeInterval(43200)
     }

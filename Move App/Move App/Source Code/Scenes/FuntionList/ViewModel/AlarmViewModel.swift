@@ -42,7 +42,7 @@ class AlarmViewModel {
         self.saveFinish = input.save.withLatestFrom(newAlarm).asObservable()
             .flatMapLatest({ alarm -> Observable<Bool> in
                 return input.alarmExited != nil ?
-                    manager.updateAlarm(old: input.alarmExited! , new: alarm).trackActivity(activitying) :
+                    manager.updateAlarm(input.alarmExited! , new: alarm).trackActivity(activitying) :
                     manager.creadAlarm(alarm).trackActivity(activitying)
             })
             .asDriver(onErrorJustReturn: false)

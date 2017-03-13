@@ -48,13 +48,46 @@ class RemindersController: UIViewController {
         timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
         timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
         
-        let path = (Bundle.main.path(forResource: "reminder.plist", ofType: nil)) ?? ""
+        let viewModel = RemindersViewModel(
+            input: (
+                deldect: Driver.empty(),
+                empty: Void()
+            ),
+            dependency: (
+                kidSettingsManager: KidSettingsManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+            )
+        )
+        viewModel.fetchTodos.drive(viewModel.todosVariable).addDisposableTo(disposeBag)
+        viewModel.fetchAlarms.drive(viewModel.alarmsVariable).addDisposableTo(disposeBag)
         
-        let data: NSDictionary? = NSDictionary(contentsOfFile: path)
+        let zoneDate = Date(timeIntervalSince1970: 0)
         
-        alarms = data?.object(forKey: "Alarms") as! [NSDictionary]?
-        todos = data?.object(forKey: "ToDo") as! [NSDictionary]?
         
+        
+        
+        
+        viewModel.alarmsVariable
+            .asDriver().drive(onNext: {
+                self.alarms =  $0.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day]})
+            } )
+            .addDisposableTo(disposeBag)
+        viewModel.todosVariable
+            .asDriver().drive(onNext: {
+                self.todos =  $0.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ]   })
+            })
+            .addDisposableTo(disposeBag)
+        
+//        let path = (Bundle.main.path(forResource: "reminder.plist", ofType: nil)) ?? ""
+//        
+//        let data: NSDictionary? = NSDictionary(contentsOfFile: path)
+//        
+//        alarms = data?.object(forKey: "Alarms") as! [NSDictionary]?
+//        todos = data?.object(forKey: "ToDo") as! [NSDictionary]?
+//        
+       
+        tableViw.register(UINib.init(nibName: "RemindersCell", bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
     }
 
     func initView() {
@@ -142,31 +175,29 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellAlarm.identifier, for: indexPath)
-        //删除自定义会崩溃
-        let a = cell.contentView.subviews[2] as! SwitchButton
         
-//        for i in 0 ..< cell.contentView.subviews.count{ print(cell.contentView.subviews[i])}
+//         let _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier) as! RemindersCell
+        let _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier, for: indexPath) as! RemindersCell
+//        var _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier) as! RemindersCell
         
         if indexPath.row < (self.alarms?.count)! {
-        cell.textLabel?.text =  DateUtility.dateTostring(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
-        cell.detailTextLabel?.text = "School day"
-        cell.imageView?.image = UIImage.init(named: "reminder_school")
-        a.isOn = self.alarms?[indexPath.row]["active"] as! Bool
+            _cell.titleLabel.text =  DateUtility.dateTostringHHmm(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
+            _cell.detailtitleLabel?.text = "School day"
+            _cell.titleimage?.image = UIImage.init(named: "reminder_school")
+            _cell.accviewBtn.isOn = false
         }
-        else
-        {
-            cell.textLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
-            cell.detailTextLabel?.text = "aa"
-            cell.imageView?.image = UIImage.init(named: "reminder_homework")
-            a.isHidden = true
+        else {
+            _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
+            
+            _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("---")\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
+            _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
+            _cell.accviewBtn.isHidden = true
         }
-        return cell
+        
+        return _cell
     }
     
-    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        
         return .delete
     }
     
@@ -182,15 +213,9 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                self.todos?.remove(at: indexPath.row-(self.alarms?.count)!)
             }
             self.tableViw.deleteRows(at: [indexPath], with: .top)
-            
             tableView.reloadData()
         }
-        
-        
-        
     }
-    
-
 }
 extension RemindersController {
 
@@ -208,7 +233,6 @@ extension RemindersController: FSCalendarDelegate,FSCalendarDelegateAppearance {
     {
         let time = self.calenderConversion(from: calendar.today!, to: date)
         self .changeBtnType(time: time , date : date)
-        
     }
     
 }

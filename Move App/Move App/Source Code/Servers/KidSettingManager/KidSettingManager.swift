@@ -11,6 +11,7 @@ import RxSwift
 
 /// User KidSettings Protocl
 protocol KidSettingsWorkerProtocl {
+    
     func fetchSchoolTime(id: String) -> Observable<KidSetting.SchoolTime>
     func updateSchoolTime(id: String, _ schoolTime: KidSetting.SchoolTime) -> Observable<Bool>
     
@@ -22,15 +23,21 @@ protocol KidSettingsWorkerProtocl {
     
     
     func fetchreminder(id: String) -> Observable<KidSetting.Reminder>
+    func updateReminder(id: String, _ reminder: KidSetting.Reminder) -> Observable<Bool>
     
 }
 
 protocol WatchSettingWorkerProtocl {
+    
+    func fetchAutoanswer(id: String) -> Observable<Bool>
+    func updateAutoanswer(id: String, _ openBool: Bool) -> Observable<Bool>
+    
+    func fetchSavepower(id: String) -> Observable<Bool>
+    func updateSavepower(id: String, _ openBool: Bool) -> Observable<Bool>
+    
     func fetchLanguages(id: String) ->  Observable<[String]>
     func fetchLanguage(id: String) ->  Observable<String>
     func updateLanguage(id: String, _ language: String) -> Observable<Bool>
-    
-    
     
     func fetchshutTime(id: String) -> Observable<Date>
     func fetchbootTime(id: String) -> Observable<Date>
@@ -56,6 +63,37 @@ class WatchSettingsManager  {
     init() {
         worker = MoveApiWatchSettingsWorker()
     }
+    
+    func fetchAutoanswer() -> Observable<Bool>
+    {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.fetchAutoanswer(id: deviceId)
+    }
+    func updateAutoanswer( _ openBool: Bool) -> Observable<Bool>
+    {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateAutoanswer(id: deviceId, openBool)
+    }
+    
+    func fetchSavepower() -> Observable<Bool>
+    {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.fetchSavepower(id: deviceId)
+    }
+    func updateSavepower( _ openBool: Bool) -> Observable<Bool>
+    {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateSavepower(id: deviceId, openBool)
+    }
+    
     
     func fetchLanguages() ->  Observable<[String]>{
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
@@ -179,7 +217,7 @@ class KidSettingsManager {
         return worker.updateSchoolTime(id: deviceId, schoolTime)
     }
     
-    func updateAlarm(old: KidSetting.Reminder.Alarm, new: KidSetting.Reminder.Alarm) -> Observable<Bool> {
+    func updateAlarm(_ old: KidSetting.Reminder.Alarm, new: KidSetting.Reminder.Alarm) -> Observable<Bool> {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
@@ -200,6 +238,7 @@ class KidSettingsManager {
 //        }
 //        return worker.updateTodoList(deviceId: deviceId, old: old, new: new)
 //    }
+   
     func creadTodoLis( _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>
     {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
@@ -213,6 +252,15 @@ class KidSettingsManager {
             return Observable<KidSetting.Reminder>.empty()
         }
         return self.worker.fetchreminder(id: deviceId)
+    }
+    
+    func updateReminder(_ reminder: KidSetting.Reminder) -> Observable<Bool>
+    {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return worker.updateReminder(id: deviceId, reminder)
+        
     }
     
 }

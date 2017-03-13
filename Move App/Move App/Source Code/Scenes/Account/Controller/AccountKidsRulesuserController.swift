@@ -43,6 +43,8 @@ class AccountKidsRulesuserController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        
         
         personalInformationQutlet.rx.tap.bindNext { _ in
             let vc = R.storyboard.kidInformation.kidInformationController()!

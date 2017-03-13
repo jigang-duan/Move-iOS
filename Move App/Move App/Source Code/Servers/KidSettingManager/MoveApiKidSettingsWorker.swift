@@ -95,10 +95,54 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .map(wrappingReminder)
     }
     
+    func updateReminder(id: String, _ reminder: KidSetting.Reminder) -> Observable<Bool>{
+        return MoveApi.Device
+            .getSetting(deviceId: id)
+            .flatMapFirst { (item) -> Observable<MoveApi.ApiError> in
+                var setting = item
+                setting.reminder = self.unwrappingr(remind: reminder)
+                return MoveApi.Device.setting(deviceId: id, settingInfo: setting)
+            }
+            .map { $0.id == 0 }
+    }
+
+    
     
 }
 
 class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
+    
+    func fetchAutoanswer(id: String) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.auto_answer ?? false })
+    }
+    func updateAutoanswer(id: String, _ openBool: Bool) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.auto_answer = openBool
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
+    func fetchSavepower(id: String) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.save_power ?? false })
+    }
+    func updateSavepower(id: String, _ openBool: Bool) -> Observable<Bool>
+    {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.save_power = openBool
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
     
     func fetchLanguages(id: String) ->  Observable<[String]> {
         return MoveApi.Device.getSetting(deviceId: id)
@@ -216,6 +260,7 @@ extension MoveApiKidSettingsWorker {
                 days.append(i)
             }
         }
+        
         return MoveApi.Alarm(alarmAt: alarm.alarmAt, days: days, active: true)
     }
     
@@ -233,6 +278,42 @@ extension MoveApiKidSettingsWorker {
         wrap.active = schoolTime.active
         return wrap
     }
+    
+    func unwrappingr(remind: KidSetting.Reminder) -> MoveApi.Reminder {
+        var wrap = MoveApi.Reminder()
+        var days: [Int] = []
+        for i in 1 ... 7 {
+            if remind.alarms[i].day[i - 1] {
+                days.append(i)
+            }
+        }
+        for i in 0 ..< remind.alarms.count{
+            // wrap.alarms?[i].active = remind.alarms[i].active
+            wrap.alarms?[i].alarmAt = remind.alarms[i].alarmAt
+            wrap.alarms?[i].days = days
+        }
+        
+//        wrap.alarms = remind.alarms.map({ rm in
+//            var w = MoveApi.Alarm()
+//            w.alarmAt = rm.alarmAt
+//            w.days = rm.day
+//            return w
+//        })
+        
+        wrap.todo = remind.todo.map({ tod in
+            var t = MoveApi.Todo()
+            t.start = tod.start
+            t.end = tod.end
+            t.repeatCount = tod.repeatCount
+            t.topic = tod.topic
+            t.content = tod.content
+            return t
+        })
+        
+        
+        return wrap
+    }
+    
     
      func wrappingSchoolTime(_ settings: MoveApi.DeviceSetting) -> KidSetting.SchoolTime {
         return self.wrapping(schoolTime: settings.school_time)
@@ -269,8 +350,7 @@ extension MoveApiKidSettingsWorker {
         
         
     }
-   
- 
+    
     func wrappingr(reminder: MoveApi.Reminder?) -> KidSetting.Reminder {
         let todos = reminder?.todo?.flatMap({ KidSetting.Reminder.ToDo(topic: $0.topic, content: $0.content, start: $0.start, end: $0.end, repeatCount: $0.repeatCount) })
         
