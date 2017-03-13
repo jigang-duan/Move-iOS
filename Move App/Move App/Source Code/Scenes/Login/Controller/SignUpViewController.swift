@@ -225,7 +225,7 @@ class SignUpViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.signUpViewController.showProtectAccount(segue: segue) {
             var info = MoveApi.RegisterInfo()
-            info.username = emailTf.text
+            info.email = emailTf.text
             info.password = passwordTf.text
             sg.destination.registerInfo = info
         }

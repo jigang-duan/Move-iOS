@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
 class ProtectAccountController: UIViewController {
     
     @IBOutlet weak var HelpLabel: UILabel!
@@ -18,12 +19,13 @@ class ProtectAccountController: UIViewController {
     @IBOutlet weak var vcodeValidation: UILabel!
     @IBOutlet weak var doneBun: UIButton!
     
-    public var registerInfo: MoveApi.RegisterInfo?
+    var registerInfo: MoveApi.RegisterInfo?
     
     var viewModel: ProtectAccountViewModel!
     var disposeBag = DisposeBag()
 
-    
+    var timeCount = 0
+    var timer: Timer?
     
     
     func showValidateError(_ text: String) {
@@ -48,7 +50,12 @@ class ProtectAccountController: UIViewController {
         }
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if  self.timer != nil {
+            self.timer?.invalidate()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +66,7 @@ class ProtectAccountController: UIViewController {
         
         viewModel = ProtectAccountViewModel(
             input:(
+                registerInfo: registerInfo!,
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
                 sendTaps: sendBun.rx.tap.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
@@ -69,18 +77,23 @@ class ProtectAccountController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+    
         
-        viewModel.email = registerInfo?.email
-        viewModel.password = registerInfo?.password
-        
-        viewModel.sendEnabled
-            .drive(onNext: { [weak self] valid in
-                self?.sendBun.isEnabled = valid
-                self?.sendBun.alpha = valid ? 1.0 : 0.5
+        viewModel.sendEnabled?
+            .drive(onNext: { [unowned self] valid in
+                self.sendBun.isEnabled = valid
+                self.sendBun.alpha = valid ? 1.0 : 0.5
+                if valid {
+                    self.sendBun.setTitle("Resend", for: UIControlState.normal)
+                }else{
+                    self.timeCount = 90
+                    self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
+                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setupSendBunTitle), userInfo: nil, repeats: true)
+                }
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.doneEnabled
+        viewModel.doneEnabled?
             .drive(onNext: { [weak self] valid in
                 self?.doneBun.isEnabled = valid
                 self?.doneBun.alpha = valid ? 1.0 : 0.5
@@ -116,11 +129,23 @@ class ProtectAccountController: UIViewController {
         
     }
     
+    @objc func setupSendBunTitle() {
+        timeCount -= 1
+        if timeCount <= -1 {
+            self.timer?.invalidate()
+            self.sendBun.setTitle("Resend", for: UIControlState.normal)
+            self.sendBun.isEnabled = true
+            self.sendBun.alpha = 1
+        }else{
+            self.sendBun.setTitle("Resend(\(timeCount)s)", for: UIControlState.normal)
+        }
+    }
+    
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.vcodeInvalidte.drive(onNext: { result in
+        viewModel.vcodeInvalidte?.drive(onNext: { result in
             switch result{
             case .failed(let message):
                 self.showValidateError(message)

@@ -189,10 +189,16 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
 
     
     func makeDeviceAdd(with infoStr:String) {
+        
+        var info = DeviceBindInfo()
+        info.isMaster = false
+        
+//                根据二维码信息判断二维码类型
+        //app 分享
         do {
             if let json = try JSONSerialization.jsonObject(with: infoStr.utf8Encoded, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
                 print(json)
-//                根据json判断绑定用户类型
+
                 if let embeded = json["embeded"] as? [String: Any], let _ = json["links"] as? [String: Any] {
                     
 //                    判断二维码是否过期
@@ -203,57 +209,77 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                         }
                     }
                     
-                    var info = DeviceBindInfo()
-                    info.isMaster = false
                     info.deviceId = embeded["imei"] as? String
                     info.phone = embeded["phone"] as? String
                     let str = embeded["identity"] as? String
                     if let identity = NumberFormatter().number(from: str!)?.intValue {
                         info.identity = Relation(rawValue: identity)
                     }
-                    
-                    if let phone = info.phone, phone.characters.count == 0{
-                        let vc = R.storyboard.main.phoneNumberController()!
-                        vc.deviceAddInfo = info
-                        self.navigationController?.show(vc, sender: nil)
-                    }
-                    
-                    if let phone = info.phone, phone.characters.count > 0, info.identity != nil {
-                        
-                        _ = DeviceManager.shared.checkBind(deviceId: info.deviceId!).subscribe({ (event) in
-                            switch event{
-                            case .next(let value):
-                                if value == false {
-                                    _ = DeviceManager.shared.joinGroup(joinInfo: info).subscribe({ (event) in
-                                        switch event{
-                                        case .next(let value):
-                                            print(value)
-                                        case .completed:
-                                            _ = self.navigationController?.popToRootViewController(animated: true)
-                                        case .error(let error):
-                                            print(error)
-                                            self.showMessage(error.localizedDescription)
-                                        }
-                                    })
-                                }
-                            case .error(let error):
-                                print(error)
-                                self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                            default:
-                                break
-                            }
-                        })
-                        
-                       
-                    }
-                    
-                    
                 }
-                
             }
         } catch {
-            print("二维码信息错误")
+            print(infoStr)
         }
+        
+//        手表显示
+        if infoStr.characters.count == 19 {
+            let index = infoStr.index(infoStr.endIndex, offsetBy: -4)
+            info.deviceId = infoStr.substring(to: index)
+        }
+        
+        self.checkImeiAndGoBind(with: info)
     }
     
+    
+    func checkImeiAndGoBind(with info: DeviceBindInfo) {
+        
+        if info.phone == nil
+            || info.phone?.characters.count  == 0
+            || info.identity == nil {
+            let vc = R.storyboard.main.phoneNumberController()!
+            vc.deviceAddInfo = info
+            self.navigationController?.show(vc, sender: nil)
+        }else{
+            _ = DeviceManager.shared.checkBind(deviceId: info.deviceId!).subscribe({ (event) in
+                switch event{
+                case .next(let value):
+                    if value == false {
+                        _ = DeviceManager.shared.joinGroup(joinInfo: info).subscribe({ (event) in
+                            switch event{
+                            case .next(let value):
+                                print(value)
+                            case .completed:
+                                _ = self.navigationController?.popToRootViewController(animated: true)
+                            case .error(let error):
+                                print(error)
+                                self.showMessage(error.localizedDescription)
+                            }
+                        })
+                    }
+                case .error(let error):
+                    print(error)
+                    self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                default:
+                    break
+                }
+            })
+        }
+
+    }
+ 
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -14,21 +14,20 @@ import RxOptional
 
 class ProtectAccountViewModel {
     
-    let vcodeInvalidte: Driver<ValidationResult>
-    let sendEnabled: Driver<Bool>
-    // Is signing process in progress
-    let sending: Driver<Bool>
+    var vcodeInvalidte: Driver<ValidationResult>?
+    var sendEnabled: Driver<Bool>?
+
+    var sending: Driver<Bool>?
     var sendResult: Driver<ValidationResult>?
     
-    let doneEnabled: Driver<Bool>
+    var doneEnabled: Driver<Bool>?
     var doneResult: Driver<ValidationResult>?
     
-    var email: String?
-    var password: String?
     var sid: String?
     
     init(
         input: (
+        registerInfo: MoveApi.RegisterInfo,
         vcode: Driver<String>,
         sendTaps: Driver<Void>,
         doneTaps: Driver<Void>
@@ -47,8 +46,6 @@ class ProtectAccountViewModel {
         let activity = ActivityIndicator()
         self.sending = activity.asDriver()
         
-        self.sendEnabled = Driver.just(true)
-        
         vcodeInvalidte = input.vcode.map{vcode in
             if vcode.characters.count > 0{
                 return ValidationResult.ok(message: "Vcode avaliable")
@@ -56,10 +53,15 @@ class ProtectAccountViewModel {
             return ValidationResult.empty
         }
         
+        let firstEnter = userManager.sendVcode(to: (input.registerInfo.email)!).map({[weak self] sid in
+            self?.sid = sid.sid
+            return true
+        }).asDriver(onErrorJustReturn: false)
+        
         
         self.doneEnabled = Driver.combineLatest(
-            vcodeInvalidte,
-            sending) { vcode, sending in
+            vcodeInvalidte!,
+            sending!) { vcode, sending in
                 vcode.isValid &&
                 !sending
             }
@@ -67,7 +69,7 @@ class ProtectAccountViewModel {
         
         self.sendResult = input.sendTaps
             .flatMapLatest({ _ in
-                return userManager.sendVcode(to: self.email!)
+                return userManager.sendVcode(to: input.registerInfo.email!)
                     .map({info in
                         self.sid = info.sid
                         return ValidationResult.ok(message: "Send Success")
@@ -75,10 +77,15 @@ class ProtectAccountViewModel {
                     .asDriver(onErrorRecover: protectAccountErrorRecover)
             })
         
+        
+        self.sendEnabled = Driver.combineLatest(firstEnter, sendResult!) { first, send in
+            return !(first || send.isValid)
+        }
+        
 
         self.doneResult = input.doneTaps.withLatestFrom(input.vcode)
             .flatMapLatest({ (vcode) in
-                return userManager.signUp(username: self.email!, password: self.password!, sid: self.sid!, vcode: vcode)
+                return userManager.signUp(username: input.registerInfo.email!, password: input.registerInfo.password!, sid: self.sid!, vcode: vcode)
                     .trackActivity(activity)
                     .map { _ in
                         ValidationResult.ok(message: "SignUp Success.")
