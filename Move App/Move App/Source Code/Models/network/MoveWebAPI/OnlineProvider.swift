@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import Result
 
 
 class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
@@ -21,11 +22,14 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
          plugins: [PluginType] = [],
          trackInflights: Bool = false) {
         
+        var _plugins = plugins
+        _plugins.append(MoveApiAccountTokenPlugin())
+        
         super.init(endpointClosure: endpointClosure,
                    requestClosure: requestClosure,
                    stubClosure: stubClosure,
                    manager: manager,
-                   plugins: plugins,
+                   plugins: _plugins,
                    trackInflights: trackInflights)
     }
     
@@ -55,7 +59,7 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
                 guard let error = e as? MoveApi.ApiError else { throw e }
                 guard let errorId = error.id else { throw e }
             
-                if errorId == 10 {
+                if errorId == 11 {
                     UserInfo.shared.invalidate()
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen()
@@ -71,5 +75,34 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
         return self.XAppTokenRequest().flatMap { _ in
             actualRequest
         }
+    }
+}
+
+
+final class MoveApiAccountTokenPlugin: PluginType {
+    // MARK: Plugin
+    
+    /// Called by the provider as soon as a response arrives, even if the request is cancelled.
+    func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
+        guard
+            let response = result.value,
+            response.statusCode == 403 else {
+                return
+        }
+            
+        do {
+            _ = try response.mapMoveObject(MoveApi.ApiError.self)
+        } catch {
+            if
+                let err = error as? MoveApi.ApiError,
+                let errorId = err.id, errorId == 11,
+                let error_field = err.field, error_field == "access_token" {
+                    UserInfo.shared.invalidate()
+                    if MoveApi.canPopToLoginScreen {
+                            Distribution.shared.popToLoginScreen()
+                    }
+                }
+        }
+        
     }
 }

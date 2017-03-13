@@ -29,7 +29,7 @@
                                 </constraints>
                                 <state key="normal" title="Log in"/>
                                 <connections>
-                                    <segue destination="8yf-o7-MWd" kind="presentation" identifier="showLogin" modalTransitionStyle="crossDissolve" id="B4Y-W0-4OS"/>
+                                    <segue destination="8yf-o7-MWd" kind="presentation" identifier="showLogin" modalTransitionStyle="flipHorizontal" id="B4Y-W0-4OS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cvr-dq-zMt">

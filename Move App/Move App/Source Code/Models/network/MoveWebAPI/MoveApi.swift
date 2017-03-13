@@ -24,7 +24,7 @@ class MoveApi {
     }
     
     
-    static let canPopToLoginScreen = false
+    static let canPopToLoginScreen = true
 }
 
 extension MoveApi.ApiError: Swift.Error {
