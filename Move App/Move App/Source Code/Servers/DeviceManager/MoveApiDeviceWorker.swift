@@ -22,7 +22,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         addInfo.sid = firstBindInfo.sid
         addInfo.vcode = firstBindInfo.vcode
         addInfo.phone = firstBindInfo.phone
-        addInfo.identity = MoveApi.DeviceAddIdentity.transform(input:(firstBindInfo.identity?.rawValue)!)
+        addInfo.identity = firstBindInfo.identity?.transformToString()
         addInfo.profile = firstBindInfo.profile
         addInfo.nickName = firstBindInfo.nickName
         addInfo.number = firstBindInfo.number
@@ -44,10 +44,11 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 throw error
         }
     }
+
     
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
-        info.identity = MoveApi.DeviceAddIdentity.transform(input:(joinInfo.identity?.rawValue)!)
+        info.identity = joinInfo.identity?.transformToString()
         info.phone = joinInfo.phone
     
         return MoveApi.Device.joinDeviceGroup(deviceId: joinInfo.deviceId!, joinInfo: info)
@@ -91,7 +92,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
         info.flag = contactInfo.flag
-        info.identity = MoveApi.DeviceAddIdentity(rawValue: contactInfo.identity ?? "Other")
+        info.identity = contactInfo.identity?.transformToString()
         info.phone = contactInfo.phone
         
         return MoveApi.Device.settingContactInfo(deviceId: deviceId, info: info, uid: contactInfo.uid!)
@@ -137,10 +138,28 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         }
     
     }
+    
+    
+    
+    func deleteDevice(with deviceId: String) -> Observable<Bool> {
+        return MoveApi.Device.delete(deviceId: deviceId)
+            .map{info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+        
+    }
+
+    
 }
-
-
-
 
 
 

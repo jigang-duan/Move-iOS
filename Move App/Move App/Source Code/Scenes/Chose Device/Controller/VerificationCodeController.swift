@@ -23,6 +23,9 @@ class VerificationCodeController: UIViewController {
     var sid: String?
     var imei: String?
     
+    var timeCount = 0
+    var timer: Timer?
+    
     func showValidateError(_ text: String) {
         
         //        emailValidation.isHidden = false
@@ -69,6 +72,7 @@ class VerificationCodeController: UIViewController {
         
         viewModel = VerificationCodeViewModel(
             input:(
+                imei: self.imei!,
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
                 sendTaps: sendBun.rx.tap.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver()
@@ -81,12 +85,19 @@ class VerificationCodeController: UIViewController {
         )
         
         viewModel.sid = self.sid
-        viewModel.imei = self.imei
         
-        viewModel.sendEnabled
-            .drive(onNext: { [weak self] valid in
-                self?.sendBun.isEnabled = valid
-                self?.sendBun.alpha = valid ? 1.0 : 0.5
+        viewModel.sendEnabled?
+            .drive(onNext: { [unowned self] valid in
+                self.sendBun.isEnabled = valid
+                self.sendBun.alpha = valid ? 1.0 : 0.5
+                if valid {
+                    self.sendBun.setTitle("Resend", for: UIControlState.normal)
+                }else{
+                    self.timeCount = 90
+                    self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
+                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setupSendBunTitle), userInfo: nil, repeats: true)
+                }
+
             })
             .addDisposableTo(disposeBag)
         
@@ -123,6 +134,17 @@ class VerificationCodeController: UIViewController {
         
     }
     
+    @objc func setupSendBunTitle() {
+        timeCount -= 1
+        if timeCount <= -1 {
+            self.timer?.invalidate()
+            self.sendBun.setTitle("Resend", for: UIControlState.normal)
+            self.sendBun.isEnabled = true
+            self.sendBun.alpha = 1
+        }else{
+            self.sendBun.setTitle("Resend(\(timeCount)s)", for: UIControlState.normal)
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

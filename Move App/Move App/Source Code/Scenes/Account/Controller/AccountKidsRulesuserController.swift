@@ -18,6 +18,10 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var accountNameQutlet: UILabel!
     @IBOutlet weak var personalInformationQutlet: UIButton!
     
+    @IBOutlet weak var unpairCell: UITableViewCell!
+    
+    
+    
     let disposeBag = DisposeBag()
     
     
@@ -63,4 +67,40 @@ class AccountKidsRulesuserController: UITableViewController {
     }
     
     
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if unpairCell == tableView.cellForRow(at: indexPath) {
+            let manager = DeviceManager.shared
+            _ = manager.deleteDevice(with: (manager.currentDevice?.deviceId)!).subscribe({ event in
+                switch event {
+                case .next(let e):
+                    if e {
+                       _ = self.navigationController?.popToRootViewController(animated: true)
+                    }
+                case .completed:
+                    break
+                case .error(let er):
+                    print(er)
+                }
+            })
+        }
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

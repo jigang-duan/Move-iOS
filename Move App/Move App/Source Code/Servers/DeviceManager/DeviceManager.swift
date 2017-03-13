@@ -58,6 +58,10 @@ extension DeviceManager {
     func updateKidInfo(updateInfo: DeviceUser) -> Observable<Bool> {
         return worker.updateKidInfo(updateInfo: updateInfo)
     }
+    
+    func deleteDevice(with deviceId: String) -> Observable<Bool> {
+        return worker.deleteDevice(with: deviceId)
+    }
 }
 
 
@@ -76,6 +80,8 @@ protocol DeviceWorkerProtocl {
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool>
     
     func updateKidInfo(updateInfo: DeviceUser) -> Observable<Bool>
+    
+    func deleteDevice(with deviceId: String) -> Observable<Bool>
 }
 
 

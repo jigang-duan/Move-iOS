@@ -48,12 +48,12 @@ class RelationshipTableController: UITableViewController {
         }
         
         if self.relationBlock != nil {
-            self.relationBlock!(indexPath.row + 1)
+            self.relationBlock!(indexPath.row)
             _ = self.navigationController?.popViewController(animated: true)
             return
         }
         
-        deviceAddInfo?.identity = Relation(rawValue: indexPath.row + 1)
+        deviceAddInfo?.identity = Relation.transformToEnum(input: indexPath.row + 1)
         
         if deviceAddInfo?.isMaster == true {
             self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)

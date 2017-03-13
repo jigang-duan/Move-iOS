@@ -58,7 +58,7 @@ struct ImContact {
     var username: String?
     var nickname: String?
     var profile: String?
-    var identity: String?
+    var identity: Relation?
     var phone: String?
     var email: String?
     var time: Date?

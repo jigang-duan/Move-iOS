@@ -15,8 +15,8 @@ import RxOptional
 class VerificationCodeViewModel {
     
     let vcodeInvalidte: Driver<ValidationResult>
-    let sendEnabled: Driver<Bool>
-    // Is signing process in progress
+    var sendEnabled: Driver<Bool>?
+
     let sending: Driver<Bool>
     var sendResult: Driver<ValidationResult>?
     
@@ -24,10 +24,10 @@ class VerificationCodeViewModel {
     var nextResult: Driver<ValidationResult>?
     
     var sid: String?
-    var imei: String?
     
     init(
         input: (
+        imei: String,
         vcode: Driver<String>,
         sendTaps: Driver<Void>,
         nextTaps: Driver<Void>
@@ -46,7 +46,6 @@ class VerificationCodeViewModel {
         let activity = ActivityIndicator()
         self.sending = activity.asDriver()
         
-        self.sendEnabled = Driver.just(true)
         
         vcodeInvalidte = input.vcode.map{vcode in
             if vcode.characters.count > 0{
@@ -63,16 +62,24 @@ class VerificationCodeViewModel {
                     !sending
             }
             .distinctUntilChanged()
+        
+        let firstEnter = userManager.sendVcode(to: input.imei).map({[weak self] sid in
+            self?.sid = sid.sid
+            return ValidationResult.ok(message: "Send Success")
+        }).asDriver(onErrorRecover: protectAccountErrorRecover)
      
         self.sendResult = input.sendTaps
             .flatMapLatest({ _ in
-                return userManager.sendVcode(to: self.imei!)
+                return userManager.sendVcode(to: input.imei)
                     .map({info in
                         self.sid = info.sid
                         return  ValidationResult.ok(message: "Send Success")
                     })
                     .asDriver(onErrorRecover: protectAccountErrorRecover)
             })
+        
+        
+        self.sendEnabled = Driver.of(firstEnter, sendResult!).merge().map{ !$0.isValid }
         
         
         self.nextResult = input.nextTaps.withLatestFrom(input.vcode)

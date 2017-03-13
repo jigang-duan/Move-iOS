@@ -14,7 +14,6 @@ import RxOptional
 
 class FamilyMemberAddViewModel {
     
-    let identityInvalidte: Driver<ValidationResult>
     let nameInvalidte: Driver<ValidationResult>
     let phoneInvalidte: Driver<ValidationResult>
 
@@ -25,7 +24,6 @@ class FamilyMemberAddViewModel {
     
     init(
         input:(
-        identity: Driver<Int>,
         name: Driver<String>,
         number: Driver<String>,
         doneTaps: Driver<Void>
@@ -39,12 +37,6 @@ class FamilyMemberAddViewModel {
         _ = dependency.validation
         _ = dependency.wireframe
         
-        identityInvalidte = input.identity.map{ identity in
-            if identity > 0{
-                return ValidationResult.ok(message: "identity avaliable")
-            }
-            return ValidationResult.empty
-        }
         
         nameInvalidte = input.name.map{name in
             if name.characters.count > 0{
@@ -61,8 +53,8 @@ class FamilyMemberAddViewModel {
         }
         
         
-        self.doneEnabled = Driver.combineLatest( identityInvalidte, nameInvalidte, phoneInvalidte) { identity, name, phone in
-                identity.isValid && name.isValid && phone.isValid
+        self.doneEnabled = Driver.combineLatest( nameInvalidte, phoneInvalidte) {name, phone in
+                name.isValid && phone.isValid
             }
             .distinctUntilChanged()
         

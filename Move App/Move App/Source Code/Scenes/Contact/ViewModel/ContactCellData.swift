@@ -16,7 +16,12 @@ struct FamilyMemberCellData: ContactCellType {
     var headUrl: String?
     var isHeartOn: Bool
     var relation: String
-    var isOwner: Bool
-    var isMe: Bool
+    var state: [FamilyMemberCellState]
 }
 
+enum FamilyMemberCellState {
+    case me
+    case master
+    case baby
+    case other
+}

@@ -191,7 +191,6 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
     func makeDeviceAdd(with infoStr:String) {
         
         var info = DeviceBindInfo()
-        info.isMaster = false
         
 //                根据二维码信息判断二维码类型
         //app 分享
@@ -209,12 +208,18 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                         }
                     }
                     
+                    info.isMaster = false
                     info.deviceId = embeded["imei"] as? String
                     info.phone = embeded["phone"] as? String
-                    let str = embeded["identity"] as? String
-                    if let identity = NumberFormatter().number(from: str!)?.intValue {
-                        info.identity = Relation(rawValue: identity)
+                    if let str = embeded["identity"] as? String {
+                        info.identity = Relation.other(value: str)
+                        if let identity = Int(str) {
+                            if identity >= 1 && identity <= 10 {
+                                info.identity = Relation.transformToEnum(input: identity)
+                            }
+                        }
                     }
+                    
                 }
             }
         } catch {
@@ -225,6 +230,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
         if infoStr.characters.count == 19 {
             let index = infoStr.index(infoStr.endIndex, offsetBy: -4)
             info.deviceId = infoStr.substring(to: index)
+            info.isMaster = true
         }
         
         self.checkImeiAndGoBind(with: info)
@@ -232,6 +238,39 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
     
     
     func checkImeiAndGoBind(with info: DeviceBindInfo) {
+        
+        if info.isMaster == true {
+            _ = DeviceManager.shared.checkBind(deviceId: info.deviceId!).subscribe({ (event) in
+                switch event{
+                case .next(let value):
+                    if value == false {
+                        _ = UserManager.shared.sendVcode(to: info.deviceId!).subscribe({ (event) in
+                            switch event{
+                            case .next(let value):
+                                let vc  = R.storyboard.main.verificationCodeController()!
+                                vc.imei = info.deviceId
+                                vc.sid = value.sid
+                                self.navigationController?.show(vc, sender: nil)
+                            case .completed:
+                                break
+                            case .error(let error):
+                                print(error)
+                                self.showMessage(error.localizedDescription)
+                            }
+                        })
+                    }else{
+                        self.showMessage("手表已被绑定")
+                    }
+                case .error(let error):
+                    print(error)
+                    self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                default:
+                    break
+                }
+            })
+            
+            return
+        }
         
         if info.phone == nil
             || info.phone?.characters.count  == 0
@@ -255,6 +294,8 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                                 self.showMessage(error.localizedDescription)
                             }
                         })
+                    }else{
+                        self.showMessage("手表已被绑定")
                     }
                 case .error(let error):
                     print(error)

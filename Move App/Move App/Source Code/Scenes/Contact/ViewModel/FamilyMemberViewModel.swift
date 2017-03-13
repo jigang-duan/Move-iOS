@@ -49,12 +49,25 @@ class FamilyMemberViewModel {
                         }
                     }
                     for mb in info.members! {
-                        var cellData = FamilyMemberCellData(headUrl: mb.profile, isHeartOn: mb.flag == 1 ? true:false, relation: mb.identity ?? "", isOwner: mb.uid == info.owner ? true:false, isMe: false)
+                        var memberState = [FamilyMemberCellState.other]
+                       
                         if UserInfo.shared.id == mb.uid {
-                            cellData.isMe = true
+                            memberState = [.me]
                         }
+                        if mb.type == 2 {
+                            memberState = [.baby]
+                        }
+                        if mb.uid == info.owner {
+                            memberState = [.master]
+                            if UserInfo.shared.id == mb.uid {
+                                memberState = [.master, .me]
+                            }
+                        }
+                        
+                        let cellData = FamilyMemberCellData(headUrl: mb.profile, isHeartOn: mb.flag == 1 ? true:false, relation: (mb.identity?.transformToString()) ?? "", state: memberState)
                         cellDatas.append(cellData)
-                        let conInfo = FamilyMemberDetailController.ContactDetailInfo(contactInfo: mb, isMaster: cellData.isOwner, isMe: cellData.isMe)
+                        
+                        let conInfo = FamilyMemberDetailController.ContactDetailInfo(contactInfo: mb, isMaster: memberState.contains(.master), isMe: memberState.contains(.me))
                         cons.append(conInfo)
                     }
                     self.contacts = cons
@@ -67,8 +80,6 @@ class FamilyMemberViewModel {
     
     
 }
-
-
 
 
 

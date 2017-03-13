@@ -129,17 +129,73 @@ enum PositioningMode {
     case savepower
 }
 
-enum Relation: Int {
-    case unowner = 0
-    case mother = 1
-    case father = 2
-    case grandMaF = 3
-    case grandPaF = 4
-    case grandmaM = 5
-    case grandpaM = 6
-    case uncle = 7
-    case aunty = 8
-    case sister = 9
-    case brother = 10
-    case other
+enum Relation {
+    case mother
+    case father
+    case grandmaF
+    case grandPaF
+    case grandmaM
+    case grandpaM
+    case uncle
+    case aunty
+    case sister
+    case brother
+    case other(value: String)
+    
+    func transformToString() -> String{
+        switch self {
+        case .mother:
+            return "Mother"
+        case .father:
+            return "Father"
+        case .grandmaF:
+            return "GrandmaF"
+        case .grandPaF:
+            return "GrandPaF"
+        case .grandmaM:
+            return "GrandmaM"
+        case .grandpaM:
+            return "GrandpaM"
+        case .uncle:
+            return "Uncle"
+        case .aunty:
+            return "Aunty"
+        case .sister:
+            return "Sister"
+        case .brother:
+            return "Brother"
+        case . other(let value):
+            return value
+        }
+    }
+    
+    static func transformToEnum(input: Int) -> Relation{
+        switch input {
+        case 1:
+            return Relation.mother
+        case 2:
+            return Relation.father
+        case 3:
+            return Relation.grandmaF
+        case 4:
+            return Relation.grandPaF
+        case 5:
+            return Relation.grandmaM
+        case 6:
+            return Relation.grandpaM
+        case 7:
+            return Relation.uncle
+        case 8:
+            return Relation.aunty
+        case 9:
+            return Relation.sister
+        case 10:
+            return Relation.brother
+        default:
+            return Relation.other(value: "Other")
+        }
+    }
 }
+
+
+

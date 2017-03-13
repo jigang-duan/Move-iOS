@@ -41,7 +41,12 @@ class MoveApiIMWorker: IMWorkerProtocl {
                 m.type = member.type
                 m.flag = member.flag
                 m.profile = member.profile
-                m.identity = member.identity
+                m.identity = Relation.other(value: member.identity ?? "")
+                if let r = Int(member.identity ?? "") {
+                    if r >= 1 && r <= 10 {
+                        m.identity = Relation.transformToEnum(input: r)
+                    }
+                }
                 m.phone = member.phone
                 m.email = member.email
                 m.time = member.time

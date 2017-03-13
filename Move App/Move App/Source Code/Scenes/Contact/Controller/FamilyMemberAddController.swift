@@ -21,10 +21,7 @@ class FamilyMemberAddController: UIViewController {
     @IBOutlet weak var numberTf: UITextField!
     
     @IBOutlet weak var doneBun: UIButton!
-    
-    var identityVaraiable = Variable(0)
-    
-    let relations = ["mun","dad","grandmaF","grandpaF","grandmaM","grandpaM","aunt","uncle","brother","sister","other"]
+
     
     var viewModel: FamilyMemberAddViewModel!
     var disposeBag = DisposeBag()
@@ -68,7 +65,6 @@ class FamilyMemberAddController: UIViewController {
         
         viewModel = FamilyMemberAddViewModel(
             input:(
-                identity: identityVaraiable.asDriver(),
                 name: nameTf.rx.text.orEmpty.asDriver(),
                 number: numberTf.rx.text.orEmpty.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
@@ -108,7 +104,13 @@ class FamilyMemberAddController: UIViewController {
         if let sg = R.segue.familyMemberAddController.showShareQRCode(segue: segue) {
             sg.destination.memberName = nameTf.text
             sg.destination.memberPhone = numberTf.text
-            sg.destination.relation = String(describing: identityVaraiable.value)
+            if let rl = Int(nameTf.text!) {
+                if rl >= 1 && rl <= 10 {
+                     sg.destination.relation = String(rl)
+                }
+            }else{
+                sg.destination.relation = nameTf.text
+            }
         }
     }
     
@@ -137,8 +139,7 @@ class FamilyMemberAddController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            self?.identityVaraiable.value = relation
-            self?.nameTf.text =  self?.relations[relation - 1]
+            self?.nameTf.text =  Relation.transformToEnum(input: relation + 1).transformToString()
         }
         self.navigationController?.show(vc, sender: nil)
     }

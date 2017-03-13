@@ -12,50 +12,6 @@ import ObjectMapper
 
 extension MoveApi {
     
-    enum DeviceAddIdentity: String{
-        case unowner = ""
-        case mother = "Mother"
-        case father = "Father"
-        case grandmaF = "GrandmaF"
-        case grandPaF = "GrandPaF"
-        case grandmaM = "GrandmaM"
-        case grandpaM = "GrandpaM"
-        case uncle = "Uncle"
-        case aunty = "Aunty"
-        case sister = "Sister"
-        case brother = "Brother"
-        case other = "Other"
-        
-        static func transform(input: Int) -> DeviceAddIdentity{
-            switch input {
-            case 0:
-                return DeviceAddIdentity.unowner
-            case 1:
-                return DeviceAddIdentity.mother
-            case 2:
-                return DeviceAddIdentity.father
-            case 3:
-                return DeviceAddIdentity.grandmaF
-            case 4:
-                return DeviceAddIdentity.grandPaF
-            case 5:
-                return DeviceAddIdentity.grandmaM
-            case 6:
-                return DeviceAddIdentity.grandpaM
-            case 7:
-                return DeviceAddIdentity.uncle
-            case 8:
-                return DeviceAddIdentity.aunty
-            case 9:
-                return DeviceAddIdentity.sister
-            case 10:
-                return DeviceAddIdentity.brother
-            default:
-                return DeviceAddIdentity.other
-            }
-        }
-    }
-    
     struct DeviceBind {
         var bind: Bool?
     }
@@ -64,7 +20,7 @@ extension MoveApi {
         var sid: String?
         var vcode: String?
         var phone: String?
-        var identity: DeviceAddIdentity?
+        var identity: String?
         var profile: String?
         var nickName: String?
         var number: String?
@@ -76,7 +32,7 @@ extension MoveApi {
     
     struct DeviceContactInfo {
         var phone: String?
-        var identity: DeviceAddIdentity?
+        var identity: String?
         var flag: Int?
     }
     
@@ -276,7 +232,7 @@ extension MoveApi.DeviceAdd: Mappable {
     init?(map: Map) {
     }
     
-    init(sid: String, vcode:String, phone: String, identity: MoveApi.DeviceAddIdentity, nickname: String, number: String, gender: String) {
+    init(sid: String, vcode:String, phone: String, identity: String, nickname: String, number: String, gender: String) {
         self.sid = sid
         self.vcode = vcode
         self.phone = phone
@@ -290,7 +246,7 @@ extension MoveApi.DeviceAdd: Mappable {
         sid <- map["sid"]
         vcode <- map["vcode"]
         phone <- map["phone"]
-        identity <- (map["identity"], EnumTransform())
+        identity <- map["identity"]
         profile <- map["profile"]
         nickName <- map["nickName"]
         number <- map["number"]
@@ -305,14 +261,14 @@ extension MoveApi.DeviceContactInfo: Mappable {
     init?(map: Map) {
     }
     
-    init(phone: String, identity: MoveApi.DeviceAddIdentity) {
+    init(phone: String, identity: String) {
         self.phone = phone
         self.identity = identity
     }
     
     mutating func mapping(map: Map) {
         phone <- map["phone"]
-        identity <- (map["identity"], EnumTransform())
+        identity <- map["identity"]
         flag <- map["flag"]
     }
 }

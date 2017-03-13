@@ -52,9 +52,6 @@ class FamilyMemberDetailController: UIViewController {
     }
     
     
-    let relations = ["mun","dad","grandmaF","grandpaF","grandmaM","grandpaM","aunt","uncle","brother","sister","other"]
-    
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -167,7 +164,7 @@ class FamilyMemberDetailController: UIViewController {
         }
         
         photoImgV.imageFromURL((info?.contactInfo?.profile)!, placeholder: R.image.relationship_ic_other()!)
-        nameTf.text = info?.contactInfo?.nickname
+        nameTf.text = info?.contactInfo?.identity?.transformToString()
         numberTf.text = info?.contactInfo?.phone
     }
     
@@ -197,8 +194,8 @@ class FamilyMemberDetailController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            self?.viewModel.contactInfo?.value.identity = String(relation)
-            self?.nameTf.text =  self?.relations[relation - 1]
+            self?.viewModel.contactInfo?.value.identity = Relation.transformToEnum(input: relation + 1)
+            self?.nameTf.text =  self?.viewModel.contactInfo?.value.identity?.transformToString()
         }
         self.navigationController?.show(vc, sender: nil)
     }

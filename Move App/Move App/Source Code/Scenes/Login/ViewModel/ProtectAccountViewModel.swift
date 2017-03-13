@@ -23,7 +23,7 @@ class ProtectAccountViewModel {
     var doneEnabled: Driver<Bool>?
     var doneResult: Driver<ValidationResult>?
     
-    var sid: String?
+    var sid: String? = nil
     
     init(
         input: (
@@ -55,8 +55,8 @@ class ProtectAccountViewModel {
         
         let firstEnter = userManager.sendVcode(to: (input.registerInfo.email)!).map({[weak self] sid in
             self?.sid = sid.sid
-            return true
-        }).asDriver(onErrorJustReturn: false)
+            return ValidationResult.ok(message: "Send Success")
+        }).asDriver(onErrorRecover: protectAccountErrorRecover)
         
         
         self.doneEnabled = Driver.combineLatest(
@@ -78,10 +78,7 @@ class ProtectAccountViewModel {
             })
         
         
-        self.sendEnabled = Driver.combineLatest(firstEnter, sendResult!) { first, send in
-            return !(first || send.isValid)
-        }
-        
+        self.sendEnabled = Driver.of(firstEnter, sendResult!).merge().map{ !$0.isValid }
 
         self.doneResult = input.doneTaps.withLatestFrom(input.vcode)
             .flatMapLatest({ (vcode) in

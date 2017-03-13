@@ -62,7 +62,18 @@ class FamilyMemberController: UIViewController {
         viewModel.cellDatas?
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ (row, element, cell) in
                 cell.heartImgV.image = element.isHeartOn ? R.image.member_heart_on() : R.image.member_heart_off()
-                cell.relationName.text = element.relation + (element.isMe ? "(me)":"") + (element.isOwner ? "(master)":"")
+                
+                var text = element.relation
+                if element.state.contains(.me){
+                    text = text + "(me)"
+                }
+                if element.state.contains(.master){
+                    text = text + "(master)"
+                }
+                if element.state.contains(.baby){
+                    text = text + "(baby)"
+                }
+                cell.relationName.text = text
                 
                 let imgUrl = MoveApi.BaseURL + "/v1.0/fs/\(element.headUrl!)"
                 cell.headImgV.imageFromURL(imgUrl, placeholder:  R.image.member_btn_contact_nor()!)
