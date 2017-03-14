@@ -142,9 +142,9 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             let reuseIdentifier = "targetAnnoteationReuseIdentifier"
             var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
             if annoView == nil {
-                annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             }
-            annoView?.image = UIImage(named : "history_dot_nor")
+//            annoView?.image = UIImage(named : "history_dot_nor")
             annoView?.canShowCallout = false
             return annoView
         }
