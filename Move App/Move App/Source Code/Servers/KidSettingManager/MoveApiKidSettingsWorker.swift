@@ -252,7 +252,7 @@ extension MoveApiKidSettingsWorker {
             }
         }
         
-        return MoveApi.Alarm(alarmAt: alarm.alarmAt, days: days, active: true)
+        return MoveApi.Alarm(alarmAt: alarm.alarmAt, days: days, active: alarm.active)
     }
     
      func unwrapping(schoolTime: KidSetting.SchoolTime) -> MoveApi.SchoolTime {
@@ -272,24 +272,18 @@ extension MoveApiKidSettingsWorker {
     
     func unwrappingr(remind: KidSetting.Reminder) -> MoveApi.Reminder {
         var wrap = MoveApi.Reminder()
-        var days: [Int] = []
-        for i in 1 ... 7 {
-            if remind.alarms[i].day[i - 1] {
-                days.append(i)
-            }
-        }
+       
         for i in 0 ..< remind.alarms.count{
-            // wrap.alarms?[i].active = remind.alarms[i].active
+             wrap.alarms?[i].active = remind.alarms[i].active
             wrap.alarms?[i].alarmAt = remind.alarms[i].alarmAt
+            var days: [Int] = []
+            for c in 1 ... 7 {
+                if remind.alarms[i].day[c - 1] {
+                    days.append(c)
+                }
+            }
             wrap.alarms?[i].days = days
         }
-        
-//        wrap.alarms = remind.alarms.map({ rm in
-//            var w = MoveApi.Alarm()
-//            w.alarmAt = rm.alarmAt
-//            w.days = rm.day
-//            return w
-//        })
         
         wrap.todo = remind.todo.map({ tod in
             var t = MoveApi.Todo()
@@ -344,8 +338,8 @@ extension MoveApiKidSettingsWorker {
     
     func wrappingr(reminder: MoveApi.Reminder?) -> KidSetting.Reminder {
         let todos = reminder?.todo?.flatMap({ KidSetting.Reminder.ToDo(topic: $0.topic, content: $0.content, start: $0.start, end: $0.end, repeatCount: $0.repeatCount) })
-        
-        let alarms = reminder?.alarms?.flatMap({ KidSetting.Reminder.Alarm(alarmAt: $0.alarmAt, day: daysToBool(timeDays: $0.days) ) })
+    
+        let alarms = reminder?.alarms?.flatMap({ KidSetting.Reminder.Alarm(alarmAt: $0.alarmAt, day: daysToBool(timeDays: $0.days), active: $0.active ) })
         
         return KidSetting.Reminder(alarms: alarms ?? [], todo: todos ?? [])
     }

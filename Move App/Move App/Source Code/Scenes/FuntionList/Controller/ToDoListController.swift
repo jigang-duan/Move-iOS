@@ -114,8 +114,8 @@ extension ToDoListController: UITextFieldDelegate {
     
     fileprivate func stringchangeTime(dateString : String) -> Date{
         let dformatter = DateFormatter()
-        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
-        return dformatter.date(from: dateString)!
+        dformatter.dateFormat = "MM-dd-yyyy"
+        return (dformatter.date(from: dateString)) ?? Date()
         
     }
     
@@ -125,7 +125,7 @@ extension Date {
     
     var stringMonthDayYearHourMinute: String? {
         let dformatter = DateFormatter()
-        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dformatter.dateFormat = "MM-dd-yyyy"
         return dformatter.string(from: self)
     }
 }

@@ -14,8 +14,6 @@ import FSCalendar
 
 class RemindersController: UIViewController {
 
-    
-    
     @IBOutlet weak var addOutlet: UIButton!
     @IBOutlet weak var tableViw: UITableView!
     
@@ -38,19 +36,32 @@ class RemindersController: UIViewController {
     }()
     
     var disposeBag = DisposeBag()
+    var viewModel: RemindersViewModel! = nil
+    
+    var deleteTap = Variable(0)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addFuntion()
         self.initView()
-
+        self.loadData()
         timeSelectBtn.rx.tap.asDriver().drive(onNext: calenderIsOpen).addDisposableTo(disposeBag)
         timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
         timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
         
-        let viewModel = RemindersViewModel(
+       
+        tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
+        
+    }
+    func loadData() {
+        viewModel = RemindersViewModel(
             input: (
-                deldect: Driver.empty(),
+                update: deleteTap.asDriver().filter({ $0 > 0 }).map({ _ in Void() }) ,
                 empty: Void()
             ),
             dependency: (
@@ -59,37 +70,28 @@ class RemindersController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
-        viewModel.fetchTodos.drive(viewModel.todosVariable).addDisposableTo(disposeBag)
-        viewModel.fetchAlarms.drive(viewModel.alarmsVariable).addDisposableTo(disposeBag)
+        
+        viewModel.fetchReminder.drive(viewModel.reminderVariable).addDisposableTo(disposeBag)
         
         let zoneDate = Date(timeIntervalSince1970: 0)
         
-        
-        
-        
-        
-        viewModel.alarmsVariable
-            .asDriver().drive(onNext: {
-                self.alarms =  $0.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day]})
+        viewModel.reminderVariable.asDriver()
+            .map({ $0.alarms  })
+            .drive(onNext: {
+                self.alarms =  $0.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
+                self.tableViw.reloadData()
             } )
             .addDisposableTo(disposeBag)
-        viewModel.todosVariable
-            .asDriver().drive(onNext: {
+        viewModel.reminderVariable.asDriver()
+            .map({  $0.todo })
+            .drive(onNext: {
                 self.todos =  $0.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ]   })
+                self.tableViw.reloadData()
             })
             .addDisposableTo(disposeBag)
         
-//        let path = (Bundle.main.path(forResource: "reminder.plist", ofType: nil)) ?? ""
-//        
-//        let data: NSDictionary? = NSDictionary(contentsOfFile: path)
-//        
-//        alarms = data?.object(forKey: "Alarms") as! [NSDictionary]?
-//        todos = data?.object(forKey: "ToDo") as! [NSDictionary]?
-//        
-       
-        tableViw.register(UINib.init(nibName: "RemindersCell", bundle: nil), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
     }
-
+    
     func initView() {
         self.tableViw.delegate = self
         self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
@@ -170,21 +172,21 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ((self.alarms?.count)!+(self.todos?.count)!)
+        return (self.alarms?.count ?? 0) + (self.todos?.count ?? 0)
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//         let _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier) as! RemindersCell
+
         let _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier, for: indexPath) as! RemindersCell
-//        var _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier) as! RemindersCell
-        
+
         if indexPath.row < (self.alarms?.count)! {
             _cell.titleLabel.text =  DateUtility.dateTostringHHmm(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
             _cell.detailtitleLabel?.text = "School day"
             _cell.titleimage?.image = UIImage.init(named: "reminder_school")
-            _cell.accviewBtn.isOn = false
+            _cell.accviewBtn.isHidden = false
+            _cell.accviewBtn.isOn = self.alarms?[indexPath.row]["active"] as! Bool
         }
         else {
             _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
@@ -205,15 +207,19 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            if indexPath.row < (self.alarms?.count)! {
-                self.alarms?.remove(at: indexPath.row)
+            if indexPath.row < (self.alarms?.count ?? 0) {
+//
+                viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
             }
             else
             {
-               self.todos?.remove(at: indexPath.row-(self.alarms?.count)!)
+             
+               viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
             }
-            self.tableViw.deleteRows(at: [indexPath], with: .top)
-            tableView.reloadData()
+            //有问题
+            deleteTap.value += 1
+            
+            
         }
     }
 }

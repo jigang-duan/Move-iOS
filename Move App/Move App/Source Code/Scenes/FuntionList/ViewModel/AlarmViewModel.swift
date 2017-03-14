@@ -24,6 +24,7 @@ class AlarmViewModel {
         save: Driver<Void>,
         week: Driver<[Bool]>,
         alarmDate: Driver<Date>,
+        active: Driver<Bool>,
         alarmExited: KidSetting.Reminder.Alarm?
         ),
         dependency: (
@@ -37,8 +38,7 @@ class AlarmViewModel {
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
-        
-        let newAlarm = Driver.combineLatest(input.week, input.alarmDate) { KidSetting.Reminder.Alarm(alarmAt: $1, day: $0) }
+        let newAlarm = Driver.combineLatest(input.week, input.alarmDate,input.active) { KidSetting.Reminder.Alarm(alarmAt: $1, day: $0, active: $2) }
         self.saveFinish = input.save.withLatestFrom(newAlarm).asObservable()
             .flatMapLatest({ alarm -> Observable<Bool> in
                 return input.alarmExited != nil ?

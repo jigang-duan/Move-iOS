@@ -18,6 +18,7 @@ class AlarmController: UIViewController {
     
     var alarmExited: KidSetting.Reminder.Alarm?
     
+    var activeVariable = Variable(true)
     var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -39,6 +40,7 @@ class AlarmController: UIViewController {
                 save: saveOutlet.rx.tap.asDriver(),
                 week: weekOutlet.rx.weekSelected.asDriver(),
                 alarmDate: datePickerOulet.rx.date.asDriver(),
+                active: activeVariable.asDriver(),
                 alarmExited: alarmExited
             ),
             dependency: (

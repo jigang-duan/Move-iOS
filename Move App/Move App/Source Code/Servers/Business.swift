@@ -66,7 +66,7 @@ struct KidSetting {
         struct Alarm {
             var alarmAt: Date?
             var day: [Bool] = []
-//            var active : Bool?
+            var active : Bool?
         }
         
         struct ToDo {

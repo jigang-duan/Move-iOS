@@ -171,8 +171,8 @@ extension MoveApi.Todo: Mappable {
     mutating func mapping(map: Map) {
         topic <- map["topic"]
         content <- map["content"]
-        start <- map["start"]
-        end <- map["end"]
+        start <- (map["start"],DateIntTransform())
+        end <- (map["end"],DateIntTransform())
         repeatCount <- map["repeat"]
     }
     
@@ -182,7 +182,7 @@ extension MoveApi.Alarm: Mappable {
     init?(map: Map) {
     }
     mutating func mapping(map: Map) {
-        alarmAt <- map["alarm"]
+        alarmAt <- (map["alarm"], DateIntTransform())
         days <- map["days"]
         active <- map["active"]
     }
