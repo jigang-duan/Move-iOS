@@ -18,6 +18,19 @@ extension Date {
         return comps.day!
     }
     
+    static func today() -> (startDate: Date, endDate: Date) {
+        let calendar = Calendar.current
+        let now = Date()
+        var set = Set<Calendar.Component>()
+        set.insert(.year)
+        set.insert(.month)
+        set.insert(.day)
+        let components = calendar.dateComponents(set, from: now)
+        let startDate = calendar.date(from: components)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate!)
+        return (startDate!, endDate!)
+    }
+    
 }
 
 
