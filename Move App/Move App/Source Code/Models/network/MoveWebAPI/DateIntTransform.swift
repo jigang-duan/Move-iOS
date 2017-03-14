@@ -34,3 +34,12 @@ open class DateIntTransform: TransformType {
         return nil
     }
 }
+
+/// Optional Object of Raw Representable type
+func <- (left: inout Date?, right: Map) {
+    left <- (right, DateIntTransform())
+}
+
+func >>> (left: Date?, right: Map) {
+    left >>> (right, DateIntTransform())
+}
