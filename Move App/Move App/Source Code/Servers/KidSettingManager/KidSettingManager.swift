@@ -30,10 +30,8 @@ protocol KidSettingsWorkerProtocl {
 protocol WatchSettingWorkerProtocl {
     
     func fetchAutoanswer(id: String) -> Observable<Bool>
-    func updateAutoanswer(id: String, _ openBool: Bool) -> Observable<Bool>
-    
     func fetchSavepower(id: String) -> Observable<Bool>
-    func updateSavepower(id: String, _ openBool: Bool) -> Observable<Bool>
+    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool) -> Observable<Bool>
     
     func fetchLanguages(id: String) ->  Observable<[String]>
     func fetchLanguage(id: String) ->  Observable<String>
@@ -71,14 +69,6 @@ class WatchSettingsManager  {
         }
         return self.worker.fetchAutoanswer(id: deviceId)
     }
-    func updateAutoanswer( _ openBool: Bool) -> Observable<Bool>
-    {
-        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
-            return Observable<Bool>.empty()
-        }
-        return self.worker.updateAutoanswer(id: deviceId, openBool)
-    }
-    
     func fetchSavepower() -> Observable<Bool>
     {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
@@ -86,14 +76,14 @@ class WatchSettingsManager  {
         }
         return self.worker.fetchSavepower(id: deviceId)
     }
-    func updateSavepower( _ openBool: Bool) -> Observable<Bool>
+    func updateSavepowerAndautoAnswer(_ autoanswer: Bool,savepower: Bool) -> Observable<Bool>
     {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
-        return self.worker.updateSavepower(id: deviceId, openBool)
+        return self.worker.updateSavepowerAndautoAnswer(id: deviceId, autoanswer: autoanswer, savepower: savepower)
     }
-    
+   
     
     func fetchLanguages() ->  Observable<[String]>{
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {

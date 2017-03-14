@@ -20,11 +20,7 @@ class AccountKidsRulesuserController: UITableViewController {
     
     @IBOutlet weak var unpairCell: UITableViewCell!
     
-    
-    
     let disposeBag = DisposeBag()
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -39,12 +35,35 @@ class AccountKidsRulesuserController: UITableViewController {
         
     }
 
+    @IBOutlet weak var autoAnswerQutel: SwitchButton!
     
+    @IBOutlet weak var savePowerQutel: SwitchButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        let viewModel = AccountKidsRulesuserViewModel(
+            input: (
+                savePower: savePowerQutel.rx.value.asDriver(),
+                autoAnswer: autoAnswerQutel.rx.value.asDriver()
+            ),
+            dependency: (
+                settingsManager: WatchSettingsManager.share,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+        )
+    )
+        viewModel.saveFinish
+            .drive(onNext:{_ in
+            }).addDisposableTo(disposeBag)
         
+        viewModel.savePowerEnable.drive(savePowerQutel.rx.on).addDisposableTo(disposeBag)
+        viewModel.autoAnswereEnable.drive(autoAnswerQutel.rx.on).addDisposableTo(disposeBag)
+        
+        viewModel.activityIn
+            .map({ !$0 })
+            .drive(onNext: userInteractionEnabled)
+            .addDisposableTo(disposeBag)
         
         personalInformationQutlet.rx.tap.bindNext { _ in
             let vc = R.storyboard.kidInformation.kidInformationController()!
@@ -63,11 +82,11 @@ class AccountKidsRulesuserController: UITableViewController {
             self.navigationController?.show(vc, sender: nil)
         }
         .addDisposableTo(disposeBag)
-        
-
-    
     }
     
+    func userInteractionEnabled(enable: Bool) {
+       
+    }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

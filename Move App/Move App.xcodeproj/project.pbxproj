@@ -150,6 +150,7 @@
 		E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029D1E5C05A6004A55BA /* UserManager.swift */; };
 		E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */; };
 		E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02A11E5C061D004A55BA /* WorkerError.swift */; };
+		E920CFDC1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */; };
 		E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E928BF091E76459800E70A57 /* RemindersCell.swift */; };
 		E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E928BF0A1E76459800E70A57 /* RemindersCell.xib */; };
 		E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */; };
@@ -436,6 +437,7 @@
 		E0FA029D1E5C05A6004A55BA /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiUserWorker.swift; path = Workers/MoveApiUserWorker.swift; sourceTree = "<group>"; };
 		E0FA02A11E5C061D004A55BA /* WorkerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerError.swift; sourceTree = "<group>"; };
+		E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountKidsRulesuserViewModel.swift; sourceTree = "<group>"; };
 		E928BF091E76459800E70A57 /* RemindersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersCell.swift; sourceTree = "<group>"; };
 		E928BF0A1E76459800E70A57 /* RemindersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindersCell.xib; sourceTree = "<group>"; };
 		E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersViewModel.swift; sourceTree = "<group>"; };
@@ -1350,6 +1352,7 @@
 				FF0859131E7294F200EB81D9 /* MeLogoutViewModel.swift */,
 				FF08590D1E7238D100EB81D9 /* MeSetNameViewModel.swift */,
 				FF08590F1E7238E300EB81D9 /* MeSetPasswordViewModel.swift */,
+				E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2177,6 +2180,7 @@
 				D24C4D501E4DD57F00F9E33A /* MoveApi+VerificationCode+Mappable.swift in Sources */,
 				FF08590E1E7238D100EB81D9 /* MeSetNameViewModel.swift in Sources */,
 				FF08591C1E72A93D00EB81D9 /* IMManager.swift in Sources */,
+				E920CFDC1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift in Sources */,
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */,

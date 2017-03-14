@@ -117,33 +117,24 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.auto_answer ?? false })
     }
-    func updateAutoanswer(id: String, _ openBool: Bool) -> Observable<Bool>
-    {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.auto_answer = openBool
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map({ $0.id == 0 })
-    }
     
     func fetchSavepower(id: String) -> Observable<Bool>
     {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.save_power ?? false })
     }
-    func updateSavepower(id: String, _ openBool: Bool) -> Observable<Bool>
+    
+    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool) -> Observable<Bool>
     {
         return MoveApi.Device.getSetting(deviceId: id)
             .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
                 var _setting = setting
-                _setting.save_power = openBool
+                _setting.save_power = savepower
+                _setting.auto_answer = autoanswer
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })
             .map({ $0.id == 0 })
     }
-    
     func fetchLanguages(id: String) ->  Observable<[String]> {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.languages ?? [] })
