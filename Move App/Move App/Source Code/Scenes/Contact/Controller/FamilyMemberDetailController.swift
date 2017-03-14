@@ -163,7 +163,7 @@ class FamilyMemberDetailController: UIViewController {
             }
         }
         
-        photoImgV.imageFromURL((info?.contactInfo?.profile)!, placeholder: R.image.relationship_ic_other()!)
+        photoImgV.imageFromURL((info?.contactInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
         nameTf.text = info?.contactInfo?.identity?.transformToString()
         numberTf.text = info?.contactInfo?.phone
     }

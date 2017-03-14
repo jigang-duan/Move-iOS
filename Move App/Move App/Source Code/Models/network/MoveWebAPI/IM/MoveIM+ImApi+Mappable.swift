@@ -31,7 +31,7 @@ extension MoveIM {
     
     struct ImContact {
         var uid: String?
-        var type: Int?
+        var type: Int?//联系人类型0 - 非注册用户 1 - 注册用户 2 - 注册设备
         var username: String?
         var nickname: String?
         var profile: String?
@@ -40,7 +40,8 @@ extension MoveIM {
         var email: String?
         var time: Date?
         var sex: Int?
-        var flag: Int?
+        var flag: Int?//联系人标识位:标识位 0x00 - 已拉黑 0x01 - 好友 0x80 - 等待验证的用户 0x100 - 紧急联系人
+        var admin: Bool?//true -- 管理员   false -- 非管理员
     }
 }
 
@@ -93,5 +94,6 @@ extension MoveIM.ImContact: Mappable {
         phone <- map["phone"]
         email <- map["email"]
         time <- map["time"]
+        admin <- map["admin"]
     }
 }

@@ -64,4 +64,5 @@ struct ImContact {
     var time: Date?
     var sex: Int?
     var flag: Int?
+    var admin: Bool?
 }

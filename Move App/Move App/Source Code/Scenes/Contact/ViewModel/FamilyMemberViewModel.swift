@@ -23,13 +23,11 @@ class FamilyMemberViewModel {
         selectedContact: Driver<FamilyMemberDetailController.ContactDetailInfo>
         ),
           dependency: (
-        imManager: IMManager,
         deviceManager: DeviceManager,
         wireframe: Wireframe
         )
         ) {
         
-        let imManager = dependency.imManager
         let deviceManager = dependency.deviceManager
         let _ = dependency.wireframe
         
@@ -39,43 +37,40 @@ class FamilyMemberViewModel {
         
         
         self.cellDatas = enter.flatMapLatest({ _ in
-            imManager.getGroups().map{ groups in
+            deviceManager.getContacts(deviceId: (deviceManager.currentDevice?.deviceId)!).map{ members in
                 var cellDatas: [FamilyMemberCellData] = []
                 var cons: [FamilyMemberDetailController.ContactDetailInfo] = []
-                for info in groups {
-                    for mb in info.members! {
-                        if deviceManager.currentDevice?.user?.uid == mb.uid {
-                           break
-                        }
+                
+                for mb in members {
+                    var memberState = [FamilyMemberCellState.other]
+                   
+                    if UserInfo.shared.id == mb.uid {
+                        memberState = [.me]
                     }
-                    for mb in info.members! {
-                        var memberState = [FamilyMemberCellState.other]
-                       
+                    if mb.admin == true {
+                        memberState = [.master]
                         if UserInfo.shared.id == mb.uid {
-                            memberState = [.me]
+                            memberState = [.master, .me]
                         }
-                        if mb.type == 2 {
-                            memberState = [.baby]
-                        }
-                        if mb.uid == info.owner {
-                            memberState = [.master]
-                            if UserInfo.shared.id == mb.uid {
-                                memberState = [.master, .me]
-                            }
-                        }
-                        
-                        let cellData = FamilyMemberCellData(headUrl: mb.profile, isHeartOn: mb.flag == 1 ? true:false, relation: (mb.identity?.transformToString()) ?? "", state: memberState)
-                        cellDatas.append(cellData)
-                        
-                        let conInfo = FamilyMemberDetailController.ContactDetailInfo(contactInfo: mb, isMaster: memberState.contains(.master), isMe: memberState.contains(.me))
-                        cons.append(conInfo)
                     }
-                    self.contacts = cons
+                    
+                    let cellData = FamilyMemberCellData(headUrl: mb.profile ?? "", isHeartOn: self.transformIsHeartOn(flag: mb.flag ?? 0), relation: (mb.identity?.transformToString()) ?? "", state: memberState)
+                    cellDatas.append(cellData)
+                    
+                    let conInfo = FamilyMemberDetailController.ContactDetailInfo(contactInfo: mb, isMaster: memberState.contains(.master), isMe: memberState.contains(.me))
+                    cons.append(conInfo)
                 }
+                
+                self.contacts = cons
+                
                 return cellDatas
             }
         })
-        
+    }
+    
+    
+    func transformIsHeartOn(flag: Int) -> Bool {
+        return flag == flag | 0x0100
     }
     
     

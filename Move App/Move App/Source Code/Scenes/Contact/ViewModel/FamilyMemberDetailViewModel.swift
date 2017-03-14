@@ -68,9 +68,8 @@ class FamilyMemberDetailViewModel {
         
         masterResult = input.masterTaps
             .flatMapLatest({ _ in
-                var info = self.contactInfo?.value
-                info?.flag = 0x100
-                return deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: info!).map({ _ in
+                let info = self.contactInfo?.value
+                return deviceManager.settingAdmin(deviceId: (deviceManager.currentDevice?.deviceId)!, uid: (info?.uid)!).map({ _ in
                     return ValidationResult.ok(message: "Set Success.")
                 }).asDriver(onErrorRecover: errorRecover)
             })

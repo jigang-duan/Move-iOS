@@ -13,7 +13,7 @@ protocol ContactCellType {
 }
 
 struct FamilyMemberCellData: ContactCellType {
-    var headUrl: String?
+    var headUrl: String
     var isHeartOn: Bool
     var relation: String
     var state: [FamilyMemberCellState]
@@ -22,6 +22,5 @@ struct FamilyMemberCellData: ContactCellType {
 enum FamilyMemberCellState {
     case me
     case master
-    case baby
     case other
 }

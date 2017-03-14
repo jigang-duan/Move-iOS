@@ -50,6 +50,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         var info = MoveApi.DeviceContactInfo()
         info.identity = joinInfo.identity?.transformToString()
         info.phone = joinInfo.phone
+        info.profile = joinInfo.profile
     
         return MoveApi.Device.joinDeviceGroup(deviceId: joinInfo.deviceId!, joinInfo: info)
             .map {info in
@@ -88,12 +89,42 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 throw error
         }
     }
+    //        获取设备联系人
+    func getContacts(deviceId: String) -> Observable<[ImContact]> {
+        return MoveApi.Device.getContacts(deviceId: deviceId)
+            .map{ info in
+                var cons: [ImContact] = []
+                if let cs = info.contacts {
+                    for c in cs {
+                        var con = ImContact()
+                        con.uid = c.uid
+                        if let rl = c.identity {
+                            con.identity = Relation.other(value: rl)
+                            if let r = Int(rl) {
+                                if r >= 1 && r <= 10 {
+                                    con.identity = Relation.transformToEnum(input: r)
+                                }
+                            }
+                        }
+                        con.profile = c.profile
+                        con.phone = c.phone
+                        con.flag = c.flag
+                        con.admin = c.admin
+                        
+                        cons.append(con)
+                    }
+                }
+             return cons
+        }
+    }
+    
     //        设置联系人信息:  由管理员或联系人自己调用
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
         info.flag = contactInfo.flag
         info.identity = contactInfo.identity?.transformToString()
         info.phone = contactInfo.phone
+        info.profile = contactInfo.profile
         
         return MoveApi.Device.settingContactInfo(deviceId: deviceId, info: info, uid: contactInfo.uid!)
             .map{info in
@@ -158,6 +189,64 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         
     }
 
+    
+    func settingAdmin(deviceId: String, uid: String) -> Observable<Bool> {
+        return MoveApi.Device.settingAdmin(deviceId: deviceId, admin: MoveApi.DeviceAdmin(uid: uid))
+            .map{info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+        
+    }
+
+    
+    func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]> {
+        return MoveApi.Device.getWatchFriends(deviceId: deviceId)
+            .map{info in
+                var fs: [DeviceFriend] = []
+                
+                if let fds = info.friends {
+                    for fd in fds {
+                        var f = DeviceFriend()
+                        f.nickname = fd.nickname
+                        f.phone = fd.phone
+                        f.profile = fd.profile
+                        f.uid = fd.uid
+                        fs.append(f)
+                    }
+                }
+                return fs
+        }
+        
+    }
+
+    
+    func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool> {
+        return MoveApi.Device.deleteWatchFriend(deviceId: deviceId, uid: uid)
+            .map{info in
+                if info.msg == "ok", info.id == 0 {
+                    return true
+                }
+                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+        
+    }
+
+    
     
 }
 

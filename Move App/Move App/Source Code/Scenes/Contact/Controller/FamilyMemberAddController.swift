@@ -57,6 +57,7 @@ class FamilyMemberAddController: UIViewController {
         super.viewWillDisappear(animated)
         nameTf.resignFirstResponder()
         numberTf.resignFirstResponder()
+        
     }
     
     override func viewDidLoad() {

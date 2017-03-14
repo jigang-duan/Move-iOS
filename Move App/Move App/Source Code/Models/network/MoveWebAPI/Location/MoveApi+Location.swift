@@ -31,12 +31,16 @@ extension MoveApi {
             return request(.add(deviceId: deviceId, locationAdd: locationAdd)).mapMoveObject(ApiError.self)
         }
 //        LBS定位
-        final class func getByLBS(deviceId: String, locationAdd: LocationAdd) -> Observable<LocationNew> {
-            return request(.getByLBS(deviceId: deviceId, locationAdd: locationAdd)).mapMoveObject(LocationNew.self)
+        final class func getByLBS(deviceId: String, locationAdd: LocationAdd) -> Observable<LocationOfDevice> {
+            return request(.getByLBS(deviceId: deviceId, locationAdd: locationAdd)).mapMoveObject(LocationOfDevice.self)
         }
 //        获取最新位置
-        final class func getNew(deviceId: String) -> Observable<LocationNew> {
-            return request(.getNew(deviceId: deviceId)).mapMoveObject(LocationNew.self)
+        final class func getNew(deviceId: String) -> Observable<LocationOfDevice> {
+            return request(.getNew(deviceId: deviceId)).mapMoveObject(LocationOfDevice.self)
+        }
+//        批量获取多设备位置
+        final class func getMultiLocations(with deviceIds: LocationMultiReq) -> Observable<Locations> {
+            return request(.getMultiLocations(with: deviceIds) ).mapMoveObject(Locations.self)
         }
 //        历史位置记录
         final class func getHistory(deviceId: String, locationReq: LocationReq) -> Observable<LocationHistory> {
@@ -47,6 +51,7 @@ extension MoveApi {
             case add(deviceId: String, locationAdd: LocationAdd)
             case getByLBS(deviceId: String, locationAdd: LocationAdd)
             case getNew(deviceId: String)
+            case getMultiLocations(with: LocationMultiReq)
             case getHistory(deviceId: String, locationReq: LocationReq)
         }
         
@@ -68,20 +73,22 @@ extension MoveApi.Location.API: TargetType {
     var path: String {
         switch self {
         case .add(let deviceId, _):
-            return "/\(deviceId)"
+            return "\(deviceId)"
         case .getByLBS(let deviceId, _):
-            return "/\(deviceId)"
+            return "\(deviceId)"
         case .getNew(let deviceId):
-            return "/\(deviceId)/location"
+            return "\(deviceId)/location"
+        case .getMultiLocations:
+            return "locations"
         case .getHistory(let deviceId, _):
-            return "/\(deviceId)/locations"
+            return "\(deviceId)/locations"
         }
     }
     
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .add:
+        case .add, .getMultiLocations:
             return .post
         case .getNew, .getHistory:
             return .get
@@ -99,6 +106,8 @@ extension MoveApi.Location.API: TargetType {
             return locationAdd.toJSON()
         case .getNew:
             return nil
+        case .getMultiLocations(let locationMultiReq):
+            return locationMultiReq.toJSON()
         case .getHistory(_, let locationReq):
             return locationReq.toJSON()
         }
@@ -107,10 +116,10 @@ extension MoveApi.Location.API: TargetType {
     /// The method used for parameter encoding.
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .add, .getByLBS, .getNew:
-            return JSONEncoding.default
         case .getHistory:
             return URLEncoding.default
+        default:
+            return JSONEncoding.default
         }
     }
     

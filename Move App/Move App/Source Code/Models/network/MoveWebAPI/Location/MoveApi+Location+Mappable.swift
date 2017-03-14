@@ -52,14 +52,26 @@ extension MoveApi {
         var end: Date?
     }
     
-    struct LocationNew {
-        var imei: String?
+    struct LocationOfDevice {
+        var device_id: String?
         var location: LocationInfo?
     }
     
     struct LocationHistory {
-        var imei: String?
+        var device_id: String?
         var locations: [LocationInfo]?
+    }
+    
+    struct LocationMultiReq {
+        var locations: [LocationDeviceId]?
+    }
+    
+    struct LocationDeviceId {
+        var device_id: String?
+    }
+    
+    struct Locations {
+        var locations: [LocationOfDevice]?
     }
     
     struct  LocationInfo {
@@ -136,12 +148,12 @@ extension MoveApi.LocationReq: Mappable{
     }
 }
 
-extension MoveApi.LocationNew: Mappable{
+extension MoveApi.LocationOfDevice: Mappable{
     init?(map: Map) {
     }
 
     mutating func mapping(map: Map) {
-        imei <- map["imei"]
+        device_id <- map["device_id"]
         location <- map["location"]
     }
 }
@@ -151,7 +163,34 @@ extension MoveApi.LocationHistory: Mappable{
     }
     
     mutating func mapping(map: Map) {
-        imei <- map["imei"]
+        device_id <- map["device_id"]
+        locations <- map["locations"]
+    }
+}
+
+extension MoveApi.LocationMultiReq: Mappable{
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        locations <- map["locations"]
+    }
+}
+
+extension MoveApi.LocationDeviceId: Mappable{
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        device_id <- map["device_id"]
+    }
+}
+
+extension MoveApi.Locations: Mappable{
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
         locations <- map["locations"]
     }
 }

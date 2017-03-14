@@ -30,12 +30,31 @@ extension MoveApi {
         var birthday: Date?
     }
     
+    struct DeviceContacts {
+        var contacts: [MoveIM.ImContact]?
+    }
+    
     struct DeviceContactInfo {
         var phone: String?
         var identity: String?
         var flag: Int?
+        var profile: String?
     }
     
+    struct DeviceAdmin {
+        var uid: String?
+    }
+    
+    struct DeviceFriends {
+        var friends: [DeviceFriend]?
+    }
+    
+    struct DeviceFriend {
+        var uid: String?
+        var nickname: String?
+        var profile: String?
+        var phone: String?
+    }
     
     struct DeviceGetListResp {
         var devices: [DeviceInfo]?
@@ -257,6 +276,15 @@ extension MoveApi.DeviceAdd: Mappable {
     }
 }
 
+extension MoveApi.DeviceContacts: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        contacts <- map["contacts"]
+    }
+}
+
 extension MoveApi.DeviceContactInfo: Mappable {
     init?(map: Map) {
     }
@@ -270,6 +298,37 @@ extension MoveApi.DeviceContactInfo: Mappable {
         phone <- map["phone"]
         identity <- map["identity"]
         flag <- map["flag"]
+        profile <- map["profile"]
+    }
+}
+
+extension MoveApi.DeviceAdmin: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        uid <- map["uid"]
+    }
+}
+
+extension MoveApi.DeviceFriends: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        friends <- map["friends"]
+    }
+}
+
+extension MoveApi.DeviceFriend: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        uid <- map["uid"]
+        nickname <- map["nickname"]
+        profile <- map["profile"]
+        phone <- map["phone"]
     }
 }
 

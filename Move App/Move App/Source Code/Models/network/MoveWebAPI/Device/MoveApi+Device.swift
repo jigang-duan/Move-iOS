@@ -61,9 +61,25 @@ extension MoveApi {
         final class func deleteBindUser(deviceId: String, uid: String) -> Observable<ApiError> {
             return request(.deleteBindUser(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
         }
+//        获取设备联系人
+        final class func getContacts(deviceId: String) -> Observable<DeviceContacts> {
+            return request(.getContacts(deviceId: deviceId)).mapMoveObject(DeviceContacts.self)
+        }
 //        设置联系人信息:  由管理员或联系人自己调用
         final class func settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String) -> Observable<ApiError> {
             return request(.settingContactInfo(deviceId: deviceId, info: info, uid: uid)).mapMoveObject(ApiError.self)
+        }
+//        设置设备管理员: 由管理员自身调用
+        final class func settingAdmin(deviceId: String, admin: DeviceAdmin) -> Observable<ApiError> {
+            return request(.settingAdmin(deviceId: deviceId, admin: admin)).mapMoveObject(ApiError.self)
+        }
+//        获取设备好友列表
+        final class func getWatchFriends(deviceId: String) -> Observable<DeviceFriends> {
+            return request(.getWatchFriends(deviceId: deviceId) ).mapMoveObject(DeviceFriends.self)
+        }
+//        删除设备好友
+        final class func deleteWatchFriend(deviceId: String, uid: String) -> Observable<ApiError> {
+            return request(.deleteWatchFriend(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
         }
 //        查看设备配置
         final class func getSetting(deviceId: String) -> Observable<DeviceSetting> {
@@ -104,7 +120,11 @@ extension MoveApi {
             case delete(deviceId: String)
             case addNoRegisterMember(deviceId: String)
             case deleteBindUser(deviceId: String, uid: String)
+            case getContacts(deviceId: String)
             case settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String)
+            case settingAdmin(deviceId: String, admin: DeviceAdmin)
+            case getWatchFriends(deviceId: String)
+            case deleteWatchFriend(deviceId: String, uid: String)
             case getSetting(deviceId: String)
             case setting(deviceId: String, settingInfo: DeviceSetting)
             case getProperty(deviceId: String)
@@ -149,8 +169,16 @@ extension MoveApi.Device.API: TargetType {
             return "/v1.0/device/\(deviceId)/contact"
         case .deleteBindUser(let deviceId, let uid):
             return "/v1.0/device/\(deviceId)/contact/\(uid)"
+        case .getContacts(let deviceId):
+            return "/v1.0/device/\(deviceId)/contacts"
         case .settingContactInfo(let deviceId, _, let uid):
             return "/v1.0/device/\(deviceId)/contact/\(uid)"
+        case .settingAdmin(let deviceId, _):
+            return "/v1.0/device/\(deviceId)/admin"
+        case .getWatchFriends(let deviceId):
+            return "/v1.0/device/\(deviceId)/friends"
+        case .deleteWatchFriend(let deviceId, let uid):
+            return "/v1.0/device/\(deviceId)/friend/\(uid)"
         case .getSetting(let deviceId):
             return "/v1.0/device/\(deviceId)/settings"
         case .setting(let deviceId, _):
@@ -173,11 +201,11 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add, .joinDeviceGroup, .sendNotify, .addNoRegisterMember:
             return .post
-        case .checkBind, .getDeviceList, .getDeviceInfo, .getSetting, .getProperty, .getPower:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends:
             return .get
-        case .update, .setting, .settingContactInfo, .settingProperty, .addPower:
+        case .update, .setting, .settingContactInfo, .settingProperty, .addPower, .settingAdmin:
             return .put
-        case .delete, .deleteBindUser:
+        case .delete, .deleteBindUser, .deleteWatchFriend:
             return .delete
         }
     }
@@ -189,7 +217,7 @@ extension MoveApi.Device.API: TargetType {
             return addInfo.toJSON()
         case .joinDeviceGroup(_, let joinInfo):
             return joinInfo.toJSON()
-        case .checkBind, .getDeviceList, .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getSetting, .getProperty, .getPower:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .deleteWatchFriend:
             return nil
         case .update(_, let updateInfo):
             return updateInfo.toJSON()
@@ -197,6 +225,8 @@ extension MoveApi.Device.API: TargetType {
             return settingInfo.toJSON()
         case .settingContactInfo(_, let info, _):
             return info.toJSON()
+        case .settingAdmin(_, let admin):
+            return admin.toJSON()
         case .settingProperty(_, let settingInfo):
             return settingInfo.toJSON()
         case .sendNotify(_, let sendInfo):

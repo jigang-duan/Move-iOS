@@ -29,6 +29,12 @@ class FamilyMemberController: UIViewController {
         enterCount.value += 1
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        popView.isHidden = true
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +58,6 @@ class FamilyMemberController: UIViewController {
                 selectedContact: selectedContact
             ),
             dependency:(
-                imManager: IMManager.shared,
                 deviceManager: DeviceManager.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
@@ -70,12 +75,9 @@ class FamilyMemberController: UIViewController {
                 if element.state.contains(.master){
                     text = text + "(master)"
                 }
-                if element.state.contains(.baby){
-                    text = text + "(baby)"
-                }
                 cell.relationName.text = text
                 
-                let imgUrl = MoveApi.BaseURL + "/v1.0/fs/\(element.headUrl!)"
+                let imgUrl = MoveApi.BaseURL + "/v1.0/fs/\(element.headUrl)"
                 cell.headImgV.imageFromURL(imgUrl, placeholder:  R.image.member_btn_contact_nor()!)
             }
             .addDisposableTo(disposeBag)

@@ -214,6 +214,7 @@
 		FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
+		FF14AC201E77901500FBE899 /* WatchFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */; };
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */; };
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
@@ -502,6 +503,7 @@
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
+		FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsListViewModel.swift; sourceTree = "<group>"; };
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
@@ -1624,8 +1626,8 @@
 				FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */,
 				FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */,
 				FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */,
-				FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */,
 				FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */,
+				FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1639,6 +1641,7 @@
 				FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */,
 				FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */,
 				FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */,
+				FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2097,6 +2100,7 @@
 				FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */,
+				FF14AC201E77901500FBE899 /* WatchFriendsListViewModel.swift in Sources */,
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,

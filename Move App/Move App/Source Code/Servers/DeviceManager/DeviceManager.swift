@@ -51,6 +51,10 @@ extension DeviceManager {
         return worker.deleteContact(deviceId: deviceId, uid: uid)
     }
     
+    func getContacts(deviceId: String) -> Observable<[ImContact]> {
+        return worker.getContacts(deviceId: deviceId)
+    }
+    
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
         return worker.settingContactInfo(deviceId: deviceId, contactInfo: contactInfo)
     }
@@ -61,6 +65,18 @@ extension DeviceManager {
     
     func deleteDevice(with deviceId: String) -> Observable<Bool> {
         return worker.deleteDevice(with: deviceId)
+    }
+    
+    func settingAdmin(deviceId: String, uid: String) -> Observable<Bool> {
+        return worker.settingAdmin(deviceId: deviceId, uid: uid)
+    }
+    
+    func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]> {
+        return getWatchFriends(with: deviceId)
+    }
+    
+    func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool> {
+        return worker.deleteWatchFriend(deviceId: deviceId, uid: uid)
     }
 }
 
@@ -77,11 +93,17 @@ protocol DeviceWorkerProtocl {
     
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool>
     
+    func getContacts(deviceId: String) -> Observable<[ImContact]>
+    
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool>
     
     func updateKidInfo(updateInfo: DeviceUser) -> Observable<Bool>
     
     func deleteDevice(with deviceId: String) -> Observable<Bool>
+    
+    func settingAdmin(deviceId: String, uid: String) -> Observable<Bool>
+    func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]>
+    func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool>
 }
 
 
@@ -132,3 +154,10 @@ struct DeviceBindInfo {
     var birthday: Date?
 }
 
+
+struct DeviceFriend {
+    var uid: String?
+    var nickname: String?
+    var profile: String?
+    var phone: String?
+}

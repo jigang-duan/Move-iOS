@@ -19,7 +19,7 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
             return MoveApi.Location.getHistory(deviceId: id, locationReq: MoveApi.LocationReq(start: start, end: end)).flatMap(transformHistoryLocation)
     }
     
-    private func transformLocation(_ new: MoveApi.LocationNew) -> Observable<KidSate.LocationInfo> {
+    private func transformLocation(_ new: MoveApi.LocationOfDevice) -> Observable<KidSate.LocationInfo> {
         guard let location = new.location, let lat = location.lat, let lng = location.lng else {
                 return Observable.empty()
         }
