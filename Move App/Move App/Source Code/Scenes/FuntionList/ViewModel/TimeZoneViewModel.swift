@@ -15,7 +15,6 @@ class TimeZoneViewModel {
     // outputs {
     let hourformEnable: Driver<Bool>
     let autotimeEnable: Driver<Bool>
-    //let timezoneIdentifier: Driver<String>
     let summertimeEnable: Driver<Bool>
     let fetchtimezoneDate: Driver<Date>
     

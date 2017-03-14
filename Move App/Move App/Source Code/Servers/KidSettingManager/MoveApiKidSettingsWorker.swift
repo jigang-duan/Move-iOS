@@ -271,32 +271,20 @@ extension MoveApiKidSettingsWorker {
     }
     
     func unwrappingr(remind: KidSetting.Reminder) -> MoveApi.Reminder {
-        var wrap = MoveApi.Reminder()
-       
-        for i in 0 ..< remind.alarms.count{
-             wrap.alarms?[i].active = remind.alarms[i].active
-            wrap.alarms?[i].alarmAt = remind.alarms[i].alarmAt
-            var days: [Int] = []
-            for c in 1 ... 7 {
-                if remind.alarms[i].day[c - 1] {
-                    days.append(c)
-                }
+        return MoveApi.Reminder(
+            alarms: remind.alarms.map { MoveApi.Alarm(alarmAt: $0.alarmAt, days: days(every: $0.day), active: $0.active) },
+            todo: remind.todo.map { MoveApi.Todo(topic: $0.topic, content: $0.content, start: $0.start, end: $0.end, repeatCount: $0.repeatCount) }
+        )
+    }
+    
+    private func days(every: [Bool]) -> [Int] {
+        var days: [Int] = []
+        for i in 1 ... 7 {
+            if every[i - 1] {
+                days.append(i)
             }
-            wrap.alarms?[i].days = days
         }
-        
-        wrap.todo = remind.todo.map({ tod in
-            var t = MoveApi.Todo()
-            t.start = tod.start
-            t.end = tod.end
-            t.repeatCount = tod.repeatCount
-            t.topic = tod.topic
-            t.content = tod.content
-            return t
-        })
-        
-        
-        return wrap
+        return days
     }
     
     

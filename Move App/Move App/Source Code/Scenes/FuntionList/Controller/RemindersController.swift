@@ -39,10 +39,11 @@ class RemindersController: UIViewController {
     var viewModel: RemindersViewModel! = nil
     
     var deleteTap = Variable(0)
+    var updateTap = Variable(0)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadData()
+        updateTap.value += 1
     }
     
     override func viewDidLoad() {
@@ -61,7 +62,8 @@ class RemindersController: UIViewController {
     func loadData() {
         viewModel = RemindersViewModel(
             input: (
-                update: deleteTap.asDriver().filter({ $0 > 0 }).map({ _ in Void() }) ,
+                update: updateTap.asDriver().filter({ $0 > 0 }).map({ _ in Void() }) ,
+                delect: deleteTap.asDriver().filter({ $0 > 0 }).debug().map({ _ in Void() }) ,
                 empty: Void()
             ),
             dependency: (
@@ -71,7 +73,8 @@ class RemindersController: UIViewController {
             )
         )
         
-        viewModel.fetchReminder.drive(viewModel.reminderVariable).addDisposableTo(disposeBag)
+        viewModel.fetchReminder.debug()
+            .drive(viewModel.reminderVariable).addDisposableTo(disposeBag)
         
         let zoneDate = Date(timeIntervalSince1970: 0)
         
@@ -191,7 +194,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         else {
             _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
             
-            _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("---")\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
+            _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("--")\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
             _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
             _cell.accviewBtn.isHidden = true
         }
@@ -216,7 +219,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
              
                viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
             }
-            //有问题
+           
             deleteTap.value += 1
             
             

@@ -14,11 +14,10 @@ import RxOptional
 class RegularshutdownViewModel {
     
     // outputs {
-    
-    //
-    let openEnable: Driver<Bool>
+
     let bootTime: Driver<Date>
     let shutdownTime: Driver<Date>
+    let autoOnOffEnable: Driver<Bool>
     let saveFinish: Driver<Bool>
     
     
@@ -28,10 +27,9 @@ class RegularshutdownViewModel {
     
     init(
         input: (
-        save: Driver<Void>,
         bootTime: Driver<Date>,
         shutdownTime: Driver<Date>,
-        openEnable: Driver<Bool>
+        autoOnOff: Driver<Bool>
         ),
         dependency: (
         settingsManager: WatchSettingsManager,
@@ -53,20 +51,28 @@ class RegularshutdownViewModel {
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: DateUtility.zone16hour())
         
-        self.openEnable = manager.fetchoAutopoweronoff()
+        let fetchAutoOnOff = manager.fetchoAutopoweronoff()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
+        self.autoOnOffEnable = Driver.of(fetchAutoOnOff,input.autoOnOff).merge()
         
         
-        let down = Driver.combineLatest(input.shutdownTime, input.bootTime, input.openEnable) { ($0, $1, $2) }
+        let down = Driver.combineLatest(input.bootTime,input.shutdownTime,input.autoOnOff) { ($0, $1, $2) }
         
-        self.saveFinish = input.save
-            .withLatestFrom(down)
-            .flatMapLatest { (bootTime,shutdownTime,openEnable) in
-                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: openEnable)
+        self.saveFinish = down
+            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
+                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
             }
+
+//        self.saveFinish = input.save
+//            .withLatestFrom(down)
+//            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
+//                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)
+//                    .trackActivity(activitying)
+//                    .asDriver(onErrorJustReturn: false)
+//        }
         
         
         

@@ -193,7 +193,71 @@ enum Relation {
         case 10:
             return Relation.brother
         default:
+            
             return Relation.other(value: "Other")
+        }
+    }
+    
+    
+}
+
+extension Relation {
+    
+    init?(input: String) {
+        switch input {
+        case "1":
+            self = .mother
+        case "2":
+            self = .father
+        case "3":
+            self = .grandmaF
+        case "4":
+            self = .grandPaF
+        case "5":
+            self = .grandmaM
+        case "6":
+            self = .grandpaM
+        case "7":
+            self = .uncle
+        case "8":
+            self = .aunty
+        case "9":
+            self = .sister
+        case "10":
+            self = .brother
+        default:
+            self = .other(value: input)
+        }
+        return nil
+    }
+}
+
+extension Relation: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .mother:
+            return "Mother"
+        case .father:
+            return "Father"
+        case .grandmaF:
+            return "GrandmaF"
+        case .grandPaF:
+            return "GrandPaF"
+        case .grandmaM:
+            return "GrandmaM"
+        case .grandpaM:
+            return "GrandpaM"
+        case .uncle:
+            return "Uncle"
+        case .aunty:
+            return "Aunty"
+        case .sister:
+            return "Sister"
+        case .brother:
+            return "Brother"
+        case . other(let value):
+            return value
         }
     }
 }

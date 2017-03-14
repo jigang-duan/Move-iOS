@@ -955,7 +955,7 @@
                                                     <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbR-M3-YWM" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbR-M3-YWM" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
@@ -991,7 +991,7 @@
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYo-Hm-va0" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYo-Hm-va0" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="general_btn_off"/>
@@ -1059,7 +1059,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aw7-UG-xGU" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aw7-UG-xGU" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1092,7 +1092,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaR-Az-Ta0" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaR-Az-Ta0" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="selected" image="general_btn_on"/>
@@ -1153,7 +1153,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQq-c0-SeU" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQq-c0-SeU" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1544,8 +1544,8 @@
                                     <outlet property="dataSource" destination="Y1x-Oo-cZ5" id="YZe-dj-NP8"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W4Q-sD-BuR" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="60" width="375" height="29"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4Q-sD-BuR" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="60" width="375" height="190"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="190" id="YFC-2E-Cf8"/>
@@ -2112,7 +2112,7 @@
                         <viewControllerLayoutGuide type="top" id="1ie-MF-CXu"/>
                         <viewControllerLayoutGuide type="bottom" id="YtJ-KS-Yfc"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="bmY-0a-Mb2">
+                    <view key="view" contentMode="scaleToFill" id="bmY-0a-Mb2">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2205,7 +2205,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6T-Lp-57R" userLabel="TitleView">
                                 <rect key="frame" x="0.0" y="71" width="375" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boot time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmB-vL-Zsm">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boot time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmB-vL-Zsm">
                                         <rect key="frame" x="10" y="15" width="74" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Tbv-7C-alH"/>
@@ -2226,10 +2226,14 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="oZx-3B-hpl"/>
                                         </constraints>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="07:15">
                                             <color key="titleColor" red="0.13333334029999999" green="0.13333334029999999" blue="0.13333334029999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="disabled">
+                                            <color key="titleColor" red="0.59601163864135742" green="0.59611696004867554" blue="0.59600502252578735" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="selected">
                                             <color key="titleColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
@@ -2247,10 +2251,14 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="XIu-O0-0hM"/>
                                         </constraints>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="07:15">
                                             <color key="titleColor" red="0.13333334029999999" green="0.13333334029999999" blue="0.13333334029999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="disabled">
+                                            <color key="titleColor" red="0.5842481255531311" green="0.58435159921646118" blue="0.58424162864685059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="selected">
                                             <color key="titleColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
@@ -2288,17 +2296,17 @@
                     </view>
                     <navigationItem key="navigationItem" title="Regular shutdown" id="9cA-Ty-755">
                         <barButtonItem key="backBarButtonItem" title=" " id="AbL-eR-TEr"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Yxp-p7-VjK"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="SaveQutlet" destination="Yxp-p7-VjK" id="xHT-xK-cHo"/>
+                        <outlet property="booTimeLabel" destination="dmB-vL-Zsm" id="kiC-Lp-Svn"/>
                         <outlet property="bootTimeOutlet" destination="E9i-7N-RL4" id="ztC-SJ-6ko"/>
                         <outlet property="cancelQutlet" destination="NXp-XJ-vUA" id="f8J-Nu-CtN"/>
                         <outlet property="comfirmQutlet" destination="lR3-Z2-UYe" id="IbH-Bw-o5s"/>
                         <outlet property="datePickView" destination="I0S-3d-4ce" id="eXv-1w-5MU"/>
                         <outlet property="datePicker" destination="A5d-xI-zmx" id="ocd-nc-rYD"/>
                         <outlet property="openShutdown" destination="Kc0-1g-Fil" id="h2H-Gm-JmP"/>
+                        <outlet property="shutdownLabel" destination="1S1-F7-lpr" id="7Wu-nk-w05"/>
                         <outlet property="shutdownTimeQutlet" destination="qwG-PC-ugy" id="tho-9K-U7o"/>
                         <outlet property="timeView" destination="L6T-Lp-57R" id="Hfq-61-N3S"/>
                     </connections>
@@ -2485,7 +2493,7 @@
                         <viewControllerLayoutGuide type="top" id="NgA-kS-hhx"/>
                         <viewControllerLayoutGuide type="bottom" id="qa8-Id-gMQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="iiq-7d-hKL">
+                    <view key="view" contentMode="scaleToFill" id="iiq-7d-hKL">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

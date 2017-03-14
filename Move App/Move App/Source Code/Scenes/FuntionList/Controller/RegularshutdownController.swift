@@ -27,7 +27,7 @@ class RegularshutdownController: UIViewController {
     @IBOutlet weak var cancelQutlet: UIButton!
     @IBOutlet weak var comfirmQutlet: UIButton!
     
-    @IBOutlet weak var SaveQutlet: UIBarButtonItem!
+
     
     var bootTimeVariable = Variable(DateUtility.zone7hour())
     var shutdownTimeVariable = Variable(DateUtility.zone16hour())
@@ -38,6 +38,7 @@ class RegularshutdownController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.datePicker.timeZone = TimeZone(secondsFromGMT: 0)
         
         let openEnable = openShutdown.rx.switch.asDriver()
@@ -85,16 +86,16 @@ class RegularshutdownController: UIViewController {
         
         let viewModel = RegularshutdownViewModel(
             input: (
-                save: SaveQutlet.rx.tap.asDriver(),
                 bootTime: bootTimeVariable.asDriver(),
                 shutdownTime: shutdownTimeVariable.asDriver(),
-                openEnable: openEnable.asDriver()
+                autoOnOff: openShutdown.rx.value.asDriver()
                 ),
                 dependency: (
                     settingsManager: WatchSettingsManager.share,
                     validation: DefaultValidation.shared,
                     wireframe: DefaultWireframe.sharedInstance)
         )
+        
         
         viewModel.shutdownTime
             .drive(self.shutdownTimeVariable)
@@ -104,48 +105,46 @@ class RegularshutdownController: UIViewController {
             .drive(self.bootTimeVariable)
             .addDisposableTo(disposeBag)
         
-        viewModel.openEnable
+        viewModel.autoOnOffEnable
             .drive(openShutdown.rx.on)
             .addDisposableTo(disposeBag)
         
-        viewModel.openEnable
+        viewModel.autoOnOffEnable
             .drive(onNext: enableView)
             .addDisposableTo(disposeBag)
-        
-        viewModel.openEnable
+        viewModel.autoOnOffEnable
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
-        
         viewModel.activityIn
             .map{ !$0 }
-            .drive(SaveQutlet.rx.isEnabled)
+            .drive(onNext: userInteractionEnabled)
             .addDisposableTo(disposeBag)
         
-        viewModel.saveFinish.drive(onNext: back).addDisposableTo(disposeBag)
+        viewModel.saveFinish
+            .drive(onNext: {_ in
+            }).addDisposableTo(disposeBag)
+        
+        
     }
 
-    func back(_ $: Bool) {
-        if $ {
-            _ = self.navigationController?.popViewController(animated: true)
-        }
+    func userInteractionEnabled(enable: Bool) {
+        
     }
-    
     private func cancelDatepicker() {
         datePickView.isHidden = true
-        bootTimeOutlet.isEnabled = true
-        shutdownTimeQutlet.isEnabled = true
+        bootTimeOutlet.isSelected = false
+        shutdownTimeQutlet.isSelected = false
     }
     
     private func comfirmDatepicker() {
         
-        if !bootTimeOutlet.isEnabled {
-            
-            bootTimeOutlet.isEnabled = true
+        if bootTimeOutlet.isSelected {
+            bootTimeOutlet.isSelected = false
             bootTimeVariable.value = datePicker.date
         }
         
-        if !shutdownTimeQutlet.isEnabled {
-            shutdownTimeQutlet.isEnabled = true
+        if shutdownTimeQutlet.isSelected {
+            shutdownTimeQutlet.isSelected = false
             shutdownTimeVariable.value = datePicker.date
         }
        
@@ -157,8 +156,8 @@ class RegularshutdownController: UIViewController {
     private func selectShutdownTime() {
         self.datePicker.minimumDate = self.amMin
         self.datePicker.maximumDate = self.pmMax
-        self.shutdownTimeQutlet.isEnabled = false
-        self.bootTimeOutlet.isEnabled = true
+        self.shutdownTimeQutlet.isSelected = true
+        self.bootTimeOutlet.isSelected = false
         self.datePicker.date = shutdownTime
         self.datePickView.isHidden = false
     
@@ -167,8 +166,8 @@ class RegularshutdownController: UIViewController {
     private func selectBootTime() {
         self.datePicker.minimumDate = self.amMin
         self.datePicker.maximumDate = self.pmMax
-        self.bootTimeOutlet.isEnabled = false
-        self.shutdownTimeQutlet.isEnabled = true
+        self.bootTimeOutlet.isSelected = true
+        self.shutdownTimeQutlet.isSelected = false
         self.datePicker.date = bootTime
         self.datePickView.isHidden = false
     }
@@ -176,18 +175,17 @@ class RegularshutdownController: UIViewController {
     private func enableView(_ enable: Bool){
         self.bootTimeOutlet.isEnabled = enable
         self.shutdownTimeQutlet.isEnabled = enable
-       
-       
         self.datePickView.isHidden = enable ? self.datePickView.isHidden : true
-        self.timeView.isHidden = !enable
+        self.booTimeLabel.isEnabled = enable
+        self.shutdownLabel.isEnabled = enable
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if touchesBeganEnable.value {
             datePickView.isHidden = true
-            shutdownTimeQutlet.isEnabled = true
-            bootTimeOutlet.isEnabled = true
+            shutdownTimeQutlet.isSelected = false
+            bootTimeOutlet.isSelected = false
             
         }
     }

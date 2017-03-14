@@ -28,7 +28,7 @@ class DistributionViewController: UIViewController {
             )
         )
         
-        viewModel.enterLogin.debug()
+        viewModel.enterLogin
             .drive(onNext: { [weak self] enter in
                 if enter {
                     self?.enterLoginScreen()
@@ -36,7 +36,7 @@ class DistributionViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.enterChoose.debug()
+        viewModel.enterChoose
             .drive(onNext: { [weak self] enter in
                 if enter {
                     self?.enterChoseDeviceScreen()
@@ -44,7 +44,7 @@ class DistributionViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.enterMain.debug()
+        viewModel.enterMain
             .drive(onNext: { [weak self] enter in
                 if enter {
                     self?.enterMainScreen()
