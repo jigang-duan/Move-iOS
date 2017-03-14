@@ -57,7 +57,7 @@ class ShareQRcodeController: UIViewController {
     
     
     func makeQRinfo() -> String{
-        let device = DeviceManager.shared.currentDevice!
+        var device = DeviceManager.shared.currentDevice!
         
         let downTime = Date(timeIntervalSinceNow: 3600)
         
@@ -99,11 +99,10 @@ class ShareQRcodeController: UIViewController {
     }
     
     func createQRForString(qrString: String, qrImageName: String = "") -> UIImage?{
-        let stringData = qrString.data(using: String.Encoding.utf8, allowLossyConversion: false)
         // 创建一个二维码的滤镜
         let qrFilter = CIFilter(name: "CIQRCodeGenerator")
-        qrFilter?.setValue(stringData, forKey: "inputMessage")
-        qrFilter?.setValue("H", forKey: "inputCorrectionLevel")
+        qrFilter?.setDefaults()
+        qrFilter?.setValue(qrString.data(using: String.Encoding.utf8), forKey: "inputMessage")
         let qrCIImage = qrFilter?.outputImage
         // 创建一个颜色滤镜,黑白色
         let colorFilter = CIFilter(name: "CIFalseColor")

@@ -220,6 +220,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                         }
                     }
                     
+                    self.checkImeiAndGoBind(with: info)
                 }
             }
         } catch {
@@ -231,9 +232,10 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
             let index = infoStr.index(infoStr.endIndex, offsetBy: -4)
             info.deviceId = infoStr.substring(to: index)
             info.isMaster = true
+            
+            self.checkImeiAndGoBind(with: info)
         }
         
-        self.checkImeiAndGoBind(with: info)
     }
     
     
@@ -244,22 +246,11 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                 switch event{
                 case .next(let value):
                     if value == false {
-                        _ = UserManager.shared.sendVcode(to: info.deviceId!).subscribe({ (event) in
-                            switch event{
-                            case .next(let value):
-                                let vc  = R.storyboard.main.verificationCodeController()!
-                                vc.imei = info.deviceId
-                                vc.sid = value.sid
-                                self.navigationController?.show(vc, sender: nil)
-                            case .completed:
-                                break
-                            case .error(let error):
-                                print(error)
-                                self.showMessage(error.localizedDescription)
-                            }
-                        })
+                        let vc  = R.storyboard.main.verificationCodeController()!
+                        vc.imei = info.deviceId
+                        self.navigationController?.show(vc, sender: nil)
                     }else{
-                        self.showMessage("手表已被绑定")
+                        self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
                     }
                 case .error(let error):
                     print(error)
@@ -295,7 +286,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                             }
                         })
                     }else{
-                        self.showMessage("手表已被绑定")
+                        self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
                     }
                 case .error(let error):
                     print(error)

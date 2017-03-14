@@ -64,11 +64,8 @@ class MeLogoutController: UIViewController {
                 case .failed(let message):
                     self.showMessage(message)
                 case .ok:
-                    UserInfo.shared.accessToken = UserInfo.AccessToken()
-                    UserInfo.shared.id = nil
-                    UserInfo.shared.profile = nil
-                    self.present(R.storyboard.login.instantiateInitialViewController()!, animated: true, completion: nil)
-                    _ = self.navigationController?.popToRootViewController(animated: true)
+                    UserInfo.shared.invalidate()
+                    Distribution.shared.popToLoginScreen()
                 default:
                     break
                 }

@@ -36,13 +36,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foX-n3-65d" userLabel="head">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foX-n3-65d">
                                 <rect key="frame" x="152.5" y="50" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="gZL-xf-9iA"/>
                                     <constraint firstAttribute="height" constant="70" id="meI-3m-I6H"/>
                                 </constraints>
                                 <state key="normal" image="information_camera_nor"/>
+                                <connections>
+                                    <action selector="selectPhoto:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="IJn-B1-ZT9"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nick name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3y9-nO-LHY">
                                 <rect key="frame" x="151.5" y="130" width="72" height="28"/>
@@ -220,6 +223,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="cameraBun" destination="foX-n3-65d" id="PsJ-He-oAO"/>
                         <outlet property="dateLab" destination="Zkc-Re-dbX" id="aQ3-6W-YgB"/>
                         <outlet property="genderLab" destination="zQI-ao-qF3" id="Pgk-Ap-Feu"/>
                         <outlet property="heightLab" destination="F7L-nN-gd4" id="wXK-id-3QD"/>

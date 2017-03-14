@@ -32,6 +32,10 @@ class UpdatePwdController: UIViewController {
     var disposeBag = DisposeBag()
     
     
+    var timeCount = 0
+    var timer: Timer?
+    
+    
     
     func showVcodeError(_ text: String) {
         vcodeValidHConstrain.constant = 16
@@ -119,6 +123,10 @@ class UpdatePwdController: UIViewController {
         self.initUI()
         // Do any additional setup after loading the view.
         
+        
+        helpLabel.text = "The verification code was sent to your Email \(self.email!)."
+        
+        
         viewModel = UpdatePswdViewModel(
             input:(
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
@@ -137,10 +145,17 @@ class UpdatePwdController: UIViewController {
         viewModel.sid = self.sid
         viewModel.email = self.email
         
-        viewModel.sendEnabled
-            .drive(onNext: { [weak self] valid in
-                self?.sendBun.isEnabled = valid
-                self?.sendBun.alpha = valid ? 1.0 : 0.5
+        viewModel.sendEnabled?
+            .drive(onNext: { [unowned self] valid in
+                self.sendBun.isEnabled = valid
+                self.sendBun.alpha = valid ? 1.0 : 0.5
+                if valid {
+                    self.sendBun.setTitle("Resend", for: UIControlState.normal)
+                }else{
+                    self.timeCount = 90
+                    self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
+                    self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setupSendBunTitle), userInfo: nil, repeats: true)
+                }
             })
             .addDisposableTo(disposeBag)
         
@@ -168,13 +183,25 @@ class UpdatePwdController: UIViewController {
                 case .failed(let message):
                     self.showVcodeError(message)
                 case .ok:
-                    self.BackAction(self)
+                    _ = self.navigationController?.popToRootViewController(animated: true)
                 default:
                     self.revertVcodeError()
                 }
             })
             .addDisposableTo(disposeBag)
         
+    }
+    
+    @objc func setupSendBunTitle() {
+        timeCount -= 1
+        if timeCount <= -1 {
+            self.timer?.invalidate()
+            self.sendBun.setTitle("Resend", for: UIControlState.normal)
+            self.sendBun.isEnabled = true
+            self.sendBun.alpha = 1
+        }else{
+            self.sendBun.setTitle("Resend(\(timeCount)s)", for: UIControlState.normal)
+        }
     }
     
     
@@ -224,10 +251,8 @@ class UpdatePwdController: UIViewController {
     }
     
     
-    @IBAction func BackAction(_ sender: AnyObject) {
-        let vcs = self.navigationController?.viewControllers
-        let vc = vcs?[(vcs?.count)! - 3]
-        _ = self.navigationController?.popToViewController(vc!, animated: true)
+    @IBAction func backAction(_ sender: AnyObject?) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
    

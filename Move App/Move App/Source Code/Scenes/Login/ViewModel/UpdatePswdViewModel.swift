@@ -23,7 +23,7 @@ class UpdatePswdViewModel {
     
     let sending: Driver<Bool>
     
-    let sendEnabled: Driver<Bool>
+    var sendEnabled: Driver<Bool>?
     var sendResult: Driver<ValidationResult>?
     
     
@@ -73,7 +73,7 @@ class UpdatePswdViewModel {
         self.sending = activity.asDriver()
         
         
-        self.sendEnabled = Driver.just(true)
+       
         
         self.doneEnabled = Driver.combineLatest(
             validatedVcode,
@@ -88,9 +88,10 @@ class UpdatePswdViewModel {
             .distinctUntilChanged()
         
         
+        let firstEnter = Driver.just(ValidationResult.ok(message: "Send Success"))
         
         self.sendResult = input.sendTaps
-            .flatMapLatest({ email in
+            .flatMapLatest({ _ in
                 return userManager.sendVcode(to: self.email!)
                     .trackActivity(activity)
                     .map({info in
@@ -100,6 +101,10 @@ class UpdatePswdViewModel {
                     .asDriver(onErrorRecover: updatePswdErrorRecover)
             })
        
+        
+        self.sendEnabled = Driver.of(firstEnter, sendResult!).merge().map{ !$0.isValid }
+        
+        
         
         let com = Driver.combineLatest(input.vcode, input.passwd){ ($0, $1) }
         

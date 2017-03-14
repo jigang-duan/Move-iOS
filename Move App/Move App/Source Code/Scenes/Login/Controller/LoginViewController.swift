@@ -114,13 +114,6 @@ class LoginViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-//        viewModel.validatedEmail
-//            .drive(emailValidationOutlet.rx.validationResult)
-//            .addDisposableTo(disposeBag)
-        
-//        viewModel.validatedPassword
-//            .drive(passwordValidationOutlet.rx.validationResult)
-//            .addDisposableTo(disposeBag)
         
         viewModel.logedIn
             .drive(onNext: { [unowned self] logedIn in

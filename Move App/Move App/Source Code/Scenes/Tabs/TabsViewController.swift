@@ -34,12 +34,5 @@ class TabsViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func checkLogin() {
-        if UserInfo.shared.accessToken.isValidAndNotExpired == false {
-            self.performSegue(withIdentifier: R.segue.tabsViewController.presentLogin, sender: nil)
-        }
-    }
-
 
 }

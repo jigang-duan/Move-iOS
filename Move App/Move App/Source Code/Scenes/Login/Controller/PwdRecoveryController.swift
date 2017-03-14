@@ -80,7 +80,7 @@ class PwdRecoveryController: UIViewController {
         
         
         viewModel.doneResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: { doneResult in 
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
@@ -116,7 +116,7 @@ class PwdRecoveryController: UIViewController {
     }
     
     
-    @IBAction func BackAction(_ sender: AnyObject) {
+    @IBAction func backAction(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     

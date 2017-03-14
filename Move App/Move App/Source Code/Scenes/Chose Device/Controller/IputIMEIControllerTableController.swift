@@ -70,7 +70,6 @@ class IputIMEIControllerTableController: UITableViewController {
                 confirmTaps: confirmBun.rx.tap.asDriver()
             ),
             dependency: (
-                userManager: UserManager.shared,
                 deviceManager: DeviceManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
@@ -134,7 +133,6 @@ class IputIMEIControllerTableController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.iputIMEIControllerTableController.showVerification(segue: segue) {
-            sg.destination.sid = viewModel.sid
             sg.destination.imei = IMEITextF.text
         }
         

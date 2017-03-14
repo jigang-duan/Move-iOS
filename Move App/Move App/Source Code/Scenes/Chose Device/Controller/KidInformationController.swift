@@ -9,8 +9,11 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import AVFoundation
 
 class KidInformationController: UIViewController {
+    
+    @IBOutlet weak var cameraBun: UIButton!
     
     @IBOutlet weak var nextBun: UIButton!
     
@@ -124,6 +127,30 @@ class KidInformationController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
+    
+
+    @IBAction func selectPhoto(_ sender: Any) {
+        if cameraPermissions() {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.allowsEditing = true
+            imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }else{
+            self.showMessage("没有相机权限")
+        }
+    }
+    
+    func cameraPermissions() -> Bool{
+        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        
+        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
+            return false
+        }
+        return true
+    }
+    
+    
 
     func showMessage(_ text: String) {
         let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
@@ -187,6 +214,19 @@ class KidInformationController: UIViewController {
 
 
 
+extension KidInformationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+        }
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    
+}
 
 
 

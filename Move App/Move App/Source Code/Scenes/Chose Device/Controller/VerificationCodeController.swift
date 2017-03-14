@@ -20,7 +20,6 @@ class VerificationCodeController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: VerificationCodeViewModel!
     
-    var sid: String?
     var imei: String?
     
     var timeCount = 0
@@ -83,8 +82,6 @@ class VerificationCodeController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
-        
-        viewModel.sid = self.sid
         
         viewModel.sendEnabled?
             .drive(onNext: { [unowned self] valid in
@@ -178,7 +175,7 @@ class VerificationCodeController: UIViewController {
         if let sg = R.segue.verificationCodeController.showPhoneNumber(segue: segue) {
             var addInfo = DeviceBindInfo()
             addInfo.deviceId = self.imei
-            addInfo.sid = self.sid
+            addInfo.sid = viewModel.sid
             addInfo.vcode = vcodeTf.text
             addInfo.isMaster = true
             sg.destination.deviceAddInfo = addInfo

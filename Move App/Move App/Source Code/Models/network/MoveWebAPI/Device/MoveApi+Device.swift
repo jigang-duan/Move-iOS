@@ -69,15 +69,15 @@ extension MoveApi {
         final class func settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String) -> Observable<ApiError> {
             return request(.settingContactInfo(deviceId: deviceId, info: info, uid: uid)).mapMoveObject(ApiError.self)
         }
-//        设置设备管理员: 由管理员自身调用
+//        设置设备管理员:  由管理员自身调用
         final class func settingAdmin(deviceId: String, admin: DeviceAdmin) -> Observable<ApiError> {
             return request(.settingAdmin(deviceId: deviceId, admin: admin)).mapMoveObject(ApiError.self)
         }
-//        获取设备好友列表
+//        获取设备好友列表: 由管理员自身调用
         final class func getWatchFriends(deviceId: String) -> Observable<DeviceFriends> {
             return request(.getWatchFriends(deviceId: deviceId) ).mapMoveObject(DeviceFriends.self)
         }
-//        删除设备好友
+//        删除设备好友:   由管理员自身调用
         final class func deleteWatchFriend(deviceId: String, uid: String) -> Observable<ApiError> {
             return request(.deleteWatchFriend(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
         }
