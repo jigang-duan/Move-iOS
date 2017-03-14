@@ -24,7 +24,7 @@ class BaseAnnotation: NSObject, MKAnnotation {
 class LocationAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     
-    init(_ coordinate: CLLocationCoordinate2D , address : String,accuracy: CLLocationDistance,time: Date) {
+    init(_ coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
     }
     
