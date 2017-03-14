@@ -14,7 +14,8 @@ import SVPulsingAnnotationView
 import Realm
 import RealmSwift
 import MessageUI
-
+import AFImageHelper
+import CustomViews
 //private extension Reactive where Base: MKMapView {
 //    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
 //        return UIBindingObserver(UIElement: base) { mapView, annotion in
@@ -86,6 +87,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         viewModel.selecedAction
             .bindNext({
                 Logger.info($0)
+                
                 self.KidInfoToAnimation(dataSource: $0)
             })
             .addDisposableTo(disposeBag)
@@ -234,9 +236,11 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             objectNameL.text = dataSource.title
             self.currentDeviceData = dataSource
             let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
+            self.setObjectImageBtn(UIImage( named: "member_btn_contact_pre"), title: (device?.user?.nickname)!, imageUrl: device?.user?.profile)
             if device?.property != nil {
                 let property : MoveApi.DeviceProperty = (device?.property)!
                 let power = (property.power)!
+                
                 electricL.text = String(format:"%d%",(property.power)!)
                 if power == 0{
                     electricV.image = UIImage(named: "home_ic_battery0")
@@ -288,8 +292,51 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             print("distance between two points is \(routeSeconds) and \(routeDistance)")
         }
     }
+    
+    private func convert(image: UIImage?, size: CGSize) -> UIImage? {
+        return image?.scale(toSize: size)?.roundCornersToCircle()
+    }
+    
+    private func conver(title: String, size: CGSize) -> UIImage? {
+        return CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height),
+                                 fullName: title).imageRepresentation()
+    }
+    
+    func setObjectImageBtn(_ placeholderImage: UIImage?, title: String, imageUrl: String?) {
+        
+        guard let placeholder = placeholderImage else {
+            return
+        }
+        
+        let showImage = self.conver(title: title, size: placeholder.size) ?? placeholder
+        guard let url = imageUrl else {
+            self.objectImageBtn.setImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
+            return
+        }
+        
+        let image = UIImage.image(fromURL: url,
+                                  placeholder: showImage) { [weak self] in
+                                    if let image = $0 {
+                                        self?.objectImageBtn.setImage(self?.convert(image: image, size: placeholder.size), for: .normal)
+                                    }
+        }
+        self.objectImageBtn.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
+    }
 }
-
+fileprivate extension UIImage {
+    
+    func scale(toSize: CGSize) -> UIImage? {
+        
+        UIGraphicsBeginImageContext(toSize)
+        
+        self.draw(in: CGRect.init(x: 0, y: 0, width: toSize.width, height: toSize.height))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
+}
 extension MainMapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
