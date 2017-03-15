@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mCd-5H-nzt">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--SuperVC-->
+        <scene sceneID="s73-1y-6Ab">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="mCd-5H-nzt" customClass="ChatViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4ji-We-S26"/>
+                        <viewControllerLayoutGuide type="bottom" id="dl9-Y6-deF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="spy-j9-XUx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NqE-ia-AQv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="514"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellChatMessage" id="0Yt-sV-asz" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Yt-sV-asz" id="nfp-Gq-CCu">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="NqE-ia-AQv" secondAttribute="trailing" id="Psf-8X-ZGE"/>
+                            <constraint firstItem="dl9-Y6-deF" firstAttribute="top" secondItem="NqE-ia-AQv" secondAttribute="bottom" constant="40" id="Qqh-8j-fJ7"/>
+                            <constraint firstItem="NqE-ia-AQv" firstAttribute="top" secondItem="4ji-We-S26" secondAttribute="bottom" id="Yp9-Ap-Lun"/>
+                            <constraint firstItem="NqE-ia-AQv" firstAttribute="leading" secondItem="spy-j9-XUx" secondAttribute="leading" id="c0Y-yF-5Rv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="OAs-9g-fua"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <fixedSimulatedSizeMetrics key="simulatedDestinationMetrics">
+                        <size key="portraitSize" width="375" height="554"/>
+                        <size key="landscapeSize" width="554" height="375"/>
+                    </fixedSimulatedSizeMetrics>
+                    <connections>
+                        <outlet property="ifView" destination="pi2-w9-HVy" id="zLA-09-ck6"/>
+                        <outlet property="tableView" destination="NqE-ia-AQv" id="ebS-zT-RmT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ahT-aD-FFW" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="pi2-w9-HVy" customClass="UUInputFunctionView" customModule="Move_App" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <outlet property="superVC" destination="mCd-5H-nzt" id="RAC-wW-TIe"/>
+                    </connections>
+                </view>
+            </objects>
+            <point key="canvasLocation" x="2854" y="3641"/>
+        </scene>
+    </scenes>
+</document>

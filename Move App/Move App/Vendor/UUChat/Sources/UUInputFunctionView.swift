@@ -123,7 +123,7 @@ class UUInputFunctionView: UIView {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let frame = CGRect(x: 0, y: Main_Screen_Height - 40, width: Main_Screen_Width, height: 40)
+        let frame = CGRect(x: 0, y: Main_Screen_Height - 40 - 64, width: Main_Screen_Width, height: 40)
         self.init(frame: frame)
     }
     

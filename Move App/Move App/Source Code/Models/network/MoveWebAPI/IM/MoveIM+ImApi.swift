@@ -37,10 +37,26 @@ extension MoveIM {
         final class func getGroupInfo(gid: ImGid) -> Observable<ImGroup> {
             return request(.getGroupInfo(gid: gid)).mapMoveObject(ImGroup.self)
         }
+        
+        final class func initSyncKey() -> Observable<ImUserSynckey> {
+            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self)
+        }
+        
+        final class func checkSyncKey(synckey: ImSynckeyList) -> Observable<ImSelector> {
+            return request(.checkSyncKey(userSynckey:synckey)).mapMoveObject(ImSelector.self)
+        }
+        
+        final class func syncData() -> Observable<ImSyncData> {
+            return request(.syncData).mapMoveObject(ImSyncData.self)
+        }
+        
         enum API {
             case getGroups
             case createGroup(group: ImGroup)
             case getGroupInfo(gid: ImGid)
+            case initSyncKey
+            case checkSyncKey(userSynckey:ImSynckeyList)
+            case syncData
         }
         
     }
@@ -66,15 +82,21 @@ extension MoveIM.ImApi.API: TargetType {
             return "group"
         case .getGroupInfo(let gid):
             return "group/\(gid)"
+        case .initSyncKey:
+            return "init"
+        case .checkSyncKey(_):
+            return "check"
+        case .syncData:
+            return "sync"
         }
     }
     
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .getGroups, .getGroupInfo:
+        case .getGroups, .getGroupInfo, .checkSyncKey:
             return .get
-        case .createGroup:
+        case .createGroup, .initSyncKey, .syncData:
             return .post
         }
     }
@@ -86,6 +108,8 @@ extension MoveIM.ImApi.API: TargetType {
             return group.toJSON()
         case .getGroupInfo(let gid):
             return gid.toJSON()
+        case .checkSyncKey(let userSynckey):
+            return userSynckey.toJSON()
         default:
             return nil
         }

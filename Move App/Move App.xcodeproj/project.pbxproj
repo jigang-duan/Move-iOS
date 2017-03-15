@@ -36,6 +36,9 @@
 		11EAC32B1E6FA1BC002906F1 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32A1E6FA1BC002906F1 /* AlertController.swift */; };
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
+		A53513571E790E8E0093445F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53513561E790E8E0093445F /* Chat.swift */; };
+		A535135A1E791F8F0093445F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53513581E791F8F0093445F /* Chat.storyboard */; };
+		A5C5A1D71E763D4B008FAE01 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
 		D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */; };
@@ -316,6 +319,9 @@
 		39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.debug.xcconfig"; sourceTree = "<group>"; };
 		85B2640603391AC6872E01CD /* Pods-Move AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C4A2CD5C2A7BA27AE209FE9 /* Pods-Move AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A53513561E790E8E0093445F /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		A53513591E791F8F0093445F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Chat.storyboard; sourceTree = "<group>"; };
+		A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Chat/ChatViewController.swift; sourceTree = "<group>"; };
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -686,6 +692,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A5C5A1D51E763D10008FAE01 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
 		D24C4D3B1E4DD57F00F9E33A /* ActivityRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,6 +994,7 @@
 				E01DF6E91E3059A800EA003D /* Main.storyboard */,
 				D29988C61E5A952000D23899 /* KidInformation.storyboard */,
 				E9E3F13D1E5704CD00B01E29 /* Major.storyboard */,
+				A53513581E791F8F0093445F /* Chat.storyboard */,
 				E0931F4C1E31C72C00755B4A /* Account.storyboard */,
 				FF4ABDB91E66D9C00029C643 /* APN.storyboard */,
 				FF4ABDB11E669CA30029C643 /* Contact.storyboard */,
@@ -1169,6 +1184,7 @@
 		E0931F1A1E30BC3000755B4A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				A5C5A1D51E763D10008FAE01 /* Chat */,
 				E0931F531E31E0B000755B4A /* Account */,
 				E9735EA51E6942A300C0B944 /* FuntionList */,
 				E0931F4F1E31D4E200755B4A /* Tabs */,
@@ -1571,6 +1587,7 @@
 		E9BEF3941E5C598B00A36A13 /* database */ = {
 			isa = PBXGroup;
 			children = (
+				A53513561E790E8E0093445F /* Chat.swift */,
 				E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */,
 			);
 			path = database;
@@ -1858,6 +1875,7 @@
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
 				E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */,
+				A535135A1E791F8F0093445F /* Chat.storyboard in Resources */,
 				E0931F101E30A97100755B4A /* appColor.clr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2111,6 +2129,7 @@
 				D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */,
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
+				A5C5A1D71E763D4B008FAE01 /* ChatViewController.swift in Sources */,
 				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
 				FF08590A1E72371A00EB81D9 /* MeSetNameVC.swift in Sources */,
 				F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */,
@@ -2164,6 +2183,7 @@
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
 				E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */,
 				11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */,
+				A53513571E790E8E0093445F /* Chat.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
@@ -2289,6 +2309,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A53513581E791F8F0093445F /* Chat.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A53513591E791F8F0093445F /* Base */,
+			);
+			name = Chat.storyboard;
+			sourceTree = "<group>";
+		};
 		D29988C61E5A952000D23899 /* KidInformation.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
