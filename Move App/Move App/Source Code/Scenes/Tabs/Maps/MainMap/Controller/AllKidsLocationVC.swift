@@ -7,27 +7,38 @@
 //
 
 import UIKit
+import MapKit
+import RxSwift
+import RxCocoa
 
 class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapViewDelegate{
 
-        func addannotationData() {
-            var coords = [CLLocationCoordinate2D]()
-            var locationarr = [TagAnnotation]()
-            for  i in 0...5  {
-                var location = CLLocationCoordinate2D()
-                if i%2 != 0 {
-                     location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
-                }else{
-                     location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
-                }
-                coords .append(location)
-                let annotation = TagAnnotation(location)
-                annotation.tag = i
-                locationarr.append(annotation)
-            }
-            mapView.addAnnotations(locationarr)
-            mapView.showAnnotations(locationarr, animated: true)
-        }
+    var disposeBag = DisposeBag()
+
+    var dataArr = NSArray()
+    var locationOfDevice : [MoveApi.LocationOfDevice]? = []
+    var annotationArr : [TagAnnotation]? = []
+    
+    @IBOutlet weak var addressL: UILabel!
+    @IBOutlet weak var nameL: UILabel!
+//        func addannotationData() {
+//            var coords = [CLLocationCoordinate2D]()
+//            var locationarr = [TagAnnotation]()
+//            for  i in 0...5  {
+//                var location = CLLocationCoordinate2D()
+//                if i%2 != 0 {
+//                     location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
+//                }else{
+//                     location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
+//                }
+//                coords .append(location)
+//                let annotation = TagAnnotation(location)
+//                annotation.tag = i
+//                locationarr.append(annotation)
+//            }
+//            mapView.addAnnotations(locationarr)
+//            mapView.showAnnotations(locationarr, animated: true)
+//        }
     
     let locationManager:CLLocationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
@@ -50,9 +61,46 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             locationManager.startUpdatingLocation()
             print("定位开始")
         }
-        self.addannotationData()
+//        self.addannotationData()
+        
+        var deviceids : [MoveApi.LocationDeviceId]? = []
+        for tels in dataArr {
+            let tel = tels as! MoveApi.DeviceInfo
+            let device_id = MoveApi.LocationDeviceId(device_id : tel.deviceId)
+            deviceids?.append(device_id)
+        }
+        let locationlist = MoveApi.LocationMultiReq(locations: deviceids)
+        
+        let getdata = MoveApi.Location.getMultiLocations(with: locationlist).map({
+            
+            self.locationOfDevice = $0.locations!
+            
+            for located in self.locationOfDevice! {
+                let loc = CLLocationCoordinate2D(latitude: (located.location?.lat)!, longitude: (located.location?.lng)!)
+                let annotation = TagAnnotation(loc)
+                let info = KidSate.LocationInfo(location: loc, address: located.location?.addr, accuracy: located.location?.accuracy, time: located.location?.time)
+                annotation.info = info
+                
+                for tels in self.dataArr {
+                    let tel = tels as! MoveApi.DeviceInfo
+                    if tel.deviceId == located.device_id {
+                        annotation.name = (tel.user?.nickname)!
+                        annotation.device_id = tel.deviceId!
+                    }
+                }
+                
+                self.annotationArr?.append(annotation)
+            }
+            self.mapView.addAnnotations(self.annotationArr!)
+            self.mapView.showAnnotations(self.annotationArr!, animated: true)
+        })
+            
+        getdata.subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
         // Do any additional setup after loading the view.
     }
+    var activity = MoveApi.Activity()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -97,10 +145,10 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
         let currLocation:CLLocation = locations.last!
         userPoint = CLLocationCoordinate2D(latitude: currLocation.coordinate.latitude, longitude: currLocation.coordinate.longitude)
         print("123\(currLocation.course)")
-        let annotation = LocationAnnotation.init(userPoint!)
+        let annotation = BaseAnnotation.init(userPoint!)
         for an in mapView.annotations
         {
-            if an is LocationAnnotation {
+            if an is BaseAnnotation {
                 mapView.removeAnnotation(an)
             }
         }
@@ -130,10 +178,10 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             let identifier = "LocationAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if annotationView == nil {
-                annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
             annotationView?.annotation = annotation
-            
+            annotationView?.image = UIImage(named : "history_dot_nor")
             annotationView?.canShowCallout = false
             return annotationView
         }
@@ -144,7 +192,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             if annoView == nil {
                 annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             }
-//            annoView?.image = UIImage(named : "history_dot_nor")
+            annoView?.annotation = annotation
             annoView?.canShowCallout = false
             return annoView
         }
@@ -154,31 +202,34 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if view is MKAnnotationView {
-            let selectannotation = view.annotation as! TagAnnotation?
-            selectPoint = selectannotation?.coordinate
-            mapView.removeOverlays(mapView.overlays)
-            if (userPoint == nil || selectPoint == nil) {
-                return
-            }
-            self.goSearch(fromCoordinate: userPoint!, tofromCoordinate: selectPoint!)
+        if view.annotation is TagAnnotation {
+            let annot = view.annotation as! TagAnnotation
+            nameL.text = annot.name
+            addressL.text = annot.info?.address
         }
+        
+        
+//        if view is MKAnnotationView {
+//            let selectannotation = view.annotation as! TagAnnotation?
+//            selectPoint = selectannotation?.coordinate
+//            mapView.removeOverlays(mapView.overlays)
+//            if (userPoint == nil || selectPoint == nil) {
+//                return
+//            }
+//            self.goSearch(fromCoordinate: userPoint!, tofromCoordinate: selectPoint!)
+//        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        //        let render = MKPolygonRenderer(overlay: overlay)
-        //        render.strokeColor = UIColor.redColor()
-        //        render.lineWidth = 4.0
-        //        return render
-        //        if overlay is MKPolyline {
+        
         let  polylineRenderer = MKPolylineRenderer(overlay: overlay)
-        //      polylineRenderer.lineDashPattern = [14,10,6,10,4,10]
         polylineRenderer.strokeColor = UIColor.blue
-        //      polylineRenderer.strokeColor = UIColor(red: 0.012, green: 0.012, blue: 0.012, alpha: 1.00)
         polylineRenderer.fillColor = UIColor.blue
         polylineRenderer.lineWidth = 2.5
         return polylineRenderer
     }
+    
+    
     /*
     // MARK: - Navigation
 
