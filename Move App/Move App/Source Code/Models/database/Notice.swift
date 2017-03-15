@@ -60,26 +60,26 @@ enum NoticeType: Int {
     case unknown = -1
 }
 
-enum ReadStatus: Int {
-    case unread = 0
-    case read = 1
-    case unknown = -1
-}
-
 
 class NoticeEntity: Object {
     
-    dynamic var noticeId: String? = nil
-    dynamic var fromId: String? = nil
-    dynamic var toId: String? = nil
-    dynamic var gid: String? = nil
+    enum ReadStatus: Int {
+        case unread = 0
+        case read = 1
+        case unknown = -1
+    }
+    
+    dynamic var id: String? = nil
+    dynamic var from: String? = nil
+    dynamic var to: String? = nil
+    dynamic var groupId: String? = nil
     dynamic var content: String?
     dynamic var readStatus = ReadStatus.unknown.rawValue
     dynamic var type = NoticeType.unknown.rawValue
-    dynamic var ctime: Data? = nil
+    dynamic var createDate: Data? = nil
     
     override static func primaryKey() -> String? {
-        return "noticeId"
+        return "id"
     }
     
 }
