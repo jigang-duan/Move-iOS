@@ -142,63 +142,6 @@ enum Relation {
     case sister
     case brother
     case other(value: String)
-    
-    func transformToString() -> String{
-        switch self {
-        case .mother:
-            return "Mother"
-        case .father:
-            return "Father"
-        case .grandmaF:
-            return "GrandmaF"
-        case .grandPaF:
-            return "GrandPaF"
-        case .grandmaM:
-            return "GrandmaM"
-        case .grandpaM:
-            return "GrandpaM"
-        case .uncle:
-            return "Uncle"
-        case .aunty:
-            return "Aunty"
-        case .sister:
-            return "Sister"
-        case .brother:
-            return "Brother"
-        case . other(let value):
-            return value
-        }
-    }
-    
-    static func transformToEnum(input: Int) -> Relation{
-        switch input {
-        case 1:
-            return Relation.mother
-        case 2:
-            return Relation.father
-        case 3:
-            return Relation.grandmaF
-        case 4:
-            return Relation.grandPaF
-        case 5:
-            return Relation.grandmaM
-        case 6:
-            return Relation.grandpaM
-        case 7:
-            return Relation.uncle
-        case 8:
-            return Relation.aunty
-        case 9:
-            return Relation.sister
-        case 10:
-            return Relation.brother
-        default:
-            
-            return Relation.other(value: "Other")
-        }
-    }
-    
-    
 }
 
 extension Relation {
@@ -228,8 +171,59 @@ extension Relation {
         default:
             self = .other(value: input)
         }
-        return nil
     }
+    
+    func transformIdentity() -> String{
+        switch self {
+        case .mother:
+            return "1"
+        case .father:
+            return "2"
+        case .grandmaF:
+            return "3"
+        case .grandPaF:
+            return "4"
+        case .grandmaM:
+            return "5"
+        case .grandpaM:
+            return "6"
+        case .uncle:
+            return "7"
+        case .aunty:
+            return "8"
+        case .sister:
+            return "9"
+        case .brother:
+            return "10"
+        case . other(let value):
+            switch value {
+            case "Mother":
+                return "1"
+            case "Father":
+                return "2"
+            case "GrandmaF":
+                return "3"
+            case "GrandPaF":
+                return "4"
+            case "GrandmaM":
+                return "5"
+            case "GrandpaM":
+                return "6"
+            case "Uncle":
+                return "7"
+            case "Aunty":
+                return "8"
+            case "Sister":
+                return "9"
+            case "Brother":
+                return "10"
+            default:
+                return value
+            }
+        }
+    }
+    
+    
 }
 
 extension Relation: CustomStringConvertible {

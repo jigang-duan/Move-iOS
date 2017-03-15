@@ -212,12 +212,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                     info.deviceId = embeded["imei"] as? String
                     info.phone = embeded["phone"] as? String
                     if let str = embeded["identity"] as? String {
-                        info.identity = Relation.other(value: str)
-                        if let identity = Int(str) {
-                            if identity >= 1 && identity <= 10 {
-                                info.identity = Relation.transformToEnum(input: identity)
-                            }
-                        }
+                        info.identity = Relation(input: str)
                     }
                     
                     self.checkImeiAndGoBind(with: info)

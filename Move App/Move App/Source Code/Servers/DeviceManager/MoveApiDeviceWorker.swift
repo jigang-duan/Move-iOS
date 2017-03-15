@@ -22,7 +22,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         addInfo.sid = firstBindInfo.sid
         addInfo.vcode = firstBindInfo.vcode
         addInfo.phone = firstBindInfo.phone
-        addInfo.identity = firstBindInfo.identity?.transformToString()
+        addInfo.identity = firstBindInfo.identity?.transformIdentity()
         addInfo.profile = firstBindInfo.profile
         addInfo.nickName = firstBindInfo.nickName
         addInfo.number = firstBindInfo.number
@@ -48,7 +48,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
-        info.identity = joinInfo.identity?.transformToString()
+        info.identity = joinInfo.identity?.transformIdentity()
         info.phone = joinInfo.phone
         info.profile = joinInfo.profile
     
@@ -99,12 +99,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                         var con = ImContact()
                         con.uid = c.uid
                         if let rl = c.identity {
-                            con.identity = Relation.other(value: rl)
-                            if let r = Int(rl) {
-                                if r >= 1 && r <= 10 {
-                                    con.identity = Relation.transformToEnum(input: r)
-                                }
-                            }
+                            con.identity = Relation(input: rl)
                         }
                         con.profile = c.profile
                         con.phone = c.phone
@@ -122,7 +117,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
         info.flag = contactInfo.flag
-        info.identity = contactInfo.identity?.transformToString()
+        info.identity = contactInfo.identity?.transformIdentity()
         info.phone = contactInfo.phone
         info.profile = contactInfo.profile
         

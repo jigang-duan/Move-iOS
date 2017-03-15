@@ -164,7 +164,7 @@ class FamilyMemberDetailController: UIViewController {
         }
         
         photoImgV.imageFromURL((info?.contactInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
-        nameTf.text = info?.contactInfo?.identity?.transformToString()
+        nameTf.text = info?.contactInfo?.identity?.description
         numberTf.text = info?.contactInfo?.phone
     }
     
@@ -194,8 +194,8 @@ class FamilyMemberDetailController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            self?.viewModel.contactInfo?.value.identity = Relation.transformToEnum(input: relation + 1)
-            self?.nameTf.text =  self?.viewModel.contactInfo?.value.identity?.transformToString()
+            self?.viewModel.contactInfo?.value.identity = Relation(input: String(relation + 1))
+            self?.nameTf.text =  self?.viewModel.contactInfo?.value.identity?.description
         }
         self.navigationController?.show(vc, sender: nil)
     }

@@ -140,7 +140,7 @@ class FamilyMemberAddController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            self?.nameTf.text =  Relation.transformToEnum(input: relation + 1).transformToString()
+            self?.nameTf.text =  Relation(input: String(relation + 1))?.description
         }
         self.navigationController?.show(vc, sender: nil)
     }

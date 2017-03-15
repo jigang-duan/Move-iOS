@@ -42,12 +42,7 @@ class MoveApiIMWorker: IMWorkerProtocl {
                 m.flag = member.flag
                 m.profile = member.profile
                 if let rl = member.identity {
-                    m.identity = Relation.other(value: rl)
-                    if let r = Int(rl) {
-                        if r >= 1 && r <= 10 {
-                            m.identity = Relation.transformToEnum(input: r)
-                        }
-                    }
+                    m.identity = Relation(input: rl)
                 }
                 m.phone = member.phone
                 m.email = member.email
