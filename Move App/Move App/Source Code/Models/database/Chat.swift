@@ -33,6 +33,7 @@ class GruopEntity: Object {
     
     let members = List<MemberEntity>()
     let messages = List<MessageEntity>()
+    let notices = List<NoticeEntity>()
     
     override static func primaryKey() -> String? {
         return "id"

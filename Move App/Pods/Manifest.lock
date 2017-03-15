@@ -44,6 +44,11 @@ PODS:
   - RxRealm (0.4.1):
     - RealmSwift (~> 2.1)
     - RxSwift (~> 3.1)
+  - RxRealmDataSources (0.2.0):
+    - RealmSwift (~> 2.1)
+    - RxCocoa (~> 3.1)
+    - RxRealm (~> 0.4.1)
+    - RxSwift (~> 3.1)
   - RxSwift (3.1.0)
   - RxTest (3.1.0):
     - RxSwift (~> 3.0)
@@ -66,6 +71,7 @@ DEPENDENCIES:
   - RxDataSources (~> 1.0)
   - RxOptional
   - RxRealm
+  - RxRealmDataSources
   - RxTest
   - SVPulsingAnnotationView
   - SwiftyBeaver
@@ -95,11 +101,12 @@ SPEC CHECKSUMS:
   RxDataSources: 1de77880bf5b7fcee42102adcd5a5d65e5b81541
   RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxRealm: 5ff7bbc8ccf44067cf83e0ddfb6402af417f9332
+  RxRealmDataSources: 8f7ff1a1dc946a4550bf8e6eb9e55b1945fb313d
   RxSwift: 83ff553e7593fdfdcb2562933a64c0284dffdadc
   RxTest: 661e33b5022682961784da03cf79c175fcc4bd64
   SVPulsingAnnotationView: f1a8dc7a57ebb5fa231d0ef8b0da59a250005511
   SwiftyBeaver: 2b68694df862381235e32bcfc4ec991e26bf131d
 
-PODFILE CHECKSUM: b083c501320282073a81849ed8133963dddd52de
+PODFILE CHECKSUM: 1fd853c7233e208664b6b8796068dffdb16e2c13
 
 COCOAPODS: 1.2.0
