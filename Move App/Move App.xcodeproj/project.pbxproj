@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
+		110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */; };
+		110528EE1E7903C200FE97A8 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110528ED1E7903C200FE97A8 /* Notice.swift */; };
 		1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */; };
 		1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */; };
 		1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6531E604BF6005B4AFD /* KidSettingManager.swift */; };
@@ -285,6 +287,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemNotificationController.swift; sourceTree = "<group>"; };
+		110528ED1E7903C200FE97A8 /* Notice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionViewModel.swift; sourceTree = "<group>"; };
 		1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		1109C6531E604BF6005B4AFD /* KidSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidSettingManager.swift; path = KidSettingManager/KidSettingManager.swift; sourceTree = "<group>"; };
@@ -578,6 +582,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		110528E61E78DF0300FE97A8 /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Badge;
+			sourceTree = "<group>";
+		};
+		110528E91E78E68500FE97A8 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				110528EA1E78E6D500FE97A8 /* Controller */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		110528EA1E78E6D500FE97A8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		1109C6441E5FCB01005B4AFD /* SwitchButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,6 +1057,7 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				110528E61E78DF0300FE97A8 /* Badge */,
 				1109C6441E5FCB01005B4AFD /* SwitchButton */,
 				D2AC16C71E5460C400815823 /* PrettyRulerClass */,
 				E9B7FA5E1E54331400F46D09 /* NoEeventView */,
@@ -1191,6 +1219,7 @@
 			isa = PBXGroup;
 			children = (
 				A5C5A1D51E763D10008FAE01 /* Chat */,
+				110528E91E78E68500FE97A8 /* Notification */,
 				E0931F531E31E0B000755B4A /* Account */,
 				E9735EA51E6942A300C0B944 /* FuntionList */,
 				E0931F4F1E31D4E200755B4A /* Tabs */,
@@ -1598,6 +1627,7 @@
 			children = (
 				A53513561E790E8E0093445F /* Chat.swift */,
 				E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */,
+				110528ED1E7903C200FE97A8 /* Notice.swift */,
 			);
 			path = database;
 			sourceTree = "<group>";
@@ -2237,6 +2267,7 @@
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
+				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
@@ -2262,6 +2293,7 @@
 				D2F1A4841E553AED00915D9D /* SetYourHeghtController.swift in Sources */,
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
+				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,
