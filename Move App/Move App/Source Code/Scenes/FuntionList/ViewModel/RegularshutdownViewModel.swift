@@ -20,7 +20,6 @@ class RegularshutdownViewModel {
     let autoOnOffEnable: Driver<Bool>
     let saveFinish: Driver<Bool>
     
-    
     let activityIn: Driver<Bool>
     
     // }
@@ -29,7 +28,8 @@ class RegularshutdownViewModel {
         input: (
         bootTime: Driver<Date>,
         shutdownTime: Driver<Date>,
-        autoOnOff: Driver<Bool>
+        autoOnOff: Driver<Bool>,
+        save: Driver<Void>
         ),
         dependency: (
         settingsManager: WatchSettingsManager,
@@ -66,7 +66,7 @@ class RegularshutdownViewModel {
                     .asDriver(onErrorJustReturn: false)
             }
 
-//        self.saveFinish = input.save
+//        self.saveFinish = input.save.debug()
 //            .withLatestFrom(down)
 //            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
 //                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)

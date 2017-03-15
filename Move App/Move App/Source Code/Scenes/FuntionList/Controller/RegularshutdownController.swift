@@ -88,7 +88,8 @@ class RegularshutdownController: UIViewController {
             input: (
                 bootTime: bootTimeVariable.asDriver(),
                 shutdownTime: shutdownTimeVariable.asDriver(),
-                autoOnOff: openShutdown.rx.value.asDriver()
+                autoOnOff: openShutdown.rx.value.asDriver(),
+                save: comfirmQutlet.rx.tap.asDriver()
                 ),
                 dependency: (
                     settingsManager: WatchSettingsManager.share,

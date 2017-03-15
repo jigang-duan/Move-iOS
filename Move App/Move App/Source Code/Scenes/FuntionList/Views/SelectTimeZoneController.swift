@@ -63,9 +63,6 @@ extension SelectTimeZoneController: UISearchResultsUpdating,UISearchControllerDe
         self.tableviewQulet.reloadData()
     }
     
-    func didDismissSearchController(_ searchController: UISearchController) {
-        
-    }
     
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text,
