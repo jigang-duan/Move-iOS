@@ -39,6 +39,9 @@ class FamilyMemberDetailController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    
+    let addressbookHelper = AddressbookUtility()
+    
     var isNowMaster: Bool{
         get{
             return UserInfo.shared.id == info?.contactInfo?.uid && (info?.isMaster)!
@@ -70,7 +73,9 @@ class FamilyMemberDetailController: UIViewController {
         
         viewModel = FamilyMemberDetailViewModel(input:
             (
+             nameText: nameTf.rx.observe(String.self, "text"),
              name: nameTf.rx.text.orEmpty.asDriver(),
+             numberText: numberTf.rx.observe(String.self, "text"),
              number: numberTf.rx.text.orEmpty.asDriver(),
              masterTaps: masterBun.rx.tap.asDriver(),
              deleteTaps: deleteBun.rx.tap.asDriver(),
@@ -202,12 +207,12 @@ class FamilyMemberDetailController: UIViewController {
     
     
     @IBAction func selectPhone(_ sender: Any) {
-        
-        
+        addressbookHelper.phoneCallback(with: self) {[unowned self] phones in
+            if phones.count > 0 {
+                self.numberTf.text = phones[0]
+            }
+        }
     }
-    
-    
-    
     
     
     func showMessage(_ text: String) {

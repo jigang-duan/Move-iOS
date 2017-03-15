@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import AVFoundation
+import AddressBookUI
+import ContactsUI
 
 class FamilyMemberAddController: UIViewController {
     
@@ -26,7 +28,9 @@ class FamilyMemberAddController: UIViewController {
     var viewModel: FamilyMemberAddViewModel!
     var disposeBag = DisposeBag()
 
-
+    
+    let addressbookHelper = AddressbookUtility()
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -66,7 +70,9 @@ class FamilyMemberAddController: UIViewController {
         
         viewModel = FamilyMemberAddViewModel(
             input:(
+                nameText: nameTf.rx.observe(String.self, "text"),
                 name: nameTf.rx.text.orEmpty.asDriver(),
+                numberText: numberTf.rx.observe(String.self, "text"),
                 number: numberTf.rx.text.orEmpty.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
             ),
@@ -124,12 +130,12 @@ class FamilyMemberAddController: UIViewController {
             imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
             self.present(imagePickerController, animated: true, completion: nil)
         }else{
-            self.showMessage("没有相机权限")
+            self.showMessage("没有相机访问权限")
         }
     }
     
     func cameraPermissions() -> Bool{
-        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         
         if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
             return false
@@ -147,12 +153,12 @@ class FamilyMemberAddController: UIViewController {
     
     
     @IBAction func selectPhone(_ sender: Any) {
-        
-        
+        addressbookHelper.phoneCallback(with: self) {[unowned self] phones in
+            if phones.count > 0 {
+                self.numberTf.text = phones[0]
+            }
+        }
     }
-    
-    
-    
     
     
     func showMessage(_ text: String) {
@@ -180,12 +186,4 @@ extension FamilyMemberAddController: UIImagePickerControllerDelegate, UINavigati
     
 
 }
-
-
-extension FamilyMemberAddController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-}
-
 

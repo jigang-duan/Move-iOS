@@ -74,7 +74,6 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         
         enterCount.value += 1
         self.navigationController?.navigationBar.isHidden = true
-        UIApplication.shared.isStatusBarHidden = true
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headOutlet.frame.width, height: headOutlet.frame.height), fullName: UserInfo.shared.profile?.nickname ?? "").imageRepresentation()!
         viewModel.head
@@ -92,7 +91,6 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        UIApplication.shared.isStatusBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {

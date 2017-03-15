@@ -16,6 +16,10 @@ extension MoveApi {
         var fences: [FenceInfo]?
     }
     
+    struct FenceReq {
+        var fence: FenceInfo?
+    }
+    
     struct FenceInfo {
         var name: String?
         var location: Fencelocation?
@@ -38,6 +42,16 @@ extension MoveApi.FenceList: Mappable {
         fences <- map["fences"]
     }
 }
+
+extension MoveApi.FenceReq: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        fence <- map["fence"]
+    }
+}
+
 
 extension MoveApi.FenceInfo: Mappable {
     init?(map: Map) {

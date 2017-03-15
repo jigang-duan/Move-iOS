@@ -81,6 +81,18 @@ extension MoveApi {
         var accuracy: Double?
         var time: Date?
     }
+    
+    struct LocationLatAndLng {
+        var lat: Double?
+        var lng: Double?
+    }
+    
+    struct LocationRegeo {
+        var lat: Double?
+        var lng: Double?
+        var addr: String?
+    }
+    
 }
 
 extension MoveApi.LocationAdd: Mappable {
@@ -205,6 +217,27 @@ extension MoveApi.LocationInfo: Mappable{
         addr <- map["addr"]
         accuracy <- map["accuracy"]
         time <- (map["time"], DateIntTransform())
+    }
+}
+
+extension MoveApi.LocationLatAndLng: Mappable{
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        lat <- map["lat"]
+        lng <- map["lng"]
+    }
+}
+
+extension MoveApi.LocationRegeo: Mappable{
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        lat <- map["lat"]
+        lng <- map["lng"]
+        addr <- map["addr"]
     }
 }
 

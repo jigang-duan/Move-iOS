@@ -25,18 +25,29 @@ extension MoveApi {
         final class func request(_ target: API) -> Observable<Response> {
             return defaultProvider.request(target)
         }
-        
-        final class func addFence(deviceId: String, fenceList: [FenceInfo]) -> Observable<ApiError> {
-            return request(.addFence(deviceId: deviceId, fenceList: fenceList)).mapMoveObject(ApiError.self)
+//        添加电子围栏
+        final class func addFence(deviceId: String, fenceReq: FenceReq) -> Observable<ApiError> {
+            return request(.addFence(deviceId: deviceId, fenceReq: fenceReq)).mapMoveObject(ApiError.self)
+        }
+//        设置电子围栏
+        final class func settingFence(fenceId: String, fenceReq: FenceReq) -> Observable<ApiError> {
+            return request(.settingFence(fenceId: fenceId, fenceReq: fenceReq)).mapMoveObject(ApiError.self)
+        }
+//        获取电子围栏
+        final class func getFences(deviceId: String) -> Observable<FenceList> {
+            return request(.getFences(deviceId: deviceId)).mapMoveObject(FenceList.self)
+        }
+//        删除电子围栏
+        final class func deleteFence(fenceId: String) -> Observable<ApiError> {
+            return request(.deleteFence(fenceId: fenceId)).mapMoveObject(ApiError.self)
         }
         
-        final class func getFence(deviceId: String) -> Observable<FenceList> {
-            return request(.getFence(deviceId: deviceId)).mapMoveObject(FenceList.self)
-        }
         
         enum API {
-            case addFence(deviceId: String, fenceList: [FenceInfo])
-            case getFence(deviceId: String)
+            case addFence(deviceId: String, fenceReq: FenceReq)
+            case settingFence(fenceId: String, fenceReq: FenceReq)
+            case getFences(deviceId: String)
+            case deleteFence(fenceId: String)
         }
         
     }
@@ -57,9 +68,13 @@ extension MoveApi.ElectronicFence.API: TargetType {
     var path: String {
         switch self {
         case .addFence(let deviceId, _):
-            return "/\(deviceId)"
-        case .getFence(let deviceId):
-            return "/\(deviceId)"
+            return "\(deviceId)"
+        case .settingFence(let fenceId, _):
+            return "\(fenceId)"
+        case .getFences(let deviceId):
+            return "\(deviceId)"
+        case .deleteFence(let fenceId):
+            return "\(fenceId)"
         }
     }
     
@@ -68,17 +83,23 @@ extension MoveApi.ElectronicFence.API: TargetType {
         switch self {
         case .addFence:
             return .post
-        case .getFence:
+        case .getFences:
             return .get
+        case .settingFence:
+            return .put
+        case .deleteFence:
+            return .delete
         }
     }
     
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
         switch self {
-        case .addFence(_, let fenceList):
-            return ["fences": fenceList.toJSON()]
-        case .getFence:
+        case .addFence(_, let fenceReq):
+            return fenceReq.toJSON()
+        case .settingFence(_, let fenceReq):
+            return fenceReq.toJSON()
+        case .getFences, .deleteFence:
             return nil
         }
     }
@@ -91,8 +112,10 @@ extension MoveApi.ElectronicFence.API: TargetType {
         switch self {
         case .addFence:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        case .getFence:
+        case .getFences:
             return ([MoveApi.FenceInfo()].toJSONString()?.utf8Encoded)!
+        default:
+            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         }
     }
     

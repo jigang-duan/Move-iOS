@@ -42,7 +42,13 @@
                                     <constraint firstAttribute="width" constant="70" id="gZL-xf-9iA"/>
                                     <constraint firstAttribute="height" constant="70" id="meI-3m-I6H"/>
                                 </constraints>
-                                <state key="normal" image="information_camera_nor"/>
+                                <state key="normal" backgroundImage="information_camera_nor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="selectPhoto:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="IJn-B1-ZT9"/>
                                 </connections>

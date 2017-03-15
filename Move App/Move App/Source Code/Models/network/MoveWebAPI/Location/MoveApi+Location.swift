@@ -46,6 +46,10 @@ extension MoveApi {
         final class func getHistory(deviceId: String, locationReq: LocationReq) -> Observable<LocationHistory> {
             return request(.getHistory(deviceId: deviceId, locationReq: locationReq)).mapMoveObject(LocationHistory.self)
         }
+//        获取地理位置描述
+        final class func getLocationRegeo(latAndLng: LocationLatAndLng) -> Observable<LocationRegeo> {
+            return request(.getLocationRegeo(latAndLng: latAndLng)).mapMoveObject(LocationRegeo.self)
+        }
         
         enum API {
             case add(deviceId: String, locationAdd: LocationAdd)
@@ -53,6 +57,7 @@ extension MoveApi {
             case getNew(deviceId: String)
             case getMultiLocations(with: LocationMultiReq)
             case getHistory(deviceId: String, locationReq: LocationReq)
+            case getLocationRegeo(latAndLng: LocationLatAndLng)
         }
         
     }
@@ -82,6 +87,8 @@ extension MoveApi.Location.API: TargetType {
             return "locations"
         case .getHistory(let deviceId, _):
             return "\(deviceId)/locations"
+        case .getLocationRegeo(_):
+            return "location/regeo"
         }
     }
     
@@ -90,7 +97,7 @@ extension MoveApi.Location.API: TargetType {
         switch self {
         case .add, .getMultiLocations:
             return .post
-        case .getNew, .getHistory:
+        case .getNew, .getHistory, .getLocationRegeo:
             return .get
         case .getByLBS:
             return .put
@@ -110,13 +117,15 @@ extension MoveApi.Location.API: TargetType {
             return locationMultiReq.toJSON()
         case .getHistory(_, let locationReq):
             return locationReq.toJSON()
+        case .getLocationRegeo(let latAndLng):
+            return latAndLng.toJSON()
         }
     }
     
     /// The method used for parameter encoding.
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .getHistory:
+        case .getHistory, .getLocationRegeo:
             return URLEncoding.default
         default:
             return JSONEncoding.default

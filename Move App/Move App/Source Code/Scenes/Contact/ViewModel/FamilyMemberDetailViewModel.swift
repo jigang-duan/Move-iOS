@@ -27,7 +27,9 @@ class FamilyMemberDetailViewModel {
     
     init(
         input:(
+        nameText: Observable<String?>,
         name: Driver<String>,
+        numberText: Observable<String?>,
         number: Driver<String>,
         masterTaps: Driver<Void>,
         deleteTaps: Driver<Void>,
@@ -44,21 +46,45 @@ class FamilyMemberDetailViewModel {
         _ = dependency.validation
         _ = dependency.wireframe
         
-        nameInvalidte = input.name.map{name in
+        let nameTextObserver = input.nameText.map{name -> ValidationResult in
+            self.contactInfo?.value.nickname = name
+            if let n = name {
+                if n.characters.count > 0{
+                    return ValidationResult.ok(message: "name avaliable")
+                }
+            }
+            return ValidationResult.empty
+        }
+        
+        let name = input.name.map{name -> ValidationResult in
             self.contactInfo?.value.nickname = name
             if name.characters.count > 0{
                 return ValidationResult.ok(message: "name avaliable")
             }
             return ValidationResult.empty
         }
+        nameInvalidte = Driver.of(nameTextObserver.asDriver(onErrorJustReturn: .empty), name).merge()
         
-        phoneInvalidte = input.number.map{number in
+        
+        let numberTextObserver = input.numberText.map{number -> ValidationResult in
+            self.contactInfo?.value.phone = number
+            if let n = number {
+                if n.characters.count > 0{
+                    return ValidationResult.ok(message: "number avaliable")
+                }
+            }
+            return ValidationResult.empty
+        }
+        
+        let number = input.number.map{number -> ValidationResult in
             self.contactInfo?.value.phone = number
             if number.characters.count > 0{
                 return ValidationResult.ok(message: "number avaliable")
             }
             return ValidationResult.empty
         }
+        
+        phoneInvalidte = Driver.of(numberTextObserver.asDriver(onErrorJustReturn: .empty), number).merge()
         
         
         self.saveEnabled = Driver.combineLatest( nameInvalidte!, phoneInvalidte!) { name, phone in

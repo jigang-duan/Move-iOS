@@ -219,6 +219,7 @@
 		FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
+		FF11D4591E796146005C53ED /* AddressbookUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11D4581E796146005C53ED /* AddressbookUtility.swift */; };
 		FF14AC201E77901500FBE899 /* WatchFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */; };
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */; };
@@ -513,6 +514,7 @@
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
+		FF11D4581E796146005C53ED /* AddressbookUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressbookUtility.swift; path = Shared/Common/Utils/AddressbookUtility.swift; sourceTree = "<group>"; };
 		FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsListViewModel.swift; sourceTree = "<group>"; };
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailViewModel.swift; sourceTree = "<group>"; };
@@ -1260,6 +1262,7 @@
 			isa = PBXGroup;
 			children = (
 				116F815F1E63E5E3003CEC39 /* DateUtility.swift */,
+				FF11D4581E796146005C53ED /* AddressbookUtility.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2203,6 +2206,7 @@
 				FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,
 				E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */,
+				FF11D4591E796146005C53ED /* AddressbookUtility.swift in Sources */,
 				FF08591E1E72A96300EB81D9 /* MoveApiIMWorker.swift in Sources */,
 				D2E5E8531E5D229D0024D20C /* (null) in Sources */,
 				E0931F321E30C97000755B4A /* Protocol+Extenstion.swift in Sources */,
