@@ -24,7 +24,7 @@ class KidInformationViewModel {
     
     var addInfo: DeviceBindInfo?
     
-    var isForSetting: Variable<Bool>?
+    var isForSetting: Bool?
     
     init(
         input: (
@@ -68,8 +68,9 @@ class KidInformationViewModel {
         
         self.nextResult = input.nextTaps.withLatestFrom(com)
             .flatMapLatest({ name, phone in
-                if (self.isForSetting?.value)! == true {
-                    let f = self.addInfo!
+                var f = self.addInfo!
+                
+                if self.isForSetting == true {
                     return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: "", number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday))
                         .map({_ in
                             var user = DeviceManager.shared.currentDevice?.user
@@ -86,7 +87,9 @@ class KidInformationViewModel {
                         })
                         .asDriver(onErrorRecover: kidInformationErrorRecover)
                 }else{
-                    return deviceManager.addDevice(firstBindInfo: self.addInfo!)
+                    f.nickName = name
+                    f.phone = phone
+                    return deviceManager.addDevice(firstBindInfo: f)
                         .map({_ in
                             return  ValidationResult.ok(message: "Bind Success")
                         })

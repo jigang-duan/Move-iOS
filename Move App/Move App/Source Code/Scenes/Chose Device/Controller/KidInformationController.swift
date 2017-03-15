@@ -26,7 +26,7 @@ class KidInformationController: UIViewController {
     @IBOutlet weak var heightLab: UILabel!
     
     
-    var isForSetting: Variable<Bool>?
+    var isForSetting: Bool?
     
     var deviceAddInfo: DeviceBindInfo?
     
@@ -112,10 +112,9 @@ class KidInformationController: UIViewController {
                 case .failed(let message):
                     self.showMessage(message)
                 case .ok(_):
-                    let vcs = self.navigationController?.viewControllers
-                    for vc in vcs! {
+                    for vc in (self.navigationController?.viewControllers)! {
                         if vc.isKind(of: ChoseDeviceController.self) {
-                            _ = self.navigationController?.popToViewController(vc, animated: true)
+                            _ = self.navigationController?.popToRootViewController(animated: true)
                             return
                         }
                     }

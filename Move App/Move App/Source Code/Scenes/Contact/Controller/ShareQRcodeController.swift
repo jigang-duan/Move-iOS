@@ -57,7 +57,7 @@ class ShareQRcodeController: UIViewController {
     
     
     func makeQRinfo() -> String{
-        var device = DeviceManager.shared.currentDevice!
+        let device = DeviceManager.shared.currentDevice!
         
         let downTime = Date(timeIntervalSinceNow: 3600)
         

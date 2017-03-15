@@ -72,7 +72,7 @@ extension DeviceManager {
     }
     
     func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]> {
-        return getWatchFriends(with: deviceId)
+        return worker.getWatchFriends(with: deviceId)
     }
     
     func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool> {

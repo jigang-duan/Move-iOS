@@ -30,15 +30,12 @@ class WatchFriendsListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tableView.delegate = nil
-//        tableView.dataSource = nil
-//
-//        tableView.rx
-//            .setDelegate(self)
-//            .addDisposableTo(disposeBag)
-//        tableView.rx
-//            .setDataSource(self)
-//            .addDisposableTo(disposeBag)
+        tableView.delegate = nil
+        tableView.dataSource = nil
+
+        tableView.rx
+            .setDelegate(self)
+            .addDisposableTo(disposeBag)
         
         let selectedFriend = tableView.rx.itemSelected.asDriver()
             .map({ self.viewModel.friends?[$0.row]})

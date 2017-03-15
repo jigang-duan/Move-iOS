@@ -67,7 +67,7 @@ class AccountKidsRulesuserController: UITableViewController {
         
         personalInformationQutlet.rx.tap.bindNext { _ in
             let vc = R.storyboard.kidInformation.kidInformationController()!
-            vc.isForSetting = Variable(true)
+            vc.isForSetting = true
             let kidInfo = DeviceManager.shared.currentDevice?.user
             var info = DeviceBindInfo()
             info.nickName = kidInfo?.nickname
