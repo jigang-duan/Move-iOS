@@ -52,17 +52,17 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     var accountViewModel: AccountAndChoseDeviceViewModel!
     let enterCount = Variable(0)
     
-    var isAtThisPage = false
+    var isAtThisPage = Variable(false)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location"
-        self.isAtThisPage = true
+        self.isAtThisPage.value = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.isAtThisPage = false
+        self.isAtThisPage.value = false
     }
     
     override func viewDidLoad() {
@@ -75,7 +75,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             input: (
                 avatarTap: objectImageBtn.rx.tap.asDriver(),
                 avatarView: objectImageBtn,
-                isAtThisPage: isAtThisPage
+                isAtThisPage: isAtThisPage.asDriver()
             ),
             dependency: (
                 geolocationService: geolocationService,
