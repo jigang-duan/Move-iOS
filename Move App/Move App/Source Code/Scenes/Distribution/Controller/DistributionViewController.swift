@@ -63,11 +63,12 @@ class DistributionViewController: UIViewController {
     }
     
     // MARK: - Navigation
+    private var inlet = 0
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let _segue = R.segue.distributionViewController.showMajor(segue: segue) {
-            _segue.destination.inlet = 1
+            _segue.destination.inlet = inlet
         }
     }
 
@@ -87,6 +88,7 @@ class DistributionViewController: UIViewController {
     func enterChoseDeviceScreen(enter: Bool) {
         if enter {
             //self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice, sender: nil)
+            self.inlet = 1
             self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
         }
     }
