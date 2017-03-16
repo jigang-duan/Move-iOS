@@ -11,8 +11,13 @@ import RxCocoa
 import RxSwift
 
 class SafeZoneController: UITableViewController {
-
-
+    
+    //internationalization
+    @IBOutlet weak var safezoneTitleItem: UINavigationItem!
+    @IBOutlet weak var homeLabel: UILabel!
+    @IBOutlet weak var schoolLabel: UILabel!
+    
+    
     @IBOutlet weak var safezoneQutlet: UIButton!
 
     var disposeBag = DisposeBag()

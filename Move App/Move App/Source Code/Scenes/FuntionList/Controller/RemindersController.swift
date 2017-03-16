@@ -13,7 +13,11 @@ import CustomViews
 import FSCalendar
 
 class RemindersController: UIViewController {
-
+    //internationalization
+    @IBOutlet weak var reminderTitleItem: UINavigationItem!
+    
+    
+    
     @IBOutlet weak var addOutlet: UIButton!
     @IBOutlet weak var tableViw: UITableView!
     

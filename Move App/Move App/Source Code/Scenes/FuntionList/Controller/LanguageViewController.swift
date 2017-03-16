@@ -13,11 +13,11 @@ import RxDataSources
 import RxOptional
 
 class LanguageViewController: UIViewController {
+    //internationalization
+    @IBOutlet weak var languageforwatchTitleItem: UINavigationItem!
     
     
     @IBOutlet weak var tableview: UITableView!
-    
-    
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {

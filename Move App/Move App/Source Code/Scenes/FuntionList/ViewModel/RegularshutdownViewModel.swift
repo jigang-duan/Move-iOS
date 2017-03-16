@@ -18,7 +18,7 @@ class RegularshutdownViewModel {
     let bootTime: Driver<Date>
     let shutdownTime: Driver<Date>
     let autoOnOffEnable: Driver<Bool>
-    let saveFinish: Driver<Bool>
+    var saveFinish: Driver<Bool>
     
     let activityIn: Driver<Bool>
     
@@ -66,14 +66,14 @@ class RegularshutdownViewModel {
                     .asDriver(onErrorJustReturn: false)
             }
 
-//        self.saveFinish = input.save.debug()
+//        self.saveFinish = input.save
 //            .withLatestFrom(down)
 //            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
 //                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)
 //                    .trackActivity(activitying)
 //                    .asDriver(onErrorJustReturn: false)
 //        }
-        
+//        
         
         
     }

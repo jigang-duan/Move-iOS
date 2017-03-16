@@ -13,7 +13,28 @@ import CustomViews
 
 
 class AccountKidsRulesuserController: UITableViewController {
-
+    
+    //internationalization
+    @IBOutlet weak var kidswatchTitleItem: UINavigationItem!
+    @IBOutlet weak var watchContactLabel: UILabel!
+    @IBOutlet weak var safeZoneLabel: UILabel!
+    @IBOutlet weak var schoolTimeLabel: UILabel!
+    @IBOutlet weak var reminderLabel: UILabel!
+    @IBOutlet weak var regularShutdownLabel: UILabel!
+    @IBOutlet weak var unpairedwithWatchLabel: UILabel!
+    @IBOutlet weak var unpairedwithwatchIntroduceLabel: UILabel!
+    @IBOutlet weak var savepowerLabel: UILabel!
+    @IBOutlet weak var savepowerIntroduceLabel: UILabel!
+    @IBOutlet weak var usePermissiorLabel: UILabel!
+    @IBOutlet weak var timeZoneLabel: UILabel!
+    @IBOutlet weak var languageforthiswatchLabel: UILabel!
+    @IBOutlet weak var apnLabel: UILabel!
+    @IBOutlet weak var updateLabel: UILabel!
+    @IBOutlet weak var unpairedWithLabel: UILabel!
+    
+    
+//------------------------------------------------------------------------------------------------------
+    
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
     @IBOutlet weak var personalInformationQutlet: UIButton!
@@ -21,6 +42,8 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var unpairCell: UITableViewCell!
     
     let disposeBag = DisposeBag()
+    //是否是管理员
+    var isboss: Bool = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,14 +58,15 @@ class AccountKidsRulesuserController: UITableViewController {
         
     }
 
+    @IBOutlet weak var aaa: UINavigationItem!
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     
     @IBOutlet weak var savePowerQutel: SwitchButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        let viewModel = AccountKidsRulesuserViewModel(
+        
+                let viewModel = AccountKidsRulesuserViewModel(
             input: (
                 savePower: savePowerQutel.rx.value.asDriver(),
                 autoAnswer: autoAnswerQutel.rx.value.asDriver()
@@ -88,6 +112,15 @@ class AccountKidsRulesuserController: UITableViewController {
        
     }
     
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if isboss{
+            return 2
+        }else
+        {
+            return 1
+        }
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if unpairCell == tableView.cellForRow(at: indexPath) {

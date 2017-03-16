@@ -13,21 +13,27 @@ import RxCocoa
 
 
 class SchoolTimeController: UIViewController {
+    //internationalization
+    @IBOutlet weak var schooltimeTitleItem: UINavigationItem!
+    @IBOutlet weak var saveOutlet: UIButton!
+    @IBOutlet weak var openschooltimeLabel: UILabel!
+    @IBOutlet weak var anLabel: UILabel!
+    @IBOutlet weak var pmLabel: UILabel!
+    @IBOutlet weak var confirmOutlet: UIButton!
+    @IBOutlet weak var cancelDatePickeOutlet: UIButton!
+    
     
     @IBOutlet weak var openSchoolSwitch: SwitchButton!
     
     @IBOutlet weak var datePickView: UIView!
     @IBOutlet weak var datepicke: UIDatePicker!
-    @IBOutlet weak var confirmOutlet: UIButton!
-    @IBOutlet weak var cancelDatePickeOutlet: UIButton!
-    
     
     @IBOutlet weak var amStartTimeOutlet: UIButton!
     @IBOutlet weak var amEndTimeOutlet: UIButton!
     @IBOutlet weak var pmStartTimeOutlet: UIButton!
     @IBOutlet weak var pmEndTimeOutlet: UIButton!
     
-    @IBOutlet weak var saveOutlet: UIBarButtonItem!
+    
     @IBOutlet weak var weekOutlet: WeekView!
     
     var disposeBag = DisposeBag()

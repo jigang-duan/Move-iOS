@@ -13,7 +13,15 @@ import RxCocoa
 import RxOptional
 
 class UsepermissionController: UITableViewController {
-
+    //internationalization
+    @IBOutlet weak var usepermissonTitleItem: UINavigationItem!
+    @IBOutlet weak var myfriendLabel: UILabel!
+    @IBOutlet weak var calltofriendLabel: UILabel!
+    @IBOutlet weak var groupchatLabel: UILabel!
+    @IBOutlet weak var voicechangeLabel: UILabel!
+    @IBOutlet weak var playingHamsteLabel: UILabel!
+    
+    
     @IBOutlet weak var myfriendQulet: SwitchButton!
     @IBOutlet weak var calltofriendQulet: SwitchButton!
     @IBOutlet weak var groupchatQulet: SwitchButton!

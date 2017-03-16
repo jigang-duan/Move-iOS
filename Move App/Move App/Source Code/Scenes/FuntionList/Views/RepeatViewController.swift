@@ -11,6 +11,12 @@ import UIKit
 
 
 class RepeatViewController: UITableViewController {
+     //internationalization
+    @IBOutlet weak var NeverLabel: UILabel!
+    @IBOutlet weak var everydayLabel: UILabel!
+    @IBOutlet weak var repeatLabel: UILabel!
+    @IBOutlet weak var everymonthLabel: UILabel!
+    
 
     @IBOutlet weak var nevercell: UITableViewCell!
     @IBOutlet weak var everydaycell: UITableViewCell!

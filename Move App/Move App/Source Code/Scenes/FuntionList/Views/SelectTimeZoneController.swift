@@ -16,6 +16,9 @@ protocol SelectTimeZoneDelegate {
 }
 
 class SelectTimeZoneController: UIViewController {
+    //internationalization
+    @IBOutlet weak var selecttimezoneTitleItem: UINavigationItem!
+    
     
     @IBOutlet weak var tableviewQulet: UITableView!
     @IBOutlet weak var delegate: SelectTimeZoneDelegate?

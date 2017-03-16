@@ -11,15 +11,23 @@ import RxCocoa
 import RxSwift
 
 class ToDoListController: UITableViewController {
+    //internationalization
+    @IBOutlet weak var todolistTitleItem: UINavigationItem!
+    @IBOutlet weak var saveQutlet: UIButton!
     @IBOutlet weak var titleTextFieldQutle: UITextField!
     @IBOutlet weak var remarkTextFieldQutlet: UITextField!
+    @IBOutlet weak var beginLabel: UILabel!
+    @IBOutlet weak var endLabel: UILabel!
+    @IBOutlet weak var repeatLabel: UILabel!
+    
+    
     @IBOutlet weak var beginTimeQutlet: UITextField!
     @IBOutlet weak var endTimeQutlet: UITextField!
 
     @IBOutlet weak var repeatCell: UITableViewCell!
     @IBOutlet weak var repeatStateQutlet: UILabel!
     
-    @IBOutlet weak var saveQutlet: UIBarButtonItem!
+    
     
     var disposeBag = DisposeBag()
     

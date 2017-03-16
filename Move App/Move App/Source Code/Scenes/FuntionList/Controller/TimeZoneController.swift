@@ -13,7 +13,14 @@ import RxCocoa
 import RxOptional
 
 class TimeZoneController: UITableViewController {
-
+    //internationalization
+    @IBOutlet weak var timezoneTitleItem: UINavigationItem!
+    @IBOutlet weak var hoursFormatLabel: UILabel!
+    @IBOutlet weak var gettimeautoLabel: UILabel!
+    @IBOutlet weak var timezoneLabel: UILabel!
+    @IBOutlet weak var summerTimeLabel: UILabel!
+    
+    
     @IBOutlet weak var hourFormatQutlet: SwitchButton!
     @IBOutlet weak var autoGetTimeQutlet: SwitchButton!
     @IBOutlet weak var summerTimeQutlet: SwitchButton!

@@ -12,20 +12,24 @@ import RxSwift
 import RxCocoa
 
 class RegularshutdownController: UIViewController {
+     //internationalization
+    @IBOutlet weak var regularshutdownTitleItem: UINavigationItem!
+    @IBOutlet weak var automaticOnOffLabel: UILabel!
+    @IBOutlet weak var booTimeLabel: UILabel!
+    @IBOutlet weak var shutdownLabel: UILabel!
+    @IBOutlet weak var cancelQutlet: UIButton!
+    @IBOutlet weak var comfirmQutlet: UIButton!
     
     @IBOutlet weak var openShutdown: SwitchButton!
-    
-    @IBOutlet weak var booTimeLabel: UILabel!
+
     @IBOutlet weak var bootTimeOutlet: UIButton!
-    @IBOutlet weak var shutdownLabel: UILabel!
+    
     @IBOutlet weak var shutdownTimeQutlet: UIButton!
     @IBOutlet weak var timeView: UIView!
     
-    
     @IBOutlet weak var datePickView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var cancelQutlet: UIButton!
-    @IBOutlet weak var comfirmQutlet: UIButton!
+  
     
 
     

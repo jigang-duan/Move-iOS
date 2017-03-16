@@ -12,13 +12,11 @@ import RxCocoa
 
 class AlarmViewModel {
     // outputs {
-    
-    //
+
     let saveFinish: Driver<Bool>
-    
     let activityIn: Driver<Bool>
-    // }
     
+    // }
     init(
         input: (
         save: Driver<Void>,
@@ -33,7 +31,6 @@ class AlarmViewModel {
         wireframe: Wireframe
         )
         ) {
-        
         let manager = dependency.kidSettingsManager
         
         let activitying = ActivityIndicator()

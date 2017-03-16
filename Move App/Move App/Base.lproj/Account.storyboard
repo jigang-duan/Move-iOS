@@ -12,6 +12,7 @@
         <!--Account-->
         <scene sceneID="aAj-0h-iH6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vj5-5p-caR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Account" id="PJU-vl-pYB" customClass="AccountController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aK0-gf-uqo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -99,7 +100,6 @@
                         <outlet property="userInfoView" destination="67d-EI-O3x" id="vt2-vI-5xF"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vj5-5p-caR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2833" y="1709"/>
         </scene>
@@ -912,11 +912,27 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="accountNameQutlet" destination="yP0-GP-9Fa" id="nYZ-a8-pqh"/>
+                        <outlet property="apnLabel" destination="LTj-Pe-9Ab" id="cly-vb-otW"/>
                         <outlet property="autoAnswerQutel" destination="Piq-5F-fJK" id="Z47-qC-HYA"/>
                         <outlet property="headQutlet" destination="A9A-eA-hyR" id="vcA-YE-rOx"/>
+                        <outlet property="kidswatchTitleItem" destination="Dup-9Z-mDF" id="0mo-MT-3JA"/>
+                        <outlet property="languageforthiswatchLabel" destination="zF6-8j-daA" id="smH-rk-nXC"/>
                         <outlet property="personalInformationQutlet" destination="dfG-Df-h4g" id="2nL-ai-NLu"/>
+                        <outlet property="regularShutdownLabel" destination="NYA-bq-Xfh" id="Lbh-5J-tVk"/>
+                        <outlet property="reminderLabel" destination="pGN-4z-zAz" id="WBH-sZ-apg"/>
+                        <outlet property="safeZoneLabel" destination="MPV-5H-zzS" id="atO-qd-51g"/>
                         <outlet property="savePowerQutel" destination="c0r-et-7gZ" id="wgc-mK-2x2"/>
+                        <outlet property="savepowerIntroduceLabel" destination="Pft-ys-doM" id="XrR-gW-dT9"/>
+                        <outlet property="savepowerLabel" destination="aCK-uT-2HI" id="MJb-VE-2qG"/>
+                        <outlet property="schoolTimeLabel" destination="Rft-sq-yhs" id="eEh-EQ-PAb"/>
+                        <outlet property="timeZoneLabel" destination="M2s-Vt-dzr" id="Itc-KZ-DpC"/>
                         <outlet property="unpairCell" destination="kla-4k-gtm" id="7rQ-hA-fH7"/>
+                        <outlet property="unpairedWithLabel" destination="AZ1-7u-2IQ" id="y0A-V3-0mz"/>
+                        <outlet property="unpairedwithWatchLabel" destination="3ao-zz-KIk" id="WlI-Ax-Fy2"/>
+                        <outlet property="unpairedwithwatchIntroduceLabel" destination="4xW-M3-XTj" id="FT6-9D-KdP"/>
+                        <outlet property="updateLabel" destination="bhF-pG-ImJ" id="jMv-k8-OyE"/>
+                        <outlet property="usePermissiorLabel" destination="69I-if-kDG" id="tt9-NA-JUy"/>
+                        <outlet property="watchContactLabel" destination="fhj-FP-FnD" id="2RT-QW-vkm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6x-MQ-ao4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -955,7 +971,7 @@
                                                     <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbR-M3-YWM" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbR-M3-YWM" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
@@ -991,7 +1007,7 @@
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYo-Hm-va0" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYo-Hm-va0" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="general_btn_off"/>
@@ -1027,7 +1043,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="homeLabel" destination="9tp-oo-A2E" id="5bn-dw-aWh"/>
                         <outlet property="safezoneQutlet" destination="lN3-eH-OFG" id="gom-3x-RYg"/>
+                        <outlet property="safezoneTitleItem" destination="1G7-ZO-q9e" id="qRF-qh-57b"/>
+                        <outlet property="schoolLabel" destination="W16-Xd-upy" id="cQf-ci-SR2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aG-Tg-jrd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1059,7 +1078,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aw7-UG-xGU" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aw7-UG-xGU" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1092,7 +1111,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaR-Az-Ta0" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaR-Az-Ta0" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="selected" image="general_btn_on"/>
@@ -1153,7 +1172,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQq-c0-SeU" customClass="SwitchButton" customModule="CustomViews">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQq-c0-SeU" customClass="SwitchButton" customModule="CustomViews">
                                                     <rect key="frame" x="320" y="10" width="40" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1182,10 +1201,15 @@
                     <connections>
                         <outlet property="autoGetTimeQutlet" destination="ZaR-Az-Ta0" id="x85-aV-64C"/>
                         <outlet property="backQutlet" destination="9wZ-5T-QLh" id="PrB-18-4xb"/>
+                        <outlet property="gettimeautoLabel" destination="zYR-Ya-ogV" id="oiM-18-bJH"/>
                         <outlet property="hourFormatQutlet" destination="Aw7-UG-xGU" id="HwY-Rf-4P8"/>
+                        <outlet property="hoursFormatLabel" destination="vkh-Qp-lNL" id="dsy-le-sHP"/>
+                        <outlet property="summerTimeLabel" destination="5JK-oK-AH1" id="Ek9-mH-0CG"/>
                         <outlet property="summerTimeQutlet" destination="uQq-c0-SeU" id="Xm6-X0-Xi0"/>
                         <outlet property="timezoneCell" destination="iQd-gX-g5c" id="Ytm-yc-MIU"/>
                         <outlet property="timezoneCityQutlet" destination="GDs-Gl-u5O" id="jRq-Z0-h19"/>
+                        <outlet property="timezoneLabel" destination="wqA-Mm-XUi" id="ELW-E1-Viv"/>
+                        <outlet property="timezoneTitleItem" destination="0XM-CL-yii" id="VAj-9Y-AcR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gjd-76-tJB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1251,6 +1275,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="selecttimezoneTitleItem" destination="gW4-Ws-05c" id="f0k-f0-PQJ"/>
                         <outlet property="tableviewQulet" destination="KyR-Oe-0Hy" id="q6b-bT-y0h"/>
                     </connections>
                 </viewController>
@@ -1467,12 +1492,18 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Io6-lC-74T"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="calltofriendLabel" destination="FIk-J3-ZM9" id="Oa9-GE-mHg"/>
                         <outlet property="calltofriendQulet" destination="qAb-Wc-YvL" id="HDw-ib-v9m"/>
+                        <outlet property="groupchatLabel" destination="n3b-1z-bQP" id="xtW-kR-d0c"/>
                         <outlet property="groupchatQulet" destination="8sg-Rw-EGt" id="uMd-6f-pAv"/>
+                        <outlet property="myfriendLabel" destination="CiK-Mi-Jsf" id="V3W-fC-lRe"/>
                         <outlet property="myfriendQulet" destination="jzy-RU-UBu" id="tY9-1H-43O"/>
+                        <outlet property="playingHamsteLabel" destination="UZc-r8-cpH" id="yuK-8e-1sA"/>
                         <outlet property="playinghamsterQulet" destination="Kfh-rV-X2O" id="S08-wb-CGa"/>
                         <outlet property="saveQulet" destination="Io6-lC-74T" id="CIt-VG-aX9"/>
+                        <outlet property="usepermissonTitleItem" destination="WNl-BD-wXN" id="qQi-gg-Lgb"/>
                         <outlet property="voicechagerQulet" destination="yes-Ky-A39" id="dyt-rh-vv3"/>
+                        <outlet property="voicechangeLabel" destination="hwX-xt-Cg2" id="Zlp-kX-dcH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aM7-UY-dNg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1595,6 +1626,7 @@
                     <connections>
                         <outlet property="addOutlet" destination="ZzH-qo-NoQ" id="Z5R-Xb-INc"/>
                         <outlet property="calendar" destination="W4Q-sD-BuR" id="UuB-MR-jVG"/>
+                        <outlet property="reminderTitleItem" destination="0xG-rs-fIC" id="gQF-Pr-rdX"/>
                         <outlet property="tableViw" destination="0Gs-xm-bSJ" id="6E7-6o-KQ2"/>
                         <outlet property="timeBackBtn" destination="X98-vf-cBC" id="e2s-in-PQq"/>
                         <outlet property="timeNextBtn" destination="ig8-eO-M8o" id="ybG-qE-ea3"/>
@@ -1796,11 +1828,19 @@
                     </view>
                     <navigationItem key="navigationItem" title="Alarm" id="Zgy-Qu-7x0">
                         <barButtonItem key="backBarButtonItem" title=" " id="wIq-KF-Zgx"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="lP1-iq-PjM"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="2Yy-tc-AWZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="s0u-t9-7Rx">
+                                <rect key="frame" x="309" y="12" width="40" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Save"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="alarmTitleItem" destination="Zgy-Qu-7x0" id="AGe-DU-8Tw"/>
                         <outlet property="datePickerOulet" destination="74e-l5-Rbo" id="6Lb-HE-JIk"/>
-                        <outlet property="saveOutlet" destination="lP1-iq-PjM" id="SNz-bx-7bb"/>
+                        <outlet property="saveOutlet" destination="s0u-t9-7Rx" id="CeK-Pu-lB9"/>
                         <outlet property="weekOutlet" destination="np9-Ci-r2W" id="6xh-Wy-1R1"/>
                     </connections>
                 </viewController>
@@ -1986,17 +2026,27 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="To do list" id="e9A-Mz-vqA">
                         <barButtonItem key="backBarButtonItem" title=" " id="Xoc-Qw-Pbv"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="9de-cj-CKz"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Ip4-nP-ttB">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9TM-VY-ARc">
+                                <rect key="frame" x="319" y="7" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="beginLabel" destination="ROU-bF-Udn" id="6gI-dz-Sww"/>
                         <outlet property="beginTimeQutlet" destination="lF8-qy-1LX" id="Umf-sr-B0h"/>
+                        <outlet property="endLabel" destination="k2v-Br-dx7" id="9lM-rP-ffs"/>
                         <outlet property="endTimeQutlet" destination="o4Z-gb-DiR" id="5Lx-Q3-r0U"/>
                         <outlet property="remarkTextFieldQutlet" destination="rGV-Gq-ur0" id="Rtc-u6-YCF"/>
                         <outlet property="repeatCell" destination="PIs-4K-5cP" id="j57-K4-POh"/>
+                        <outlet property="repeatLabel" destination="ZW9-Ms-gGh" id="aBf-3G-vbe"/>
                         <outlet property="repeatStateQutlet" destination="rrG-CO-C4M" id="LLk-bE-BfZ"/>
-                        <outlet property="saveQutlet" destination="9de-cj-CKz" id="vvt-TZ-s7I"/>
+                        <outlet property="saveQutlet" destination="9TM-VY-ARc" id="qg4-uo-r3e"/>
                         <outlet property="titleTextFieldQutle" destination="UIr-w4-5I1" id="dGn-qe-sOk"/>
+                        <outlet property="todolistTitleItem" destination="e9A-Mz-vqA" id="evn-OJ-dFp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yyh-U9-atn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2094,10 +2144,14 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="E8i-uW-iY7"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="NeverLabel" destination="q50-mR-dDO" id="FLK-4a-pmf"/>
+                        <outlet property="everydayLabel" destination="oAn-b5-hOS" id="nA3-rO-1ou"/>
                         <outlet property="everydaycell" destination="97r-ml-hez" id="CBA-ZE-28l"/>
+                        <outlet property="everymonthLabel" destination="QFF-WE-EwK" id="Jo9-IB-GFc"/>
                         <outlet property="everymonthcell" destination="fDN-f9-SbA" id="8Q5-uM-NIP"/>
                         <outlet property="everyweekcell" destination="0xc-2O-o1J" id="kXG-2t-YND"/>
                         <outlet property="nevercell" destination="W5J-Qf-ROx" id="SUl-1a-DjU"/>
+                        <outlet property="repeatLabel" destination="9mF-HF-fcJ" id="pto-oU-2Qq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N88-vV-uam" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2299,14 +2353,16 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="booTimeLabel" destination="dmB-vL-Zsm" id="kiC-Lp-Svn"/>
+                        <outlet property="automaticOnOffLabel" destination="CgI-bb-EYr" id="zOG-X9-k25"/>
+                        <outlet property="booTimeLabel" destination="dmB-vL-Zsm" id="Uoi-M4-SNc"/>
                         <outlet property="bootTimeOutlet" destination="E9i-7N-RL4" id="ztC-SJ-6ko"/>
-                        <outlet property="cancelQutlet" destination="NXp-XJ-vUA" id="f8J-Nu-CtN"/>
-                        <outlet property="comfirmQutlet" destination="lR3-Z2-UYe" id="IbH-Bw-o5s"/>
+                        <outlet property="cancelQutlet" destination="NXp-XJ-vUA" id="46d-ov-ieg"/>
+                        <outlet property="comfirmQutlet" destination="lR3-Z2-UYe" id="Ruj-Sd-RYb"/>
                         <outlet property="datePickView" destination="I0S-3d-4ce" id="eXv-1w-5MU"/>
                         <outlet property="datePicker" destination="A5d-xI-zmx" id="ocd-nc-rYD"/>
                         <outlet property="openShutdown" destination="Kc0-1g-Fil" id="h2H-Gm-JmP"/>
-                        <outlet property="shutdownLabel" destination="1S1-F7-lpr" id="7Wu-nk-w05"/>
+                        <outlet property="regularshutdownTitleItem" destination="9cA-Ty-755" id="7m7-uG-KsT"/>
+                        <outlet property="shutdownLabel" destination="1S1-F7-lpr" id="b7c-f8-sfJ"/>
                         <outlet property="shutdownTimeQutlet" destination="qwG-PC-ugy" id="tho-9K-U7o"/>
                         <outlet property="timeView" destination="L6T-Lp-57R" id="Hfq-61-N3S"/>
                     </connections>
@@ -2355,6 +2411,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="languageforwatchTitleItem" destination="9M3-fY-G8p" id="Vpo-C0-iQb"/>
                         <outlet property="tableview" destination="gfP-iW-K2t" id="M2h-RS-Axh"/>
                     </connections>
                 </viewController>
@@ -2879,22 +2936,32 @@
                     </view>
                     <navigationItem key="navigationItem" title="School time" id="p9l-sD-KKe">
                         <barButtonItem key="backBarButtonItem" title=" " id="aUv-SC-CaJ"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="aUD-wM-pDK"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="G60-48-tF7">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GCz-ZA-SbJ">
+                                <rect key="frame" x="319" y="7" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="save"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="amEndTimeOutlet" destination="GQY-Ma-XhY" id="w2G-3d-78u"/>
                         <outlet property="amOutlet" destination="OV5-VC-7GA" id="uOj-H2-YJ4"/>
                         <outlet property="amStartTimeOutlet" destination="q2I-sz-T33" id="YNo-rv-j6c"/>
-                        <outlet property="cancelDatePickeOutlet" destination="goW-nz-Ix3" id="m6h-Yh-Af8"/>
-                        <outlet property="confirmOutlet" destination="pjW-TN-Wp5" id="63r-Fx-zHI"/>
+                        <outlet property="anLabel" destination="OV5-VC-7GA" id="l10-aS-dPj"/>
+                        <outlet property="cancelDatePickeOutlet" destination="goW-nz-Ix3" id="wzm-dR-Hoc"/>
+                        <outlet property="confirmOutlet" destination="pjW-TN-Wp5" id="dEA-19-tRW"/>
                         <outlet property="datePickView" destination="VW0-Wr-5db" id="aLu-fV-2e0"/>
                         <outlet property="datepicke" destination="92a-ud-nY8" id="Fgc-pG-DsU"/>
                         <outlet property="openSchoolSwitch" destination="MoX-h8-kRO" id="HA9-ZD-Zdr"/>
+                        <outlet property="openschooltimeLabel" destination="V9D-qA-VHF" id="RpS-0K-8HZ"/>
                         <outlet property="pmEndTimeOutlet" destination="vDL-nF-JZK" id="8Kd-cB-jw2"/>
+                        <outlet property="pmLabel" destination="CTU-tM-APL" id="Uid-DJ-DuQ"/>
                         <outlet property="pmOutlet" destination="CTU-tM-APL" id="SVh-Ep-fvi"/>
                         <outlet property="pmStartTimeOutlet" destination="lcC-HY-lWX" id="Ny5-XM-J1H"/>
-                        <outlet property="saveOutlet" destination="aUD-wM-pDK" id="Ybh-4G-7jL"/>
+                        <outlet property="saveOutlet" destination="GCz-ZA-SbJ" id="seq-sy-sqm"/>
+                        <outlet property="schooltimeTitleItem" destination="p9l-sD-KKe" id="Dvh-Mu-DNX"/>
                         <outlet property="weekOutlet" destination="RUh-hR-ucg" id="dmT-Xf-osj"/>
                     </connections>
                 </viewController>

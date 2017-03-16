@@ -11,8 +11,12 @@ import RxCocoa
 import RxSwift
 
 class AlarmController: UIViewController {
-
-    @IBOutlet weak var saveOutlet: UIBarButtonItem!
+    //internationalization
+    @IBOutlet weak var alarmTitleItem: UINavigationItem!
+    @IBOutlet weak var saveOutlet: UIButton!
+    
+    
+    
     @IBOutlet weak var datePickerOulet: UIDatePicker!
     @IBOutlet weak var weekOutlet: WeekView!
     
@@ -23,7 +27,7 @@ class AlarmController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
 //        datePickerOulet.maximumDate = maxDate

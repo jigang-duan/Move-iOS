@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 
 class UpgradeController: UIViewController {
+    //internationalization
     
     
     @IBOutlet weak var headImgV: UIImageView!
