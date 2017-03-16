@@ -116,7 +116,7 @@ class RemindersController: UIViewController {
     
     func lastDayClick() {
         let curday = calendar.selectedDate
-        let perivday = calendar.date(bySubstractingDays: 1, from: curday)
+        let perivday = calendar.date(bySubstractingDays: 1, from: curday!)
         calendar.select(perivday)
         let time = self.calenderConversion(from: calendar.today!, to: perivday)
         self.changeBtnType(time: time, date: perivday)
@@ -124,7 +124,7 @@ class RemindersController: UIViewController {
     
     func nextDayClick() {
         let curday = calendar.selectedDate
-        let nextday = calendar.date(byAddingDays: 1, to: curday)
+        let nextday = calendar.date(byAddingDays: 1, to: curday!)
         calendar.select(nextday)
         let time = self.calenderConversion(from: calendar.today!, to: nextday)
         self.changeBtnType(time: time, date: nextday)

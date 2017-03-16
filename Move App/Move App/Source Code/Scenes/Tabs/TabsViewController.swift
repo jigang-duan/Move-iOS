@@ -19,9 +19,9 @@ class TabsViewController: UITabBarController {
         // Do any additional setup after loading the view.
         viewControllers = [
             R.storyboard.major.navHomeController()!,
-            R.storyboard.main.choseDevice()!
+            R.storyboard.main.choseDevice()!,
 //            R.storyboard.main.instantiateInitialViewController()!,
-//            R.storyboard.social.instantiateInitialViewController()!
+            R.storyboard.social.instantiateInitialViewController()!
         ]
     }
     

@@ -74,7 +74,7 @@ class NotificationService {
         }
         
         return Observable<DeviceTokenEntity>
-            .from(token)
+            .from(object: token)
             .map({ entity in
                 guard let _ = entity.deviceToken else {
                     throw NSError.deviceTokenError()

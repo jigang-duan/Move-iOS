@@ -29,8 +29,6 @@ class GruopEntity: Object {
     dynamic var flag = Flag.unknow.rawValue
     dynamic var createDate: Date?
     
-    dynamic var uid: String? = nil
-    
     let members = List<MemberEntity>()
     let messages = List<MessageEntity>()
     let notices = List<NoticeEntity>()
@@ -149,8 +147,6 @@ class MessageEntity: Object {
     
     dynamic var createDate: Date?
     
-    dynamic var uid: String? = nil
-    
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -160,7 +156,7 @@ class MessageEntity: Object {
 class SynckeyEntity: Object {
     
     dynamic var uid: String? = nil
-    
+        
     dynamic var message = 0
     dynamic var contact = 0
     dynamic var gruop = 0
@@ -168,4 +164,6 @@ class SynckeyEntity: Object {
     override static func primaryKey() -> String? {
         return "uid"
     }
+    
+    let gruops = List<GruopEntity>()
 }

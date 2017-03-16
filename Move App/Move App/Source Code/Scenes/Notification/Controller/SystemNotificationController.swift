@@ -16,11 +16,14 @@ import RxDataSources
 import RxRealmDataSources
 import Kingfisher
 import CustomViews
+import AFImageHelper
 
 
 class SystemNotificationController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +35,17 @@ class SystemNotificationController: UIViewController {
                                                                  cellConfig: cellConfig)
         let realm = try! Realm()
         
-//        let groups = Observable<GruopEntity>.changeset(from: realm.objects(GruopEntity.self).filter({ $0.uid == Me.shared.user.id }))
-//            .share()
+        if let uid = Me.shared.user.id {
+        
+            let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.gruops
+            let groups = Observable.changeset(from: objects )
+                .share()
+        
+            groups
+                .bindTo(tableView.rx.realmChanges(dataSource))
+                .addDisposableTo(bag)
+        }
+        
     }
     
     
@@ -42,6 +54,7 @@ class SystemNotificationController: UIViewController {
         var placeholder = R.image.relationship_ic_other()!
         if let name = group.name {
             placeholder = CDFInitialsAvatar(rect: CGRect(origin: CGPoint.zero, size: placeholder.size) , fullName: name).imageRepresentation() ?? placeholder
+            placeholder = convert(image: placeholder, size: placeholder.size)
         }
         cell.imageView?.kf.setImage(with: headURL,
                                     placeholder: placeholder,
@@ -60,6 +73,9 @@ class SystemNotificationController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func convert(image: UIImage, size: CGSize) -> UIImage {
+        return image.scale(toSize: size)?.roundCornersToCircle() ?? image
+    }
 
     /*
     // MARK: - Navigation
@@ -71,4 +87,20 @@ class SystemNotificationController: UIViewController {
     }
     */
 
+}
+
+
+fileprivate extension UIImage {
+    
+    func scale(toSize: CGSize) -> UIImage? {
+        
+        UIGraphicsBeginImageContext(toSize)
+        
+        self.draw(in: CGRect.init(x: 0, y: 0, width: toSize.width, height: toSize.height))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
 }

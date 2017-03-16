@@ -1,4 +1,4 @@
-<p align="center"><img src="https://cloud.githubusercontent.com/assets/564725/13137893/1b8eced2-d624-11e5-9264-3416ff821657.png" width="280" alt="SwiftyBeaver"><br/><b>Colorful</b>, flexible, <b>lightweight</b> logging for Swift 2 & <b>Swift 3</b>.<br/>Great for <b>development & release</b> with support for Console, File & cloud platforms.<br/>NEW: Log <b>during release</b> to the conveniently built-in SwiftyBeaver Platform and Mac App!<br/><br/>
+<p align="center"><a href="https://swiftybeaver.com"><img src="https://cloud.githubusercontent.com/assets/564725/19889302/73b1ee84-a034-11e6-8753-2d060502397c.jpg" style="width: 888px;" alt="SwiftyBeaver"></a><br/><b>Colorful</b>, flexible, <b>lightweight</b> logging for Swift 2 & <b>Swift 3</b>.<br/>Great for <b>development & release</b> with support for Console, File & cloud platforms.<br/>NEW: Log <b>during release</b> to the conveniently built-in SwiftyBeaver Platform and Mac App!<br/><br/>
 
 <a href="http://docs.swiftybeaver.com">Docs</a> |
 <a href="https://swiftybeaver.com">Website</a> |
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-[![Language Swift 3](https://img.shields.io/badge/Language-Swift%202%20&%203-orange.svg)](https://swift.org) [![Travis Build Status](https://travis-ci.org/SwiftyBeaver/SwiftyBeaver.svg)](https://travis-ci.org/SwiftyBeaver/SwiftyBeaver) [![Slack Status](https://slack.swiftybeaver.com/badge.svg)](https://slack.swiftybeaver.com) 
+[![Language Swift 3](https://img.shields.io/badge/Language-Swift%202%20&%203-orange.svg)](https://swift.org) [![CircleCI](https://circleci.com/gh/SwiftyBeaver/SwiftyBeaver/tree/master.svg?style=shield)](https://circleci.com/gh/SwiftyBeaver/SwiftyBeaver) [![Slack Status](https://slack.swiftybeaver.com/badge.svg)](https://slack.swiftybeaver.com) 
 <br/>
 <p>
 ----
@@ -130,6 +130,7 @@ let cloud = SBPlatformDestination(appID: "foo", appSecret: "bar", encryptionKey:
 
 // use custom format and set console output to short time, log level & message
 console.format = "$DHH:mm:ss$d $L $M"
+// or use this for JSON output: console.format = "$J"
 
 // add the destinations to SwiftyBeaver
 log.addDestination(console)

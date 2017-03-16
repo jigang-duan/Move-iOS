@@ -216,12 +216,25 @@
                                     <action selector="alertBtnDidTap:" destination="DGY-Ys-Cye" eventType="touchUpInside" id="2Ea-0p-gpm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sd9-wt-cih">
+                                <rect key="frame" x="16" y="110" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Bxi-kC-Nf7"/>
+                                </constraints>
+                                <state key="normal" title="Show System Notification"/>
+                                <connections>
+                                    <segue destination="pwg-B1-Sdq" kind="show" id="p0I-1D-cRa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1Xh-5T-ILE" firstAttribute="leading" secondItem="ydf-cJ-paT" secondAttribute="leadingMargin" id="280-hh-L9C"/>
+                            <constraint firstItem="Sd9-wt-cih" firstAttribute="leading" secondItem="ydf-cJ-paT" secondAttribute="leadingMargin" id="2DB-pd-HhL"/>
                             <constraint firstItem="1Xh-5T-ILE" firstAttribute="trailing" secondItem="ydf-cJ-paT" secondAttribute="trailingMargin" id="SZU-AC-WVY"/>
                             <constraint firstItem="1Xh-5T-ILE" firstAttribute="top" secondItem="YV5-et-t2h" secondAttribute="bottom" constant="8" id="Vk0-JJ-4T4"/>
+                            <constraint firstItem="Sd9-wt-cih" firstAttribute="trailing" secondItem="ydf-cJ-paT" secondAttribute="trailingMargin" id="oqs-fm-CHk"/>
+                            <constraint firstItem="Sd9-wt-cih" firstAttribute="top" secondItem="1Xh-5T-ILE" secondAttribute="bottom" constant="8" id="qad-sW-Ggd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="o85-Xi-EoI"/>
@@ -233,7 +246,7 @@
         <!--System notification-->
         <scene sceneID="K74-xv-pby">
             <objects>
-                <viewController title="System notification" id="pwg-B1-Sdq" customClass="SystemNotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="System notification" hidesBottomBarWhenPushed="YES" id="pwg-B1-Sdq" customClass="SystemNotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2w8-8P-Cpy"/>
                         <viewControllerLayoutGuide type="bottom" id="Cdi-Ez-XzT"/>
@@ -243,14 +256,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ziM-Q2-9zV">
-                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotificationClassify" textLabel="Aqm-zz-VKe" detailTextLabel="JT4-DP-LeK" style="IBUITableViewCellStyleSubtitle" id="PVO-di-WOM">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PVO-di-WOM" id="DJh-8o-rZ4">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aqm-zz-VKe">
@@ -284,6 +297,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="accessoryView" destination="yl0-4i-pLM" id="r05-fT-tSy"/>
+                                            <segue destination="qQJ-x7-Fq5" kind="show" id="pvM-Af-zzZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -291,10 +305,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ziM-Q2-9zV" firstAttribute="top" secondItem="2w8-8P-Cpy" secondAttribute="bottom" id="0Va-1E-Khn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ziM-Q2-9zV" secondAttribute="trailing" id="1r8-UM-grI"/>
-                            <constraint firstItem="Cdi-Ez-XzT" firstAttribute="top" secondItem="ziM-Q2-9zV" secondAttribute="bottom" id="3bP-or-ogB"/>
-                            <constraint firstItem="ziM-Q2-9zV" firstAttribute="leading" secondItem="fig-RK-Xhn" secondAttribute="leadingMargin" id="PKO-lc-61W"/>
+                            <constraint firstAttribute="trailing" secondItem="ziM-Q2-9zV" secondAttribute="trailing" id="YPd-ga-nob"/>
+                            <constraint firstItem="ziM-Q2-9zV" firstAttribute="top" secondItem="2w8-8P-Cpy" secondAttribute="bottom" id="nXI-l2-Pq2"/>
+                            <constraint firstItem="Cdi-Ez-XzT" firstAttribute="top" secondItem="ziM-Q2-9zV" secondAttribute="bottom" id="oM9-VQ-QvK"/>
+                            <constraint firstItem="ziM-Q2-9zV" firstAttribute="leading" secondItem="fig-RK-Xhn" secondAttribute="leading" id="pkh-KL-R2v"/>
                         </constraints>
                     </view>
                     <connections>
@@ -318,14 +332,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RVA-YQ-Joc">
-                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Q5A-iG-1t0" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q5A-iG-1t0" id="cbJ-Jx-wk2">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -334,10 +348,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="RVA-YQ-Joc" secondAttribute="trailing" id="SCN-eO-51q"/>
-                            <constraint firstItem="RVA-YQ-Joc" firstAttribute="top" secondItem="gfG-hh-BZB" secondAttribute="bottom" id="l2e-EG-dCn"/>
-                            <constraint firstItem="RVA-YQ-Joc" firstAttribute="leading" secondItem="m5y-6N-Rei" secondAttribute="leadingMargin" id="yGZ-Fv-p5T"/>
-                            <constraint firstItem="pSp-js-X1Q" firstAttribute="top" secondItem="RVA-YQ-Joc" secondAttribute="bottom" id="yv5-Ql-zcd"/>
+                            <constraint firstAttribute="trailing" secondItem="RVA-YQ-Joc" secondAttribute="trailing" id="KeF-0h-PQ6"/>
+                            <constraint firstItem="RVA-YQ-Joc" firstAttribute="top" secondItem="gfG-hh-BZB" secondAttribute="bottom" id="iYf-q5-Kqq"/>
+                            <constraint firstItem="RVA-YQ-Joc" firstAttribute="leading" secondItem="m5y-6N-Rei" secondAttribute="leading" id="mp2-OQ-BSO"/>
+                            <constraint firstItem="pSp-js-X1Q" firstAttribute="top" secondItem="RVA-YQ-Joc" secondAttribute="bottom" id="oO2-7f-OrB"/>
                         </constraints>
                     </view>
                 </viewController>

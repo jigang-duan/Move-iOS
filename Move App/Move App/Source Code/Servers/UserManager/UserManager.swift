@@ -174,7 +174,24 @@ extension UserInfo {
                 realm.add(entity)
             }
         }
+        initSynckey()
     }
+    
+    fileprivate func initSynckey() {
+        let realm = try! Realm()
+        if let mySynckey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: self.id) {
+            try! realm.write {
+                mySynckey.uid = self.id
+            }
+        } else {
+            let entity = SynckeyEntity()
+            entity.uid = self.id
+            try! realm.write {
+                realm.add(entity)
+            }
+        }
+    }
+    
     
     func isValid() -> Observable<Bool> {
         let _ = fetchUserInfo()
