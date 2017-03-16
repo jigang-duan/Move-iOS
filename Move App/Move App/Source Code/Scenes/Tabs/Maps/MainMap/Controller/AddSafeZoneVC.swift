@@ -80,19 +80,35 @@ class AddSafeZoneVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let genametdata = MoveApi.Device.getDeviceInfo(deviceId: Me.shared.currDeviceID!)
+            .map({
+                self.kidaddressL.text = $0.user?.nickname
+            })
+        genametdata.subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
+        
+        let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
+            .map({
+                self.kidaddressL.text = $0.location?.addr
+        })
+        getaddressdata.subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
+        
         centerss = mainMapView.centerCoordinate
         let img = UIImage(named : "general_slider_dot")
         safeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         self.safeZoneSlider!.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
 
         let geolocationService = GeolocationService.instance
+        let locationManager = LocationManager.share
         
-//        let viewModel = MainMapViewModel(input: (),
-//                                         dependency: (
-//                                            geolocationService: geolocationService,
-//                                            kidInfo: MokKidInfo()
-//            )
-//        )
+        let viewModel = SafeZoneViewModel.init(input: (), dependency: (
+            geolocationService: geolocationService,
+            locationManager: locationManager,
+            kidinfo: MokKidInfo()
+        ))
         
         
         mainMapView.rx.regionWillChangeAnimated
@@ -138,28 +154,28 @@ class AddSafeZoneVC: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-//        viewModel.kidLocation
-//            .asObservable()
-//            .take(1)
-//            .bindNext { [unowned self] in
-//                let region = MKCoordinateRegionMakeWithDistance($0, 1500, 1500)
-//                self.mainMapView.setRegion(region, animated: true)
-//            }
-//            .addDisposableTo(disposeBag)
-//        
-//        viewModel.kidAnnotion.debug()
-//            .distinctUntilChanged()
-//            .drive(onNext: { [unowned self] annotion in
-//                self.mainMapView.removeAnnotations(self.mainMapView.annotations)
-//                self.mainMapView.addAnnotation(annotion)
-//                if self.circleOverlay == nil
-//                {
-//                    self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
-//                    self.mainMapView.add(self.circleOverlay!)
-//                }
-//                
-//            })
-//            .addDisposableTo(disposeBag)
+        viewModel.kidLocation
+            .asObservable()
+            .take(1)
+            .bindNext { [unowned self] in
+                let region = MKCoordinateRegionMakeWithDistance($0, 1500, 1500)
+                self.mainMapView.setRegion(region, animated: true)
+            }
+            .addDisposableTo(disposeBag)
+        
+        viewModel.kidAnnotion.debug()
+            .distinctUntilChanged()
+            .drive(onNext: { [unowned self] annotion in
+                self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+                self.mainMapView.addAnnotation(annotion)
+                if self.circleOverlay == nil
+                {
+                    self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
+                    self.mainMapView.add(self.circleOverlay!)
+                }
+                
+            })
+            .addDisposableTo(disposeBag)
         
 
         // Do any additional setup after loading the view.

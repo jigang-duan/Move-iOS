@@ -180,6 +180,7 @@
 		E993C5DD1E6FA3DD0057DECA /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
+		E9C3E8161E7A281A00EFDC39 /* SafeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C3E8151E7A281A00EFDC39 /* SafeZoneViewModel.swift */; };
 		E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */; };
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
 		E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */; };
@@ -478,6 +479,7 @@
 		E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
+		E9C3E8151E7A281A00EFDC39 /* SafeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneViewModel.swift; sourceTree = "<group>"; };
 		E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHistoryVC.swift; sourceTree = "<group>"; };
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSafeZoneVC.swift; sourceTree = "<group>"; };
 		E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -1133,6 +1135,7 @@
 			children = (
 				E9DA9C2F1E6FD91D009A9189 /* MapCusCell */,
 				E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */,
+				E9C3E8151E7A281A00EFDC39 /* SafeZoneViewModel.swift */,
 				E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */,
 			);
 			path = ViewModel;
@@ -1845,7 +1848,6 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BV28C32GBU;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -2233,6 +2235,7 @@
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
 				E9E2B8AA1E711D9800149257 /* RepeatViewController.swift in Sources */,
+				E9C3E8161E7A281A00EFDC39 /* SafeZoneViewModel.swift in Sources */,
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
 				E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
@@ -2549,8 +2552,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = BV28C32GBU;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2561,8 +2564,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2575,8 +2578,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = BV28C32GBU;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2587,8 +2590,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

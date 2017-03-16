@@ -29,6 +29,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
+    var defaultDeviceData : [MoveApi.DeviceInfo]? = []
     
     var userPoint : CLLocationCoordinate2D?
     var selectPoint : CLLocationCoordinate2D?
@@ -127,6 +128,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .drive(onNext: { [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
+                self.getDataSource()
             })
             .addDisposableTo(disposeBag)
         
@@ -137,8 +139,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 self.mapView.addAnnotation(annotion)
         })
             .addDisposableTo(disposeBag)
-        
-        
         
     }
     
@@ -233,6 +233,45 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
     
+    
+    func getDataSource() {
+        let deviceDataSource = MoveApi.Device.getDeviceList(pid: 0)
+            .map({
+                self.defaultDeviceData = $0.devices
+                let data = self.defaultDeviceData?.first
+                self.UpdateUIData(dataSource: data!)
+            })
+        deviceDataSource.subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
+    }
+    
+    func UpdateUIData(dataSource : MoveApi.DeviceInfo){
+        objectNameL.text = dataSource.user?.nickname
+        self.setObjectImageBtn(UIImage( named: "member_btn_contact_pre"), title: (dataSource.user?.nickname)!, imageUrl: dataSource.user?.profile)
+        
+        
+        
+        if dataSource.property != nil {
+            let property : MoveApi.DeviceProperty = (dataSource.property)!
+            let power = (property.power)!
+            electricL.text = String(format:"%d%",(property.power)!)
+            if power == 0{
+                electricV.image = UIImage(named: "home_ic_battery0")
+            }else if power < 20 && power > 0{
+                electricV.image = UIImage(named: "home_ic_battery1")
+            }else if power < 40 && power > 20 {
+                electricV.image = UIImage(named: "home_ic_battery2")
+            }else if power < 60 && power > 40 {
+                electricV.image = UIImage(named: "home_ic_battery3")
+            }else if power < 80 && power > 60 {
+                electricV.image = UIImage(named: "home_ic_battery4")
+            }else if power < 100 && power > 80 {
+                electricV.image = UIImage(named: "home_ic_battery5")
+            }
+        }
+    }
+    
     func KidInfoToAnimation(dataSource : BasePopoverAction) {
         if dataSource.title == "ALL" {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC") as! AllKidsLocationVC
@@ -316,17 +355,17 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         
         let showImage = self.conver(title: title, size: placeholder.size) ?? placeholder
         guard let url = imageUrl else {
-            self.objectImageBtn.setImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
+            self.objectImageBtn.setBackgroundImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
             return
         }
         
         let image = UIImage.image(fromURL: url,
                                   placeholder: showImage) { [weak self] in
                                     if let image = $0 {
-                                        self?.objectImageBtn.setImage(self?.convert(image: image, size: placeholder.size), for: .normal)
+                                        self?.objectImageBtn.setBackgroundImage(self?.convert(image: image, size: placeholder.size), for: .normal)
                                     }
         }
-        self.objectImageBtn.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
+        self.objectImageBtn.setBackgroundImage(self.convert(image: image, size: placeholder.size), for: .normal)
     }
 }
 fileprivate extension UIImage {

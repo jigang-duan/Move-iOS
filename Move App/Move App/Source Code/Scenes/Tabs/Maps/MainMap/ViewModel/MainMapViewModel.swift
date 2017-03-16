@@ -110,5 +110,4 @@ fileprivate func allAndTransformAction(infos: [MoveApi.DeviceInfo]) -> [BasePopo
 }
 
 
-class MokKidInfo {
-}
+
