@@ -28,28 +28,16 @@ class DistributionViewController: UIViewController {
             )
         )
         
-        viewModel.enterLogin
-            .drive(onNext: { [weak self] enter in
-                if enter {
-                    self?.enterLoginScreen()
-                }
-            })
+        viewModel.enterLogin.debug()
+            .drive(onNext: enterLoginScreen)
             .addDisposableTo(disposeBag)
         
-        viewModel.enterChoose
-            .drive(onNext: { [weak self] enter in
-                if enter {
-                    self?.enterChoseDeviceScreen()
-                }
-            })
+        viewModel.enterChoose.debug()
+            .drive(onNext: enterChoseDeviceScreen)
             .addDisposableTo(disposeBag)
         
-        viewModel.enterMain
-            .drive(onNext: { [weak self] enter in
-                if enter {
-                    self?.enterMainScreen()
-                }
-            })
+        viewModel.enterMain.debug()
+            .drive(onNext: enterMainScreen)
             .addDisposableTo(disposeBag)
         
         NotificationService.shared.rx.userInfo
@@ -73,6 +61,15 @@ class DistributionViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let _segue = R.segue.distributionViewController.showMajor(segue: segue) {
+            _segue.destination.inlet = 1
+        }
+    }
 
     @IBAction func unwindSegueToDistribution(segue: UIStoryboardSegue) {
 //        if let typeInfoChoseDevice = R.segue.accountAndChoseDeviceController.unwindChoseDevice(segue: segue) {
@@ -81,16 +78,23 @@ class DistributionViewController: UIViewController {
         
     }
     
-    func enterLoginScreen() {
-        self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin, sender: nil)
+    private func enterLoginScreen(enter: Bool) {
+        if enter {
+            self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin, sender: nil)
+        }
     }
     
-    func enterChoseDeviceScreen() {
-//        self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice, sender: nil)
+    func enterChoseDeviceScreen(enter: Bool) {
+        if enter {
+            //self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice, sender: nil)
+            self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
+        }
     }
     
-    func enterMainScreen() {
-        self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
+    func enterMainScreen(enter: Bool) {
+        if enter {
+            self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
+        }
     }
 
 }

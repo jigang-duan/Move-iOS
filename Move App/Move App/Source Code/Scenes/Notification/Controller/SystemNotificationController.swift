@@ -34,16 +34,27 @@ class SystemNotificationController: UIViewController {
                                                                  cellType: UITableViewCell.self,
                                                                  cellConfig: cellConfig)
         let realm = try! Realm()
-        
         if let uid = Me.shared.user.id {
-        
             let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.gruops
-            let groups = Observable.changeset(from: objects )
+            let groups = Observable.changeset(from: objects)
                 .share()
         
             groups
                 .bindTo(tableView.rx.realmChanges(dataSource))
                 .addDisposableTo(bag)
+            
+            tableView.rx.itemSelected
+                .asDriver()
+                .drive(onNext: { [weak self] ip in
+//                    let group = objects[ip.row]
+//                    self?.performSegue(withIdentifier: R.segue.systemNotificationController.showNotification.identifier, sender: group)
+                    if let toController = R.storyboard.social.notificationScene() {
+                        toController.gruop = objects[ip.row]
+                        self?.show(toController, sender: nil)
+                    }
+                })
+                .addDisposableTo(bag)
+            
         }
         
     }
@@ -77,15 +88,19 @@ class SystemNotificationController: UIViewController {
         return image.scale(toSize: size)?.roundCornersToCircle() ?? image
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let rSegue = R.segue.systemNotificationController.showNotification(segue: segue) {
+            if let group = sender as? GruopEntity {
+                rSegue.destination.gruop = group
+            }
+        }
+        
     }
-    */
+    
 
 }
 

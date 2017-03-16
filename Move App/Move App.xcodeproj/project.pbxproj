@@ -10,6 +10,7 @@
 		0C029BC33712BFF78C0B0599 /* Pods_Move_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */; };
 		110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */; };
 		110528EE1E7903C200FE97A8 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110528ED1E7903C200FE97A8 /* Notice.swift */; };
+		110528F11E7A569C00FE97A8 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110528F01E7A569C00FE97A8 /* NotificationController.swift */; };
 		1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */; };
 		1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */; };
 		1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6531E604BF6005B4AFD /* KidSettingManager.swift */; };
@@ -289,6 +290,7 @@
 /* Begin PBXFileReference section */
 		110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemNotificationController.swift; sourceTree = "<group>"; };
 		110528ED1E7903C200FE97A8 /* Notice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		110528F01E7A569C00FE97A8 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		1109C6411E5EF6FA005B4AFD /* DistributionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionViewModel.swift; sourceTree = "<group>"; };
 		1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		1109C6531E604BF6005B4AFD /* KidSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidSettingManager.swift; path = KidSettingManager/KidSettingManager.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */,
+				110528F01E7A569C00FE97A8 /* NotificationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2104,6 +2107,7 @@
 				FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */,
 				FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */,
 				E9735EC31E69432000C0B944 /* RegularshutdownController.swift in Sources */,
+				110528F11E7A569C00FE97A8 /* NotificationController.swift in Sources */,
 				11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */,
 				E92A7ABD1E79064700F1BC43 /* OfficaialNumberController.swift in Sources */,
 				11EAC32B1E6FA1BC002906F1 /* AlertController.swift in Sources */,

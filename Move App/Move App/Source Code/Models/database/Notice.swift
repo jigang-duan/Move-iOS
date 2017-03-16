@@ -76,7 +76,7 @@ class NoticeEntity: Object {
     dynamic var content: String?
     dynamic var readStatus = ReadStatus.unknown.rawValue
     dynamic var type = NoticeType.unknown.rawValue
-    dynamic var createDate: Data? = nil
+    dynamic var createDate: Date? = nil
     
     override static func primaryKey() -> String? {
         return "id"

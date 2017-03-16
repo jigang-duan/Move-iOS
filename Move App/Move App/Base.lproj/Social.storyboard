@@ -297,7 +297,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="accessoryView" destination="yl0-4i-pLM" id="r05-fT-tSy"/>
-                                            <segue destination="qQJ-x7-Fq5" kind="show" id="pvM-Af-zzZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -313,16 +312,17 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="ziM-Q2-9zV" id="jqq-gH-l1g"/>
+                        <segue destination="qQJ-x7-Fq5" kind="show" identifier="showNotification" id="2lm-kn-Ie5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsY-Uy-GBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4008.8000000000002" y="2290.704647676162"/>
         </scene>
-        <!--View Controller-->
+        <!--Notification-->
         <scene sceneID="IfY-vK-G5e">
             <objects>
-                <viewController id="qQJ-x7-Fq5" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notificationScene" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qQJ-x7-Fq5" customClass="NotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gfG-hh-BZB"/>
                         <viewControllerLayoutGuide type="bottom" id="pSp-js-X1Q"/>
@@ -335,7 +335,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Q5A-iG-1t0" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotification" id="Q5A-iG-1t0" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q5A-iG-1t0" id="cbJ-Jx-wk2">
@@ -354,6 +354,11 @@
                             <constraint firstItem="pSp-js-X1Q" firstAttribute="top" secondItem="RVA-YQ-Joc" secondAttribute="bottom" id="oO2-7f-OrB"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Notification" id="s1N-3i-wIs"/>
+                    <connections>
+                        <outlet property="navigationOutlet" destination="s1N-3i-wIs" id="a1w-HB-OWQ"/>
+                        <outlet property="tableView" destination="RVA-YQ-Joc" id="UJn-8x-hfW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zf-eT-o4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

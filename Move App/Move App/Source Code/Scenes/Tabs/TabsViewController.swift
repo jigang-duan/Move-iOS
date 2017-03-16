@@ -9,13 +9,12 @@
 import UIKit
 
 class TabsViewController: UITabBarController {
+    
+    var inlet = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
-        
         // Do any additional setup after loading the view.
         viewControllers = [
             R.storyboard.major.navHomeController()!,
@@ -23,6 +22,12 @@ class TabsViewController: UITabBarController {
 //            R.storyboard.main.instantiateInitialViewController()!,
             R.storyboard.social.instantiateInitialViewController()!
         ]
+        
+        self.selectedIndex = inlet
+        if inlet == 1 {
+            self.viewControllers?[0].tabBarItem.isEnabled = false
+            self.viewControllers?[2].tabBarItem.isEnabled = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
