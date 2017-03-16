@@ -59,7 +59,17 @@ class ChatViewController: UIViewController {
         tableView.delegate = self
         ifView.bringSubview(toFront:tableView)
         
-        let testResponse = IMManager.shared.initSyncKey()
+        let testResponse = IMManager.shared.initSyncKey().subscribe { info in
+            switch info {
+            case .next(let hinfo):
+                print(hinfo)
+            case .error(let error):
+                print(error)
+            case .completed:
+                print("complete")
+
+            }
+        }
         print("reslut is ===testResponse%@",testResponse)
         
         var synList = ImSynckey()
@@ -74,7 +84,7 @@ class ChatViewController: UIViewController {
         synList.value = 30001234
         list.append(synList)
         
-        let testResponse1 = IMManager.shared.checkSyncKey(synckeyList: list)
+        let testResponse1 = IMManager.shared.checkSyncKey(synckeyList: list).subscribe(<#T##observer: O##O#>)
         print("reslut is ===testResponse1%@",testResponse1)
         
     }

@@ -174,24 +174,28 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-        if (currentDeviceData != nil) {
-            if MFMessageComposeViewController.canSendText(){
-                let controller = MFMessageComposeViewController()
-                //设置短信内容
-                controller.body = ""
-                //设置收件人列表
-                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-                controller.recipients = [(device.user?.number)!]
-                //设置代理
-                controller.messageComposeDelegate = self
-                //打开界面
-                self.present(controller, animated: true, completion: { () -> Void in
-                    
-                })
-            }else{
-                print("本设备不能发送短信")
-            }
-        }
+//        if (currentDeviceData != nil) {
+//            if MFMessageComposeViewController.canSendText(){
+//                let controller = MFMessageComposeViewController()
+//                //设置短信内容
+//                controller.body = ""
+//                //设置收件人列表
+//                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+//                controller.recipients = [(device.user?.number)!]
+//                //设置代理
+//                controller.messageComposeDelegate = self
+//                //打开界面
+//                self.present(controller, animated: true, completion: { () -> Void in
+//                    
+//                })
+//            }else{
+//                print("本设备不能发送短信")
+//            }
+//        }
+        let storyboard = UIStoryboard(name: "Chat", bundle: nil)
+        let chatViewController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as? ChatViewController
+        
+        self.navigationController?.pushViewController(chatViewController!, animated: true)
     }
     
     
