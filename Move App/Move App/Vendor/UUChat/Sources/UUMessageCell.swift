@@ -115,7 +115,7 @@ class UUMessageCell: UITableViewCell {
                 normal = UIImage(named: "chatto_bg_normal")!
                 normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 10, 10, 22))
             } else {
-                normal = UIImage(named: "chatto_bg_normal")!
+                normal = UIImage(named: "chatfrom_bg_normal")!
                 normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 22, 10, 10))
             }
             self.btnContent.setBackgroundImage(normal, for: .normal)

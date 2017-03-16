@@ -46,12 +46,11 @@ class SystemNotificationController: UIViewController {
             tableView.rx.itemSelected
                 .asDriver()
                 .drive(onNext: { [weak self] ip in
-//                    let group = objects[ip.row]
-//                    self?.performSegue(withIdentifier: R.segue.systemNotificationController.showNotification.identifier, sender: group)
-                    if let toController = R.storyboard.social.notificationScene() {
-                        toController.gruop = objects[ip.row]
-                        self?.show(toController, sender: nil)
-                    }
+                    self?.performSegue(withIdentifier: R.segue.systemNotificationController.showNotification.identifier, sender: objects[ip.row])
+//                    if let toController = R.storyboard.social.notificationScene() {
+//                        toController.gruop = objects[ip.row]
+//                        self?.show(toController, sender: nil)
+//                    }
                 })
                 .addDisposableTo(bag)
             

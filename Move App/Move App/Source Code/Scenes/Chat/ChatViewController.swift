@@ -84,8 +84,8 @@ class ChatViewController: UIViewController {
         synList.value = 30001234
         list.append(synList)
         
-        let testResponse1 = IMManager.shared.checkSyncKey(synckeyList: list)
-        print("reslut is ===testResponse1%@",testResponse1)
+        //let testResponse1 = IMManager.shared.checkSyncKey(synckeyList: list).subscribe(<#T##observer: O##O#>)
+        //print("reslut is ===testResponse1%@",testResponse1)
         
     }
 

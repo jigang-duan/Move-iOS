@@ -23,6 +23,7 @@ class NotificationController: UIViewController {
     let bag = DisposeBag()
     
     var gruop: GruopEntity?
+    var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,37 +31,55 @@ class NotificationController: UIViewController {
         // Do any additional setup after loading the view.
         navigationOutlet.title = gruop?.name
         
-        let dataSource = RxTableViewRealmDataSource<NoticeEntity>(cellIdentifier: R.reuseIdentifier.cellNotification.identifier,
-                                                                 cellType: UUMessageCell.self,
-                                                                 cellConfig: cellConfig)
         if let _grouop = gruop {
             let objects = _grouop.notices
-            let notices = Observable.changeset(from: objects)
+            let notices = Observable.collection(from: objects)
                 .share()
+                .map({ list -> [UUMessageFrame] in
+                    list.map({ notice -> UUMessageFrame in
+                        var content = UUMessage.Content()
+                        content.text = notice.content
+                        let message = UUMessage(icon: _grouop.headPortrait ?? "",
+                                                msgId: notice.id ?? "",
+                                                time: notice.createDate ?? Date(),
+                                                name: _grouop.name ?? "",
+                                                content: content,
+                                                state: (notice.readStatus == NoticeEntity.ReadStatus.read.rawValue) ? .read : .unread,
+                                                type: .text,
+                                                from: .other,
+                                                showDateLabel: true)
+                        return UUMessageFrame(message: message)
+                    })
+                })
+            
             
             tableView.rx.setDelegate(self).addDisposableTo(bag)
             
-            notices
-                .bindTo(tableView.rx.realmChanges(dataSource))
+            notices.bindTo(messageFramesVariable).addDisposableTo(bag)
+            
+            messageFramesVariable.asObservable()
+                .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotification.identifier)) { index, model, cell in
+                    if let _cell = cell as? UUMessageCell {
+                        _cell.messageFrame = model
+                    }
+                }
+                .addDisposableTo(bag)
+            
+            messageFramesVariable.asObservable().bindNext({_ in
+                self.tableViewScrollToBottom()
+            })
                 .addDisposableTo(bag)
         }
     }
     
-    private func cellConfig(cell: UUMessageCell, ip: IndexPath, notice: NoticeEntity) {
-        var content = UUMessage.Content()
-        content.text = notice.content
-        let message = UUMessage(icon: gruop?.headPortrait ?? "",
-                                msgId: notice.id ?? "",
-                                time: notice.createDate ?? Date(),
-                                name: gruop?.name ?? "",
-                                content: content,
-                                state: (notice.readStatus == NoticeEntity.ReadStatus.read.rawValue) ? .read : .unread,
-                                type: .text,
-                                from: .other,
-                                showDateLabel: true)
-        cell.messageFrame = UUMessageFrame(message: message)
+    private func tableViewScrollToBottom() {
+        guard tableView.visibleCells.count > 0 else {
+            return
+        }
+        let indexPath = IndexPath(row: tableView.visibleCells.count - 1, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -73,9 +92,6 @@ class NotificationController: UIViewController {
 extension NotificationController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let cell = tableView.visibleCells[indexPath.row] as? UUMessageCell else {
-            return 0.0
-        }
-        return cell.messageFrame.cellHeight
+        return messageFramesVariable.value[indexPath.row].cellHeight
     }
 }

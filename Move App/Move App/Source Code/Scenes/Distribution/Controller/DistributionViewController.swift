@@ -88,7 +88,7 @@ class DistributionViewController: UIViewController {
     func enterChoseDeviceScreen(enter: Bool) {
         if enter {
             //self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice, sender: nil)
-            self.inlet = 1
+            inlet = 1
             self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
         }
     }

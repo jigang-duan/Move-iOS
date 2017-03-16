@@ -310,6 +310,9 @@
                             <constraint firstItem="ziM-Q2-9zV" firstAttribute="leading" secondItem="fig-RK-Xhn" secondAttribute="leading" id="pkh-KL-R2v"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="System notification" id="cf5-KW-wvm">
+                        <barButtonItem key="backBarButtonItem" title=" " id="zf6-aU-Uhd"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="ziM-Q2-9zV" id="jqq-gH-l1g"/>
                         <segue destination="qQJ-x7-Fq5" kind="show" identifier="showNotification" id="2lm-kn-Ie5"/>
@@ -354,7 +357,9 @@
                             <constraint firstItem="pSp-js-X1Q" firstAttribute="top" secondItem="RVA-YQ-Joc" secondAttribute="bottom" id="oO2-7f-OrB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Notification" id="s1N-3i-wIs"/>
+                    <navigationItem key="navigationItem" title="Notification" id="s1N-3i-wIs">
+                        <barButtonItem key="backBarButtonItem" title=" " id="axI-yU-9rY"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="navigationOutlet" destination="s1N-3i-wIs" id="a1w-HB-OWQ"/>
                         <outlet property="tableView" destination="RVA-YQ-Joc" id="UJn-8x-hfW"/>
