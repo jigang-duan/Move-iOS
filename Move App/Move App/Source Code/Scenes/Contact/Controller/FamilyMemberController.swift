@@ -23,6 +23,8 @@ class FamilyMemberController: UIViewController {
     
     var selectInfo: FamilyMemberDetailController.ContactDetailInfo?
     
+    var cellHeart = Variable((flag: false, row: 0))
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -55,33 +57,49 @@ class FamilyMemberController: UIViewController {
         viewModel = FamilyMemberViewModel(
             input: (
                 enterCount: enterCount.asObservable(),
-                selectedContact: selectedContact
+                selectedContact: selectedContact,
+                cellHeartClick: cellHeart
             ),
             dependency:(
                 deviceManager: DeviceManager.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
             )
-            
+        viewModel.cellDatas?.bindTo(viewModel.cellDatasVariable).addDisposableTo(disposeBag)
         
-        viewModel.cellDatas?
+        viewModel.cellDatasVariable.asObservable()
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ (row, element, cell) in
-                cell.heartImgV.image = element.isHeartOn ? R.image.member_heart_on() : R.image.member_heart_off()
+                cell.heartBun.setImage(element.isHeartOn ? R.image.member_heart_on() : R.image.member_heart_off(), for: .normal)
+                cell.isHeartOn = element.isHeartOn
                 
-                var text = element.relation
-                if element.state.contains(.me){
-                    text = text + "(me)"
+                cell.heartClick = {[weak cell] _ in
+                    cell?.isHeartOn = !(cell?.isHeartOn)!
+                    self.cellHeart.value = (flag: (cell?.isHeartOn)!, row: row)
                 }
+                
+                cell.relationName.text = element.relation + (element.state.contains(.me) ? "(Me)":"")
+                
                 if element.state.contains(.master){
-                    text = text + "(master)"
+                    cell.detailLab.text = "Master"
                 }
-                cell.relationName.text = text
-                
+               
                 let imgUrl = MoveApi.BaseURL + "/v1.0/fs/\(element.headUrl)"
                 cell.headImgV.imageFromURL(imgUrl, placeholder:  R.image.member_btn_contact_nor()!)
             }
             .addDisposableTo(disposeBag)
     
+        viewModel.heartResult?.drive(onNext: { res in
+            res.drive(onNext: { r in
+                switch r {
+                case .failed(let message):
+                    self.showMessage(message)
+                default:
+                    break
+                }
+            }).addDisposableTo(self.disposeBag)
+            
+        }).addDisposableTo(disposeBag)
+        
         
         viewModel.selected
             .drive(onNext: { [weak self] info  in
@@ -100,6 +118,15 @@ class FamilyMemberController: UIViewController {
     }
     
     
+    func showMessage(_ text: String) {
+        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(action)
+        self.present(vc, animated: true) {
+            
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.familyMemberController.showFamilyMemberDetail(segue: segue)?.destination {
             vc.info = selectInfo
@@ -114,10 +141,6 @@ extension FamilyMemberController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
     }
 
 }

@@ -54,8 +54,17 @@ class ScanCodeController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = true
+//        UIApplication.shared.isStatusBarHidden
+        
         //扫描
         startScan()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     private func startScan(){
@@ -83,7 +92,7 @@ class ScanCodeController: UIViewController {
     }
     
     @IBAction func BackAction(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -193,7 +202,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
         var info = DeviceBindInfo()
         
 //                根据二维码信息判断二维码类型
-        //app 分享
+        //app 分享----普通用户加入
         do {
             if let json = try JSONSerialization.jsonObject(with: infoStr.utf8Encoded, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
                 print(json)
@@ -205,6 +214,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                         let now = Int(Date().timeIntervalSince1970)
                         if now > expired {
                             self.showMessage("二维码已过期")
+                            return
                         }
                     }
                     
@@ -222,7 +232,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
             print(infoStr)
         }
         
-//        手表显示
+//        手表显示----管理员绑定
         if infoStr.characters.count == 19 {
             let index = infoStr.index(infoStr.endIndex, offsetBy: -4)
             info.deviceId = infoStr.substring(to: index)
@@ -235,7 +245,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
     
     
     func checkImeiAndGoBind(with info: DeviceBindInfo) {
-        
+        //绑定管理员
         if info.isMaster == true {
             _ = DeviceManager.shared.checkBind(deviceId: info.deviceId!).subscribe({ (event) in
                 switch event{
@@ -258,6 +268,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
             return
         }
         
+        //绑定普通用户
         if info.phone == nil
             || info.phone?.characters.count  == 0
             || info.identity == nil {
@@ -265,29 +276,15 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
             vc.deviceAddInfo = info
             self.navigationController?.show(vc, sender: nil)
         }else{
-            _ = DeviceManager.shared.checkBind(deviceId: info.deviceId!).subscribe({ (event) in
+            _ = DeviceManager.shared.joinGroup(joinInfo: info).subscribe({ (event) in
                 switch event{
                 case .next(let value):
-                    if value == false {
-                        _ = DeviceManager.shared.joinGroup(joinInfo: info).subscribe({ (event) in
-                            switch event{
-                            case .next(let value):
-                                print(value)
-                            case .completed:
-                                _ = self.navigationController?.popToRootViewController(animated: true)
-                            case .error(let error):
-                                print(error)
-                                self.showMessage(error.localizedDescription)
-                            }
-                        })
-                    }else{
-                        self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                    }
+                    print(value)
+                case .completed:
+                    _ = self.navigationController?.popToRootViewController(animated: true)
                 case .error(let error):
                     print(error)
-                    self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                default:
-                    break
+                    self.showMessage(error.localizedDescription)
                 }
             })
         }

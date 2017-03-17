@@ -21,16 +21,24 @@ extension MoveApi {
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
             ])
         
-        final class func upload(fileInfo: FileInfo) -> Observable<FileUploadResp> {
-            return defaultProvider.request(.upload(fileInfo: fileInfo)).mapMoveObject(FileUploadResp.self)
-//                var uploadResp = FileUploadResp()
-//                print($0.response?.request ?? "request", $0.response?.response ?? "response")
-//                uploadResp.progress = $0.progress
-//                if uploadResp.progress == 1{
-//                    uploadResp.fid = try! $0.response?.mapString(atKeyPath: "fid")
-//                }
-//                return uploadResp
-//            }
+        final class func upload(fileInfo: FileInfo) {
+            let xx = defaultProvider.requestWithProgress(.upload(fileInfo: fileInfo))
+                .subscribe( onNext: { response in
+                        var uploadResp = FileUploadResp()
+                        uploadResp.progress = response.progress
+                        print(response.progress)
+                        if uploadResp.progress == 1{
+                            uploadResp.fid = try! response.response?.mapString(atKeyPath: "fid")
+                            print(uploadResp.fid)
+                        }
+                }, onError: {er in
+                    print(er)
+                }, onCompleted: {
+                    
+                }, onDisposed: { 
+                    
+                })
+            
         }
         
         final class func download(fid: String) -> Observable<FileStorageInfo> {
@@ -40,8 +48,8 @@ extension MoveApi {
                 fileStorageInfo.progressObject = $0.progressObject
                 
                 if $0.response != nil{
-                    let res = $0.response
-                    if (res?.statusCode)! >= 200 && (res?.statusCode)! < 400{
+                    let res = $0.response!
+                    if res.statusCode >= 200 && res.statusCode < 400{
                         fileStorageInfo.progress = $0.progress
                         fileStorageInfo.name = $0.response?.response?.suggestedFilename
                         fileStorageInfo.type = $0.response?.response?.mimeType
@@ -50,8 +58,8 @@ extension MoveApi {
                         fileStorageInfo.fid = fid
                         
                     }else{
-                        guard let json = try? res?.mapJSON() else {
-                            throw MoyaError.jsonMapping(res!)
+                        guard let json = try? res.mapJSON() else {
+                            throw MoyaError.jsonMapping(res)
                         }
                         
                         if let apiError = Mapper<MoveApi.ApiError>().map(JSONObject: json),let errId = apiError.id, errId != 0 {

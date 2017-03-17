@@ -13,14 +13,18 @@ import RxCocoa
 class FamilyMemberViewModel {
     
     var cellDatas: Observable<[FamilyMemberCellData]>?
+    var cellDatasVariable: Variable<[FamilyMemberCellData]> = Variable([])
     
     let selected: Driver<FamilyMemberDetailController.ContactDetailInfo>
     
     var contacts: [FamilyMemberDetailController.ContactDetailInfo]?
     
+    var heartResult: Driver<Driver<ValidationResult>>?
+    
     init (input: (
         enterCount: Observable<Int>,
-        selectedContact: Driver<FamilyMemberDetailController.ContactDetailInfo>
+        selectedContact: Driver<FamilyMemberDetailController.ContactDetailInfo>,
+        cellHeartClick: Variable<(flag: Bool, row: Int)>
         ),
           dependency: (
         deviceManager: DeviceManager,
@@ -35,6 +39,27 @@ class FamilyMemberViewModel {
         
         self.selected = input.selectedContact
         
+        
+        
+        heartResult = input.cellHeartClick.asDriver().flatMapLatest({ (flag, row) in
+            if let cons = self.contacts {
+                var con = (cons[row].contactInfo)!
+                if flag {
+                    con.flag = self.setEmergency(flag: con.flag!)
+                }else{
+                    con.flag = self.clearEmergency(flag: con.flag!)
+                }
+                return Driver.just(deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: con)
+                    .map({ _ in
+                        self.contacts?[row].contactInfo?.flag = con.flag
+                        self.cellDatasVariable.value[row].isHeartOn = self.transformIsHeartOn(flag: con.flag!)
+                        return ValidationResult.ok(message: "Set Success.")
+                    }).asDriver(onErrorRecover: errorRecover))
+            }else{
+                let res = Driver.just(ValidationResult.empty)
+                return Driver.just(res)
+            }
+        })
         
         self.cellDatas = enter.flatMapLatest({ _ in
             deviceManager.getContacts(deviceId: (deviceManager.currentDevice?.deviceId)!).map{ members in
@@ -74,6 +99,27 @@ class FamilyMemberViewModel {
     }
     
     
+    func setEmergency(flag: Int) -> Int {
+        return flag | 0x0100
+    }
+    
+    func clearEmergency(flag: Int) -> Int {
+        return Int(UInt(flag) & ~UInt(0x0100))
+    }
+}
+
+
+fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
+    guard let _error = error as?  WorkerError else {
+        return Driver.just(ValidationResult.empty)
+    }
+    
+    if WorkerError.vcodeIsIncorrect == _error {
+        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
+    }
+    
+    
+    return Driver.just(ValidationResult.failed(message: "Set faild"))
 }
 
 

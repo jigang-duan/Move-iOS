@@ -166,6 +166,9 @@ class FamilyMemberDetailController: UIViewController {
                 numberTf.isEnabled = false
                 saveBun.isEnabled = false
             }
+        }else if isNowMaster == true && info?.isMe == true {
+            masterBun.isHidden = true
+            deleteBun.isHidden = true
         }
         
         photoImgV.imageFromURL((info?.contactInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
