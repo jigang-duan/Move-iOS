@@ -84,7 +84,7 @@ class NotificationService {
     }
 }
 
-/// Extend NSObject with `rx` proxy.
+/// Extend NotificationService with `rx` proxy.
 extension NotificationService: ReactiveCompatible { }
 
 extension Reactive where Base: NotificationService {

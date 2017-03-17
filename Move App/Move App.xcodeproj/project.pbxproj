@@ -19,6 +19,10 @@
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
 		116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818C1E665C74003CEC39 /* NotificationServer.swift */; };
+		118BA85F1E7B77B1003C3C13 /* OAuthRxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA85E1E7B77B1003C3C13 /* OAuthRxSwift.swift */; };
+		118BA8611E7B8525003C3C13 /* OAuthWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8601E7B8525003C3C13 /* OAuthWebController.swift */; };
+		118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */; };
+		118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8641E7B8930003C3C13 /* AuthService.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -300,6 +304,10 @@
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
 		116F818A1E6599D6003CEC39 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Shared/Common/Application/Notification.swift; sourceTree = "<group>"; };
 		116F818C1E665C74003CEC39 /* NotificationServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationServer.swift; path = Shared/Common/Application/Notification/NotificationServer.swift; sourceTree = "<group>"; };
+		118BA85E1E7B77B1003C3C13 /* OAuthRxSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuthRxSwift.swift; path = Vendor/OAuthRxSwift/OAuthRxSwift.swift; sourceTree = "<group>"; };
+		118BA8601E7B8525003C3C13 /* OAuthWebController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuthWebController.swift; path = Vendor/OAuthRxSwift/OAuthWebController.swift; sourceTree = "<group>"; };
+		118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppDelegate+OAuthSwift.swift"; path = "Vendor/OAuthRxSwift/AppDelegate+OAuthSwift.swift"; sourceTree = "<group>"; };
+		118BA8641E7B8930003C3C13 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = Vendor/OAuthRxSwift/AuthService.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -631,6 +639,17 @@
 				116F818C1E665C74003CEC39 /* NotificationServer.swift */,
 			);
 			name = Notification;
+			sourceTree = "<group>";
+		};
+		118BA85D1E7B76C4003C3C13 /* OAuthRxSwift */ = {
+			isa = PBXGroup;
+			children = (
+				118BA85E1E7B77B1003C3C13 /* OAuthRxSwift.swift */,
+				118BA8601E7B8525003C3C13 /* OAuthWebController.swift */,
+				118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */,
+				118BA8641E7B8930003C3C13 /* AuthService.swift */,
+			);
+			name = OAuthRxSwift;
 			sourceTree = "<group>";
 		};
 		11D0BECA1E5EBC09006F957E /* MeManager */ = {
@@ -967,6 +986,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				118BA85D1E7B76C4003C3C13 /* OAuthRxSwift */,
 				11EAC2FE1E6D796F002906F1 /* UUChat */,
 				E03B1C541E53E8C4006EDB7B /* Popover */,
 				E0C228FD1E35DC0200BCF83D /* RxUtilities */,
@@ -2145,6 +2165,7 @@
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
+				118BA8611E7B8525003C3C13 /* OAuthWebController.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				E9DA9C3A1E6FD960009A9189 /* contactCell.swift in Sources */,
 				FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */,
@@ -2158,6 +2179,7 @@
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
 				FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */,
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
+				118BA85F1E7B77B1003C3C13 /* OAuthRxSwift.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
@@ -2208,6 +2230,7 @@
 				E04621381E499696007D3BD3 /* Response+MoveObjectMapper.swift in Sources */,
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
+				118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */,
 				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
@@ -2273,6 +2296,7 @@
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
+				118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,

@@ -21,6 +21,7 @@ PODS:
   - Moya/RxSwift (8.0.3):
     - Moya/Core
     - RxSwift (~> 3.0)
+  - OAuthSwift (1.1.1)
   - ObjectMapper (2.2.5)
   - R.swift (3.2.0):
     - R.swift.Library (~> 3.0.2)
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - Moya
   - Moya-ObjectMapper/RxSwift
   - Moya/RxSwift
+  - OAuthSwift (~> 1.1.0)
   - R.swift
   - RxBlocking
   - RxCocoa (~> 3.0)
@@ -90,6 +92,7 @@ SPEC CHECKSUMS:
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Moya: d3721622e3cc0cc2f038d69a258686f0b66e7252
   Moya-ObjectMapper: 952be2b261d38cf8d973b7e429708eb03d256e23
+  OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   R.swift: 207a372a2b5977caef440c696a368009460641d1
   R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
@@ -107,6 +110,6 @@ SPEC CHECKSUMS:
   SVPulsingAnnotationView: f1a8dc7a57ebb5fa231d0ef8b0da59a250005511
   SwiftyBeaver: 949aa1439b8fa3667f68555cfef65de46a70ccde
 
-PODFILE CHECKSUM: 1fd853c7233e208664b6b8796068dffdb16e2c13
+PODFILE CHECKSUM: 7910d373ba7ac7ac2d46642faa3ac46d03baa727
 
 COCOAPODS: 1.2.0

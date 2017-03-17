@@ -44,6 +44,10 @@ target 'Move App' do
   # 空白页或者出错页封装
   pod 'DZNEmptyDataSet'
   
+  # 基于Swift的 OAuth 库.
+  # https://github.com/OAuthSwift/OAuthSwift
+  pod 'OAuthSwift', '~> 1.1.0'
+  
   # 下拉刷新
   pod 'MJRefresh'
   
