@@ -144,7 +144,15 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     @IBAction func locationBtnClick(_ sender: UIButton) {
         if (currentDeviceData != nil) {
-            
+            let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
+                .map({
+                    let annotation = BaseAnnotation(($0.location?.lat)!, ($0.location?.lng)!)
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    self.mapView.addAnnotation(annotation)
+                })
+            getaddressdata.subscribe(onNext: {
+                print($0)
+            }).addDisposableTo(disposeBag)
         }
     }
     
