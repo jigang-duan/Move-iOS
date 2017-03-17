@@ -22,27 +22,27 @@ class NotificationController: UIViewController {
     
     let bag = DisposeBag()
     
-    var gruop: GruopEntity?
+    var group: GroupEntity?
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        navigationOutlet.title = gruop?.name
+        navigationOutlet.title = group?.name
         
-        if let _grouop = gruop {
-            let objects = _grouop.notices
+        if let _group = group {
+            let objects = _group.notices
             let notices = Observable.collection(from: objects)
                 .share()
                 .map({ list -> [UUMessageFrame] in
                     list.map({ notice -> UUMessageFrame in
                         var content = UUMessage.Content()
                         content.text = notice.content
-                        let message = UUMessage(icon: _grouop.headPortrait ?? "",
+                        let message = UUMessage(icon: _group.headPortrait ?? "",
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),
-                                                name: _grouop.name ?? "",
+                                                name: _group.name ?? "",
                                                 content: content,
                                                 state: (notice.readStatus == NoticeEntity.ReadStatus.read.rawValue) ? .read : .unread,
                                                 type: .text,

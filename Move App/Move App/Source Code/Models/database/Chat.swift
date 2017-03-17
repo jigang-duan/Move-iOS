@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 
-class GruopEntity: Object {
+class GroupEntity: Object {
     
     /*
      标识位
@@ -86,7 +86,7 @@ class MemberEntity: Object {
     dynamic var email: String? = nil
     dynamic var flag = Flag.unknow.rawValue
     
-    let owners = LinkingObjects(fromType: GruopEntity.self, property: "members")
+    let owners = LinkingObjects(fromType: GroupEntity.self, property: "members")
     
     override static func primaryKey() -> String? {
         return "id"
@@ -135,7 +135,7 @@ class MessageEntity: Object {
     
     dynamic var from: String?
     dynamic var to: String?
-    dynamic var gruopId: String?
+    dynamic var groupId: String?
     
     dynamic var content: String?
     dynamic var contentType = ContentType.unknow.rawValue
@@ -159,11 +159,11 @@ class SynckeyEntity: Object {
         
     dynamic var message = 0
     dynamic var contact = 0
-    dynamic var gruop = 0
+    dynamic var group = 0
     
     override static func primaryKey() -> String? {
         return "uid"
     }
     
-    let gruops = List<GruopEntity>()
+    let groups = List<GroupEntity>()
 }

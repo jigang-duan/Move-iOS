@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ChatModel {
     
@@ -47,6 +49,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var chatModel: ChatModel!
+    var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +62,7 @@ class ChatViewController: UIViewController {
         tableView.delegate = self
         ifView.bringSubview(toFront:tableView)
         
-        let testResponse = IMManager.shared.initSyncKey().subscribe { info in
+        IMManager.shared.initSyncKey().subscribe { info in
             switch info {
             case .next(let hinfo):
                 print(hinfo)
@@ -69,24 +72,38 @@ class ChatViewController: UIViewController {
                 print("complete")
 
             }
+        }.addDisposableTo(disposeBag)
+    
+        var synList = MoveIM.ImSynckey()
+//        var list: [MoveIM.ImSynckey] = []
+//        synList.key = 1
+//        synList.value = 0
+//        list.append(synList)
+//        synList.key = 2
+//        synList.value = 0
+//        list.append(synList)
+//        synList.key = 3
+//        synList.value = 53
+//        list.append(synList)
+//     IMManager.shared.checkSyncKey(synckeyList: list)
+//        .subscribe(onNext: {
+//        Logger.debug($0)
+//     }, onError: {
+//        Logger.debug($0)
+//     }).addDisposableTo(disposeBag)
+
+
+        IMManager.shared.syncData().subscribe { info in
+            
+            switch info {
+            case .completed:
+                Logger.debug("completed")
+            case .error(let error):
+                Logger.debug(error)
+            case .next(let bl):
+                Logger.debug(bl)
+            }
         }
-        print("reslut is ===testResponse%@",testResponse)
-        
-        var synList = ImSynckey()
-        var list: [ImSynckey] = []
-        synList.key = 1
-        synList.value = 10000000
-        list.append(synList)
-        synList.key = 2
-        synList.value = 20001234
-        list.append(synList)
-        synList.key = 3
-        synList.value = 30001234
-        list.append(synList)
-        
-        //let testResponse1 = IMManager.shared.checkSyncKey(synckeyList: list).subscribe(<#T##observer: O##O#>)
-        //print("reslut is ===testResponse1%@",testResponse1)
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,8 +114,8 @@ class ChatViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        /*NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tableViewScrollToBottom), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
     

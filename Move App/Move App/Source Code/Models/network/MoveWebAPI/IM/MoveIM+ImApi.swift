@@ -38,16 +38,16 @@ extension MoveIM {
             return request(.getGroupInfo(gid: gid)).mapMoveObject(ImGroup.self)
         }
         
-        final class func initSyncKey() -> Observable<ImUserSynckey> {
-            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self)
+        final class func initSyncKey() -> Observable<Bool> {
+            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self).saveSynckey()
         }
         
-        final class func checkSyncKey(synckey: ImSynckeyList) -> Observable<ImSelector> {
-            return request(.checkSyncKey(userSynckey:synckey)).mapMoveObject(ImSelector.self)
+        final class func checkSyncKey(synckey: ImCheckSynkey) -> Observable<Bool> {
+            return request(.checkSyncKey(userSynckey:synckey)).mapMoveObject(ImSelector.self).saveSelector()
         }
         
-        final class func syncData() -> Observable<ImSyncData> {
-            return request(.syncData).mapMoveObject(ImSyncData.self)
+        final class func syncData(synckey: ImSynDatakey) -> Observable<Bool> {
+            return request(.syncData(synckey: synckey)).mapMoveObject(ImSyncData.self).saveSynData()
         }
         
         enum API {
@@ -55,8 +55,8 @@ extension MoveIM {
             case createGroup(group: ImGroup)
             case getGroupInfo(gid: ImGid)
             case initSyncKey
-            case checkSyncKey(userSynckey:ImSynckeyList)
-            case syncData
+            case checkSyncKey(userSynckey:ImCheckSynkey)
+            case syncData(synckey: ImSynDatakey)
         }
         
     }
@@ -110,6 +110,8 @@ extension MoveIM.ImApi.API: TargetType {
             return gid.toJSON()
         case .checkSyncKey(let userSynckey):
             return userSynckey.toJSON()
+        case .syncData(let synckey):
+            return synckey.toJSON()
         default:
             return nil
         }

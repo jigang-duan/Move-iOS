@@ -49,7 +49,11 @@ extension MoveIM {
         var value: Int?
     }
     
-    struct ImSynckeyList {
+    struct ImSynDatakey {
+        var synckey: [ImSynckey]?
+    }
+    
+    struct ImCheckSynkey {
         var synckey: String?
     }
     
@@ -74,6 +78,7 @@ extension MoveIM {
         var op: Int?
         var notice: Int?
         var status: Int?
+        var duration: Int?
         var ctime: Date?
     }
     
@@ -159,7 +164,17 @@ extension MoveIM.ImUserSynckey: Mappable {
     }
 }
 
-extension MoveIM.ImSynckeyList: Mappable {
+extension MoveIM.ImCheckSynkey: Mappable {
+    
+    init?(map: Map) {
+        
+    }
+    
+    mutating func mapping(map: Map) {
+        synckey <- map["synckey"]
+    }
+}
+extension MoveIM.ImSynDatakey: Mappable {
     init?(map: Map) {
         
     }
@@ -195,6 +210,7 @@ extension MoveIM.ImMessage: Mappable {
         op <- map["op"]
         notice <- map["notice"]
         status <- map["status"]
+        duration <- map["duration"]
         ctime <- map["ctime"]
     }
 }

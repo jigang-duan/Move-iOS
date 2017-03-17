@@ -30,13 +30,13 @@ class SystemNotificationController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        let dataSource = RxTableViewRealmDataSource<GruopEntity>(cellIdentifier: R.reuseIdentifier.cellNotificationClassify.identifier,
+        let dataSource = RxTableViewRealmDataSource<GroupEntity>(cellIdentifier: R.reuseIdentifier.cellNotificationClassify.identifier,
                                                                  cellType: UITableViewCell.self,
                                                                  cellConfig: cellConfig)
         let realm = try! Realm()
         if let uid = Me.shared.user.id {
-            let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.gruops
-            let groups = Observable.changeset(from: objects)
+            let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.groups
+            let groups = Observable.changeset(from: objects )
                 .share()
         
             groups
@@ -59,7 +59,7 @@ class SystemNotificationController: UIViewController {
     }
     
     
-    private func cellConfig(cell: UITableViewCell, ip: IndexPath, group: GruopEntity) {
+    private func cellConfig(cell: UITableViewCell, ip: IndexPath, group: GroupEntity) {
         let headURL = URL(string: group.headPortrait ?? "")
         var placeholder = R.image.relationship_ic_other()!
         if let name = group.name {
@@ -93,8 +93,8 @@ class SystemNotificationController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let rSegue = R.segue.systemNotificationController.showNotification(segue: segue) {
-            if let group = sender as? GruopEntity {
-                rSegue.destination.gruop = group
+            if let group = sender as? GroupEntity {
+                rSegue.destination.group = group
             }
         }
         
