@@ -116,7 +116,7 @@ class FamilyMemberAddController: UIViewController {
                      sg.destination.relation = String(rl)
                 }
             }else{
-                sg.destination.relation = nameTf.text
+                sg.destination.relation = Relation(input: nameTf.text!)?.transformIdentity()
             }
         }
     }

@@ -15,14 +15,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="54"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="54.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="member_heart_on" translatesAutoresizingMaskIntoConstraints="NO" id="Dbm-fZ-TDa">
-                        <rect key="frame" x="15" y="19.5" width="15" height="15"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="relationship_ic_dad" translatesAutoresizingMaskIntoConstraints="NO" id="EmM-uK-bHM">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="member_btn_contact_nor" translatesAutoresizingMaskIntoConstraints="NO" id="EmM-uK-bHM">
                         <rect key="frame" x="45" y="9" width="36" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="ELl-Gi-Crh"/>
+                            <constraint firstAttribute="height" constant="36" id="hf1-2G-7B8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRaiuds">
+                                <integer key="value" value="18"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Father(Me)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5y-tN-JNm">
                         <rect key="frame" x="96" y="17" width="84" height="21"/>
@@ -30,26 +37,46 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAf-ft-A3w">
+                        <rect key="frame" x="287" y="27.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de7-48-kvQ">
+                        <rect key="frame" x="5" y="10" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="3Fp-Mv-bxQ"/>
+                            <constraint firstAttribute="height" constant="35" id="vZH-RC-dxa"/>
+                        </constraints>
+                        <state key="normal" image="member_heart_on"/>
+                        <connections>
+                            <action selector="heartClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fo8-oI-dEZ"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Dbm-fZ-TDa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HXk-10-Hw1"/>
-                    <constraint firstItem="Dbm-fZ-TDa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="VQ9-cR-OAR"/>
+                    <constraint firstItem="de7-48-kvQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="UbS-xC-7yE"/>
+                    <constraint firstItem="HAf-ft-A3w" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g8C-r4-Xsq"/>
+                    <constraint firstAttribute="trailing" secondItem="HAf-ft-A3w" secondAttribute="trailing" id="hEe-Wp-bna"/>
+                    <constraint firstItem="EmM-uK-bHM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="45" id="jJp-1s-ghJ"/>
                     <constraint firstItem="EmM-uK-bHM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="k9t-Bl-Ed7"/>
-                    <constraint firstItem="EmM-uK-bHM" firstAttribute="leading" secondItem="Dbm-fZ-TDa" secondAttribute="trailing" constant="15" id="kEG-Yt-LM6"/>
                     <constraint firstItem="O5y-tN-JNm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mat-QL-uUd"/>
                     <constraint firstItem="O5y-tN-JNm" firstAttribute="leading" secondItem="EmM-uK-bHM" secondAttribute="trailing" constant="15" id="mcA-e7-NRC"/>
+                    <constraint firstItem="de7-48-kvQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xCD-DZ-1ld"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="detailLab" destination="HAf-ft-A3w" id="aSo-lZ-hoZ"/>
                 <outlet property="headImgV" destination="EmM-uK-bHM" id="DDL-bA-QRm"/>
-                <outlet property="heartImgV" destination="Dbm-fZ-TDa" id="tHK-6l-u5I"/>
+                <outlet property="heartBun" destination="de7-48-kvQ" id="J6j-qe-Ys2"/>
                 <outlet property="relationName" destination="O5y-tN-JNm" id="nEh-k1-6mn"/>
             </connections>
-            <point key="canvasLocation" x="61" y="51"/>
+            <point key="canvasLocation" x="61" y="50.5"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="member_btn_contact_nor" width="21" height="21"/>
         <image name="member_heart_on" width="15" height="15"/>
-        <image name="relationship_ic_dad" width="36" height="36"/>
     </resources>
 </document>
