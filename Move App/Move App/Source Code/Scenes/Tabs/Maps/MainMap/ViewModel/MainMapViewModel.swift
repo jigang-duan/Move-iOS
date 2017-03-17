@@ -68,7 +68,7 @@ class MainMapViewModel {
         
         let kidInfos = input.avatarTap
             .flatMapLatest({
-                deviceManager.getDeviceList()
+                deviceManager.getDeviceList().debug()
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: [])
             })

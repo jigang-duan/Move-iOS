@@ -9,7 +9,13 @@
 import UIKit
 import MapKit
 
+protocol SearchVCdelegate : NSObjectProtocol{
+    func Searchback(item : MKMapItem ) 
+}
+
 class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableViewDataSource{
+    
+    var delegate : SearchVCdelegate? = nil
     
     @IBOutlet weak var addressTableView: UITableView!
 
@@ -83,15 +89,21 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier:"cell")
+            cell = UITableViewCell(style: UITableViewCellStyle.subtitle , reuseIdentifier:"cell")
         }
         let item : MKMapItem = resultArr?.object(at: indexPath.row) as! MKMapItem
         cell?.textLabel?.text = item.name
+        let str = String.init(format: "%@%@", item.placemark.country! ,item.placemark.locality!)
+        cell?.detailTextLabel?.text = str
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item : MKMapItem = resultArr?.object(at: indexPath.row) as! MKMapItem
         print("\(item)")
+        if (self.delegate != nil) {
+            self.delegate?.Searchback(item: item)
+        }
     }
 }
+

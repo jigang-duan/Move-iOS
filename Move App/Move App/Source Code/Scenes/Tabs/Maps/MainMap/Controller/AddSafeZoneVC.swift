@@ -13,7 +13,7 @@ import RxCocoa
 import SVPulsingAnnotationView
 import CustomViews
 
-class AddSafeZoneVC: UIViewController {
+class AddSafeZoneVC: UIViewController , SearchVCdelegate{
 
     var currentRadius :Double = 600
     var kidOverlay: MKCircle!
@@ -79,6 +79,8 @@ class AddSafeZoneVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SafeZoneAddressSearchVC") as! SafeZoneAddressSearchVC
+        vc.delegate = self
         
         let genametdata = MoveApi.Device.getDeviceInfo(deviceId: Me.shared.currDeviceID!)
             .map({
@@ -210,6 +212,9 @@ class AddSafeZoneVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func Searchback(item: MKMapItem) {
+        
+    }
     /*
     // MARK: - Navigation
 

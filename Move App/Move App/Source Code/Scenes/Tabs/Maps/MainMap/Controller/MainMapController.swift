@@ -59,6 +59,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         super.viewWillAppear(true)
         self.title = "Location"
         self.isAtThisPage.value = true
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,6 +69,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getDataSource()
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         let geolocationService = GeolocationService.instance
@@ -88,7 +90,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         viewModel.selecedAction
             .bindNext({
                 Logger.info($0)
-                
+                let device : MoveApi.DeviceInfo? = $0.data as? MoveApi.DeviceInfo
+                print("\(device)")
                 self.KidInfoToAnimation(dataSource: $0)
             })
             .addDisposableTo(disposeBag)
@@ -128,7 +131,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .drive(onNext: { [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
-                self.getDataSource()
+                
             })
             .addDisposableTo(disposeBag)
         
@@ -172,34 +175,15 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
         if (currentDeviceData != nil) {
             let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-            
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:(device.user?.number)!)!, options: ["":""], completionHandler: nil)
-            } else {
-                // Fallback on earlier versions
+            if (device.user != nil) {
+                let str : String = "telprompt://" + (device.user?.number)!
+                UIApplication.shared.openURL(URL(string: str)!)
             }
         }
     }
     
     @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-//        if (currentDeviceData != nil) {
-//            if MFMessageComposeViewController.canSendText(){
-//                let controller = MFMessageComposeViewController()
-//                //设置短信内容
-//                controller.body = ""
-//                //设置收件人列表
-//                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-//                controller.recipients = [(device.user?.number)!]
-//                //设置代理
-//                controller.messageComposeDelegate = self
-//                //打开界面
-//                self.present(controller, animated: true, completion: { () -> Void in
-//                    
-//                })
-//            }else{
-//                print("本设备不能发送短信")
-//            }
-//        }
+
         let storyboard = UIStoryboard(name: "Chat", bundle: nil)
         let chatViewController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as? ChatViewController
         
@@ -248,35 +232,65 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 self.defaultDeviceData = $0.devices
                 let data = self.defaultDeviceData?.first
                 self.UpdateUIData(dataSource: data!)
+                
+                let action = BasePopoverAction(imageUrl: data?.user?.profile,
+                                               placeholderImage: R.image.home_pop_all(),
+                                               title: data?.user?.nickname,
+                                               isSelected: true,
+                                               handler: nil)
+                action.canAvatar = true
+                action.data = data
+                self.currentDeviceData = action
+                
             })
         deviceDataSource.subscribe(onNext: {
             print($0)
         }).addDisposableTo(disposeBag)
+        
     }
     
     func UpdateUIData(dataSource : MoveApi.DeviceInfo){
         objectNameL.text = dataSource.user?.nickname
         self.setObjectImageBtn(UIImage( named: "member_btn_contact_pre"), title: (dataSource.user?.nickname)!, imageUrl: dataSource.user?.profile)
         
+        let devicePower = MoveApi.Device.getPower(deviceId: dataSource.deviceId!)
+            .map({
+                self.changepower(power: $0.power!)
+            })
+        devicePower.subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
         
+        let getaddressdata = MoveApi.Location.getNew(deviceId: dataSource.deviceId!)
+            .map({
+                self.objectLocationL.text = $0.location?.addr
+                self.objectLocationTimeL.text = $0.location?.time?.stringYearMonthDayHourMinuteSecond
+            })
+        getaddressdata.subscribe(onNext: {
+            print($0)
+        }).addDisposableTo(disposeBag)
         
         if dataSource.property != nil {
             let property : MoveApi.DeviceProperty = (dataSource.property)!
             let power = (property.power)!
-            electricL.text = String(format:"%d%",(property.power)!)
-            if power == 0{
-                electricV.image = UIImage(named: "home_ic_battery0")
-            }else if power < 20 && power > 0{
-                electricV.image = UIImage(named: "home_ic_battery1")
-            }else if power < 40 && power > 20 {
-                electricV.image = UIImage(named: "home_ic_battery2")
-            }else if power < 60 && power > 40 {
-                electricV.image = UIImage(named: "home_ic_battery3")
-            }else if power < 80 && power > 60 {
-                electricV.image = UIImage(named: "home_ic_battery4")
-            }else if power < 100 && power > 80 {
-                electricV.image = UIImage(named: "home_ic_battery5")
-            }
+            self.changepower(power: power)
+        }
+    }
+    
+    func changepower(power : Int) {
+        electricL.text = String(format:"%d%@",power,"%")
+        if power == 0{
+            signalImageV.image = UIImage(named: "home_ic_battery0")
+        }else if power < 20 && power > 0{
+            signalImageV.image = UIImage(named: "home_ic_battery1")
+        }else if power < 40 && power > 20 {
+            signalImageV.image = UIImage(named: "home_ic_battery2")
+        }else if power < 60 && power > 40 {
+            signalImageV.image = UIImage(named: "home_ic_battery3")
+        }else if power < 80 && power > 60 {
+            signalImageV.image = UIImage(named: "home_ic_battery4")
+        }else if power < 100 && power > 80 {
+            signalImageV.image = UIImage(named: "home_ic_battery5")
         }
     }
     
@@ -293,21 +307,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             if device?.property != nil {
                 let property : MoveApi.DeviceProperty = (device?.property)!
                 let power = (property.power)!
-                
-                electricL.text = String(format:"%d%",(property.power)!)
-                if power == 0{
-                    electricV.image = UIImage(named: "home_ic_battery0")
-                }else if power < 20 && power > 0{
-                    electricV.image = UIImage(named: "home_ic_battery1")
-                }else if power < 40 && power > 20 {
-                    electricV.image = UIImage(named: "home_ic_battery2")
-                }else if power < 60 && power > 40 {
-                    electricV.image = UIImage(named: "home_ic_battery3")
-                }else if power < 80 && power > 60 {
-                    electricV.image = UIImage(named: "home_ic_battery4")
-                }else if power < 100 && power > 80 {
-                    electricV.image = UIImage(named: "home_ic_battery5")
-                }
+                self.changepower(power: power)
             }
         }
     }
