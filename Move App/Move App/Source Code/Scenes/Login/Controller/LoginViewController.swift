@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import OAuthSwift
 
 class LoginViewController: UIViewController {
     
@@ -26,10 +27,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     
     func showAccountError(_ text: String) {
         accountValidationHCon.constant = 16
@@ -82,11 +79,42 @@ class LoginViewController: UIViewController {
             self?.view.layoutIfNeeded()
         }
     }
-
+    
+    //Third-party login
+    @IBOutlet weak var facebookLoginQulet: UIButton!
+    @IBOutlet weak var twitterLoginQulet: UIButton!
+    @IBOutlet weak var googleaddLoginQulet: UIButton!
+    
+     var state: String?
+    //第三方做到无法获取返回值
+//     Observable<OAuthSwift.ObservableElement>
+    
+     lazy var internalWebViewController: OAuthWebController = {
+        let controller = OAuthWebController()
+            controller.view = UIView(frame: UIScreen.main.bounds)
+        controller.delegate = self
+        controller.viewDidLoad()
+        return controller
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let authservice = AuthService()
+        state = generateStateWithLength(len: 20) as String
+        
+        
+//        facebookLoginQulet.rx.tap
+//            .asDriver()
+//            .drive(onNext:
+//                authservice.facebook(
+//                    consumerKey: "344365305959182",
+//                    consumerSecret: "909536c55a45ca4143139006f34900db",
+//                    state: state!,
+//                    authorizeURLHandler: internalWebViewController)
+//            )
+//            .addDisposableTo(disposeBag)
+//        
         // Do any additional setup after loading the view.
         
         accountValidationHCon.constant = 0
@@ -167,4 +195,47 @@ class LoginViewController: UIViewController {
     }
     
     
+
 }
+
+extension LoginViewController: OAuthWebViewControllerDelegate {
+    #if os(iOS) || os(tvOS)
+    
+    func oauthWebViewControllerDidPresent() {
+        
+    }
+    func oauthWebViewControllerDidDismiss() {
+        
+    }
+    #endif
+    
+    func oauthWebViewControllerWillAppear() {
+        
+    }
+    func oauthWebViewControllerDidAppear() {
+        
+    }
+    func oauthWebViewControllerWillDisappear() {
+        
+    }
+    func oauthWebViewControllerDidDisappear() {
+        // Ensure all listeners are removed if presented web view close
+//        oauthswift?.cancel()
+    }
+}
+
+
+
+fileprivate func generateStateWithLength (len : Int) -> NSString {
+    let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let randomString : NSMutableString = NSMutableString(capacity: len)
+    for _ in 0..<len {
+        let length = UInt32 (letters.length)
+        let rand = arc4random_uniform(length)
+        randomString.appendFormat("%C", letters.character(at: Int(rand)))
+    }
+    return randomString
+}
+
+
+

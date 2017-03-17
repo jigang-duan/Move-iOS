@@ -1876,6 +1876,9 @@
 						DevelopmentTeam = BV28C32GBU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
