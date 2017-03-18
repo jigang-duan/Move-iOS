@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-import AFImageHelper
+//import AFImageHelper
 
 class AlertController: UIViewController {
     

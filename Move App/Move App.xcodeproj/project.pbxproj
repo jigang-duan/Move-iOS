@@ -25,6 +25,8 @@
 		118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8641E7B8930003C3C13 /* AuthService.swift */; };
 		118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8661E7CE8ED003C3C13 /* AlertController.swift */; };
 		118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8681E7CE992003C3C13 /* AlertServer.swift */; };
+		118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */; };
+		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -311,6 +313,8 @@
 		118BA8641E7B8930003C3C13 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = Vendor/OAuthRxSwift/AuthService.swift; sourceTree = "<group>"; };
 		118BA8661E7CE8ED003C3C13 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		118BA8681E7CE992003C3C13 /* AlertServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertServer.swift; sourceTree = "<group>"; };
+		118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -656,6 +660,24 @@
 			name = OAuthRxSwift;
 			sourceTree = "<group>";
 		};
+		118BA86A1E7D2AB9003C3C13 /* AFImageHelper */ = {
+			isa = PBXGroup;
+			children = (
+				118BA86B1E7D2B31003C3C13 /* Sources */,
+			);
+			name = AFImageHelper;
+			path = Vendor/AFImageHelper;
+			sourceTree = "<group>";
+		};
+		118BA86B1E7D2B31003C3C13 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */,
+				118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		11D0BECA1E5EBC09006F957E /* MeManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,6 +1012,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				118BA86A1E7D2AB9003C3C13 /* AFImageHelper */,
 				118BA85D1E7B76C4003C3C13 /* OAuthRxSwift */,
 				11EAC2FE1E6D796F002906F1 /* UUChat */,
 				E03B1C541E53E8C4006EDB7B /* Popover */,
@@ -2258,6 +2281,7 @@
 				11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */,
 				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
+				118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
 				11EAC30D1E6D7B14002906F1 /* UUMessageContentButton.swift in Sources */,
@@ -2308,6 +2332,7 @@
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
+				118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,

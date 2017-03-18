@@ -1,5 +1,4 @@
 PODS:
-  - AFImageHelper (3.2.1)
   - Alamofire (4.4.0)
   - DZNEmptyDataSet (1.8.1)
   - FSCalendar (2.7.3)
@@ -57,7 +56,6 @@ PODS:
   - SwiftyBeaver (1.1.3)
 
 DEPENDENCIES:
-  - AFImageHelper (from `./github/ImageHelper-3.2.1`)
   - DZNEmptyDataSet
   - FSCalendar
   - IQKeyboardManager
@@ -78,12 +76,7 @@ DEPENDENCIES:
   - SVPulsingAnnotationView
   - SwiftyBeaver
 
-EXTERNAL SOURCES:
-  AFImageHelper:
-    :path: "./github/ImageHelper-3.2.1"
-
 SPEC CHECKSUMS:
-  AFImageHelper: 63eb32592e2963ae2ba0996180f92de3a0ee2638
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FSCalendar: 574388d70778c22719eed9341653e1743b345573
@@ -110,6 +103,6 @@ SPEC CHECKSUMS:
   SVPulsingAnnotationView: f1a8dc7a57ebb5fa231d0ef8b0da59a250005511
   SwiftyBeaver: 949aa1439b8fa3667f68555cfef65de46a70ccde
 
-PODFILE CHECKSUM: 7910d373ba7ac7ac2d46642faa3ac46d03baa727
+PODFILE CHECKSUM: 19cdfbd81ba21209064b6a5a0e67ac5a442cdf92
 
 COCOAPODS: 1.2.0

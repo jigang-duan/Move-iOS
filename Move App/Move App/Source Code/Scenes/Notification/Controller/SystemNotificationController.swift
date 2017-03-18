@@ -16,7 +16,7 @@ import RxDataSources
 import RxRealmDataSources
 import Kingfisher
 import CustomViews
-import AFImageHelper
+//import AFImageHelper
 
 
 class SystemNotificationController: UIViewController {

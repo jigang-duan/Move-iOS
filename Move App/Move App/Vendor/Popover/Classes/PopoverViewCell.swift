@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFImageHelper
+//import AFImageHelper
 import CustomViews
 
 class PopoverViewCell: UITableViewCell {

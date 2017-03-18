@@ -14,7 +14,7 @@ import SVPulsingAnnotationView
 import Realm
 import RealmSwift
 import MessageUI
-import AFImageHelper
+//import AFImageHelper
 import CustomViews
 //private extension Reactive where Base: MKMapView {
 //    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
