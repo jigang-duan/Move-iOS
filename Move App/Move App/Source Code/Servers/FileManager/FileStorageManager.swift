@@ -18,6 +18,11 @@ class FSManager {
 
 extension FSManager {
     
+    class func imageUrl(with profile: String) -> String {
+        return  MoveApi.BaseURL + "/v1.0/fs/\(profile)"
+    }
+    
+    
     func uploadPngImage(with image: UIImage) -> Observable<FileUpload> {
         return  MoveApi.FileStorage.upload(fileInfo: MoveApi.FileInfo(type: "image", duration: nil, data: UIImagePNGRepresentation(image), fileName: "image.png", mimeType: "image/png")).map({FileUpload(fid: $0.fid, progress: $0.progress)})
     }

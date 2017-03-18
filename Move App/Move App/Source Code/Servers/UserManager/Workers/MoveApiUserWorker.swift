@@ -147,6 +147,7 @@ class MoveApiUserWorker: UserWorkerProtocl {
         info.orientation = userInfo.orientation
         info.birthday = userInfo.birthday
         info.mtime = userInfo.mtime
+        info.profile = userInfo.iconUrl
         return MoveApi.Account.settingUserInfo(uid: UserInfo.shared.id!, info: info)
             .map { info in
                 if info.msg == "ok", info.id == 0 {

@@ -83,8 +83,7 @@ class FamilyMemberController: UIViewController {
                     cell.detailLab.text = "Master"
                 }
                
-                let imgUrl = MoveApi.BaseURL + "/v1.0/fs/\(element.headUrl)"
-                cell.headImgV.imageFromURL(imgUrl, placeholder:  R.image.member_btn_contact_nor()!)
+                cell.headImgV.imageFromURL(FSManager.imageUrl(with: element.headUrl), placeholder:  R.image.member_btn_contact_nor()!)
             }
             .addDisposableTo(disposeBag)
     

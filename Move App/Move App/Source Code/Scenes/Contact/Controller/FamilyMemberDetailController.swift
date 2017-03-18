@@ -172,7 +172,7 @@ class FamilyMemberDetailController: UIViewController {
             deleteBun.isHidden = true
         }
         
-        photoImgV.imageFromURL((info?.contactInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
+        photoImgV.imageFromURL(FSManager.imageUrl(with: info?.contactInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
         nameTf.text = info?.contactInfo?.identity?.description
         numberTf.text = info?.contactInfo?.phone
     }

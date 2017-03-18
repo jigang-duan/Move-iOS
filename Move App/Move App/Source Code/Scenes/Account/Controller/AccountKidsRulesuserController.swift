@@ -52,7 +52,7 @@ class AccountKidsRulesuserController: UITableViewController {
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headQutlet.frame.width, height: headQutlet.frame.height), fullName: deviceInfo?.user?.nickname ?? "").imageRepresentation()!
      
-        headQutlet.imageFromURL(deviceInfo?.user?.profile ?? "", placeholder: placeImg)
+        headQutlet.imageFromURL(FSManager.imageUrl(with: deviceInfo?.user?.profile ?? ""), placeholder: placeImg)
         
         accountNameQutlet.text = deviceInfo?.user?.nickname
         

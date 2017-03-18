@@ -52,9 +52,10 @@ class KidInformationController: UIViewController {
         
         phoneTf.text = deviceAddInfo?.number
         
-        //        if deviceAddInfo?.profile == nil {
-        //            deviceAddInfo?.profile = ""
-        //        }
+        
+        cameraBun.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: deviceAddInfo?.profile ?? ""), placeholder: cameraBun.currentBackgroundImage ?? UIImage()){ (img) in
+            
+        }, for: .normal)
         
         genderLab.text = deviceAddInfo?.gender ?? "Gender"
         if let height = deviceAddInfo?.height {

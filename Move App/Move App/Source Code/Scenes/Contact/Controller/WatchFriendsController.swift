@@ -27,7 +27,7 @@ class WatchFriendsController: UIViewController {
         super.viewDidLoad()
         
         
-        photoImgV.imageFromURL((friendInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
+        photoImgV.imageFromURL(FSManager.imageUrl(with: friendInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
         nameLab.text = friendInfo?.nickname
         phoneLab.text = friendInfo?.phone
         

@@ -714,7 +714,10 @@ public extension UIImage {
         // Fetch Image
         let session = URLSession(configuration: URLSessionConfiguration.default)
         if let nsURL = URL(string: url) {
-            session.dataTask(with: nsURL, completionHandler: { (data, response, error) -> Void in
+            var request = URLRequest(url: nsURL)
+            let auth = "\(MoveApi.apiKey);token=\(UserInfo.shared.accessToken.token)"
+            request.setValue(auth, forHTTPHeaderField: "Authorization")
+            session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
                 if (error != nil) {
                     DispatchQueue.main.async {
                         closure(nil)
