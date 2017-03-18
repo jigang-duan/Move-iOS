@@ -34,9 +34,10 @@ class FamilyMemberDetailController: UIViewController {
     
     var contactInfo = Variable(ImContact())
     
+    var photoPicker: ImageUtility?
+    
     
     var viewModel: FamilyMemberDetailViewModel!
-    
     let disposeBag = DisposeBag()
     
     
@@ -178,24 +179,10 @@ class FamilyMemberDetailController: UIViewController {
     
     
     @IBAction func selectPhoto(_ sender: Any) {
-        if cameraPermissions() {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.allowsEditing = true
-            imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }else{
-            self.showMessage("没有相机权限")
-        }
-    }
-    
-    func cameraPermissions() -> Bool{
-        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        
-        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
-            return false
-        }
-        return true
+        photoPicker = ImageUtility()
+        photoPicker?.selectPhoto(with: self, callback: { (image) in
+            self.photoImgV.image = image
+        }, size: CGSize(width: 100, height: 100))
     }
     
 
@@ -229,19 +216,4 @@ class FamilyMemberDetailController: UIViewController {
     
     
 }
-
-extension FamilyMemberDetailController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.photoImgV.image = image
-        }
-        picker.dismiss(animated: true) {
-            
-        }
-    }
-    
-    
-}
-
 

@@ -78,6 +78,15 @@ extension DeviceManager {
     func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool> {
         return worker.deleteWatchFriend(deviceId: deviceId, uid: uid)
     }
+    
+    func checkVersion(deviceId: String)  -> Observable<DeviceVersion> {
+        return worker.checkVersion(deviceId: deviceId)
+    }
+    
+    func getProperty(deviceId: String)  -> Observable<DeviceProperty> {
+        return worker.getProperty(deviceId: deviceId)
+    }
+    
 }
 
 
@@ -104,6 +113,10 @@ protocol DeviceWorkerProtocl {
     func settingAdmin(deviceId: String, uid: String) -> Observable<Bool>
     func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]>
     func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool>
+    
+    func checkVersion(deviceId: String)  -> Observable<DeviceVersion>
+    
+    func getProperty(deviceId: String)  -> Observable<DeviceProperty>
 }
 
 
@@ -123,6 +136,7 @@ struct DeviceUser {
     var height: Int?
     var weight: Int?
     var birthday: Date?
+    var gid: String?
 }
 
 struct DeviceProperty {
@@ -160,4 +174,10 @@ struct DeviceFriend {
     var nickname: String?
     var profile: String?
     var phone: String?
+}
+
+struct DeviceVersion {
+    var currentVersion: String?
+    var newVersion: String?
+    var updateDesc: String?
 }

@@ -13,7 +13,24 @@ import Moya_ObjectMapper
 
 extension MoveApi {
     
-    class Device {
+    class Device: NSObject {
+        
+        var versionInfo: DeviceVersionInfo?
+        var currentParsedElementValue:String! //当前解析的元素中的值
+        
+        var version: Version?
+        var firmware: Firmware?
+        
+        var isVersion = false
+        var isReleaseInfo = false
+        var isfirmware = false
+        var isFileset = false
+        var isFile = false
+        var isSpoplist = false
+        var isSpopnb = false
+  
+        var tempFile: VersionFile?
+        
         
         static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveApi.Device.endpointMapping,
@@ -110,6 +127,11 @@ extension MoveApi {
             return request(.getPower(deviceId: deviceId)).mapMoveObject(DevicePower.self)
         }
         
+//        检查watch新版本信息
+        final func checkVersion(deviceId: String) -> Observable<DeviceVersionInfo> {
+            return MoveApi.Device.request(.checkVersion(deviceId: deviceId)).map(transformXml)
+        }
+        
         enum API {
             case checkBind(deviceId: String)
             case add(deviceId: String, addInfo: DeviceAdd)
@@ -132,21 +154,226 @@ extension MoveApi {
             case sendNotify(deviceId: String, sendInfo: DeviceSendNotify)
             case addPower(deviceId: String, power: DevicePower)
             case getPower(deviceId: String)
+            case checkVersion(deviceId: String)
+        }
+        
+        
+        final func transformXml(with response:Response) -> DeviceVersionInfo {
+            versionInfo = DeviceVersionInfo()
+            let xmlParse = XMLParser(data: response.data)
+            
+            xmlParse.delegate = self
+            xmlParse.parse()
+            
+            return self.versionInfo!
         }
         
     }
 }
 
+
+extension MoveApi.Device: XMLParserDelegate {
+
+    //解析XML文档结束
+    func parserDidEndDocument(_ parser: XMLParser) {
+//        print(versionInfo ?? MoveApi.DeviceVersionInfo())
+    }
+    
+    //开始解析每个XML每个元素之前,即解析开始标签元素,如开始标签<news>
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        
+        switch elementName {
+        case "VERSION":
+            versionInfo?.version = MoveApi.Version()
+            isVersion = true
+        case "RELEASE_INFO":
+            versionInfo?.version?.releaseInfo = MoveApi.ReleaseInfo()
+            isReleaseInfo = true
+        case "FIRMWARE":
+            versionInfo?.firmware = MoveApi.Firmware()
+            isfirmware = true
+        case "FILESET":
+            versionInfo?.firmware?.fileset = []
+            isFileset = true
+        case "FILE":
+            isFile = true
+            tempFile = MoveApi.VersionFile()
+        case "SPOP_LIST":
+            isSpoplist = true
+            versionInfo?.spopList = []
+        case "SPOP_NB":
+            isSpopnb = true
+        default:
+            break
+        }
+        
+    }
+    
+    //解析每个XML元素之后，即解析结束标签元素,如闭合标签</news>
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+        
+        if !isVersion && !isReleaseInfo && !isfirmware && !isFileset && !isFile && !isSpoplist {
+            
+            switch elementName {
+            case "UPDATE_DESC":
+                versionInfo?.update_desc = currentParsedElementValue
+            case "ENCODING_ERROR":
+                versionInfo?.encoding_error = currentParsedElementValue
+            case "CUREF":
+                versionInfo?.curef = currentParsedElementValue
+            default:
+                break
+            }
+            
+        }
+        
+        
+        if isVersion == true {
+            
+            switch elementName {
+            case "TYPE":
+                versionInfo?.version?.type = currentParsedElementValue
+            case "FV":
+                versionInfo?.version?.fv = currentParsedElementValue
+            case "TV":
+                versionInfo?.version?.tv = currentParsedElementValue
+            case "SVN":
+                versionInfo?.version?.svn = currentParsedElementValue
+            case "RELEASE_INFO":
+                isReleaseInfo = false
+            case "VERSION":
+                isVersion = false
+            default:
+                break
+            }
+            
+            if isReleaseInfo == true {
+                switch elementName {
+                case "year":
+                    versionInfo?.version?.releaseInfo?.year = currentParsedElementValue
+                case "month":
+                    versionInfo?.version?.releaseInfo?.month = currentParsedElementValue
+                case "day":
+                    versionInfo?.version?.releaseInfo?.day = currentParsedElementValue
+                case "hour":
+                    versionInfo?.version?.releaseInfo?.hour = currentParsedElementValue
+                case "minute":
+                    versionInfo?.version?.releaseInfo?.minute = currentParsedElementValue
+                case "second":
+                    versionInfo?.version?.releaseInfo?.second = currentParsedElementValue
+                case "timezone":
+                    versionInfo?.version?.releaseInfo?.timezone = currentParsedElementValue
+                case "publisher":
+                    versionInfo?.version?.releaseInfo?.publisher = currentParsedElementValue
+                case "RELEASE_INFO":
+                    isReleaseInfo = false
+                default:
+                    break
+                }
+            }
+            
+        }
+        
+        if isfirmware == true {
+            
+            switch elementName {
+            case "FW_ID":
+                versionInfo?.firmware?.fwId = currentParsedElementValue
+            case "FILESET_COUNT":
+                versionInfo?.firmware?.filesetCount = currentParsedElementValue
+            case "FIRMWARE":
+                isfirmware = false
+            default:
+                break
+            }
+            
+            if isFileset == true {
+                switch elementName {
+                case "FILESET":
+                    isFileset = false
+                default:
+                    break
+                }
+                
+                if isFile == true {
+                    
+                    switch elementName {
+                    case "FILENAME":
+                        tempFile?.fileName = currentParsedElementValue
+                    case "FILE_ID":
+                        tempFile?.fileId = currentParsedElementValue
+                    case "SIZE":
+                        tempFile?.size = currentParsedElementValue
+                    case "CHECKSUM":
+                        tempFile?.checkSum = currentParsedElementValue
+                    case "FILE_VERSION":
+                        tempFile?.fileVersion = currentParsedElementValue
+                    case "INDEX":
+                        tempFile?.index = currentParsedElementValue
+                    case "FILE":
+                        isFile = false
+                        versionInfo?.firmware?.fileset?.append(tempFile!)
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+        
+        if isSpoplist == true {
+            
+            switch elementName {
+            case "SPOP_LIST":
+                isSpoplist = false
+            default:
+                break
+            }
+            
+            if isSpopnb == true {
+                switch elementName {
+                case "SPOP_NB":
+                    isSpopnb = false
+                    versionInfo?.spopList?.append(currentParsedElementValue!)
+                default:
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    //解析XML的内容
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        //替换字符串：去掉换行
+        let str = string.trimmingCharacters(in: CharacterSet.newlines)
+        self.currentParsedElementValue = str
+    }
+
+}
+
+
+
 extension MoveApi.Device.API: AccessTokenAuthorizable {
     var shouldAuthorize: Bool {
-        return true
+        if case MoveApi.Device.API.checkVersion(_) = self {
+            return false
+        }else{
+            return true
+        }
     }
 }
 
 extension MoveApi.Device.API: TargetType {
     
     /// The target's base `URL`.
-    var baseURL: URL { return URL(string: MoveApi.BaseURL)! }
+    var baseURL: URL {
+        if case MoveApi.Device.API.checkVersion(_) = self {
+            return URL(string: "http://g2master-sa-east.tctmobile.com")!
+        }else{
+            return URL(string: MoveApi.BaseURL)!
+        }
+    }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
@@ -193,6 +420,8 @@ extension MoveApi.Device.API: TargetType {
             return "/v1.0/device/\(deviceId)/power"
         case .getPower(let deviceId):
             return "/v1.0/device/\(deviceId)/power"
+        case .checkVersion:
+            return "check.php"
         }
     }
     
@@ -201,7 +430,7 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add, .joinDeviceGroup, .sendNotify, .addNoRegisterMember:
             return .post
-        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .checkVersion:
             return .get
         case .update, .setting, .settingContactInfo, .settingProperty, .addPower, .settingAdmin:
             return .put
@@ -233,11 +462,19 @@ extension MoveApi.Device.API: TargetType {
             return sendInfo.toJSON()
         case .addPower(_, let power):
             return power.toJSON()
+        case .checkVersion(let deviceId):
+            return ["id": deviceId,"mode": 2,"cktp": 2,"curef": "MTMSM8909W","cltp": 10,"type": "Firmware","fv": "MT3001"]
         }
     }
     
     /// The method used for parameter encoding.
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding {
+        if case MoveApi.Device.API.checkVersion = self {
+            return URLEncoding.queryString
+        }else{
+            return JSONEncoding.default
+        }
+    }
     
     /// Provides stub data for use in testing.
     var sampleData: Data {

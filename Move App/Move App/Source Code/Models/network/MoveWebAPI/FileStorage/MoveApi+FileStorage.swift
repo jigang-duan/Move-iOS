@@ -21,51 +21,22 @@ extension MoveApi {
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
             ])
         
-        final class func upload(fileInfo: FileInfo) {
-            let xx = defaultProvider.requestWithProgress(.upload(fileInfo: fileInfo))
-                .subscribe( onNext: { response in
-                        var uploadResp = FileUploadResp()
-                        uploadResp.progress = response.progress
-                        print(response.progress)
-                        if uploadResp.progress == 1{
-                            uploadResp.fid = try! response.response?.mapString(atKeyPath: "fid")
-                            print(uploadResp.fid)
-                        }
-                }, onError: {er in
-                    print(er)
-                }, onCompleted: {
-                    
-                }, onDisposed: { 
-                    
-                })
-            
+        final class func upload(fileInfo: FileInfo) -> Observable<FileUploadResp> {
+            return defaultProvider.requestWithProgress(.upload(fileInfo: fileInfo))
+                .map({ ($0.progress, try $0.response?.mapMoveObject(FileUploadResp.self) ) })
+                .map({ FileUploadResp(fid: $0.1?.fid, progress: $0.0)})
         }
         
         final class func download(fid: String) -> Observable<FileStorageInfo> {
-            return defaultProvider.requestWithProgress(.download(fid: fid)).map{
-                
+            return defaultProvider.request(.download(fid: fid)).map{
                 var fileStorageInfo = FileStorageInfo()
-                fileStorageInfo.progressObject = $0.progressObject
                 
-                if $0.response != nil{
-                    let res = $0.response!
-                    if res.statusCode >= 200 && res.statusCode < 400{
-                        fileStorageInfo.progress = $0.progress
-                        fileStorageInfo.name = $0.response?.response?.suggestedFilename
-                        fileStorageInfo.type = $0.response?.response?.mimeType
-                        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                        fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name)")
-                        fileStorageInfo.fid = fid
-                        
-                    }else{
-                        guard let json = try? res.mapJSON() else {
-                            throw MoyaError.jsonMapping(res)
-                        }
-                        
-                        if let apiError = Mapper<MoveApi.ApiError>().map(JSONObject: json),let errId = apiError.id, errId != 0 {
-                            throw apiError
-                        }
-                    }
+                if $0.statusCode == 200 {
+                    fileStorageInfo.name = $0.response?.suggestedFilename
+                    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name)")
+                    fileStorageInfo.mimeType = $0.response?.mimeType
+                    fileStorageInfo.fid = fid
                 }
                 
                 return fileStorageInfo
@@ -101,8 +72,8 @@ extension MoveApi.FileStorage.API: TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     var path: String {
         switch self {
-        case .upload(let fileInfo):
-            return "fs?type=\(fileInfo.type ?? "")&duration=\(fileInfo.duration ?? 0)"
+        case .upload:
+            return "fs"
         case .download(let fid):
             return "fs/\(fid)"
         case .delete(let fid):
@@ -124,11 +95,24 @@ extension MoveApi.FileStorage.API: TargetType {
     
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
-        return nil
+        switch self {
+        case .upload(let fileInfo):
+            return ["type": fileInfo.type ?? "", "duration": fileInfo.duration ?? 0]
+        case .download, .delete:
+            return nil
+        }
     }
     
     /// The method used for parameter encoding.
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding {
+        switch self {
+        case .upload:
+            return URLEncoding.queryString
+        case .download, .delete:
+            return JSONEncoding.default
+        }
+    
+    }
     
     /// Provides stub data for use in testing.
     var sampleData: Data {
@@ -146,9 +130,9 @@ extension MoveApi.FileStorage.API: TargetType {
     var task: Task {
         switch self {
         case .upload(let fileInfo):
-            return .upload(UploadType.multipart([MultipartFormData(provider: MultipartFormData.FormDataProvider.data(fileInfo.data!), name: "file", mimeType: fileInfo.type)]))
+            return .upload(UploadType.multipart([MultipartFormData(provider: MultipartFormData.FormDataProvider.data(fileInfo.data!), name: "file", fileName: fileInfo.fileName, mimeType: fileInfo.mimeType)]))
         case .download:
-            return .download(DownloadType.request({ (_, response) in
+            return .download(DownloadType.request({ _, response in
                 let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
                 let fileURL = documentsURL.appendingPathComponent("DownloadFiles/\(response.suggestedFilename!)")
                 //两个参数表示如果有同名文件则会覆盖，如果路径中文件夹不存在则会自动创建

@@ -15,10 +15,6 @@ import ContactsUI
 
 class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, CNContactPickerDelegate {
     
-    override init() {
-        super.init()
-    }
-    
     private var target: UIViewController?
     private var phoneCallback: (([String]) -> Void)?
     
@@ -39,7 +35,7 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
                 self.target?.present(pickController, animated: true, completion: nil)
             }
         }else{
-            print("没有通讯录访问权限")
+            self.showMessage("没有通讯录访问权限")
         }
     }
     
@@ -60,7 +56,7 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
     }
     
     
-    func peoplePickerNavigationController(_ peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
+    internal func peoplePickerNavigationController(_ peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
         
         let phones = ABRecordCopyValue(person, kABPersonPhoneProperty) as ABMultiValue
         var phs: [String] = []
@@ -78,7 +74,7 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
     }
     
     @available(iOS 9.0, *)
-    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+    internal func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         
         let phones = contact.phoneNumbers
         var phs: [String] = []
@@ -95,4 +91,13 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
     }
     
 
+    private func showMessage(_ text: String) {
+        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(action)
+        self.target?.present(vc, animated: true) {
+            
+        }
+    }
+    
 }

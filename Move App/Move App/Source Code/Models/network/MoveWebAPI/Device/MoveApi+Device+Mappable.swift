@@ -84,6 +84,7 @@ extension MoveApi {
         var height: Int?
         var weight: Int?
         var birthday: Date?
+        var gid: String?
     }
     
     struct DeviceProperty {
@@ -163,6 +164,50 @@ extension MoveApi {
     struct  DevicePower {
         var power: Int?
     }
+    
+    struct DeviceVersionInfo {
+        var update_desc: String?
+        var encoding_error: String?
+        var curef: String?
+        var version: Version?
+        var firmware: Firmware?
+        var spopList: [String]?
+    }
+    
+    struct Version {
+        var type: String?
+        var fv: String?
+        var tv: String?
+        var svn: String?
+        var releaseInfo: ReleaseInfo?
+    }
+    
+    struct ReleaseInfo {
+        var year: String?
+        var month: String?
+        var day: String?
+        var hour: String?
+        var minute: String?
+        var second: String?
+        var timezone: String?
+        var publisher: String?
+    }
+    
+    struct Firmware {
+        var fwId: String?
+        var filesetCount: String?
+        var fileset: [VersionFile]?
+    }
+    
+    struct VersionFile {
+        var fileName: String?
+        var fileId: String?
+        var size: String?
+        var checkSum: String?
+        var fileVersion: String?
+        var index: String?
+    }
+    
 }
 
 extension MoveApi.Todo: Mappable {
@@ -385,6 +430,7 @@ extension MoveApi.DeviceUser: Mappable {
         height <- map["height"]
         weight <- map["weight"]
         birthday <- (map["birthday"], DateIntTransform())
+        gid <- map["gid"]
     }
 }
 

@@ -71,7 +71,7 @@ class KidInformationViewModel {
                 var f = self.addInfo!
                 
                 if self.isForSetting == true {
-                    return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: "", number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday))
+                    return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
                         .map({_ in
                             var user = DeviceManager.shared.currentDevice?.user
                             user?.number = phone

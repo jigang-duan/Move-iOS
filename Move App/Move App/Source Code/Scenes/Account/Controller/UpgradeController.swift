@@ -23,8 +23,8 @@ class UpgradeController: UIViewController {
     
     @IBOutlet weak var versionLab: UILabel!
     @IBOutlet weak var versionInfo: UILabel!
-    @IBOutlet weak var tipLab: UILabel!
     
+    @IBOutlet weak var tipLab: UILabel!
     @IBOutlet weak var downloadBun: UIButton!
     
     
@@ -33,6 +33,9 @@ class UpgradeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tipLab.isHidden = true
+        downloadBun.isHidden = true
         
         let device = DeviceManager.shared.currentDevice!
         
@@ -53,7 +56,31 @@ class UpgradeController: UIViewController {
             )
         )
         
+        _ = DeviceManager.shared.getProperty(deviceId: device.deviceId!).subscribe(
+            onNext: { info in
+                DeviceManager.shared.currentDevice?.property = info
+                self.batteryLevel.text = "\(info.power ?? 0)%"
+        }, onError: { (er) in
+            print(er)
+        }).addDisposableTo(disposeBag)
+        
 
+        _ = DeviceManager.shared.checkVersion(deviceId: device.deviceId!).subscribe(
+            onNext: { info in
+                if info.currentVersion == info.newVersion {
+                    self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
+                    self.versionInfo.text = "This watch's firmware is up to date."
+                    self.tipLab.isHidden = true
+                    self.downloadBun.isHidden = true
+                }else{
+                    self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
+                    self.versionInfo.text = info.updateDesc
+                    self.downloadBun.isHidden = false
+                }
+            }, onError: { (er) in
+                print(er)
+            }).addDisposableTo(disposeBag)
+        
     }
     
     

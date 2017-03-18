@@ -236,6 +236,8 @@
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
+		FF3D7A741E7D129400239DFE /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A731E7D129400239DFE /* FileStorageManager.swift */; };
+		FF3D7A761E7D2B5900239DFE /* ImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
@@ -541,6 +543,8 @@
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		FF3D7A731E7D129400239DFE /* FileStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileStorageManager.swift; sourceTree = "<group>"; };
+		FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageUtility.swift; path = Shared/Common/Utils/ImageUtility.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
@@ -1342,6 +1346,7 @@
 			children = (
 				116F815F1E63E5E3003CEC39 /* DateUtility.swift */,
 				FF11D4581E796146005C53ED /* AddressbookUtility.swift */,
+				FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1755,6 +1760,7 @@
 		FF0589371E7A246200ED83F1 /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
+				FF3D7A731E7D129400239DFE /* FileStorageManager.swift */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -2336,6 +2342,7 @@
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
 				D24C4D4B1E4DD57F00F9E33A /* MoveApi+Device.swift in Sources */,
+				FF3D7A761E7D2B5900239DFE /* ImageUtility.swift in Sources */,
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
 				E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */,
@@ -2362,6 +2369,7 @@
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
+				FF3D7A741E7D129400239DFE /* FileStorageManager.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,

@@ -155,26 +155,26 @@ class MoveApiTests: XCTestCase {
     //    Device
     func testDeviceApi() {
         
-        let testInfo = ApiTestInfo.share
+//        let testInfo = ApiTestInfo.share
         
-        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
-        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+//        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+//        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
-        let sidResp = try? MoveApi.VerificationCode.send(to: testInfo.userInfo.email!).toBlocking().last()
-        testInfo.deviceAdd.sid = (sidResp??.sid)!
+//        let sidResp = try? MoveApi.VerificationCode.send(to: testInfo.userInfo.email!).toBlocking().last()
+//        testInfo.deviceAdd.sid = (sidResp??.sid)!
         
-        if let _ = try? MoveApi.Device.add(deviceId: testInfo.deviceInfo.deviceId!, addInfo: testInfo.deviceAdd).do(onError: {
-            Logger.error($0)
-            guard let error = $0 as? MoveApi.ApiError else {
-                XCTFail()
-                return
-            }
-            XCTAssertEqual(error.id, 11)
-            XCTAssertEqual(error.field, "Access Token Invalid")
-            XCTAssertEqual(error.msg, "access_token")
-        }).toBlocking().last() {
-            XCTFail()
-        }
+//        if let _ = try? MoveApi.Device.add(deviceId: testInfo.deviceInfo.deviceId!, addInfo: testInfo.deviceAdd).do(onError: {
+//            Logger.error($0)
+//            guard let error = $0 as? MoveApi.ApiError else {
+//                XCTFail()
+//                return
+//            }
+//            XCTAssertEqual(error.id, 11)
+//            XCTAssertEqual(error.field, "Access Token Invalid")
+//            XCTAssertEqual(error.msg, "access_token")
+//        }).toBlocking().last() {
+//            XCTFail()
+//        }
         //        加入设备群组
 //        guard let joinDeviceGroupResp = try? MoveApi.Device.joinDeviceGroup(deviceId: testInfo.deviceInfo.deviceId!, joinInfo: MoveApi.DeviceJoinInfo(phone: testInfo.userInfo.phone, identity: MoveApi.DeviceAddIdentity.brother, profile: "")).toBlocking().last() else{
 //            XCTFail()
@@ -183,18 +183,18 @@ class MoveApiTests: XCTestCase {
 //        XCTAssertEqual(joinDeviceGroupResp?.id, 0)
 //        XCTAssertEqual(joinDeviceGroupResp?.msg, "ok")
         //        获取设备列表
-        guard let getDeviceListResp = try? MoveApi.Device.getDeviceList().toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertNotNil(getDeviceListResp)
-        
-        
-        guard let getDeviceInfoResp = try? MoveApi.Device.getDeviceInfo(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertNotNil(getDeviceInfoResp)
+//        guard let getDeviceListResp = try? MoveApi.Device.getDeviceList().toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertNotNil(getDeviceListResp)
+//        
+//        
+//        guard let getDeviceInfoResp = try? MoveApi.Device.getDeviceInfo(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertNotNil(getDeviceInfoResp)
         //        修改设备信息
 //        guard let updateResp = try? MoveApi.Device.update(deviceId: testInfo.deviceInfo.deviceId!, updateInfo: testInfo.deviceInfo).toBlocking().last() else{
 //            XCTFail()
@@ -203,50 +203,56 @@ class MoveApiTests: XCTestCase {
 //        XCTAssertEqual(updateResp?.id, 0)
 //        XCTAssertEqual(updateResp?.msg, "ok")
         //        删除设备
-        guard let deleteResp = try? MoveApi.Device.delete(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(deleteResp?.id, 0)
-        XCTAssertEqual(deleteResp?.msg, "ok")
-        //        查看设备配置
-        guard let getSettingResp = try? MoveApi.Device.getSetting(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertNotNil(getSettingResp)
-        testInfo.deviceSetting = getSettingResp!
-        //        设置设备配置
-        guard let settingResp = try? MoveApi.Device.setting(deviceId: testInfo.deviceInfo.deviceId!, settingInfo: testInfo.deviceSetting).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(settingResp?.id, 0)
-        XCTAssertEqual(settingResp?.msg, "ok")
+//        guard let deleteResp = try? MoveApi.Device.delete(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertEqual(deleteResp?.id, 0)
+//        XCTAssertEqual(deleteResp?.msg, "ok")
+//        //        查看设备配置
+//        guard let getSettingResp = try? MoveApi.Device.getSetting(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertNotNil(getSettingResp)
+//        testInfo.deviceSetting = getSettingResp!
+//        //        设置设备配置
+//        guard let settingResp = try? MoveApi.Device.setting(deviceId: testInfo.deviceInfo.deviceId!, settingInfo: testInfo.deviceSetting).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertEqual(settingResp?.id, 0)
+//        XCTAssertEqual(settingResp?.msg, "ok")
+//        
+//        //        发送提醒
+//        guard let sendNotifyResp = try? MoveApi.Device.sendNotify(deviceId: testInfo.deviceInfo.deviceId!, sendInfo: MoveApi.DeviceSendNotify(code: 101, value: "")).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertEqual(sendNotifyResp?.id, 0)
+//        XCTAssertEqual(sendNotifyResp?.msg, "ok")
+//        
+//        
+//        let power = MoveApi.DevicePower(power: 66)
+//        //        上报电量
+//        guard let addPowerResp = try? MoveApi.Device.addPower(deviceId: testInfo.deviceInfo.deviceId!, power: power).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertEqual(addPowerResp?.id, 0)
+//        XCTAssertEqual(addPowerResp?.msg, "ok")
+//        //        获取电量
+//        guard let getPowerResp = try? MoveApi.Device.getPower(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertEqual(getPowerResp?.power, power.power)
         
-        //        发送提醒
-        guard let sendNotifyResp = try? MoveApi.Device.sendNotify(deviceId: testInfo.deviceInfo.deviceId!, sendInfo: MoveApi.DeviceSendNotify(code: 101, value: "")).toBlocking().last() else{
+        let dv = MoveApi.Device()
+        guard (try? dv.checkVersion(deviceId: "123456789102370").toBlocking().last()) != nil else{
             XCTFail()
             return
         }
-        XCTAssertEqual(sendNotifyResp?.id, 0)
-        XCTAssertEqual(sendNotifyResp?.msg, "ok")
-        
-        
-        let power = MoveApi.DevicePower(power: 66)
-        //        上报电量
-        guard let addPowerResp = try? MoveApi.Device.addPower(deviceId: testInfo.deviceInfo.deviceId!, power: power).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(addPowerResp?.id, 0)
-        XCTAssertEqual(addPowerResp?.msg, "ok")
-        //        获取电量
-        guard let getPowerResp = try? MoveApi.Device.getPower(deviceId: testInfo.deviceInfo.deviceId!).toBlocking().last() else{
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(getPowerResp?.power, power.power)
     }
     
     //    ElectronicFence
@@ -276,23 +282,22 @@ class MoveApiTests: XCTestCase {
     
     //    FileStorage
     func testFileStorageApi(){
-//        let testInfo = ApiTestInfo.share
+        let testInfo = ApiTestInfo.share
         
-//        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
-//        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
+        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
         
-//        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo)
-//            .do(onNext: { (uploadInfo) in
-//            print("上传进度=====\(uploadInfo.progress)")
-//        }).toBlocking().last() else{
+//        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo).toBlocking().last() else{
 //            XCTFail()
 //            return
 //        }
 //        XCTAssertNotNil(uploadResp?.fid)
         
-        guard let downloadResp = try? MoveApi.FileStorage.download(fid: "5,01b70efceab7").do(onNext: { (downloadInfo) in
-            print("下载进度=====\(downloadInfo.progress)")
+        guard let downloadResp = try? MoveApi.FileStorage.download(fid: "5,01b70efceab7")
+            .debug()
+            .do(onNext: { (downloadInfo) in
+            print("下载进度=====\(downloadInfo.path)")
         }).toBlocking().last() else{
             XCTFail()
             return
@@ -494,7 +499,7 @@ class ApiTestInfo {
     
     
     
-    var fileInfo = MoveApi.FileInfo(type: "image", duration: 0, data: UIImagePNGRepresentation(R.image.phone_number()!))
+    var fileInfo = MoveApi.FileInfo(type: "image", duration: nil, data: UIImagePNGRepresentation(R.image.phone_number()!), fileName: "image.png", mimeType: "image/png")
     
     var chatReq = MoveApi.GetChatReq(prev: "", next: "", count: 20)
     

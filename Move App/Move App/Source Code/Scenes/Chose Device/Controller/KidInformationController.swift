@@ -33,6 +33,7 @@ class KidInformationController: UIViewController {
     var viewModel: KidInformationViewModel!
     var disposeBag = DisposeBag()
     
+    var photoPicker: ImageUtility?
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,26 +130,11 @@ class KidInformationController: UIViewController {
     
 
     @IBAction func selectPhoto(_ sender: Any) {
-        if cameraPermissions() {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.allowsEditing = true
-            imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }else{
-            self.showMessage("没有相机权限")
-        }
+        photoPicker = ImageUtility()
+        photoPicker?.selectPhoto(with: self, callback: { (image) in
+            self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+        }, size: CGSize(width: 200, height: 200))
     }
-    
-    func cameraPermissions() -> Bool{
-        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        
-        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
-            return false
-        }
-        return true
-    }
-    
     
 
     func showMessage(_ text: String) {
@@ -210,23 +196,6 @@ class KidInformationController: UIViewController {
     }
     
 }
-
-
-
-extension KidInformationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
-        }
-        picker.dismiss(animated: true) {
-            
-        }
-    }
-    
-    
-}
-
 
 
 

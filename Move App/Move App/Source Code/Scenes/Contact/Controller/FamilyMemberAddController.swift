@@ -28,6 +28,7 @@ class FamilyMemberAddController: UIViewController {
     var viewModel: FamilyMemberAddViewModel!
     var disposeBag = DisposeBag()
 
+    var photoPicker: ImageUtility?
     
     let addressbookHelper = AddressbookUtility()
     
@@ -123,25 +124,12 @@ class FamilyMemberAddController: UIViewController {
     
     
     @IBAction func selectPhoto(_ sender: Any) {
-        if cameraPermissions() {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.allowsEditing = true
-            imagePickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        }else{
-            self.showMessage("没有相机访问权限")
-        }
+        photoPicker = ImageUtility()
+        photoPicker?.selectPhoto(with: self, callback: { (image) in
+            self.photoImgV.image = image
+        }, size: CGSize(width: 100, height: 100))
     }
     
-    func cameraPermissions() -> Bool{
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        
-        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
-            return false
-        }
-        return true
-    }
     
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
@@ -172,18 +160,3 @@ class FamilyMemberAddController: UIViewController {
     
     
 }
-
-extension FamilyMemberAddController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.photoImgV.image = image
-        }
-        picker.dismiss(animated: true) { 
-            
-        }
-    }
-    
-
-}
-
