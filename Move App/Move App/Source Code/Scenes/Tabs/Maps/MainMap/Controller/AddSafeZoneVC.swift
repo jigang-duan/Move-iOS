@@ -13,14 +13,19 @@ import RxCocoa
 import SVPulsingAnnotationView
 import CustomViews
 
-class AddSafeZoneVC: UIViewController , SearchVCdelegate{
-
+class AddSafeZoneVC: UIViewController , SearchVCdelegate {
+    
+    var fenceName : String? = ""
+    var fencelocation : CLLocationCoordinate2D?
+    var fenceActive: Bool?
+    
     var currentRadius :Double = 600
     var kidOverlay: MKCircle!
     var circleOverlay:MKCircle?
     var blPinChBegin = false
-
-
+    
+    var nameTextField : UITextField!
+    
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     
@@ -54,7 +59,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate{
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
-        
+        self.SaveNewSafeZone()
+    }
+    
+    @IBAction func SearchBtnClick(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SafeZoneAddressSearchVC")  as! SafeZoneAddressSearchVC
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func actionFenceRadiusValueChanged(_ slider:UISlider) {
@@ -79,24 +90,20 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SafeZoneAddressSearchVC") as! SafeZoneAddressSearchVC
-        vc.delegate = self
         
-        let genametdata = MoveApi.Device.getDeviceInfo(deviceId: Me.shared.currDeviceID!)
-            .map({
-                self.kidaddressL.text = $0.user?.nickname
-            })
-        genametdata.subscribe(onNext: {
-            print($0)
-        }).addDisposableTo(disposeBag)
+         let kidInfo = DeviceManager.shared.currentDevice?.user
         
+        self.kidnameL.text = kidInfo?.nickname
         let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
             .map({
                 self.kidaddressL.text = $0.location?.addr
+                self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
         })
         getaddressdata.subscribe(onNext: {
             print($0)
         }).addDisposableTo(disposeBag)
+        
+        
         
         centerss = mainMapView.centerCoordinate
         let img = UIImage(named : "general_slider_dot")
@@ -131,8 +138,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate{
                 Logger.debug("地图 \($0)!")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
-                
                 self.circleBorderView.removeFromSuperview()
+                self.coordieToAddress()
             }).addDisposableTo(disposeBag)
         
         mainMapView.rx.willStartLoadingMap
@@ -201,6 +208,46 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate{
 
     }
     
+    func coordieToAddress() {
+        let geocoder = CLGeocoder()
+        self.fencelocation = CLLocationCoordinate2D(latitude: self.mainMapView.centerCoordinate.latitude, longitude: self.mainMapView.centerCoordinate.longitude)
+        let currentLocation = CLLocation(latitude: (self.fencelocation?.latitude)!, longitude: (self.fencelocation?.longitude)!)
+
+        geocoder.reverseGeocodeLocation(currentLocation) { (pls: [CLPlacemark]?, error: Error?)  in
+            if error == nil {
+                let array = NSArray(object: "zh-hans")
+                UserDefaults.standard.set(array, forKey: "AppleLanguages")
+                if let p = pls?[0]{
+                    //print(p) //输出反编码信息
+                    
+                    var address : String? = ""
+                    if (p.name != nil) {
+                        address?.append(p.name!)
+                        address = address! + " "
+                    }
+                    if (p.country != nil) {
+                        address?.append(p.country!)
+                    }
+                    if (p.locality != nil) {
+                        address?.append(p.locality!)
+                    }
+                    if (p.subLocality != nil) {
+                        address?.append(p.subLocality!)
+                    }
+                    
+                    if (p.thoroughfare != nil) {
+                        address?.append(p.thoroughfare!)
+                    }
+                    self.kidaddressL.text = address
+                } else {
+                    print("No placemarks!")
+                }
+            }else {
+                print("错误")
+            }
+        }
+    }
+    
     private var rectFromCoordinate : CGRect  {
         let region = MKCoordinateRegionMakeWithDistance(self.mainMapView.centerCoordinate, self.currentRadius, self.currentRadius)
         return mainMapView.convertRegion(region, toRectTo: self.circleBorderView)
@@ -213,7 +260,65 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate{
     }
     
     func Searchback(item: MKMapItem) {
+        self.fencelocation = CLLocationCoordinate2D(latitude: (item.placemark.location?.coordinate.latitude)!, longitude: (item.placemark.location?.coordinate.longitude)!)
         
+        var address : String? = item.name! + " "
+        if (item.placemark.country != nil) {
+            address?.append(item.placemark.country!)
+        }
+        if (item.placemark.locality != nil) {
+            address?.append(item.placemark.locality!)
+        }
+        if (item.placemark.subLocality != nil) {
+            address?.append(item.placemark.subLocality!)
+        }
+        
+        if (item.placemark.thoroughfare != nil) {
+            address?.append(item.placemark.thoroughfare!)
+        }
+        self.kidaddressL.text = address
+        let region = MKCoordinateRegionMakeWithDistance(self.fencelocation!, 1500, 1500)
+        self.mainMapView.setRegion(region, animated: true)
+    }
+    
+    
+    func SaveNewSafeZone() {
+        let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
+            alert -> Void in
+            if self.nameTextField.text != "" {
+                let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressL.text)
+                let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(name : self.nameTextField.text , location : fenceloc , radius : self.currentRadius , active : true)
+                let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                let postFence = MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
+                    .map({
+                        $0
+                    })
+                postFence.subscribe(onNext: {
+                    print($0)
+                    if $0.msg != "ok" {
+                        self.errorshow(message: $0.field!)
+                    }else{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }).addDisposableTo(self.disposeBag)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            self.nameTextField = textField
+            self.nameTextField.placeholder = "Enter Name"
+//            self.nameTextField.delegate = self
+        }
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation
@@ -224,6 +329,14 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate{
         // Pass the selected object to the new view controller.
     }
     */
+    func errorshow(message : String) {
+        let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 class CPinchGuesture :UIPinchGestureRecognizer {
@@ -235,6 +348,10 @@ class CPinchGuesture :UIPinchGestureRecognizer {
     func canPreventGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
         return false
     }
+}
+
+extension AddSafeZoneVC : UITextFieldDelegate {
+    
 }
 
 extension AddSafeZoneVC : MKMapViewDelegate {

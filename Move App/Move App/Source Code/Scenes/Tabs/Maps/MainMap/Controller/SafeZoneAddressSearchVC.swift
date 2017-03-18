@@ -50,14 +50,16 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
             } else {
                 print("Matches found")
                 self.resultArr?.removeAllObjects()
-                for item in response!.mapItems {
-                    print("Name = \(item.name)")
-                    print("Phone = \(item.phoneNumber)")
-                    self.resultArr?.add(item)
+                if ( response != nil && response?.mapItems != nil) {
+                    for item in response!.mapItems {
+                        self.resultArr?.add(item)
+                    }
+                    self.addressTableView.reloadData()
                 }
                 self.addressTableView.reloadData()
             }
         })
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,15 +88,33 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
         return (resultArr?.count)!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.subtitle , reuseIdentifier:"cell")
         }
+        
         let item : MKMapItem = resultArr?.object(at: indexPath.row) as! MKMapItem
-        cell?.textLabel?.text = item.name
-        let str = String.init(format: "%@%@", item.placemark.country! ,item.placemark.locality!)
-        cell?.detailTextLabel?.text = str
+        cell?.textLabel?.text = item.placemark.name
+        
+        var address : String? = ""
+        if (item.placemark.country != nil) {
+            address?.append(item.placemark.country!)
+        }
+        if (item.placemark.locality != nil) {
+            address?.append(item.placemark.locality!)
+        }
+        if (item.placemark.subLocality != nil) {
+            address?.append(item.placemark.subLocality!)
+        }
+        if (item.placemark.thoroughfare != nil) {
+            address?.append(item.placemark.thoroughfare!)
+        }
+        cell?.detailTextLabel?.text = address
         return cell!
     }
     
@@ -104,6 +124,7 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
         if (self.delegate != nil) {
             self.delegate?.Searchback(item: item)
         }
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
