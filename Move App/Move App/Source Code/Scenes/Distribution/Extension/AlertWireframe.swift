@@ -12,8 +12,8 @@ import RxCocoa
 
 enum AlertResult {
     case cancel
-    case ok
-    case confirm
+    case ok(parcel: Any?)
+    case confirm(parcel: Any?)
     case empty
 }
 

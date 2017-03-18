@@ -78,6 +78,8 @@ class NoticeEntity: Object {
     dynamic var type = NoticeType.unknown.rawValue
     dynamic var createDate: Date? = nil
     
+    let owners = LinkingObjects(fromType: GroupEntity.self, property: "notices")
+    
     override static func primaryKey() -> String? {
         return "id"
     }

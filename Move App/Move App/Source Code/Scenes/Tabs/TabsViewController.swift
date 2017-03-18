@@ -32,7 +32,12 @@ class TabsViewController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //self.checkLogin()
+        AlertServer.share.subscribe()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AlertServer.share.unsubscribe()
     }
 
     override func didReceiveMemoryWarning() {

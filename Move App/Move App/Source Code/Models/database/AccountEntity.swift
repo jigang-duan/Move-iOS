@@ -9,25 +9,20 @@
 import Realm
 import RealmSwift
 
-//class MeEntity: Object {
-//    dynamic var id: Int = 0
-//    dynamic var account: AccountEntity? = nil
-//    
-//    override static func primaryKey() -> String? {
-//        return "id"
-//    }
-//}
+enum AccountID: Int {
+    case local = 0
+}
 
 class AccountEntity: Object {
-    dynamic var id: Int = 0
+    dynamic var id: Int = AccountID.local.rawValue
     dynamic var uid: String? = nil
     
-    dynamic var token : String? = nil
-    dynamic  var refreshToken : String? = nil
-    dynamic  var expired_at : Date? = nil
+    dynamic var token: String? = nil
+    dynamic var refreshToken: String? = nil
+    dynamic var expired_at: Date? = nil
     
-    dynamic var username : String? = nil
-    dynamic var password : String? = nil
+    dynamic var username: String? = nil
+    dynamic var password: String? = nil
     
     override static func primaryKey() -> String? {
         return "id"

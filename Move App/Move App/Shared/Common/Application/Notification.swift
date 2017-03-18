@@ -16,15 +16,15 @@ extension ApplicationManager {
     func initNotification() {
         NotificationService.shared.initNotification()
         
-        NotificationService.shared.rx.userInfo
-            .asObservable()
-            .flatMapLatest({ _ in
-                AlertWireframe.shared.prompt("Your message Here", cancel: .ok)
-            })
-            .bindNext({
-                Logger.info($0)
-            })
-            .addDisposableTo(disposeBag)
+//        NotificationService.shared.rx.userInfo
+//            .asObservable()
+//            .flatMapLatest({ _ in
+//                AlertWireframe.shared.prompt("Your message Here", cancel: .ok)
+//            })
+//            .bindNext({
+//                Logger.info($0)
+//            })
+//            .addDisposableTo(disposeBag)
     }
 }
 

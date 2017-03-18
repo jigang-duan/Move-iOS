@@ -47,10 +47,6 @@ class SystemNotificationController: UIViewController {
                 .asDriver()
                 .drive(onNext: { [weak self] ip in
                     self?.performSegue(withIdentifier: R.segue.systemNotificationController.showNotification.identifier, sender: objects[ip.row])
-//                    if let toController = R.storyboard.social.notificationScene() {
-//                        toController.gruop = objects[ip.row]
-//                        self?.show(toController, sender: nil)
-//                    }
                 })
                 .addDisposableTo(bag)
             

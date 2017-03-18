@@ -46,7 +46,7 @@ class AlertController: UIViewController {
 
         // Do any additional setup after loading the view.
         alertViewHeightConstraint.constant = 1.0
-        alertViewWidthConstraint.constant = 1.0
+        //alertViewWidthConstraint.constant = 1.0
         
         titleLabel.text = alertTitle
         contentLabel.text = content

@@ -23,6 +23,8 @@
 		118BA8611E7B8525003C3C13 /* OAuthWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8601E7B8525003C3C13 /* OAuthWebController.swift */; };
 		118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */; };
 		118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8641E7B8930003C3C13 /* AuthService.swift */; };
+		118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8661E7CE8ED003C3C13 /* AlertController.swift */; };
+		118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8681E7CE992003C3C13 /* AlertServer.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -40,7 +42,6 @@
 		11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */; };
 		11EAC3241E6E4307002906F1 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EAC3231E6E4307002906F1 /* libmp3lame.a */; };
 		11EAC3291E6F99DE002906F1 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3281E6F99DE002906F1 /* SocialController.swift */; };
-		11EAC32B1E6FA1BC002906F1 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32A1E6FA1BC002906F1 /* AlertController.swift */; };
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		A53513571E790E8E0093445F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53513561E790E8E0093445F /* Chat.swift */; };
@@ -308,6 +309,8 @@
 		118BA8601E7B8525003C3C13 /* OAuthWebController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuthWebController.swift; path = Vendor/OAuthRxSwift/OAuthWebController.swift; sourceTree = "<group>"; };
 		118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppDelegate+OAuthSwift.swift"; path = "Vendor/OAuthRxSwift/AppDelegate+OAuthSwift.swift"; sourceTree = "<group>"; };
 		118BA8641E7B8930003C3C13 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = Vendor/OAuthRxSwift/AuthService.swift; sourceTree = "<group>"; };
+		118BA8661E7CE8ED003C3C13 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		118BA8681E7CE992003C3C13 /* AlertServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertServer.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -328,7 +331,6 @@
 		11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSwitchButtonDelegateProxy.swift; path = Shared/Extensisons/View/RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
 		11EAC3231E6E4307002906F1 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmp3lame.a; path = Vendor/UUChat/OtherResources/VoiceLib/libmp3lame.a; sourceTree = "<group>"; };
 		11EAC3281E6F99DE002906F1 /* SocialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
-		11EAC32A1E6FA1BC002906F1 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertWireframe.swift; sourceTree = "<group>"; };
 		141858BC35771DF061629EC7 /* Pods_Move_App_CustomViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App_CustomViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -603,6 +605,7 @@
 			isa = PBXGroup;
 			children = (
 				110528EA1E78E6D500FE97A8 /* Controller */,
+				118BA8681E7CE992003C3C13 /* AlertServer.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 		110528EA1E78E6D500FE97A8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				118BA8661E7CE8ED003C3C13 /* AlertController.swift */,
 				110528EB1E78E76300FE97A8 /* SystemNotificationController.swift */,
 				110528F01E7A569C00FE97A8 /* NotificationController.swift */,
 			);
@@ -1280,7 +1284,6 @@
 			children = (
 				E0931F201E30BDD700755B4A /* DistributionViewController.swift */,
 				11EAC3281E6F99DE002906F1 /* SocialController.swift */,
-				11EAC32A1E6FA1BC002906F1 /* AlertController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1874,7 +1877,7 @@
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = BV28C32GBU;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -2141,7 +2144,6 @@
 				110528F11E7A569C00FE97A8 /* NotificationController.swift in Sources */,
 				11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */,
 				E92A7ABD1E79064700F1BC43 /* OfficaialNumberController.swift in Sources */,
-				11EAC32B1E6FA1BC002906F1 /* AlertController.swift in Sources */,
 				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
 				E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */,
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
@@ -2266,6 +2268,7 @@
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
+				118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */,
 				E9E2B8AA1E711D9800149257 /* RepeatViewController.swift in Sources */,
 				E9C3E8161E7A281A00EFDC39 /* SafeZoneViewModel.swift in Sources */,
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
@@ -2321,6 +2324,7 @@
 				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
 				E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */,
 				11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */,
+				118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */,
 				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,
@@ -2595,6 +2599,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2618,6 +2624,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

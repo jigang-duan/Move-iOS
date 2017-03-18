@@ -65,9 +65,10 @@ class NotificationController: UIViewController {
                 }
                 .addDisposableTo(bag)
             
-            messageFramesVariable.asObservable().bindNext({_ in
-                self.tableViewScrollToBottom()
-            })
+            messageFramesVariable.asObservable()
+                .bindNext({_ in
+                    self.tableViewScrollToBottom()
+                })
                 .addDisposableTo(bag)
         }
     }

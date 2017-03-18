@@ -40,12 +40,11 @@ class DistributionViewController: UIViewController {
             .drive(onNext: enterMainScreen)
             .addDisposableTo(disposeBag)
         
-        NotificationService.shared.rx.userInfo
-            .bindNext({
-                Logger.debug($0)
-            })
-            .addDisposableTo(disposeBag)
-        
+//        NotificationService.shared.rx.userInfo
+//            .bindNext({
+//                Logger.debug($0)
+//            })
+//            .addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
