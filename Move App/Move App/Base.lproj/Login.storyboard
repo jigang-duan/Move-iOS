@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -258,7 +258,9 @@
                             <constraint firstItem="Czz-QO-uP3" firstAttribute="leading" secondItem="ZnH-CB-kaZ" secondAttribute="trailing" constant="15" id="sh6-ZZ-7fd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA"/>
+                    <navigationItem key="navigationItem" title="Log in" id="I49-2e-4YA">
+                        <barButtonItem key="backBarButtonItem" title=" " id="UyZ-6A-elb"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="accountValidationHCon" destination="K8T-RU-Xy5" id="jpK-Yo-DQG"/>
                         <outlet property="emailLine" destination="llT-7X-wmS" id="mtd-FK-lz9"/>
@@ -366,11 +368,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Password recovery" id="ocB-n7-ZzK">
-                        <barButtonItem key="leftBarButtonItem" image="general_back" id="oXX-i0-59w">
-                            <connections>
-                                <action selector="backAction:" destination="Ztt-yH-ztG" id="mEJ-lq-tOs"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title=" " id="fKS-hm-Q6f"/>
                     </navigationItem>
                     <connections>
                         <outlet property="doneBun" destination="xSX-HF-EmY" id="7FP-jV-ovU"/>
@@ -476,12 +474,8 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Protect your account" id="Lhh-xh-DmB">
-                        <barButtonItem key="leftBarButtonItem" image="general_back" id="5GS-FQ-hnW">
-                            <connections>
-                                <action selector="BackAction:" destination="MIe-RW-72l" id="iv6-QH-qja"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Protect your account" id="gGU-Lr-cay">
+                        <barButtonItem key="backBarButtonItem" title=" " id="FNx-CL-U42"/>
                     </navigationItem>
                     <connections>
                         <outlet property="HelpLabel" destination="zL5-qI-7nc" id="p5N-2Z-13k"/>
@@ -654,11 +648,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Update password" id="X0V-DO-6fz">
-                        <barButtonItem key="leftBarButtonItem" image="general_back" id="Zsi-vX-v0k">
-                            <connections>
-                                <action selector="backAction:" destination="0SY-sh-nhh" id="bNB-wV-dbP"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title=" " id="kql-mq-dVj"/>
                     </navigationItem>
                     <connections>
                         <outlet property="doneBun" destination="DkM-1l-Rgw" id="gNW-i4-N7F"/>
@@ -678,7 +668,7 @@
             </objects>
             <point key="canvasLocation" x="2797.5" y="608.75"/>
         </scene>
-        <!--Sign up-->
+        <!--Sign Up-->
         <scene sceneID="gTp-2P-yOU">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="3ma-bW-nPx" customClass="SignUpViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -868,12 +858,8 @@ Terms of use,Privacy and Secunity</string>
                             <constraint firstItem="XG8-Tw-Yv4" firstAttribute="leading" secondItem="Ri4-ln-j4n" secondAttribute="leading" constant="20" id="whW-No-QN4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign up" id="tDs-hh-fmn">
-                        <barButtonItem key="leftBarButtonItem" image="general_back" id="2fA-jj-4qH">
-                            <connections>
-                                <action selector="BackAction:" destination="3ma-bW-nPx" id="zZM-GI-anm"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Sign Up" id="IvR-bi-amO">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Nfo-68-ROx"/>
                     </navigationItem>
                     <connections>
                         <outlet property="emailTf" destination="t4b-ta-bcd" id="nsM-N8-lBy"/>
@@ -895,7 +881,6 @@ Terms of use,Privacy and Secunity</string>
         </scene>
     </scenes>
     <resources>
-        <image name="general_back" width="10" height="10"/>
         <image name="general_ic_email" width="20" height="20"/>
         <image name="general_ic_facebook" width="48" height="48"/>
         <image name="general_ic_google" width="48" height="48"/>

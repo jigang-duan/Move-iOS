@@ -177,8 +177,6 @@ class SignUpViewController: UIViewController {
                 switch result{
                 case .failed(let message):
                     self.showPasswdError(message)
-                case .empty:
-                    self.showPasswdError("Secure your account")
                 default:
                     self.revertPasswdError()
                 }

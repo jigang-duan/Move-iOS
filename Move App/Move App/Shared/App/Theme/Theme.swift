@@ -95,7 +95,7 @@ struct ThemeManager {
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = R.color.appColor.icons()
         UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)
-        UINavigationBar.appearance().backIndicatorImage = R.image.backArrow1()
+        UINavigationBar.appearance().backIndicatorImage = R.image.nav_back_nor()
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backArrowMaskFixed()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: R.color.appColor.icons()]
         UINavigationBar.appearance().isTranslucent = false

@@ -177,6 +177,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Chose device                                                   " id="DEt-Z7-rQT">
+                        <barButtonItem key="backBarButtonItem" title=" " id="VxD-5a-M3u"/>
                         <barButtonItem key="rightBarButtonItem" title="Skip" id="u5I-BF-nH6"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -202,11 +203,11 @@
                         <viewControllerLayoutGuide type="bottom" id="PCn-F8-pPP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tQY-h5-1wT">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rre-tx-Z3A">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="301.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wakeup" translatesAutoresizingMaskIntoConstraints="NO" id="sZo-Zj-CHH">
                                         <rect key="frame" x="48" y="118.5" width="77" height="65"/>
@@ -253,7 +254,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuW-Ln-FWB">
-                                <rect key="frame" x="0.0" y="301.5" width="375" height="301.5"/>
+                                <rect key="frame" x="0.0" y="365.5" width="375" height="301.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_2" translatesAutoresizingMaskIntoConstraints="NO" id="cKk-cH-2Zl">
                                         <rect key="frame" x="215" y="41" width="115" height="220"/>
@@ -1822,7 +1823,9 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="8CI-hS-co9"/>
+                    <navigationItem key="navigationItem" id="8CI-hS-co9">
+                        <barButtonItem key="backBarButtonItem" title=" " id="SFk-tf-HG1"/>
+                    </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="accountNameOutlet" destination="wVP-4V-Ivf" id="coG-N1-HCP"/>
@@ -2669,6 +2672,6 @@
         <image name="wakeup" width="77" height="65"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="epR-GB-8Hj"/>
+        <segue reference="k1u-Jy-gBE"/>
     </inferredMetricsTieBreakers>
 </document>
