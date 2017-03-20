@@ -552,7 +552,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="5Oe-yG-ii2">
-                                        <rect key="frame" x="6" y="44" width="363" height="31"/>
+                                        <rect key="frame" x="20" y="44" width="335" height="31"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="dRV-55-TSa"/>
@@ -574,7 +574,7 @@
                                     <constraint firstItem="iVv-wp-GlG" firstAttribute="leading" secondItem="vGq-04-YzX" secondAttribute="leading" constant="8" id="0PJ-ed-dTn"/>
                                     <constraint firstAttribute="trailing" secondItem="E9R-2d-uq6" secondAttribute="trailing" constant="8" id="JUV-VL-fqd"/>
                                     <constraint firstItem="d8C-hj-tCa" firstAttribute="top" secondItem="vGq-04-YzX" secondAttribute="top" constant="15" id="MPq-YD-gB5"/>
-                                    <constraint firstItem="5Oe-yG-ii2" firstAttribute="leading" secondItem="vGq-04-YzX" secondAttribute="leading" constant="8" id="MWN-aJ-Kfq"/>
+                                    <constraint firstItem="5Oe-yG-ii2" firstAttribute="leading" secondItem="vGq-04-YzX" secondAttribute="leading" constant="22" id="MWN-aJ-Kfq"/>
                                     <constraint firstItem="iVv-wp-GlG" firstAttribute="top" secondItem="vGq-04-YzX" secondAttribute="top" constant="8" id="NBc-D0-MbF"/>
                                     <constraint firstItem="E9R-2d-uq6" firstAttribute="leading" secondItem="vGq-04-YzX" secondAttribute="leading" constant="8" id="PGW-Yp-qHb"/>
                                     <constraint firstAttribute="bottom" secondItem="5Oe-yG-ii2" secondAttribute="bottom" constant="6" id="W3r-o8-1kN"/>
@@ -585,7 +585,7 @@
                                     <constraint firstAttribute="height" constant="80" id="f6H-IM-T7r"/>
                                     <constraint firstAttribute="bottom" secondItem="E9R-2d-uq6" secondAttribute="bottom" constant="8" id="fy5-hA-IEP"/>
                                     <constraint firstItem="ITg-y7-l8W" firstAttribute="top" secondItem="vGq-04-YzX" secondAttribute="top" constant="8" id="izF-mw-0wV"/>
-                                    <constraint firstAttribute="trailing" secondItem="5Oe-yG-ii2" secondAttribute="trailing" constant="8" id="qjT-GY-DMy"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Oe-yG-ii2" secondAttribute="trailing" constant="22" id="qjT-GY-DMy"/>
                                     <constraint firstItem="ITg-y7-l8W" firstAttribute="leading" secondItem="d8C-hj-tCa" secondAttribute="trailing" constant="8" id="yij-q4-bEo"/>
                                 </constraints>
                             </view>
