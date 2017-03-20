@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="safezonecell" rowHeight="109" id="KGk-i7-Jjw" customClass="SafezoneCell" customModule="Move_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="364" height="109"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="364" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MO0-9J-2CG" customClass="SwitchButton" customModule="CustomViews">
+                        <rect key="frame" x="308" y="44" width="46" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="46" id="O0R-gf-WTM"/>
+                            <constraint firstAttribute="height" constant="21" id="ghh-Hh-SpW"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="general_btn_on"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="general_btn_off"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shenzhen nanshan school" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3J-pq-1OI">
+                        <rect key="frame" x="15" y="59" width="273" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="WEP-o4-rF2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEk-5I-bFy">
+                        <rect key="frame" x="15" y="37" width="54" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="xlb-ak-FZD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3GE-W4-wVa"/>
+                    <constraint firstItem="I3J-pq-1OI" firstAttribute="leading" secondItem="FEk-5I-bFy" secondAttribute="leading" id="CqW-91-3jh"/>
+                    <constraint firstAttribute="trailing" secondItem="MO0-9J-2CG" secondAttribute="trailing" constant="10" id="dZi-9r-9Ch"/>
+                    <constraint firstItem="FEk-5I-bFy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-5.25" id="ebr-d4-ggJ"/>
+                    <constraint firstItem="I3J-pq-1OI" firstAttribute="top" secondItem="FEk-5I-bFy" secondAttribute="bottom" constant="-2" id="rqz-o9-COf"/>
+                    <constraint firstItem="MO0-9J-2CG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rwn-XC-K02"/>
+                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="I3J-pq-1OI" secondAttribute="trailing" constant="20" id="sJe-hl-Tel"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addrLabel" destination="I3J-pq-1OI" id="Q7P-bR-DRp"/>
+                <outlet property="nameLabel" destination="FEk-5I-bFy" id="T7L-2q-jRN"/>
+                <outlet property="switchOnOffQutiet" destination="MO0-9J-2CG" id="CDd-Ma-cF0"/>
+            </connections>
+            <point key="canvasLocation" x="47" y="84.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="general_btn_off" width="40" height="21"/>
+        <image name="general_btn_on" width="40" height="21"/>
+    </resources>
+</document>

@@ -18,7 +18,7 @@ protocol KidSettingsWorkerProtocl {
     func updateAlarm(deviceId: String, old : KidSetting.Reminder.Alarm, new: KidSetting.Reminder.Alarm) -> Observable<Bool>
     func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool>
     
-    //func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
+//    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
     func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>
     
     
@@ -221,7 +221,7 @@ class KidSettingsManager {
         return worker.creadAlarm(deviceId: deviceId, alarm)
     }
     
-//    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
+//    func updateTodoList(_ old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
 //    {
 //        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
 //            return Observable<Bool>.empty()

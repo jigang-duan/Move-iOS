@@ -46,9 +46,28 @@ class KidSate {
         var accuracy: CLLocationDistance?
         var time: Date?
     }
+    
+    struct ElectronicFencea {
+        var ids: String?
+        var name: String?
+        var radius: Double?
+        var active: Bool?
+        var location: locatio?
+    }
+    
+    struct locatio {
+        var location: CLLocationCoordinate2D?
+        var addr: String?
+        
+    }
+    
+    var fences: [ElectronicFencea]?
+    
 }
 
 class KidLocationManager {
+    
+  
 }
 
 struct KidSetting {

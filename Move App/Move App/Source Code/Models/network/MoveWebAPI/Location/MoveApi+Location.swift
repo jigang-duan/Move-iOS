@@ -42,7 +42,7 @@ extension MoveApi {
         final class func getMultiLocations(with deviceIds: LocationMultiReq) -> Observable<Locations> {
             return request(.getMultiLocations(with: deviceIds) ).mapMoveObject(Locations.self)
         }
-//        历史位置记录
+//        历史位置记录Electronic Fence
         final class func getHistory(deviceId: String, locationReq: LocationReq) -> Observable<LocationHistory> {
             return request(.getHistory(deviceId: deviceId, locationReq: locationReq)).mapMoveObject(LocationHistory.self)
         }

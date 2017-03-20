@@ -162,7 +162,10 @@
 		E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029D1E5C05A6004A55BA /* UserManager.swift */; };
 		E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */; };
 		E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FA02A11E5C061D004A55BA /* WorkerError.swift */; };
+		E91466A91E7C0B12009C0C52 /* SafezoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91466A71E7C0B12009C0C52 /* SafezoneCell.swift */; };
+		E91466AA1E7C0B12009C0C52 /* SafezoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91466A81E7C0B12009C0C52 /* SafezoneCell.xib */; };
 		E920CFDC1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */; };
+		E9260EE41E7CD11D00D272F5 /* safezone.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9260EE31E7CD11D00D272F5 /* safezone.plist */; };
 		E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E928BF091E76459800E70A57 /* RemindersCell.swift */; };
 		E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E928BF0A1E76459800E70A57 /* RemindersCell.xib */; };
 		E92A7ABD1E79064700F1BC43 /* OfficaialNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */; };
@@ -468,7 +471,10 @@
 		E0FA029D1E5C05A6004A55BA /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		E0FA029F1E5C05B7004A55BA /* MoveApiUserWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiUserWorker.swift; path = Workers/MoveApiUserWorker.swift; sourceTree = "<group>"; };
 		E0FA02A11E5C061D004A55BA /* WorkerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerError.swift; sourceTree = "<group>"; };
+		E91466A71E7C0B12009C0C52 /* SafezoneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafezoneCell.swift; sourceTree = "<group>"; };
+		E91466A81E7C0B12009C0C52 /* SafezoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafezoneCell.xib; sourceTree = "<group>"; };
 		E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountKidsRulesuserViewModel.swift; sourceTree = "<group>"; };
+		E9260EE31E7CD11D00D272F5 /* safezone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = safezone.plist; sourceTree = "<group>"; };
 		E928BF091E76459800E70A57 /* RemindersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersCell.swift; sourceTree = "<group>"; };
 		E928BF0A1E76459800E70A57 /* RemindersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindersCell.xib; sourceTree = "<group>"; };
 		E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfficaialNumberController.swift; sourceTree = "<group>"; };
@@ -1633,6 +1639,8 @@
 				E9E2B8A91E711D9800149257 /* RepeatViewController.swift */,
 				E928BF091E76459800E70A57 /* RemindersCell.swift */,
 				E928BF0A1E76459800E70A57 /* RemindersCell.xib */,
+				E91466A71E7C0B12009C0C52 /* SafezoneCell.swift */,
+				E91466A81E7C0B12009C0C52 /* SafezoneCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1649,6 +1657,7 @@
 				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
 				E9E30CC61E6A909000B66979 /* UsepermissionController.swift */,
 				E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */,
+				E9260EE31E7CD11D00D272F5 /* safezone.plist */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1962,12 +1971,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91466AA1E7C0B12009C0C52 /* SafezoneCell.xib in Resources */,
 				E956E7F41E752B3500E4298D /* reminder.plist in Resources */,
 				E9DA9C3B1E6FD960009A9189 /* contactCell.xib in Resources */,
 				E9DA9C3F1E6FD960009A9189 /* NoticeListCell.xib in Resources */,
 				E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */,
 				E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */,
 				E0931F171E30B9A500755B4A /* Localizable.strings in Resources */,
+				E9260EE41E7CD11D00D272F5 /* safezone.plist in Resources */,
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
 				E9DA9C3D1E6FD960009A9189 /* NoticeDetailCell.xib in Resources */,
@@ -2177,6 +2188,7 @@
 				E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */,
 				E9DD0F961E5AC97400752863 /* NotificationListVC.swift in Sources */,
 				D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */,
+				E91466A91E7C0B12009C0C52 /* SafezoneCell.swift in Sources */,
 				11EAC3291E6F99DE002906F1 /* SocialController.swift in Sources */,
 				FF0859191E72A3A100EB81D9 /* MoveIM+ImApi+Mappable.swift in Sources */,
 				E0C229071E35E59D00BCF83D /* Dependencies.swift in Sources */,

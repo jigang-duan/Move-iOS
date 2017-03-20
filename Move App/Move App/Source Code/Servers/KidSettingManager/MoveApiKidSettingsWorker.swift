@@ -50,6 +50,29 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .map({ $0.id == 0 })
     }
     
+//    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
+//    {
+//        return MoveApi.Device
+//            .getSetting(deviceId: deviceId)
+//            .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
+//                var _setting = settings
+//                let oldTodo = self.unwrappingTodo(old)
+//                let newTodo = self.unwrappingTodo(new)
+//                if let todos = _setting.reminder?.todo {
+//                    for (index, todo) in todos.enumerated() {
+//                        if todo == oldTodo {
+//                            _setting.reminder?.todo?.remove(at: index)
+//                            _setting.reminder?.todo?.insert(newTodo, at: index)
+//                            break
+//                        }
+//                    }
+//                }
+//                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
+//            })
+//            .map({ $0.id == 0 })
+//    }
+
+    
     func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
         return MoveApi.Device
             .getSetting(deviceId: deviceId)
@@ -67,10 +90,6 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .map({ $0.id == 0 })
     }
     
-//    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
-//    {
-//       
-//    }
     
     func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>{
         return MoveApi.Device
@@ -208,7 +227,7 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.auto_time ?? false })
     }
-    func fetchTimezone(id:String) -> Observable<Date> //发服务器为int
+    func fetchTimezone(id:String) -> Observable<Date>
     {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.timezone ?? DateUtility.zone7hour() })
@@ -243,6 +262,10 @@ extension MoveApiKidSettingsWorker {
     }
 
     
+    func unwrappingTodo(_ todo: KidSetting.Reminder.ToDo) -> MoveApi.Todo {
+        
+        return MoveApi.Todo(topic: todo.topic, content: todo.content, start: todo.start, end: todo.end, repeatCount: todo.repeatCount)
+    }
     
     func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
         var days: [Int] = []

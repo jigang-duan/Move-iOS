@@ -25,8 +25,21 @@ extension MoveApi {
         var nearbts: [Bts]?
         var wifi: Wifi?
         var nearwifi: [Wifi]?
+        var fences: [Fence]?
     }
-    
+    struct Fence {
+        var id: String?
+        var name: String?
+        var radius: Double?
+        var active: Bool?
+        var location: Locatio?
+    }
+    struct Locatio {
+        var lat: Double?
+        var lng: Double?
+        var addr: String?
+        
+    }
     struct Gps {
         var lat: Double?
         var lng: Double?
@@ -112,6 +125,30 @@ extension MoveApi.LocationAdd: Mappable {
         nearbts <- map["nearbts"]
         wifi <- map["wifi"]
         nearwifi <- map["nearwifi"]
+        fences <- map["fences"]
+    }
+}
+
+extension MoveApi.Fence: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        id <- map["_id"]
+        name <- map["name"]
+        radius <- map["radius"]
+        active <- map["active"]
+        location <- map["location"]
+
+    }
+}
+
+extension MoveApi.Locatio: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        lat <- map["lat"]
+        lng <- map["lng"]
+        addr <- map["addr"]
     }
 }
 

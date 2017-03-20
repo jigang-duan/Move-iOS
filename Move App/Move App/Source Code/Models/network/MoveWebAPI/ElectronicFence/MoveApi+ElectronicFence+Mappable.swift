@@ -21,6 +21,7 @@ extension MoveApi {
     }
     
     struct FenceInfo {
+        var id: String?
         var name: String?
         var location: Fencelocation?
         var radius: Double?
@@ -64,6 +65,7 @@ extension MoveApi.FenceInfo: Mappable {
     }
     
     mutating func mapping(map: Map) {
+        id <- map["_id"]
         name <- map["name"]
         location <- map["location"]
         radius <- map["radius"]
