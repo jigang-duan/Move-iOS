@@ -156,19 +156,6 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             }
         }
         mapView.addAnnotation(annotation)
-        //        label1.text = "经度：\(currLocation.coordinate.longitude)"
-        //        //获取纬度
-        //        label2.text = "纬度：\(currLocation.coordinate.latitude)"
-        //        //获取海拔
-        //        label3.text = "海拔：\(currLocation.altitude)"
-        //        //获取水平精度
-        //        label4.text = "水平精度：\(currLocation.horizontalAccuracy)"
-        //        //获取垂直精度
-        //        label5.text = "垂直精度：\(currLocation.verticalAccuracy)"
-        //        //获取方向
-        //        label6.text = "方向：\(currLocation.course)"
-        //        //获取速度
-        //        label7.text = "速度：\(currLocation.speed)"
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

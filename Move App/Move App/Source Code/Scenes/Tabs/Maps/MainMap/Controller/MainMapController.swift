@@ -27,6 +27,8 @@ import CustomViews
 
 class MainMapController: UIViewController , MFMessageComposeViewControllerDelegate{
     
+    var curDirectionMode:MKDirectionsTransportType = .walking
+
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     var defaultDeviceData : [MoveApi.DeviceInfo]? = []
@@ -215,11 +217,23 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     @IBAction func GuideToWalk(_ sender: UIButton) {
-        mapView.removeOverlays(mapView.overlays)
-        if (userPoint == nil || selectPoint == nil ){
-            return
+        
+        if mapView.annotations.count > 0 {
+            for annotation in mapView.annotations {
+                if annotation is BaseAnnotation {
+                    let kidCoordinate = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+                    let options = [
+                        MKLaunchOptionsDirectionsModeKey: self.curDirectionMode == .walking ? MKLaunchOptionsDirectionsModeWalking : MKLaunchOptionsDirectionsModeDriving,
+                        ]
+                    let placemark = MKPlacemark(coordinate: kidCoordinate, addressDictionary: nil)
+                    let mapItem = MKMapItem(placemark: placemark)
+                    mapItem.name = "\(self.objectNameL.text ?? "")"
+                    mapItem.openInMaps(launchOptions: options)
+                }
+            }
+            
         }
-        self.goSearch(fromCoordinate: userPoint!, tofromCoordinate: selectPoint!)
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -314,40 +328,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 let power = (property.power)!
                 self.changepower(power: power)
             }
-        }
-    }
-    
-    
-    func goSearch(fromCoordinate:CLLocationCoordinate2D ,tofromCoordinate : CLLocationCoordinate2D){
-        let fromPlaceMark = MKPlacemark(coordinate: fromCoordinate, addressDictionary: nil)
-        let toPlaceMark = MKPlacemark(coordinate: tofromCoordinate, addressDictionary: nil)
-        let fromItem = MKMapItem(placemark: fromPlaceMark)
-        let toItem = MKMapItem(placemark: toPlaceMark)
-        self.findDirectionsFrom(source: fromItem, destination: toItem)
-    }
-    
-    func findDirectionsFrom(source:MKMapItem,destination:MKMapItem){
-        let request = MKDirectionsRequest()
-        request.source = source
-        request.destination = destination
-        request.transportType = MKDirectionsTransportType.walking
-        request.requestsAlternateRoutes = true;
-        let directions = MKDirections(request: request)
-        directions.calculate { (response, error) in
-            if error == nil {
-                self.showRoute(response: response!)
-            }else{
-                print("trace the error \(error?.localizedDescription)")
-            }
-        }
-    }
-    
-    func showRoute(response:MKDirectionsResponse) {
-        for route in response.routes {
-            mapView.add(route.polyline,level: MKOverlayLevel.aboveRoads)
-            let routeSeconds = route.expectedTravelTime
-            let routeDistance = route.distance
-            print("distance between two points is \(routeSeconds) and \(routeDistance)")
         }
     }
     
