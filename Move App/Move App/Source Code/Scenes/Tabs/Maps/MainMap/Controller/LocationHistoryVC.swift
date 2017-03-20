@@ -155,7 +155,7 @@ class LocationHistoryVC: UIViewController {
                         arr[i] = annotation
                     }
                     self.annotationArr = arr
-                    self.timeZoneSlider.maximumValue = Float(self.annotationArr.count)
+                    self.timeZoneSlider.maximumValue = Float(self.annotationArr.count - 1)
                     self.timeZoneSlider.minimumValue = 0
                     self.timeZoneSlider.value = 0
                     self.TimePointSelect(index: self.index)
@@ -257,6 +257,7 @@ class LocationHistoryVC: UIViewController {
             }
             self.locationMap.addAnnotations(self.annotationArr)
             self.TimePointSelect(index: index)
+            self.timeZoneSlider.value = Float(index)
         }
         //        self.routeLine = self.polyline()
 //        if self.routeLine != nil {
@@ -273,6 +274,7 @@ class LocationHistoryVC: UIViewController {
             }
             self.locationMap.addAnnotations(self.annotationArr)
             self.TimePointSelect(index: index)
+            self.timeZoneSlider.value = Float(index)
         }
        //        self.routeLine = self.polyline()
 //        if self.routeLine != nil {
