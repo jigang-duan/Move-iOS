@@ -22,7 +22,7 @@ class ShareQRcodeController: UIViewController {
     @IBOutlet weak var screenShotView: UIView!
     
     var relation: String?
-    var memberName: String?
+    var profile: String?
     var memberPhone: String?
     
     
@@ -69,7 +69,7 @@ class ShareQRcodeController: UIViewController {
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         countDownTime.text = format.string(from: downTime)
         
-        let embededDic = ["imei": device.deviceId ?? "", "expired_at": Int(downTime.timeIntervalSince1970), "phone":self.memberPhone ?? "", "identity":self.relation ?? ""] as [String : Any]
+        let embededDic = ["imei": device.deviceId ?? "", "expired_at": Int(downTime.timeIntervalSince1970), "phone":self.memberPhone ?? "", "identity":self.relation ?? "", "profile":self.profile ?? ""] as [String : Any]
         
         let linksDic = ["join":["href": "/v1.0/device/" + device.deviceId! + "/join"]]
         

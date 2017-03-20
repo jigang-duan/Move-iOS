@@ -78,20 +78,17 @@ class DefaultValidation {
     static let shared = DefaultValidation()
     // validation
     
-    let minEmailCount = 5
-    let minPasswordCount = 5
+    let minPhoneCount = 5
+    let minPasswordCount = 8
+    let maxPasswordCount = 16
     
-    func validateAccount(_ account: String) -> ValidationResult {
-        let numberOfCharacters = account.characters.count
-        if account.characters.count == 0 {
+    
+    func validateNickName(_ name: String) ->ValidationResult {
+        if name.characters.count == 0 {
             return .empty
         }
         
-        if numberOfCharacters < minEmailCount {
-            return .failed(message: "Account must be at least \(minEmailCount) characters")
-        }
-        
-        return .ok(message: "Account available")
+        return .ok(message: "Name available")
     }
     
     func validatePhone(_ phone: String) -> ValidationResult {
@@ -100,8 +97,8 @@ class DefaultValidation {
             return .empty
         }
         
-        if numberOfCharacters < minEmailCount {
-            return .failed(message: "Phone must be at least \(minEmailCount) characters")
+        if numberOfCharacters < minPhoneCount {
+            return .failed(message: "Phone must be at least \(minPhoneCount) characters")
         }
         
         return .ok(message: "Phone available")
@@ -109,18 +106,14 @@ class DefaultValidation {
 
     
     func validateEmail(_ email: String) -> ValidationResult {
-        let numberOfCharacters = email.characters.count
         if email.characters.count == 0 {
             return .empty
         }
         
-        if numberOfCharacters < minEmailCount {
-            return .failed(message: "Email must be at least \(minEmailCount) characters")
+        let prdEmail = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9_\\-\\.]{1,}@[a-zA-Z0-9_\\-]{1,}\\.[a-zA-Z0-9_\\-.]{1,}$")
+        if !prdEmail.evaluate(with: email) {
+            return .failed(message: "Not an email address")
         }
-        
-//        if !email.contains("@"){
-//            return .failed(message: "Email address not correct")
-//        }
         
         return .ok(message: "Email available")
     }
@@ -135,6 +128,14 @@ class DefaultValidation {
             return .failed(message: "Password must be at least \(minPasswordCount) characters")
         }
         
+        let setString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        for character in password.characters {
+            if setString.characters.index(of: character) == nil {
+                return .failed(message: "In passwords, space and Special symbols not allowed.")
+            }
+        }
+        
+        
         return .ok(message: "Password acceptable")
     }
     
@@ -145,6 +146,13 @@ class DefaultValidation {
         
         if password != rePasswd {
             return .failed(message: "Twice input password not same")
+        }
+        
+        let setString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        for character in password.characters {
+            if setString.characters.index(of: character) == nil {
+                return .failed(message: "In passwords, space and Special symbols not allowed.")
+            }
         }
         
         return .ok(message: "Password acceptable")

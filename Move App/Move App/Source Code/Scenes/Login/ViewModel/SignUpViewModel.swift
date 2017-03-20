@@ -70,7 +70,7 @@ class SignUpViewModel {
                         if flag == false{
                            return ValidationResult.ok(message: "Account avaliable")
                         }else{
-                           return ValidationResult.failed(message: "Account is exitsted")
+                           return ValidationResult.failed(message: "Account already exists")
                         }
                     }
                     .asDriver(onErrorRecover: signUpErrorRecover)
@@ -97,7 +97,7 @@ fileprivate func signUpErrorRecover(_ error: Error) -> Driver<ValidationResult> 
     }
     
     if WorkerError.accountIsExist == _error {
-        return Driver.just(ValidationResult.failed(message: "Account is exitsted"))
+        return Driver.just(ValidationResult.failed(message: "Account already exists"))
     }
     
     return Driver.just(ValidationResult.failed(message: ""))

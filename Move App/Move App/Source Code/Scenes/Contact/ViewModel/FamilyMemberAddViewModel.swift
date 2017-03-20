@@ -21,9 +21,11 @@ class FamilyMemberAddViewModel {
     let doneEnabled: Driver<Bool>
     var doneResult: Driver<ValidationResult>?
     
+    var fid: String?
     
     init(
         input:(
+        photo: Variable<UIImage?>,
         nameText: Observable<String?>,
         name: Driver<String>,
         numberText: Observable<String?>,
@@ -83,13 +85,33 @@ class FamilyMemberAddViewModel {
             .distinctUntilChanged()
         
         doneResult = input.doneTaps
-            .map({ _ in
-                return ValidationResult.ok(message: "Send Success.")
+            .flatMapLatest({ _ in
+                if let photo = input.photo.value {
+                    return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().map({ fid -> ValidationResult in
+                        self.fid = fid
+                        return ValidationResult.ok(message: "Send Success.")
+                    }).asDriver(onErrorRecover: errorRecover)
+                    .distinctUntilChanged({ (v1, v2) -> Bool in
+                        return v1.isValid == v2.isValid
+                    })
+                }else{
+                    return Driver.just(ValidationResult.ok(message: "Send Success."))
+                }
             })
-            .asDriver()
         
     }
     
 }
 
-
+fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
+    guard let _error = error as?  WorkerError else {
+        return Driver.just(ValidationResult.empty)
+    }
+    
+    if WorkerError.vcodeIsIncorrect == _error {
+        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
+    }
+    
+    
+    return Driver.just(ValidationResult.failed(message: "Set faild"))
+}

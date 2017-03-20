@@ -35,6 +35,8 @@ class KidInformationController: UIViewController {
     
     var photoPicker: ImageUtility?
     
+    var photoVariable:Variable<UIImage?> = Variable(nil)
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,6 +88,7 @@ class KidInformationController: UIViewController {
         
         viewModel = KidInformationViewModel(
             input:(
+                photo: photoVariable,
                 name: nameTf.rx.text.orEmpty.asDriver(),
                 phone: phoneTf.rx.text.orEmpty.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver()
@@ -134,6 +137,7 @@ class KidInformationController: UIViewController {
         photoPicker = ImageUtility()
         photoPicker?.selectPhoto(with: self, callback: { (image) in
             self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+            self.photoVariable.value = image
         }, size: CGSize(width: 200, height: 200))
     }
     

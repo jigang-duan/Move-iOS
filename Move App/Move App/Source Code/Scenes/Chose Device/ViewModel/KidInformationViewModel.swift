@@ -28,6 +28,7 @@ class KidInformationViewModel {
     
     init(
         input: (
+        photo: Variable<UIImage?>,
         name: Driver<String>,
         phone: Driver<String>,
         nextTaps: Driver<Void>
@@ -71,29 +72,60 @@ class KidInformationViewModel {
                 var f = self.addInfo!
                 
                 if self.isForSetting == true {
-                    return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
-                        .map({_ in
-                            var user = DeviceManager.shared.currentDevice?.user
-                            user?.number = phone
-                            user?.nickname = name
-                            user?.profile = f.profile
-                            user?.gender = f.gender
-                            user?.height = f.height
-                            user?.weight = f.weight
-                            user?.birthday = f.birthday
-                            DeviceManager.shared.currentDevice?.user = user
-                            
-                            return  ValidationResult.ok(message: "Update Success")
-                        })
-                        .asDriver(onErrorRecover: kidInformationErrorRecover)
+                    if let photo = input.photo.value {
+                        return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMapLatest({ pid -> Observable<ValidationResult> in
+                            f.profile = pid
+                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: pid, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
+                                .map({_ -> ValidationResult in
+                                    var user = DeviceManager.shared.currentDevice?.user
+                                    user?.number = phone
+                                    user?.nickname = name
+                                    user?.profile = f.profile
+                                    user?.gender = f.gender
+                                    user?.height = f.height
+                                    user?.weight = f.weight
+                                    user?.birthday = f.birthday
+                                    DeviceManager.shared.currentDevice?.user = user
+                                    
+                                    return  ValidationResult.ok(message: "Update Success")
+                                })
+                            }).asDriver(onErrorRecover: kidInformationErrorRecover)
+                    }else{
+                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
+                            .map({_ -> ValidationResult in
+                                var user = DeviceManager.shared.currentDevice?.user
+                                user?.number = phone
+                                user?.nickname = name
+                                user?.profile = f.profile
+                                user?.gender = f.gender
+                                user?.height = f.height
+                                user?.weight = f.weight
+                                user?.birthday = f.birthday
+                                DeviceManager.shared.currentDevice?.user = user
+                                
+                                return  ValidationResult.ok(message: "Update Success")
+                            }).asDriver(onErrorRecover: kidInformationErrorRecover)
+                    }
+                  
                 }else{
                     f.nickName = name
                     f.phone = phone
-                    return deviceManager.addDevice(firstBindInfo: f)
-                        .map({_ in
-                            return  ValidationResult.ok(message: "Bind Success")
-                        })
-                        .asDriver(onErrorRecover: kidInformationErrorRecover)
+                    if let photo = input.photo.value {
+                        return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMapLatest({ pid -> Observable<ValidationResult> in
+                            f.profile = pid
+                            return deviceManager.addDevice(firstBindInfo: f)
+                                .map({_ in
+                                    return  ValidationResult.ok(message: "Bind Success")
+                                })
+                            
+                        }).asDriver(onErrorRecover: kidInformationErrorRecover)
+                    }else{
+                        return deviceManager.addDevice(firstBindInfo: f)
+                            .map({_ in
+                                return  ValidationResult.ok(message: "Bind Success")
+                            })
+                            .asDriver(onErrorRecover: kidInformationErrorRecover)
+                    }
                 }
             })
         

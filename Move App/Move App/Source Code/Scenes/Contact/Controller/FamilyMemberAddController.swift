@@ -32,6 +32,8 @@ class FamilyMemberAddController: UIViewController {
     
     let addressbookHelper = AddressbookUtility()
     
+    var photoVariable:Variable<UIImage?> = Variable(nil)
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -71,6 +73,7 @@ class FamilyMemberAddController: UIViewController {
         
         viewModel = FamilyMemberAddViewModel(
             input:(
+                photo: photoVariable,
                 nameText: nameTf.rx.observe(String.self, "text"),
                 name: nameTf.rx.text.orEmpty.asDriver(),
                 numberText: numberTf.rx.observe(String.self, "text"),
@@ -110,15 +113,9 @@ class FamilyMemberAddController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.familyMemberAddController.showShareQRCode(segue: segue) {
-            sg.destination.memberName = nameTf.text
+            sg.destination.relation = Relation(input: nameTf.text ?? "")?.transformIdentity()
+            sg.destination.profile = self.viewModel.fid
             sg.destination.memberPhone = numberTf.text
-            if let rl = Int(nameTf.text!) {
-                if rl >= 1 && rl <= 10 {
-                     sg.destination.relation = String(rl)
-                }
-            }else{
-                sg.destination.relation = Relation(input: nameTf.text!)?.transformIdentity()
-            }
         }
     }
     
@@ -127,6 +124,7 @@ class FamilyMemberAddController: UIViewController {
         photoPicker = ImageUtility()
         photoPicker?.selectPhoto(with: self, callback: { (image) in
             self.photoImgV.image = image
+            self.photoVariable.value = image
         }, size: CGSize(width: 100, height: 100))
     }
     

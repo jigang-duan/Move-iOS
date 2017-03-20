@@ -214,7 +214,7 @@ extension Relation {
             return "9"
         case .brother:
             return "10"
-        case . other(let value):
+        case .other(let value):
             switch value {
             case "Mother":
                 return "1"

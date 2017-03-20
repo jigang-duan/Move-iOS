@@ -29,6 +29,7 @@ class FamilyMemberDetailController: UIViewController {
     
     @IBOutlet weak var saveBun: UIBarButtonItem!
     
+    var photoVariable:Variable<UIImage?> = Variable(nil)
     
     var info: ContactDetailInfo?
     
@@ -74,6 +75,7 @@ class FamilyMemberDetailController: UIViewController {
         
         viewModel = FamilyMemberDetailViewModel(input:
             (
+             photo: photoVariable,
              nameText: nameTf.rx.observe(String.self, "text"),
              name: nameTf.rx.text.orEmpty.asDriver(),
              numberText: numberTf.rx.observe(String.self, "text"),
@@ -182,6 +184,7 @@ class FamilyMemberDetailController: UIViewController {
         photoPicker = ImageUtility()
         photoPicker?.selectPhoto(with: self, callback: { (image) in
             self.photoImgV.image = image
+            self.photoVariable.value = image
         }, size: CGSize(width: 100, height: 100))
     }
     

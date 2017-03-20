@@ -27,6 +27,7 @@ class FamilyMemberDetailViewModel {
     
     init(
         input:(
+        photo: Variable<UIImage?>,
         nameText: Observable<String?>,
         name: Driver<String>,
         numberText: Observable<String?>,
@@ -47,7 +48,7 @@ class FamilyMemberDetailViewModel {
         _ = dependency.wireframe
         
         let nameTextObserver = input.nameText.map{name -> ValidationResult in
-            self.contactInfo?.value.nickname = name
+            self.contactInfo?.value.identity = Relation(input: name ?? "")
             if let n = name {
                 if n.characters.count > 0{
                     return ValidationResult.ok(message: "name avaliable")
@@ -57,7 +58,7 @@ class FamilyMemberDetailViewModel {
         }
         
         let name = input.name.map{name -> ValidationResult in
-            self.contactInfo?.value.nickname = name
+            self.contactInfo?.value.identity = Relation(input: name )
             if name.characters.count > 0{
                 return ValidationResult.ok(message: "name avaliable")
             }
@@ -109,9 +110,20 @@ class FamilyMemberDetailViewModel {
         
         saveResult = input.saveTaps
             .flatMapLatest({ _ in
-                return deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: (self.contactInfo?.value)!).map({ _ in
-                    return ValidationResult.ok(message: "Set Success.")
-                }).asDriver(onErrorRecover: errorRecover)
+                if let photo = input.photo.value {
+                    return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil()
+                        .flatMapLatest({ fid -> Observable<ValidationResult> in
+                            var info = (self.contactInfo?.value)!
+                            info.profile = fid
+                            return deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: info).map({ _ in
+                                return ValidationResult.ok(message: "Set Success.")
+                            })
+                    }).asDriver(onErrorRecover: errorRecover)
+                }else{
+                    return deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: (self.contactInfo?.value)!).map({ _ in
+                        return ValidationResult.ok(message: "Set Success.")
+                    }).asDriver(onErrorRecover: errorRecover)
+                }
             })
         
     }

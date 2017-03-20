@@ -42,7 +42,7 @@ class MeSetNameViewModel {
         
         
         validatedName = input.name.map { name in
-            return validation.validateAccount(name)
+            return validation.validateNickName(name)
         }
         
     

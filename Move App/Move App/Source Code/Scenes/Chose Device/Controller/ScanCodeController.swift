@@ -221,6 +221,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
                     info.isMaster = false
                     info.deviceId = embeded["imei"] as? String
                     info.phone = embeded["phone"] as? String
+                    info.profile = embeded["profile"] as? String
                     if let str = embeded["identity"] as? String {
                         info.identity = Relation(input: str)
                     }

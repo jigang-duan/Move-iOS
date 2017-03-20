@@ -48,7 +48,7 @@ class LoginViewModel {
         
         validatedEmail = input.email
             .map { email in
-                return validation.validateAccount(email)
+                return validation.validateEmail(email)
             }
         
         validatedPassword = input.passwd
@@ -90,7 +90,7 @@ fileprivate func loginErrorRecover(_ error: Error) -> Driver<ValidationResult> {
     }
     
     if WorkerError.accountNotFound == _error {
-        return Driver.just(ValidationResult.failed(message: "Account not exitsted"))
+        return Driver.just(ValidationResult.failed(message: "Account doesn’t exist."))
     }
     
     if WorkerError.password == _error {

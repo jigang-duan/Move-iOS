@@ -283,26 +283,26 @@ class MoveApiTests: XCTestCase {
     //    FileStorage
     func testFileStorageApi(){
         let testInfo = ApiTestInfo.share
+//
+//        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
+//        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
-        let loginInfo = MoveApi.LoginInfo(username: testInfo.userInfo.username, password: testInfo.userInfo.password)
-        let _ = try? MoveApi.Account.login(info: loginInfo).toBlocking().last()
         
-        
-//        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo).toBlocking().last() else{
-//            XCTFail()
-//            return
-//        }
-//        XCTAssertNotNil(uploadResp?.fid)
-        
-        guard let downloadResp = try? MoveApi.FileStorage.download(fid: "5,01b70efceab7")
-            .debug()
-            .do(onNext: { (downloadInfo) in
-            print("下载进度=====\(downloadInfo.path)")
-        }).toBlocking().last() else{
+        guard let uploadResp = try? MoveApi.FileStorage.upload(fileInfo: testInfo.fileInfo).toBlocking().last() else{
             XCTFail()
             return
         }
-        XCTAssertNotNil(downloadResp)
+        XCTAssertNotNil(uploadResp?.fid)
+        
+//        guard let downloadResp = try? MoveApi.FileStorage.download(fid: "5,01b70efceab7")
+//            .debug()
+//            .do(onNext: { (downloadInfo) in
+//            print("下载进度=====\(downloadInfo.path)")
+//        }).toBlocking().last() else{
+//            XCTFail()
+//            return
+//        }
+//        XCTAssertNotNil(downloadResp)
         
 //        guard let deleteResp = try? MoveApi.FileStorage.delete(fid: (uploadResp?.fid)!).toBlocking().last() else{
 //            XCTFail()
