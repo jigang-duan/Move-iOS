@@ -91,6 +91,7 @@ class LocationHistoryVC: UIViewController {
         timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         let img = UIImage(named : "general_slider_dot")
         timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
+        timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
         
         locationMap.rx.willStartLoadingMap
             .asDriver()
@@ -154,11 +155,24 @@ class LocationHistoryVC: UIViewController {
                         arr[i] = annotation
                     }
                     self.annotationArr = arr
+                    self.timeZoneSlider.maximumValue = Float(self.annotationArr.count)
+                    self.timeZoneSlider.minimumValue = 0
+                    self.timeZoneSlider.value = 0
                     self.TimePointSelect(index: self.index)
                 }
                 
             })
             .addDisposableTo(disposeBag)
+    }
+    
+    func actionFenceRadiusValueChanged(_ slider:UISlider ) {
+        locationMap.removeAnnotations(self.locationMap.annotations)
+        if annotationArr.count>0 {
+            index = Int(slider.value)
+            self.locationMap.addAnnotations(self.annotationArr)
+            self.TimePointSelect(index: index)
+        }
+
     }
     
     func TimePointSelect(index : Int){
@@ -219,6 +233,8 @@ class LocationHistoryVC: UIViewController {
         calendar.select(perivday)
         let time = self.calenderConversion(from: calendar.today!, to: perivday)
         self .changeBtnType(time: time , date : perivday)
+        selectedDate.value = perivday
+        index = 0
     }
     
     @IBAction func NextBtnClick(_ sender: UIButton) {
@@ -227,7 +243,8 @@ class LocationHistoryVC: UIViewController {
         calendar .select(nextday)
         let time = self.calenderConversion(from: calendar.today!, to: nextday)
         self .changeBtnType(time: time , date : nextday)
-
+        selectedDate.value = nextday
+        index = 0
     }
     
     @IBAction func NextPointClick(_ sender: UIButton) {
@@ -275,6 +292,7 @@ class LocationHistoryVC: UIViewController {
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: UIControlState.normal)
         }
+        
     }
     
     func calenderConversion(from : Date , to : Date) -> Int {
