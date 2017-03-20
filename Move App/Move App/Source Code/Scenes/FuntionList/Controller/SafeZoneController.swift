@@ -24,6 +24,9 @@ class SafeZoneController: UIViewController {
     //var fenceArray: [NSDictionary]?
     var fences: [KidSate.ElectronicFencea] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +44,8 @@ class SafeZoneController: UIViewController {
 //        let path = Bundle.main.path(forResource: "safezone.plist", ofType: nil)
 //        let dict = NSDictionary(contentsOfFile: path!)
 //        fenceArray = dict?["fences"] as? [NSDictionary]
-    //拉取数据
-        LocationManager.share.fetchSafeZone()
-            .bindNext {
-                self.fences = $0
-                self.tableview.reloadData()
-            }
-            .addDisposableTo(disposeBag)
+    
        
-        
         //缺省
         self.dataISexit = !self.fences.isEmpty
         self.tableview.isHidden = !dataISexit
@@ -57,10 +53,31 @@ class SafeZoneController: UIViewController {
         tableview.register(R.nib.safezoneCell(), forCellReuseIdentifier: R.reuseIdentifier.safezonecell.identifier)
     }
     
+    func reloadData(){
+        //拉取数据
+        LocationManager.share.fetchSafeZone()
+            .bindNext {
+                self.fences = $0
+                self.tableview.reloadData()
+                self.dataISexit = !self.fences.isEmpty
+                self.tableview.isHidden = !self.dataISexit
+            }
+            .addDisposableTo(disposeBag)
+    }
+    
     func showAddSafeZoneVC() {
         if let vc = R.storyboard.major.addSafeZoneVC() {
             self.navigationController?.show(vc, sender: nil)
         }
+    }
+    
+    func errorshow(message : String) {
+        let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }
@@ -90,21 +107,26 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let vc : AddSafeZoneVC = R.storyboard.major.addSafeZoneVC()  {
+            vc.editFenceDataSounrce = self.fences[indexPath.row]
+            self.navigationController?.show(vc, sender: nil)
+        }
     }
     
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            self.fences.remove(at: indexPath.row)
             //删除
-       let _  = LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids!)
+            LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids!).bindNext {
+                print($0)
+                self.fences.remove(at: indexPath.row)
+                self.tableview.deleteRows(at: [indexPath], with: .top)
+                self.tableview.reloadData()
+                }.addDisposableTo(disposeBag)
             
         }
-        tableview.deleteRows(at: [indexPath], with: .top)
         
-        tableview.reloadData()
     }
 }
 

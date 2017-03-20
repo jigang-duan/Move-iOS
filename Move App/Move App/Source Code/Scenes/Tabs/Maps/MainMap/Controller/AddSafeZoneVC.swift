@@ -15,6 +15,7 @@ import CustomViews
 
 class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
+    var editFenceDataSounrce : KidSate.ElectronicFencea?
     var fenceName : String? = ""
     var fencelocation : CLLocationCoordinate2D?
     var fenceActive: Bool?
@@ -45,7 +46,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.title = "Add Safe zone"
         
         let item=UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
@@ -59,7 +59,12 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
-        self.SaveNewSafeZone()
+         if (self.editFenceDataSounrce != nil) {
+            self.EditSafeZone()
+         }else{
+            self.SaveNewSafeZone()
+        }
+        
     }
     
     @IBAction func SearchBtnClick(_ sender: UIButton) {
@@ -91,19 +96,51 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         let kidInfo = DeviceManager.shared.currentDevice?.user
-        
-        self.kidnameL.text = kidInfo?.nickname
-        let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
-            .map({
-                self.kidaddressL.text = $0.location?.addr
-                self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
-        })
-        getaddressdata.subscribe(onNext: {
-            print($0)
-        }).addDisposableTo(disposeBag)
-        
-        
+        if (self.editFenceDataSounrce != nil) {
+            //编辑
+            self.title = self.editFenceDataSounrce?.name
+            let kidInfo = DeviceManager.shared.currentDevice?.user
+            self.kidnameL.text = kidInfo?.nickname
+            self.kidaddressL.text = self.editFenceDataSounrce?.location?.addr
+            self.fencelocation = CLLocationCoordinate2D(latitude: (self.editFenceDataSounrce?.location?.location?.latitude)!, longitude: (self.editFenceDataSounrce?.location?.location?.longitude)!)
+            let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
+            self.mainMapView.setRegion(region, animated: true)
+            safeZoneSlider.value = Float((self.editFenceDataSounrce?.radius)!)
+            self.currentRadius = (self.editFenceDataSounrce?.radius)!
+            self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+            let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
+            self.mainMapView.addAnnotation(annotion)
+            if self.circleOverlay == nil
+            {
+                self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
+                self.mainMapView.add(self.circleOverlay!)
+            }
+
+        }else{
+            //新增
+            self.title = "Add Safe zone"
+            let kidInfo = DeviceManager.shared.currentDevice?.user
+            
+            self.kidnameL.text = kidInfo?.nickname
+            let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
+                .map({
+                    self.kidaddressL.text = $0.location?.addr
+                    self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
+                    let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
+                    self.mainMapView.setRegion(region, animated: true)
+                    self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+                    let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
+                    self.mainMapView.addAnnotation(annotion)
+                    if self.circleOverlay == nil
+                    {
+                        self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
+                        self.mainMapView.add(self.circleOverlay!)
+                    }
+                })
+            getaddressdata.subscribe(onNext: {
+                print($0)
+            }).addDisposableTo(disposeBag)
+        }
         
         centerss = mainMapView.centerCoordinate
         let img = UIImage(named : "general_slider_dot")
@@ -166,23 +203,23 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         viewModel.kidLocation
             .asObservable()
             .take(1)
-            .bindNext { [unowned self] in
+            .bindNext {[unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 1500, 1500)
-                self.mainMapView.setRegion(region, animated: true)
+                print("\(region)")
+//                self.mainMapView.setRegion(region, animated: true)
             }
             .addDisposableTo(disposeBag)
         
         viewModel.kidAnnotion.debug()
             .distinctUntilChanged()
-            .drive(onNext: { [unowned self] annotion in
-                self.mainMapView.removeAnnotations(self.mainMapView.annotations)
-                self.mainMapView.addAnnotation(annotion)
+            .drive(onNext: {[unowned self] annotion in
+//                self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+//                self.mainMapView.addAnnotation(annotion)
                 if self.circleOverlay == nil
                 {
-                    self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
-                    self.mainMapView.add(self.circleOverlay!)
+//                    self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
+//                    self.mainMapView.add(self.circleOverlay!)
                 }
-                
             })
             .addDisposableTo(disposeBag)
         
@@ -288,7 +325,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             alert -> Void in
             if self.nameTextField.text != "" {
                 let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressL.text)
-                let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(name : self.nameTextField.text , location : fenceloc , radius : self.currentRadius , active : true)
+                let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.nameTextField.text , location : fenceloc , radius : self.currentRadius , active : true)
                 let fencereq = MoveApi.FenceReq(fence : fenceinfo)
                 let postFence = MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
                     .map({
@@ -320,6 +357,46 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    
+    func EditSafeZone() {
+        let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
+            alert -> Void in
+            
+            var fenceloc : MoveApi.Fencelocation? = nil
+            var fenceinfo : MoveApi.FenceInfo? = nil
+            var fencereq : MoveApi.FenceReq? = nil
+            if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
+                 fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.addr)
+            }else{
+                 fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressL.text)
+            }
+            
+            fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.editFenceDataSounrce?.name , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
+            fencereq = MoveApi.FenceReq(fence : fenceinfo)
+            
+            MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
+                print($0)
+                if $0.msg != "ok" {
+                    self.errorshow(message: $0.field!)
+                }else{
+                    self.navigationController?.popViewController(animated: true)
+                }
+                }.addDisposableTo(self.disposeBag)
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+
     /*
     // MARK: - Navigation
 
