@@ -15,6 +15,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
 
     var disposeBag = DisposeBag()
 
+    @IBOutlet weak var guideBtn: UIButton!
     var dataArr = NSArray()
     var locationOfDevice : [MoveApi.LocationOfDevice]? = []
     var annotationArr : [TagAnnotation]? = []
@@ -44,6 +45,8 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     @IBOutlet weak var mapView: MKMapView!
     var userPoint : CLLocationCoordinate2D?
     var selectPoint : CLLocationCoordinate2D?
+    var selectAnnotation : TagAnnotation?
+    var curDirectionMode:MKDirectionsTransportType = .walking
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -206,6 +209,8 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             let annot = view.annotation as! TagAnnotation
             nameL.text = annot.name
             addressL.text = annot.info?.address
+            self.selectAnnotation = annot
+            
         }
         
         
@@ -230,6 +235,27 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     }
     
     
+    @IBAction func guideBtnClick(_ sender: UIButton) {
+        if selectAnnotation != nil {
+            guard let kidCoordinate = selectAnnotation?.coordinate else {
+                return
+            }
+            
+            /*
+             guard let useCoordinate = self.mapView?.userLocation.coordinate else {
+             return
+             }
+             */
+            
+            let options = [
+                MKLaunchOptionsDirectionsModeKey: self.curDirectionMode == .walking ? MKLaunchOptionsDirectionsModeWalking : MKLaunchOptionsDirectionsModeDriving,
+                ]
+            let placemark = MKPlacemark(coordinate: kidCoordinate, addressDictionary: nil)
+            let mapItem = MKMapItem(placemark: placemark)
+            mapItem.name = "\(selectAnnotation?.name ?? "")"
+            mapItem.openInMaps(launchOptions: options)
+        }
+    }
     /*
     // MARK: - Navigation
 

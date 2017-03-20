@@ -925,20 +925,33 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U61-qc-dY8">
-                                        <rect key="frame" x="8" y="37" width="359" height="55"/>
+                                        <rect key="frame" x="8" y="37" width="271" height="55"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yF-Uc-Mbu">
+                                        <rect key="frame" x="287" y="12" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="XJX-gb-Afs"/>
+                                        </constraints>
+                                        <state key="normal" image="home_ic_navigation"/>
+                                        <connections>
+                                            <action selector="guideBtnClick:" destination="06j-ga-eoj" eventType="touchUpInside" id="aEp-SQ-bt4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="9yF-Uc-Mbu" secondAttribute="bottom" constant="8" id="2l5-fy-iF8"/>
+                                    <constraint firstAttribute="trailing" secondItem="9yF-Uc-Mbu" secondAttribute="trailing" constant="8" id="Oys-nw-2BD"/>
+                                    <constraint firstItem="9yF-Uc-Mbu" firstAttribute="top" secondItem="5Tc-2x-h9N" secondAttribute="top" constant="12" id="UQf-M4-O0V"/>
                                     <constraint firstItem="U61-qc-dY8" firstAttribute="top" secondItem="Tk1-1G-ECO" secondAttribute="bottom" constant="8" id="WCg-Oz-nYP"/>
                                     <constraint firstAttribute="height" constant="100" id="ZZI-Ea-Nb9"/>
                                     <constraint firstAttribute="bottom" secondItem="U61-qc-dY8" secondAttribute="bottom" constant="8" id="ebl-XX-Fx1"/>
                                     <constraint firstItem="Tk1-1G-ECO" firstAttribute="top" secondItem="5Tc-2x-h9N" secondAttribute="top" constant="8" id="khq-cy-yex"/>
                                     <constraint firstItem="Tk1-1G-ECO" firstAttribute="leading" secondItem="5Tc-2x-h9N" secondAttribute="leading" constant="8" id="mQn-6x-K5c"/>
-                                    <constraint firstAttribute="trailing" secondItem="U61-qc-dY8" secondAttribute="trailing" constant="8" id="rMo-nq-t35"/>
+                                    <constraint firstAttribute="trailing" secondItem="U61-qc-dY8" secondAttribute="trailing" constant="96" id="rMo-nq-t35"/>
                                     <constraint firstAttribute="trailing" secondItem="Tk1-1G-ECO" secondAttribute="trailing" constant="8" id="sEI-mY-s08"/>
                                     <constraint firstItem="U61-qc-dY8" firstAttribute="leading" secondItem="5Tc-2x-h9N" secondAttribute="leading" constant="8" id="yoo-3k-wxe"/>
                                 </constraints>
@@ -958,6 +971,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="addressL" destination="U61-qc-dY8" id="gja-9C-Vq9"/>
+                        <outlet property="guideBtn" destination="9yF-Uc-Mbu" id="0Wq-nt-MP0"/>
                         <outlet property="mapView" destination="BIM-Rz-5C5" id="IEP-Yc-jHQ"/>
                         <outlet property="nameL" destination="Tk1-1G-ECO" id="z02-jf-4Fx"/>
                     </connections>
