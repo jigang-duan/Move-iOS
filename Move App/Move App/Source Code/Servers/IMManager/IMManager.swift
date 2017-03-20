@@ -19,6 +19,36 @@ class IMManager {
     
     fileprivate var worker: IMWorkerProtocl!
     
+    var synckeyData: MoveIM.ImSynDatakey {
+        var synData = MoveIM.ImSynDatakey()
+        synData.synckey = []
+        var synList = MoveIM.ImSynckey()
+        let realm = try! Realm()
+        if let synKeyValue = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) {
+            synList.key = 1
+            synList.value = synKeyValue.message
+            synData.synckey?.append(synList)
+            synList.key = 2
+            synList.value = synKeyValue.contact
+            synData.synckey?.append(synList)
+            synList.key = 3
+            synList.value = synKeyValue.group
+            synData.synckey?.append(synList)
+        }
+        else {
+            synList.key = 1
+            synList.value = 0
+            synData.synckey?.append(synList)
+            synList.key = 2
+            synList.value = 0
+            synData.synckey?.append(synList)
+            synList.key = 3
+            synList.value = 0
+            synData.synckey?.append(synList)
+        }
+        return synData
+    }
+    
     init() {
         worker = MoveApiIMWorker()
     }
@@ -38,12 +68,16 @@ extension IMManager {
         return worker.initSyncKey()
     }
     
-    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]) -> Observable<Bool> {
-        return worker.checkSyncKey(synckeyList: synckeyList)
+    func checkSyncKey() -> Observable<Bool> {
+        return worker.checkSyncKey(synckeyList: synckeyData.synckey!)
     }
     
     func syncData() -> Observable<Bool> {
-        return worker.syncData()
+        return worker.syncData(syncData: synckeyData)
+    }
+    
+    func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
+        return worker.sendChatMessage(message: message)
     }
     
 }
@@ -59,7 +93,9 @@ protocol IMWorkerProtocl {
     
     func checkSyncKey(synckeyList: [MoveIM.ImSynckey]) -> Observable<Bool>
     
-    func syncData() -> Observable<Bool>
+    func syncData(syncData: MoveIM.ImSynDatakey) -> Observable<Bool>
+    
+    func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp>
 }
 
 
@@ -88,261 +124,49 @@ struct ImContact {
     var admin: Bool?
 }
 
-class MessageDataBaseManager {
-    
-    static let shared = MessageDataBaseManager()
-    
-    var uid: String? = nil
-    var messageValue = 0
-    var contactValue = 0
-    var groupValue = 0
-    
-    var selector = 0
-    
-    var groupList: [ImGroup]? = []
-    var memberList: [ImContact]? = []
-    
-    struct Message {
-        var msg_id: String?
-        var type: Int?
-        var from: String?
-        var to: String?
-        var gid: String?
-        var content: String?
-        var contentType: Int? = -1
-        var contentStatus: Int? = -1
-        var op: Int?
-        var notice: Int?
-        var status: Int? = -1
-        var duration: TimeInterval? = 0.0
-        var createDate: Date?
-    }
-    
-    var messageList: [Message]? = []
-    
-}
-
-extension MessageDataBaseManager {
-
-    fileprivate func fetchSynkey() -> MessageDataBaseManager {
-        let realm = try! Realm()
-        if let mySynKey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) {
-            MessageDataBaseManager.shared.uid = mySynKey.uid
-            MessageDataBaseManager.shared.messageValue = mySynKey.message
-            MessageDataBaseManager.shared.contactValue = mySynKey.contact
-            MessageDataBaseManager.shared.groupValue = mySynKey.group
-        }
-        
-        return MessageDataBaseManager.shared
-    }
-    
-    fileprivate func saveSynckey() {
-        let realm = try! Realm()
-        if let mySynckey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: self.uid) {
-            try! realm.write {
-                mySynckey.message = self.messageValue
-                mySynckey.contact = self.contactValue
-                mySynckey.group = self.groupValue
-
-            }
-        } else {
-            let entity = SynckeyEntity()
-            entity.uid = self.uid
-            entity.message = self.messageValue
-            entity.contact = self.contactValue
-            entity.group = self.groupValue
-            try! realm.write {
-                realm.add(entity)
-            }
-        }
-    }
-    
-    
-    fileprivate func saveMessage() {
-        
-        guard let messages = self.messageList else {
-            return
-        }
-        let realm = try! Realm()
-        for item in messages {
-            if let messageEntity = realm.object(ofType: MessageEntity.self, forPrimaryKey: item.msg_id) {
-                try! realm.write {
-         
-                    messageEntity.from = item.from
-                    messageEntity.to = item.to
-                    messageEntity.groupId = item.gid
-                    messageEntity.content = item.content
-                    messageEntity.contentType = item.contentType!
-                    messageEntity.readStatus = item.contentStatus!
-                    messageEntity.duration = item.duration!
-                    messageEntity.status = item.status!
-                    messageEntity.createDate = item.createDate
-                }
-            } else {
-                let entity = MessageEntity()
-                entity.id = item.msg_id
-                entity.from = item.from
-                entity.to = item.to
-                entity.groupId = item.gid
-                entity.content = item.content
-                entity.contentType = item.contentType!
-                entity.readStatus = item.contentStatus!
-                entity.duration = item.duration!
-                entity.status = item.status!
-                entity.createDate = item.createDate
-                
-                try! realm.write {
-                    realm.add(entity)
-                }
-            }
-
-        }
-    }
-    
-    fileprivate func saveGroup() {
-        
-        guard let grouplist = self.groupList else {
-            return
-        }
-        let realm = try! Realm()
-        for item in grouplist {
-            if let groupEntity = realm.object(ofType: GroupEntity.self, forPrimaryKey: item.gid) {
-                groupEntity.name = item.topic
-                groupEntity.headPortrait = item.profile
-                groupEntity.owner = item.owner
-                groupEntity.flag = item.flag ??  -1
-                groupEntity.createDate = item.ctime
-            }
-            else {
-                let entity = GroupEntity()
-                entity.id = item.gid
-                entity.name = item.topic
-                entity.headPortrait = item.profile
-                entity.owner = item.owner
-                entity.flag = item.flag ??  -1
-                entity.createDate = item.ctime
-                try! realm.write {
-                    realm.add(entity)
-                }
-            }
-        }
-    }
-    
-    fileprivate func saveMember() {
-        
-        guard let _memberlist = self.memberList else {
-            return
-        }
-        let realm = try! Realm()
-        for item in _memberlist {
-            if let memberEntity = realm.object(ofType: MemberEntity.self, forPrimaryKey: item.uid) {
-                
-                memberEntity.type = item.type ?? -1
-                memberEntity.username = item.username
-                memberEntity.nickname = item.nickname
-                memberEntity.headPortrait = item.profile
-                memberEntity.identity = item.identity?.transformIdentity()
-                memberEntity.sex = item.sex ?? 0
-                memberEntity.phone = item.phone
-                memberEntity.email = item.email
-                memberEntity.flag = item.flag ??  -1
-            }
-            else {
-                let entity = MemberEntity()
-                entity.id = item.uid
-                entity.type = item.type ?? -1
-                entity.username = item.username
-                entity.nickname = item.nickname
-                entity.headPortrait = item.profile
-                entity.identity = item.identity?.transformIdentity()
-                entity.sex = item.sex ?? 0
-                entity.phone = item.phone
-                entity.email = item.email
-                entity.flag = item.flag ??  -1
-                try! realm.write {
-                    realm.add(entity)
-                }
-            }
-        }
-    }
-    
-    func convertContactInfo(contactList:[MoveIM.ImContact]?) {
-        guard let _memberList = contactList else {
-            return
-        }
-        
-        memberList?.removeAll()
-        
-        for item in _memberList {
-            var member = ImContact()
-            member.admin = item.admin
-            member.email = item.email
-            member.flag = item.flag
-            member.identity = Relation(input: item.identity!)
-            member.nickname = item.nickname
-            member.phone = item.phone
-            member.profile = item.profile
-            member.sex = item.sex
-            member.time = item.time
-            member.type = item.type
-            member.uid = item.uid
-            member.username = item.username
-            memberList?.append(member)
-        }
-    }
-    
-    func convertMessage(messagelist:[MoveIM.ImMessage]?) {
-        guard let _messageList = messagelist else {
-            messageList = []
-            return
-        }
-        
-        messageList?.removeAll()
-        
-        for item in _messageList {
-            var message = MessageDataBaseManager.Message()
-            message.content = item.content
-            message.contentStatus = item.content_status
-            message.contentType = item.content_type
-            message.createDate = item.ctime
-            message.duration = Double(item.duration!)
-            message.from = item.from
-            message.gid = item.gid
-            message.msg_id = item.msg_id
-            message.notice = item.notice
-            message.op = item.op
-            message.status = item.status
-            message.to = item.to
-            message.type = item.type
-            self.messageList?.append(message)
-        }
-    }
-
-}
-
-
-
-
 extension ObservableType where E == MoveIM.ImUserSynckey {
     func saveSynckey() -> Observable<Bool> {
         return flatMap { element -> Observable<Bool> in
-            if let synckey = element.synckey {
-                MessageDataBaseManager.shared.messageValue = synckey[0].value ?? 0
-                MessageDataBaseManager.shared.contactValue = synckey[1].value ?? 0
-                MessageDataBaseManager.shared.groupValue = synckey[2].value ?? 0
-            } else {
-                MessageDataBaseManager.shared.messageValue = 0
-                MessageDataBaseManager.shared.contactValue = 0
-                MessageDataBaseManager.shared.groupValue = 0
-            }
             
+            var userid: String?
+            var messageValue: Int
+            var contactValue: Int
+            var groupValue: Int
             if let user = element.user {
-                MessageDataBaseManager.shared.uid = user.uid
+                userid = user.uid
             } else {
-                MessageDataBaseManager.shared.uid = UserInfo.shared.id
+                userid = UserInfo.shared.id
             }
-            MessageDataBaseManager.shared.saveSynckey()
             
+            if let synckey = element.synckey {
+                messageValue = synckey[0].value ?? 0
+                contactValue = synckey[1].value ?? 0
+                groupValue = synckey[2].value ?? 0
+            } else {
+                messageValue = 0
+                contactValue = 0
+                groupValue = 0
+            }
+            
+            let realm = try! Realm()
+            
+            if let mySynckey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: userid) {
+                try! realm.write {
+                    mySynckey.message = messageValue
+                    mySynckey.contact = contactValue
+                    mySynckey.group = groupValue
+                    
+                }
+            } else {
+                let entity = SynckeyEntity()
+                entity.uid = userid
+                entity.message = messageValue
+                entity.contact = contactValue
+                entity.group = groupValue
+                try! realm.write {
+                    realm.add(entity)
+                }
+            }
             return Observable.just(true)
         }
     }
@@ -351,48 +175,182 @@ extension ObservableType where E == MoveIM.ImUserSynckey {
 extension ObservableType where E == MoveIM.ImSyncData {
     func saveSynData() -> Observable<Bool> {
         return flatMap { element -> Observable<Bool> in
+            
+            var messageValue: Int
+            var contactValue: Int
+            var groupValue: Int
+            
             if let synckey = element.synckey {
-                
-//                for i in 0..<synckey.count {
-//                    switch i {
-//                    case 1:
-//                        MessageDataBaseManager.shared.messageValue = synckey[i].value ?? 0
-//                    case 2:
-//                        MessageDataBaseManager.shared.contactValue = synckey[i].value ?? 0
-//                    case 3:
-//                        MessageDataBaseManager.shared.contactValue = synckey[i].value ?? 0
-//                    default:
-//                        break
-//                    }
-//                }
-                MessageDataBaseManager.shared.messageValue = synckey[0].value ?? 0
-                MessageDataBaseManager.shared.contactValue = synckey[1].value ?? 0
-                MessageDataBaseManager.shared.groupValue = synckey[2].value ?? 0
+                messageValue = synckey[0].value ?? 0
+                contactValue = synckey[1].value ?? 0
+                groupValue = synckey[2].value ?? 0
             } else {
-                MessageDataBaseManager.shared.messageValue = 0
-                MessageDataBaseManager.shared.contactValue = 0
-                MessageDataBaseManager.shared.groupValue = 0
+                messageValue = 0
+                contactValue = 0
+                groupValue = 0
             }
-            MessageDataBaseManager.shared.uid = UserInfo.shared.id
             
+            let realm = try! Realm()
             
-            MessageDataBaseManager.shared.convertMessage(messagelist: element.messages)
-            MessageDataBaseManager.shared.convertContactInfo(contactList: element.contacts)
+            if let mySynckey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) {
+                try! realm.write {
+//                    mySynckey.uid = UserInfo.shared.id
+                    mySynckey.message = messageValue
+                    mySynckey.contact = contactValue
+                    mySynckey.group = groupValue
+                    
+                }
+            } else {
+                let entity = SynckeyEntity()
+                entity.uid = UserInfo.shared.id
+                entity.message = messageValue
+                entity.contact = contactValue
+                entity.group = groupValue
+                try! realm.write {
+                    realm.add(entity)
+                }
+            }
             
-            MessageDataBaseManager.shared.saveMessage()
-            MessageDataBaseManager.shared.saveMember()
-            MessageDataBaseManager.shared.saveSynckey()
-            
+            let _ = element.messages.map{$0.map{self.saveMessage(message: $0)}}
+            let _ = element.contacts.map{$0.map{self.saveMember(member: $0)}}
+            let _ = element.groups.map{$0.map{self.saveGroup(group: $0)}}
             return Observable.just(true)
         }
     }
+    
+    func saveMember(member: MoveIM.ImContact) {
+        
+        let realm = try! Realm()
+        
+        if let memberEntity = realm.object(ofType: MemberEntity.self, forPrimaryKey: member.uid) {
+            try! realm.write {
+                memberEntity.type = member.type ?? -1
+                memberEntity.username = member.username
+                memberEntity.nickname = member.nickname
+                memberEntity.headPortrait = member.profile
+                memberEntity.identity = member.identity
+                memberEntity.sex = member.sex ?? 0
+                memberEntity.phone = member.phone
+                memberEntity.email = member.email
+                memberEntity.flag = member.flag ??  -1
+            }
+        }
+        else {
+            let entity = MemberEntity()
+            entity.id = member.uid
+            entity.type = member.type ?? -1
+            entity.username = member.username
+            entity.nickname = member.nickname
+            entity.headPortrait = member.profile
+            entity.identity = member.identity
+            entity.sex = member.sex ?? 0
+            entity.phone = member.phone
+            entity.email = member.email
+            entity.flag = member.flag ??  -1
+            try! realm.write {
+                realm.add(entity)
+            }
+        }
+
+    }
+    
+    func saveMessage(message: MoveIM.ImMessage) {
+        let realm = try! Realm()
+        
+        if let messageEntity = realm.object(ofType: MessageEntity.self, forPrimaryKey: message.msg_id) {
+            try! realm.write {
+                
+                messageEntity.from = message.from
+                messageEntity.to = message.to
+                messageEntity.groupId = message.gid
+                messageEntity.content = message.content
+                messageEntity.contentType = message.content_type!
+                messageEntity.readStatus = message.content_status!
+                messageEntity.duration = TimeInterval(message.duration!)
+                messageEntity.status = message.status!
+                messageEntity.createDate = message.ctime
+            }
+        } else {
+            let entity = MessageEntity()
+            entity.id = message.msg_id
+            entity.from = message.from
+            entity.to = message.to
+            entity.groupId = message.gid
+            entity.content = message.content
+            entity.contentType = message.content_type!
+            entity.readStatus = message.content_status!
+            entity.duration = TimeInterval(message.duration!)
+            entity.status = message.status!
+            entity.createDate = message.ctime
+            
+            try! realm.write {
+                realm.add(entity)
+            }
+        }
+    }
+    
+    func saveGroup(group: MoveIM.ImGroup) {
+        let realm = try! Realm()
+        
+        if let groupEntity = realm.object(ofType: GroupEntity.self, forPrimaryKey: group.gid) {
+            try! realm.write {
+                groupEntity.name = group.topic
+                groupEntity.headPortrait = group.profile
+                groupEntity.owner = group.owner
+                groupEntity.flag = group.flag ??  -1
+                groupEntity.createDate = group.ctime
+                groupEntity.messages.removeAll()
+                group.members?.forEach({ (member) in
+                    let entity = MemberEntity()
+                    entity.id = member.uid
+                    entity.type = member.type ?? -1
+                    entity.username = member.username
+                    entity.nickname = member.nickname
+                    entity.headPortrait = member.profile
+                    entity.identity = member.identity
+                    entity.sex = member.sex ?? 0
+                    entity.phone = member.phone
+                    entity.email = member.email
+                    entity.flag = member.flag ??  -1
+                    groupEntity.members.append(entity)
+                })
+            }
+        }
+        else {
+            let entity = GroupEntity()
+            entity.id = group.gid
+            entity.name = group.topic
+            entity.headPortrait = group.profile
+            entity.owner = group.owner
+            entity.flag = group.flag ??  -1
+            entity.createDate = group.ctime
+            group.members?.forEach({ (member) in
+                let memberEntity = MemberEntity()
+                memberEntity.id = member.uid
+                memberEntity.type = member.type ?? -1
+                memberEntity.username = member.username
+                memberEntity.nickname = member.nickname
+                memberEntity.headPortrait = member.profile
+                memberEntity.identity = member.identity
+                memberEntity.sex = member.sex ?? 0
+                memberEntity.phone = member.phone
+                memberEntity.email = member.email
+                memberEntity.flag = member.flag ??  -1
+                entity.members.append(memberEntity)
+            })
+            try! realm.write {
+                realm.add(entity)
+            }
+        }
+    }
+    
 }
 
 extension ObservableType where E == MoveIM.ImSelector {
     func saveSelector() -> Observable<Bool> {
         return flatMap { info -> Observable<Bool> in
-            if let _selcter = info.selector {
-               MessageDataBaseManager.shared.selector = _selcter
+            if let _ = info.selector {
+               //let selector = _selcter
                 return Observable.just(true)
             } else {
                 return Observable.just(false)

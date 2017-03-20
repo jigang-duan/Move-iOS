@@ -26,6 +26,7 @@ extension MoveIM {
         var profile: String?
         var owner: String?
         var flag: Int?
+        var ctime: Date?
         var members: [ImContact]?
     }
     
@@ -82,6 +83,11 @@ extension MoveIM {
         var ctime: Date?
     }
     
+    struct ImMesageRsp {
+        var local_id: String?
+        var msg_id: String?
+    }
+    
     struct ImSyncData {
         var messages: [ImMessage]?
         var contacts: [ImContact]?
@@ -119,6 +125,7 @@ extension MoveIM.ImGroup: Mappable {
         profile <- map["profile"]
         owner <- map["owner"]
         flag <- map["flag"]
+        ctime <- map["ctime"]
         members <- map["members"]
     }
 }
@@ -224,5 +231,14 @@ extension MoveIM.ImSyncData: Mappable {
         contacts <- map["contacts"]
         groups <- map["groups"]
         synckey <- map["synckey"]
+    }
+}
+
+extension MoveIM.ImMesageRsp: Mappable {
+    init?(map: Map) {
+    }
+    mutating func mapping(map: Map) {
+        local_id <- map["local_id"]
+        msg_id <- map["msg_id"]
     }
 }

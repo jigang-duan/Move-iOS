@@ -1,4 +1,5 @@
 //
+
 //  FileStorageManager.swift
 //  Move App
 //
@@ -8,7 +9,6 @@
 
 import Foundation
 import RxSwift
-
 
 class FSManager {
     
@@ -50,10 +50,25 @@ struct FileStorageInfo {
     var progressObject: Progress?
 }
 
+protocol FileWorkerProtocl {
+    func upload(fileInfo: MoveApi.FileInfo) -> Observable<MoveApi.FileUploadResp>
+    func download(fid: String) -> Observable<MoveApi.FileStorageInfo>
+}
 
-
-
-
-
-
-
+class FileStorageManager  {
+    static let share = FileStorageManager()
+    
+    fileprivate var worker: FileWorkerProtocl!
+    
+    init() {
+        worker = MoveApiFileWorker()
+    }
+    
+    func upload(fileInfo: MoveApi.FileInfo) -> Observable<MoveApi.FileUploadResp> {
+        return worker.upload(fileInfo:fileInfo)
+    }
+    
+    func download(fid: String) -> Observable<MoveApi.FileStorageInfo> {
+        return worker.download(fid: fid)
+    }
+}

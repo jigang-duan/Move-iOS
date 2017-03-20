@@ -174,20 +174,20 @@ extension UserInfo {
                 realm.add(entity)
             }
         }
-        initSynckey()
+//        initSynckey()
     }
     
-    fileprivate func initSynckey() {
-        let realm = try! Realm()
-        if realm.object(ofType: SynckeyEntity.self, forPrimaryKey: self.id) != nil {
-            return
-        }
-        let entity = SynckeyEntity()
-        entity.uid = self.id
-        try! realm.write {
-            realm.add(entity)
-        }
-    }
+//    fileprivate func initSynckey() {
+//        let realm = try! Realm()
+//        if realm.object(ofType: SynckeyEntity.self, forPrimaryKey: self.id) != nil {
+//            return
+//        }
+//        let entity = SynckeyEntity()
+//        entity.uid = self.id
+//        try! realm.write {
+//            realm.add(entity)
+//        }
+//    }
     
     
     func isValid() -> Observable<Bool> {
@@ -237,8 +237,16 @@ extension ObservableType where E == MoveApi.AccessToken {
             UserInfo.shared.id = element.uid
             UserInfo.shared.saveAccessToken()
             return Observable.just(UserInfo.shared)
+                .flatMapLatest({ user -> Observable<UserInfo> in
+                    let realm = try! Realm()
+                    if realm.object(ofType: SynckeyEntity.self, forPrimaryKey: user.id) == nil {
+                        return MoveIM.ImApi.initSyncKey().map({ _ in user })
+                    }
+                    return Observable.just(user)
+                })
         }
     }
+    
 }
 
 extension ObservableType where E == MoveApi.UserInfoMap {

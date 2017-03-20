@@ -8,7 +8,9 @@
 
 import Foundation
 import RxSwift
-
+import Realm
+import RealmSwift
+import RxRealm
 
 class MoveApiIMWorker: IMWorkerProtocl {
     
@@ -23,22 +25,12 @@ class MoveApiIMWorker: IMWorkerProtocl {
         return MoveIM.ImApi.checkSyncKey(synckey: synk)
     }
     
-    func syncData() -> Observable<Bool> {
-        var synData = MoveIM.ImSynDatakey()
-        synData.synckey = []
-        var synList = MoveIM.ImSynckey()
-
-        synList.key = 1
-        synList.value = 0
-        synData.synckey?.append(synList)
-        synList.key = 2
-        synList.value = 0
-        synData.synckey?.append(synList)
-        synList.key = 3
-        synList.value = 53
-        synData.synckey?.append(synList)
-        
-        return MoveIM.ImApi.syncData(synckey: synData)
+    func syncData(syncData: MoveIM.ImSynDatakey) -> Observable<Bool> {
+        return MoveIM.ImApi.syncData(synckey: syncData)
+    }
+    
+    func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
+        return MoveIM.ImApi.sendChatMessage(messageInfo: message)
     }
     
     

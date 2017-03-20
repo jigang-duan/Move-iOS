@@ -50,6 +50,10 @@ extension MoveIM {
             return request(.syncData(synckey: synckey)).mapMoveObject(ImSyncData.self).saveSynData()
         }
         
+        final class func sendChatMessage(messageInfo: ImMessage) -> Observable<ImMesageRsp> {
+            return request(.sendChatMessage(messageInfo: messageInfo)).mapMoveObject(ImMesageRsp.self)
+        }
+        
         enum API {
             case getGroups
             case createGroup(group: ImGroup)
@@ -57,6 +61,7 @@ extension MoveIM {
             case initSyncKey
             case checkSyncKey(userSynckey:ImCheckSynkey)
             case syncData(synckey: ImSynDatakey)
+            case sendChatMessage(messageInfo: ImMessage)
         }
         
     }
@@ -88,6 +93,8 @@ extension MoveIM.ImApi.API: TargetType {
             return "check"
         case .syncData:
             return "sync"
+        case .sendChatMessage(_):
+            return "message"
         }
     }
     
@@ -96,7 +103,7 @@ extension MoveIM.ImApi.API: TargetType {
         switch self {
         case .getGroups, .getGroupInfo, .checkSyncKey:
             return .get
-        case .createGroup, .initSyncKey, .syncData:
+        case .createGroup, .initSyncKey, .syncData, .sendChatMessage:
             return .post
         }
     }
@@ -112,6 +119,8 @@ extension MoveIM.ImApi.API: TargetType {
             return userSynckey.toJSON()
         case .syncData(let synckey):
             return synckey.toJSON()
+        case .sendChatMessage(let messageInfo):
+            return messageInfo.toJSON()
         default:
             return nil
         }

@@ -49,6 +49,8 @@
 		A53513571E790E8E0093445F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53513561E790E8E0093445F /* Chat.swift */; };
 		A535135A1E791F8F0093445F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53513581E791F8F0093445F /* Chat.storyboard */; };
 		A5C5A1D71E763D4B008FAE01 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */; };
+		A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031241E7D051A0077FC9F /* FileStorageManager.swift */; };
+		A5D031271E7D054C0077FC9F /* MoveApiFileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
 		D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */; };
@@ -239,7 +241,6 @@
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
-		FF3D7A741E7D129400239DFE /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A731E7D129400239DFE /* FileStorageManager.swift */; };
 		FF3D7A761E7D2B5900239DFE /* ImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
@@ -350,6 +351,8 @@
 		A53513561E790E8E0093445F /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		A53513591E791F8F0093445F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Chat.storyboard; sourceTree = "<group>"; };
 		A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Chat/ChatViewController.swift; sourceTree = "<group>"; };
+		A5D031241E7D051A0077FC9F /* FileStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileStorageManager.swift; path = FileManager/FileStorageManager.swift; sourceTree = "<group>"; };
+		A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiFileWorker.swift; path = FileManager/MoveApiFileWorker.swift; sourceTree = "<group>"; };
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -549,7 +552,6 @@
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		FF3D7A731E7D129400239DFE /* FileStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileStorageManager.swift; sourceTree = "<group>"; };
 		FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageUtility.swift; path = Shared/Common/Utils/ImageUtility.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
@@ -781,6 +783,15 @@
 				BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A56FF85B1E7D048C001E6148 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				A5D031241E7D051A0077FC9F /* FileStorageManager.swift */,
+				A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */,
+			);
+			name = FileManager;
 			sourceTree = "<group>";
 		};
 		A5C5A1D51E763D10008FAE01 /* Chat */ = {
@@ -1598,6 +1609,7 @@
 		E0FA029B1E5C0544004A55BA /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				A56FF85B1E7D048C001E6148 /* FileManager */,
 				E9CF8A681E71369500E8D8E7 /* LocationManager */,
 				1109C6521E604BAA005B4AFD /* KidSettingManager */,
 				11D0BECA1E5EBC09006F957E /* MeManager */,
@@ -1764,14 +1776,6 @@
 				FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		FF0589371E7A246200ED83F1 /* FileManager */ = {
-			isa = PBXGroup;
-			children = (
-				FF3D7A731E7D129400239DFE /* FileStorageManager.swift */,
-			);
-			path = FileManager;
 			sourceTree = "<group>";
 		};
 		FF0859151E729D2E00EB81D9 /* IM */ = {
@@ -2279,6 +2283,7 @@
 				118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */,
 				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
+				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				FF08590C1E72372B00EB81D9 /* MeSetPasswordVC.swift in Sources */,
@@ -2381,7 +2386,7 @@
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
-				FF3D7A741E7D129400239DFE /* FileStorageManager.swift in Sources */,
+				A5D031271E7D054C0077FC9F /* MoveApiFileWorker.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,

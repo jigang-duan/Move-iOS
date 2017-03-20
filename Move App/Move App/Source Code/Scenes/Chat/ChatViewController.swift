@@ -9,9 +9,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Realm
+import RealmSwift
+import RxRealm
+import RxDataSources
+import RxRealmDataSources
 
 class ChatModel {
-    
+    var disposeBag = DisposeBag()
     var dataSource: [UUMessageFrame] = []
     var previousTime: Date? {
         return dataSource.last?.message.time
@@ -21,7 +26,50 @@ class ChatModel {
         let URLStr = "http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg"
         var message = UUMessage.myTextMessage(text, icon: URLStr, name: "Hello,Sister")
         message.minuteOffSet(start: message.time, end: previousTime ?? Date(timeIntervalSince1970: 0))
-        dataSource.append(UUMessageFrame(message: message))
+        var sendMessage = MoveIM.ImMessage()
+
+//        sendMessage.type = 1
+        sendMessage.from = UserInfo.shared.id
+        sendMessage.to = "15616530027750325535"
+        sendMessage.content = "4,070b0903c92e"
+        sendMessage.content_type = 2
+        sendMessage.ctime = message.time
+        
+//        FileStorageManager.share.upLoadTest().subscribe { fileInfo in
+//            switch fileInfo {
+//            case .completed:
+//                print("completed")
+//            case .error(let error):
+//                print(error.localizedDescription)
+//            case .next(let file):
+//                sendMessage.content = file.fid
+//                IMManager.shared.sendChatMessage(message: sendMessage).subscribe { [weak self] info in
+//                    switch info {
+//                    case .completed:
+//                        print("completed")
+//                    case .error(let error):
+//                        print(error.localizedDescription)
+//                    case .next(let result):
+//                        print(result.local_id ?? "local is null" + "  " + result.msg_id! )
+//                        message.msgId = result.msg_id!
+//                        self?.dataSource.append(UUMessageFrame(message: message))
+//                    }
+//                    }.addDisposableTo(self.disposeBag)
+//            }
+//        }.addDisposableTo(disposeBag)
+        
+        IMManager.shared.sendChatMessage(message: sendMessage).subscribe { [weak self] info in
+            switch info {
+            case .completed:
+                print("completed")
+            case .error(let error):
+                print(error.localizedDescription)
+            case .next(let result):
+                print(result.local_id ?? "local is null" + "  " + result.msg_id! )
+                message.msgId = result.msg_id!
+                self?.dataSource.append(UUMessageFrame(message: message))
+            }
+            }.addDisposableTo(disposeBag)
     }
     
     func addMyPictureItem(_ picture: UIImage) {
@@ -50,6 +98,8 @@ class ChatViewController: UIViewController {
     
     var chatModel: ChatModel!
     var disposeBag = DisposeBag()
+    var message: MessageEntity?
+    var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,21 +110,33 @@ class ChatViewController: UIViewController {
         ifView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
-        ifView.bringSubview(toFront:tableView)
-        
-        IMManager.shared.initSyncKey().subscribe { info in
-            switch info {
+
+        IMManager.shared.getGroups().subscribe {list in
+            switch list {
             case .next(let hinfo):
-                print(hinfo)
+                hinfo.forEach({ group in
+                    print(group.gid ?? "no gid")
+                })
+                
             case .error(let error):
                 print(error)
             case .completed:
                 print("complete")
-
             }
         }.addDisposableTo(disposeBag)
-    
-        var synList = MoveIM.ImSynckey()
+//        IMManager.shared.initSyncKey().subscribe { info in
+//            switch info {
+//            case .next(let hinfo):
+//                print(hinfo)
+//            case .error(let error):
+//                print(error)
+//            case .completed:
+//                print("complete")
+//
+//            }
+//        }.addDisposableTo(disposeBag)
+//
+//        var synList = MoveIM.ImSynckey()
 //        var list: [MoveIM.ImSynckey] = []
 //        synList.key = 1
 //        synList.value = 0
@@ -93,17 +155,35 @@ class ChatViewController: UIViewController {
 //     }).addDisposableTo(disposeBag)
 
 
-        IMManager.shared.syncData().subscribe { info in
-            
-            switch info {
-            case .completed:
-                Logger.debug("completed")
-            case .error(let error):
-                Logger.debug(error)
-            case .next(let bl):
-                Logger.debug(bl)
-            }
-        }
+//        IMManager.shared.syncData().subscribe { info in
+//            
+//            switch info {
+//            case .completed:
+//                Logger.debug("completed")
+//            case .error(let error):
+//                Logger.debug(error)
+//            case .next(let bl):
+//                Logger.debug(bl)
+//            }
+//        }.addDisposableTo(disposeBag)
+        
+        
+        
+        
+//        let messageInfo = Observable.collection(from: message).share()
+//            .map({list -> [UUMessageFrame] in
+//                list.map({item -> UUMessageFrame in
+//                    var content = UUMessage.Content()
+//                    content.text = item.content
+//                    let URLStr = "http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg"
+//                    var uumessage = UUMessage.myTextMessage(item.content, icon: URLStr, name: "Hello,Sister")
+//                    uumessage.minuteOffSet(start: item.createDate, end: Date(timeIntervalSince1970: 0))
+//                    
+//                    return UUMessageFrame(message: uumessage)
+//                })
+//            })
+//        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
+//        messageInfo.bindTo(messageFramesVariable).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -116,7 +196,7 @@ class ChatViewController: UIViewController {
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(tableViewScrollToBottom), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(tableViewScrollToBottom), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
