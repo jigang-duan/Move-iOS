@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -264,11 +264,14 @@
                         <outlet property="emailLine" destination="llT-7X-wmS" id="mtd-FK-lz9"/>
                         <outlet property="emailOutlet" destination="rTs-oE-jQb" id="V9Z-eF-dmB"/>
                         <outlet property="emailValidationOutlet" destination="OKw-XK-bB7" id="pQw-xA-qjP"/>
+                        <outlet property="facebookLoginQulet" destination="EIz-rr-t34" id="WrB-8Z-1JE"/>
+                        <outlet property="googleaddLoginQulet" destination="BRO-b5-xLr" id="QPz-l2-Ku6"/>
                         <outlet property="loginOutlet" destination="960-KP-Uz1" id="aku-Uy-ooR"/>
                         <outlet property="passwordLine" destination="L0p-XS-oiU" id="Rwq-CN-Y0c"/>
                         <outlet property="passwordOutlet" destination="MBT-71-6t5" id="SjC-x4-z3S"/>
                         <outlet property="passwordValidationHCon" destination="6mR-Pr-vSF" id="YtX-fr-8eV"/>
                         <outlet property="passwordValidationOutlet" destination="Arv-CD-kyu" id="3p3-xr-LZc"/>
+                        <outlet property="twitterLoginQulet" destination="Iir-Oq-Pcf" id="5JD-eD-NLx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6t-eD-GgA" userLabel="First Responder" sceneMemberID="firstResponder"/>

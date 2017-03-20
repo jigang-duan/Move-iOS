@@ -12,6 +12,29 @@ import RxSwift
 
 class MoveApiUserWorker: UserWorkerProtocl {
     
+    func tplogin(platform: String,openld: String,secret: String) -> Observable<Bool> {
+        var tpLoginInfo = MoveApi.TpLoginInfo()
+        tpLoginInfo.platform = platform
+        tpLoginInfo.openid = openld
+        tpLoginInfo.secret = secret
+        return MoveApi.Account.tplogin(info: tpLoginInfo)
+            .map { info in
+                if info.id == nil {
+                    throw WorkerError.emptyField("user id is empty!")
+                }
+                if !info.accessToken.isValidAndNotExpired {
+                    throw WorkerError.expired("access token is expired!")
+                }
+                return true
+            }
+            .catchError { error in
+                if let _error = WorkerError.workerError(form: error) {
+                    throw _error
+                }
+                throw error
+        }
+    }
+    
     func login(email: String, password: String) -> Observable<Bool> {
         var loginInfo = MoveApi.LoginInfo()
         loginInfo.username = email

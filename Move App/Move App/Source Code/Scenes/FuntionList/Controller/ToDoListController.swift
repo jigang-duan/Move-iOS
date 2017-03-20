@@ -27,7 +27,7 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var repeatCell: UITableViewCell!
     @IBOutlet weak var repeatStateQutlet: UILabel!
     
-    
+    var todo: NSDictionary?
     
     var disposeBag = DisposeBag()
     
@@ -37,6 +37,13 @@ class ToDoListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if todo != nil{
+            titleTextFieldQutle.text = todo?["topic"] as? String
+            remarkTextFieldQutlet.text = todo?["content"] as? String
+            beginTimeQutlet.text = DateUtility.dateTostringMMddyy(date: todo?["start"] as? Date)
+            endTimeQutlet.text = DateUtility.dateTostringMMddyy(date: todo?["end"] as? Date)
+            repeatStateVariable.value = repeatcountInt(Intt: (todo?["repeat"] as? Int)!)
+        }
         
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         beginTimeQutlet.inputView = self.datepickerInput()
@@ -98,15 +105,16 @@ class ToDoListController: UITableViewController {
         return ["Never":0, "Every day":1, "Every week" : 2, "Every month":3][name] ?? 0
         
     }
+    func repeatcountInt(Intt: Int) -> String {
+        
+        let InttString = String(Intt)
+        return ["0": "Never","1": "Every day","2": "Every week","3": "Every month" ][InttString]!
+    }
+
     
 }
 
-
-
-
 extension ToDoListController: UITextFieldDelegate {
-    
-    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         

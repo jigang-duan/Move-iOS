@@ -25,12 +25,16 @@ class RemindersController: UIViewController {
     @IBOutlet weak var timeSelectBtn: UIButton!
     @IBOutlet weak var timeBackBtn: UIButton!
     @IBOutlet weak var timeNextBtn: UIButton!
+    @IBOutlet weak var queshengView: UIView!
     
     var isCalendarOpen : Bool = false
     
     var alarms: [NSDictionary]?
+    var oldalarms: [NSDictionary]?
     var todos: [NSDictionary]?
-    var btnbool : Bool = true
+    var oldtodos: [NSDictionary]?
+    var btnbool: Bool = true
+
     
     fileprivate let formatter: DateFormatter = {
         
@@ -77,7 +81,7 @@ class RemindersController: UIViewController {
             )
         )
         
-        viewModel.fetchReminder.debug()
+        viewModel.fetchReminder
             .drive(viewModel.reminderVariable).addDisposableTo(disposeBag)
         
         let zoneDate = Date(timeIntervalSince1970: 0)
@@ -92,10 +96,16 @@ class RemindersController: UIViewController {
         viewModel.reminderVariable.asDriver()
             .map({  $0.todo })
             .drive(onNext: {
-                self.todos =  $0.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ]   })
+                self.todos =  $0.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
                 self.tableViw.reloadData()
             })
             .addDisposableTo(disposeBag)
+        
+        
+   
+//            queshengView.isHidden = !(self.todos?.count == 0) && (self.alarms?.count == 0)
+       
+        
         
     }
     
@@ -197,13 +207,37 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         }
         else {
             _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
-            
             _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("--")\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
             _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
             _cell.accviewBtn.isHidden = true
         }
         
         return _cell
+    }
+    //编辑
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row < (self.alarms?.count ?? 0) {
+            //
+            self.oldalarms = self.alarms
+            viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
+            if let vc = R.storyboard.account.addAlarm() {
+                vc.alarms = self.oldalarms?[indexPath.row]
+                self.navigationController?.show(vc, sender: nil)
+            }
+        
+        }
+        else
+        {
+            self.oldtodos = self.todos
+            viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
+            if let vc = R.storyboard.account.addTodo() {
+                vc.todo = self.oldtodos?[indexPath.row - (self.alarms?.count ?? 0)]
+                self.navigationController?.show(vc, sender: nil)
+            }
+        }
+        
+        deleteTap.value += 1
+    
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

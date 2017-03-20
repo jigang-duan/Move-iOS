@@ -15,7 +15,7 @@ class AlarmController: UIViewController {
     @IBOutlet weak var alarmTitleItem: UINavigationItem!
     @IBOutlet weak var saveOutlet: UIButton!
     
-    
+    var alarms: NSDictionary?
     
     @IBOutlet weak var datePickerOulet: UIDatePicker!
     @IBOutlet weak var weekOutlet: WeekView!
@@ -27,10 +27,11 @@ class AlarmController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if alarms != nil {
+            self.datePickerOulet.date = (alarms?["alarms"] as? Date ?? nil)!
+            self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
+        }
         
-        // Do any additional setup after loading the view.
-        
-//        datePickerOulet.maximumDate = maxDate
         datePickerOulet.minimumDate = minDate
         if let _alarmDate = alarmExited?.alarmAt {
             datePickerOulet.date = _alarmDate

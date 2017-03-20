@@ -96,25 +96,26 @@ class LoginViewController: UIViewController {
         controller.viewDidLoad()
         return controller
     }()
+//    func facebookLoginaction() -> () {
+//        //            UserManager.shared.tplogin(platform: "aa", openld: "bb", secret: "cc")
+//        AuthService.shared.facebook(consumerKey: <#T##String#>, consumerSecret: <#T##String#>, state: <#T##String#>, authorizeURLHandler: <#T##OAuthSwiftURLHandlerType#>)
+//    }
+//    func googleaddLoginaction() -> () {
+//        //            UserManager.shared.tplogin(platform: "aa", openld: "bb", secret: "cc")
+//        AuthService.shared.googleDrive(consumerKey: <#T##String#>, consumerSecret: <#T##String#>, state: <#T##String#>, authorizeURLHandler: <#T##OAuthSwiftURLHandlerType#>)
+//    }
+//    func twitterLoginaction() -> () {
+//        //            UserManager.shared.tplogin(platform: "aa", openld: "bb", secret: "cc")
+//        AuthService.shared.twitter(consumerKey: <#T##String#>, consumerSecret: <#T##String#>, authorizeURLHandler: <#T##OAuthSwiftURLHandlerType#>)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let authservice = AuthService()
         state = generateStateWithLength(len: 20) as String
         
         
-//        facebookLoginQulet.rx.tap
-//            .asDriver()
-//            .drive(onNext:
-//                authservice.facebook(
-//                    consumerKey: "344365305959182",
-//                    consumerSecret: "909536c55a45ca4143139006f34900db",
-//                    state: state!,
-//                    authorizeURLHandler: internalWebViewController)
-//            )
-//            .addDisposableTo(disposeBag)
-//        
+
+        
         // Do any additional setup after loading the view.
         
         accountValidationHCon.constant = 0
@@ -161,6 +162,7 @@ class LoginViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
     }
+  
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

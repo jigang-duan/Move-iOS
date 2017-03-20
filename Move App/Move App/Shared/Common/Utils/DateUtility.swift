@@ -37,6 +37,13 @@ class DateUtility {
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         
     }
+    static func dateTostringMMddyy(date: Date?) -> String {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "MM-dd-yyyy"
+        return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
+        
+    }
     
     static func zoneDay() -> (startDate: Date, endDate: Date) {
         let now = Date(timeIntervalSince1970: 0)
