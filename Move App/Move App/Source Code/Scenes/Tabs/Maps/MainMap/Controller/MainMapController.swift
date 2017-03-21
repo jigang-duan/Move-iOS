@@ -251,22 +251,25 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         let deviceDataSource = MoveApi.Device.getDeviceList(pid: 0)
             .map({
                 self.defaultDeviceData = $0.devices
-                let data = self.defaultDeviceData?.first
-                self.UpdateUIData(dataSource: data!)
                 
-                let action = BasePopoverAction(imageUrl: data?.user?.profile,
-                                               placeholderImage: R.image.home_pop_all(),
-                                               title: data?.user?.nickname,
-                                               isSelected: true,
-                                               handler: nil)
-                action.canAvatar = true
-                action.data = data
-                self.currentDeviceData = action
-                let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
-                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
-                self.objectImageBtn.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: device.user?.profile ?? ""), placeholder: placeImg){ (img) in
-                    self.objectImageBtn.setBackgroundImage(img, for: .normal)
-                }, for: .normal)
+                if let data = self.defaultDeviceData?.first {
+                    self.UpdateUIData(dataSource: data)
+                    
+                    let action = BasePopoverAction(imageUrl: data.user?.profile,
+                                                   placeholderImage: R.image.home_pop_all(),
+                                                   title: data.user?.nickname,
+                                                   isSelected: true,
+                                                   handler: nil)
+                    action.canAvatar = true
+                    action.data = data
+                    self.currentDeviceData = action
+                    let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
+                    let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
+                    self.objectImageBtn.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: device.user?.profile ?? ""), placeholder: placeImg){ (img) in
+                        self.objectImageBtn.setBackgroundImage(img, for: .normal)
+                    }, for: .normal)
+                }
+                
             })
         deviceDataSource.subscribe(onNext: {
             print($0)
