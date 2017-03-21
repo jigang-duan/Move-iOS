@@ -37,13 +37,13 @@ class AccountKidsRulesuserController: UITableViewController {
     
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
-    @IBOutlet weak var personalInformationQutlet: UIButton!
     
-    @IBOutlet weak var unpairCell: UITableViewCell!
+    @IBOutlet weak var autoAnswerQutel: SwitchButton!
+    @IBOutlet weak var savePowerQutel: SwitchButton!
     
     let disposeBag = DisposeBag()
-    //是否是管理员
-    var isboss: Bool = true
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,25 +58,22 @@ class AccountKidsRulesuserController: UITableViewController {
         
     }
 
-    @IBOutlet weak var aaa: UINavigationItem!
-    @IBOutlet weak var autoAnswerQutel: SwitchButton!
-    
-    @IBOutlet weak var savePowerQutel: SwitchButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                let viewModel = AccountKidsRulesuserViewModel(
-            input: (
-                savePower: savePowerQutel.rx.value.asDriver(),
-                autoAnswer: autoAnswerQutel.rx.value.asDriver()
-            ),
-            dependency: (
-                settingsManager: WatchSettingsManager.share,
-                validation: DefaultValidation.shared,
-                wireframe: DefaultWireframe.sharedInstance
+        let viewModel = AccountKidsRulesuserViewModel(
+        input: (
+            savePower: savePowerQutel.rx.value.asDriver(),
+            autoAnswer: autoAnswerQutel.rx.value.asDriver()
+        ),
+        dependency: (
+            settingsManager: WatchSettingsManager.share,
+            validation: DefaultValidation.shared,
+            wireframe: DefaultWireframe.sharedInstance
         )
-    )
+        )
+        
         viewModel.saveFinish
             .drive(onNext:{_ in
             }).addDisposableTo(disposeBag)
@@ -89,8 +86,44 @@ class AccountKidsRulesuserController: UITableViewController {
             .drive(onNext: userInteractionEnabled)
             .addDisposableTo(disposeBag)
         
-        personalInformationQutlet.rx.tap.bindNext { _ in
-            let vc = R.storyboard.kidInformation.kidInformationController()!
+        //        判断当前是否是管理员
+        _ = DeviceManager.shared.getContacts(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!).subscribe({ (event) in
+            switch event {
+            case .next(let cons):
+                for con in cons {
+                    if con.admin == true {
+                        if UserInfo.shared.id == con.uid {
+                            //todo
+                        }
+                    }
+                }
+            case .completed:
+                break
+            case .error(let er):
+                print(er)
+            }
+        })
+        
+    }
+    
+    func userInteractionEnabled(enable: Bool) {
+       
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.accountKidsRulesuserController.showUnpairTip(segue: segue)?.destination {
+            vc.unpairBlock = { flag, message in
+                if flag {
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                }else{
+                    self.showMessage(message)
+                }
+            }
+        }
+        
+        
+        if let vc = R.segue.accountKidsRulesuserController.showKidInfomation(segue: segue)?.destination {
             vc.isForSetting = true
             let kidInfo = DeviceManager.shared.currentDevice?.user
             var info = DeviceBindInfo()
@@ -103,43 +136,17 @@ class AccountKidsRulesuserController: UITableViewController {
             info.profile = kidInfo?.profile
             
             vc.deviceAddInfo = info
-            self.navigationController?.show(vc, sender: nil)
-        }
-        .addDisposableTo(disposeBag)
-    }
-    
-    func userInteractionEnabled(enable: Bool) {
-       
-    }
-    
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if isboss{
-            return 2
-        }else
-        {
-            return 1
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if unpairCell == tableView.cellForRow(at: indexPath) {
-            let manager = DeviceManager.shared
-            _ = manager.deleteDevice(with: (manager.currentDevice?.deviceId)!).subscribe({ event in
-                switch event {
-                case .next(let e):
-                    if e {
-                       _ = self.navigationController?.popToRootViewController(animated: true)
-                    }
-                case .completed:
-                    break
-                case .error(let er):
-                    print(er)
-                }
-            })
+    func showMessage(_ text: String) {
+        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(action)
+        self.present(vc, animated: true) {
+            
         }
     }
-    
     
 }
 

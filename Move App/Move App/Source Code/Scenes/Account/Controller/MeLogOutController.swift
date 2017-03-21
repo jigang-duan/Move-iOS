@@ -31,12 +31,10 @@ class MeLogoutController: UIViewController {
         nameLab.text = info?.nickname
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
         
-        var imgResouce: ImageResource?
-        if let imgUrl = URL(string: info?.iconUrl ?? "") {
-            imgResouce = ImageResource(downloadURL: imgUrl)
-        }
-        headBun.kf.setBackgroundImage(with: imgResouce, for: UIControlState.normal, placeholder: placeImg)
+        headBun.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: info?.iconUrl ?? ""), placeholder: placeImg){img in},for: .normal)
+        
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,13 +63,14 @@ class MeLogoutController: UIViewController {
                     self.showMessage(message)
                 case .ok:
                     UserInfo.shared.invalidate()
+                    UserInfo.shared.profile = nil
                     Distribution.shared.popToLoginScreen()
                 default:
                     break
                 }
             })
             .addDisposableTo(disposeBag)
-
+        
         
     }
     

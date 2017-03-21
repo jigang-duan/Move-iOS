@@ -75,8 +75,12 @@ class PwdRecoveryViewModel {
 }
 
 fileprivate func pwdRecoveryErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard error is WorkerError else {
+    guard let _error = error as?  WorkerError else {
         return Driver.just(ValidationResult.empty)
+    }
+    
+    if WorkerError.accountNotFound == _error {
+        return Driver.just(ValidationResult.failed(message: "Account not found"))
     }
     
     return Driver.just(ValidationResult.failed(message: "Send faild"))

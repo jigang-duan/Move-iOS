@@ -71,6 +71,7 @@ class MoveApiUserWorker: UserWorkerProtocl {
     func signUp(username: String, password: String, sid: String, vcode: String) -> Observable<Bool> {
         var info = MoveApi.RegisterInfo()
         info.username = username
+        info.email = username
         info.password = password
         info.sid = sid
         info.vcode = vcode
