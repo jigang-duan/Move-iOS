@@ -64,8 +64,8 @@ class FileStorageManager  {
         worker = MoveApiFileWorker()
     }
     
-    func upload(fileInfo: MoveApi.FileInfo) -> Observable<MoveApi.FileUploadResp> {
-        return worker.upload(fileInfo:fileInfo)
+    func upload(fileInfo: MoveApi.FileInfo) -> Observable<FileUpload> {
+        return worker.upload(fileInfo:fileInfo).map({FileUpload(fid: $0.fid, progress: $0.progress)})
     }
     
     func download(fid: String) -> Observable<MoveApi.FileStorageInfo> {

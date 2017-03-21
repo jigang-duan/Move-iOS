@@ -9,6 +9,7 @@
 #import "Mp3Recorder.h"
 #import "lame.h"
 #import <AVFoundation/AVFoundation.h>
+//#import "amrFileCodec.h"
 
 @interface Mp3Recorder()<AVAudioRecorderDelegate>
 @property (nonatomic, strong) AVAudioSession *session;
@@ -38,11 +39,12 @@
     //录音格式 无法使用
     [settings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
     //采样率
-    [settings setValue :[NSNumber numberWithFloat:11025.0] forKey: AVSampleRateKey];//44100.0
+    [settings setValue :[NSNumber numberWithFloat:8000] forKey: AVSampleRateKey];//44100.0
     //通道数
-    [settings setValue :[NSNumber numberWithInt:2] forKey: AVNumberOfChannelsKey];
+    [settings setValue :[NSNumber numberWithInt:1] forKey: AVNumberOfChannelsKey];
+    [settings setValue :[NSNumber numberWithInt:16] forKey: AVLinearPCMBitDepthKey];
     //音频质量,采样质量
-    [settings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
+//    [settings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
     _recorder = [[AVAudioRecorder alloc] initWithURL:url
                                             settings:settings
                                                error:&recorderSetupError];
@@ -86,7 +88,17 @@
     [_recorder stop];
     
     if (cTime > 1) {
-        [self audio_PCMtoMP3];
+//        if (_delegate && [_delegate respondsToSelector:@selector(endConvertWithData:)]) {
+//            NSData *voiceData = [NSData dataWithContentsOfFile:[self mp3Path]];
+//            [_delegate endConvertWithData:voiceData];
+//        }
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(endCafConvertWithURL:)]) {
+            NSURL *voiceURL = [NSURL URLWithString:[self cafPath]];
+            [_delegate endCafConvertWithURL:voiceURL];
+        }
+
+//        [self audio_PCMtoMP3];
     }else {
         
         [_recorder deleteRecording];
@@ -127,7 +139,7 @@
 {
     NSString *cafFilePath = [self cafPath];
     NSString *mp3FilePath = [self mp3Path];
-    
+    NSString *amrFilePath = [self amrPath];
     // remove the old mp3 file
     [self deleteMp3Cache];
 
@@ -135,6 +147,10 @@
     if (_delegate && [_delegate respondsToSelector:@selector(beginConvert)]) {
         [_delegate beginConvert];
     }
+//    NSURL *url = [NSURL URLWithString:cafFilePath];
+//    NSData *data = [NSData dataWithContentsOfURL:url];
+//    NSData *amrData = EncodeWAVEToAMR(data, 2, 16);
+//    [amrData writeToFile:amrFilePath atomically:NO];
     @try {
         int read, write;
         
@@ -180,6 +196,11 @@
         NSData *voiceData = [NSData dataWithContentsOfFile:[self mp3Path]];
         [_delegate endConvertWithData:voiceData];
     }
+
+//    if (_delegate && [_delegate respondsToSelector:@selector(endConvertWithURL:)]) {
+//        NSURL *voiceURL = [NSURL URLWithString:[self amrPath]];
+//        [_delegate endCafConvertWithURL:voiceURL];
+//    }
 }
 
 #pragma mark - Path Utils
@@ -189,10 +210,22 @@
     return cafPath;
 }
 
+- (NSString *)wavePath
+{
+    NSString *wavePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.wav"];
+    return wavePath;
+}
+
 - (NSString *)mp3Path
 {
     NSString *mp3Path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"mp3.caf"];
     return mp3Path;
+}
+
+- (NSString *)amrPath
+{
+    NSString *amrPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.amr"];
+    return amrPath;
 }
 
 @end

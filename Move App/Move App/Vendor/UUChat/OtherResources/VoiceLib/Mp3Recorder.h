@@ -12,6 +12,8 @@
 - (void)failRecord;
 - (void)beginConvert;
 - (void)endConvertWithData:(NSData *)voiceData;
+- (void)endCafConvertWithURL:(NSURL *)voiceURL;
+
 @end
 
 @interface Mp3Recorder : NSObject

@@ -48,6 +48,11 @@
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		A53513571E790E8E0093445F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53513561E790E8E0093445F /* Chat.swift */; };
 		A535135A1E791F8F0093445F /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53513581E791F8F0093445F /* Chat.storyboard */; };
+		A5B3E1E71E7FF8A100F12E22 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1E01E7FF8A100F12E22 /* amrFileCodec.mm */; };
+		A5B3E1E81E7FF8A100F12E22 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B3E1E31E7FF8A100F12E22 /* libopencore-amrnb.a */; };
+		A5B3E1E91E7FF8A100F12E22 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B3E1E41E7FF8A100F12E22 /* libopencore-amrwb.a */; };
+		A5B3E1EA1E7FF8A100F12E22 /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1E61E7FF8A100F12E22 /* VoiceConverter.mm */; };
+		A5B3E1EC1E7FFBBB00F12E22 /* FileUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1EB1E7FFBBB00F12E22 /* FileUtility.swift */; };
 		A5C5A1D71E763D4B008FAE01 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */; };
 		A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031241E7D051A0077FC9F /* FileStorageManager.swift */; };
 		A5D031271E7D054C0077FC9F /* MoveApiFileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */; };
@@ -349,6 +354,15 @@
 		8C4A2CD5C2A7BA27AE209FE9 /* Pods-Move AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A53513561E790E8E0093445F /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		A53513591E791F8F0093445F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Chat.storyboard; sourceTree = "<group>"; };
+		A5B3E1DF1E7FF8A100F12E22 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		A5B3E1E01E7FF8A100F12E22 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		A5B3E1E11E7FF8A100F12E22 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		A5B3E1E21E7FF8A100F12E22 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		A5B3E1E31E7FF8A100F12E22 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		A5B3E1E41E7FF8A100F12E22 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		A5B3E1E51E7FF8A100F12E22 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
+		A5B3E1E61E7FF8A100F12E22 /* VoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceConverter.mm; sourceTree = "<group>"; };
+		A5B3E1EB1E7FFBBB00F12E22 /* FileUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileUtility.swift; path = Vendor/UUChat/OtherResources/Utils/FileUtility.swift; sourceTree = "<group>"; };
 		A5C5A1D61E763D4B008FAE01 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Chat/ChatViewController.swift; sourceTree = "<group>"; };
 		A5D031241E7D051A0077FC9F /* FileStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileStorageManager.swift; path = FileManager/FileStorageManager.swift; sourceTree = "<group>"; };
 		A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiFileWorker.swift; path = FileManager/MoveApiFileWorker.swift; sourceTree = "<group>"; };
@@ -578,6 +592,8 @@
 				E01DF7371E308D7F00EA003D /* CustomViews.framework in Frameworks */,
 				11EAC3241E6E4307002906F1 /* libmp3lame.a in Frameworks */,
 				E0931F3A1E30DE7400755B4A /* MapKit.framework in Frameworks */,
+				A5B3E1E81E7FF8A100F12E22 /* libopencore-amrnb.a in Frameworks */,
+				A5B3E1E91E7FF8A100F12E22 /* libopencore-amrwb.a in Frameworks */,
 				3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -723,6 +739,7 @@
 		11EAC3001E6D79FE002906F1 /* OtherResources */ = {
 			isa = PBXGroup;
 			children = (
+				A5B3E1DE1E7FF8A100F12E22 /* VoiceConvert */,
 				11EAC3031E6D7A2E002906F1 /* UUProgressHUD */,
 				11EAC3021E6D7A22002906F1 /* VoiceLib */,
 				11EAC3011E6D7A1A002906F1 /* Utils */,
@@ -733,6 +750,7 @@
 		11EAC3011E6D7A1A002906F1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A5B3E1EB1E7FFBBB00F12E22 /* FileUtility.swift */,
 				11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */,
 			);
 			name = Utils;
@@ -790,6 +808,22 @@
 				A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */,
 			);
 			name = FileManager;
+			sourceTree = "<group>";
+		};
+		A5B3E1DE1E7FF8A100F12E22 /* VoiceConvert */ = {
+			isa = PBXGroup;
+			children = (
+				A5B3E1DF1E7FF8A100F12E22 /* amrFileCodec.h */,
+				A5B3E1E01E7FF8A100F12E22 /* amrFileCodec.mm */,
+				A5B3E1E11E7FF8A100F12E22 /* interf_dec.h */,
+				A5B3E1E21E7FF8A100F12E22 /* interf_enc.h */,
+				A5B3E1E31E7FF8A100F12E22 /* libopencore-amrnb.a */,
+				A5B3E1E41E7FF8A100F12E22 /* libopencore-amrwb.a */,
+				A5B3E1E51E7FF8A100F12E22 /* VoiceConverter.h */,
+				A5B3E1E61E7FF8A100F12E22 /* VoiceConverter.mm */,
+			);
+			name = VoiceConvert;
+			path = Vendor/UUChat/OtherResources/VoiceConvert;
 			sourceTree = "<group>";
 		};
 		A5C5A1D51E763D10008FAE01 /* Chat */ = {
@@ -2291,6 +2325,7 @@
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
 				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */,
+				A5B3E1E71E7FF8A100F12E22 /* amrFileCodec.mm in Sources */,
 				FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
 				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,
@@ -2298,6 +2333,7 @@
 				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,
 				11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */,
 				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
+				A5B3E1EA1E7FF8A100F12E22 /* VoiceConverter.mm in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
@@ -2366,6 +2402,7 @@
 				11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */,
 				E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */,
 				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
+				A5B3E1EC1E7FFBBB00F12E22 /* FileUtility.swift in Sources */,
 				E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */,
 				11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */,
 				118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */,
@@ -2641,6 +2678,12 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Move App/Vendor/UUChat/OtherResources/VoiceLib\"",
 					"\"$(PROJECT_DIR)/Move App\"",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2666,6 +2709,12 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Move App/Vendor/UUChat/OtherResources/VoiceLib\"",
 					"\"$(PROJECT_DIR)/Move App\"",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -35,29 +35,6 @@ class ChatModel {
         sendMessage.content_type = 2
         sendMessage.ctime = message.time
         
-//        FileStorageManager.share.upLoadTest().subscribe { fileInfo in
-//            switch fileInfo {
-//            case .completed:
-//                print("completed")
-//            case .error(let error):
-//                print(error.localizedDescription)
-//            case .next(let file):
-//                sendMessage.content = file.fid
-//                IMManager.shared.sendChatMessage(message: sendMessage).subscribe { [weak self] info in
-//                    switch info {
-//                    case .completed:
-//                        print("completed")
-//                    case .error(let error):
-//                        print(error.localizedDescription)
-//                    case .next(let result):
-//                        print(result.local_id ?? "local is null" + "  " + result.msg_id! )
-//                        message.msgId = result.msg_id!
-//                        self?.dataSource.append(UUMessageFrame(message: message))
-//                    }
-//                    }.addDisposableTo(self.disposeBag)
-//            }
-//        }.addDisposableTo(disposeBag)
-        
         IMManager.shared.sendChatMessage(message: sendMessage).subscribe { [weak self] info in
             switch info {
             case .completed:
@@ -85,7 +62,6 @@ class ChatModel {
         message.minuteOffSet(start: message.time, end: previousTime ?? Date(timeIntervalSince1970: 0))
         dataSource.append(UUMessageFrame(message: message))
     }
-    
 }
 
 
@@ -124,66 +100,6 @@ class ChatViewController: UIViewController {
                 print("complete")
             }
         }.addDisposableTo(disposeBag)
-//        IMManager.shared.initSyncKey().subscribe { info in
-//            switch info {
-//            case .next(let hinfo):
-//                print(hinfo)
-//            case .error(let error):
-//                print(error)
-//            case .completed:
-//                print("complete")
-//
-//            }
-//        }.addDisposableTo(disposeBag)
-//
-//        var synList = MoveIM.ImSynckey()
-//        var list: [MoveIM.ImSynckey] = []
-//        synList.key = 1
-//        synList.value = 0
-//        list.append(synList)
-//        synList.key = 2
-//        synList.value = 0
-//        list.append(synList)
-//        synList.key = 3
-//        synList.value = 53
-//        list.append(synList)
-//     IMManager.shared.checkSyncKey(synckeyList: list)
-//        .subscribe(onNext: {
-//        Logger.debug($0)
-//     }, onError: {
-//        Logger.debug($0)
-//     }).addDisposableTo(disposeBag)
-
-
-//        IMManager.shared.syncData().subscribe { info in
-//            
-//            switch info {
-//            case .completed:
-//                Logger.debug("completed")
-//            case .error(let error):
-//                Logger.debug(error)
-//            case .next(let bl):
-//                Logger.debug(bl)
-//            }
-//        }.addDisposableTo(disposeBag)
-        
-        
-        
-        
-//        let messageInfo = Observable.collection(from: message).share()
-//            .map({list -> [UUMessageFrame] in
-//                list.map({item -> UUMessageFrame in
-//                    var content = UUMessage.Content()
-//                    content.text = item.content
-//                    let URLStr = "http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg"
-//                    var uumessage = UUMessage.myTextMessage(item.content, icon: URLStr, name: "Hello,Sister")
-//                    uumessage.minuteOffSet(start: item.createDate, end: Date(timeIntervalSince1970: 0))
-//                    
-//                    return UUMessageFrame(message: uumessage)
-//                })
-//            })
-//        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
-//        messageInfo.bindTo(messageFramesVariable).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -243,6 +159,104 @@ extension ChatViewController {
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
+    
+}
+extension ChatViewController {
+    
+    func sendMessageForAudio(url: URL, duration: Int) {
+        
+        let strUUID = UUID().uuidString
+        let path = String(format: "%@/Audio/%@.wav",(FileUtility.libraryCachesURL()!.path),strUUID)
+        let nurl = URL(fileURLWithPath: path)
+        print(nurl)
+        
+        // 检查目录并发送
+        do {
+            // 创建目录
+            try FileManager.default.createDirectory(at: nurl.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+            // 移动文件
+//            try FileManager.default。moveItem(atPath: url, toPath: nurl)
+            try FileManager.default.moveItem(at: url, to: nurl)
+            
+            //Convert to amr, then send to server
+            if VoiceConverter.convertWav(toAmr: self.recordPath(name: String(format:"%@.wav", strUUID)), amrSavePath:self.recordPath(name: String(format:"%@.amr", strUUID))) == 0 {
+                return
+            }
+            let urlAmr = URL(fileURLWithPath: self.recordPath(name: String(format:"%@.amr", strUUID)))
+            
+            
+            var sendMessage = MoveIM.ImMessage()
+            sendMessage.type = 1
+            sendMessage.from = UserInfo.shared.id
+            sendMessage.to = "15616530027750325535"
+            sendMessage.content_type = 2
+            sendMessage.ctime = Date()
+            
+            var fileInfo = MoveApi.FileInfo()
+            fileInfo.type = "voice"
+            fileInfo.duration = duration
+            fileInfo.data = try Data(contentsOf: urlAmr)
+            fileInfo.fileName = "voice.amr"
+            fileInfo.mimeType = "voice/amr"
+            FileStorageManager.share.upload(fileInfo: fileInfo).flatMapLatest { (fileup) -> Observable<MoveIM.ImMesageRsp> in
+                sendMessage.content = fileup.fid
+                return IMManager.shared.sendChatMessage(message: sendMessage)
+                }.subscribe { event in
+                    switch event {
+                    case .next(let info):
+                        print("local_id is \(info.local_id) msg id is \(info.msg_id)")
+                        self.changeRecordFileName(strVoiceFile: String(format:"%@.amr", info.msg_id!), VoiceUrl: urlAmr)
+                        self.changeRecordFileName(strVoiceFile: String(format:"%@.wav", info.msg_id!), VoiceUrl: nurl)
+                    case .error(let error):
+                        print(error.localizedDescription)
+                    case .completed:
+                        print("complete")
+                    }
+                }.addDisposableTo(disposeBag)
+            
+            
+        } catch let e as NSError {
+            // 发送失败
+            //SIMLog.debug(e)
+            print(e)
+        }
+    }
+    
+    func changeRecordFileName(strVoiceFile:String, VoiceUrl:URL){
+        let nurl = URL(fileURLWithPath: String(format: "%@/Audio/%@", FileUtility.libraryCachesURL()!.path, strVoiceFile))
+        
+        // 检查目录并发送
+        do {
+            // 创建目录
+            try FileManager.default.createDirectory(at: nurl.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+            // 移动文件
+            try FileManager.default.moveItem(at: VoiceUrl, to: nurl)
+        } catch let e as NSError {
+            // 发送失败
+            //SIMLog.debug(e)
+            print(e.description)
+        }
+    }
+    
+    func recordPath(name fileName: String) ->String {
+        let filePath = String(format: "%@/Audio/%@", FileUtility.libraryCachesURL()!.path, fileName)
+        
+        if !FileManager.default.fileExists(atPath: filePath) {
+            do {
+                // 创建目录
+                let nurl = URL(fileURLWithPath: filePath)
+                try FileManager.default.createDirectory(at: nurl.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+                
+                // 创建文件
+                FileManager.default.createFile(atPath: filePath, contents: nil, attributes: nil)
+            } catch let e as NSError {
+                //SIMLog.debug(e)
+                print(e.description)
+            }
+        }
+        
+        return filePath
+    }
 }
 
 extension ChatViewController: UUInputFunctionViewDelegate {
@@ -260,9 +274,27 @@ extension ChatViewController: UUInputFunctionViewDelegate {
     }
     
     func UUInputFunctionView(_ funcView: UUInputFunctionView, sendVoice voice: Data, time second: Int) {
+        
         self.chatModel.addMyVoiceItem(voice, second: second)
         self.tableView.reloadData()
         self.tableViewScrollToBottom()
+    }
+    
+    func UUInputFunctionView(_ funcView: UUInputFunctionView, sendURLForVoice URLForVoice: URL, duration second: Int) {
+    
+        self.sendMessageForAudio(url: URLForVoice, duration: second)
+        
+        do {
+            let voice = try Data(contentsOf: URLForVoice)
+            self.chatModel.addMyVoiceItem(voice, second: second)
+            self.tableView.reloadData()
+            self.tableViewScrollToBottom()
+        } catch let e as NSError {
+            //SIMLog.debug(e)
+            print(e.description)
+        }
+        
+
     }
     
 }

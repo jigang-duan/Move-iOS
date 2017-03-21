@@ -13,6 +13,7 @@ protocol UUInputFunctionViewDelegate {
     @objc optional func UUInputFunctionView(_ funcView: UUInputFunctionView, sendMessage message: String)
     @objc optional func UUInputFunctionView(_ funcView: UUInputFunctionView, sendPicture image: UIImage)
     @objc optional func UUInputFunctionView(_ funcView: UUInputFunctionView, sendVoice voice: Data, time second: Int)
+    @objc optional func UUInputFunctionView(_ funcView: UUInputFunctionView, sendURLForVoice URLForVoice: URL, duration second: Int)
 }
 
 class UUInputFunctionView: UIView {
@@ -279,6 +280,18 @@ extension UUInputFunctionView: Mp3RecorderDelegate {
         })
     }
     
+    func endCafConvert(with voiceURL: URL!) {
+        Logger.debug("voiceURL\(voiceURL)")
+        self.delegate?.UUInputFunctionView?(self, sendURLForVoice: voiceURL, duration: _playTime + 1)
+        UUProgressHUD.dismiss(withSuccess: "Success")
+        
+        //缓冲消失时间 (最好有block回调消失完成)
+        self.btnVoiceRecord.isEnabled = false
+        DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime(timespec: timespec(tv_sec: 0, tv_nsec: Int(NSEC_PER_SEC))), execute: {
+            self.btnVoiceRecord.isEnabled = true
+        })
+
+    }
 }
 
 extension UUInputFunctionView {

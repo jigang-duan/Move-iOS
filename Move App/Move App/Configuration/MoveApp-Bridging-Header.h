@@ -14,5 +14,6 @@
 
 #import "Mp3Recorder.h"
 #import "UUProgressHUD.h"
+#import "VoiceConverter.h"
 
 #endif /* MoveApp_Bridging_Header_h */

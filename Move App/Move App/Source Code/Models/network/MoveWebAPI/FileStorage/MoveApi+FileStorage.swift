@@ -98,6 +98,8 @@ extension MoveApi.FileStorage.API: TargetType {
         switch self {
         case .upload(let fileInfo):
             return ["type": fileInfo.type ?? "", "duration": fileInfo.duration ?? 0]
+//        case .uploadEx(_, let duration):
+//            return ["type": "voice", "duration": duration]
         case .download, .delete:
             return nil
         }
@@ -117,7 +119,7 @@ extension MoveApi.FileStorage.API: TargetType {
     /// Provides stub data for use in testing.
     var sampleData: Data {
         switch self {
-        case .upload:
+        case .upload/*,.uploadEx(_, _)*/:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         case .download:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
