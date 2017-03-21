@@ -34,7 +34,7 @@
 {
     _recorder = nil;
     NSError *recorderSetupError = nil;
-    NSURL *url = [NSURL fileURLWithPath:[self cafPath]];
+    NSURL *url = [NSURL fileURLWithPath:[self wavePath]];
     NSMutableDictionary *settings = [[NSMutableDictionary alloc] init];
     //录音格式 无法使用
     [settings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
@@ -94,7 +94,7 @@
 //        }
         
         if (_delegate && [_delegate respondsToSelector:@selector(endCafConvertWithURL:)]) {
-            NSURL *voiceURL = [NSURL URLWithString:[self cafPath]];
+            NSURL *voiceURL = [NSURL fileURLWithPath:[self wavePath]];
             [_delegate endCafConvertWithURL:voiceURL];
         }
 
