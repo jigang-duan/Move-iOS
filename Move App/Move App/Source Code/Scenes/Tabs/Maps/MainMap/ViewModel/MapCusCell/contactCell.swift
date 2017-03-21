@@ -10,6 +10,10 @@ import UIKit
 
 class contactCell: UIView {
 
+    @IBOutlet weak var Imgview: UIImageView!
+    override func awakeFromNib() {
+        Imgview = UIImageView.init()
+    }
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

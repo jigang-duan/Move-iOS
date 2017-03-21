@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapViewDelegate{
-
+    
     var disposeBag = DisposeBag()
 
     @IBOutlet weak var guideBtn: UIButton!
@@ -22,24 +22,6 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     
     @IBOutlet weak var addressL: UILabel!
     @IBOutlet weak var nameL: UILabel!
-//        func addannotationData() {
-//            var coords = [CLLocationCoordinate2D]()
-//            var locationarr = [TagAnnotation]()
-//            for  i in 0...5  {
-//                var location = CLLocationCoordinate2D()
-//                if i%2 != 0 {
-//                     location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
-//                }else{
-//                     location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
-//                }
-//                coords .append(location)
-//                let annotation = TagAnnotation(location)
-//                annotation.tag = i
-//                locationarr.append(annotation)
-//            }
-//            mapView.addAnnotations(locationarr)
-//            mapView.showAnnotations(locationarr, animated: true)
-//        }
     
     let locationManager:CLLocationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
@@ -64,7 +46,6 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             locationManager.startUpdatingLocation()
             print("定位开始")
         }
-//        self.addannotationData()
         
         var deviceids : [MoveApi.LocationDeviceId]? = []
         for tels in dataArr {
@@ -89,6 +70,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
                     if tel.deviceId == located.device_id {
                         annotation.name = (tel.user?.nickname)!
                         annotation.device_id = tel.deviceId!
+                        annotation.profile = (tel.user?.profile)!
                     }
                 }
                 
@@ -175,13 +157,15 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             annotationView?.canShowCallout = false
             return annotationView
         }
-        else if annotation is TagAnnotation || annotation is LocationAnnotation
+        else if annotation is TagAnnotation
         {
             let reuseIdentifier = "targetAnnoteationReuseIdentifier"
             var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
             if annoView == nil {
                 annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             }
+            let subannotation = annotation as! TagAnnotation
+            (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name, profile: subannotation.profile)
             annoView?.annotation = annotation
             annoView?.canShowCallout = false
             return annoView

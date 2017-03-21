@@ -39,7 +39,7 @@ class TagAnnotation: NSObject, MKAnnotation {
     var info: KidSate.LocationInfo?
     var name : String = ""
     var device_id : String = ""
-    
+    var profile : String = ""
     
     init(_ coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate

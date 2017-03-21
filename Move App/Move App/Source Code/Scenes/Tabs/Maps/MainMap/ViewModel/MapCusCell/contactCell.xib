@@ -17,7 +17,6 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="all_loaction_nor" translatesAutoresizingMaskIntoConstraints="NO" id="HRq-ad-LW6">
                     <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="member_btn_contact_nor" translatesAutoresizingMaskIntoConstraints="NO" id="ohg-dK-LSA">
                     <rect key="frame" x="13" y="7" width="54" height="54"/>
@@ -28,7 +27,6 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ohg-dK-LSA" secondAttribute="trailing" constant="13" id="0N6-gd-Thz"/>
                 <constraint firstItem="HRq-ad-LW6" firstAttribute="centerY" secondItem="QHa-5K-y3G" secondAttribute="centerY" id="2fv-AT-hzl"/>

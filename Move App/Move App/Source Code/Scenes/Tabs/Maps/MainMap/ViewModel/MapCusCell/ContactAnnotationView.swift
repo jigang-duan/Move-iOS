@@ -7,30 +7,41 @@
 //
 
 import UIKit
+import CustomViews
 
 class ContactAnnotationView: MKAnnotationView {
     
-    var subview = UIView()
-    
+    var subview : contactCell!
+    var avatarImage : UIImageView!
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         subview = Bundle.main.loadNibNamed("contactCell", owner: self, options: nil)?.first as! contactCell
-//        self.centerOffset = CGPoint(x : -40,y : -80)
         subview.isUserInteractionEnabled = false
         self.addSubview(subview)
+        avatarImage = UIImageView.init(frame: CGRect(x : 13,y : 7, width : 54,height : 54  ))
+        avatarImage.layer.masksToBounds = true
+        avatarImage.layer.cornerRadius = 27
+        self.addSubview(avatarImage)
         self.frame.size = CGSize(width : 80 ,height : 80)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setAvatarImage(nikename : String , profile : String) {
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: nikename ).imageRepresentation()!
+        avatarImage.layer.masksToBounds = true
+        avatarImage.layer.cornerRadius = 27
+        avatarImage.imageFromURL(FSManager.imageUrl(with: profile ), placeholder: placeImg)
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         // Drawing code
-    }
-    */
+    }*/
     
 }

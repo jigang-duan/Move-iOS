@@ -171,9 +171,11 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         // Pass the selected object to the new view controller.
         if segue.identifier == "LocationHistory" {
             if (currentDeviceData != nil) {
-                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+                let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
                 //主要就是通过类型强转,然后通过拿到的对象进行成员变量的赋值,相对于Android,这真的是简单粗暴
                 let nav2Controller = segue.destination as! LocationHistoryVC
+                nav2Controller.Sprofile = device.user?.profile
+                nav2Controller.Snikename = device.user?.nickname
                 nav2Controller.deviceId = device.deviceId
             }
         }
@@ -260,7 +262,11 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 action.canAvatar = true
                 action.data = data
                 self.currentDeviceData = action
-                
+                let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
+                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
+                self.objectImageBtn.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: device.user?.profile ?? ""), placeholder: placeImg){ (img) in
+                    self.objectImageBtn.setBackgroundImage(img, for: .normal)
+                }, for: .normal)
             })
         deviceDataSource.subscribe(onNext: {
             print($0)
@@ -270,7 +276,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     func UpdateUIData(dataSource : MoveApi.DeviceInfo){
         objectNameL.text = dataSource.user?.nickname
-        self.setObjectImageBtn(UIImage( named: "member_btn_contact_pre"), title: (dataSource.user?.nickname)!, imageUrl: dataSource.user?.profile)
         
         let devicePower = MoveApi.Device.getPower(deviceId: dataSource.deviceId!)
             .map({
@@ -321,8 +326,11 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         }else {
             objectNameL.text = dataSource.title
             self.currentDeviceData = dataSource
+            
             let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
-            self.setObjectImageBtn(UIImage( named: "member_btn_contact_pre"), title: (device?.user?.nickname)!, imageUrl: device?.user?.profile)
+            let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
+            self.objectImageBtn.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: device?.user?.profile ?? ""), placeholder: placeImg){ (img) in
+            }, for: .normal)
             if device?.property != nil {
                 let property : MoveApi.DeviceProperty = (device?.property)!
                 let power = (property.power)!
@@ -330,37 +338,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             }
         }
     }
-    
-    private func convert(image: UIImage?, size: CGSize) -> UIImage? {
-        return image?.scale(toSize: size)?.roundCornersToCircle()
-    }
-    
-    private func conver(title: String, size: CGSize) -> UIImage? {
-        return CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height),
-                                 fullName: title).imageRepresentation()
-    }
-    
-    func setObjectImageBtn(_ placeholderImage: UIImage?, title: String, imageUrl: String?) {
-        
-        guard let placeholder = placeholderImage else {
-            return
-        }
-        
-        let showImage = self.conver(title: title, size: placeholder.size) ?? placeholder
-        guard let url = imageUrl else {
-            self.objectImageBtn.setBackgroundImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
-            return
-        }
-        
-        let image = UIImage.image(fromURL: url,
-                                  placeholder: showImage) { [weak self] in
-                                    if let image = $0 {
-                                        self?.objectImageBtn.setBackgroundImage(self?.convert(image: image, size: placeholder.size), for: .normal)
-                                    }
-        }
-        self.objectImageBtn.setBackgroundImage(self.convert(image: image, size: placeholder.size), for: .normal)
-    }
 }
+
 fileprivate extension UIImage {
     
     func scale(toSize: CGSize) -> UIImage? {
@@ -384,6 +363,8 @@ extension MainMapController: MKMapViewDelegate {
             if annotationView == nil {
                 annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
+            let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+            (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)            
             annotationView?.canShowCallout = false
             return annotationView
         }

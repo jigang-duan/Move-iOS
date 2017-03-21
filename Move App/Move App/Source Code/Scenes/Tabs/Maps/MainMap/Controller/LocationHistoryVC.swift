@@ -14,6 +14,8 @@ import SVPulsingAnnotationView
 import FSCalendar
 
 class LocationHistoryVC: UIViewController {
+    var Sprofile : String! = ""
+    var Snikename : String! = ""
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     var index : Int = 0
@@ -334,6 +336,7 @@ extension LocationHistoryVC : MKMapViewDelegate {
                 if annotationView == nil {
                     annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 }
+                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: Snikename, profile: Sprofile)
                 annotationView?.canShowCallout = false
                 return annotationView
 //                annoView?.image = UIImage(named : "history_dot_pre")
