@@ -82,8 +82,9 @@ class FamilyMemberController: UIViewController {
                 if element.state.contains(.master){
                     cell.detailLab.text = "Master"
                 }
-               
-                cell.headImgV.imageFromURL(FSManager.imageUrl(with: element.headUrl), placeholder:  R.image.member_btn_contact_nor()!)
+                
+                let imgUrl = URL(string: FSManager.imageUrl(with: element.headUrl))
+                cell.headImgV.kf.setImage(with: imgUrl, placeholder: R.image.member_btn_contact_nor()!)
             }
             .addDisposableTo(disposeBag)
     

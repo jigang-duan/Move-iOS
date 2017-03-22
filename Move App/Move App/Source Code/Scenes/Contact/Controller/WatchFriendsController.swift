@@ -27,7 +27,8 @@ class WatchFriendsController: UIViewController {
         
         deleteBun.isHidden = true
         
-        photoImgV.imageFromURL(FSManager.imageUrl(with: friendInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
+        let imgUrl = URL(string: FSManager.imageUrl(with: friendInfo?.profile ?? ""))
+        photoImgV.kf.setImage(with: imgUrl, placeholder: R.image.relationship_ic_other()!)
         nameLab.text = friendInfo?.nickname
         phoneLab.text = friendInfo?.phone
     }

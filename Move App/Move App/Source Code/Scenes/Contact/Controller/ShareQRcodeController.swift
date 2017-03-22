@@ -62,7 +62,8 @@ class ShareQRcodeController: UIViewController {
         let downTime = Date(timeIntervalSinceNow: 3600)
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headImgV.frame.width, height: headImgV.frame.height), fullName: device.user?.nickname ?? "").imageRepresentation()!
-        headImgV.imageFromURL(FSManager.imageUrl(with: device.user?.profile ?? ""), placeholder: placeImg)
+        let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
+        headImgV.kf.setImage(with: imgUrl, placeholder: placeImg)
         
         kidName.text = device.user?.nickname
         let format = DateFormatter()

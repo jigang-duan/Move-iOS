@@ -31,7 +31,8 @@ class MeLogoutController: UIViewController {
         nameLab.text = info?.nickname
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
         
-        headBun.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: info?.iconUrl ?? ""), placeholder: placeImg){img in},for: .normal)
+        let imgUrl = URL(string: FSManager.imageUrl(with: info?.iconUrl ?? ""))
+        headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
         
     }
     

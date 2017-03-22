@@ -34,7 +34,8 @@ class ContactAnnotationView: MKAnnotationView {
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: nikename ).imageRepresentation()!
         avatarImage.layer.masksToBounds = true
         avatarImage.layer.cornerRadius = 27
-        avatarImage.imageFromURL(FSManager.imageUrl(with: profile ), placeholder: placeImg)
+        let imgUrl = URL(string: FSManager.imageUrl(with: profile))
+        avatarImage.kf.setImage(with: imgUrl, placeholder: placeImg)
     }
     
     /*

@@ -78,7 +78,8 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headOutlet.frame.width, height: headOutlet.frame.height), fullName: UserInfo.shared.profile?.nickname ?? "").imageRepresentation()!
         viewModel.head
             .drive(onNext: { [weak self] in
-                self?.headOutlet.imageFromURL(FSManager.imageUrl(with: $0), placeholder: placeImg)
+                let imgUrl = URL(string: FSManager.imageUrl(with: $0))
+                self?.headOutlet.kf.setImage(with: imgUrl, placeholder: placeImg)
             })
             .addDisposableTo(disposeBag)
         

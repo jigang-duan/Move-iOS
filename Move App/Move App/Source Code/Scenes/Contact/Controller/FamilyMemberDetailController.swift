@@ -174,7 +174,8 @@ class FamilyMemberDetailController: UIViewController {
             deleteBun.isHidden = true
         }
         
-        photoImgV.imageFromURL(FSManager.imageUrl(with: info?.contactInfo?.profile ?? ""), placeholder: R.image.relationship_ic_other()!)
+        let imgUrl = URL(string: FSManager.imageUrl(with: info?.contactInfo?.profile ?? ""))
+        photoImgV.kf.setImage(with: imgUrl, placeholder: R.image.relationship_ic_other()!)
         nameTf.text = info?.contactInfo?.identity?.description
         numberTf.text = info?.contactInfo?.phone
     }

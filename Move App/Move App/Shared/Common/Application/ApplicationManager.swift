@@ -11,6 +11,7 @@ import IQKeyboardManager
 import UserNotifications
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 
 /// Application Manager
@@ -58,6 +59,8 @@ class ApplicationManager {
         
         // Notification
         self.initNotification()
+        // image download
+        self.initImageDownloader()
         
         Logger.verbose(NSHomeDirectory())
     }
@@ -83,5 +86,21 @@ extension ApplicationManager {
     }
 }
 
+extension ApplicationManager {
+    
+    /// initialize image downloader
+    fileprivate func initImageDownloader() {
+        let configuration = URLSessionConfiguration.default
+        let auth = "\(MoveApi.apiKey);token=\(UserInfo.shared.accessToken.token)"
+        configuration.httpAdditionalHeaders = [
+            "Authorization": auth
+        ]
+        
+        let imgManager = ImageDownloader.default
+        imgManager.sessionConfiguration = configuration
+        
+        KingfisherManager.shared.downloader = imgManager
+    }
+}
 
 

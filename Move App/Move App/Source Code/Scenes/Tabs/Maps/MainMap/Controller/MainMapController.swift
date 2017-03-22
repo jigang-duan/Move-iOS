@@ -265,9 +265,9 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                     self.currentDeviceData = action
                     let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
                     let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
-                    self.objectImageBtn.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: device.user?.profile ?? ""), placeholder: placeImg){ (img) in
-                        self.objectImageBtn.setBackgroundImage(img, for: .normal)
-                    }, for: .normal)
+                    
+                    let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
+                    self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
                 }
                 
             })
@@ -332,8 +332,9 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             
             let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
             let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
-            self.objectImageBtn.setBackgroundImage(UIImage.image(fromURL: FSManager.imageUrl(with: device?.user?.profile ?? ""), placeholder: placeImg){ (img) in
-            }, for: .normal)
+            
+            let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
+            self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
             if device?.property != nil {
                 let property : MoveApi.DeviceProperty = (device?.property)!
                 let power = (property.power)!

@@ -40,7 +40,9 @@ class UpgradeController: UIViewController {
         let device = DeviceManager.shared.currentDevice!
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headImgV.frame.width, height: headImgV.frame.height), fullName: device.user?.nickname ?? "").imageRepresentation()!
-        headImgV.imageFromURL(FSManager.imageUrl(with: device.user?.profile ?? ""), placeholder: placeImg)
+        let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
+        headImgV.kf.setImage(with: imgUrl, placeholder: placeImg)
+        
         nameLab.text = device.user?.nickname ?? ""
         
         batteryLevel.text = "\(device.property?.power ?? 0)%"

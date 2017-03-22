@@ -58,7 +58,8 @@ class WatchFriendsListController: UITableViewController {
                 cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
                 cell.textLabel?.text = element.nickname
                 
-                cell.imageView?.imageFromURL(FSManager.imageUrl(with: element.profile ?? ""), placeholder:  R.image.member_btn_contact_nor()!)
+                let imgUrl = URL(string: FSManager.imageUrl(with: element.profile ?? ""))
+                cell.imageView?.kf.setImage(with: imgUrl, placeholder: R.image.member_btn_contact_nor()!)
             }
             .addDisposableTo(disposeBag)
         
