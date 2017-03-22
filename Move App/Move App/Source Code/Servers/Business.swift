@@ -273,6 +273,56 @@ extension Relation: CustomStringConvertible {
             return value
         }
     }
+    
+    var identity: String {
+        switch self {
+        case .mother:
+            return "1"
+        case .father:
+            return "2"
+        case .grandmaF:
+            return "3"
+        case .grandPaF:
+            return "4"
+        case .grandmaM:
+            return "5"
+        case .grandpaM:
+            return "6"
+        case .uncle:
+            return "7"
+        case .aunty:
+            return "8"
+        case .sister:
+            return "9"
+        case .brother:
+            return "10"
+        case .other(let value):
+            switch value {
+            case "Mother":
+                return "1"
+            case "Father":
+                return "2"
+            case "GrandmaF":
+                return "3"
+            case "GrandPaF":
+                return "4"
+            case "GrandmaM":
+                return "5"
+            case "GrandpaM":
+                return "6"
+            case "Uncle":
+                return "7"
+            case "Aunty":
+                return "8"
+            case "Sister":
+                return "9"
+            case "Brother":
+                return "10"
+            default:
+                return value
+            }
+        }
+    }
 }
 
 

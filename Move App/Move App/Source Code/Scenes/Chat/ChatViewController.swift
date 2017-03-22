@@ -15,54 +15,7 @@ import RxRealm
 import RxDataSources
 import RxRealmDataSources
 
-class ChatModel {
-    var disposeBag = DisposeBag()
-    var dataSource: [UUMessageFrame] = []
-    var previousTime: Date? {
-        return dataSource.last?.message.time
-    }
-    
-    func addMyTextItem(_ text: String) {
-        let URLStr = "http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg"
-        var message = UUMessage.myTextMessage(text, icon: URLStr, name: "Hello,Sister")
-        message.minuteOffSet(start: message.time, end: previousTime ?? Date(timeIntervalSince1970: 0))
-        var sendMessage = MoveIM.ImMessage()
 
-//        sendMessage.type = 1
-        sendMessage.from = UserInfo.shared.id
-        sendMessage.to = "15616530027750325535"
-        sendMessage.content = "4,070b0903c92e"
-        sendMessage.content_type = 2
-        sendMessage.ctime = message.time
-        
-        IMManager.shared.sendChatMessage(message: sendMessage).subscribe { [weak self] info in
-            switch info {
-            case .completed:
-                print("completed")
-            case .error(let error):
-                print(error.localizedDescription)
-            case .next(let result):
-                print(result.local_id ?? "local is null" + "  " + result.msg_id! )
-                message.msgId = result.msg_id!
-                self?.dataSource.append(UUMessageFrame(message: message))
-            }
-            }.addDisposableTo(disposeBag)
-    }
-    
-    func addMyPictureItem(_ picture: UIImage) {
-        let URLStr = "http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg"
-        var message = UUMessage.myPictureMessage(picture , icon: URLStr, name: "Hello,Sister")
-        message.minuteOffSet(start: message.time, end: previousTime ?? Date(timeIntervalSince1970: 0))
-        dataSource.append(UUMessageFrame(message: message))
-    }
-    
-    func addMyVoiceItem(_ voice: Data, second: Int) {
-        let URLStr = "http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg"
-        var message = UUMessage.myVoiceMessage(voice, second: second, icon: URLStr, name: "Hello,Sister")
-        message.minuteOffSet(start: message.time, end: previousTime ?? Date(timeIntervalSince1970: 0))
-        dataSource.append(UUMessageFrame(message: message))
-    }
-}
 
 
 class ChatViewController: UIViewController {
@@ -72,7 +25,7 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    var chatModel: ChatModel!
+    var chatModel: ChatViewModel!
     var disposeBag = DisposeBag()
     var message: MessageEntity?
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
@@ -81,25 +34,12 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.chatModel = ChatModel()
+        self.chatModel = ChatViewModel()
         self.view.addSubview(ifView)
         ifView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
 
-        IMManager.shared.getGroups().subscribe {list in
-            switch list {
-            case .next(let hinfo):
-                hinfo.forEach({ group in
-                    print(group.gid ?? "no gid")
-                })
-                
-            case .error(let error):
-                print(error)
-            case .completed:
-                print("complete")
-            }
-        }.addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -185,36 +125,49 @@ extension ChatViewController {
             let urlAmr = URL(fileURLWithPath: self.recordPath(name: String(format:"%@.amr", strUUID)))
             
             
-            var sendMessage = MoveIM.ImMessage()
-            sendMessage.type = 1
-            sendMessage.from = UserInfo.shared.id
-            sendMessage.to = "15616530027750325535"
-            sendMessage.content_type = 2
-            sendMessage.ctime = Date()
-            
-            var fileInfo = MoveApi.FileInfo()
-            fileInfo.type = "voice"
-            fileInfo.duration = duration
-            fileInfo.data = try Data(contentsOf: urlAmr)
-            fileInfo.fileName = "voice.amr"
-            fileInfo.mimeType = "voice/amr"
-            FileStorageManager.share.upload(fileInfo: fileInfo).flatMapLatest { (fileup) -> Observable<MoveIM.ImMesageRsp> in
-                sendMessage.content = fileup.fid
-                return IMManager.shared.sendChatMessage(message: sendMessage)
-                }.subscribe { event in
-                    switch event {
-                    case .next(let info):
-                        print("local_id is \(info.local_id) msg id is \(info.msg_id)")
-                        self.changeRecordFileName(strVoiceFile: String(format:"%@.amr", info.msg_id!), VoiceUrl: urlAmr)
-                        self.changeRecordFileName(strVoiceFile: String(format:"%@.wav", info.msg_id!), VoiceUrl: nurl)
-                    case .error(let error):
-                        print(error.localizedDescription)
-                    case .completed:
-                        print("complete")
-                    }
-                }.addDisposableTo(disposeBag)
+             self.chatModel.addVoiceItemByURL(urlAmr, second: duration)
+//            let message = MessageEntity()
+//            message.from = Me.shared.user.id
+//            message.to = DeviceManager.shared.currentDevice?.user?.uid
+//            message.groupId = nil//DeviceManager.shared.currentDevice?.user?.gid
+//            message.content = nil
+//            message.contentType = MessageEntity.ContentType.voice.rawValue
+//            message.readStatus = MessageEntity.ReadStatus.sending.rawValue
+//            message.duration = TimeInterval(duration)
+//            message.createDate = Date()
+//            
+//            Observable.from([message]).subscribe(Realm.rx.add())
             
             
+            
+            let data = try Data(contentsOf: urlAmr)
+            FSManager.shared.uploadVoice(with: data, duration: duration)
+                .takeLast(1)
+                .map{$0.fid}
+                .filterNil()
+                .flatMapLatest({ fid -> Observable<MoveIM.ImMesageRsp> in
+                    var sendMessage = MoveIM.ImMessage()
+                    sendMessage.type = 1
+                    sendMessage.from = UserInfo.shared.id
+                    sendMessage.to = DeviceManager.shared.currentDevice?.user?.uid
+                    sendMessage.content_type = 3
+                    sendMessage.ctime = Date()
+//                    sendMessage.content = fid
+//                    message.content = fid
+                    return IMManager.shared.sendChatMessage(message: sendMessage).debug()
+                }).debug()
+                .bindNext({ info in
+                    self.changeRecordFileName(strVoiceFile: String(format:"%@.amr", info.msg_id!), VoiceUrl: urlAmr)
+                    self.changeRecordFileName(strVoiceFile: String(format:"%@.wav", info.msg_id!), VoiceUrl: nurl)
+//                    message.id = info.msg_id
+                })
+                .addDisposableTo(disposeBag)
+            
+            
+            
+            
+            
+        
         } catch let e as NSError {
             // 发送失败
             //SIMLog.debug(e)
@@ -262,39 +215,27 @@ extension ChatViewController {
 extension ChatViewController: UUInputFunctionViewDelegate {
     
     func UUInputFunctionView(_ funcView: UUInputFunctionView, sendPicture image: UIImage) {
-        self.chatModel.addMyPictureItem(image)
-        self.tableView.reloadData()
-        self.tableViewScrollToBottom()
+//        self.chatModel.addMyPictureItem(image)
+//        self.tableView.reloadData()
+//        self.tableViewScrollToBottom()
     }
     
     func UUInputFunctionView(_ funcView: UUInputFunctionView, sendMessage message: String) {
-        self.chatModel.addMyTextItem(message)
-        self.tableView.reloadData()
-        self.tableViewScrollToBottom()
+//        self.chatModel.addMyTextItem(message)
+//        self.tableView.reloadData()
+//        self.tableViewScrollToBottom()
     }
     
     func UUInputFunctionView(_ funcView: UUInputFunctionView, sendVoice voice: Data, time second: Int) {
         
-        self.chatModel.addMyVoiceItem(voice, second: second)
-        self.tableView.reloadData()
-        self.tableViewScrollToBottom()
+//        self.chatModel.addMyVoiceItem(voice, second: second)
+//        self.tableView.reloadData()
+//        self.tableViewScrollToBottom()
     }
     
     func UUInputFunctionView(_ funcView: UUInputFunctionView, sendURLForVoice URLForVoice: URL, duration second: Int) {
-    
+//        self.chatModel.dataSource.sort(by: <#T##(UUMessageFrame, UUMessageFrame) -> Bool#>)
         self.sendMessageForAudio(url: URLForVoice, duration: second)
-        
-        do {
-            let voice = try Data(contentsOf: URLForVoice)
-            self.chatModel.addMyVoiceItem(voice, second: second)
-            self.tableView.reloadData()
-            self.tableViewScrollToBottom()
-        } catch let e as NSError {
-            //SIMLog.debug(e)
-            print(e.description)
-        }
-        
-
     }
     
 }

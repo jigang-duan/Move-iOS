@@ -88,11 +88,6 @@
     [_recorder stop];
     
     if (cTime > 1) {
-//        if (_delegate && [_delegate respondsToSelector:@selector(endConvertWithData:)]) {
-//            NSData *voiceData = [NSData dataWithContentsOfFile:[self mp3Path]];
-//            [_delegate endConvertWithData:voiceData];
-//        }
-        
         if (_delegate && [_delegate respondsToSelector:@selector(endCafConvertWithURL:)]) {
             NSURL *voiceURL = [NSURL fileURLWithPath:[self wavePath]];
             [_delegate endCafConvertWithURL:voiceURL];
@@ -139,7 +134,7 @@
 {
     NSString *cafFilePath = [self cafPath];
     NSString *mp3FilePath = [self mp3Path];
-    NSString *amrFilePath = [self amrPath];
+    NSString *waveFilePath = [self wavePath];
     // remove the old mp3 file
     [self deleteMp3Cache];
 
@@ -147,14 +142,10 @@
     if (_delegate && [_delegate respondsToSelector:@selector(beginConvert)]) {
         [_delegate beginConvert];
     }
-//    NSURL *url = [NSURL URLWithString:cafFilePath];
-//    NSData *data = [NSData dataWithContentsOfURL:url];
-//    NSData *amrData = EncodeWAVEToAMR(data, 2, 16);
-//    [amrData writeToFile:amrFilePath atomically:NO];
     @try {
         int read, write;
         
-        FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
+        FILE *pcm = fopen([waveFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
         fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
         FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
         
@@ -196,11 +187,6 @@
         NSData *voiceData = [NSData dataWithContentsOfFile:[self mp3Path]];
         [_delegate endConvertWithData:voiceData];
     }
-
-//    if (_delegate && [_delegate respondsToSelector:@selector(endConvertWithURL:)]) {
-//        NSURL *voiceURL = [NSURL URLWithString:[self amrPath]];
-//        [_delegate endCafConvertWithURL:voiceURL];
-//    }
 }
 
 #pragma mark - Path Utils

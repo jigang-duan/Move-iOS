@@ -151,7 +151,7 @@ class UUMessageCell: UITableViewCell {
     private var audio: UUAVAudioPlayer?
     
     private var songData: Data?
-    private var voiceURL: String?
+    private var voiceURL: URL?
     fileprivate var contentVoiceIsPlaying = false
     
     fileprivate var imageAvatarBrowser: UUImageAvatarBrowser!
@@ -215,7 +215,7 @@ class UUMessageCell: UITableViewCell {
                 if let data = self.songData {
                     self.audio?.play(songData: data)
                 } else if let url = self.voiceURL {
-                    self.audio?.play(songUrl: url)
+                    self.audio?.play(voiceURL: url)
                 }
             } else {
                 self.UUAVAudioPlayerDidFinishPlay()

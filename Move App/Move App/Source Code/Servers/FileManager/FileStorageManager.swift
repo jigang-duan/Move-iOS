@@ -30,6 +30,12 @@ extension FSManager {
     func uploadJpgImage(with image: UIImage) -> Observable<FileUpload> {
         return  MoveApi.FileStorage.upload(fileInfo: MoveApi.FileInfo(type: "image", duration: nil, data: UIImageJPEGRepresentation(image, 1), fileName: "image.jpg", mimeType: "image/jpeg")).map({FileUpload(fid: $0.fid, progress: $0.progress)})
     }
+    
+    func uploadVoice(with data: Data, duration time: Int) -> Observable<FileUpload> {
+        
+        return MoveApi.FileStorage.upload(fileInfo: MoveApi.FileInfo(type: "voice", duration: time, data: data, fileName: "voice.amr", mimeType: "voice/amr")).map({FileUpload(fid: $0.fid, progress: $0.progress)})
+        
+    }
 
 }
 

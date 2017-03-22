@@ -36,6 +36,18 @@ class UUAVAudioPlayer: NSObject {
         }
     }
     
+    func play(voiceURL: URL) {
+        DispatchQueue(label: "playSoundFromUrl").async {
+            self.delegate?.UUAVAudioPlayerBeiginLoadVoice?()
+            if let data = try? Data(contentsOf: voiceURL) {
+                DispatchQueue.main.async {
+                    self.play(songData: data)
+                }
+            }
+        }
+    }
+    
+    
     func play(songData: Data) {
         self.setupPlaySound()
         self.play(soundData: songData)

@@ -177,15 +177,24 @@ class LoginViewController: UIViewController {
                 case .failed(let message):
                     self.showAccountError(message)
                 case .ok:
-//                    self.dismiss(animated: true, completion: { 
-//                        
-//                    })
                     Distribution.shared.showMainScreen()
                 default:
                     break
                 }
             })
             .addDisposableTo(disposeBag)
+        
+        
+        viewModel.logedIn
+            .map({ result -> Bool in
+                switch result {
+                case .ok: return true
+                default: return false
+                }
+            }).debug()
+            .drive(MessageServer.share.subject)
+            .addDisposableTo(disposeBag)
+        
     }
   
     

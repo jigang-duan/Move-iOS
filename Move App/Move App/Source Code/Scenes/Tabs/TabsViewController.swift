@@ -40,7 +40,7 @@ class TabsViewController: UITabBarController {
             let uid = Me.shared.user.id,
             let _ = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
             
-            Driver<Int>.timer(2.0, period: 30.0).debug()
+            Driver<Int>.timer(2.0, period: 30.0)
                 .flatMapFirst({_ in 
                     IMManager.shared.checkSyncKey()
                         .asDriver(onErrorJustReturn: false)
@@ -56,19 +56,16 @@ class TabsViewController: UITabBarController {
             
         }
 
+        MessageServer.share.subscribe()
         
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         AlertServer.share.subscribe()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    deinit {
+        MessageServer.share.unsubscribe()
         AlertServer.share.unsubscribe()
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

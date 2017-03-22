@@ -47,7 +47,7 @@ struct UUMessage {
     
     struct Voice {
         var data: Data?
-        var url: String?
+        var url: URL?
         var second: Int?
     }
     
@@ -159,6 +159,21 @@ extension UUMessage {
                          from: .me,
                          showDateLabel: true)
     }
+    
+    static func VoiceMessageForURL(_ voice: URL, second: Int, icon: String, name: String) -> UUMessage {
+        var messageContent = UUMessage.Content()
+        messageContent.voice = UUMessage.Voice(data: nil, url: voice, second: second)
+        return UUMessage(icon: icon,
+                         msgId: "",
+                         time: Date(),
+                         name: name,
+                         content: messageContent,
+                         state: .read,
+                         type: .voice,
+                         from: .me,
+                         showDateLabel: true)
+    }
+
     
 }
 
