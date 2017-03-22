@@ -38,12 +38,14 @@ extension MoveIM {
             return request(.getGroupInfo(gid: gid)).mapMoveObject(ImGroup.self)
         }
         
-        final class func initSyncKey() -> Observable<Bool> {
+        final class func initSyncKey() -> Observable<SynckeyEntity> {
             return request(.initSyncKey).mapMoveObject(ImUserSynckey.self).saveSynckey()
         }
         
         final class func checkSyncKey(synckey: ImCheckSynkey) -> Observable<Bool> {
-            return request(.checkSyncKey(userSynckey:synckey)).mapMoveObject(ImSelector.self).saveSelector()
+            return request(.checkSyncKey(userSynckey:synckey))
+                .mapMoveObject(ImSelector.self)
+                .map({  ($0.selector ?? 0) > 0 })
         }
         
         final class func syncData(synckey: ImSynDatakey) -> Observable<Bool> {

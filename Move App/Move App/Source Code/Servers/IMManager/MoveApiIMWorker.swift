@@ -14,19 +14,27 @@ import RxRealm
 
 class MoveApiIMWorker: IMWorkerProtocl {
     
-    func initSyncKey() -> Observable<Bool> {
+    func initSyncKey() -> Observable<SynckeyEntity> {
         return MoveIM.ImApi.initSyncKey()
     }
     
-    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]) -> Observable<Bool> {
-        var synk = MoveIM.ImCheckSynkey()
-        let synckey = synckeyList.map({"\($0.key!)_\($0.value!)"}).joined(separator: "|")
-        synk.synckey = synckey
-        return MoveIM.ImApi.checkSyncKey(synckey: synk)
+    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]?) -> Observable<Bool> {
+        guard let list = synckeyList else {
+            return Observable.empty()
+        }
+
+        return MoveIM.ImApi.checkSyncKey(synckey: MoveIM.ImCheckSynkey(synckey:
+            list.map({"\($0.key!)_\($0.value!)"}).joined(separator: "|")
+        ))
     }
     
-    func syncData(syncData: MoveIM.ImSynDatakey) -> Observable<Bool> {
-        return MoveIM.ImApi.syncData(synckey: syncData)
+    func syncData(syncData: MoveIM.ImSynDatakey?) -> Observable<Bool> {
+        guard
+            let data = syncData,
+            let _ = try? Realm().objects(GroupEntity.self).first else {
+            return Observable.empty()
+        }
+        return MoveIM.ImApi.syncData(synckey: data)
     }
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {

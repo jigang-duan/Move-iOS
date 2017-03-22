@@ -19,34 +19,16 @@ class IMManager {
     
     fileprivate var worker: IMWorkerProtocl!
     
-    var synckeyData: MoveIM.ImSynDatakey {
-        var synData = MoveIM.ImSynDatakey()
-        synData.synckey = []
-        var synList = MoveIM.ImSynckey()
+    var synckeyData: MoveIM.ImSynDatakey? {
         let realm = try! Realm()
-        if let synKeyValue = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) {
-            synList.key = 1
-            synList.value = synKeyValue.message
-            synData.synckey?.append(synList)
-            synList.key = 2
-            synList.value = synKeyValue.contact
-            synData.synckey?.append(synList)
-            synList.key = 3
-            synList.value = synKeyValue.group
-            synData.synckey?.append(synList)
+        guard let synKeyValue = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) else {
+            return nil
         }
-        else {
-            synList.key = 1
-            synList.value = 0
-            synData.synckey?.append(synList)
-            synList.key = 2
-            synList.value = 0
-            synData.synckey?.append(synList)
-            synList.key = 3
-            synList.value = 0
-            synData.synckey?.append(synList)
-        }
-        return synData
+        return MoveIM.ImSynDatakey(synckey: [
+            MoveIM.ImSynckey(key: 1, value: synKeyValue.message),
+            MoveIM.ImSynckey(key: 2, value: synKeyValue.contact),
+            MoveIM.ImSynckey(key: 3, value: synKeyValue.group)]
+        )
     }
     
     init() {
@@ -64,12 +46,12 @@ extension IMManager {
         return worker.getGroupInfo(gid: gid)
     }
     
-    func initSyncKey() -> Observable<Bool> {
+    func initSyncKey() -> Observable<SynckeyEntity> {
         return worker.initSyncKey()
     }
     
     func checkSyncKey() -> Observable<Bool> {
-        return worker.checkSyncKey(synckeyList: synckeyData.synckey!)
+        return worker.checkSyncKey(synckeyList: synckeyData?.synckey)
     }
     
     func syncData() -> Observable<Bool> {
@@ -89,11 +71,11 @@ protocol IMWorkerProtocl {
     
     func getGroupInfo(gid: String) -> Observable<ImGroup>
     
-    func initSyncKey() -> Observable<Bool>
+    func initSyncKey() -> Observable<SynckeyEntity>
     
-    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]) -> Observable<Bool>
+    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]?) -> Observable<Bool>
     
-    func syncData(syncData: MoveIM.ImSynDatakey) -> Observable<Bool>
+    func syncData(syncData: MoveIM.ImSynDatakey?) -> Observable<Bool>
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp>
 }
@@ -125,49 +107,20 @@ struct ImContact {
 }
 
 extension ObservableType where E == MoveIM.ImUserSynckey {
-    func saveSynckey() -> Observable<Bool> {
-        return flatMap { element -> Observable<Bool> in
-            
-            var userid: String?
-            var messageValue: Int
-            var contactValue: Int
-            var groupValue: Int
-            if let user = element.user {
-                userid = user.uid
-            } else {
-                userid = UserInfo.shared.id
-            }
-            
-            if let synckey = element.synckey {
-                messageValue = synckey[0].value ?? 0
-                contactValue = synckey[1].value ?? 0
-                groupValue = synckey[2].value ?? 0
-            } else {
-                messageValue = 0
-                contactValue = 0
-                groupValue = 0
-            }
+    
+    func saveSynckey() -> Observable<SynckeyEntity> {
+        return flatMap { element -> Observable<SynckeyEntity> in
             
             let realm = try! Realm()
-            
-            if let mySynckey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: userid) {
-                try! realm.write {
-                    mySynckey.message = messageValue
-                    mySynckey.contact = contactValue
-                    mySynckey.group = groupValue
-                    
-                }
-            } else {
-                let entity = SynckeyEntity()
-                entity.uid = userid
-                entity.message = messageValue
-                entity.contact = contactValue
-                entity.group = groupValue
-                try! realm.write {
-                    realm.add(entity)
-                }
+            let entity = SynckeyEntity()
+            entity.uid = element.user?.uid ?? UserInfo.shared.id
+            entity.message = element.synckey?[0].value ?? 0
+            entity.contact = element.synckey?[1].value ?? 0
+            entity.group = element.synckey?[2].value ?? 0
+            try! realm.write {
+                realm.add(entity, update: true)
             }
-            return Observable.just(true)
+            return Observable.just(entity)
         }
     }
 }
@@ -344,18 +297,5 @@ extension ObservableType where E == MoveIM.ImSyncData {
         }
     }
     
-}
-
-extension ObservableType where E == MoveIM.ImSelector {
-    func saveSelector() -> Observable<Bool> {
-        return flatMap { info -> Observable<Bool> in
-            if let _ = info.selector {
-               //let selector = _selcter
-                return Observable.just(true)
-            } else {
-                return Observable.just(false)
-            }
-        }
-    }
 }
 

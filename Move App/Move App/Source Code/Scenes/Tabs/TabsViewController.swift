@@ -56,16 +56,10 @@ class TabsViewController: UITabBarController {
             
         }
 
-        MessageServer.share.subscribe()
+        MessageServer.share.subscribe().addDisposableTo(bag)
         
-        AlertServer.share.subscribe()
+        AlertServer.share.subscribe().addDisposableTo(bag)
     }
-    
-    deinit {
-        MessageServer.share.unsubscribe()
-        AlertServer.share.unsubscribe()
-    }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

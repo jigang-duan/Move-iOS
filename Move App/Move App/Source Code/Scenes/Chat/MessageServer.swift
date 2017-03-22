@@ -16,27 +16,67 @@ import RxRealm
 
 class MessageServer {
     
-    var subject = PublishSubject<Bool>()
+    var subject = BehaviorSubject<Bool>(value: false)
     
     static let share = MessageServer()
     
-    private var disposeBag: Disposable?
-    
-    func subscribe() {
+    func subscribe() -> Disposable {
         let realm = try! Realm()
-    
-        disposeBag = subject.asObserver().debug()
+        return subject.asObserver()
             .filter({ $0 })
-            .flatMapLatest({ _ in
-                IMManager.shared.getGroups()
-                    .errorOnEmpty()
+            .flatMapLatest({ (_) -> Observable<SynckeyEntity> in
+                let user = Me.shared.user
+                if let entity = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: user.id) {
+                    return Observable.just(entity)
+                }
+                return IMManager.shared.initSyncKey()
             })
-            .map(transform).debug()
-            .subscribe(realm.rx.add())
+            .flatMapLatest({
+                Observable.combineLatest(Observable.just($0),
+                                         IMManager.shared.getGroups().errorOnEmpty()) { ($0, $1)  }
+            })
+            .map(transform)
+            .subscribe(onNext: { (synckey, groups) in
+                try! realm.write {
+                    synckey.groups.forEach({ (group) in
+                        realm.delete(group.members)
+                        realm.delete(group.messages)
+                        realm.delete(group.notices)
+                        realm.delete(group)
+                    })
+                    synckey.groups.append(objectsIn: groups)
+                }
+            })
     }
     
-    func unsubscribe() {
-        disposeBag?.dispose()
+    
+    private func syncData() -> Disposable {
+        
+        let realm = try! Realm()
+        if
+            let uid = Me.shared.user.id,
+            let _ = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
+            
+            return Driver<Int>.timer(2.0, period: 30.0)
+                .flatMapFirst({_ in
+                    IMManager.shared.checkSyncKey()
+                        .asDriver(onErrorJustReturn: false)
+                })
+                .filter({ $0 })
+                .flatMapLatest({ _ in
+                    IMManager.shared.syncData()
+                        .asDriver(onErrorJustReturn: false)
+                })
+                .drive(onNext: { _ in
+                })
+            
+        }
+        
+        return Disposables.create()
+    }
+    
+    private func transform(synckey: SynckeyEntity, groups: [ImGroup]) -> (SynckeyEntity, [GroupEntity]) {
+        return (synckey, groups.map(transform))
     }
     
     private func transform(groups: [ImGroup]) -> [GroupEntity] {
@@ -68,65 +108,4 @@ class MessageServer {
         return entity
     }
 
-    
-    func getGroupInfo() {
-        let realm = try! Realm()
-        IMManager.shared.getGroups().map({ list in
-            list.map({ group in
-                
-                if let groupEntity = realm.object(ofType: GroupEntity.self, forPrimaryKey: group.gid) {
-                    try! realm.write {
-                        groupEntity.name = group.topic
-                        groupEntity.headPortrait = group.profile
-                        groupEntity.owner = group.owner
-                        groupEntity.flag = group.flag ??  -1
-                        groupEntity.createDate = group.ctime
-                        groupEntity.messages.removeAll()
-                        group.members?.forEach({ (member) in
-                            let entity = MemberEntity()
-                            entity.id = member.uid
-                            entity.type = member.type ?? -1
-                            entity.username = member.username
-                            entity.nickname = member.nickname
-                            entity.headPortrait = member.profile
-                            entity.identity = member.identity?.transformIdentity()
-                            entity.sex = member.sex ?? 0
-                            entity.phone = member.phone
-                            entity.email = member.email
-                            entity.flag = member.flag ??  -1
-                            groupEntity.members.append(entity)
-                        })
-                    }
-                }
-                else {
-                    let entity = GroupEntity()
-                    entity.id = group.gid
-                    entity.name = group.topic
-                    entity.headPortrait = group.profile
-                    entity.owner = group.owner
-                    entity.flag = group.flag ??  -1
-                    entity.createDate = group.ctime
-                    group.members?.forEach({ (member) in
-                        let memberEntity = MemberEntity()
-                        memberEntity.id = member.uid
-                        memberEntity.type = member.type ?? -1
-                        memberEntity.username = member.username
-                        memberEntity.nickname = member.nickname
-                        memberEntity.headPortrait = member.profile
-                        memberEntity.identity = member.identity?.transformIdentity()
-                        memberEntity.sex = member.sex ?? 0
-                        memberEntity.phone = member.phone
-                        memberEntity.email = member.email
-                        memberEntity.flag = member.flag ??  -1
-                        entity.members.append(memberEntity)
-                    })
-                    
-                    try! realm.write {
-                        realm.add(entity)
-                    }
-                }
-                
-            })
-        }).bindNext{print($0)}
-    }
 }

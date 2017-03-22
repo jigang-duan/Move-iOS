@@ -20,13 +20,13 @@ class AlertServer {
     
     private var disposeBag: Disposable?
     
-    func subscribe() {
+    func subscribe() -> Disposable {
         let realm = try! Realm()
         let objects = realm.objects(NoticeEntity.self)//.filter("readStatus == %d", NoticeEntity.ReadStatus.unread.rawValue)
         let notices = Observable.collection(from: objects)
             .share().debug()
             
-        disposeBag = notices
+        return notices
             .flatMapLatest({
                 Observable.just($0.filter({ $0.readStatus == NoticeEntity.ReadStatus.unread.rawValue }).first)
             })
@@ -35,7 +35,7 @@ class AlertServer {
                 AlertWireframe.shared.prompt(notice.content ?? "",title: notice.owners.first?.name, cancel: .ok(parcel: notice))
             })
             .debug()
-            .bindNext({ [weak self] (alertResult) in
+            .bindNext { [weak self] (alertResult) in
                 switch alertResult {
                 case .confirm(let parcel):
                     self?.readNotice(parcel, realm: realm)
@@ -43,13 +43,7 @@ class AlertServer {
                     self?.readNotice(parcel, realm: realm)
                 default: ()
                 }
-            })
-        Logger.debug("AlertServer subscribe")
-    }
-    
-    func unsubscribe() {
-        disposeBag?.dispose()
-        Logger.debug("AlertServer unsubscribe")
+            }
     }
         
     private func readNotice(_ parcel: Any?, realm: Realm) {
