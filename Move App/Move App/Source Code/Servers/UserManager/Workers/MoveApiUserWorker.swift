@@ -12,12 +12,15 @@ import RxSwift
 
 class MoveApiUserWorker: UserWorkerProtocl {
     
-    func tplogin(platform: String,openld: String,secret: String) -> Observable<Bool> {
-        var tpLoginInfo = MoveApi.TpLoginInfo()
-        tpLoginInfo.platform = platform
-        tpLoginInfo.openid = openld
-        tpLoginInfo.secret = secret
-        return MoveApi.Account.tplogin(info: tpLoginInfo)
+    public enum LoginType: String{
+        case Twiter = "twitter"
+        case Facebook = "facebook"
+        case Google = "google+"
+    }
+    
+    func tplogin(platform: LoginType,openld: String,secret: String) -> Observable<Bool> {
+
+        return MoveApi.Account.tplogin(info: MoveApi.TpLoginInfo(platform: platform.rawValue, openid: openld, secret: secret))
             .map { info in
                 if info.id == nil {
                     throw WorkerError.emptyField("user id is empty!")

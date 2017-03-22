@@ -32,9 +32,9 @@ extension UserManager {
         return worker.fetchProfile()
     }
     
-     func tplogin(platform: String,openld: String,secret: String) -> Observable<Bool>
+     func tplogin(platform: MoveApiUserWorker.LoginType,openld: String,secret: String) -> Observable<Bool>
      {
-        return worker.tplogin(platform: platform, openld: openld, secret: secret)
+        return worker.tplogin(platform: MoveApiUserWorker.LoginType(rawValue: platform.rawValue)!, openld: openld, secret: secret)
     }
     
     func login(email: String, password: String) -> Observable<Bool> {
@@ -74,7 +74,7 @@ extension UserManager {
 /// User Worker Protocl
 protocol UserWorkerProtocl {
     
-    func tplogin(platform: String,openld: String,secret: String) -> Observable<Bool>
+    func tplogin(platform: MoveApiUserWorker.LoginType,openld: String,secret: String) -> Observable<Bool>
     
     func login(email: String, password: String) -> Observable<Bool>
     

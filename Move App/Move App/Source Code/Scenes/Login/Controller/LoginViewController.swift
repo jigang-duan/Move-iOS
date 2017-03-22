@@ -86,8 +86,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var googleaddLoginQulet: UIButton!
     
      var state: String?
-    //第三方做到无法获取返回值
-//     Observable<OAuthSwift.ObservableElement>
     
      lazy var internalWebViewController: OAuthWebController = {
         let controller = OAuthWebController()
@@ -96,27 +94,54 @@ class LoginViewController: UIViewController {
         controller.viewDidLoad()
         return controller
     }()
-//    func facebookLoginaction() -> () {
-//        //            UserManager.shared.tplogin(platform: "aa", openld: "bb", secret: "cc")
-//        AuthService.shared.facebook(consumerKey: <#T##String#>, consumerSecret: <#T##String#>, state: <#T##String#>, authorizeURLHandler: <#T##OAuthSwiftURLHandlerType#>)
+
+    
+    
+//    func facebookLoginaction(void: Void) -> Driver<(String, String)> {
+//        
+//        let state = self.state ?? ""
+//        return AuthService.shared.facebook(consumerKey: "344365305959182",
+//                                    consumerSecret: "909536c55a45ca4143139006f34900db",
+//                                    state: state,
+//                                    authorizeURLHandler: internalWebViewController)
+//            .map { ($0.credential.oauthTokenSecret, $0.credential.oauthToken) }
+//            .asDriver(onErrorJustReturn: ("", ""))
+//        }
+//    func googleaddLoginaction(void: Void) -> Driver<(String, String)> {
+//       
+//      return  AuthService.shared.googleDrive(consumerKey: "2tKQInRlLqEgTC_MkjI4i6Rb", consumerSecret: "918775988269-uh4rml1k1v1earvbhr7j10rmcc8io9kd.apps.googleusercontent.com", state: (self.state ?? nil)!, authorizeURLHandler: internalWebViewController)
+//            .map { ($0.credential.oauthTokenSecret, $0.credential.oauthToken) }
+//            .asDriver(onErrorJustReturn: ("", ""))
 //    }
-//    func googleaddLoginaction() -> () {
-//        //            UserManager.shared.tplogin(platform: "aa", openld: "bb", secret: "cc")
-//        AuthService.shared.googleDrive(consumerKey: <#T##String#>, consumerSecret: <#T##String#>, state: <#T##String#>, authorizeURLHandler: <#T##OAuthSwiftURLHandlerType#>)
-//    }
-//    func twitterLoginaction() -> () {
-//        //            UserManager.shared.tplogin(platform: "aa", openld: "bb", secret: "cc")
-//        AuthService.shared.twitter(consumerKey: <#T##String#>, consumerSecret: <#T##String#>, authorizeURLHandler: <#T##OAuthSwiftURLHandlerType#>)
+//    func twitterLoginaction(void: Void) -> Driver<(String, String)>  {
+//     return   AuthService.shared.twitter(consumerKey: "YEtbencgFOdSEAqyEQQE61T94", consumerSecret: "KvPYYDdVCVZMLRr2yElRTtoCAVLbEWUYDvBfnLEG3HS3O7PQOo", authorizeURLHandler: internalWebViewController)
+//            .map { ($0.credential.oauthTokenSecret, $0.credential.oauthToken) }
+//            .asDriver(onErrorJustReturn: ("", ""))
 //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        state = generateStateWithLength(len: 20) as String
+//        state = generateStateWithLength(len: 20) as String
         
         
-
+//        facebookLoginQulet.rx.tap.asDriver()
+//            .flatMapLatest(twitterLoginaction)
+//            .flatMapLatest({
+//                UserManager.shared.tplogin(platform: MoveApiUserWorker.LoginType.Google, openld: $0, secret: $1)
+//                    .asDriver(onErrorJustReturn: false)
+//            })
+//            .drive(onNext: {
+//                if $0 {
+//                    Distribution.shared.showMainScreen()
+//                }
+//            }).addDisposableTo(disposeBag)
+        
+        //直接食用oautoswift
+        
+        
         
         // Do any additional setup after loading the view.
+        
         
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
