@@ -35,8 +35,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var nameTitleL: UILabel!
     @IBOutlet weak var addressTitleL: UILabel!
     
-    @IBOutlet weak var kidnameL: UILabel!
-    @IBOutlet weak var kidaddressL: UILabel!
+    @IBOutlet weak var kidnameTF: UITextField!
+    @IBOutlet weak var kidaddressTF: UITextField!
     
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var RadiusL: UILabel!
@@ -95,13 +95,12 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.kidnameTF.placeholder = "Enter a name for this safezone"
         if (self.editFenceDataSounrce != nil) {
             //编辑
             self.title = self.editFenceDataSounrce?.name
-            let kidInfo = DeviceManager.shared.currentDevice?.user
-            self.kidnameL.text = kidInfo?.nickname
-            self.kidaddressL.text = self.editFenceDataSounrce?.location?.addr
+            self.kidnameTF.text = self.editFenceDataSounrce?.name
+            self.kidaddressTF.text = self.editFenceDataSounrce?.location?.addr
             self.fencelocation = CLLocationCoordinate2D(latitude: (self.editFenceDataSounrce?.location?.location?.latitude)!, longitude: (self.editFenceDataSounrce?.location?.location?.longitude)!)
             let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
             self.mainMapView.setRegion(region, animated: true)
@@ -119,12 +118,9 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         }else{
             //新增
             self.title = "Add Safe zone"
-            let kidInfo = DeviceManager.shared.currentDevice?.user
-            
-            self.kidnameL.text = kidInfo?.nickname
             let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
                 .map({
-                    self.kidaddressL.text = $0.location?.addr
+                    self.kidaddressTF.text = $0.location?.addr
                     self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
                     let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
                     self.mainMapView.setRegion(region, animated: true)
@@ -155,7 +151,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             locationManager: locationManager,
             kidinfo: MokKidInfo()
         ))
-        
         
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()
@@ -275,7 +270,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     if (p.thoroughfare != nil) {
                         address?.append(p.thoroughfare!)
                     }
-                    self.kidaddressL.text = address
+                    self.kidaddressTF.text = address
                 } else {
                     print("No placemarks!")
                 }
@@ -313,7 +308,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         if (item.placemark.thoroughfare != nil) {
             address?.append(item.placemark.thoroughfare!)
         }
-        self.kidaddressL.text = address
+        self.kidaddressTF.text = address
         let region = MKCoordinateRegionMakeWithDistance(self.fencelocation!, 1500, 1500)
         self.mainMapView.setRegion(region, animated: true)
     }
@@ -323,8 +318,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
-            if self.nameTextField.text != "" {
-                let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressL.text)
+            if self.kidnameTF.text != "" {
+                let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
                 let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.nameTextField.text , location : fenceloc , radius : self.currentRadius , active : true)
                 let fencereq = MoveApi.FenceReq(fence : fenceinfo)
                 let postFence = MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
@@ -346,11 +341,10 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             (action : UIAlertAction!) -> Void in
         })
         
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            self.nameTextField = textField
-            self.nameTextField.placeholder = "Enter Name"
-//            self.nameTextField.delegate = self
-        }
+//        alertController.addTextField { (textField : UITextField!) -> Void in
+//            self.nameTextField = textField
+//            self.nameTextField.placeholder = "Enter Name"
+//        }
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
@@ -363,28 +357,28 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
-            
-            var fenceloc : MoveApi.Fencelocation? = nil
-            var fenceinfo : MoveApi.FenceInfo? = nil
-            var fencereq : MoveApi.FenceReq? = nil
-            if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
-                 fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.addr)
-            }else{
-                 fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressL.text)
-            }
-            
-            fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.editFenceDataSounrce?.name , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
-            fencereq = MoveApi.FenceReq(fence : fenceinfo)
-            
-            MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
-                print($0)
-                if $0.msg != "ok" {
-                    self.errorshow(message: $0.field!)
+            if self.kidnameTF.text != "" {
+                var fenceloc : MoveApi.Fencelocation? = nil
+                var fenceinfo : MoveApi.FenceInfo? = nil
+                var fencereq : MoveApi.FenceReq? = nil
+                if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
+                    fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.addr)
                 }else{
-                    self.navigationController?.popViewController(animated: true)
+                    fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
                 }
-                }.addDisposableTo(self.disposeBag)
-            
+                
+                fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
+                fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                
+                MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
+                    print($0)
+                    if $0.msg != "ok" {
+                        self.errorshow(message: $0.field!)
+                    }else{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    }.addDisposableTo(self.disposeBag)
+            }
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
