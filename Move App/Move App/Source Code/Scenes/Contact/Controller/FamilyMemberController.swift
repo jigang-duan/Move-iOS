@@ -16,6 +16,7 @@ class FamilyMemberController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var popView: UIView!
     
+    @IBOutlet weak var emergencyLab: UILabel!
     
     var viewModel: FamilyMemberViewModel!
     var disposeBag = DisposeBag()
@@ -81,6 +82,8 @@ class FamilyMemberController: UIViewController {
                 
                 if element.state.contains(.master){
                     cell.detailLab.text = "Master"
+                }else{
+                    cell.detailLab.text = ""
                 }
                 
                 let imgUrl = URL(string: FSManager.imageUrl(with: element.headUrl))

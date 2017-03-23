@@ -128,8 +128,8 @@ extension MoveApi {
         }
         
 //        检查watch新版本信息
-        final func checkVersion(deviceId: String) -> Observable<DeviceVersionInfo> {
-            return MoveApi.Device.request(.checkVersion(deviceId: deviceId)).map(transformXml)
+        final func checkVersion(checkInfo: DeviceVersionCheck) -> Observable<DeviceVersionInfo> {
+            return MoveApi.Device.request(.checkVersion(checkInfo: checkInfo)).map(transformXml)
         }
         
         enum API {
@@ -154,7 +154,7 @@ extension MoveApi {
             case sendNotify(deviceId: String, sendInfo: DeviceSendNotify)
             case addPower(deviceId: String, power: DevicePower)
             case getPower(deviceId: String)
-            case checkVersion(deviceId: String)
+            case checkVersion(checkInfo: DeviceVersionCheck)
         }
         
         
@@ -462,8 +462,8 @@ extension MoveApi.Device.API: TargetType {
             return sendInfo.toJSON()
         case .addPower(_, let power):
             return power.toJSON()
-        case .checkVersion(let deviceId):
-            return ["id": deviceId,"mode": 2,"cktp": 2,"curef": "MTMSM8909W","cltp": 10,"type": "Firmware","fv": "MT3001"]
+        case .checkVersion(let checkInfo):
+            return checkInfo.toJSON()
         }
     }
     

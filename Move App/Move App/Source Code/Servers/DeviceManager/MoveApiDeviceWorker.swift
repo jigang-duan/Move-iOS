@@ -242,8 +242,9 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     }
 
     
-    func checkVersion(deviceId: String)  -> Observable<DeviceVersion>{
-        return MoveApi.Device().checkVersion(deviceId: deviceId)
+    func checkVersion(checkInfo: DeviceVersionCheck)  -> Observable<DeviceVersion>{
+        let check = MoveApi.DeviceVersionCheck(id: checkInfo.deviceId, mode: checkInfo.mode, cktp: checkInfo.cktp, curef: checkInfo.curef, cltp: checkInfo.cltp, type: checkInfo.type, fv: checkInfo.fv)
+        return MoveApi.Device().checkVersion(checkInfo: check)
             .map{info in
                 var vs = DeviceVersion()
                 vs.currentVersion = info.version?.fv

@@ -43,6 +43,12 @@ class APNforWatchVC: UIViewController {
     
     
     
+    deinit {
+        if currentPeripheral != nil {
+            manager?.cancelPeripheralConnection(currentPeripheral!)
+        }
+    }
+    
     
     
     func showMessage(_ text: String) {

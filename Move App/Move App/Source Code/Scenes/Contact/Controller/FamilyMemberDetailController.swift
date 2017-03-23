@@ -44,15 +44,10 @@ class FamilyMemberDetailController: UIViewController {
     
     let addressbookHelper = AddressbookUtility()
     
-    var isNowMaster: Bool{
-        get{
-            return UserInfo.shared.id == info?.contactInfo?.uid && (info?.isMaster)!
-        }
-    }
     
     struct ContactDetailInfo {
         var contactInfo: ImContact?
-        var isMaster = false
+        var isNowMaster = false
         var isMe = false
     }
     
@@ -99,7 +94,7 @@ class FamilyMemberDetailController: UIViewController {
         
         viewModel.saveEnabled?
             .drive(onNext: { [unowned self] valid in
-                if self.isNowMaster == false && self.info?.isMe == false {
+                if self.info?.isNowMaster == false && self.info?.isMe == false {
                     self.saveBun.isEnabled = false
                     self.saveBun.tintColor?.withAlphaComponent(0.5)
                 }else{
@@ -158,7 +153,7 @@ class FamilyMemberDetailController: UIViewController {
     
     
     func setupUI() {
-        if isNowMaster == false {
+        if self.info?.isNowMaster == false {
             masterBun.isHidden = true
             deleteBun.isHidden = true
             if info?.isMe == false {
@@ -169,7 +164,7 @@ class FamilyMemberDetailController: UIViewController {
                 numberTf.isEnabled = false
                 saveBun.isEnabled = false
             }
-        }else if isNowMaster == true && info?.isMe == true {
+        }else if self.info?.isNowMaster == true && info?.isMe == true {
             masterBun.isHidden = true
             deleteBun.isHidden = true
         }

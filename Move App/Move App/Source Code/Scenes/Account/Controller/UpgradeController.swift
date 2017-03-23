@@ -28,12 +28,32 @@ class UpgradeController: UIViewController {
     @IBOutlet weak var downloadBun: UIButton!
     
     
+    let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    
     var viewModel: UpgradeViewModel!
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        self.setupUI()
         
+        self.checkNewVersion()
+        
+        viewModel = UpgradeViewModel(
+            input: (
+                downloadBun.rx.tap.asDriver()
+            ),
+            dependency:(
+                deviceManager: DeviceManager.shared
+            )
+        )
+        
+     
+    }
+    
+    
+    func setupUI() {
         tipLab.isHidden = true
         downloadBun.isHidden = true
         
@@ -48,40 +68,58 @@ class UpgradeController: UIViewController {
         batteryLevel.text = "\(device.property?.power ?? 0)%"
         versionLab.text = device.property?.firmware_version
         
+        activity.center = self.view.center
+        self.view.addSubview(activity)
+        activity.startAnimating()
+    }
+    
+    
+    
+    func checkNewVersion() {
+        let device = DeviceManager.shared.currentDevice!
         
-        viewModel = UpgradeViewModel(
-            input: (
-                downloadBun.rx.tap.asDriver()
-            ),
-            dependency:(
-                deviceManager: DeviceManager.shared
-            )
-        )
         
-        _ = DeviceManager.shared.getProperty(deviceId: device.deviceId!).subscribe(
-            onNext: { info in
+        _ = DeviceManager.shared.getProperty(deviceId: device.deviceId!)
+            .subscribe(
+            onNext: {[unowned self] info in
                 DeviceManager.shared.currentDevice?.property = info
                 self.batteryLevel.text = "\(info.power ?? 0)%"
+                self.batteryImgV.image = UIImage(named: "home_ic_battery\((info.power ?? 0)/20)")
+                
+                
+                var checkInfo = DeviceVersionCheck(deviceId: device.deviceId, mode: "2", cktp: "2", curef: info.device_model, cltp: "10", type: "Firmware", fv: "")
+                var ff = ""
+                if let fv = info.firmware_version {
+                    if fv.characters.count > 2 {
+                        ff = fv.substring(from: fv.index(fv.startIndex, offsetBy: fv.characters.count - 2))
+                    }
+                }
+                checkInfo.fv = "MT30" + ff
+                
+                //TODO: for test
+                checkInfo.fv = "MT3005"
+                checkInfo.curef = "MTMSM8909W"
+                
+                _ = DeviceManager.shared.checkVersion(checkInfo: checkInfo).subscribe(
+                    onNext: { info in
+                        if info.currentVersion == info.newVersion {
+                            self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
+                            self.versionInfo.text = "This watch's firmware is up to date."
+                            self.tipLab.isHidden = true
+                            self.downloadBun.isHidden = true
+                        }else{
+                            self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
+                            self.versionInfo.text = info.updateDesc
+                            self.downloadBun.isHidden = false
+                        }
+                        self.activity.stopAnimating()
+                }, onError: { (er) in
+                    print(er)
+                    self.activity.stopAnimating()
+                }).addDisposableTo(self.disposeBag)
         }, onError: { (er) in
             print(er)
         }).addDisposableTo(disposeBag)
-        
-
-        _ = DeviceManager.shared.checkVersion(deviceId: device.deviceId!).subscribe(
-            onNext: { info in
-                if info.currentVersion == info.newVersion {
-                    self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
-                    self.versionInfo.text = "This watch's firmware is up to date."
-                    self.tipLab.isHidden = true
-                    self.downloadBun.isHidden = true
-                }else{
-                    self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
-                    self.versionInfo.text = info.updateDesc
-                    self.downloadBun.isHidden = false
-                }
-            }, onError: { (er) in
-                print(er)
-            }).addDisposableTo(disposeBag)
         
     }
     
