@@ -246,6 +246,7 @@
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
+		FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */; };
 		FF3D7A761E7D2B5900239DFE /* ImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
@@ -568,6 +569,7 @@
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberVC.swift; sourceTree = "<group>"; };
 		FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageUtility.swift; path = Shared/Common/Utils/ImageUtility.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
@@ -1795,6 +1797,7 @@
 			children = (
 				FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */,
 				FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */,
+				FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */,
 				FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */,
 				FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */,
 				FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */,
@@ -1957,7 +1960,7 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P7SEJF49Q7;
+						DevelopmentTeam = BV28C32GBU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -2287,6 +2290,7 @@
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
 				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
+				FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
 				FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */,

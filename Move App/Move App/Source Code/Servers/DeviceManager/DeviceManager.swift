@@ -79,8 +79,8 @@ extension DeviceManager {
         return worker.deleteWatchFriend(deviceId: deviceId, uid: uid)
     }
     
-    func checkVersion(deviceId: String)  -> Observable<DeviceVersion> {
-        return worker.checkVersion(deviceId: deviceId)
+    func checkVersion(checkInfo: DeviceVersionCheck)  -> Observable<DeviceVersion> {
+        return worker.checkVersion(checkInfo: checkInfo)
     }
     
     func getProperty(deviceId: String)  -> Observable<DeviceProperty> {
@@ -114,7 +114,7 @@ protocol DeviceWorkerProtocl {
     func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]>
     func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool>
     
-    func checkVersion(deviceId: String)  -> Observable<DeviceVersion>
+    func checkVersion(checkInfo: DeviceVersionCheck)  -> Observable<DeviceVersion>
     
     func getProperty(deviceId: String)  -> Observable<DeviceProperty>
 }
@@ -174,6 +174,16 @@ struct DeviceFriend {
     var nickname: String?
     var profile: String?
     var phone: String?
+}
+
+struct DeviceVersionCheck {
+    var deviceId: String?
+    var mode: String?
+    var cktp: String?
+    var curef: String?
+    var cltp: String?
+    var type: String?
+    var fv: String?
 }
 
 struct DeviceVersion {

@@ -165,6 +165,17 @@ extension MoveApi {
         var power: Int?
     }
     
+    
+    struct DeviceVersionCheck {
+        var id: String?
+        var mode: String?
+        var cktp: String?
+        var curef: String?
+        var cltp: String?
+        var type: String?
+        var fv: String?
+    }
+    
     struct DeviceVersionInfo {
         var update_desc: String?
         var encoding_error: String?
@@ -502,5 +513,18 @@ extension MoveApi.DevicePower: Mappable {
 }
 
 
-
+extension MoveApi.DeviceVersionCheck: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        id <- map["id"]
+        mode <- map["mode"]
+        cktp <- map["cktp"]
+        curef <- map["curef"]
+        cltp <- map["cltp"]
+        type <- map["type"]
+        fv <- map["fv"]
+    }
+}
 

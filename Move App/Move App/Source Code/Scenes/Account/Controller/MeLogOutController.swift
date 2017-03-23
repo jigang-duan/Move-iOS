@@ -30,10 +30,16 @@ class MeLogoutController: UIViewController {
         
         nameLab.text = info?.nickname
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
+        headBun.setBackgroundImage(placeImg, for: .normal)
         
-        let imgUrl = URL(string: FSManager.imageUrl(with: info?.iconUrl ?? ""))
-        headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-        
+        self.updateAvatar(with: info?.iconUrl ?? "")
+    }
+    
+    
+    func  updateAvatar(with url: String) {
+        if url == "" { return }
+        let imgUrl = URL(string: FSManager.imageUrl(with: url))
+        headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: headBun.currentBackgroundImage!)
     }
     
     
@@ -91,27 +97,54 @@ class MeLogoutController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.meLogoutController.shwoMeSettings(segue: segue) {
-            sg.destination.settingSaveBlock = { gender, height, weight, birthday in
+            sg.destination.settingSaveBlock = { gender, height, weight, birthday, changedImage in
+                
                 var info = UserInfo.Profile()
                 info.gender = gender
                 info.weight = weight
                 info.height = height
                 info.birthday = birthday
-                _ = UserManager.shared.setUserInfo(userInfo: info).subscribe({ (event) in
-                    switch event{
-                    case .next(let value):
-                        print(value)
-                    case .completed:
-                        UserInfo.shared.profile?.gender = gender
-                        UserInfo.shared.profile?.height = height
-                        UserInfo.shared.profile?.weight = weight
-                        UserInfo.shared.profile?.birthday = birthday
-                    case .error(let error):
-                        print(error)
-                    }
-                })
+                
+                if changedImage != nil {
+                    var icon = ""
+                    _ = FSManager.shared.uploadPngImage(with: changedImage!)
+                        .subscribe({ event in
+                            switch event{
+                            case .next(let fid):
+                                icon = fid.fid ?? ""
+                            case .completed:
+                                info.iconUrl = icon
+                                self.settingUserInfo(with: info)
+                            case .error(let er):
+                                print(er)
+                            }
+                        })
+                }else {
+                    self.settingUserInfo(with: info)
+                }
             }
         }
+    }
+    
+    
+    
+    func settingUserInfo(with info: UserInfo.Profile) {
+        _ = UserManager.shared.setUserInfo(userInfo: info).subscribe({ (event) in
+            switch event{
+            case .next(let value):
+                print(value)
+            case .completed:
+                UserInfo.shared.profile?.gender = info.gender
+                UserInfo.shared.profile?.height = info.height
+                UserInfo.shared.profile?.weight = info.weight
+                UserInfo.shared.profile?.birthday = info.birthday
+                UserInfo.shared.profile?.iconUrl = info.iconUrl
+                self.updateAvatar(with: info.iconUrl ?? "")
+            case .error(let error):
+                print(error)
+            }
+        })
+    
     }
     
     

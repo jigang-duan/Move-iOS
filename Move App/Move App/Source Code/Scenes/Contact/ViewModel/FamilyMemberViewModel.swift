@@ -65,6 +65,7 @@ class FamilyMemberViewModel {
             deviceManager.getContacts(deviceId: (deviceManager.currentDevice?.deviceId)!).map{ members in
                 var cellDatas: [FamilyMemberCellData] = []
                 var cons: [FamilyMemberDetailController.ContactDetailInfo] = []
+                var isNowMaster = false
                 
                 for mb in members {
                     var memberState = [FamilyMemberCellState.other]
@@ -76,17 +77,26 @@ class FamilyMemberViewModel {
                         memberState = [.master]
                         if UserInfo.shared.id == mb.uid {
                             memberState = [.master, .me]
+                            isNowMaster = true
                         }
                     }
                     
                     let cellData = FamilyMemberCellData(headUrl: mb.profile ?? "", isHeartOn: self.transformIsHeartOn(flag: mb.flag ?? 0), relation: (mb.identity?.description) ?? "", state: memberState)
                     cellDatas.append(cellData)
                     
-                    let conInfo = FamilyMemberDetailController.ContactDetailInfo(contactInfo: mb, isMaster: memberState.contains(.master), isMe: memberState.contains(.me))
+                    var conInfo = FamilyMemberDetailController.ContactDetailInfo()
+                    conInfo.contactInfo = mb
+                    conInfo.isMe = memberState.contains(.me)
                     cons.append(conInfo)
                 }
                 
-                self.contacts = cons
+                let cs = cons.map({con -> (FamilyMemberDetailController.ContactDetailInfo) in
+                    var c = con
+                    c.isNowMaster = isNowMaster
+                    return c
+                })
+                
+                self.contacts = cs
                 
                 return cellDatas
             }

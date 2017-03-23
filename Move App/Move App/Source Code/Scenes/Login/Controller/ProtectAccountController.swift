@@ -120,7 +120,7 @@ class ProtectAccountController: UIViewController {
                 case .failed(let message):
                     self.showValidateError(message)
                 case .ok:
-                    _ = self.navigationController?.popViewController(animated: true)
+                    _ = self.navigationController?.popToRootViewController(animated: true)
                 default:
                     self.revertValidateError()
                 }

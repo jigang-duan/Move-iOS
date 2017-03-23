@@ -2386,14 +2386,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Update" id="Zeu-fZ-feY">
                         <barButtonItem key="backBarButtonItem" title=" " id="EOk-PN-oYo"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Evk-eI-5ew">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5MK-Zf-IUN" userLabel="add">
-                                <rect key="frame" x="341" y="11" width="18" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="nav_add_nor"/>
-                                <state key="highlighted" image="nav_add_pre"/>
-                            </button>
-                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>

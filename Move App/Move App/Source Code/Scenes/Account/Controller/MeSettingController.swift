@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import CustomViews
 
-class MeSettingController: UITableViewController {
+class MeSettingController: UITableViewController, UINavigationControllerDelegate {
     
-    var settingSaveBlock: ((String?, Int?, Int?, Date?) -> Void)?
+    var settingSaveBlock: ((String?, Int?, Int?, Date?, UIImage?) -> Void)?
     
     var gender: String?
     var height: Int?
     var weight: Int?
     var birthday: Date?
     
+    
+    @IBOutlet weak var headBun: UIButton!
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var emailLab: UILabel!
@@ -29,6 +32,10 @@ class MeSettingController: UITableViewController {
     
     
     @IBOutlet var settingCells: [UITableViewCell]!
+    
+    
+    var photoPicker: ImageUtility?
+    var changedImage: UIImage?
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,8 +53,9 @@ class MeSettingController: UITableViewController {
             if gender != info?.gender
                 || height != info?.height
                 || weight != info?.weight
-                || birthday != info?.birthday {
-                self.settingSaveBlock!(gender, height, weight, birthday)
+                || birthday != info?.birthday
+                || changedImage != nil {
+                self.settingSaveBlock!(gender, height, weight, birthday, changedImage)
             }
         }
     }
@@ -69,6 +77,18 @@ class MeSettingController: UITableViewController {
         weightLab.text = String(info?.weight ?? 0)
         birthdayLab.text = info?.birthday?.stringYearMonthDay
         
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
+        
+        let imgUrl = URL(string: FSManager.imageUrl(with: info?.iconUrl ?? ""))
+        headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+    }
+    
+    @IBAction func selectPhoto(_ sender: Any) {
+        photoPicker = ImageUtility()
+        photoPicker?.selectPhoto(with: self, callback: { (image) in
+            self.headBun.setBackgroundImage(image, for: .normal)
+            self.changedImage = image
+        }, size: CGSize(width: 100, height: 100))
     }
     
     
