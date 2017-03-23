@@ -154,16 +154,18 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     func GetCurrentNew() {
-        let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
-            .map({
-                let annotation = BaseAnnotation(($0.location?.lat)!, ($0.location?.lng)!)
-                self.objectLocationL.text = $0.location?.addr
-                self.mapView.removeAnnotations(self.mapView.annotations)
-                self.mapView.addAnnotation(annotation)
-            })
-        getaddressdata.subscribe(onNext: {
-            print($0)
-        }).addDisposableTo(disposeBag)
+        if let idstr : String = Me.shared.currDeviceID {
+            let getaddressdata = MoveApi.Location.getNew(deviceId: idstr)
+                .map({
+                    let annotation = BaseAnnotation(($0.location?.lat)!, ($0.location?.lng)!)
+                    self.objectLocationL.text = $0.location?.addr
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    self.mapView.addAnnotation(annotation)
+                })
+            getaddressdata.subscribe(onNext: {
+                print($0)
+            }).addDisposableTo(disposeBag)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

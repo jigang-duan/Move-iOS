@@ -25,7 +25,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     var circleOverlay:MKCircle?
     var blPinChBegin = false
     
-    var nameTextField : UITextField!
+//    var nameTextField : UITextField!
     
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
@@ -320,7 +320,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             alert -> Void in
             if self.kidnameTF.text != "" {
                 let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
-                let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.nameTextField.text , location : fenceloc , radius : self.currentRadius , active : true)
+                let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
                 let fencereq = MoveApi.FenceReq(fence : fenceinfo)
                 let postFence = MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
                     .map({
