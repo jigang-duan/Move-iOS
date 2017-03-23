@@ -260,6 +260,8 @@
 		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
 		FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D931E7021F2006B80AE /* UpgradeController.swift */; };
 		FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D951E702464006B80AE /* UpgradeViewModel.swift */; };
+		FFF2E8EA1E824C640082FEB7 /* APNforWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */; };
+		FFF2E8EC1E8272020082FEB7 /* APNSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2E8EB1E8272020082FEB7 /* APNSettingVC.swift */; };
 		FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */; };
 		FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */; };
 		FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */; };
@@ -578,6 +580,8 @@
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
 		FFE84D931E7021F2006B80AE /* UpgradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeController.swift; sourceTree = "<group>"; };
 		FFE84D951E702464006B80AE /* UpgradeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
+		FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APNforWatchVC.swift; sourceTree = "<group>"; };
+		FFF2E8EB1E8272020082FEB7 /* APNSettingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APNSettingVC.swift; sourceTree = "<group>"; };
 		FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateIntTransform.swift; sourceTree = "<group>"; };
 		FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberController.swift; sourceTree = "<group>"; };
 		FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsController.swift; sourceTree = "<group>"; };
@@ -1490,6 +1494,8 @@
 				E0931F551E31E12100755B4A /* AccountController.swift */,
 				D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */,
 				D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */,
+				FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */,
+				FFF2E8EB1E8272020082FEB7 /* APNSettingVC.swift */,
 				FF1011801E80E2B40038DBE9 /* UnpairTipVC.swift */,
 				FFE84D931E7021F2006B80AE /* UpgradeController.swift */,
 				FFB543AE1E7175C400E11F5A /* MeLogoutController.swift */,
@@ -1951,8 +1957,8 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BV28C32GBU;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = P7SEJF49Q7;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -2276,6 +2282,7 @@
 				FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */,
+				FFF2E8EA1E824C640082FEB7 /* APNforWatchVC.swift in Sources */,
 				FF14AC201E77901500FBE899 /* WatchFriendsListViewModel.swift in Sources */,
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
@@ -2343,6 +2350,7 @@
 				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
 				11EAC30D1E6D7B14002906F1 /* UUMessageContentButton.swift in Sources */,
 				E0931F191E30BC0600755B4A /* AppDelegate.swift in Sources */,
+				FFF2E8EC1E8272020082FEB7 /* APNSettingVC.swift in Sources */,
 				E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */,
 				11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */,
 				A53513571E790E8E0093445F /* Chat.swift in Sources */,
@@ -2690,10 +2698,10 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2722,10 +2730,10 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
