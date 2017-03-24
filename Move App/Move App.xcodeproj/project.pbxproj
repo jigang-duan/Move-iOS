@@ -1983,6 +1983,7 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = BV28C32GBU;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -2729,7 +2730,7 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
 				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
@@ -2761,7 +2762,7 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
 				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
