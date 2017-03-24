@@ -30,6 +30,19 @@ class FamilyMemberController: UIViewController {
         super.viewWillAppear(animated)
         
         enterCount.value += 1
+        
+        _ = WatchSettingsManager.share.fetchEmergencyNumbers()
+            .subscribe({ event in
+            switch event{
+            case .next(let numbers):
+                self.emergencyLab.text = numbers.joined(separator: ",")
+            case .completed:
+                break
+            case .error(let er):
+                print(er)
+            }
+        })
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

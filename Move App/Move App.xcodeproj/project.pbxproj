@@ -237,6 +237,7 @@
 		FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */; };
 		FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
+		FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0D43C71E84F2E100F1418B /* EmergencyNumberViewModel.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
 		FF1011811E80E2B40038DBE9 /* UnpairTipVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1011801E80E2B40038DBE9 /* UnpairTipVC.swift */; };
 		FF11D4591E796146005C53ED /* AddressbookUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11D4581E796146005C53ED /* AddressbookUtility.swift */; };
@@ -559,6 +560,7 @@
 		FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddViewModel.swift; sourceTree = "<group>"; };
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
+		FF0D43C71E84F2E100F1418B /* EmergencyNumberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
 		FF1011801E80E2B40038DBE9 /* UnpairTipVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnpairTipVC.swift; sourceTree = "<group>"; };
@@ -1813,6 +1815,7 @@
 				FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */,
 				FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */,
 				FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */,
+				FF0D43C71E84F2E100F1418B /* EmergencyNumberViewModel.swift */,
 				FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */,
 				FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */,
 				FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */,
@@ -1960,7 +1963,7 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BV28C32GBU;
+						DevelopmentTeam = P7SEJF49Q7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -2250,6 +2253,7 @@
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
 				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
 				FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */,
+				FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */,
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */,
 				E9DA9C3C1E6FD960009A9189 /* NoticeDetailCell.swift in Sources */,

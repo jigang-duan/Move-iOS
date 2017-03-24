@@ -22,6 +22,9 @@ class MeLogoutController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: MeLogoutViewModel!
     
+    typealias SaveData = (String?, Int?, Int?, Date?, UIImage?)
+    var saveSubject = PublishSubject<SaveData>()
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -78,6 +81,14 @@ class MeLogoutController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+//        saveSubject.asDriver(onErrorJustReturn: (nil,nil,nil,nil,nil))
+//            .flatMapLatest({
+//                var info = UserInfo.Profile()
+//                info.gender = $0.0
+//                info.weight = $0.2
+//                info.height = $0.1
+//                info.birthday = $0.3
+//            })
         
     }
     

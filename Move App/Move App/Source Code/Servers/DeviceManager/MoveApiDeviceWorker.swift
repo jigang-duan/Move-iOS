@@ -249,7 +249,6 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 var vs = DeviceVersion()
                 vs.currentVersion = info.version?.fv
                 vs.newVersion = info.version?.tv
-                vs.updateDesc = info.update_desc
                 return vs
         }
     }

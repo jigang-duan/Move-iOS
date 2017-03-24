@@ -9,7 +9,7 @@
 import UIKit
 import CustomViews
 
-class MeSettingController: UITableViewController, UINavigationControllerDelegate {
+class MeSettingController: UITableViewController {
     
     var settingSaveBlock: ((String?, Int?, Int?, Date?, UIImage?) -> Void)?
     

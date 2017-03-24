@@ -51,6 +51,9 @@ protocol WatchSettingWorkerProtocl {
     func fetchSummerTime(id: String) -> Observable<Bool>
     func updateTimezones(id: String, hourformat: Bool, autotime: Bool,Timezone: Date, summertime: Bool) -> Observable<Bool>
     
+    func fetchEmergencyNumbers(id: String) ->  Observable<[String]>
+    func updateEmergencyNumbers(id: String, numbers: [String]) ->  Observable<Bool>
+    
 }
 
 class WatchSettingsManager  {
@@ -180,6 +183,19 @@ class WatchSettingsManager  {
         return self.worker.updateTimezones(id: deviceId, hourformat: hourformat, autotime: autotime, Timezone: Timezone, summertime: summertime)
     }
     
+    func fetchEmergencyNumbers() ->  Observable<[String]> {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<[String]>.empty()
+        }
+        return self.worker.fetchEmergencyNumbers(id: deviceId)
+    }
+    
+    func updateEmergencyNumbers(with numbers: [String]) ->  Observable<Bool> {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateEmergencyNumbers(id: deviceId, numbers: numbers)
+    }
     
 }
 

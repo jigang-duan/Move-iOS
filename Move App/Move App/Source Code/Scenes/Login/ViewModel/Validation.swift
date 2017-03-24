@@ -78,7 +78,7 @@ class DefaultValidation {
     static let shared = DefaultValidation()
     // validation
     
-    let minPhoneCount = 5
+    let minPhoneCount = 3
     let minPasswordCount = 8
     let maxPasswordCount = 16
     
@@ -104,6 +104,26 @@ class DefaultValidation {
         return .ok(message: "Phone available")
     }
 
+    
+    func validateMultiPhones(_ phoneStr: String) -> ValidationResult {
+        let numberOfCharacters = phoneStr.characters.count
+        if phoneStr.characters.count == 0 {
+            return .empty
+        }
+        
+        if numberOfCharacters < minPhoneCount {
+            return .failed(message: "Phone must be at least \(minPhoneCount) characters")
+        }
+        
+        let setString = "0123456789,*#"
+        for character in phoneStr.characters {
+            if setString.characters.index(of: character) == nil {
+                return .failed(message: "Phones input incorrect")
+            }
+        }
+        
+        return .ok(message: "Phones available")
+    }
     
     func validateEmail(_ email: String) -> ValidationResult {
         if email.characters.count == 0 {

@@ -54,6 +54,7 @@ class UpgradeController: UIViewController {
     
     
     func setupUI() {
+        versionInfo.isHidden = true
         tipLab.isHidden = true
         downloadBun.isHidden = true
         
@@ -66,7 +67,7 @@ class UpgradeController: UIViewController {
         nameLab.text = device.user?.nickname ?? ""
         
         batteryLevel.text = "\(device.property?.power ?? 0)%"
-        versionLab.text = device.property?.firmware_version
+        versionLab.text = "Firmware Version " + (device.property?.firmware_version ?? "")
         
         activity.center = self.view.center
         self.view.addSubview(activity)
@@ -104,12 +105,13 @@ class UpgradeController: UIViewController {
                     onNext: { info in
                         if info.currentVersion == info.newVersion {
                             self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
+                            self.versionInfo.isHidden = false
                             self.versionInfo.text = "This watch's firmware is up to date."
                             self.tipLab.isHidden = true
                             self.downloadBun.isHidden = true
                         }else{
                             self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
-                            self.versionInfo.text = info.updateDesc
+                            self.versionInfo.isHidden = true
                             self.downloadBun.isHidden = false
                         }
                         self.activity.stopAnimating()

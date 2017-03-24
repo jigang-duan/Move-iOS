@@ -154,6 +154,22 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             })
             .map({ $0.id == 0 })
     }
+    
+    func fetchEmergencyNumbers(id: String) ->  Observable<[String]> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.sos ?? [] })
+    }
+    
+    func updateEmergencyNumbers(id: String, numbers: [String]) ->  Observable<Bool> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.sos = numbers
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            })
+            .map({ $0.id == 0 })
+    }
+    
     func fetchLanguages(id: String) ->  Observable<[String]> {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.languages ?? [] })

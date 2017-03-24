@@ -189,5 +189,4 @@ struct DeviceVersionCheck {
 struct DeviceVersion {
     var currentVersion: String?
     var newVersion: String?
-    var updateDesc: String?
 }
