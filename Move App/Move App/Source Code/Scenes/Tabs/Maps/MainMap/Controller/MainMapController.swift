@@ -61,7 +61,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         super.viewWillAppear(true)
         self.title = "Location"
         self.isAtThisPage.value = true
-        
+        self.getDataSource()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,7 +186,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
         if (currentDeviceData != nil) {
             let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-            if (device.user != nil) {
+            if device.user != nil {
                 let str : String = "telprompt://" + (device.user?.number)!
                 UIApplication.shared.openURL(URL(string: str)!)
             }
@@ -254,24 +254,50 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .map({
                 self.defaultDeviceData = $0.devices
                 
-                if let data = self.defaultDeviceData?.first {
-                    self.UpdateUIData(dataSource: data)
-                    
-                    let action = BasePopoverAction(imageUrl: data.user?.profile,
-                                                   placeholderImage: R.image.home_pop_all(),
-                                                   title: data.user?.nickname,
-                                                   isSelected: true,
-                                                   handler: nil)
-                    action.canAvatar = true
-                    action.data = data
-                    self.currentDeviceData = action
-                    let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
-                    let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
-                    
-                    let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
-                    self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+                if let idstr : String = Me.shared.currDeviceID {
+                    if (self.defaultDeviceData != nil) {
+                        for i in 0...(self.defaultDeviceData?.count)! - 1{
+                            let data = self.defaultDeviceData?[i]
+                            
+                            if data?.deviceId == idstr {
+                                self.UpdateUIData(dataSource: data!)
+                                
+                                let action = BasePopoverAction(imageUrl: data?.user?.profile,
+                                                               placeholderImage: R.image.home_pop_all(),
+                                                               title: data?.user?.nickname,
+                                                               isSelected: true,
+                                                               handler: nil)
+                                action.canAvatar = true
+                                action.data = data
+                                self.currentDeviceData = action
+                                let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
+                                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
+                                
+                                let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
+                                self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+                            }
+                        }
+                    }
+                }else{
+                    if let data = self.defaultDeviceData?.first {
+                        self.UpdateUIData(dataSource: data)
+                        
+                        let action = BasePopoverAction(imageUrl: data.user?.profile,
+                                                       placeholderImage: R.image.home_pop_all(),
+                                                       title: data.user?.nickname,
+                                                       isSelected: true,
+                                                       handler: nil)
+                        action.canAvatar = true
+                        action.data = data
+                        self.currentDeviceData = action
+                        let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
+                        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
+                        
+                        let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
+                        self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+                    }
+
                 }
-                
             })
         deviceDataSource.subscribe(onNext: {
             print($0)
@@ -376,20 +402,5 @@ extension MainMapController: MKMapViewDelegate {
         }
         
         return nil
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        //        let render = MKPolygonRenderer(overlay: overlay)
-        //        render.strokeColor = UIColor.redColor()
-        //        render.lineWidth = 4.0
-        //        return render
-        //        if overlay is MKPolyline {
-        let  polylineRenderer = MKPolylineRenderer(overlay: overlay)
-        //      polylineRenderer.lineDashPattern = [14,10,6,10,4,10]
-        polylineRenderer.strokeColor = UIColor.red
-        //      polylineRenderer.strokeColor = UIColor(red: 0.012, green: 0.012, blue: 0.012, alpha: 1.00)
-        polylineRenderer.fillColor = UIColor.blue
-        polylineRenderer.lineWidth = 2.5
-        return polylineRenderer
     }
 }
