@@ -24,9 +24,8 @@ class TabsViewController: UITabBarController {
         // Do any additional setup after loading the view.
         viewControllers = [
             R.storyboard.major.navHomeController()!,
-            R.storyboard.main.choseDevice()!,
-//            R.storyboard.main.instantiateInitialViewController()!,
-            R.storyboard.social.instantiateInitialViewController()!
+            R.storyboard.main.choseDevice()!
+//            R.storyboard.social.instantiateInitialViewController()!
         ]
         
         self.selectedIndex = inlet

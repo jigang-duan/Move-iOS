@@ -291,9 +291,6 @@
                                     <constraint firstAttribute="height" constant="30" id="Bxi-kC-Nf7"/>
                                 </constraints>
                                 <state key="normal" title="Show System Notification"/>
-                                <connections>
-                                    <segue destination="pwg-B1-Sdq" kind="show" id="p0I-1D-cRa"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9X-tD-BrT">
                                 <rect key="frame" x="16" y="148" width="343" height="30"/>
@@ -325,136 +322,14 @@
             </objects>
             <point key="canvasLocation" x="3052" y="2289.8050974512744"/>
         </scene>
-        <!--System notification-->
-        <scene sceneID="K74-xv-pby">
-            <objects>
-                <viewController title="System notification" hidesBottomBarWhenPushed="YES" id="pwg-B1-Sdq" customClass="SystemNotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2w8-8P-Cpy"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cdi-Ez-XzT"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fig-RK-Xhn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ziM-Q2-9zV">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="0.94117647409439087" green="0.94901961088180542" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotificationClassify" textLabel="Aqm-zz-VKe" detailTextLabel="JT4-DP-LeK" style="IBUITableViewCellStyleSubtitle" id="PVO-di-WOM">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PVO-di-WOM" id="DJh-8o-rZ4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aqm-zz-VKe">
-                                                    <rect key="frame" x="15" y="4" width="34" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JT4-DP-LeK">
-                                                    <rect key="frame" x="15" y="25" width="44" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yl0-4i-pLM">
-                                                    <rect key="frame" x="328" y="11" width="16" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.99215686319999996" green="0.73725491759999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="8"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="accessoryView" destination="yl0-4i-pLM" id="r05-fT-tSy"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ziM-Q2-9zV" secondAttribute="trailing" id="YPd-ga-nob"/>
-                            <constraint firstItem="ziM-Q2-9zV" firstAttribute="top" secondItem="2w8-8P-Cpy" secondAttribute="bottom" id="nXI-l2-Pq2"/>
-                            <constraint firstItem="Cdi-Ez-XzT" firstAttribute="top" secondItem="ziM-Q2-9zV" secondAttribute="bottom" id="oM9-VQ-QvK"/>
-                            <constraint firstItem="ziM-Q2-9zV" firstAttribute="leading" secondItem="fig-RK-Xhn" secondAttribute="leading" id="pkh-KL-R2v"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="System notification" id="cf5-KW-wvm">
-                        <barButtonItem key="backBarButtonItem" title=" " id="zf6-aU-Uhd"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="ziM-Q2-9zV" id="jqq-gH-l1g"/>
-                        <segue destination="qQJ-x7-Fq5" kind="show" identifier="showNotification" id="2lm-kn-Ie5"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fsY-Uy-GBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4008.8000000000002" y="2290.704647676162"/>
-        </scene>
-        <!--Notification-->
-        <scene sceneID="IfY-vK-G5e">
-            <objects>
-                <viewController storyboardIdentifier="notificationScene" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qQJ-x7-Fq5" customClass="NotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gfG-hh-BZB"/>
-                        <viewControllerLayoutGuide type="bottom" id="pSp-js-X1Q"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="m5y-6N-Rei">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RVA-YQ-Joc">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotification" id="Q5A-iG-1t0" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q5A-iG-1t0" id="cbJ-Jx-wk2">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="RVA-YQ-Joc" secondAttribute="trailing" id="KeF-0h-PQ6"/>
-                            <constraint firstItem="RVA-YQ-Joc" firstAttribute="top" secondItem="gfG-hh-BZB" secondAttribute="bottom" id="iYf-q5-Kqq"/>
-                            <constraint firstItem="RVA-YQ-Joc" firstAttribute="leading" secondItem="m5y-6N-Rei" secondAttribute="leading" id="mp2-OQ-BSO"/>
-                            <constraint firstItem="pSp-js-X1Q" firstAttribute="top" secondItem="RVA-YQ-Joc" secondAttribute="bottom" id="oO2-7f-OrB"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Notification" id="s1N-3i-wIs">
-                        <barButtonItem key="backBarButtonItem" title=" " id="axI-yU-9rY"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="navigationOutlet" destination="s1N-3i-wIs" id="a1w-HB-OWQ"/>
-                        <outlet property="tableView" destination="RVA-YQ-Joc" id="UJn-8x-hfW"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4zf-eT-o4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4777" y="2291"/>
-        </scene>
         <!--Family Chat-->
         <scene sceneID="4TU-xw-7Fh">
             <objects>
                 <viewController title="Family Chat" id="rZW-9c-AXH" customClass="FamilyChatController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XaM-Ji-uwv"/>
+                        <viewControllerLayoutGuide type="bottom" id="t1F-Kl-udc"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mrp-ER-g6b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -494,6 +369,10 @@
         <scene sceneID="ezh-eB-BgU">
             <objects>
                 <viewController title="Single chat" id="v3Z-GN-82X" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QjO-c7-J8f"/>
+                        <viewControllerLayoutGuide type="bottom" id="hbs-S1-SMF"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6fX-Ch-ncz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
