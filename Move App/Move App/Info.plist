@@ -31,6 +31,17 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1.2</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.tclcom.moveappa</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>MOVE_APP_schemes</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
