@@ -29,7 +29,9 @@ class NotificationController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        navigationOutlet.title = group?.name
+        let kidsId = group?.notices.first?.from
+        let kids = group?.members.filter({ $0.id == kidsId }).first
+        navigationOutlet.title = kids?.nickname
         
         if let _group = group {
             let objects = _group.notices
@@ -38,8 +40,9 @@ class NotificationController: UIViewController {
                 .map({ list -> [UUMessageFrame] in
                     list.map({ notice -> UUMessageFrame in
                         var content = UUMessage.Content()
-                        content.text = notice.content
-                        let message = UUMessage(icon: _group.headPortrait ?? "",
+                        let headURL = FSManager.imageUrl(with: kids?.headPortrait ?? "")
+                        content.text = String(format: notice.content ?? "", kids?.nickname ?? "")
+                        let message = UUMessage(icon: headURL,
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),
                                                 name: _group.name ?? "",

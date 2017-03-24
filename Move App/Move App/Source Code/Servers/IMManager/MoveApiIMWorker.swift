@@ -18,23 +18,31 @@ class MoveApiIMWorker: IMWorkerProtocl {
         return MoveIM.ImApi.initSyncKey()
     }
     
-    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]?) -> Observable<Bool> {
-        guard let list = synckeyList else {
+    func checkSyncKey(syncData: SynckeyEntity?) -> Observable<Bool> {
+        guard let sync = syncData else {
             return Observable.empty()
         }
-
+        
+        let list = [
+            MoveIM.ImSynckey(key: 1, value: sync.message),
+            MoveIM.ImSynckey(key: 2, value: sync.contact),
+            MoveIM.ImSynckey(key: 3, value: sync.group)]
         return MoveIM.ImApi.checkSyncKey(synckey: MoveIM.ImCheckSynkey(synckey:
             list.map({"\($0.key!)_\($0.value!)"}).joined(separator: "|")
         ))
     }
     
-    func syncData(syncData: MoveIM.ImSynDatakey?) -> Observable<Bool> {
+    func syncData(syncData: SynckeyEntity?) -> Observable<EntityType> {
         guard
             let data = syncData,
             let _ = try? Realm().objects(GroupEntity.self).first else {
             return Observable.empty()
         }
-        return MoveIM.ImApi.syncData(synckey: data)
+        let imSynData = MoveIM.ImSynDatakey(synckey: [
+                    MoveIM.ImSynckey(key: 1, value: data.message),
+                    MoveIM.ImSynckey(key: 2, value: data.contact),
+                    MoveIM.ImSynckey(key: 3, value: data.group)])
+        return MoveIM.ImApi.syncData(synckey: imSynData).map { $0.mapEntity() }
     }
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
@@ -44,57 +52,39 @@ class MoveApiIMWorker: IMWorkerProtocl {
     
 //    获取群组列表
     func getGroups() -> Observable<[ImGroup]> {
-        return MoveIM.ImApi.getGroups()
-            .map({ info in
-                var gs: [ImGroup]?
-                if let gps = info.groups, gps.count > 0 {
-                    gs = gps.map{self.convertGroup($0)}
-                }
-                return gs ?? []
-            })
+        return MoveIM.ImApi.getGroups().map({ $0.groups?.map(self.convertGroup) ?? [] })
     }
     
-    func convertGroup(_ group: MoveIM.ImGroup) -> ImGroup {
-        var gp = ImGroup()
-        gp.gid = group.gid
-        gp.topic = group.topic
-        gp.profile = group.profile
-        gp.owner = group.owner
-        gp.flag = group.flag
-        if let members = group.members, members.count > 0 {
-            gp.members = members.map({ member in
-                var m = ImContact()
-                m.uid = member.uid
-                m.nickname = member.nickname
-                m.sex = member.sex
-                m.username = member.username
-                m.type = member.type
-                m.flag = member.flag
-                m.profile = member.profile
-                if let rl = member.identity {
-                    m.identity = Relation(input: rl)
-                }
-                m.phone = member.phone
-                m.email = member.email
-                m.time = member.time
-                m.admin = member.admin
-                return m
-            })
-        }else{
-            gp.members = []
-        }
-        return gp
-    }
-    
-//    查看群组信息
+    //    查看群组信息
     func getGroupInfo(gid: String) -> Observable<ImGroup> {
-        let g = MoveIM.ImGid(gid: gid)
-        return MoveIM.ImApi.getGroupInfo(gid: g)
+        return MoveIM.ImApi.getGroupInfo(gid: MoveIM.ImGid(gid: gid))
             .map({self.convertGroup($0)})
     }
+
     
-    
-    
+    func convertGroup(_ group: MoveIM.ImGroup) -> ImGroup {
+        let members = group.members?.map {
+            return ImContact(uid: $0.uid,
+                              type: $0.type,
+                              username: $0.username,
+                              nickname: $0.nickname,
+                              profile: $0.profile,
+                              identity: Relation(input: $0.identity ?? ""),
+                              phone: $0.phone,
+                              email: $0.email,
+                              time: $0.time,
+                              sex: $0.sex,
+                              flag: $0.flag,
+                              admin: $0.admin)
+        } ?? []
+        return ImGroup(gid: group.gid,
+                       topic: group.topic,
+                       profile: group.profile,
+                       owner: group.owner,
+                       flag: group.flag,
+                       ctime: group.ctime,
+                       members: members)
+    }
     
 }
 

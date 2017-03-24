@@ -133,7 +133,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .drive(onNext: { [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
-                self.GetCurrentNew()
+                //self.GetCurrentNew()
             })
             .addDisposableTo(disposeBag)
         

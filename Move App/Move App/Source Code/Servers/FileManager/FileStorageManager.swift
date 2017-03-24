@@ -16,6 +16,13 @@ class FSManager {
     
 }
 
+extension String {
+    
+    var fsImageUrl: String {
+        return  MoveApi.BaseURL + "/v1.0/fs/\(self)"
+    }
+}
+
 extension FSManager {
     
     class func imageUrl(with profile: String) -> String {

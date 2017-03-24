@@ -19,16 +19,12 @@ class IMManager {
     
     fileprivate var worker: IMWorkerProtocl!
     
-    var synckeyData: MoveIM.ImSynDatakey? {
+    var synckeyData: SynckeyEntity? {
         let realm = try! Realm()
         guard let synKeyValue = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) else {
             return nil
         }
-        return MoveIM.ImSynDatakey(synckey: [
-            MoveIM.ImSynckey(key: 1, value: synKeyValue.message),
-            MoveIM.ImSynckey(key: 2, value: synKeyValue.contact),
-            MoveIM.ImSynckey(key: 3, value: synKeyValue.group)]
-        )
+        return synKeyValue
     }
     
     init() {
@@ -51,10 +47,10 @@ extension IMManager {
     }
     
     func checkSyncKey() -> Observable<Bool> {
-        return worker.checkSyncKey(synckeyList: synckeyData?.synckey)
+        return worker.checkSyncKey(syncData: synckeyData)
     }
     
-    func syncData() -> Observable<Bool> {
+    func syncData() -> Observable<EntityType> {
         return worker.syncData(syncData: synckeyData)
     }
     
@@ -73,9 +69,9 @@ protocol IMWorkerProtocl {
     
     func initSyncKey() -> Observable<SynckeyEntity>
     
-    func checkSyncKey(synckeyList: [MoveIM.ImSynckey]?) -> Observable<Bool>
+    func checkSyncKey(syncData: SynckeyEntity?) -> Observable<Bool>
     
-    func syncData(syncData: MoveIM.ImSynDatakey?) -> Observable<Bool>
+    func syncData(syncData: SynckeyEntity?) -> Observable<EntityType>
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp>
 }
@@ -125,177 +121,145 @@ extension ObservableType where E == MoveIM.ImUserSynckey {
     }
 }
 
-extension ObservableType where E == MoveIM.ImSyncData {
-    func saveSynData() -> Observable<Bool> {
-        return flatMap { element -> Observable<Bool> in
-            
-            var messageValue: Int
-            var contactValue: Int
-            var groupValue: Int
-            
-            if let synckey = element.synckey {
-                messageValue = synckey[0].value ?? 0
-                contactValue = synckey[1].value ?? 0
-                groupValue = synckey[2].value ?? 0
-            } else {
-                messageValue = 0
-                contactValue = 0
-                groupValue = 0
-            }
-            
-            let realm = try! Realm()
-            
-            if let mySynckey = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: UserInfo.shared.id) {
-                try! realm.write {
-//                    mySynckey.uid = UserInfo.shared.id
-                    mySynckey.message = messageValue
-                    mySynckey.contact = contactValue
-                    mySynckey.group = groupValue
-                    
-                }
-            } else {
-                let entity = SynckeyEntity()
-                entity.uid = UserInfo.shared.id
-                entity.message = messageValue
-                entity.contact = contactValue
-                entity.group = groupValue
-                try! realm.write {
-                    realm.add(entity)
-                }
-            }
-            
-            let _ = element.messages.map{$0.map{self.saveMessage(message: $0)}}
-            let _ = element.contacts.map{$0.map{self.saveMember(member: $0)}}
-            let _ = element.groups.map{$0.map{self.saveGroup(group: $0)}}
-            return Observable.just(true)
-        }
-    }
-    
-    func saveMember(member: MoveIM.ImContact) {
-        
-        let realm = try! Realm()
-        
-        if let memberEntity = realm.object(ofType: MemberEntity.self, forPrimaryKey: member.uid) {
-            try! realm.write {
-                memberEntity.type = member.type ?? -1
-                memberEntity.username = member.username
-                memberEntity.nickname = member.nickname
-                memberEntity.headPortrait = member.profile
-                memberEntity.identity = member.identity
-                memberEntity.sex = member.sex ?? 0
-                memberEntity.phone = member.phone
-                memberEntity.email = member.email
-                memberEntity.flag = member.flag ??  -1
-            }
-        }
-        else {
-            let entity = MemberEntity()
-            entity.id = member.uid
-            entity.type = member.type ?? -1
-            entity.username = member.username
-            entity.nickname = member.nickname
-            entity.headPortrait = member.profile
-            entity.identity = member.identity
-            entity.sex = member.sex ?? 0
-            entity.phone = member.phone
-            entity.email = member.email
-            entity.flag = member.flag ??  -1
-            try! realm.write {
-                realm.add(entity)
-            }
-        }
 
+
+
+
+
+typealias EntityType = (
+    synckey: SynckeyEntity?,
+    messages:[MessageEntity]?,
+    members: [MemberEntity]?,
+    groups:  [GroupEntity]?,
+    notices: [NoticeEntity]?,
+    chatops: [ChatOpEntity]?
+)
+
+extension MoveIM.ImSyncData {
+
+    func mapEntity() -> EntityType {
+        return (
+            synckey: SynckeyEntity(im: synckey),
+            messages:messages?.flatMap { MessageEntity(im: $0) },
+            members: contacts?.map { MemberEntity(im: $0) },
+            groups:  groups?.map { GroupEntity(im: $0) },
+            notices: messages?.flatMap { NoticeEntity(im: $0) },
+            chatops: messages?.flatMap { ChatOpEntity(im: $0) }
+        )
     }
-    
-    func saveMessage(message: MoveIM.ImMessage) {
-        let realm = try! Realm()
-        
-        if let messageEntity = realm.object(ofType: MessageEntity.self, forPrimaryKey: message.msg_id) {
-            try! realm.write {
-                
-                messageEntity.from = message.from
-                messageEntity.to = message.to
-                messageEntity.groupId = message.gid
-                messageEntity.content = message.content
-                messageEntity.contentType = message.content_type!
-                messageEntity.readStatus = message.content_status!
-                messageEntity.duration = TimeInterval(message.duration!)
-                messageEntity.status = message.status!
-                messageEntity.createDate = message.ctime
-            }
-        } else {
-            let entity = MessageEntity()
-            entity.id = message.msg_id
-            entity.from = message.from
-            entity.to = message.to
-            entity.groupId = message.gid
-            entity.content = message.content
-            entity.contentType = message.content_type!
-            entity.readStatus = message.content_status!
-            entity.duration = TimeInterval(message.duration!)
-            entity.status = message.status!
-            entity.createDate = message.ctime
-            
-            try! realm.write {
-                realm.add(entity)
-            }
-        }
-    }
-    
-    func saveGroup(group: MoveIM.ImGroup) {
-        let realm = try! Realm()
-        
-        if let groupEntity = realm.object(ofType: GroupEntity.self, forPrimaryKey: group.gid) {
-            try! realm.write {
-                groupEntity.name = group.topic
-                groupEntity.headPortrait = group.profile
-                groupEntity.owner = group.owner
-                groupEntity.flag = group.flag ??  -1
-                groupEntity.createDate = group.ctime
-                groupEntity.messages.removeAll()
-                group.members?.forEach({ (member) in
-                    let entity = MemberEntity()
-                    entity.id = member.uid
-                    entity.type = member.type ?? -1
-                    entity.username = member.username
-                    entity.nickname = member.nickname
-                    entity.headPortrait = member.profile
-                    entity.identity = member.identity
-                    entity.sex = member.sex ?? 0
-                    entity.phone = member.phone
-                    entity.email = member.email
-                    entity.flag = member.flag ??  -1
-                    groupEntity.members.append(entity)
-                })
-            }
-        }
-        else {
-            let entity = GroupEntity()
-            entity.id = group.gid
-            entity.name = group.topic
-            entity.headPortrait = group.profile
-            entity.owner = group.owner
-            entity.flag = group.flag ??  -1
-            entity.createDate = group.ctime
-            group.members?.forEach({ (member) in
-                let memberEntity = MemberEntity()
-                memberEntity.id = member.uid
-                memberEntity.type = member.type ?? -1
-                memberEntity.username = member.username
-                memberEntity.nickname = member.nickname
-                memberEntity.headPortrait = member.profile
-                memberEntity.identity = member.identity
-                memberEntity.sex = member.sex ?? 0
-                memberEntity.phone = member.phone
-                memberEntity.email = member.email
-                memberEntity.flag = member.flag ??  -1
-                entity.members.append(memberEntity)
-            })
-            try! realm.write {
-                realm.add(entity)
-            }
-        }
-    }
-    
 }
+
+
+extension SynckeyEntity {
+    
+    convenience init?(im synckeys: [MoveIM.ImSynckey]?) {
+        guard let synckeys = synckeys else {
+            return nil
+        }
+        let k1Index = synckeys.index { $0.key == 1 }
+        let k2Index = synckeys.index { $0.key == 2 }
+        let k3Index = synckeys.index { $0.key == 3 }
+        if (k1Index == nil) && (k2Index == nil) && (k3Index == nil) {
+            return nil
+        }
+        
+        self.init()
+        if let k1 = k1Index, let v1 = synckeys[k1].value {
+            self.message = v1
+        }
+        if let k2 = k2Index, let v2 = synckeys[k2].value {
+            self.contact = v2
+        }
+        if let k3 = k3Index, let v3 = synckeys[k3].value {
+            self.group = v3
+        }
+    }
+}
+
+fileprivate extension ChatOpEntity {
+    
+    convenience init?(im message: MoveIM.ImMessage) {
+        guard message.type == 1000 else {
+            return nil
+        }
+        
+        self.init()
+        self.id = message.msg_id
+        self.from = message.from
+        self.to = message.to
+        self.groupId = message.gid
+        self.content = message.content
+        self.type = message.op ?? ChatOpEntity.OpType.unknown.rawValue
+        self.createDate = message.ctime
+    }
+}
+
+fileprivate extension MessageEntity {
+    
+    convenience init?(im message: MoveIM.ImMessage) {
+        guard message.type == 1 else {
+            return nil
+        }
+        self.init()
+        self.id = message.msg_id
+        self.from = message.from
+        self.to = message.to
+        self.groupId = message.gid
+        self.content = message.content
+        self.contentType = message.content_type ?? MessageEntity.ContentType.unknown.rawValue
+        self.readStatus = message.content_status ?? MessageEntity.ReadStatus.unknown.rawValue
+        self.duration = TimeInterval(message.duration ?? 0)
+        self.status = message.status ?? MessageEntity.Status.unknown.rawValue
+        self.createDate = message.ctime
+    }
+}
+
+fileprivate extension GroupEntity {
+
+    convenience init(im group: MoveIM.ImGroup) {
+        self.init()
+        self.id = group.gid
+        self.name = group.topic
+        self.headPortrait = group.profile
+        self.owner = group.owner
+        self.flag = group.flag ??  GroupEntity.Flag.unknown.rawValue
+        self.createDate = group.ctime
+    }
+}
+
+fileprivate extension MemberEntity {
+
+    convenience init(im contact: MoveIM.ImContact) {
+        self.init()
+        self.id = contact.uid
+        self.type = contact.type ?? MemberEntity.ContactType.unknown.rawValue
+        self.username = contact.username
+        self.nickname = contact.nickname
+        self.headPortrait = contact.profile
+        self.identity = contact.identity
+        self.sex = contact.sex ?? MemberEntity.Sex.unknown.rawValue
+        self.phone = contact.phone
+        self.email = contact.email
+        self.flag = contact.flag ?? MemberEntity.Flag.unknown.rawValue
+    }
+}
+
+fileprivate extension NoticeEntity {
+    
+    convenience init?(im message: MoveIM.ImMessage) {
+        guard message.type == 2 else {
+            return nil
+        }
+        self.init()
+        self.id = message.msg_id
+        self.from = message.from
+        self.to = message.to
+        self.groupId = message.gid
+        self.readStatus = message.content_status ?? NoticeEntity.ReadStatus.unknown.rawValue
+        self.type = message.notice ?? NoticeType.unknown.rawValue
+        self.createDate = message.ctime
+        self.content = NoticeType(rawValue: type)?.description
+    }
+}
+
 

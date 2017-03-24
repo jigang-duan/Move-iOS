@@ -24,7 +24,7 @@ class AlertServer {
         let realm = try! Realm()
         let objects = realm.objects(NoticeEntity.self)//.filter("readStatus == %d", NoticeEntity.ReadStatus.unread.rawValue)
         let notices = Observable.collection(from: objects)
-            .share().debug()
+            .share()
             
         return notices
             .flatMapLatest({
@@ -32,9 +32,13 @@ class AlertServer {
             })
             .filterNil()
             .flatMapLatest({ (notice) -> Observable<AlertResult> in
-                AlertWireframe.shared.prompt(notice.content ?? "",title: notice.owners.first?.name, cancel: .ok(parcel: notice))
+                let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
+                let imageUrl = kids?.headPortrait == nil ? nil : FSManager.imageUrl(with: (kids?.headPortrait)!)
+                return AlertWireframe.shared.prompt(String(format: notice.content ?? "", kids?.nickname ?? ""),
+                                                    title: NoticeType(rawValue: notice.type)?.title,
+                                                    iconURL: imageUrl,
+                                                    cancel: .ok(parcel: notice))
             })
-            .debug()
             .bindNext { [weak self] (alertResult) in
                 switch alertResult {
                 case .confirm(let parcel):

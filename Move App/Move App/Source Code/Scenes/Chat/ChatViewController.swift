@@ -27,7 +27,9 @@ class ChatViewController: UIViewController {
     
     var chatModel: ChatViewModel!
     var disposeBag = DisposeBag()
+    
     var message: MessageEntity?
+    
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
     override func viewDidLoad() {
@@ -126,17 +128,17 @@ extension ChatViewController {
             
             
              self.chatModel.addVoiceItemByURL(urlAmr, second: duration)
-//            let message = MessageEntity()
-//            message.from = Me.shared.user.id
-//            message.to = DeviceManager.shared.currentDevice?.user?.uid
-//            message.groupId = nil//DeviceManager.shared.currentDevice?.user?.gid
-//            message.content = nil
-//            message.contentType = MessageEntity.ContentType.voice.rawValue
-//            message.readStatus = MessageEntity.ReadStatus.sending.rawValue
-//            message.duration = TimeInterval(duration)
-//            message.createDate = Date()
-//            
-//            Observable.from([message]).subscribe(Realm.rx.add())
+            let message = MessageEntity()
+            message.from = Me.shared.user.id
+            message.to = DeviceManager.shared.currentDevice?.user?.uid
+            message.groupId = nil//DeviceManager.shared.currentDevice?.user?.gid
+            message.content = nurl.absoluteString
+            message.contentType = MessageEntity.ContentType.voice.rawValue
+            message.readStatus = MessageEntity.ReadStatus.sending.rawValue
+            message.duration = TimeInterval(duration)
+            message.createDate = Date()
+            
+            Observable.from([message]).subscribe(Realm.rx.add())
             
             
             
@@ -147,12 +149,12 @@ extension ChatViewController {
                 .filterNil()
                 .flatMapLatest({ fid -> Observable<MoveIM.ImMesageRsp> in
                     var sendMessage = MoveIM.ImMessage()
-                    sendMessage.type = 1
+//                    sendMessage.type = 1
                     sendMessage.from = UserInfo.shared.id
                     sendMessage.to = DeviceManager.shared.currentDevice?.user?.uid
                     sendMessage.content_type = 3
                     sendMessage.ctime = Date()
-//                    sendMessage.content = fid
+                    sendMessage.content = fid
 //                    message.content = fid
                     return IMManager.shared.sendChatMessage(message: sendMessage).debug()
                 }).debug()

@@ -35,29 +35,8 @@ class TabsViewController: UITabBarController {
             self.viewControllers?[2].tabBarItem.isEnabled = false
         }
         
-        let realm = try! Realm()
-        if
-            let uid = Me.shared.user.id,
-            let _ = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
-            
-            Driver<Int>.timer(2.0, period: 30.0)
-                .flatMapFirst({_ in 
-                    IMManager.shared.checkSyncKey()
-                        .asDriver(onErrorJustReturn: false)
-                })
-                .filter({ $0 })
-                .flatMapLatest({ _ in
-                    IMManager.shared.syncData()
-                        .asDriver(onErrorJustReturn: false)
-                })
-                .drive(onNext: { _ in
-                })
-                .addDisposableTo(bag)
-            
-        }
-
+        MessageServer.share.syncDataInitalization(disposeBag: bag)
         MessageServer.share.subscribe().addDisposableTo(bag)
-        
         AlertServer.share.subscribe().addDisposableTo(bag)
     }
 

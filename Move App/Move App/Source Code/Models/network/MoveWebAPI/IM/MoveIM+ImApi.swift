@@ -39,7 +39,12 @@ extension MoveIM {
         }
         
         final class func initSyncKey() -> Observable<SynckeyEntity> {
-            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self).saveSynckey()
+            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self)
+                .map({ $0.synckey  })
+                .map({ SynckeyEntity(im: $0)  })
+                .filterNil()
+            
+            //saveSynckey()
         }
         
         final class func checkSyncKey(synckey: ImCheckSynkey) -> Observable<Bool> {
@@ -48,8 +53,8 @@ extension MoveIM {
                 .map({  ($0.selector ?? 0) > 0 })
         }
         
-        final class func syncData(synckey: ImSynDatakey) -> Observable<Bool> {
-            return request(.syncData(synckey: synckey)).mapMoveObject(ImSyncData.self).saveSynData()
+        final class func syncData(synckey: ImSynDatakey) -> Observable<ImSyncData> {
+            return request(.syncData(synckey: synckey)).mapMoveObject(ImSyncData.self) //.saveSynData()
         }
         
         final class func sendChatMessage(messageInfo: ImMessage) -> Observable<ImMesageRsp> {
@@ -129,7 +134,14 @@ extension MoveIM.ImApi.API: TargetType {
     }
     
     /// The method used for parameter encoding.
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding {
+        switch self {
+        case .checkSyncKey:
+            return URLEncoding.queryString
+        default:
+            return JSONEncoding.default
+        }
+    }
     
     /// Provides stub data for use in testing.
     var sampleData: Data {

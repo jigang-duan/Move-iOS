@@ -81,7 +81,7 @@ struct UUMessageFrame {
         var contenSize: CGSize
         switch message.type {
         case .text:
-            contenSize = NSString(string: message.content.text!)
+            contenSize = NSString(string: message.content.text ?? "")
                 .boundingRect(with: CGSize(width: ChatContentW, height: CGFloat.greatestFiniteMagnitude),
                               options: .usesLineFragmentOrigin,
                               attributes: [NSFontAttributeName: ChatContentFont],

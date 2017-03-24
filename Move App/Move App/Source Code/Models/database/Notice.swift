@@ -61,6 +61,8 @@ enum NoticeType: Int {
 }
 
 
+
+
 class NoticeEntity: Object {
     
     enum ReadStatus: Int {
@@ -84,4 +86,113 @@ class NoticeEntity: Object {
         return "id"
     }
     
+}
+
+
+extension NoticeType {
+    
+    var title: String? {
+        switch self {
+        case .newContact:
+            return nil
+        case .bindRandomCode:
+            return nil
+        case .instantPosition:
+            return nil
+        case .intoFence:
+            return "Warning"
+        case .outFence:
+            return "Warning"
+        case .lowBattery:
+            return "Warning"
+        case .sos:
+            return "Warning"
+        case .unbound:
+            return nil
+        case .numberChanged:
+            return nil
+        case .powered:
+            return nil
+        case .shutdown:
+            return nil
+        case .roam:
+            return nil
+        case .update:
+            return nil
+        case .thumbUpFromSportsFriend:
+            return ""
+        case .thumbUpFromGameFriend:
+            return nil
+        case .groupInvited:
+            return nil
+        case .firmwareDownload:
+            return nil
+        case .progressDownload:
+            return nil
+        case .configurationUpdated:
+            return nil
+        case .wear:
+            return nil
+        case .loss:
+            return nil
+        case .deviceNumberChanged:
+            return nil
+        case .unknown:
+            return nil
+        }
+    }
+}
+
+extension NoticeType: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .newContact:
+            return "%@ has added a new friend %@"
+        case .bindRandomCode:
+            return ""
+        case .instantPosition:
+            return ""
+        case .intoFence:
+            return "%@ is enter of safe zone home"
+        case .outFence:
+            return "%@ is out of safe zone home"
+        case .lowBattery:
+            return "Only %d% battery left"
+        case .sos:
+            return "%@ has sent an SOS alert"
+        case .unbound:
+            return "Master has unpaired this watch"
+        case .numberChanged:
+            return "%@'s phone number has been changed"
+        case .powered:
+            return "%@ is online"
+        case .shutdown:
+            return "%@ is offline"
+        case .roam:
+            return ""
+        case .update:
+            return ""
+        case .thumbUpFromSportsFriend:
+            return ""
+        case .thumbUpFromGameFriend:
+            return ""
+        case .groupInvited:
+            return ""
+        case .firmwareDownload:
+            return ""
+        case .progressDownload:
+            return ""
+        case .configurationUpdated:
+            return ""
+        case .wear:
+            return ""
+        case .loss:
+            return ""
+        case .deviceNumberChanged:
+            return "%@ has changed SIM card number to %@"
+        case .unknown:
+            return "unknow"
+        }
+    }
 }

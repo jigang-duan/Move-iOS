@@ -56,22 +56,33 @@ class SystemNotificationController: UIViewController {
     
     
     private func cellConfig(cell: UITableViewCell, ip: IndexPath, group: GroupEntity) {
-        let headURL = URL(string: group.headPortrait ?? "")
-        var placeholder = R.image.relationship_ic_other()!
-        if let name = group.name {
-            placeholder = CDFInitialsAvatar(rect: CGRect(origin: CGPoint.zero, size: placeholder.size) , fullName: name).imageRepresentation() ?? placeholder
-            placeholder = convert(image: placeholder, size: placeholder.size)
+        
+        if
+            let kidsId = group.notices.first?.from,
+            let kids = group.members.filter({ $0.id == kidsId }).first {
+            
+            var headURL: URL? = nil
+            if let imageStr = kids.headPortrait {
+                headURL = URL(string: FSManager.imageUrl(with: imageStr))
+            }
+            
+            var placeholder = R.image.relationship_ic_other()!
+            if let name = kids.nickname {
+                placeholder = CDFInitialsAvatar(rect: CGRect(origin: CGPoint.zero, size: placeholder.size) , fullName: name).imageRepresentation() ?? placeholder
+                placeholder = convert(image: placeholder, size: placeholder.size)
+            }
+            cell.imageView?.kf.setImage(with: headURL,
+                                        placeholder: placeholder,
+                                        options: [.transition(.fade(1))],
+                                        progressBlock: nil,
+                                        completionHandler: nil)
+            cell.imageView?.cornerRadius = 22.0
+            
+            cell.textLabel?.text = kids.nickname
+            cell.detailTextLabel?.text = String(format: group.notices.last?.content ?? "", kids.nickname ?? "")
         }
-        cell.imageView?.kf.setImage(with: headURL,
-                                    placeholder: placeholder,
-                                    options: [.transition(.fade(1))],
-                                    progressBlock: nil,
-                                    completionHandler: nil)
-        cell.textLabel?.text = group.name
-        cell.detailTextLabel?.text = group.notices.last?.content
-        if let badge = cell.accessoryView as? UILabel {
-            badge.text = "\(group.notices.count)"
-        }
+        
+        (cell.accessoryView as? UILabel)?.text = "\(group.notices.count)"
     }
 
     override func didReceiveMemoryWarning() {
