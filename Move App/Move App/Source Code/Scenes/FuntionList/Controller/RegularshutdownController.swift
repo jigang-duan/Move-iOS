@@ -31,7 +31,7 @@ class RegularshutdownController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
   
     
-
+    var viewModel: RegularshutdownViewModel?
     
     var bootTimeVariable = Variable(DateUtility.zone7hour())
     var shutdownTimeVariable = Variable(DateUtility.zone16hour())
@@ -39,6 +39,8 @@ class RegularshutdownController: UIViewController {
     var disposeBag = DisposeBag()
     
     var touchesBeganEnable = Variable(false)
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +90,7 @@ class RegularshutdownController: UIViewController {
             .drive(onNext: cancelDatepicker)
             .addDisposableTo(disposeBag)
         
-        let viewModel = RegularshutdownViewModel(
+        viewModel = RegularshutdownViewModel(
             input: (
                 bootTime: bootTimeVariable.asDriver(),
                 shutdownTime: shutdownTimeVariable.asDriver(),
@@ -102,30 +104,31 @@ class RegularshutdownController: UIViewController {
         )
         
         
-        viewModel.shutdownTime
+        viewModel?.shutdownTime
             .drive(self.shutdownTimeVariable)
             .addDisposableTo(disposeBag)
         
-        viewModel.bootTime
+        viewModel?.bootTime
             .drive(self.bootTimeVariable)
             .addDisposableTo(disposeBag)
         
-        viewModel.autoOnOffEnable
+        viewModel?.autoOnOffEnable
             .drive(openShutdown.rx.on)
             .addDisposableTo(disposeBag)
         
-        viewModel.autoOnOffEnable
+        viewModel?.autoOnOffEnable
             .drive(onNext: enableView)
             .addDisposableTo(disposeBag)
-        viewModel.autoOnOffEnable
+        viewModel?.autoOnOffEnable
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
-        viewModel.activityIn
+        viewModel?.activityIn
             .map{ !$0 }
             .drive(onNext: userInteractionEnabled)
             .addDisposableTo(disposeBag)
         
-        viewModel.saveFinish
+        
+        viewModel?.saveFinish
             .drive(onNext: {_ in
             }).addDisposableTo(disposeBag)
         
@@ -155,6 +158,12 @@ class RegularshutdownController: UIViewController {
        
         datePickView.isHidden = true
         
+//        openShutdown.rx.switch.startWith(true).asObservable()
+
+        viewModel?.saveFinish
+            .drive(onNext: {_ in
+            }).addDisposableTo(disposeBag)
+
         
     }
     

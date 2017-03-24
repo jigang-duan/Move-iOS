@@ -23,42 +23,55 @@ class AlarmController: UIViewController {
     var alarmExited: KidSetting.Reminder.Alarm?
     
     var activeVariable = Variable(true)
+  
     var disposeBag = DisposeBag()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let btn = UIButton()
+        btn.tag  = 805
+        weekOutlet.weekAction(btn)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if alarms != nil {
             self.datePickerOulet.date = (alarms?["alarms"] as? Date ?? nil)!
             self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
+           
         }
-        
+
         datePickerOulet.minimumDate = minDate
-        if let _alarmDate = alarmExited?.alarmAt {
-            datePickerOulet.date = _alarmDate
-        }
-        if let _day = alarmExited?.day {
-            weekOutlet.weekSelected = _day
-        }
+//        if let _alarmDate = alarmExited?.alarmAt {
+//            datePickerOulet.date = _alarmDate
+//        }
+//        if let _day = alarmExited?.day {
+//            weekOutlet.weekSelected = _day
+//        }
         
         let viewModel = AlarmViewModel(
             input: (
                 save: saveOutlet.rx.tap.asDriver(),
                 week: weekOutlet.rx.weekSelected.asDriver(),
                 alarmDate: datePickerOulet.rx.date.asDriver(),
-                active: activeVariable.asDriver(),
-                alarmExited: alarmExited
+                active: activeVariable.asDriver()
+//                alarmExited: alarmExited
             ),
             dependency: (
                 kidSettingsManager: KidSettingsManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance))
         
+//        viewModel.saveFinish
+//            .drive(onNext: {[weak self] finish in
+//                if finish {
+//                    let _ = self?.navigationController?.popViewController(animated: true)
+//                }
+//            })
+//            .addDisposableTo(disposeBag)
         viewModel.saveFinish
-            .drive(onNext: {[weak self] finish in
-                if finish {
-                    let _ = self?.navigationController?.popViewController(animated: true)
-                }
-            })
+            .drive(onNext: back)
             .addDisposableTo(disposeBag)
         
         viewModel.activityIn
@@ -67,6 +80,11 @@ class AlarmController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
+    func back(_ $: Bool) {
+        if $ {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+    }
 
 }
 
@@ -74,7 +92,7 @@ extension AlarmController {
 
     fileprivate var minDate: Date {
         return DateUtility.zoneDay().startDate
-    }
+    } 
     
     fileprivate var maxDate: Date {
         return DateUtility.zoneDay().endDate

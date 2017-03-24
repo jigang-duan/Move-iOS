@@ -29,6 +29,7 @@ public class SwitchButton: UIButton {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+       
     }
     
     required public init?(coder aDecoder: NSCoder) {
