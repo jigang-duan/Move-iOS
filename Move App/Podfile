@@ -38,6 +38,10 @@ target 'Move App' do
   # https://github.com/onevcat/Kingfisher
   pod 'Kingfisher', '~> 3.0'
   
+  # Gif UImage扩展
+  # https://github.com/bahlo/SwiftGif
+  pod 'SwiftGifOrigin', '~> 1.6.1'
+  
   # 避免键盘遮挡下方输入框
   pod 'IQKeyboardManager'
   

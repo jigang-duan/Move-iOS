@@ -20,6 +20,8 @@ class MessageServer {
     
     static let share = MessageServer()
     
+    var progressDownload: Observable<NoticeEntity>?
+    
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
         if
@@ -59,16 +61,28 @@ class MessageServer {
                 .addDisposableTo(disposeBag)
 
             
-            syncData.map { $0.notices }
+            let reNotice = syncData.map { $0.notices }
                 .filterNil()
-                .subscribe(onNext: { (notices) in
+                .flatMap({ Observable.from($0) })
+                
+            progressDownload = reNotice.filter({ $0.type != NoticeType.progressDownload.rawValue })
+            
+            reNotice.filter({  $0.type != NoticeType.progressDownload.rawValue })
+                .subscribe(onNext: { (notice) in
                     sync.groups.forEach({ (group: GroupEntity) in
-                        let its = notices.filter({ it in
-                            group.members.map({$0.id}).contains(where: {it.from == $0})
-                        })
-                        group.update(realm: realm, notices: its)
+                        if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
+                            group.update(realm: realm, notice: notice)
+                        }
                     })
                 })
+//                .subscribe(onNext: { (notices) in
+//                    sync.groups.forEach({ (group: GroupEntity) in
+//                        let its = notices.filter({ it in
+//                            group.members.map({$0.id}).contains(where: {it.from == $0})
+//                        })
+//                        group.update(realm: realm, notices: its)
+//                    })
+//                })
                 .addDisposableTo(disposeBag)
             
             syncData.map({ $0.synckey })

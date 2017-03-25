@@ -139,6 +139,14 @@ class UUMessageCell: UITableViewCell {
                 self.btnContent.voiceBackView.isHidden = false
                 self.btnContent.second.text = String(format: "%d's Voice", message.content.voice?.second ?? 0)
                 voiceURL = message.content.voice?.url
+            case .emoji:
+                
+                self.btnContent.backImageView.isHidden = false
+                
+                self.btnContent.backImageView.frame = CGRect(x: 0, y: 0,
+                                                             width: self.btnContent.frame.size.width,
+                                                             height: self.btnContent.frame.size.height)
+                self.makeMaskView(self.btnContent.backImageView, with: normal)
             default:
                 break
             }

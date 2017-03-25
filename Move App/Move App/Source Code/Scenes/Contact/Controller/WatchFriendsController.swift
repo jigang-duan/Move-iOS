@@ -22,6 +22,8 @@ class WatchFriendsController: UIViewController {
     
     var friendInfo: DeviceFriend?
     
+    var disposeBag = DisposeBag()
+    
     
     func setupUI() {
         
@@ -59,7 +61,8 @@ class WatchFriendsController: UIViewController {
             }
         }, onCompleted: { 
             print("Completed")
-        }).addDisposableTo(DisposeBag())
+        })
+            .addDisposableTo(disposeBag)
         
         
         
