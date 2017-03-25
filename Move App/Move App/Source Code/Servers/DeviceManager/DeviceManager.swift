@@ -87,6 +87,10 @@ extension DeviceManager {
         return worker.getProperty(deviceId: deviceId)
     }
     
+    func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool> {
+        return worker.sendNotify(deviceId: deviceId, code: code)
+    }
+    
 }
 
 
@@ -117,6 +121,7 @@ protocol DeviceWorkerProtocl {
     func checkVersion(checkInfo: DeviceVersionCheck)  -> Observable<DeviceVersion>
     
     func getProperty(deviceId: String)  -> Observable<DeviceProperty>
+    func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool>
 }
 
 
@@ -190,3 +195,33 @@ struct DeviceVersion {
     var currentVersion: String?
     var newVersion: String?
 }
+
+
+enum DeviceNotify: Int{
+//    1 - 请求设备上报位置，由APP发送
+//    2 - 请求设备下载固件
+//    101 - 设备开机
+//    102 - 设备关机
+//    103 - 低电量, value为当前电量
+//    104 - SOS
+//    105 - 漫游
+//    106 - 固件升级成功, value为当前版本号
+//    107 - 固件下载进度，value为下载进度百分比
+//    108 - 设备穿戴
+//    109 - 设备脱落
+//    110 - 设备更换号码
+    case uploadLocation = 1
+    case downloadFirmware = 2
+    case devicePowerOn = 101
+    case devicePowerOff = 102
+    case deviceLowPower = 103
+}
+
+
+
+
+
+
+
+
+

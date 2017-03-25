@@ -18,6 +18,7 @@ class APNforWatchVC: UIViewController {
     
     var manager: CBCentralManager?
     var currentPeripheral: CBPeripheral?
+    var currentCharacteristic: CBCharacteristic?
     
     var devices: Array<CBPeripheral> = []
     
@@ -46,10 +47,20 @@ class APNforWatchVC: UIViewController {
         
         tableView.delegate = self
         
-        
         let queue = DispatchQueue(label: "com.apn.myqueue")
-        manager = CBCentralManager(delegate: self, queue: queue)
+        manager = CBCentralManager(delegate: self, queue: queue, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true, CBCentralManagerOptionShowPowerAlertKey: false])
         
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.aPNforWatchVC.showAPNSetting(segue: segue)?.destination {
+            vc.settingDataBlock = { data in
+                if let d = data {
+                    self.currentPeripheral?.writeValue(d, for: self.currentCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+                }
+            }
+        }
     }
     
     
@@ -65,16 +76,6 @@ class APNforWatchVC: UIViewController {
         }
     }
     
-    
-    
-//    func showMessage(_ text: String) {
-//        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-//        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-//        vc.addAction(action)
-//        self.present(vc, animated: true) {
-//            
-//        }
-//    }
     
     
 }
@@ -102,12 +103,18 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch (central.state) {
         case .poweredOn:
-            print("蓝牙已打开,请扫描外设")
-            manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
-            break;
+            manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
-            print("蓝牙没有打开,请先打开蓝牙")
-            break;
+            let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"MOVETIME\" to connect to watch", preferredStyle: UIAlertControllerStyle.alert)
+            let action1 = UIAlertAction(title: "Settings", style: .default) { action in
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            }
+            let action2 = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            vc.addAction(action1)
+            vc.addAction(action2)
+            self.present(vc, animated: true) {
+                
+            }
         default:
             break;
         }
@@ -124,7 +131,9 @@ extension APNforWatchVC: CBCentralManagerDelegate {
             return
         }else {
             self.devices.append(peripheral)
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -132,6 +141,8 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         self.manager?.stopScan()
         print("设备连接成功，扫描服务...")
+        self.currentPeripheral = peripheral
+        peripheral.delegate = self
         peripheral.discoverServices([CBUUID(string: apnService)])
     }
     
@@ -162,11 +173,10 @@ extension APNforWatchVC: CBPeripheralDelegate {
         for ch in service.characteristics ?? [] {
             if ch.uuid == CBUUID(string: apnCharacteristic) {
                 print("找到特征值,待写入数据")
-                let str = APNData(plmn: "1", apn: "2", spn: "3", user: "4", password: "5", proxy: "6", port: "7", authtype: "8").toJSONString()
-                let data = str?.data(using: String.Encoding.utf8)
-                peripheral.writeValue(data!, for: ch, type: CBCharacteristicWriteType.withResponse)
-                
-                
+                self.currentCharacteristic = ch
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: R.segue.aPNforWatchVC.showAPNSetting, sender: nil)
+                }
                 peripheral.readValue(for: ch)
             }
         }
@@ -222,9 +232,20 @@ extension APNforWatchVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        self.currentPeripheral = self.devices[indexPath.row]
-        self.currentPeripheral?.delegate = self
-        self.manager?.connect(self.currentPeripheral!, options: nil)
+        let per = self.devices[indexPath.row]
+        
+        let vc = UIAlertController(title: nil, message: "Connect to \(per.name ?? "")", preferredStyle: UIAlertControllerStyle.alert)
+        let action1 = UIAlertAction(title: "Cancel", style: .default) { action in
+            
+        }
+        let action2 = UIAlertAction(title: "YES", style: .default) { action in
+            self.manager?.connect(per, options: nil)
+        }
+        vc.addAction(action1)
+        vc.addAction(action2)
+        self.present(vc, animated: true) {
+            
+        }
     }
 
 }

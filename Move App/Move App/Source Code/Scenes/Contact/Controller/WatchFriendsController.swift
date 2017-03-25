@@ -26,7 +26,6 @@ class WatchFriendsController: UIViewController {
     
     
     func setupUI() {
-        
         deleteBun.isHidden = true
         
         let imgUrl = URL(string: FSManager.imageUrl(with: friendInfo?.profile ?? ""))
@@ -59,10 +58,7 @@ class WatchFriendsController: UIViewController {
             }else{
                 print("failed")
             }
-        }, onCompleted: { 
-            print("Completed")
-        })
-            .addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
         
         
         

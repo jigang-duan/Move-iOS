@@ -261,6 +261,15 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 return info
         }
     }
+    
+    
+    
+    //        发送提醒
+    func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool> {
+        return MoveApi.Device.sendNotify(deviceId: deviceId, sendInfo: MoveApi.DeviceSendNotify(code: code.rawValue, value: nil))
+            .map({ $0.id == 0 })
+    }
+    
 }
 
 

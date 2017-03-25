@@ -33,6 +33,10 @@ class UpgradeController: UIViewController {
     var viewModel: UpgradeViewModel!
     let disposeBag = DisposeBag()
     
+    var enterCount = Variable(0)
+    var downloadProgress = Variable(0)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -42,16 +46,49 @@ class UpgradeController: UIViewController {
         
         viewModel = UpgradeViewModel(
             input: (
-                downloadBun.rx.tap.asDriver()
+                enter: enterCount.asDriver(),
+                downloadProgress: downloadProgress.asDriver(),
+                downloadTaps: downloadBun.rx.tap.asDriver()
             ),
             dependency:(
-                deviceManager: DeviceManager.shared
+                deviceManager: DeviceManager.shared,
+                wireframe: DefaultWireframe.sharedInstance
             )
         )
         
+        
+        viewModel.downEnabled
+            .drive(onNext: { [unowned self] valid in
+                self.downloadBun.isEnabled = valid
+                self.downloadBun.tintColor?.withAlphaComponent(valid ? 1.0 : 0.5)
+            })
+            .addDisposableTo(disposeBag)
+        
      
+        
+        viewModel.downResult
+            .drive(onNext: { [unowned self] result in
+                switch result {
+                case .failed(let message):
+                    self.showMessage(message)
+                case .ok:
+                    _ = self.navigationController?.popViewController(animated: true)
+                default:
+                    break
+                }
+            })
+            .addDisposableTo(disposeBag)
     }
     
+    
+    func showMessage(_ text: String) {
+        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        vc.addAction(action)
+        self.present(vc, animated: true) {
+            
+        }
+    }
     
     func setupUI() {
         versionInfo.isHidden = true
