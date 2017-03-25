@@ -14,16 +14,8 @@ import SVPulsingAnnotationView
 import Realm
 import RealmSwift
 import MessageUI
-//import AFImageHelper
 import CustomViews
-//private extension Reactive where Base: MKMapView {
-//    var singleAnnotion: UIBindingObserver<Base, MKAnnotation> {
-//        return UIBindingObserver(UIElement: base) { mapView, annotion in
-//            mapView.removeAnnotations(mapView.annotations)
-//            mapView.addAnnotation(annotion)
-//        }
-//    }
-//}
+
 
 class MainMapController: UIViewController , MFMessageComposeViewControllerDelegate{
     
@@ -256,7 +248,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 
                 if let idstr : String = Me.shared.currDeviceID {
                     if (self.defaultDeviceData != nil) {
-                        for i in 0...(self.defaultDeviceData?.count)! - 1{
+                        for i in 0..<(self.defaultDeviceData?.count)!{
                             let data = self.defaultDeviceData?[i]
                             
                             if data?.deviceId == idstr {
@@ -356,17 +348,18 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             self.navigationController?.pushViewController(vc, animated: true)
         }else {
             objectNameL.text = dataSource.title
-            self.currentDeviceData = dataSource
-            
-            let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
-            let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
-            
-            let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
-            self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-            if device?.property != nil {
-                let property : MoveApi.DeviceProperty = (device?.property)!
-                let power = (property.power)!
-                self.changepower(power: power)
+            if dataSource.data != nil  {
+                self.currentDeviceData = dataSource
+                let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
+                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
+                
+                let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
+                self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+                if device?.property != nil {
+                    let property : MoveApi.DeviceProperty = (device?.property)!
+                    let power = (property.power)!
+                    self.changepower(power: power)
+                }
             }
         }
     }
@@ -395,8 +388,10 @@ extension MainMapController: MKMapViewDelegate {
             if annotationView == nil {
                 annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-            let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-            (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)            
+            if currentDeviceData != nil {
+                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)
+            }
             annotationView?.canShowCallout = false
             return annotationView
         }
