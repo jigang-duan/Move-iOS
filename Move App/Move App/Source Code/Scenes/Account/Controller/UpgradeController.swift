@@ -12,8 +12,6 @@ import RxSwift
 import RxCocoa
 
 class UpgradeController: UIViewController {
-    //internationalization
-    
     
     @IBOutlet weak var headImgV: UIImageView!
     @IBOutlet weak var nameLab: UILabel!
@@ -35,6 +33,8 @@ class UpgradeController: UIViewController {
     
     var enterCount = Variable(0)
     var downloadProgress = Variable(0)
+    
+    var downloadBlur: UIView?
     
     
     override func viewDidLoad() {
@@ -58,9 +58,10 @@ class UpgradeController: UIViewController {
         
         
         viewModel.downEnabled
-            .drive(onNext: { [unowned self] valid in
+            .drive(onNext: { [unowned self] valid, progress in
                 self.downloadBun.isEnabled = valid
                 self.downloadBun.tintColor?.withAlphaComponent(valid ? 1.0 : 0.5)
+                self.makeDownloadBlur(progress: progress)
             })
             .addDisposableTo(disposeBag)
         
@@ -72,12 +73,39 @@ class UpgradeController: UIViewController {
                 case .failed(let message):
                     self.showMessage(message)
                 case .ok:
-                    _ = self.navigationController?.popViewController(animated: true)
+                    MessageServer.share.progressDownload?.subscribe(
+                        onNext: { info in
+                            print(info.content ?? "")
+                        }, onError: { (er) in
+                            print(er)
+                        }).addDisposableTo(self.disposeBag)
                 default:
                     break
                 }
             })
             .addDisposableTo(disposeBag)
+    }
+    
+    
+    func makeDownloadBlur(progress: Int) {
+        if downloadBlur == nil{
+            downloadBlur = UIView()
+            downloadBlur?.backgroundColor = UIColor(argb: 0x88ffffff)
+        }
+        self.tipLab.isHidden = false
+        
+        if progress > 0 && progress < 100 {
+            if !self.downloadBun.subviews.contains(downloadBlur!) {
+                self.downloadBun.addSubview(downloadBlur!)
+            }
+            let maxLength = downloadBun.frame.size.width
+            downloadBlur?.frame = CGRect(x: 0, y: 0, width: CGFloat(progress)/100*maxLength, height: self.downloadBun.frame.size.height)
+        }else{
+            if progress == 100 {
+                self.checkNewVersion()
+            }
+            downloadBlur?.removeFromSuperview()
+        }
     }
     
     
@@ -135,7 +163,7 @@ class UpgradeController: UIViewController {
                 checkInfo.fv = "MT30" + ff
                 
                 //TODO: for test
-                checkInfo.fv = "MT3005"
+                checkInfo.fv = "MT3006"
                 checkInfo.curef = "MTMSM8909W"
                 
                 _ = DeviceManager.shared.checkVersion(checkInfo: checkInfo).subscribe(
@@ -149,6 +177,7 @@ class UpgradeController: UIViewController {
                         }else{
                             self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
                             self.versionInfo.isHidden = true
+                            self.tipLab.isHidden = true
                             self.downloadBun.isHidden = false
                         }
                         self.activity.stopAnimating()

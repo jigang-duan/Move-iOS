@@ -13,9 +13,9 @@ import RxCocoa
 class UpgradeViewModel {
     
     let sending: Driver<Bool>
-    let downloading: Driver<Bool>
+    let downloading: Driver<(Bool, Int)>
     
-    let downEnabled: Driver<Bool>
+    let downEnabled: Driver<(Bool, Int)>
     let downResult: Driver<ValidationResult>
     
   
@@ -40,10 +40,10 @@ class UpgradeViewModel {
         self.sending = activity.asDriver()
         
         self.downloading = input.downloadProgress.map({ p in
-            return p > 0 && p < 100
+            return (p > 0 && p < 100 , p)
         })
         
-        downEnabled = Driver.combineLatest(sending, downloading){ !$0 && !$1}
+        downEnabled = Driver.combineLatest(sending, downloading){(!$0 && !$1.0, $1.1)}
         
         downResult = input.downloadTaps.flatMapLatest({ _ in
             return deviceManager.sendNotify(deviceId: (deviceManager.currentDevice?.deviceId)!, code: DeviceNotify.downloadFirmware)

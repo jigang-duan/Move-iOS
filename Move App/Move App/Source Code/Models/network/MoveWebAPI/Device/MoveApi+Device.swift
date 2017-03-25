@@ -415,7 +415,7 @@ extension MoveApi.Device.API: TargetType {
         case .settingProperty(let deviceId, _):
             return "/v1.0/device/\(deviceId)/properties"
         case .sendNotify(let deviceId, _):
-            return "/\(deviceId)/notify"
+            return "/v1.0/device/\(deviceId)/notify"
         case .addPower(let deviceId, _):
             return "/v1.0/device/\(deviceId)/power"
         case .getPower(let deviceId):

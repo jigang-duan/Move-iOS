@@ -26,7 +26,9 @@ class APNSettingVC: UITableViewController {
  
     
     
-
+    let transSymbol: UInt8 = 0x70
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,13 +36,33 @@ class APNSettingVC: UITableViewController {
         let str = APNforWatchVC.APNData(plmn: "1", apn: "2", spn: "3", user: "4", password: "5", proxy: "6", port: "7", authtype: "8").toJSONString()
         let data = str?.data(using: String.Encoding.utf8)
         
+        
+        
+        
+        let resultData = self.dataTrans(with: data!)
+        
+        
         if self.settingDataBlock != nil {
-            self.settingDataBlock!(data)
+            self.settingDataBlock!(resultData)
         }
         
         
     }
     
+    
+    func dataTrans(with data: Data) -> Data {
+        
+        var tempData = Data()
+        
+        for byte in data {
+            if byte == self.transSymbol {
+                tempData.append(byte)
+            }
+            tempData.append(byte)
+        }
+    
+        return tempData
+    }
     
     
     
