@@ -93,7 +93,7 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
 
     private func showMessage(_ text: String) {
         let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel)
         vc.addAction(action)
         self.target?.present(vc, animated: true) {
             

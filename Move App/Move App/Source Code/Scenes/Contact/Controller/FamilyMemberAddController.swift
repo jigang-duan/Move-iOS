@@ -122,10 +122,10 @@ class FamilyMemberAddController: UIViewController {
     
     @IBAction func selectPhoto(_ sender: Any) {
         photoPicker = ImageUtility()
-        photoPicker?.selectPhoto(with: self, callback: { (image) in
+        photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
             self.photoImgV.image = image
             self.photoVariable.value = image
-        }, size: CGSize(width: 100, height: 100))
+        })
     }
     
     
