@@ -21,6 +21,11 @@ extension String {
     var fsImageUrl: String {
         return  MoveApi.BaseURL + "/v1.0/fs/\(self)"
     }
+    
+    var fsVoiceUrl: String {
+        return  MoveApi.BaseURL + "/v1.0/fs/\(self)"
+    }
+    
 }
 
 extension FSManager {

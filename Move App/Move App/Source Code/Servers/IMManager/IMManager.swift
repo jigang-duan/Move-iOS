@@ -54,6 +54,14 @@ extension IMManager {
         return worker.syncData(syncData: synckeyData)
     }
     
+    
+    func sendChatEmoji(_ emoji: ImEmoji) -> Observable<ImEmoji> {
+        return sendChatMessage(message: MoveIM.ImMessage(meoji: emoji) )
+            .map({ $0.msg_id })
+            .filterNil()
+            .map({ ImEmoji(msg_id: $0, from: emoji.from, to: emoji.to, gid: emoji.gid, content: emoji.content, ctime: emoji.ctime) })
+    }
+    
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
         return worker.sendChatMessage(message: message)
     }
@@ -102,28 +110,32 @@ struct ImContact {
     var admin: Bool?
 }
 
-extension ObservableType where E == MoveIM.ImUserSynckey {
-    
-    func saveSynckey() -> Observable<SynckeyEntity> {
-        return flatMap { element -> Observable<SynckeyEntity> in
-            
-            let realm = try! Realm()
-            let entity = SynckeyEntity()
-            entity.uid = element.user?.uid ?? UserInfo.shared.id
-            entity.message = element.synckey?[0].value ?? 0
-            entity.contact = element.synckey?[1].value ?? 0
-            entity.group = element.synckey?[2].value ?? 0
-            try! realm.write {
-                realm.add(entity, update: true)
-            }
-            return Observable.just(entity)
-        }
-    }
+
+
+struct ImEmoji {
+    var msg_id: String?
+    var from: String?
+    var to: String?
+    var gid: String?
+    var content: EmojiType?
+    var ctime: Date?
 }
 
 
+fileprivate extension MoveIM.ImMessage {
 
-
+    init(meoji: ImEmoji) {
+        self.init()
+        self.type = 1
+        self.from = meoji.from
+        self.to = meoji.to
+        self.gid = meoji.gid
+        self.content = meoji.content?.rawValue
+        self.content_type = 1
+        self.content_status = 0
+        self.ctime = meoji.ctime
+    }
+}
 
 
 typealias EntityType = (

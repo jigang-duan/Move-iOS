@@ -41,6 +41,10 @@ extension DeviceManager {
         return worker.getDeviceList()
     }
     
+    func fetchDevices() -> Observable<[DeviceInfo]> {
+        return worker.getDeviceList().map({ $0.map({ DeviceInfo.init(element: $0) }) })
+    }
+    
     func setCurrentDevice(deviceInfo: DeviceInfo) -> Observable<DeviceInfo> {
         self.currentDevice = deviceInfo
         Me.shared.currDeviceID = deviceInfo.deviceId
@@ -130,6 +134,34 @@ struct DeviceInfo {
     var deviceId: String?
     var user: DeviceUser?
     var property: DeviceProperty?
+}
+
+extension DeviceInfo {
+
+    init(element: MoveApi.DeviceInfo) {
+        self.init()
+        self.deviceId = element.deviceId
+        self.pid = element.pid
+        self.property = DeviceProperty(active: element.property?.active,
+                                       bluetooth_address: element.property?.bluetooth_address,
+                                       device_model: element.property?.device_model,
+                                       firmware_version: element.property?.firmware_version,
+                                       ip_address: element.property?.ip_address,
+                                       kernel_version: element.property?.kernel_version,
+                                       mac_address: element.property?.mac_address,
+                                       phone_number: element.property?.phone_number,
+                                       languages: element.property?.languages,
+                                       power: element.property?.power)
+        self.user = DeviceUser(uid: element.user?.uid,
+                               number: element.user?.number,
+                               nickname: element.user?.nickname,
+                               profile: element.user?.profile,
+                               gender: element.user?.gender,
+                               height: element.user?.height,
+                               weight: element.user?.weight,
+                               birthday: element.user?.birthday,
+                               gid: element.user?.gid)
+    }
 }
 
 struct DeviceUser {

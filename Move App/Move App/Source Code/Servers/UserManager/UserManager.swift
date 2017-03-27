@@ -32,8 +32,7 @@ extension UserManager {
         return worker.fetchProfile()
     }
     
-     func tplogin(platform: MoveApiUserWorker.LoginType,openld: String,secret: String) -> Observable<Bool>
-     {
+    func tplogin(platform: MoveApiUserWorker.LoginType,openld: String,secret: String) -> Observable<Bool> {
         return worker.tplogin(platform: MoveApiUserWorker.LoginType(rawValue: platform.rawValue)!, openld: openld, secret: secret)
     }
     
@@ -181,21 +180,7 @@ extension UserInfo {
                 realm.add(entity)
             }
         }
-//        initSynckey()
     }
-    
-//    fileprivate func initSynckey() {
-//        let realm = try! Realm()
-//        if realm.object(ofType: SynckeyEntity.self, forPrimaryKey: self.id) != nil {
-//            return
-//        }
-//        let entity = SynckeyEntity()
-//        entity.uid = self.id
-//        try! realm.write {
-//            realm.add(entity)
-//        }
-//    }
-    
     
     func isValid() -> Observable<Bool> {
         let _ = fetchUserInfo()
@@ -209,9 +194,7 @@ extension UserInfo {
         
         return MoveApi.Account.getUserInfo(uid: uid)
             .catchingUserProfile()
-            .map({
-                $0.username != nil
-            })
+            .map { $0.username != nil }
             .catchErrorJustReturn(false)
     }
     

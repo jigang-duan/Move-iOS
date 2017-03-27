@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Kingfisher
+import SwiftGifOrigin
 
 @objc
 protocol UUMessageCellDelegate {
@@ -140,9 +141,14 @@ class UUMessageCell: UITableViewCell {
                 self.btnContent.second.text = String(format: "%d's Voice", message.content.voice?.second ?? 0)
                 voiceURL = message.content.voice?.url
             case .emoji:
-                
-                self.btnContent.backImageView.isHidden = false
-                
+                if
+                    let emoji = message.content.emoji,
+                    let url = emoji.url,
+                    let imageData = try? Data(contentsOf: url) {
+                    
+                    self.btnContent.backImageView.isHidden = false
+                    self.btnContent.backImageView.image = emoji.isGit ? UIImage.gif(data: imageData) : UIImage(data: imageData)
+                }
                 self.btnContent.backImageView.frame = CGRect(x: 0, y: 0,
                                                              width: self.btnContent.frame.size.width,
                                                              height: self.btnContent.frame.size.height)

@@ -43,8 +43,6 @@ extension MoveIM {
                 .map({ $0.synckey  })
                 .map({ SynckeyEntity(im: $0)  })
                 .filterNil()
-            
-            //saveSynckey()
         }
         
         final class func checkSyncKey(synckey: ImCheckSynkey) -> Observable<Bool> {
@@ -58,7 +56,12 @@ extension MoveIM {
         }
         
         final class func sendChatMessage(messageInfo: ImMessage) -> Observable<ImMesageRsp> {
-            return request(.sendChatMessage(messageInfo: messageInfo)).mapMoveObject(ImMesageRsp.self)
+            var info = messageInfo
+            if info.locaId == nil {
+                let date = info.ctime ?? Date()
+                info.locaId = Int(date.timeIntervalSince1970).description
+            }
+            return request(.sendChatMessage(messageInfo: IMMessage(message: info))).mapMoveObject(ImMesageRsp.self)
         }
         
         enum API {
@@ -68,7 +71,7 @@ extension MoveIM {
             case initSyncKey
             case checkSyncKey(userSynckey:ImCheckSynkey)
             case syncData(synckey: ImSynDatakey)
-            case sendChatMessage(messageInfo: ImMessage)
+            case sendChatMessage(messageInfo: IMMessage)
         }
         
     }
@@ -100,7 +103,7 @@ extension MoveIM.ImApi.API: TargetType {
             return "check"
         case .syncData:
             return "sync"
-        case .sendChatMessage(_):
+        case .sendChatMessage:
             return "message"
         }
     }

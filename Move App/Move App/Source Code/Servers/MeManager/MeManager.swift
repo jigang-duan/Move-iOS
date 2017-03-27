@@ -24,12 +24,17 @@ class MeManager {
     }
     
     func checkCurrentRole() -> Observable<String?> {
-
-        return MoveApi.Device.getDeviceList()
-            .map({
-                Me.shared.currDeviceID = $0.devices?.first?.deviceId
-                return Me.shared.currDeviceID
-            })
+        return DeviceManager.shared.fetchDevices()
+            .map { $0.first }
+            .flatMapLatest { (it) -> Observable<DeviceInfo> in
+                guard
+                    let device = it,
+                    let _ = device.deviceId else {
+                    throw WorkerError.deviceNo
+                }
+                return DeviceManager.shared.setCurrentDevice(deviceInfo: device)
+            }
+            .map { $0.deviceId }
     }
     
 }

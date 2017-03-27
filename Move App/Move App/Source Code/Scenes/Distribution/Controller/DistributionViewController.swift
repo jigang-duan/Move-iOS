@@ -28,17 +28,9 @@ class DistributionViewController: UIViewController {
             )
         )
         
-        viewModel.enterLogin.debug()
-            .drive(onNext: enterLoginScreen)
-            .addDisposableTo(disposeBag)
-        
-        viewModel.enterChoose.debug()
-            .drive(onNext: enterChoseDeviceScreen)
-            .addDisposableTo(disposeBag)
-        
-        viewModel.enterMain.debug()
-            .drive(onNext: enterMainScreen)
-            .addDisposableTo(disposeBag)
+        viewModel.enterLogin.debug().drive(onNext: enterLoginScreen).addDisposableTo(disposeBag)
+        viewModel.enterChoose.debug().drive(onNext: enterChoseDeviceScreen).addDisposableTo(disposeBag)
+        viewModel.enterMain.debug().drive(onNext: enterMainScreen).addDisposableTo(disposeBag)
         
 //        NotificationService.shared.rx.userInfo
 //            .bindNext({

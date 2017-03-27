@@ -18,6 +18,8 @@ enum WorkerError: Swift.Error, Equatable {
     case password
     
     case vcodeIsIncorrect
+    
+    case deviceNo
 }
 
 func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
@@ -32,6 +34,7 @@ func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
     case (.password, .password): return true
        
     case (.vcodeIsIncorrect, .vcodeIsIncorrect): return true
+    case (.deviceNo, .deviceNo): return true
         
     default: return false
     }

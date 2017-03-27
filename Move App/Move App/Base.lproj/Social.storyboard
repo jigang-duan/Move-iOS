@@ -189,13 +189,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-oy-LSF" userLabel="Family chat">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <segue destination="rZW-9c-AXH" kind="embed" id="18n-1U-0Uh"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xJ-gZ-2iL" userLabel="Single chat">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <segue destination="v3Z-GN-82X" kind="embed" id="3Qe-Q2-Tyx"/>
                                 </connections>
@@ -203,14 +203,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="49I-oy-LSF" firstAttribute="top" secondItem="zt3-fT-1df" secondAttribute="bottom" id="2pM-uX-3dj"/>
-                            <constraint firstAttribute="trailing" secondItem="49I-oy-LSF" secondAttribute="trailing" id="5vx-gu-atJ"/>
-                            <constraint firstAttribute="trailing" secondItem="6xJ-gZ-2iL" secondAttribute="trailing" id="KIJ-qw-rps"/>
-                            <constraint firstItem="6xJ-gZ-2iL" firstAttribute="top" secondItem="zt3-fT-1df" secondAttribute="bottom" id="Q6g-mv-QGg"/>
-                            <constraint firstItem="PzN-M2-04Z" firstAttribute="top" secondItem="49I-oy-LSF" secondAttribute="bottom" id="XiC-yr-SDz"/>
-                            <constraint firstItem="PzN-M2-04Z" firstAttribute="top" secondItem="6xJ-gZ-2iL" secondAttribute="bottom" id="erv-ff-llD"/>
-                            <constraint firstItem="6xJ-gZ-2iL" firstAttribute="leading" secondItem="D3I-Nh-vMS" secondAttribute="leading" id="fp7-LX-CEd"/>
-                            <constraint firstItem="49I-oy-LSF" firstAttribute="leading" secondItem="D3I-Nh-vMS" secondAttribute="leading" id="uPE-6i-7YS"/>
+                            <constraint firstItem="6xJ-gZ-2iL" firstAttribute="leading" secondItem="D3I-Nh-vMS" secondAttribute="leading" id="Bxt-p3-2SA"/>
+                            <constraint firstAttribute="bottom" secondItem="6xJ-gZ-2iL" secondAttribute="bottom" id="GTj-hw-mqx"/>
+                            <constraint firstAttribute="trailing" secondItem="49I-oy-LSF" secondAttribute="trailing" id="JHZ-sI-3G5"/>
+                            <constraint firstItem="49I-oy-LSF" firstAttribute="top" secondItem="zt3-fT-1df" secondAttribute="bottom" id="dez-ap-mpr"/>
+                            <constraint firstItem="49I-oy-LSF" firstAttribute="leading" secondItem="D3I-Nh-vMS" secondAttribute="leading" id="h5n-uR-74y"/>
+                            <constraint firstAttribute="trailing" secondItem="6xJ-gZ-2iL" secondAttribute="trailing" id="i4u-5c-WMl"/>
+                            <constraint firstItem="6xJ-gZ-2iL" firstAttribute="top" secondItem="zt3-fT-1df" secondAttribute="bottom" id="iU9-gt-xwW"/>
+                            <constraint firstAttribute="bottom" secondItem="49I-oy-LSF" secondAttribute="bottom" id="uuv-FZ-RZx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MVn-kv-pro">
@@ -316,13 +316,15 @@
                             <constraint firstItem="Sd9-wt-cih" firstAttribute="top" secondItem="1Xh-5T-ILE" secondAttribute="bottom" constant="8" id="qad-sW-Ggd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="o85-Xi-EoI"/>
+                    <navigationItem key="navigationItem" id="o85-Xi-EoI">
+                        <barButtonItem key="backBarButtonItem" title=" " id="rE6-lB-FYr"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELL-9s-4Hi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3052" y="2289.8050974512744"/>
         </scene>
-        <!--Family Chat-->
+        <!--SuperVC-->
         <scene sceneID="4TU-xw-7Fh">
             <objects>
                 <viewController title="Family Chat" id="rZW-9c-AXH" customClass="FamilyChatController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -331,11 +333,11 @@
                         <viewControllerLayoutGuide type="bottom" id="t1F-Kl-udc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mrp-ER-g6b">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qat-C3-6yT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="514"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qat-C3-6yT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellFamilyChat" id="r0U-Ub-5kB" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
@@ -349,7 +351,6 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qat-C3-6yT" firstAttribute="top" secondItem="mrp-ER-g6b" secondAttribute="top" id="3uQ-9A-6Da"/>
                             <constraint firstItem="qat-C3-6yT" firstAttribute="leading" secondItem="mrp-ER-g6b" secondAttribute="leading" id="HlG-qQ-4L1"/>
@@ -358,27 +359,36 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ifView" destination="srb-GD-rWH" id="chh-CI-a4E"/>
                         <outlet property="tableView" destination="qat-C3-6yT" id="tI4-ly-vH2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezT-nv-UXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="srb-GD-rWH" customClass="UUInputView" customModule="Move_App" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="superVC" destination="rZW-9c-AXH" id="iGh-ku-Hvy"/>
+                    </connections>
+                </view>
             </objects>
             <point key="canvasLocation" x="4836" y="2958.6206896551726"/>
         </scene>
-        <!--Single chat-->
+        <!--SuperVC-->
         <scene sceneID="ezh-eB-BgU">
             <objects>
-                <viewController title="Single chat" id="v3Z-GN-82X" sceneMemberID="viewController">
+                <viewController title="Single chat" id="v3Z-GN-82X" customClass="SingleChatController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QjO-c7-J8f"/>
                         <viewControllerLayoutGuide type="bottom" id="hbs-S1-SMF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6fX-Ch-ncz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8bJ-GU-kRL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="514"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8bJ-GU-kRL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellSingleChat" id="U6S-kt-hng" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
@@ -392,18 +402,29 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="8bJ-GU-kRL" secondAttribute="bottom" constant="40" id="Dhd-zT-PcU"/>
-                            <constraint firstAttribute="trailing" secondItem="8bJ-GU-kRL" secondAttribute="trailing" id="Muv-HK-iHL"/>
-                            <constraint firstItem="8bJ-GU-kRL" firstAttribute="leading" secondItem="6fX-Ch-ncz" secondAttribute="leading" id="SKU-6J-mxP"/>
-                            <constraint firstItem="8bJ-GU-kRL" firstAttribute="top" secondItem="6fX-Ch-ncz" secondAttribute="top" id="koq-MW-VBQ"/>
+                            <constraint firstItem="hbs-S1-SMF" firstAttribute="top" secondItem="8bJ-GU-kRL" secondAttribute="bottom" constant="40" id="0sn-hu-ohe"/>
+                            <constraint firstAttribute="trailing" secondItem="8bJ-GU-kRL" secondAttribute="trailing" id="1iZ-5Q-3qx"/>
+                            <constraint firstItem="8bJ-GU-kRL" firstAttribute="top" secondItem="QjO-c7-J8f" secondAttribute="bottom" id="Skj-ct-qhR"/>
+                            <constraint firstItem="8bJ-GU-kRL" firstAttribute="leading" secondItem="6fX-Ch-ncz" secondAttribute="leading" id="VjQ-Wz-WGY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="ifView" destination="xp3-VT-AMK" id="6h6-hW-dg9"/>
+                        <outlet property="tableView" destination="8bJ-GU-kRL" id="vND-nN-6uc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69E-II-Dnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="xp3-VT-AMK" customClass="UUInputView" customModule="Move_App" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="superVC" destination="v3Z-GN-82X" id="psb-vB-MFO"/>
+                    </connections>
+                </view>
             </objects>
-            <point key="canvasLocation" x="4836" y="3536.1319340329837"/>
+            <point key="canvasLocation" x="4857" y="3791"/>
         </scene>
     </scenes>
     <resources>

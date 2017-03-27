@@ -47,6 +47,10 @@ void SkipToPCMAudioData(FILE* fpwave)
 	}
 }
 
+void skipCafFileHeader(FILE *fcaf) {
+    fseek(fcaf, 4*1024, SEEK_CUR);                            //skip file header
+}
+
 // 从WAVE文件读一个完整的PCM音频帧
 // 返回值: 0-错误 >0: 完整帧大小
 int ReadPCMFrame(short speech[], FILE* fpwave, int nChannels, int nBitsPerSample)
@@ -159,7 +163,8 @@ int EncodeWAVEFileToAMRFile(const char* pchWAVEFilename, const char* pchAMRFileN
 	bytes = fwrite(AMR_MAGIC_NUMBER, sizeof(char), strlen(AMR_MAGIC_NUMBER), fpamr);
 	
 	/* skip to pcm audio data*/
-	SkipToPCMAudioData(fpwave);
+	// SkipToPCMAudioData(fpwave);
+    skipCafFileHeader(fpwave);
 	
 	enstate = Encoder_Interface_init(dtx);
 	

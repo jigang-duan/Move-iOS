@@ -67,7 +67,12 @@ extension MoveIM {
         var synckey: [ImSynckey]?
     }
     
+    struct IMMessage {
+        var message: ImMessage?
+    }
+    
     struct ImMessage {
+        var locaId: String?
         var msg_id: String?
         var type: Int?
         var from: String?
@@ -200,12 +205,22 @@ extension MoveIM.ImSelector: Mappable {
     }
 }
 
+extension MoveIM.IMMessage: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        message <- map["message"]
+    }
+}
+
 extension MoveIM.ImMessage: Mappable {
     init?(map: Map) {
         
     }
     
     mutating func mapping(map: Map) {
+        locaId <- map["local_id"]
         msg_id <- map["msg_id"]
         type <- map["type"]
         from <- map["from"]

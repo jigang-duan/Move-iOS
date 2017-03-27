@@ -28,23 +28,18 @@ class MessageServer {
             let uid = Me.shared.user.id,
             let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
             
-            let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance).debug()
-                .flatMapFirst {_ in
-                    IMManager.shared.checkSyncKey()
-                        .catchErrorJustReturn(false)
-                }
+            let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
+                .flatMapFirst {_ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
                 .filter { $0 }
                 .flatMapLatest {_ in
                     IMManager.shared.syncData()
-                        .catchErrorJustReturn(
-                            (synckey: nil,messages: nil,members: nil,groups: nil,notices: nil,chatops: nil)
-                    )
+                        .catchErrorJustReturn((synckey: nil,messages: nil,members: nil,groups: nil,notices: nil,chatops: nil))
                 }
                 .shareReplay(1)
             
             syncData.map { $0.messages }
                 .filterNil()
-                .flatMap({ Observable.from($0) })
+                .flatMap { Observable.from($0) }
                 .subscribe(onNext: {(message) in
                     if let gid = message.groupId, gid != "" {
                         if let group = sync.groups.filter({ gid == $0.id }).first {
@@ -56,6 +51,12 @@ class MessageServer {
                                 group.update(realm: realm, message: message)
                             }
                         }
+                    } else if uid == message.from {
+                        sync.groups.forEach { group in
+                            if group.members.map({ $0.id }).contains(where: { message.to == $0 }) {
+                                group.update(realm: realm, message: message)
+                            }
+                        }
                     }
                 })
                 .addDisposableTo(disposeBag)
@@ -63,29 +64,21 @@ class MessageServer {
             
             let reNotice = syncData.map { $0.notices }
                 .filterNil()
-                .flatMap({ Observable.from($0) })
+                .flatMap { Observable.from($0) }
                 
-            progressDownload = reNotice.filter({ $0.type != NoticeType.progressDownload.rawValue })
+            progressDownload = reNotice.filter { $0.type != NoticeType.progressDownload.rawValue }
             
-            reNotice.filter({  $0.type != NoticeType.progressDownload.rawValue })
+            reNotice.filter { $0.type != NoticeType.progressDownload.rawValue }
                 .subscribe(onNext: { (notice) in
-                    sync.groups.forEach({ (group: GroupEntity) in
+                    sync.groups.forEach { (group: GroupEntity) in
                         if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
                             group.update(realm: realm, notice: notice)
                         }
-                    })
+                    }
                 })
-//                .subscribe(onNext: { (notices) in
-//                    sync.groups.forEach({ (group: GroupEntity) in
-//                        let its = notices.filter({ it in
-//                            group.members.map({$0.id}).contains(where: {it.from == $0})
-//                        })
-//                        group.update(realm: realm, notices: its)
-//                    })
-//                })
                 .addDisposableTo(disposeBag)
             
-            syncData.map({ $0.synckey })
+            syncData.map { $0.synckey }
                 .filterNil()
                 .subscribe(onNext: { item in
                     try! realm.write {
@@ -100,25 +93,28 @@ class MessageServer {
     
     func subscribe() -> Disposable {
         let realm = try! Realm()
+        let uid = Me.shared.user.id
+        let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid)
         return subject.asObservable()
-            .filter({ $0 })
-            .flatMapLatest{ _ -> Observable<SynckeyEntity> in
+            .filter { $0 }
+            .filter { _ in sync == nil }
+            .flatMapLatest { _ -> Observable<SynckeyEntity> in
                 IMManager.shared.initSyncKey()
-                .map({
+                .map {
                     $0.uid = Me.shared.user.id
                     return $0
-                }).catchErrorJustReturn(SynckeyEntity())
+                }.catchErrorJustReturn(SynckeyEntity())
             }
-            .filter({  $0.uid != nil })
-            .flatMapLatest({
+            .filter { $0.uid != nil }
+            .flatMapLatest {
                 Observable.combineLatest(Observable.just($0),
-                                         IMManager.shared.getGroups().errorOnEmpty()) { ($0, $1)  }
-            })
-            .map({ self.transform(synckey: $0, groups: $1) })
-            .map({ (synckey, groups) in
+                                         IMManager.shared.getGroups().errorOnEmpty()) { ($0, $1) }
+            }
+            .map { self.transform(synckey: $0, groups: $1) }
+            .map { (synckey, groups) in
                 synckey.groups.append(objectsIn: groups)
                 return synckey
-            })
+            }
             .subscribe(realm.rx.add(update: true))
     }
     

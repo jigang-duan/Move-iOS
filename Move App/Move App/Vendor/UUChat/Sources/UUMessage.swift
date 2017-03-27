@@ -32,7 +32,7 @@ enum EmojiType: String {
     case bye = "[bye]"
     case dizzy = "[dizzy]"
     case heart = "[heart]"
-    case crying = "[crying]"
+    case cry = "[cry]"
     case laugh = "[laugh]"
     case naughty = "[naughty]"
     case sad = "[sad]"
@@ -43,7 +43,7 @@ enum EmojiType: String {
     case dizzy_d = "[dizzy_d]"
     case heart_d = "[heart_d]"
     case cry_d = "[cry_d]"
-    case laugh_d = "[laugh_d]"
+    case laught_d = "[laught_d]"
     case naughty_d = "[naughty_d]"
     case sad_d = "[sad_d]"
     case sick_d = "[sick_d]"
@@ -215,6 +215,13 @@ fileprivate func _minute(_ n: TimeInterval) -> TimeInterval {
 
 extension EmojiType {
     
+    static func getEmojis() -> [[EmojiType]] {
+        return [
+            [.aweat, .bye, .dizzy, .heart, .cry, .laugh,.naughty, .sad, .sick, .smile],
+            [.aweat_d,.bye_d, .dizzy_d, .heart_d, .cry_d, laught_d, naughty_d, sad_d, sick_d, smile_d]
+        ]
+    }
+    
     var url: URL? {
         switch self {
         case .aweat:
@@ -225,7 +232,7 @@ extension EmojiType {
             return R.file.emotion_14Png()
         case .heart:
             return R.file.emotion_15Png()
-        case .crying:
+        case .cry:
             return R.file.emotion_16Png()
         case .laugh:
             return R.file.emotion_17Png()
@@ -247,7 +254,7 @@ extension EmojiType {
             return R.file.emotion_04Gif()
         case .cry_d:
             return R.file.emotion_05Gif()
-        case .laugh_d:
+        case .laught_d:
             return R.file.emotion_06Gif()
         case .naughty_d:
             return R.file.emotion_07Gif()
@@ -272,7 +279,7 @@ extension EmojiType {
             return false
         case .heart:
             return false
-        case .crying:
+        case .cry:
             return false
         case .laugh:
             return false
@@ -294,7 +301,7 @@ extension EmojiType {
             return true
         case .cry_d:
             return true
-        case .laugh_d:
+        case .laught_d:
             return true
         case .naughty_d:
             return true
@@ -322,8 +329,8 @@ extension EmojiType: CustomStringConvertible {
             return "[dizzy]"
         case .heart:
             return "[heart]"
-        case .crying:
-            return "[crying]"
+        case .cry:
+            return "[cry]"
         case .laugh:
             return "[laugh]"
         case .naughty:
@@ -344,8 +351,8 @@ extension EmojiType: CustomStringConvertible {
             return "[heart_d]"
         case .cry_d:
             return "[cry_d]"
-        case .laugh_d:
-            return "[laugh_d]"
+        case .laught_d:
+            return "[laught_d]"
         case .naughty_d:
             return "[naughty_d]"
         case .sad_d:

@@ -12,7 +12,9 @@
 #import <SVPulsingAnnotationView/SVPulsingAnnotationView.h>
 #import "TXHRrettyRuler.h"
 
+#import "amrFileCodec.h"
 #import "Mp3Recorder.h"
+#import "AmrRecorder.h"
 #import "UUProgressHUD.h"
 #import "VoiceConverter.h"
 

@@ -19,14 +19,15 @@ import RxRealmDataSources
 class FamilyChatController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var ifView: UUInputView!
     
     let bag = DisposeBag()
-    
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.addSubview(ifView)
+        
         // Do any additional setup after loading the view.
         guard
             let uid = Me.shared.user.id,
@@ -45,22 +46,7 @@ class FamilyChatController: UIViewController {
             .map({ list -> [UUMessageFrame]  in
                 let entitys: [MessageEntity] = list.filter({ ($0.groupId != nil) && ($0.groupId != "") })
                 return entitys.map({ it -> UUMessageFrame in
-                    var content = UUMessage.Content()
-                    content.text = it.content
-                    let group = it.owners.first
-                    let from = group?.members.filter({ $0.id == it.from }).first
-                    let headURL = from?.headPortrait?.fsImageUrl ?? ""
-                    
-                    let message = UUMessage(icon: headURL,
-                                            msgId: "",
-                                            time: Date(),
-                                            name: "",
-                                            content: content,
-                                            state: .unread,
-                                            type: .text,
-                                            from: .other,
-                                            showDateLabel: true)
-                    return UUMessageFrame(message: message)
+                    UUMessageFrame(userId: Me.shared.user.id ?? "", messageEntity: it)
                 })
             })
         
@@ -70,7 +56,9 @@ class FamilyChatController: UIViewController {
         
         messageFramesVariable.asObservable()
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellFamilyChat.identifier)) { index, model, cell in
-                (cell as? UUMessageCell)?.messageFrame = model
+                if let cell = cell as? UUMessageCell {
+                    cell.messageFrame = model
+                }
             }
             .addDisposableTo(bag)
         
@@ -80,31 +68,28 @@ class FamilyChatController: UIViewController {
             })
             .addDisposableTo(bag)
         
+        
+        ifView.rx.sendEmoji.asDriver()
+            .map({ EmojiType(rawValue: $0) })
+            .filterNil()
+            .flatMapLatest({
+                IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, content: $0, ctime: Date()))
+                    .asDriver(onErrorJustReturn: ImEmoji())
+            })
+            .filter({ $0.msg_id != nil  })
+            .drive(onNext: {
+                self.messageFramesVariable.value.append(UUMessageFrame(imEmoji: $0, user: Me.shared.user))
+            })
+            .addDisposableTo(bag)
+        
     }
     
-    private func tableViewScrollToBottom() {
-        guard tableView.visibleCells.count > 0 else {
-            return
-        }
-        let indexPath = IndexPath(row: tableView.visibleCells.count - 1, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -113,4 +98,62 @@ extension FamilyChatController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return messageFramesVariable.value[indexPath.row].cellHeight
     }
+    
+    fileprivate func tableViewScrollToBottom() {
+        guard tableView.visibleCells.count > 0 else {
+            return
+        }
+        let indexPath = IndexPath(row: tableView.visibleCells.count - 1, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+}
+
+
+extension UUMessageFrame {
+    
+    init(imEmoji: ImEmoji, user: UserInfo) {
+        var content = UUMessage.Content()
+        content.emoji = imEmoji.content
+        let message = UUMessage(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
+                                msgId: imEmoji.msg_id ?? "",
+                                time: imEmoji.ctime ?? Date(),
+                                name: user.profile?.nickname ?? "",
+                                content: content,
+                                state: .unread,
+                                type: .emoji,
+                                from: .me,
+                                showDateLabel: true)
+        self.init(message: message)
+    }
+
+    init(userId: String, messageEntity: MessageEntity) {
+        var content = UUMessage.Content()
+        
+        let group = messageEntity.owners.first
+        let from = group?.members.filter({ $0.id == messageEntity.from }).first
+        let headURL = from?.headPortrait?.fsImageUrl ?? ""
+        
+        var type = MessageType.text
+        if messageEntity.contentType == 1 {
+            content.emoji = EmojiType(rawValue: messageEntity.content ?? EmojiType.warning.rawValue)
+            type = .emoji
+        } else if messageEntity.contentType == 3 {
+            var voice = UUMessage.Voice()
+            voice.url = URL(string: messageEntity.content?.fsImageUrl ?? "")
+            content.voice = voice
+            type = .voice
+        }
+        
+        let message = UUMessage(icon: headURL,
+                                msgId: messageEntity.id ?? "",
+                                time: messageEntity.createDate ?? Date(),
+                                name: from?.nickname ?? "",
+                                content: content,
+                                state: (messageEntity.readStatus == 0) ? .unread : .read,
+                                type: type,
+                                from: (messageEntity.from == userId) ? .me : .other,
+                                showDateLabel: true)
+        self.init(message: message)
+    }
+
 }

@@ -46,9 +46,7 @@ class DistributionViewModel {
             .filter({ !$0 })
             .flatMap ({_ in
                 meManager.checkCurrentRole()
-                    .map {
-                        $0 != nil
-                    }
+                    .map { $0 != nil }
                     .asDriver(onErrorJustReturn: false)
             })
         
@@ -58,6 +56,6 @@ class DistributionViewModel {
                 !enterLogin && !hasRole
             }
         
-        self.enterMain = self.enterChoose.map {!$0}
+        self.enterMain = self.enterChoose.map { !$0 }
     }
 }

@@ -45,6 +45,11 @@
 		112D6E9A1E863D37006135E3 /* emotion_28.png in Resources */ = {isa = PBXBuildFile; fileRef = 112D6E861E863D37006135E3 /* emotion_28.png */; };
 		112D6E9B1E863D37006135E3 /* emotion_29.png in Resources */ = {isa = PBXBuildFile; fileRef = 112D6E871E863D37006135E3 /* emotion_29.png */; };
 		112D6E9C1E863D37006135E3 /* emotion_30.png in Resources */ = {isa = PBXBuildFile; fileRef = 112D6E881E863D37006135E3 /* emotion_30.png */; };
+		112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6E9D1E865C02006135E3 /* UUInputView.swift */; };
+		112D6EA01E86713B006135E3 /* ISEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6E9F1E86713B006135E3 /* ISEmojiView.swift */; };
+		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
+		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
+		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
@@ -381,6 +386,13 @@
 		112D6E861E863D37006135E3 /* emotion_28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = emotion_28.png; path = Resource/Png/emotion_28.png; sourceTree = "<group>"; };
 		112D6E871E863D37006135E3 /* emotion_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = emotion_29.png; path = Resource/Png/emotion_29.png; sourceTree = "<group>"; };
 		112D6E881E863D37006135E3 /* emotion_30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = emotion_30.png; path = Resource/Png/emotion_30.png; sourceTree = "<group>"; };
+		112D6E9D1E865C02006135E3 /* UUInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUInputView.swift; path = Vendor/UUChat/Sources/UUInputView.swift; sourceTree = "<group>"; };
+		112D6E9F1E86713B006135E3 /* ISEmojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISEmojiView.swift; sourceTree = "<group>"; };
+		112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+UUInputView.swift"; path = "Vendor/UUChat/Rx/Rx+UUInputView.swift"; sourceTree = "<group>"; };
+		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
+		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
+		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
+		112D6EA91E88B3EE006135E3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Move App/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
@@ -789,6 +801,14 @@
 			name = Png;
 			sourceTree = "<group>";
 		};
+		112D6EA11E868DE8006135E3 /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */,
+			);
+			name = Rx;
+			sourceTree = "<group>";
+		};
 		116F818E1E665C83003CEC39 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +858,7 @@
 		11EAC2FE1E6D796F002906F1 /* UUChat */ = {
 			isa = PBXGroup;
 			children = (
+				112D6EA11E868DE8006135E3 /* Rx */,
 				11EAC2FF1E6D7981002906F1 /* Sources */,
 				11EAC3001E6D79FE002906F1 /* OtherResources */,
 			);
@@ -854,6 +875,8 @@
 				11EAC3081E6D7B14002906F1 /* UUAVAudioPlayer.swift */,
 				11EAC3091E6D7B14002906F1 /* UUImageAvatarBrowser.swift */,
 				11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */,
+				112D6E9D1E865C02006135E3 /* UUInputView.swift */,
+				112D6E9F1E86713B006135E3 /* ISEmojiView.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -885,6 +908,8 @@
 				11EAC3151E6D7B32002906F1 /* lame.h */,
 				11EAC3171E6D7B32002906F1 /* Mp3Recorder.h */,
 				11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */,
+				112D6EA61E88A354006135E3 /* AmrRecorder.h */,
+				112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */,
 			);
 			name = VoiceLib;
 			sourceTree = "<group>";
@@ -964,6 +989,7 @@
 			children = (
 				A5ED01F71E8506BE00D2CE50 /* ChatController.swift */,
 				A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */,
+				112D6EA41E87A517006135E3 /* SingleChatController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2090,7 +2116,7 @@
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = BV28C32GBU;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -2127,6 +2153,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = E01DF6D91E3059A800EA003D;
 			productRefGroup = E01DF6E31E3059A800EA003D /* Products */;
@@ -2413,6 +2440,7 @@
 				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */,
 				E9DA9C3C1E6FD960009A9189 /* NoticeDetailCell.swift in Sources */,
+				112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
@@ -2438,6 +2466,7 @@
 				E9DA9C3E1E6FD960009A9189 /* NoticeListCell.swift in Sources */,
 				11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
+				112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */,
 				E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
@@ -2466,6 +2495,7 @@
 				11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
 				11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */,
+				112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */,
 				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
@@ -2492,6 +2522,7 @@
 				FF08590C1E72372B00EB81D9 /* MeSetPasswordVC.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */,
+				112D6EA01E86713B006135E3 /* ISEmojiView.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
 				FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,
@@ -2548,6 +2579,7 @@
 				E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */,
 				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
 				F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */,
+				112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */,
 				FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
@@ -2694,6 +2726,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E0931F161E30B9A500755B4A /* Base */,
+				112D6EA91E88B3EE006135E3 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -2754,6 +2787,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2804,6 +2838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2868,8 +2903,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2900,8 +2935,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
