@@ -17,7 +17,7 @@ class UsepermissionViewModel {
     let selected1Variable = Variable(false)
     let selected2Variable = Variable(false)
     let selected3Variable = Variable(false)
-    let selected4Variable = Variable(false)
+   // let selected4Variable = Variable(false)
     let activityIn: Driver<Bool>
     
     // }
@@ -40,20 +40,21 @@ class UsepermissionViewModel {
         let fetchPermissions =  manager.fetchUsePermission()
             .shareReplay(1)
             .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: [false,false,false,false,false])
-            .filter({ $0.count>=5 })
+            .asDriver(onErrorJustReturn: [false,false,false,false])
+            .filter({ $0.count>=4 })
         fetchPermissions.map({$0[0]}).drive(selected0Variable).addDisposableTo(disposeBag)
         fetchPermissions.map({$0[1]}).drive(selected1Variable).addDisposableTo(disposeBag)
         fetchPermissions.map({$0[2]}).drive(selected2Variable).addDisposableTo(disposeBag)
         fetchPermissions.map({$0[3]}).drive(selected3Variable).addDisposableTo(disposeBag)
-        fetchPermissions.map({$0[4]}).drive(selected4Variable).addDisposableTo(disposeBag)
+       // fetchPermissions.map({$0[4]}).drive(selected4Variable).addDisposableTo(disposeBag)
         
         
         let selectPermission = Observable.combineLatest(selected0Variable.asObservable(),
                                                     selected1Variable.asObservable(),
                                                     selected2Variable.asObservable(),
-                                                    selected3Variable.asObservable(),
-                                                    selected4Variable.asObservable()) { [$0, $1, $2, $3, $4] }
+                                                    selected3Variable.asObservable()
+            //,selected4Variable
+                                                        .asObservable()) { [$0, $1, $2, $3] }
         selectPermission
             .skip(1)
             .flatMapLatest { selectBtns in

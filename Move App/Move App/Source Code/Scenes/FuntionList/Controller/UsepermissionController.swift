@@ -23,7 +23,6 @@ class UsepermissionController: UITableViewController {
     
     
     @IBOutlet weak var myfriendQulet: SwitchButton!
-    @IBOutlet weak var calltofriendQulet: SwitchButton!
     @IBOutlet weak var groupchatQulet: SwitchButton!
     @IBOutlet weak var voicechagerQulet: SwitchButton!
     @IBOutlet weak var playinghamsterQulet: SwitchButton!
@@ -45,10 +44,10 @@ class UsepermissionController: UITableViewController {
         )
         
         (myfriendQulet.rx.value <-> viewModel.selected0Variable).addDisposableTo(disposeBag)
-        (calltofriendQulet.rx.value <-> viewModel.selected1Variable).addDisposableTo(disposeBag)
-        (groupchatQulet.rx.value <-> viewModel.selected2Variable).addDisposableTo(disposeBag)
-        (voicechagerQulet.rx.value <-> viewModel.selected3Variable).addDisposableTo(disposeBag)
-        (playinghamsterQulet.rx.value <-> viewModel.selected4Variable).addDisposableTo(disposeBag)
+      //  (calltofriendQulet.rx.value <-> viewModel.selected1Variable).addDisposableTo(disposeBag)
+        (groupchatQulet.rx.value <-> viewModel.selected1Variable).addDisposableTo(disposeBag)
+        (voicechagerQulet.rx.value <-> viewModel.selected2Variable).addDisposableTo(disposeBag)
+        (playinghamsterQulet.rx.value <-> viewModel.selected3Variable).addDisposableTo(disposeBag)
         
       //网络请求的时候都不用点击
         viewModel.activityIn

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="avg-XR-5s9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="avg-XR-5s9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1150,45 +1150,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pv1-JT-Q5h">
-                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pv1-JT-Q5h" id="fUQ-c9-4Ha">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call to friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIk-J3-ZM9">
-                                                    <rect key="frame" x="10" y="11" width="106" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="DYa-0J-P26"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" tag="667" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAb-Wc-YvL" userLabel="calltofriendsSwitchBtn" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="11" width="40" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="4g4-U1-qae"/>
-                                                        <constraint firstAttribute="width" constant="40" id="bc4-an-kT2"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="general_btn_off"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="general_btn_on"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="qAb-Wc-YvL" secondAttribute="trailing" constant="10" id="Aih-VK-L2T"/>
-                                                <constraint firstItem="FIk-J3-ZM9" firstAttribute="centerY" secondItem="fUQ-c9-4Ha" secondAttribute="centerY" id="aBm-xo-kjD"/>
-                                                <constraint firstItem="qAb-Wc-YvL" firstAttribute="centerY" secondItem="fUQ-c9-4Ha" secondAttribute="centerY" id="bDc-Yi-CUU"/>
-                                                <constraint firstItem="FIk-J3-ZM9" firstAttribute="leading" secondItem="fUQ-c9-4Ha" secondAttribute="leading" constant="10" id="eT7-X1-9cf"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="4ib-16-u8D">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ib-16-u8D" id="xM8-gk-pBW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1225,7 +1188,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="IzI-Xh-yJE">
-                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IzI-Xh-yJE" id="EhD-3C-BRr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1262,7 +1225,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lqW-ZA-6rp">
-                                        <rect key="frame" x="0.0" y="211" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lqW-ZA-6rp" id="jCj-fb-wL9">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1311,18 +1274,10 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Io6-lC-74T"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="calltofriendLabel" destination="FIk-J3-ZM9" id="Oa9-GE-mHg"/>
-                        <outlet property="calltofriendQulet" destination="qAb-Wc-YvL" id="HDw-ib-v9m"/>
-                        <outlet property="groupchatLabel" destination="n3b-1z-bQP" id="xtW-kR-d0c"/>
-                        <outlet property="groupchatQulet" destination="8sg-Rw-EGt" id="uMd-6f-pAv"/>
-                        <outlet property="myfriendLabel" destination="CiK-Mi-Jsf" id="V3W-fC-lRe"/>
-                        <outlet property="myfriendQulet" destination="jzy-RU-UBu" id="tY9-1H-43O"/>
-                        <outlet property="playingHamsteLabel" destination="UZc-r8-cpH" id="yuK-8e-1sA"/>
-                        <outlet property="playinghamsterQulet" destination="Kfh-rV-X2O" id="S08-wb-CGa"/>
-                        <outlet property="saveQulet" destination="Io6-lC-74T" id="CIt-VG-aX9"/>
-                        <outlet property="usepermissonTitleItem" destination="WNl-BD-wXN" id="qQi-gg-Lgb"/>
-                        <outlet property="voicechagerQulet" destination="yes-Ky-A39" id="dyt-rh-vv3"/>
-                        <outlet property="voicechangeLabel" destination="hwX-xt-Cg2" id="Zlp-kX-dcH"/>
+                        <outlet property="groupchatQulet" destination="8sg-Rw-EGt" id="luC-Jp-bWH"/>
+                        <outlet property="myfriendQulet" destination="jzy-RU-UBu" id="cOO-Rf-Y8t"/>
+                        <outlet property="playinghamsterQulet" destination="Kfh-rV-X2O" id="Rah-V5-HUo"/>
+                        <outlet property="voicechagerQulet" destination="yes-Ky-A39" id="JSB-DB-Nta"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aM7-UY-dNg" userLabel="First Responder" sceneMemberID="firstResponder"/>

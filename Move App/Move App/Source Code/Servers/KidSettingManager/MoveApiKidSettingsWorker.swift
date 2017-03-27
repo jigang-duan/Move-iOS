@@ -217,16 +217,37 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             })
             .map({ $0.id == 0 })
     }
+    
     func fetchUsePermission(id: String) -> Observable<[Bool]>{
         return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.permissions ?? [false,false,false,false,false] })
+            .map({self.wrappbool(perint: $0.permissions)})
     
     }
+    func wrappbool(perint: [Int]?) -> [Bool] {
+        guard let perint = perint else {
+            return [false, false, false, false]
+        }
+       return [
+        perint.contains(1),
+        perint.contains(2),
+        perint.contains(3),
+        perint.contains(4)]
+    }
+    
     func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool>{
         return MoveApi.Device.getSetting(deviceId: id)
             .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
                 var _setting = setting
-                _setting.permissions = btns
+            
+                var peris: [Int] = []
+                for (i, btn) in btns.enumerated() {
+                    if btn {
+                        peris.append(i+1)
+                    }
+                }
+                
+
+                _setting.permissions = peris
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })
             .map({ $0.id == 0 })
@@ -309,6 +330,8 @@ extension MoveApiKidSettingsWorker {
         return wrap
     }
     
+   
+    
     func unwrappingr(remind: KidSetting.Reminder) -> MoveApi.Reminder {
         return MoveApi.Reminder(
             alarms: remind.alarms.map { MoveApi.Alarm(alarmAt: $0.alarmAt, days: days(every: $0.day), active: $0.active) },
@@ -335,6 +358,7 @@ extension MoveApiKidSettingsWorker {
         return self.wrappingr(reminder: settings.reminder)
     }
     
+   
      func wrapping(schoolTime: MoveApi.SchoolTime?) -> KidSetting.SchoolTime {
         guard let time = schoolTime else {
             return KidSetting.SchoolTime(
@@ -370,6 +394,7 @@ extension MoveApiKidSettingsWorker {
         
         return KidSetting.Reminder(alarms: alarms ?? [], todo: todos ?? [])
     }
+    
     
     private func daysToBool(timeDays: [Int]?) -> [Bool] {
         var days = [false, false, false, false, false, false, false]

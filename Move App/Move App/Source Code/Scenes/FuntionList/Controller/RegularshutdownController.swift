@@ -21,7 +21,8 @@ class RegularshutdownController: UIViewController {
     @IBOutlet weak var comfirmQutlet: UIButton!
     
     @IBOutlet weak var openShutdown: SwitchButton!
-
+    var openShutdownVariabel = Variable(true)
+    
     @IBOutlet weak var bootTimeOutlet: UIButton!
     
     @IBOutlet weak var shutdownTimeQutlet: UIButton!
@@ -47,6 +48,8 @@ class RegularshutdownController: UIViewController {
         
         self.datePicker.timeZone = TimeZone(secondsFromGMT: 0)
         
+       // openShutdown.rx.switch.asDriver().drive(openShutdownVariabel).addDisposableTo(disposeBag)
+        
         let openEnable = openShutdown.rx.switch.asDriver()
         
         openEnable
@@ -56,6 +59,8 @@ class RegularshutdownController: UIViewController {
         openEnable
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
+        
+      
         
         bootTimeVariable.asDriver()
             .drive(onNext: {date in
@@ -187,6 +192,7 @@ class RegularshutdownController: UIViewController {
     }
     
     private func enableView(_ enable: Bool){
+        
         self.bootTimeOutlet.isEnabled = enable
         self.shutdownTimeQutlet.isEnabled = enable
         self.datePickView.isHidden = enable ? self.datePickView.isHidden : true
