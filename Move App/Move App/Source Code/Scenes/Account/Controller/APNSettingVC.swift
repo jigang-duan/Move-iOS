@@ -26,11 +26,10 @@ class APNSettingVC: UITableViewController {
  
     
     
-    let transSymbol: UInt8 = 0x70
+    let transSymbol: UInt8 = 0xDD//转译符
     
-    
-    let beginSymbol: UInt8 = 0xFF
-    let endSymbol: UInt8 = 0xFF
+    let beginSymbol: UInt8 = 0xFF//开始符
+    let endSymbol: UInt8 = 0x55//结束符
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +53,7 @@ class APNSettingVC: UITableViewController {
     }
     
     
+//    数据转译
     func dataTrans(with data: Data) -> Data {
         
         var tempData = Data()
@@ -68,10 +68,9 @@ class APNSettingVC: UITableViewController {
         return tempData
     }
     
-    
+//    数据分包
     func generateTargetData(data: Data) -> Data {
         var resultData = Data()
-        
 //        总包数
         let totalBag = data.count/14 + (data.count%14 == 0 ? 0:1)
         
@@ -89,15 +88,10 @@ class APNSettingVC: UITableViewController {
             resultData.append(tempData!)
             resultData.append(endSymbol)
         }
-        
-    
-    
-        
-        
         return resultData
     }
     
-    
+//    数据CRC处理
     func makeCRC16(data: Data) -> Data {
         var resultData = Data()
         

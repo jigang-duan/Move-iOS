@@ -28,8 +28,10 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
             imagePickerController.allowsEditing = true
-            imagePickerController.sourceType = soureType
-            self.target?.present(imagePickerController, animated: true, completion: nil)
+            if UIImagePickerController.isSourceTypeAvailable(soureType) {
+                imagePickerController.sourceType = soureType
+                self.target?.present(imagePickerController, animated: true, completion: nil)
+            }
         }else{
             let vc = UIAlertController(title: nil, message: "没有相机/照片访问权限", preferredStyle: UIAlertControllerStyle.alert)
             let action1 = UIAlertAction(title: "Settings", style: .default) { action in

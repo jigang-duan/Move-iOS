@@ -178,7 +178,7 @@ class UpgradeController: UIViewController {
     
     
     func checkVersion(checkInfo: DeviceVersionCheck) -> Observable<ValidationResult> {
-        let result = DeviceManager.shared.checkVersion(checkInfo: checkInfo).map{ info -> ValidationResult in
+        return DeviceManager.shared.checkVersion(checkInfo: checkInfo).map{ info -> ValidationResult in
             if info.currentVersion == info.newVersion {
                 self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
                 self.versionInfo.isHidden = false
@@ -194,18 +194,6 @@ class UpgradeController: UIViewController {
             self.activity.stopAnimating()
             return ValidationResult.ok(message: "Download Begin")
         }
-        
-        
-        result.subscribe(onNext: { result in
-            switch result {
-            case .failed(let message):
-                self.showMessage(message)
-            default:
-                break
-            }
-        }).addDisposableTo(disposeBag)
-        
-        return result
     }
     
     

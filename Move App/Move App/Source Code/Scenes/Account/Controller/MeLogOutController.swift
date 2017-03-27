@@ -116,46 +116,48 @@ class MeLogoutController: UIViewController {
                 info.height = height
                 info.birthday = birthday
                 
+                
+                var result: Observable<ValidationResult>?
                 if changedImage != nil {
-                    var icon = ""
-                    _ = FSManager.shared.uploadPngImage(with: changedImage!)
-                        .subscribe({ event in
-                            switch event{
-                            case .next(let fid):
-                                icon = fid.fid ?? ""
-                            case .completed:
-                                info.iconUrl = icon
-                                self.settingUserInfo(with: info)
-                            case .error(let er):
-                                print(er)
-                            }
-                        })
+                    result = FSManager.shared.uploadPngImage(with: changedImage!).map{$0.fid}.filterNil().flatMap({fid ->Observable<ValidationResult> in
+                        info.iconUrl = fid
+                        return self.settingUserInfo(with: info)
+                    })
                 }else {
-                    self.settingUserInfo(with: info)
+                    result = self.settingUserInfo(with: info)
                 }
+                
+                result?.subscribe({ event in
+                    switch event{
+                    case .next(let value):
+                        print(value)
+                    case .completed:
+                        UserInfo.shared.profile?.gender = info.gender
+                        UserInfo.shared.profile?.height = info.height
+                        UserInfo.shared.profile?.weight = info.weight
+                        UserInfo.shared.profile?.birthday = info.birthday
+                        if changedImage != nil {
+                            UserInfo.shared.profile?.iconUrl = info.iconUrl
+                            self.updateAvatar(with: info.iconUrl ?? "")
+                        }
+                    case .error(let error):
+                        print(error)
+                    }
+                }).addDisposableTo(self.disposeBag)
             }
         }
     }
     
     
     
-    func settingUserInfo(with info: UserInfo.Profile) {
-        _ = UserManager.shared.setUserInfo(userInfo: info).subscribe({ (event) in
-            switch event{
-            case .next(let value):
-                print(value)
-            case .completed:
-                UserInfo.shared.profile?.gender = info.gender
-                UserInfo.shared.profile?.height = info.height
-                UserInfo.shared.profile?.weight = info.weight
-                UserInfo.shared.profile?.birthday = info.birthday
-                UserInfo.shared.profile?.iconUrl = info.iconUrl
-                self.updateAvatar(with: info.iconUrl ?? "")
-            case .error(let error):
-                print(error)
+    func settingUserInfo(with info: UserInfo.Profile) -> Observable<ValidationResult>{
+        return UserManager.shared.setUserInfo(userInfo: info).map{ flag -> ValidationResult in
+            if flag {
+                return ValidationResult.ok(message: "OK")
+            }else{
+                return ValidationResult.failed(message: "failed")
             }
-        })
-    
+        }
     }
     
     
