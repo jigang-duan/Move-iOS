@@ -71,13 +71,10 @@
 		11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3071E6D7B14002906F1 /* UUMessageCell.swift */; };
 		11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3081E6D7B14002906F1 /* UUAVAudioPlayer.swift */; };
 		11EAC3101E6D7B14002906F1 /* UUImageAvatarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3091E6D7B14002906F1 /* UUImageAvatarBrowser.swift */; };
-		11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */; };
 		11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
-		11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */; };
 		11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */; };
 		11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC31F1E6E42B8002906F1 /* Rx+SwitchButton.swift */; };
 		11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */; };
-		11EAC3241E6E4307002906F1 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EAC3231E6E4307002906F1 /* libmp3lame.a */; };
 		11EAC3291E6F99DE002906F1 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3281E6F99DE002906F1 /* SocialController.swift */; };
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
@@ -674,7 +671,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E01DF7371E308D7F00EA003D /* CustomViews.framework in Frameworks */,
-				11EAC3241E6E4307002906F1 /* libmp3lame.a in Frameworks */,
 				E0931F3A1E30DE7400755B4A /* MapKit.framework in Frameworks */,
 				A5B3E1E81E7FF8A100F12E22 /* libopencore-amrnb.a in Frameworks */,
 				A5B3E1E91E7FF8A100F12E22 /* libopencore-amrwb.a in Frameworks */,
@@ -2454,7 +2450,6 @@
 				FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
 				E9DA9C3E1E6FD960009A9189 /* NoticeListCell.swift in Sources */,
-				11EAC31A1E6D7B32002906F1 /* Mp3Recorder.m in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */,
 				E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */,
@@ -2483,7 +2478,6 @@
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
 				11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
-				11EAC3111E6D7B14002906F1 /* UUInputFunctionView.swift in Sources */,
 				112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */,
 				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
@@ -2867,7 +2861,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2899,7 +2893,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (

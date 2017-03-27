@@ -216,3 +216,6 @@ extension UUInputView {
 
 fileprivate let defaultFrame = CGRect(x: 0, y: Main_Screen_Height - 40 - 64, width: Main_Screen_Width, height: 40)
 fileprivate let unfoldFrame  = CGRect(x: 0, y: Main_Screen_Height - 168 - 64, width: Main_Screen_Width, height: 168)
+
+fileprivate let Main_Screen_Height = UIScreen.main.bounds.size.height
+fileprivate let Main_Screen_Width = UIScreen.main.bounds.size.width

@@ -365,8 +365,8 @@ class UUInputWireframe {
 
 }
 
-let Main_Screen_Height = UIScreen.main.bounds.size.height
-let Main_Screen_Width = UIScreen.main.bounds.size.width
+fileprivate let Main_Screen_Height = UIScreen.main.bounds.size.height
+fileprivate let Main_Screen_Width = UIScreen.main.bounds.size.width
 
 fileprivate func RECT_CHANGE_width(_ v: UIView, _ w: CGFloat) -> CGRect {
     return CGRect(x: X(v), y: Y(v), width: w, height: HEIGHT(v))
