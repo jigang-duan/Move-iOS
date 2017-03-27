@@ -85,11 +85,30 @@ class MeSettingController: UITableViewController {
     
     @IBAction func selectPhoto(_ sender: Any) {
         photoPicker = ImageUtility()
-        photoPicker?.selectPhoto(with: self, callback: { (image) in
-            self.headBun.setBackgroundImage(image, for: .normal)
-            self.changedImage = image
-        }, size: CGSize(width: 100, height: 100))
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
+                self.headBun.setBackgroundImage(image, for: .normal)
+                self.changedImage = image
+            })
+        }
+        let action2 = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { (image) in
+                self.headBun.setBackgroundImage(image, for: .normal)
+                self.changedImage = image
+            })
+        }
+        let action3 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
+        
+        vc.addAction(action1)
+        vc.addAction(action2)
+        vc.addAction(action3)
+        
+        self.present(vc, animated: true, completion: nil)
     }
+    
+    
+    
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

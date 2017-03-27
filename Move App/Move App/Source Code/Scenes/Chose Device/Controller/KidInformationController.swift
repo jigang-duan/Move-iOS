@@ -135,10 +135,10 @@ class KidInformationController: UIViewController {
 
     @IBAction func selectPhoto(_ sender: Any) {
         photoPicker = ImageUtility()
-        photoPicker?.selectPhoto(with: self, callback: { (image) in
+        photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 200, height: 200), callback: { (image) in
             self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
             self.photoVariable.value = image
-        }, size: CGSize(width: 200, height: 200))
+        })
     }
     
 

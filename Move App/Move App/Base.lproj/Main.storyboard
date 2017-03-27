@@ -856,25 +856,22 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59S-vP-hfg" userLabel="inputView">
                                         <rect key="frame" x="15" y="47" width="345" height="40"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ocz-M2-P2J">
-                                                <rect key="frame" x="5" y="3" width="254" height="34"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ocz-M2-P2J">
+                                                <rect key="frame" x="5" y="3" width="262" height="34"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dlp-eb-7qv" userLabel="line">
-                                                <rect key="frame" x="269" y="5" width="1" height="30"/>
+                                                <rect key="frame" x="277" y="5" width="1" height="30"/>
                                                 <color key="backgroundColor" red="0.68627452850341797" green="0.68627452850341797" blue="0.68627452850341797" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="1" id="Cls-zf-4dA"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDF-j2-DMB">
-                                                <rect key="frame" x="280" y="4" width="60" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="j69-eK-WgO"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDF-j2-DMB">
+                                                <rect key="frame" x="288" y="4" width="52" height="32"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="Resend">
                                                     <color key="titleColor" red="0.38431373238563538" green="0.38431373238563538" blue="0.38431373238563538" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -1692,7 +1689,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLr-K9-cNr">
-                                        <rect key="frame" x="61" y="70.5" width="314" height="40"/>
+                                        <rect key="frame" x="61" y="70.5" width="146" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Angela" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVP-4V-Ivf">
                                                 <rect key="frame" x="0.0" y="0.0" width="53" height="21"/>
@@ -1715,6 +1712,7 @@
                                             <constraint firstAttribute="height" constant="40" id="dZP-ab-Uaf"/>
                                             <constraint firstAttribute="bottom" secondItem="tPp-If-d0P" secondAttribute="bottom" id="hc1-tE-HHg"/>
                                             <constraint firstItem="wVP-4V-Ivf" firstAttribute="top" secondItem="bLr-K9-cNr" secondAttribute="top" id="q2r-Uh-Ppi"/>
+                                            <constraint firstAttribute="trailing" secondItem="tPp-If-d0P" secondAttribute="trailing" id="sqd-C8-PkJ"/>
                                         </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="gOS-Qk-dbU" appends="YES" id="NLV-EC-LxA"/>
@@ -1729,7 +1727,6 @@
                                     <constraint firstItem="bLr-K9-cNr" firstAttribute="leading" secondItem="8YO-Bu-9o3" secondAttribute="trailing" constant="15" id="HtX-z8-P0H"/>
                                     <constraint firstAttribute="bottom" secondItem="8YO-Bu-9o3" secondAttribute="bottom" constant="20" id="MRo-lF-fFE"/>
                                     <constraint firstItem="8YO-Bu-9o3" firstAttribute="leading" secondItem="Itz-IW-kIG" secondAttribute="leading" constant="10" id="VAc-Cw-yLK"/>
-                                    <constraint firstAttribute="trailing" secondItem="bLr-K9-cNr" secondAttribute="trailing" id="Ye3-3A-UMV"/>
                                     <constraint firstItem="bLr-K9-cNr" firstAttribute="centerY" secondItem="8YO-Bu-9o3" secondAttribute="centerY" id="ufk-ju-YSw"/>
                                 </constraints>
                             </view>

@@ -106,10 +106,10 @@ extension APNforWatchVC: CBCentralManagerDelegate {
             manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
             let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"MOVETIME\" to connect to watch", preferredStyle: UIAlertControllerStyle.alert)
-            let action1 = UIAlertAction(title: "Settings", style: .default) { action in
+            let action1 = UIAlertAction(title: "Settings", style: .default) { _ in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }
-            let action2 = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let action2 = UIAlertAction(title: "Ok", style: .default)
             vc.addAction(action1)
             vc.addAction(action2)
             self.present(vc, animated: true) {
@@ -235,10 +235,8 @@ extension APNforWatchVC: UITableViewDelegate, UITableViewDataSource {
         let per = self.devices[indexPath.row]
         
         let vc = UIAlertController(title: nil, message: "Connect to \(per.name ?? "")", preferredStyle: UIAlertControllerStyle.alert)
-        let action1 = UIAlertAction(title: "Cancel", style: .default) { action in
-            
-        }
-        let action2 = UIAlertAction(title: "YES", style: .default) { action in
+        let action1 = UIAlertAction(title: "Cancel", style: .default)
+        let action2 = UIAlertAction(title: "YES", style: .default) { _ in
             self.manager?.connect(per, options: nil)
         }
         vc.addAction(action1)

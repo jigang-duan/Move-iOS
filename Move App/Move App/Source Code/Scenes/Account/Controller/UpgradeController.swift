@@ -42,7 +42,7 @@ class UpgradeController: UIViewController {
       
         self.setupUI()
         
-        self.checkNewVersion()
+        self.fetchProperty()
         
         viewModel = UpgradeViewModel(
             input: (
@@ -102,7 +102,7 @@ class UpgradeController: UIViewController {
             downloadBlur?.frame = CGRect(x: 0, y: 0, width: CGFloat(progress)/100*maxLength, height: self.downloadBun.frame.size.height)
         }else{
             if progress == 100 {
-                self.checkNewVersion()
+                self.fetchProperty()
             }
             downloadBlur?.removeFromSuperview()
         }
@@ -140,55 +140,72 @@ class UpgradeController: UIViewController {
     }
     
     
-    
-    func checkNewVersion() {
+    func fetchProperty() {
         let device = DeviceManager.shared.currentDevice!
         
-        
-        _ = DeviceManager.shared.getProperty(deviceId: device.deviceId!)
-            .subscribe(
-            onNext: {[unowned self] info in
-                DeviceManager.shared.currentDevice?.property = info
-                self.batteryLevel.text = "\(info.power ?? 0)%"
-                self.batteryImgV.image = UIImage(named: "home_ic_battery\((info.power ?? 0)/20)")
-                
-                
-                var checkInfo = DeviceVersionCheck(deviceId: device.deviceId, mode: "2", cktp: "2", curef: info.device_model, cltp: "10", type: "Firmware", fv: "")
-                var ff = ""
-                if let fv = info.firmware_version {
-                    if fv.characters.count > 2 {
-                        ff = fv.substring(from: fv.index(fv.startIndex, offsetBy: fv.characters.count - 2))
-                    }
+        let propertyResult = DeviceManager.shared.getProperty(deviceId: device.deviceId!).flatMapLatest { property -> Observable<ValidationResult> in
+            DeviceManager.shared.currentDevice?.property = property
+            self.batteryLevel.text = "\(property.power ?? 0)%"
+            self.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
+            
+            
+            var checkInfo = DeviceVersionCheck(deviceId: device.deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
+            var ff = ""
+            if let fv = property.firmware_version {
+                if fv.characters.count > 2 {
+                    ff = fv.substring(from: fv.index(fv.startIndex, offsetBy: fv.characters.count - 2))
                 }
-                checkInfo.fv = "MT30" + ff
-                
-                //TODO: for test
-                checkInfo.fv = "MT3006"
-                checkInfo.curef = "MTMSM8909W"
-                
-                _ = DeviceManager.shared.checkVersion(checkInfo: checkInfo).subscribe(
-                    onNext: { info in
-                        if info.currentVersion == info.newVersion {
-                            self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
-                            self.versionInfo.isHidden = false
-                            self.versionInfo.text = "This watch's firmware is up to date."
-                            self.tipLab.isHidden = true
-                            self.downloadBun.isHidden = true
-                        }else{
-                            self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
-                            self.versionInfo.isHidden = true
-                            self.tipLab.isHidden = true
-                            self.downloadBun.isHidden = false
-                        }
-                        self.activity.stopAnimating()
-                }, onError: { (er) in
-                    print(er)
-                    self.activity.stopAnimating()
-                }).addDisposableTo(self.disposeBag)
-        }, onError: { (er) in
-            print(er)
+            }
+            checkInfo.fv = "MT30" + ff
+            
+            //TODO: for test
+            checkInfo.fv = "MT3006"
+            checkInfo.curef = "MTMSM8909W"
+            
+            return self.checkVersion(checkInfo: checkInfo)
+        }
+        
+        propertyResult.subscribe(onNext: { result in
+            switch result {
+            case .failed(let message):
+                self.showMessage(message)
+            default:
+                break
+            }
+        }).addDisposableTo(disposeBag)
+    }
+    
+    
+    
+    func checkVersion(checkInfo: DeviceVersionCheck) -> Observable<ValidationResult> {
+        let result = DeviceManager.shared.checkVersion(checkInfo: checkInfo).map{ info -> ValidationResult in
+            if info.currentVersion == info.newVersion {
+                self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
+                self.versionInfo.isHidden = false
+                self.versionInfo.text = "This watch's firmware is up to date."
+                self.tipLab.isHidden = true
+                self.downloadBun.isHidden = true
+            }else{
+                self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
+                self.versionInfo.isHidden = true
+                self.tipLab.isHidden = true
+                self.downloadBun.isHidden = false
+            }
+            self.activity.stopAnimating()
+            return ValidationResult.ok(message: "Download Begin")
+        }
+        
+        
+        result.subscribe(onNext: { result in
+            switch result {
+            case .failed(let message):
+                self.showMessage(message)
+            default:
+                break
+            }
         }).addDisposableTo(disposeBag)
         
+        return result
     }
     
     
