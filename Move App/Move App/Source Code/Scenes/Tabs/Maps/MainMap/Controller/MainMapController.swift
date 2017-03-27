@@ -186,11 +186,10 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-
-        let storyboard = UIStoryboard(name: "Chat", bundle: nil)
-        let chatViewController = storyboard.instantiateViewController(withIdentifier: "ChatViewController") as? ChatViewController
         
-        self.navigationController?.pushViewController(chatViewController!, animated: true)
+        if let chatController = R.storyboard.social.chat() {
+            self.navigationController?.show(chatController, sender: nil)
+        }
     }
     
     

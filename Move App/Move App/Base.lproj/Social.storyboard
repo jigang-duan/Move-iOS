@@ -179,7 +179,7 @@
         <!--Chat Controller-->
         <scene sceneID="e3F-7s-neS">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="MI2-UT-FjQ" customClass="ChatController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chat" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MI2-UT-FjQ" customClass="ChatController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zt3-fT-1df"/>
                         <viewControllerLayoutGuide type="bottom" id="PzN-M2-04Z"/>
