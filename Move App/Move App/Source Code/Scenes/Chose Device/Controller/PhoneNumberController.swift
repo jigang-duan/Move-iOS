@@ -15,10 +15,17 @@ class PhoneNumberController: UIViewController {
     @IBOutlet weak var phoneTf: UITextField!
     @IBOutlet weak var nextBun: UIButton!
    
+    @IBOutlet weak var phonePrefix: UILabel!
+    @IBOutlet weak var validate: UILabel!
+    
+    
     var disposeBag = DisposeBag()
     var viewModel: PhoneNumberViewModel!
     
     var deviceAddInfo: DeviceBindInfo?
+    
+    var isForCheckNumber = false
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,6 +35,9 @@ class PhoneNumberController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if isForCheckNumber {
+            return
+        }
         viewModel.phoneInvalidte.drive(onNext: { result in
             switch result{
             case .failed(let message):
@@ -46,29 +56,25 @@ class PhoneNumberController: UIViewController {
     }
     
     func showValidateError(_ text: String) {
-        
-        //        emailValidation.isHidden = false
-        //        emailValidation.alpha = 0.0
-        //        emailValidation.text = text
-        //        UIView.animate(withDuration: 0.6) { [weak self] in
-        //            self?.emailValidation.textColor = ValidationColors.errorColor
-        //            self?.emailValidation.alpha = 1.0
-        //            self?.view.layoutIfNeeded()
-        //        }
-        phoneTf.placeholder = text
+        validate.isHidden = false
+        validate.alpha = 0.0
+        validate.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validate.textColor = ValidationColors.errorColor
+            self?.validate.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
     }
     
     func revertValidateError() {
-        //        emailValidation.isHidden = true
-        //        emailValidation.alpha = 1.0
-        //        emailValidation.text = ""
-        //        UIView.animate(withDuration: 0.6) { [weak self] in
-        //            self?.emailValidation.textColor = ValidationColors.okColor
-        //            self?.emailValidation.alpha = 0.0
-        //            self?.view.layoutIfNeeded()
-        //        }
-        
-        phoneTf.placeholder = "please input phoneNumber"
+        validate.isHidden = true
+        validate.alpha = 1.0
+        validate.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validate.textColor = ValidationColors.okColor
+            self?.validate.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
     }
     
     
@@ -82,20 +88,35 @@ class PhoneNumberController: UIViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        validate.isHidden = true
         
+        if isForCheckNumber {
+            var phone = (deviceAddInfo?.phone)!
+            phone = phone.substring(to: phone.index(phone.endIndex, offsetBy: -4))
+            phonePrefix.text = phone
+            
+            phoneTf.placeholder = "****"
+            
+            validate.isHidden = false
+            validate.textColor = UIColor.white
+            validate.text = "Please input the last 4 number to verify"
+        }
         
         
         viewModel = PhoneNumberViewModel(
             input:(
+                forCheckNumber: isForCheckNumber,
                 phone: phoneTf.rx.text.orEmpty.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver()
             ),
             dependency: (
-                userManager: UserManager.shared,
+                deviceManager: DeviceManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        
+        viewModel.info = deviceAddInfo
         
         
         viewModel.nextEnabled
@@ -107,13 +128,17 @@ class PhoneNumberController: UIViewController {
         
         
         
-        viewModel.nextResult
+        viewModel.nextResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
                 case .ok(let message):
-                    self.gotoRelationVC(message)
+                    if self.isForCheckNumber {
+                        _ = self.navigationController?.popToRootViewController(animated: true)
+                    }else{
+                        self.gotoRelationVC(message)
+                    }
                 default:
                     self.revertValidateError()
                 }

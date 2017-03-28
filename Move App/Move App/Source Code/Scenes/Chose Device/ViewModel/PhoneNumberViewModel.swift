@@ -18,23 +18,31 @@ class PhoneNumberViewModel {
     let sending: Driver<Bool>
     
     let nextEnabled: Driver<Bool>
-    let nextResult: Driver<ValidationResult>
+    var nextResult: Driver<ValidationResult>?
     
+    var info: DeviceBindInfo?
+    
+    var phoneSuffix: String? {
+        get{
+            return info?.phone?.substring(from: (info?.phone?.index((info?.phone?.endIndex)!, offsetBy: -4))!)
+        }
+    }
     
     init(
         input: (
+        forCheckNumber: Bool,
         phone: Driver<String>,
         nextTaps: Driver<Void>
         ),
         dependency: (
-        userManager: UserManager,
+        deviceManager: DeviceManager,
         validation: DefaultValidation,
         wireframe: Wireframe
         )
         ) {
         
-        _ = dependency.userManager
-        _ = dependency.validation
+        let deviceManager = dependency.deviceManager
+        let validation = dependency.validation
         _ = dependency.wireframe
         
 //        let activity = ActivityIndicator()
@@ -42,10 +50,7 @@ class PhoneNumberViewModel {
         
         
         phoneInvalidte = input.phone.map { phone in
-                if phone.characters.count > 0{
-                    return ValidationResult.ok(message: "")
-                }
-                return ValidationResult.empty
+            return validation.validatePhone(phone)
         }
         
         
@@ -57,11 +62,26 @@ class PhoneNumberViewModel {
             .distinctUntilChanged()
         
         
-        nextResult = input.nextTaps
-            .map({ _ in
-                return ValidationResult.ok(message: "Send Success.")
-            })
-            .asDriver(onErrorRecover: pwdRecoveryErrorRecover)
+        
+        if input.forCheckNumber == true {
+            nextResult = input.nextTaps.withLatestFrom(input.phone)
+                .flatMapLatest({ phone in
+                    if phone != self.phoneSuffix {
+                        return Driver.just(ValidationResult.failed(message: "PhoneNumber incorrect"))
+                    }
+                    
+                    return deviceManager.joinGroup(joinInfo: self.info!).map({_ in
+                        return ValidationResult.ok(message: "Send Success.")
+                    }).asDriver(onErrorRecover: pwdRecoveryErrorRecover)
+                })
+        }else{
+            nextResult = input.nextTaps
+                .flatMapLatest({ _ in
+                    return  Driver.just(ValidationResult.ok(message: "Send Success."))
+                })
+        }
+        
+        
         
     }
     

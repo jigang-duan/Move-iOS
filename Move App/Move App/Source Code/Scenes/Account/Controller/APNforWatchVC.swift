@@ -13,6 +13,7 @@ import ObjectMapper
 
 class APNforWatchVC: UIViewController {
     
+    static let ApnDoneNotification = "ApnDoneNotification"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,6 +28,17 @@ class APNforWatchVC: UIViewController {
     fileprivate let apnCharacteristic = "00009998-0000-1000-8000-00805f9b34fb"
     fileprivate let maxWriteLength = 20
    
+    
+    var willWriteData: Data?
+    var writeIndex = 0
+    
+    
+    enum ApnSettingResult {
+        case sending
+        case error
+        case done
+    }
+    
     
     struct APNData {
         var plmn: String?
@@ -57,11 +69,28 @@ class APNforWatchVC: UIViewController {
         if let vc = R.segue.aPNforWatchVC.showAPNSetting(segue: segue)?.destination {
             vc.settingDataBlock = { data in
                 if let d = data {
-                    self.currentPeripheral?.writeValue(d, for: self.currentCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+                    self.willWriteData = d
+                    self.writeIndex = 0
+                    self.writeApnData()
                 }
             }
         }
     }
+    
+    
+    func writeApnData() {
+        var tempData: Data!
+        
+        if writeIndex + 20 > (willWriteData?.count)! {
+            tempData = willWriteData?.subdata(in: Range(uncheckedBounds: (lower: writeIndex, upper: (willWriteData?.count)!)))
+            writeIndex = (willWriteData?.count)!
+        }else{
+            tempData = willWriteData?.subdata(in: Range(uncheckedBounds: (lower: writeIndex, upper: writeIndex + 20)))
+            writeIndex += 20
+        }
+        self.currentPeripheral?.writeValue(tempData, for: self.currentCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+    }
+    
     
     
     
@@ -192,8 +221,16 @@ extension APNforWatchVC: CBPeripheralDelegate {
         if error != nil {
             print(error.debugDescription)
             print("发送数据失败")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.error)
         }else{
             print("发送数据成功")
+            if writeIndex == willWriteData?.count {
+                writeIndex = 0
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.done)
+            }else{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sending)
+                self.writeApnData()
+            }
         }
         
         /* When a write occurs, need to set off a re-read of the local CBCharacteristic to update its value */

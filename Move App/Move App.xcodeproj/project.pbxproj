@@ -286,6 +286,7 @@
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
 		FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
+		FF9CA49F1E88DC1000645999 /* CRC16Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CA49E1E88DC1000645999 /* CRC16Tool.swift */; };
 		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
 		FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */; };
 		FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */; };
@@ -646,6 +647,7 @@
 		FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageUtility.swift; path = Shared/Common/Utils/ImageUtility.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
+		FF9CA49E1E88DC1000645999 /* CRC16Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRC16Tool.swift; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
 		FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailController.swift; sourceTree = "<group>"; };
 		FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddController.swift; sourceTree = "<group>"; };
@@ -1639,6 +1641,7 @@
 				D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */,
 				FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */,
 				FFF2E8EB1E8272020082FEB7 /* APNSettingVC.swift */,
+				FF9CA49E1E88DC1000645999 /* CRC16Tool.swift */,
 				FF1011801E80E2B40038DBE9 /* UnpairTipVC.swift */,
 				FFE84D931E7021F2006B80AE /* UpgradeController.swift */,
 				FFB543AE1E7175C400E11F5A /* MeLogoutController.swift */,
@@ -2429,6 +2432,7 @@
 				112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
+				FF9CA49F1E88DC1000645999 /* CRC16Tool.swift in Sources */,
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				118BA8611E7B8525003C3C13 /* OAuthWebController.swift in Sources */,

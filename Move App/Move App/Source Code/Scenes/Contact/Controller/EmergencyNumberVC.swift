@@ -56,7 +56,7 @@ class EmergencyNumberVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberTf.isHidden = true
+        validate.isHidden = true
         
         viewModel = EmergencyNumberViewModel(
             input: (

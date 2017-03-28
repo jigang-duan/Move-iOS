@@ -270,25 +270,17 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
         }
         
         //绑定普通用户
+        let vc = R.storyboard.main.phoneNumberController()!
+        vc.deviceAddInfo = info
+        
         if info.phone == nil
             || info.phone?.characters.count  == 0
             || info.identity == nil {
-            let vc = R.storyboard.main.phoneNumberController()!
-            vc.deviceAddInfo = info
-            self.navigationController?.show(vc, sender: nil)
+            vc.isForCheckNumber = false
         }else{
-            _ = DeviceManager.shared.joinGroup(joinInfo: info).subscribe({ (event) in
-                switch event{
-                case .next(let value):
-                    print(value)
-                case .completed:
-                    _ = self.navigationController?.popToRootViewController(animated: true)
-                case .error(let error):
-                    print(error)
-                    self.showMessage(error.localizedDescription)
-                }
-            })
+            vc.isForCheckNumber = true
         }
+        self.navigationController?.show(vc, sender: nil)
 
     }
  

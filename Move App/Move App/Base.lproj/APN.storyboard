@@ -152,7 +152,7 @@
                             <tableViewSection headerTitle="PLMN" id="hfE-EU-fNw">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xcb-30-OGj">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xcb-30-OGj" id="aQk-oy-DAu">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -178,7 +178,7 @@
                             <tableViewSection headerTitle="APN" id="Yco-d4-7qx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gmi-Gp-RaQ">
-                                        <rect key="frame" x="0.0" y="138.33333333333334" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="138.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gmi-Gp-RaQ" id="fDD-z4-h4A">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -204,7 +204,7 @@
                             <tableViewSection headerTitle="SPN" id="vj9-au-Jbs">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XR8-Wt-Ee5">
-                                        <rect key="frame" x="0.0" y="221.33333333333334" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="221.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XR8-Wt-Ee5" id="6CJ-4L-bCZ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -230,7 +230,7 @@
                             <tableViewSection headerTitle="User" id="Md8-D7-oKD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="83L-Th-5I2">
-                                        <rect key="frame" x="0.0" y="304.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="304.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83L-Th-5I2" id="I2W-fb-8zh">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -256,7 +256,7 @@
                             <tableViewSection headerTitle="Password" id="uHE-3O-04L">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="kDS-4C-ln4">
-                                        <rect key="frame" x="0.0" y="387.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="387.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kDS-4C-ln4" id="sbb-Bn-k7a">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -282,7 +282,7 @@
                             <tableViewSection headerTitle="Proxy Address" id="B7m-zX-w0s">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Gke-yq-nrv">
-                                        <rect key="frame" x="0.0" y="470.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="470.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gke-yq-nrv" id="Z6b-Gu-kxH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -308,7 +308,7 @@
                             <tableViewSection headerTitle="Proxy port" id="ewL-YD-SFN">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="G5y-gq-IcM">
-                                        <rect key="frame" x="0.0" y="553.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="553.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G5y-gq-IcM" id="Nzl-hf-DC7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -334,7 +334,7 @@
                             <tableViewSection headerTitle="Authentication type" id="Nma-3t-z67">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yCd-ZJ-c1A">
-                                        <rect key="frame" x="0.0" y="636.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="636.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yCd-ZJ-c1A" id="p0g-hL-00E">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -369,12 +369,17 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Set APN" id="w3A-0m-2pv">
                         <barButtonItem key="backBarButtonItem" title="   " id="U3e-ih-1uq"/>
-                        <barButtonItem key="rightBarButtonItem" title="OK" id="6yw-2w-ysp"/>
+                        <barButtonItem key="rightBarButtonItem" title="OK" id="6yw-2w-ysp">
+                            <connections>
+                                <action selector="sendAPNSettings:" destination="qHN-Z1-t3R" id="DIl-HI-ytj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="apnTf" destination="cyG-0c-1GF" id="3hR-4z-JUm"/>
                         <outlet property="authSegment" destination="cJ0-Oq-TR9" id="a6G-hX-aCP"/>
+                        <outlet property="okBun" destination="6yw-2w-ysp" id="4rh-Hf-MQh"/>
                         <outlet property="passwordTf" destination="EQb-CK-jdy" id="lrS-d7-kUA"/>
                         <outlet property="plmnTf" destination="6tg-yh-COr" id="M88-uU-CjT"/>
                         <outlet property="proxyAddTf" destination="pBP-1E-emx" id="Aa2-nq-wRI"/>
