@@ -163,8 +163,8 @@ int EncodeWAVEFileToAMRFile(const char* pchWAVEFilename, const char* pchAMRFileN
 	bytes = fwrite(AMR_MAGIC_NUMBER, sizeof(char), strlen(AMR_MAGIC_NUMBER), fpamr);
 	
 	/* skip to pcm audio data*/
-	// SkipToPCMAudioData(fpwave);
-    skipCafFileHeader(fpwave);
+	SkipToPCMAudioData(fpwave);
+    //skipCafFileHeader(fpwave);
 	
 	enstate = Encoder_Interface_init(dtx);
 	

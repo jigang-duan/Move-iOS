@@ -56,10 +56,26 @@ extension IMManager {
     
     
     func sendChatEmoji(_ emoji: ImEmoji) -> Observable<ImEmoji> {
-        return sendChatMessage(message: MoveIM.ImMessage(meoji: emoji) )
-            .map({ $0.msg_id })
+        return sendChatMessage(message: MoveIM.ImMessage(meoji: emoji))
+            .map { $0.msg_id }
             .filterNil()
-            .map({ ImEmoji(msg_id: $0, from: emoji.from, to: emoji.to, gid: emoji.gid, content: emoji.content, ctime: emoji.ctime) })
+            .map { ImEmoji(msg_id: $0, from: emoji.from, to: emoji.to, gid: emoji.gid, ctime: emoji.ctime, content: emoji.content) }
+    }
+    
+    func sendChatVoice(_ voice: ImVoice) -> Observable<ImVoice> {
+        return sendChatMessage(message: MoveIM.ImMessage(voice: voice))
+            .map { $0.msg_id }
+            .filterNil()
+            .map { ImVoice(msg_id: $0,
+                           from: voice.from,
+                           to: voice.to,
+                           gid: voice.gid,
+                           ctime: voice.ctime,
+                           fid: voice.fid,
+                           readStatus: voice.readStatus,
+                           duration: voice.duration,
+                           locationURL: voice.locationURL) }
+        
     }
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
@@ -117,13 +133,27 @@ struct ImEmoji {
     var from: String?
     var to: String?
     var gid: String?
-    var content: EmojiType?
     var ctime: Date?
+    
+    var content: EmojiType?
+}
+
+struct ImVoice {
+    var msg_id: String?
+    var from: String?
+    var to: String?
+    var gid: String?
+    var ctime: Date?
+    
+    var fid: String?
+    var readStatus: Int?
+    var duration: Int?
+    
+    var locationURL: URL?
 }
 
 
 fileprivate extension MoveIM.ImMessage {
-
     init(meoji: ImEmoji) {
         self.init()
         self.type = 1
@@ -134,6 +164,20 @@ fileprivate extension MoveIM.ImMessage {
         self.content_type = 1
         self.content_status = 0
         self.ctime = meoji.ctime
+    }
+}
+
+fileprivate extension MoveIM.ImMessage {
+    init(voice: ImVoice) {
+        self.init()
+        self.type = 1
+        self.from = voice.from
+        self.to = voice.to
+        self.gid = voice.gid
+        self.content = voice.fid
+        self.content_type = 3
+        self.content_status = voice.readStatus
+        self.ctime = voice.ctime
     }
 }
 

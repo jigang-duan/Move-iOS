@@ -140,6 +140,7 @@ class UUMessageCell: UITableViewCell {
                 self.btnContent.voiceBackView.isHidden = false
                 self.btnContent.second.text = String(format: "%d's Voice", message.content.voice?.second ?? 0)
                 voiceURL = message.content.voice?.url
+                
             case .emoji:
                 if
                     let emoji = message.content.emoji,
@@ -229,7 +230,18 @@ class UUMessageCell: UITableViewCell {
                 if let data = self.songData {
                     self.audio?.play(songData: data)
                 } else if let url = self.voiceURL {
-                    self.audio?.play(voiceURL: url)
+                    if url.isFileURL {
+                        self.audio?.play(voiceURL: url)
+                    } else {
+                        self.UUAVAudioPlayerBeiginLoadVoice()
+                        FSManager.shared.fetchVoice(fromURL: url) {
+                            if let data = $0 {
+                                self.audio?.play(songData: data)
+                            } else {
+                                self.UUAVAudioPlayerFault()
+                            }
+                        }
+                    }
                 }
             } else {
                 self.UUAVAudioPlayerDidFinishPlay()
@@ -293,8 +305,16 @@ extension UUMessageCell: UUAVAudioPlayerDelegate {
     func UUAVAudioPlayerDidFinishPlay() {
         // 关闭红外线感应
         UIDevice.current.isProximityMonitoringEnabled = false
-        contentVoiceIsPlaying = true
         self.btnContent.stopPlay()
         UUAVAudioPlayer.shared.stop()
+        contentVoiceIsPlaying = false
+    }
+    
+    func UUAVAudioPlayerFault() {
+        // 关闭红外线感应
+        UIDevice.current.isProximityMonitoringEnabled = false
+        self.btnContent.stopPlay()
+        UUAVAudioPlayer.shared.stop()
+        contentVoiceIsPlaying = false
     }
 }

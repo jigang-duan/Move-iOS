@@ -68,20 +68,35 @@ class FamilyChatController: UIViewController {
             })
             .addDisposableTo(bag)
         
-        
         ifView.rx.sendEmoji.asDriver()
             .map({ EmojiType(rawValue: $0) })
             .filterNil()
             .flatMapLatest({
-                IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, content: $0, ctime: Date()))
+                IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), content: $0))
                     .asDriver(onErrorJustReturn: ImEmoji())
             })
-            .filter({ $0.msg_id != nil  })
+            .filter({ $0.msg_id != nil })
             .drive(onNext: {
                 self.messageFramesVariable.value.append(UUMessageFrame(imEmoji: $0, user: Me.shared.user))
             })
             .addDisposableTo(bag)
         
+        ifView.rx.sendVoice.asObservable()
+            .flatMapFirst({ (url, duration) in
+                FSManager.shared.uploadVoice(with: try Data(contentsOf: url), duration: duration)
+                    .errorOnEmpty()
+                    .map({ ($0,duration,url) })
+            })
+            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), fid: $0, readStatus: 0, duration: $1, locationURL: $2) }
+            .flatMapLatest({
+                IMManager.shared.sendChatVoice($0).catchErrorJustReturn(ImVoice())
+            })
+            .filter({ $0.msg_id != nil })
+            .bindNext({
+                self.messageFramesVariable.value.append(UUMessageFrame(imVoice: $0, user: Me.shared.user))
+            })
+            .addDisposableTo(bag)
+
     }
     
     
@@ -100,16 +115,35 @@ extension FamilyChatController: UITableViewDelegate {
     }
     
     fileprivate func tableViewScrollToBottom() {
-        guard tableView.visibleCells.count > 0 else {
+        guard messageFramesVariable.value.count > 0 else {
             return
         }
-        let indexPath = IndexPath(row: tableView.visibleCells.count - 1, section: 0)
+        let indexPath = IndexPath(row: messageFramesVariable.value.count - 1, section: 0)
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 }
 
 
 extension UUMessageFrame {
+    
+    init(imVoice: ImVoice, user: UserInfo) {
+        var content = UUMessage.Content()
+        let voice = UUMessage.Voice()
+        content.voice = voice
+        if let fileUrl = imVoice.locationURL {
+            content.voice?.data = try? Data(contentsOf: fileUrl)
+        }
+        let message = UUMessage(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
+                                msgId: imVoice.msg_id ?? "",
+                                time: imVoice.ctime ?? Date(),
+                                name: user.profile?.nickname ?? "",
+                                content: content,
+                                state: .unread,
+                                type: .voice,
+                                from: .me,
+                                showDateLabel: true)
+        self.init(message: message)
+    }
     
     init(imEmoji: ImEmoji, user: UserInfo) {
         var content = UUMessage.Content()

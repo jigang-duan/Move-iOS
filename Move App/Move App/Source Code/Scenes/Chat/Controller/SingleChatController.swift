@@ -67,17 +67,32 @@ class SingleChatController: UIViewController {
             })
             .addDisposableTo(bag)
         
-        
         ifView.rx.sendEmoji.asDriver()
             .map({ EmojiType(rawValue: $0) })
             .filterNil()
             .flatMapLatest({
-                IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: "", content: $0, ctime: Date()))
+                IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: "", ctime: Date(), content: $0))
                     .asDriver(onErrorJustReturn: ImEmoji())
             })
             .filter({ $0.msg_id != nil  })
             .drive(onNext: {
                 self.messageFramesVariable.value.append(UUMessageFrame(imEmoji: $0, user: Me.shared.user))
+            })
+            .addDisposableTo(bag)
+        
+        ifView.rx.sendVoice.asObservable()
+            .flatMapFirst({ (url, duration) in
+                FSManager.shared.uploadVoice(with: try Data(contentsOf: url), duration: duration)
+                    .errorOnEmpty()
+                    .map({ ($0,duration,url) })
+            })
+            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: "", ctime: Date(), fid: $0, readStatus: 0, duration: $1, locationURL: $2) }
+            .flatMapLatest({
+                IMManager.shared.sendChatVoice($0).catchErrorJustReturn(ImVoice())
+            })
+            .filter({ $0.msg_id != nil })
+            .bindNext({
+                self.messageFramesVariable.value.append(UUMessageFrame(imVoice: $0, user: Me.shared.user))
             })
             .addDisposableTo(bag)
     }

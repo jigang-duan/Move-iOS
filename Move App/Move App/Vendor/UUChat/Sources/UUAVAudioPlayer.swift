@@ -15,6 +15,7 @@ protocol UUAVAudioPlayerDelegate {
     @objc optional func UUAVAudioPlayerBeiginLoadVoice()
     @objc optional func UUAVAudioPlayerBeiginPlay()
     @objc optional func UUAVAudioPlayerDidFinishPlay()
+    @objc optional func UUAVAudioPlayerFault()
 }
 
 class UUAVAudioPlayer: NSObject {
@@ -43,6 +44,8 @@ class UUAVAudioPlayer: NSObject {
                 DispatchQueue.main.async {
                     self.play(songData: data)
                 }
+            } else {
+                self.delegate?.UUAVAudioPlayerFault?()
             }
         }
     }

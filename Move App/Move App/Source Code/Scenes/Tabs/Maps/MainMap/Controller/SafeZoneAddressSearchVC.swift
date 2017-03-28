@@ -124,7 +124,7 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
         if (self.delegate != nil) {
             self.delegate?.Searchback(item: item)
         }
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 

@@ -19,8 +19,8 @@
 @protocol AmrRecorderDelegate <NSObject>
 - (void)failRecord;
 - (void)beginConvert;
-- (void)endConvertWithData:(NSData *)voiceData;
-- (void)endCafConvertWithURL:(NSURL *)voiceURL;
+- (void)endAmrConvertOfFile:(NSString *)amrPath;
+- (void)endWavConvertOfFile:(NSString *)wavPath;
 
 @end
 

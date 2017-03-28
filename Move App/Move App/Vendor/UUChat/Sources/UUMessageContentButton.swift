@@ -16,6 +16,7 @@ class UUMessageContentButton: UIButton {
         $.layer.cornerRadius = 5
         $.layer.masksToBounds = true
         $.contentMode = .scaleAspectFill
+        $.isUserInteractionEnabled = false
         return $
     }()
     
@@ -23,6 +24,7 @@ class UUMessageContentButton: UIButton {
     lazy var voiceBackView: UIView = {
         let $ = UIView()
         $.backgroundColor = UIColor.clear
+        $.isUserInteractionEnabled = false
         return $
     }()
     
@@ -31,6 +33,7 @@ class UUMessageContentButton: UIButton {
         $.textAlignment = .center
         $.font = UIFont.systemFont(ofSize: 14)
         $.backgroundColor = UIColor.clear
+        $.isUserInteractionEnabled = false
         return $
     }()
     
@@ -52,6 +55,7 @@ class UUMessageContentButton: UIButton {
     lazy var indicator: UIActivityIndicatorView = {
         let $ = UIActivityIndicatorView(activityIndicatorStyle: .white)
         $.center = CGPoint(x: 85, y: 15)
+        $.isUserInteractionEnabled = false
         return $
     }()
     
@@ -96,6 +100,7 @@ class UUMessageContentButton: UIButton {
     }
     
     func didLaodVoice()  {
+        self.voice.isHidden = false
         self.indicator.stopAnimating()
         self.voice.startAnimating()
     }

@@ -28,7 +28,14 @@ extension Reactive where Base: UUInputView {
         return ControlEvent(events: source)
     }
     
-    
+    var sendVoice: ControlEvent<(URL,Int)> {
+        let source = delegate
+            .methodInvoked(#selector(UUInputViewDelegate.UUInputView(_:sendURLForVoice:duration:)))
+            .map {
+                return (try castOrThrow(URL.self, $0[1]), try castOrThrow(Int.self, $0[2]))
+        }
+        return ControlEvent(events: source)
+    }
 }
 
 

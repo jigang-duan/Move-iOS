@@ -91,9 +91,9 @@ struct UUMessageFrame {
         case .video:
             contenSize = CGSize(width: 120, height: 60)
         case .voice:
-            contenSize = CGSize(width: 60, height: 20)
+            contenSize = CGSize(width: 96, height: 20)
         case .emoji:
-            contenSize = CGSize(width: 48, height: 48)
+            contenSize = CGSize(width: 36, height: 36)
         }
         if message.from == .me {
             contentX = iconX - contenSize.width - ChatContentLeft - ChatContentRight - ChatMargin

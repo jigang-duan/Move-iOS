@@ -8,7 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "AmrRecorder.h"
-#import "amrFileCodec.h"
+#import "VoiceConverter.h"
 
 
 @interface AmrRecorder()<AVAudioRecorderDelegate>
@@ -35,21 +35,10 @@
 {
     _recorder = nil;
     NSError *recorderSetupError = nil;
-    NSURL *url = [NSURL fileURLWithPath:[self cafPath]];
-    
-    NSMutableDictionary *settings = [[NSMutableDictionary alloc] init];
-    //录音格式 无法使用
-    [settings setValue:[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey:AVFormatIDKey];
-    //采样率
-    [settings setValue:[NSNumber numberWithFloat:8000.0] forKey:AVSampleRateKey];      //11025.0
-    //通道数
-    [settings setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-    //音频质量,采样质量
-    [settings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
-    
-    _recorder = [[AVAudioRecorder alloc] initWithURL:url
-                                            settings:settings
-                                               error:&recorderSetupError];
+    NSURL *url = [NSURL fileURLWithPath:[self wavPath]];
+    _recorder = [[AVAudioRecorder alloc] initWithURL: url
+                                            settings: VoiceConverter.GetAudioRecorderSettingDict
+                                               error: &recorderSetupError];
     if (recorderSetupError) {
         NSLog(@"%@", recorderSetupError);
     }
@@ -109,7 +98,7 @@
 #pragma mark - Convert Utils
 - (void)audio_PCM2AMR
 {
-    NSString *cafFilePath = [self cafPath];
+    NSString *wavFilePath = [self wavPath];
     NSString *amrFilePath = [self amrPath];
     
     // 删除旧的amr文件
@@ -121,35 +110,33 @@
     }
     
     @try {
-        EncodeWAVEFileToAMRFile([cafFilePath cStringUsingEncoding:NSASCIIStringEncoding], [amrFilePath cStringUsingEncoding:NSASCIIStringEncoding], 2, 16);
-        
+        [VoiceConverter ConvertWavToAmr:wavFilePath amrSavePath:amrFilePath];
     } @catch (NSException *exception) {
         NSLog(@"%@", [exception description]);
     } @finally {
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
     }
     
-    [self deleteCafCache];
+    [self deleteWavCache];
     NSLog(@"Amr转换结束");
-    if (_delegate && [_delegate respondsToSelector:@selector(endConvertWithData:)]) {
-        NSData *voiceData = [NSData dataWithContentsOfFile:[self amrPath]];
-        [_delegate endConvertWithData:voiceData];
+    if (_delegate && [_delegate respondsToSelector:@selector(endAmrConvertOfFile:)]) {
+        [_delegate endAmrConvertOfFile:[self amrPath]];
     }
     
 }
 
 
 #pragma mark - Path Utils
-- (NSString *)cafPath
+- (NSString *)wavPath
 {
-    NSString *cafPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.caf"];
-    return cafPath;
+    NSString *wavPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.wav"];
+    return wavPath;
 }
 
 - (NSString *)amrPath
 {
-    NSString *mp3Path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"amr.caf"];
-    return mp3Path;
+    NSString *armPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"amr.wav"];
+    return armPath;
 }
 
 - (void)deleteAmrCache
@@ -157,9 +144,9 @@
     [self deleteFileWithPath:[self amrPath]];
 }
 
-- (void)deleteCafCache
+- (void)deleteWavCache
 {
-    [self deleteFileWithPath:[self cafPath]];
+    [self deleteFileWithPath:[self wavPath]];
 }
 
 - (void)deleteFileWithPath:(NSString *)path

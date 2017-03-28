@@ -11,7 +11,6 @@ import UIKit
 @objc
 protocol UUInputViewDelegate {
     @objc optional func UUInputView(_ inputView: UUInputView, sendEmoji emoji: String)
-    @objc optional func UUInputView(_ inputView: UUInputView, sendVoice voice: Data, time second: Int)
     @objc optional func UUInputView(_ inputView: UUInputView, sendURLForVoice URLForVoice: URL, duration second: Int)
 }
 
@@ -161,9 +160,9 @@ extension UUInputView: AmrRecorderDelegate {
     }
     
     //回调录音资料
-    func endConvert(with voiceData: Data!) {
-        
-        self.delegate?.UUInputView?(self, sendVoice: voiceData, time: _playTime + 1)
+    func endAmrConvert(ofFile amrPath: String!) {
+        let voiceURL = URL(fileURLWithPath: amrPath)
+        self.delegate?.UUInputView?(self, sendURLForVoice: voiceURL, duration: _playTime + 1)
         UUProgressHUD.dismiss(withSuccess: "Success")
         
         //缓冲消失时间 (最好有block回调消失完成)
@@ -173,17 +172,7 @@ extension UUInputView: AmrRecorderDelegate {
         })
     }
     
-    func endCafConvert(with voiceURL: URL!) {
-        
-        self.delegate?.UUInputView?(self, sendURLForVoice: voiceURL, duration: _playTime + 1)
-        UUProgressHUD.dismiss(withSuccess: "Success")
-        
-        //缓冲消失时间 (最好有block回调消失完成)
-        self.btnVoiceRecord.isEnabled = false
-        DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime(timespec: timespec(tv_sec: 0, tv_nsec: Int(NSEC_PER_SEC))), execute: {
-            self.btnVoiceRecord.isEnabled = true
-        })
-        
+    func endWavConvert(ofFile wavPath: String!) {
     }
 }
 
