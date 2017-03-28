@@ -56,7 +56,7 @@ class RelationshipTableController: UITableViewController {
         if indexPath.row < 10 {
             deviceAddInfo?.identity = Relation(input: String(indexPath.row + 1))
         }else{
-           deviceAddInfo?.identity = Relation(input: "Other")
+            deviceAddInfo?.identity = Relation(input: "Other")
         }
         
         

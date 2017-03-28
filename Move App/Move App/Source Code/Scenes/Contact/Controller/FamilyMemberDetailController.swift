@@ -68,13 +68,19 @@ class FamilyMemberDetailController: UIViewController {
         
         contactInfo.value = (info?.contactInfo)!
         
+        let name = nameTf.rx.text.orEmpty.asDriver()
+        let nameText = nameTf.rx.observe(String.self, "text").filterNil()
+        let combineName = Driver.of(nameText.asDriver(onErrorJustReturn: ""), name).merge()
+        
+        let number = numberTf.rx.text.orEmpty.asDriver()
+        let numberText = numberTf.rx.observe(String.self, "text").filterNil()
+        let combineNumber = Driver.of(numberText.asDriver(onErrorJustReturn: ""), number).merge()
+        
         viewModel = FamilyMemberDetailViewModel(input:
             (
              photo: photoVariable,
-             nameText: nameTf.rx.observe(String.self, "text"),
-             name: nameTf.rx.text.orEmpty.asDriver(),
-             numberText: numberTf.rx.observe(String.self, "text"),
-             number: numberTf.rx.text.orEmpty.asDriver(),
+             name: combineName,
+             number: combineNumber,
              masterTaps: masterBun.rx.tap.asDriver(),
              deleteTaps: deleteBun.rx.tap.asDriver(),
              saveTaps: saveBun.rx.tap.asDriver()
@@ -188,8 +194,13 @@ class FamilyMemberDetailController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            self?.viewModel.contactInfo?.value.identity = Relation(input: String(relation + 1))
-            self?.nameTf.text =  self?.viewModel.contactInfo?.value.identity?.description
+            if relation == 10 {
+                self?.nameTf.text = "Other"
+                self?.viewModel.contactInfo?.value.identity = Relation(input: "Other")
+            }else{
+                self?.viewModel.contactInfo?.value.identity = Relation(input: String(relation + 1))
+                self?.nameTf.text =  self?.viewModel.contactInfo?.value.identity?.description
+            }
         }
         self.navigationController?.show(vc, sender: nil)
     }

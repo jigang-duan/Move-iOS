@@ -80,18 +80,18 @@ class FamilyMemberAddController: UIViewController {
         
         viewModel = FamilyMemberAddViewModel(
             input:(
-                photo: photoVariable,
                 name: combineName,
                 number: combineNumber,
                 saveTaps: saveBun.rx.tap.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
             ),
             dependency: (
-                deviceManager: DeviceManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        
+        viewModel.photo = photoVariable
         
         viewModel.saveEnabled
             .drive(onNext: { [weak self] valid in
@@ -162,7 +162,11 @@ class FamilyMemberAddController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            self?.nameTf.text =  Relation(input: String(relation + 1))?.description
+            if relation == 10 {
+                self?.nameTf.text = "Other"
+            }else{
+                self?.nameTf.text = Relation(input: String(relation + 1))?.description
+            }
         }
         self.navigationController?.show(vc, sender: nil)
     }

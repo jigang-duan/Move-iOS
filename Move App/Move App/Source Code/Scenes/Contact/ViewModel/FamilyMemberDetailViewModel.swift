@@ -28,9 +28,7 @@ class FamilyMemberDetailViewModel {
     init(
         input:(
         photo: Variable<UIImage?>,
-        nameText: Observable<String?>,
         name: Driver<String>,
-        numberText: Observable<String?>,
         number: Driver<String>,
         masterTaps: Driver<Void>,
         deleteTaps: Driver<Void>,
@@ -44,48 +42,22 @@ class FamilyMemberDetailViewModel {
         ) {
         
         let deviceManager = dependency.deviceManager
-        _ = dependency.validation
+        let validation = dependency.validation
         _ = dependency.wireframe
         
-        let nameTextObserver = input.nameText.map{name -> ValidationResult in
-            self.contactInfo?.value.identity = Relation(input: name ?? "")
-            if let n = name {
-                if n.characters.count > 0{
-                    return ValidationResult.ok(message: "name avaliable")
-                }
-            }
-            return ValidationResult.empty
-        }
         
-        let name = input.name.map{name -> ValidationResult in
+        nameInvalidte = input.name.map{name -> ValidationResult in
             self.contactInfo?.value.identity = Relation(input: name )
             if name.characters.count > 0{
                 return ValidationResult.ok(message: "name avaliable")
             }
             return ValidationResult.empty
         }
-        nameInvalidte = Driver.of(nameTextObserver.asDriver(onErrorJustReturn: .empty), name).merge()
         
-        
-        let numberTextObserver = input.numberText.map{number -> ValidationResult in
+        phoneInvalidte = input.number.map{number -> ValidationResult in
             self.contactInfo?.value.phone = number
-            if let n = number {
-                if n.characters.count > 0{
-                    return ValidationResult.ok(message: "number avaliable")
-                }
-            }
-            return ValidationResult.empty
+            return validation.validatePhone(number)
         }
-        
-        let number = input.number.map{number -> ValidationResult in
-            self.contactInfo?.value.phone = number
-            if number.characters.count > 0{
-                return ValidationResult.ok(message: "number avaliable")
-            }
-            return ValidationResult.empty
-        }
-        
-        phoneInvalidte = Driver.of(numberTextObserver.asDriver(onErrorJustReturn: .empty), number).merge()
         
         
         self.saveEnabled = Driver.combineLatest( nameInvalidte!, phoneInvalidte!) { name, phone in

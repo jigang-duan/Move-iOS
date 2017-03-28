@@ -101,6 +101,8 @@ class FamilyMemberController: UIViewController {
                 
                 let imgUrl = URL(string: FSManager.imageUrl(with: element.headUrl))
                 cell.headImgV.kf.setImage(with: imgUrl, placeholder: R.image.member_btn_contact_nor()!)
+                cell.headImgV.layer.cornerRadius = 18
+                cell.headImgV.layer.masksToBounds = true
             }
             .addDisposableTo(disposeBag)
     

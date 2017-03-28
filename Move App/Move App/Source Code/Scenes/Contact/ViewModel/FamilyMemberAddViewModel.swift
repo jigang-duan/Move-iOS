@@ -24,25 +24,24 @@ class FamilyMemberAddViewModel {
     let doneEnabled: Driver<Bool>
     var doneResult: Driver<ValidationResult>?
     
+    var photo: Variable<UIImage?>?
+    
     var fid: String?
     
     init(
         input:(
-        photo: Variable<UIImage?>,
         name: Driver<String>,
         number: Driver<String>,
         saveTaps: Driver<Void>,
         doneTaps: Driver<Void>
         ),
         dependency: (
-        deviceManager: DeviceManager,
         validation: DefaultValidation,
         wireframe: DefaultWireframe
         )
         ) {
         
-        let deviceManager = dependency.deviceManager
-        _ = dependency.validation
+        let validation = dependency.validation
         _ = dependency.wireframe
         
         
@@ -55,10 +54,7 @@ class FamilyMemberAddViewModel {
         }
         
         phoneInvalidte = input.number.map{number -> ValidationResult in
-            if number.characters.count > 0{
-                return ValidationResult.ok(message: "number avaliable")
-            }
-            return ValidationResult.empty
+            return validation.validatePhone(number)
         }
         
         
@@ -73,49 +69,32 @@ class FamilyMemberAddViewModel {
         
         
         saveResult = input.saveTaps.withLatestFrom(com)
-            .flatMapLatest({ identity, phone in
-                if let photo = input.photo.value {
-                    return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMap({ fid -> Observable<ValidationResult> in
-                        self.fid = fid
-                        
-                        return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: Relation(input: identity)!).map({_ in
-                            return ValidationResult.ok(message: "Send Success.")
-                        })
-                    })
-                        .asDriver(onErrorRecover: errorRecover)
-                        .distinctUntilChanged({ (v1, v2) -> Bool in
-                            return v1.isValid == v2.isValid
-                        })
-                }else{
-                    return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: nil, identity: Relation(input: identity)!).map({_ in
-                        return ValidationResult.ok(message: "Send Success.")
-                    })
-                        .asDriver(onErrorRecover: errorRecover)
-                }
-            })
+            .flatMapLatest({self.operation(phone: $0.0, identity: $0.1)})
         
         doneResult = input.doneTaps.withLatestFrom(com)
-            .flatMapLatest({ identity, phone in
-                if let photo = input.photo.value {
-                    return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMap({ fid -> Observable<ValidationResult> in
-                        self.fid = fid
-                        
-                        return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: Relation(input: identity)!).map({_ in
-                            return ValidationResult.ok(message: "Send Success.")
-                        })
-                    })
-                    .asDriver(onErrorRecover: errorRecover)
-                    .distinctUntilChanged({ (v1, v2) -> Bool in
-                        return v1.isValid == v2.isValid
-                    })
-                }else{
-                    return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: nil, identity: Relation(input: identity)!).map({_ in
-                        return ValidationResult.ok(message: "Send Success.")
-                    })
-                    .asDriver(onErrorRecover: errorRecover)
-                }
-            })
+            .flatMapLatest({self.operation(phone: $0.0, identity: $0.1)})
         
+    }
+    
+    
+    func  operation(phone: String, identity: String) -> Driver<ValidationResult> {
+        let deviceManager = DeviceManager.shared
+        
+        if let photo = self.photo?.value.value {
+            return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMap({ fid -> Observable<ValidationResult> in
+                self.fid = fid
+                
+                return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: Relation(input: identity)!).map({_ in
+                    return ValidationResult.ok(message: "Send Success.")
+                })
+            })
+                .asDriver(onErrorRecover: errorRecover)
+        }else{
+            return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: nil, identity: Relation(input: identity)!).map({_ in
+                return ValidationResult.ok(message: "Send Success.")
+            })
+                .asDriver(onErrorRecover: errorRecover)
+        }
     }
     
 }
