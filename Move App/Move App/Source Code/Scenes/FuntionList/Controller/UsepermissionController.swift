@@ -49,6 +49,8 @@ class UsepermissionController: UITableViewController {
         (voicechagerQulet.rx.value <-> viewModel.selected2Variable).addDisposableTo(disposeBag)
         (playinghamsterQulet.rx.value <-> viewModel.selected3Variable).addDisposableTo(disposeBag)
         
+        
+        
       //网络请求的时候都不用点击
         viewModel.activityIn
             .map { !$0 }

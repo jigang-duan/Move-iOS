@@ -42,10 +42,10 @@ class UsepermissionViewModel {
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: [false,false,false,false])
             .filter({ $0.count>=4 })
-        fetchPermissions.map({$0[0]}).drive(selected0Variable).addDisposableTo(disposeBag)
-        fetchPermissions.map({$0[1]}).drive(selected1Variable).addDisposableTo(disposeBag)
-        fetchPermissions.map({$0[2]}).drive(selected2Variable).addDisposableTo(disposeBag)
-        fetchPermissions.map({$0[3]}).drive(selected3Variable).addDisposableTo(disposeBag)
+        fetchPermissions.map({!$0[0]}).drive(selected0Variable).addDisposableTo(disposeBag)
+        fetchPermissions.map({!$0[1]}).drive(selected1Variable).addDisposableTo(disposeBag)
+        fetchPermissions.map({!$0[2]}).drive(selected2Variable).addDisposableTo(disposeBag)
+        fetchPermissions.map({!$0[3]}).drive(selected3Variable).addDisposableTo(disposeBag)
        // fetchPermissions.map({$0[4]}).drive(selected4Variable).addDisposableTo(disposeBag)
         
         
@@ -54,7 +54,7 @@ class UsepermissionViewModel {
                                                     selected2Variable.asObservable(),
                                                     selected3Variable.asObservable()
             //,selected4Variable
-                                                        .asObservable()) { [$0, $1, $2, $3] }
+                                                        .asObservable()) { [!$0, !$1, !$2, !$3] }
         selectPermission
             .skip(1)
             .flatMapLatest { selectBtns in
