@@ -70,21 +70,49 @@ class FamilyMemberAddController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let name = nameTf.rx.text.orEmpty.asDriver()
+        let nameText = nameTf.rx.observe(String.self, "text").filterNil()
+        let combineName = Driver.of(nameText.asDriver(onErrorJustReturn: ""), name).merge()
+        
+        let number = numberTf.rx.text.orEmpty.asDriver()
+        let numberText = numberTf.rx.observe(String.self, "text").filterNil()
+        let combineNumber = Driver.of(numberText.asDriver(onErrorJustReturn: ""), number).merge()
         
         viewModel = FamilyMemberAddViewModel(
             input:(
                 photo: photoVariable,
-                nameText: nameTf.rx.observe(String.self, "text"),
-                name: nameTf.rx.text.orEmpty.asDriver(),
-                numberText: numberTf.rx.observe(String.self, "text"),
-                number: numberTf.rx.text.orEmpty.asDriver(),
+                name: combineName,
+                number: combineNumber,
+                saveTaps: saveBun.rx.tap.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
             ),
             dependency: (
+                deviceManager: DeviceManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        
+        viewModel.saveEnabled
+            .drive(onNext: { [weak self] valid in
+                self?.saveBun.isEnabled = valid
+                self?.saveBun.tintColor?.withAlphaComponent(valid ? 1.0 : 0.5)
+            })
+            .addDisposableTo(disposeBag)
+        
+        
+        viewModel.saveResult?
+            .drive(onNext: { doneResult in
+                switch doneResult {
+                case .failed(let message):
+                    self.showMessage(message)
+                case .ok:
+                    _ = self.navigationController?.popViewController(animated: true)
+                default:
+                    break
+                }
+            })
+            .addDisposableTo(disposeBag)
     
       
         viewModel.doneEnabled
@@ -98,6 +126,8 @@ class FamilyMemberAddController: UIViewController {
         viewModel.doneResult?
             .drive(onNext: { doneResult in
                 switch doneResult {
+                case .failed(let message):
+                    self.showMessage(message)
                 case .ok:
                     self.performSegue(withIdentifier: R.segue.familyMemberAddController.showShareQRCode, sender: nil)
                 default:

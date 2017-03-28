@@ -95,6 +95,9 @@ extension DeviceManager {
         return worker.sendNotify(deviceId: deviceId, code: code)
     }
     
+    func addNoRegisterMember(deviceId: String, phone: String, profile: String?, identity: Relation) -> Observable<Bool>  {
+        return worker.addNoRegisterMember(deviceId: deviceId, phone: phone, profile: profile, identity: identity)
+    }
 }
 
 
@@ -126,6 +129,8 @@ protocol DeviceWorkerProtocl {
     
     func getProperty(deviceId: String)  -> Observable<DeviceProperty>
     func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool>
+    
+    func addNoRegisterMember(deviceId: String, phone: String, profile: String?, identity: Relation) -> Observable<Bool>
 }
 
 

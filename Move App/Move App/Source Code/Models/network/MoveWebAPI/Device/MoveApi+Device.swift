@@ -71,8 +71,8 @@ extension MoveApi {
             return request(.delete(deviceId: deviceId)).mapMoveObject(ApiError.self)
         }
 //        添加设备联系人:  添加非注册用户为设备联系人，仅管理员调用
-        final class func addNoRegisterMember(deviceId: String) -> Observable<ApiError> {
-            return request(.addNoRegisterMember(deviceId: deviceId)).mapMoveObject(ApiError.self)
+        final class func addNoRegisterMember(deviceId: String, contactInfo:DeviceContactInfo) -> Observable<ApiError> {
+            return request(.addNoRegisterMember(deviceId: deviceId, contactInfo:contactInfo)).mapMoveObject(ApiError.self)
         }
 //        删除设备联系人:  解绑设备的绑定成员，仅设备管理员调用
         final class func deleteBindUser(deviceId: String, uid: String) -> Observable<ApiError> {
@@ -140,7 +140,7 @@ extension MoveApi {
             case getDeviceInfo(deviceId: String)
             case update(deviceId: String, updateInfo: DeviceUpdateReq)
             case delete(deviceId: String)
-            case addNoRegisterMember(deviceId: String)
+            case addNoRegisterMember(deviceId: String, contactInfo:DeviceContactInfo)
             case deleteBindUser(deviceId: String, uid: String)
             case getContacts(deviceId: String)
             case settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String)
@@ -392,7 +392,7 @@ extension MoveApi.Device.API: TargetType {
             return "/v1.1/device/\(deviceId)"
         case .delete(let deviceId):
             return "/v1.0/device/\(deviceId)"
-        case .addNoRegisterMember(let deviceId):
+        case .addNoRegisterMember(let deviceId, _):
             return "/v1.0/device/\(deviceId)/contact"
         case .deleteBindUser(let deviceId, let uid):
             return "/v1.0/device/\(deviceId)/contact/\(uid)"
@@ -446,8 +446,10 @@ extension MoveApi.Device.API: TargetType {
             return addInfo.toJSON()
         case .joinDeviceGroup(_, let joinInfo):
             return joinInfo.toJSON()
-        case .checkBind, .getDeviceList, .getDeviceInfo, .delete, .addNoRegisterMember, .deleteBindUser, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .deleteWatchFriend:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .delete, .deleteBindUser, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .deleteWatchFriend:
             return nil
+        case .addNoRegisterMember(_, let contactInfo):
+            return contactInfo.toJSON()
         case .update(_, let updateInfo):
             return updateInfo.toJSON()
         case .setting(_, let settingInfo):

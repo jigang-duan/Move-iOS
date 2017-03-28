@@ -16,6 +16,7 @@ enum WorkerError: Swift.Error, Equatable {
     case accountNotFound
     case accountIsExist
     case password
+    case identityIsExist
     
     case vcodeIsIncorrect
     
@@ -32,6 +33,7 @@ func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
     case (.accountNotFound, .accountNotFound): return true
     case (.accountIsExist, .accountIsExist): return true
     case (.password, .password): return true
+    case (.identityIsExist, .identityIsExist): return true
        
     case (.vcodeIsIncorrect, .vcodeIsIncorrect): return true
     case (.deviceNo, .deviceNo): return true
@@ -78,6 +80,15 @@ extension WorkerError {
         return nil
     }
     
+    static func identityIsExistError (form error: Swift.Error) -> Swift.Error? {
+        if let _error = error as? MoveApi.ApiError {
+            if _error.id == 7 && _error.field == "identity" {
+                return WorkerError.identityIsExist
+            }
+        }
+        return nil
+    }
+    
     static func webApiError (form error: Swift.Error) -> Swift.Error? {
         if let error = error as? MoveApi.ApiError {
             return WorkerError.webApi(id: error.id!, field: error.field, msg: error.msg)
@@ -96,6 +107,9 @@ extension WorkerError {
             return _error
         }
         if let _error = WorkerError.vcodeIsIncorrectError(form: error) {
+            return _error
+        }
+        if let _error = WorkerError.identityIsExistError(form: error) {
             return _error
         }
         if let _error = WorkerError.webApiError(form: error) {

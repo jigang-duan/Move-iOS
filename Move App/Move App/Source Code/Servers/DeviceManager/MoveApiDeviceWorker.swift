@@ -73,6 +73,19 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                 .map({ $0.devices ?? [] })
     }
     
+    
+    //        添加设备联系人:  添加非注册用户为设备联系人，仅管理员调用
+    func addNoRegisterMember(deviceId: String, phone: String, profile: String?, identity: Relation) -> Observable<Bool> {
+        var info = MoveApi.DeviceContactInfo()
+        info.phone = phone
+        info.profile = profile
+        info.identity = identity.transformIdentity()
+    
+        return MoveApi.Device.addNoRegisterMember(deviceId: deviceId, contactInfo: info)
+            .map(transform)
+            .catchError(handle)
+    }
+    
     //        删除设备联系人:  解绑设备的绑定成员，仅设备管理员调用
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
         return MoveApi.Device.deleteBindUser(deviceId: deviceId, uid: uid)
@@ -278,7 +291,19 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
 
 
 
+fileprivate func transform(error: MoveApi.ApiError) throws -> Bool {
+    if error.msg == "ok", error.id == 0 {
+        return true
+    }
+    throw WorkerError.webApi(id: error.id!, field: error.field, msg: error.msg)
+}
 
+fileprivate func handle(error: Error) throws -> Observable<Bool> {
+    if let _error = WorkerError.workerError(form: error) {
+        throw _error
+    }
+    throw error
+}
 
 
 
