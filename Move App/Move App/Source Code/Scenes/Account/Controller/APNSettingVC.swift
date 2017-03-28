@@ -89,14 +89,25 @@ class APNSettingVC: UITableViewController {
     func apnSettingNotification(_ notification: NSNotification) {
         if let res = notification.object as? APNforWatchVC.ApnSettingResult {
             switch res {
-            case .done:
+            case .setSuccess:
                 DispatchQueue.main.async {
-                    _ = self.navigationController?.popViewController(animated: true)
+//                    _ = self.navigationController?.popViewController(animated: true)
+                    self.showMessage("APN 设置成功")
                     self.activity.stopAnimating()
                     self.okBun.isEnabled = true
                     self.okBun.tintColor?.withAlphaComponent(1)
                 }
                 print("APN 设置完成")
+            case .setFail:
+                DispatchQueue.main.async {
+                    self.showMessage("APN 设置失败")
+                }
+            case .xxx:
+                DispatchQueue.main.async {
+                    self.showMessage("APN 找到特征")
+                }
+            case .sendDone:
+                print("APN 设置数据发送完成")
             case .error:
                 print("APN 设置发送数据出错")
                 DispatchQueue.main.async {

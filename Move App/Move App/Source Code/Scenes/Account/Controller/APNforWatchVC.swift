@@ -26,6 +26,7 @@ class APNforWatchVC: UIViewController {
     fileprivate let apnUUID = "00003333-0000-1000-8000-00805f9b34fb"
     fileprivate let apnService = "00009999-0000-1000-8000-00805f9b34fb"
     fileprivate let apnCharacteristic = "00009998-0000-1000-8000-00805f9b34fb"
+    fileprivate let apnCharacteristicDone = "00009997-0000-1000-8000-00805f9b34fb"
     fileprivate let maxWriteLength = 20
    
     
@@ -36,7 +37,10 @@ class APNforWatchVC: UIViewController {
     enum ApnSettingResult {
         case sending
         case error
-        case done
+        case sendDone
+        case setSuccess
+        case setFail
+        case xxx
     }
     
     
@@ -211,9 +215,19 @@ extension APNforWatchVC: CBPeripheralDelegate {
         }
     }
     
-    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        let data = characteristic.value
-        print(data == nil ? "特征无数据":"特征有数据")
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if characteristic.uuid == CBUUID(string: apnCharacteristicDone) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.xxx)
+            let data = characteristic.value
+            if data?.count == 8 {
+                let state = data?[4]
+                if state == 0x01 {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setSuccess)
+                }else{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setFail)
+                }
+            }
+        }
     }
     
     
@@ -226,7 +240,7 @@ extension APNforWatchVC: CBPeripheralDelegate {
             print("发送数据成功")
             if writeIndex == willWriteData?.count {
                 writeIndex = 0
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.done)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sendDone)
             }else{
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sending)
                 self.writeApnData()

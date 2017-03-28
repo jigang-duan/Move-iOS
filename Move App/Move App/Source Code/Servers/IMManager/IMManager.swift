@@ -314,7 +314,13 @@ fileprivate extension NoticeEntity {
         self.readStatus = message.content_status ?? NoticeEntity.ReadStatus.unknown.rawValue
         self.type = message.notice ?? NoticeType.unknown.rawValue
         self.createDate = message.ctime
-        self.content = NoticeType(rawValue: type)?.description
+        let noticeType = NoticeType(rawValue: type) ?? NoticeType.unknown
+        switch noticeType {
+        case .progressDownload:
+            self.content = message.content
+        default:
+            self.content = NoticeType(rawValue: type)?.description
+        }
     }
 }
 

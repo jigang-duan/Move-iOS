@@ -45,9 +45,17 @@ class UpgradeViewModel {
         
         downEnabled = Driver.combineLatest(sending, downloading){(!$0 && !$1.0, $1.1)}
         
+        
+        
         downResult = input.downloadTaps.flatMapLatest({ _ in
-            return deviceManager.sendNotify(deviceId: (deviceManager.currentDevice?.deviceId)!, code: DeviceNotify.downloadFirmware)
+             deviceManager.sendNotify(deviceId: (deviceManager.currentDevice?.deviceId)!, code: DeviceNotify.downloadFirmware)
                 .trackActivity(activity)
+//                .flatMapLatest({ _ -> Driver<String> in
+//                    guard let progress = MessageServer.share.progressDownload else {
+//                        return Driver.just("")
+//                    }
+//                    return progress.map({ $0.content }).filterNil().asDriver(onErrorJustReturn: "")
+//                })
                 .map{ _ in
                     return ValidationResult.ok(message: "Download Begin")
                 }

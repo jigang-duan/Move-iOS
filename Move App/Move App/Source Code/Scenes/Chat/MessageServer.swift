@@ -66,7 +66,7 @@ class MessageServer {
                 .filterNil()
                 .flatMap { Observable.from($0) }
                 
-            progressDownload = reNotice.filter { $0.type != NoticeType.progressDownload.rawValue }
+            progressDownload = reNotice.filter { $0.type == NoticeType.progressDownload.rawValue }
             
             reNotice.filter { $0.type != NoticeType.progressDownload.rawValue }
                 .subscribe(onNext: { (notice) in
