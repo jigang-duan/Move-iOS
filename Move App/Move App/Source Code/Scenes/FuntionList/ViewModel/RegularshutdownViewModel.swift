@@ -59,21 +59,21 @@ class RegularshutdownViewModel {
         
         let down = Driver.combineLatest(input.bootTime,input.shutdownTime,input.autoOnOff) { ($0, $1, $2) }
         
-        self.saveFinish = down
-            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
-                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)
-                    .trackActivity(activitying)
-                    .asDriver(onErrorJustReturn: false)
-            }
-
-//        self.saveFinish = input.save
-//            .withLatestFrom(down)
+//        self.saveFinish = down
 //            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
 //                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)
 //                    .trackActivity(activitying)
 //                    .asDriver(onErrorJustReturn: false)
-//        }
-//        
+//            }
+
+        self.saveFinish = input.save
+            .withLatestFrom(down)
+            .flatMapLatest { (bootTime,shutdownTime,autoOnOff) in
+                manager.updateTime(bootTime, shuntTime: shutdownTime, Autopoweronoff: autoOnOff)
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: false)
+        }
+        
         
         
     }

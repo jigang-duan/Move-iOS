@@ -1985,7 +1985,7 @@
                         <viewControllerLayoutGuide type="top" id="1ie-MF-CXu"/>
                         <viewControllerLayoutGuide type="bottom" id="YtJ-KS-Yfc"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="bmY-0a-Mb2">
+                    <view key="view" contentMode="scaleToFill" id="bmY-0a-Mb2">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2169,6 +2169,20 @@
                     </view>
                     <navigationItem key="navigationItem" title="Regular shutdown" id="9cA-Ty-755">
                         <barButtonItem key="backBarButtonItem" title=" " id="AbL-eR-TEr"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="e6L-ne-dbR">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hF4-mW-ngN">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="7kw-OQ-rLj">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SdK-Tb-5DN">
+                                <rect key="frame" x="319" y="7" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Save"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -2181,6 +2195,7 @@
                         <outlet property="datePicker" destination="A5d-xI-zmx" id="ocd-nc-rYD"/>
                         <outlet property="openShutdown" destination="Kc0-1g-Fil" id="h2H-Gm-JmP"/>
                         <outlet property="regularshutdownTitleItem" destination="9cA-Ty-755" id="7m7-uG-KsT"/>
+                        <outlet property="saveBtnQutlet" destination="SdK-Tb-5DN" id="X5O-MH-uSF"/>
                         <outlet property="shutdownLabel" destination="1S1-F7-lpr" id="b7c-f8-sfJ"/>
                         <outlet property="shutdownTimeQutlet" destination="qwG-PC-ugy" id="tho-9K-U7o"/>
                         <outlet property="timeView" destination="L6T-Lp-57R" id="Hfq-61-N3S"/>
@@ -2366,7 +2381,7 @@
                         <viewControllerLayoutGuide type="top" id="NgA-kS-hhx"/>
                         <viewControllerLayoutGuide type="bottom" id="qa8-Id-gMQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="iiq-7d-hKL">
+                    <view key="view" contentMode="scaleToFill" id="iiq-7d-hKL">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

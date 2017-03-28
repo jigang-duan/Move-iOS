@@ -32,6 +32,7 @@ class RegularshutdownController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
   
     
+    @IBOutlet weak var saveBtnQutlet: UIButton!
     var viewModel: RegularshutdownViewModel?
     
     var bootTimeVariable = Variable(DateUtility.zone7hour())
@@ -49,8 +50,8 @@ class RegularshutdownController: UIViewController {
         self.datePicker.timeZone = TimeZone(secondsFromGMT: 0)
         
        // openShutdown.rx.switch.asDriver().drive(openShutdownVariabel).addDisposableTo(disposeBag)
-        
-        let openEnable = openShutdown.rx.switch.asDriver()
+       (openShutdown.rx.value <-> openShutdownVariabel).addDisposableTo(disposeBag)
+        let openEnable = openShutdownVariabel.asDriver()
         
         openEnable
             .drive(onNext: enableView)
@@ -99,8 +100,8 @@ class RegularshutdownController: UIViewController {
             input: (
                 bootTime: bootTimeVariable.asDriver(),
                 shutdownTime: shutdownTimeVariable.asDriver(),
-                autoOnOff: openShutdown.rx.value.asDriver(),
-                save: comfirmQutlet.rx.tap.asDriver()
+                autoOnOff: openShutdownVariabel.asDriver(),
+                save: saveBtnQutlet.rx.tap.asDriver()
                 ),
                 dependency: (
                     settingsManager: WatchSettingsManager.share,
@@ -134,11 +135,18 @@ class RegularshutdownController: UIViewController {
         
         
         viewModel?.saveFinish
-            .drive(onNext: {_ in
-            }).addDisposableTo(disposeBag)
+            .drive(onNext: back
+            ).addDisposableTo(disposeBag)
         
         
     }
+    
+    func back(_ $: Bool) {
+        if $ {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+    }
+
 
     func userInteractionEnabled(enable: Bool) {
         
@@ -162,13 +170,10 @@ class RegularshutdownController: UIViewController {
         }
        
         datePickView.isHidden = true
+//        (playinghamsterQulet.rx.value <-> viewModel.selected3Variable).addDisposableTo(disposeBag)
         
-//        openShutdown.rx.switch.startWith(true).asObservable()
-
-        viewModel?.saveFinish
-            .drive(onNext: {_ in
-            }).addDisposableTo(disposeBag)
-
+        
+        openShutdown.isOn = true
         
     }
     
