@@ -55,7 +55,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
         }
         let locationlist = MoveApi.LocationMultiReq(locations: deviceids)
         
-        let getdata = MoveApi.Location.getMultiLocations(with: locationlist).map({
+        MoveApi.Location.getMultiLocations(with: locationlist).bindNext({
             
             self.locationOfDevice = $0.locations!
             
@@ -78,10 +78,6 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             }
             self.mapView.addAnnotations(self.annotationArr!)
             self.mapView.showAnnotations(self.annotationArr!, animated: true)
-        })
-            
-        getdata.subscribe(onNext: {
-            print($0)
         }).addDisposableTo(disposeBag)
         // Do any additional setup after loading the view.
     }

@@ -91,7 +91,7 @@ class LocationHistoryVC: UIViewController {
         calendar.select(calendar.today)
         
         timeSelectBtn.setTitle("Today", for: UIControlState.normal)
-        let img = UIImage(named : "general_slider_dot")
+        let img = R.image.general_slider_dot()
         timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
         
@@ -347,7 +347,7 @@ extension LocationHistoryVC : MKMapViewDelegate {
                     annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
                 }
 
-                annoView?.image = UIImage(named : "history_dot_nor")
+                annoView?.image = R.image.history_dot_nor()
                 annoView?.canShowCallout = false
                 return annoView
             }

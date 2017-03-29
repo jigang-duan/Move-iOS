@@ -147,16 +147,13 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     func GetCurrentNew() {
         if let idstr : String = Me.shared.currDeviceID {
-            let getaddressdata = MoveApi.Location.getNew(deviceId: idstr)
-                .map({
+            MoveApi.Location.getNew(deviceId: idstr)
+                .bindNext({
                     let annotation = BaseAnnotation(($0.location?.lat)!, ($0.location?.lng)!)
                     self.objectLocationL.text = $0.location?.addr
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     self.mapView.addAnnotation(annotation)
-                })
-            getaddressdata.subscribe(onNext: {
-                print($0)
-            }).addDisposableTo(disposeBag)
+                }).addDisposableTo(disposeBag)
         }
     }
     
@@ -241,8 +238,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     
     func getDataSource() {
-        let deviceDataSource = MoveApi.Device.getDeviceList(pid: 0)
-            .map({
+        MoveApi.Device.getDeviceList(pid: 0)
+            .bindNext({
                 self.defaultDeviceData = $0.devices
                 
                 if let idstr : String = Me.shared.currDeviceID {
@@ -289,31 +286,22 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                     }
 
                 }
-            })
-        deviceDataSource.subscribe(onNext: {
-            print($0)
-        }).addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
     }
     
     func UpdateUIData(dataSource : MoveApi.DeviceInfo){
         objectNameL.text = dataSource.user?.nickname
         
-        let devicePower = MoveApi.Device.getPower(deviceId: dataSource.deviceId!)
-            .map({
+        MoveApi.Device.getPower(deviceId: dataSource.deviceId!)
+            .bindNext({
                 self.changepower(power: $0.power!)
-            })
-        devicePower.subscribe(onNext: {
-            print($0)
-        }).addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
-        let getaddressdata = MoveApi.Location.getNew(deviceId: dataSource.deviceId!)
-            .map({
+        MoveApi.Location.getNew(deviceId: dataSource.deviceId!)
+            .bindNext({
                 self.objectLocationL.text = $0.location?.addr
                 self.objectLocationTimeL.text = $0.location?.time?.stringYearMonthDayHourMinuteSecond
-            })
-        getaddressdata.subscribe(onNext: {
-            print($0)
         }).addDisposableTo(disposeBag)
         
         if dataSource.property != nil {
@@ -326,17 +314,17 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     func changepower(power : Int) {
         electricL.text = String(format:"%d%@",power,"%")
         if power == 0{
-            signalImageV.image = UIImage(named: "home_ic_battery0")
+            signalImageV.image = R.image.home_ic_battery0()
         }else if power < 20 && power > 0{
-            signalImageV.image = UIImage(named: "home_ic_battery1")
+            signalImageV.image = R.image.home_ic_battery1()
         }else if power < 40 && power > 20 {
-            signalImageV.image = UIImage(named: "home_ic_battery2")
+            signalImageV.image = R.image.home_ic_battery2()
         }else if power < 60 && power > 40 {
-            signalImageV.image = UIImage(named: "home_ic_battery3")
+            signalImageV.image = R.image.home_ic_battery3()
         }else if power < 80 && power > 60 {
-            signalImageV.image = UIImage(named: "home_ic_battery4")
+            signalImageV.image = R.image.home_ic_battery4()
         }else if power < 100 && power > 80 {
-            signalImageV.image = UIImage(named: "home_ic_battery5")
+            signalImageV.image = R.image.home_ic_battery5()
         }
     }
     
