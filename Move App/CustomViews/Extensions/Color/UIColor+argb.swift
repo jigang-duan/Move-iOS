@@ -19,13 +19,13 @@ func argb(_ alpha: Int, _ red: Int, _ green: Int, _ blue: Int) -> Int {
 
 extension UIColor {
     
-    convenience public init(r: Int, g: Int, b: Int, a: Int = 0xFF) {
+    convenience public init(r: UInt, g: UInt, b: UInt, a: UInt = 0xFF) {
         let argb = ((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF)
         self.init(argb: argb)
     }
     
     // ARGB
-    convenience public init(argb: Int) {
+    convenience public init(argb: UInt) {
         let blue    = (CGFloat)((argb >>  0) & 0xFF) / 255.0
         let green   = (CGFloat)((argb >>  8) & 0xFF) / 255.0
         let red     = (CGFloat)((argb >> 16) & 0xFF) / 255.0
