@@ -19,6 +19,7 @@ import CustomViews
 
 class MainMapController: UIViewController , MFMessageComposeViewControllerDelegate{
     
+    var alertController : UIAlertController?
     var curDirectionMode:MKDirectionsTransportType = .walking
 
     var disposeBag = DisposeBag()
@@ -148,13 +149,26 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     func GetCurrentNew() {
         if let idstr : String = Me.shared.currDeviceID {
             MoveApi.Location.getNew(deviceId: idstr)
-                .bindNext({
+                .subscribe(onNext: {
                     let annotation = BaseAnnotation(($0.location?.lat)!, ($0.location?.lng)!)
                     self.objectLocationL.text = $0.location?.addr
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     self.mapView.addAnnotation(annotation)
+                }, onError: { error in
+                    if error is MoveApi.ApiError {
+                        if let err = error as? MoveApi.ApiError  {
+                        self.alertController = UIAlertController(title: nil, message: err.msg, preferredStyle: .alert)
+                            self.present(self.alertController!, animated: true, completion: {
+                                self.perform(#selector(self.dismissaler), with: nil, afterDelay: 1.0)
+                            })
+                        }
+                    }
                 }).addDisposableTo(disposeBag)
         }
+    }
+    
+    func dismissaler() {
+        self.alertController?.dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
