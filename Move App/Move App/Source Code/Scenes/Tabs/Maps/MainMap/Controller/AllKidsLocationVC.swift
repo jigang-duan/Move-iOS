@@ -149,7 +149,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
             annotationView?.annotation = annotation
-            annotationView?.image = UIImage(named : "history_dot_nor")
+            annotationView?.image = R.image.history_dot_nor()
             annotationView?.canShowCallout = false
             return annotationView
         }
