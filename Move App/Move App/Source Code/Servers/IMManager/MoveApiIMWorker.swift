@@ -50,7 +50,7 @@ class MoveApiIMWorker: IMWorkerProtocl {
     }
     
     
-//    获取群组列表
+    //    获取群组列表
     func getGroups() -> Observable<[ImGroup]> {
         return MoveIM.ImApi.getGroups().map({ $0.groups?.map(self.convertGroup) ?? [] })
     }

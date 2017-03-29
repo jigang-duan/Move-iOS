@@ -47,14 +47,10 @@ class LoginViewModel {
         let _ = dependency.wireframe
         
         validatedEmail = input.email
-            .map { email in
-                return validation.validateEmail(email)
-            }
+            .map { validation.validateEmail($0) }
         
         validatedPassword = input.passwd
-            .map { password in
-                return validation.validatePassword(password)
-            }
+            .map { validation.validatePassword($0) }
         
         let signingIn = ActivityIndicator()
         self.loggingIn = signingIn.asDriver()

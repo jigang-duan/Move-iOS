@@ -143,7 +143,7 @@ class FamilyMemberAddController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.familyMemberAddController.showShareQRCode(segue: segue) {
-            sg.destination.relation = Relation(input: nameTf.text ?? "")?.transformIdentity()
+            sg.destination.relation = Relation(input: nameTf.text ?? "")?.identity
             sg.destination.profile = self.viewModel.fid
             sg.destination.memberPhone = numberTf.text
         }

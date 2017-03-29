@@ -41,6 +41,12 @@ extension MoveApi.ApiError: Mappable {
     }
 }
 
+extension MoveApi.ApiError {
+    var isOK: Bool {
+        return (id == 0) && (msg == "ok")
+    }
+}
+
 extension NSError {
     
     /// Move Api User Authorization error

@@ -22,13 +22,105 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordLine: UIView!
     
     var disposeBag = DisposeBag()
-    var viewModel: LoginViewModel!
 
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
+    //Third-party login
+    @IBOutlet weak var facebookLoginQulet: UIButton!
+    @IBOutlet weak var twitterLoginQulet: UIButton!
+    @IBOutlet weak var googleaddLoginQulet: UIButton!
     
-    func showAccountError(_ text: String) {
+    var state: String?
+    lazy var internalWebViewController: OAuthWebController = {
+        let $ = OAuthWebController()
+        $.view = UIView(frame: UIScreen.main.bounds)
+        $.delegate = self
+        $.viewDidLoad()
+        return $
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        
+        accountValidationHCon.constant = 0
+        emailValidationOutlet.isHidden = true
+        passwordValidationHCon.constant = 0
+        passwordValidationOutlet.isHidden = true
+        
+        let viewModel = LoginViewModel(
+            input:(
+                email: emailOutlet.rx.text.orEmpty.asDriver(),
+                passwd: passwordOutlet.rx.text.orEmpty.asDriver(),
+                loginTaps: loginOutlet.rx.tap.asDriver()
+            ),
+            dependency: (
+                userManager: UserManager.shared,
+                validation: DefaultValidation.shared,
+                wireframe: DefaultWireframe.sharedInstance
+            ))
+        
+        viewModel.validatedEmail.drive(onNext: showAccountValidation).addDisposableTo(disposeBag)
+        
+        viewModel.validatedPassword.drive(onNext: showPasswordValidation).addDisposableTo(disposeBag)
+        
+        viewModel.loginEnabled.drive(loginOutlet.rx.enabled).addDisposableTo(disposeBag)
+        
+        viewModel.logedIn.drive(onNext: loginOnValidation).addDisposableTo(disposeBag)
+        
+        viewModel.logedIn.map { $0.isValid }.drive(MessageServer.share.subject).addDisposableTo(disposeBag)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        retractionKeyboard()
+    }
+    
+}
+
+
+// MARK: -- Show
+
+extension LoginViewController {
+    
+    fileprivate func retractionKeyboard() {
+        emailOutlet.resignFirstResponder()
+        passwordOutlet.resignFirstResponder()
+    }
+    
+    fileprivate func loginOnValidation(_ result: ValidationResult) {
+        retractionKeyboard()
+        switch result {
+        case .failed(let message):
+            self.showAccountError(message)
+        case .ok:
+            Distribution.shared.showMainScreen()
+        default: ()
+        }
+    }
+    
+    fileprivate func showAccountValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showAccountError(message)
+        default:
+            self.revertAccountError()
+        }
+    }
+    
+    fileprivate func showPasswordValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showPasswordError(message)
+        default:
+            self.revertPasswordError()
+        }
+    }
+    
+    private func showAccountError(_ text: String) {
         accountValidationHCon.constant = 16
         emailValidationOutlet.isHidden = false
         emailValidationOutlet.alpha = 0.0
@@ -41,7 +133,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func revertAccountError() {
+    private func revertAccountError() {
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
         emailValidationOutlet.alpha = 1.0
@@ -54,7 +146,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func showPasswordError(_ text: String) {
+    private func showPasswordError(_ text: String) {
         passwordValidationHCon.constant = 16
         passwordValidationOutlet.isHidden = false
         passwordValidationOutlet.alpha = 0.0
@@ -67,7 +159,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func revertPasswordError() {
+    private func revertPasswordError() {
         passwordValidationHCon.constant = 0
         passwordValidationOutlet.isHidden = true
         passwordValidationOutlet.alpha = 1.0
@@ -80,159 +172,8 @@ class LoginViewController: UIViewController {
         }
     }
     
-    //Third-party login
-    @IBOutlet weak var facebookLoginQulet: UIButton!
-    @IBOutlet weak var twitterLoginQulet: UIButton!
-    @IBOutlet weak var googleaddLoginQulet: UIButton!
-    
-     var state: String?
-    
-     lazy var internalWebViewController: OAuthWebController = {
-        let controller = OAuthWebController()
-            controller.view = UIView(frame: UIScreen.main.bounds)
-        controller.delegate = self
-        controller.viewDidLoad()
-        return controller
-    }()
-
-    
-    
-//    func facebookLoginaction(void: Void) -> Driver<(String, String)> {
-//        
-//        let state = self.state ?? ""
-//        return AuthService.shared.facebook(consumerKey: "344365305959182",
-//                                    consumerSecret: "909536c55a45ca4143139006f34900db",
-//                                    state: state,
-//                                    authorizeURLHandler: internalWebViewController)
-//            .map { ($0.credential.oauthTokenSecret, $0.credential.oauthToken) }
-//            .asDriver(onErrorJustReturn: ("", ""))
-//        }
-//    func googleaddLoginaction(void: Void) -> Driver<(String, String)> {
-//       
-//      return  AuthService.shared.googleDrive(consumerKey: "2tKQInRlLqEgTC_MkjI4i6Rb", consumerSecret: "918775988269-uh4rml1k1v1earvbhr7j10rmcc8io9kd.apps.googleusercontent.com", state: (self.state ?? nil)!, authorizeURLHandler: internalWebViewController)
-//            .map { ($0.credential.oauthTokenSecret, $0.credential.oauthToken) }
-//            .asDriver(onErrorJustReturn: ("", ""))
-//    }
-//    func twitterLoginaction(void: Void) -> Driver<(String, String)>  {
-//     return   AuthService.shared.twitter(consumerKey: "YEtbencgFOdSEAqyEQQE61T94", consumerSecret: "KvPYYDdVCVZMLRr2yElRTtoCAVLbEWUYDvBfnLEG3HS3O7PQOo", authorizeURLHandler: internalWebViewController)
-//            .map { ($0.credential.oauthTokenSecret, $0.credential.oauthToken) }
-//            .asDriver(onErrorJustReturn: ("", ""))
-//    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        state = generateStateWithLength(len: 20) as String
-        
-        
-//        facebookLoginQulet.rx.tap.asDriver()
-//            .flatMapLatest(twitterLoginaction)
-//            .flatMapLatest({
-//                UserManager.shared.tplogin(platform: MoveApiUserWorker.LoginType.Google, openld: $0, secret: $1)
-//                    .asDriver(onErrorJustReturn: false)
-//            })
-//            .drive(onNext: {
-//                if $0 {
-//                    Distribution.shared.showMainScreen()
-//                }
-//            }).addDisposableTo(disposeBag)
-        
-        //直接食用oautoswift
-        
-        
-        
-        // Do any additional setup after loading the view.
-        
-        
-        accountValidationHCon.constant = 0
-        emailValidationOutlet.isHidden = true
-        passwordValidationHCon.constant = 0
-        passwordValidationOutlet.isHidden = true
-        
-        
-        viewModel = LoginViewModel(
-            input:(
-                email: emailOutlet.rx.text.orEmpty.asDriver(),
-                passwd: passwordOutlet.rx.text.orEmpty.asDriver(),
-                loginTaps: loginOutlet.rx.tap.asDriver()
-            ),
-            dependency: (
-                userManager: UserManager.shared,
-                validation: DefaultValidation.shared,
-                wireframe: DefaultWireframe.sharedInstance
-            ))
-        
-        viewModel.loginEnabled
-            .drive(onNext: { [unowned self] valid in
-                self.loginOutlet.isEnabled = valid
-                self.loginOutlet.alpha = valid ? 1.0 : 0.5
-            })
-            .addDisposableTo(disposeBag)
-        
-        
-        viewModel.logedIn
-            .drive(onNext: { [unowned self] logedIn in
-                self.emailOutlet.resignFirstResponder()
-                self.passwordOutlet.resignFirstResponder()
-                switch logedIn {
-                case .failed(let message):
-                    self.showAccountError(message)
-                case .ok:
-                    Distribution.shared.showMainScreen()
-                default:
-                    break
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
-        
-        viewModel.logedIn
-            .map({ result -> Bool in
-                switch result {
-                case .ok: return true
-                default: return false
-                }
-            }).debug()
-            .drive(MessageServer.share.subject)
-            .addDisposableTo(disposeBag)
-        
-    }
-  
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.validatedEmail
-            .drive(onNext: { result in
-                    switch result{
-                    case .failed(let message):
-                        self.showAccountError(message)
-                    default:
-                        self.revertAccountError()
-                    }
-                })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.validatedPassword
-            .drive(onNext: { result in
-                switch result{
-                case .failed(let message):
-                    self.showPasswordError(message)
-                default:
-                    self.revertPasswordError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        emailOutlet.resignFirstResponder()
-        passwordOutlet.resignFirstResponder()
-    }
-    
-    
-
 }
+
 
 extension LoginViewController: OAuthWebViewControllerDelegate {
     #if os(iOS) || os(tvOS)

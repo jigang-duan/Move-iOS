@@ -22,7 +22,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         addInfo.sid = firstBindInfo.sid
         addInfo.vcode = firstBindInfo.vcode
         addInfo.phone = firstBindInfo.phone
-        addInfo.identity = firstBindInfo.identity?.transformIdentity()
+        addInfo.identity = firstBindInfo.identity?.identity
         addInfo.profile = firstBindInfo.profile
         addInfo.nickName = firstBindInfo.nickName
         addInfo.number = firstBindInfo.number
@@ -48,7 +48,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
-        info.identity = joinInfo.identity?.transformIdentity()
+        info.identity = joinInfo.identity?.identity
         info.phone = joinInfo.phone
         info.profile = joinInfo.profile
     
@@ -79,7 +79,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         var info = MoveApi.DeviceContactInfo()
         info.phone = phone
         info.profile = profile
-        info.identity = identity.transformIdentity()
+        info.identity = identity.identity
     
         return MoveApi.Device.addNoRegisterMember(deviceId: deviceId, contactInfo: info)
             .map(transform)
@@ -130,7 +130,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
         var info = MoveApi.DeviceContactInfo()
         info.flag = contactInfo.flag
-        info.identity = contactInfo.identity?.transformIdentity()
+        info.identity = contactInfo.identity?.identity
         info.phone = contactInfo.phone
         info.profile = contactInfo.profile
         
@@ -218,52 +218,21 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
     func getWatchFriends(with deviceId: String) -> Observable<[DeviceFriend]> {
         return MoveApi.Device.getWatchFriends(deviceId: deviceId)
-            .map{info in
-                var fs: [DeviceFriend] = []
-                
-                if let fds = info.friends {
-                    for fd in fds {
-                        var f = DeviceFriend()
-                        f.nickname = fd.nickname
-                        f.phone = fd.phone
-                        f.profile = fd.profile
-                        f.uid = fd.uid
-                        fs.append(f)
-                    }
-                }
-                return fs
-        }
-        
+            .map{ $0.friends?.map{ DeviceFriend(uid: $0.uid, nickname: $0.nickname, profile: $0.profile, phone: $0.phone) } ?? [] }
     }
 
     
     func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool> {
         return MoveApi.Device.deleteWatchFriend(deviceId: deviceId, uid: uid)
-            .map{info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
-        
+            .map(transform)
+            .catchError(handle)
     }
 
     
     func checkVersion(checkInfo: DeviceVersionCheck)  -> Observable<DeviceVersion>{
         let check = MoveApi.DeviceVersionCheck(id: checkInfo.deviceId, mode: checkInfo.mode, cktp: checkInfo.cktp, curef: checkInfo.curef, cltp: checkInfo.cltp, type: checkInfo.type, fv: checkInfo.fv)
         return MoveApi.Device().checkVersion(checkInfo: check)
-            .map{info in
-                var vs = DeviceVersion()
-                vs.currentVersion = info.version?.fv
-                vs.newVersion = info.version?.tv
-                return vs
-        }
+            .map{ DeviceVersion(currentVersion: $0.version?.fv, newVersion: $0.version?.tv) }
     }
     
     
@@ -292,7 +261,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
 
 
 fileprivate func transform(error: MoveApi.ApiError) throws -> Bool {
-    if error.msg == "ok", error.id == 0 {
+    if error.isOK {
         return true
     }
     throw WorkerError.webApi(id: error.id!, field: error.field, msg: error.msg)
