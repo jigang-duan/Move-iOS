@@ -55,8 +55,8 @@ class AccountAndChoseDeviceViewModel {
         
      
         self.cellDatas = enter.flatMapLatest({ _ in
-            deviceManager.getDeviceList().map{ deviceInfos in
-                self.setDevice(deviceInfos: deviceInfos)
+            deviceManager.fetchDevices().map{ deviceInfos in
+                self.devices = deviceInfos
                 var cellDatas: [DeviceCellData] = []
                 for info in deviceInfos {
                     var deviceType = ""
@@ -81,17 +81,6 @@ class AccountAndChoseDeviceViewModel {
         
     }
     
-    
-    func setDevice(deviceInfos: [MoveApi.DeviceInfo]?){
-        self.devices = deviceInfos?.map({ (element) -> DeviceInfo in
-            var info = DeviceInfo()
-            info.deviceId = element.deviceId
-            info.pid = element.pid
-            info.property = DeviceProperty(active: element.property?.active, bluetooth_address: element.property?.bluetooth_address, device_model: element.property?.device_model, firmware_version: element.property?.firmware_version, ip_address: element.property?.ip_address, kernel_version: element.property?.kernel_version, mac_address: element.property?.mac_address, phone_number: element.property?.phone_number, languages: element.property?.languages, power: element.property?.power)
-            info.user = DeviceUser(uid: element.user?.uid, number: element.user?.number, nickname: element.user?.nickname, profile: element.user?.profile, gender: element.user?.gender, height: element.user?.height, weight: element.user?.weight, birthday: element.user?.birthday, gid: element.user?.gid)
-            return info
-        })
-    }
 }
 
 

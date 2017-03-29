@@ -34,13 +34,15 @@ class APNforWatchVC: UIViewController {
     var writeIndex = 0
     
     
+    var responseData: Data?
+    
+    
     enum ApnSettingResult {
         case sending
         case error
         case sendDone
         case setSuccess
         case setFail
-        case xxx
     }
     
     
@@ -53,7 +55,6 @@ class APNforWatchVC: UIViewController {
         var proxy: String?
         var port: String?
         var authtype: String?
-        
     }
     
     
@@ -95,6 +96,27 @@ class APNforWatchVC: UIViewController {
         self.currentPeripheral?.writeValue(tempData, for: self.currentCharacteristic!, type: CBCharacteristicWriteType.withResponse)
     }
     
+    
+    
+    func apnSetDoneResponde(data: Data) {
+        
+        let res = ApnBleTool.unPackage(data: data)
+        
+        if res.isError {
+            responseData = nil
+        }else{
+            responseData?.append(res.data)
+        }
+        if res.isDone {
+            let state = responseData
+            if state == Data(bytes: [0x01]) {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setSuccess)
+            }else{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setFail)
+            }
+            responseData = nil
+        }
+    }
     
     
     
@@ -197,7 +219,7 @@ extension APNforWatchVC: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for ser in peripheral.services ?? [] {
             if ser.uuid == CBUUID(string: apnService) {
-                peripheral.discoverCharacteristics([CBUUID(string: apnCharacteristic)], for: ser)
+                peripheral.discoverCharacteristics([CBUUID(string: apnCharacteristic),CBUUID(string: apnCharacteristicDone)], for: ser)
             }
         }
     }
@@ -210,27 +232,23 @@ extension APNforWatchVC: CBPeripheralDelegate {
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: R.segue.aPNforWatchVC.showAPNSetting, sender: nil)
                 }
+            }
+            
+            if ch.uuid == CBUUID(string: apnCharacteristicDone) {
                 peripheral.readValue(for: ch)
+                peripheral.setNotifyValue(true, for: ch)
             }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == CBUUID(string: apnCharacteristicDone) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.xxx)
-            let data = characteristic.value
-            if data?.count == 8 {
-                let state = data?[4]
-                if state == 0x01 {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setSuccess)
-                }else{
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setFail)
-                }
+            if let d = characteristic.value {
+                self.apnSetDoneResponde(data: d)
             }
         }
     }
-    
-    
+
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
             print(error.debugDescription)
@@ -246,9 +264,6 @@ extension APNforWatchVC: CBPeripheralDelegate {
                 self.writeApnData()
             }
         }
-        
-        /* When a write occurs, need to set off a re-read of the local CBCharacteristic to update its value */
-        peripheral.readValue(for: characteristic)
     }
     
     

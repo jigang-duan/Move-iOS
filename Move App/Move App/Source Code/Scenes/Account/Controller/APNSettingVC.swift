@@ -40,8 +40,6 @@ class APNSettingVC: UITableViewController {
     
     let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
-    var resultData: Data?
-    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -56,23 +54,14 @@ class APNSettingVC: UITableViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.apnSettingNotification(_:)), name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: nil)
         
-        let str = APNforWatchVC.APNData(plmn: "1", apn: "2", spn: "3", user: "4", password: "5", proxy: "6", port: "7", authtype: "8").toJSONString()
-        let data = str?.data(using: String.Encoding.utf8)
         
-        
-        
-        
-        let transData = self.dataTrans(with: data!)
-        resultData = self.generateTargetData(data: transData)
-        
-        
-
+        authSegment.selectedSegmentIndex = 0
         
         activity.center = self.view.center
         self.view.addSubview(activity)
-        
-       
     }
+    
+    
     
     @IBAction func sendAPNSettings(_ sender: Any) {
         activity.startAnimating()
@@ -80,8 +69,27 @@ class APNSettingVC: UITableViewController {
         okBun.isEnabled = false
         okBun.tintColor?.withAlphaComponent(0.5)
         
-        if self.settingDataBlock != nil {
-            self.settingDataBlock!(resultData)
+        
+        let str = APNforWatchVC.APNData(
+                plmn: plmnTf.text,
+                apn: apnTf.text,
+                spn: spnTf.text,
+                user: userTf.text,
+                password: passwordTf.text,
+                proxy: proxyAddTf.text,
+                port: proxyPortTf.text,
+                authtype: authSegment.titleForSegment(at: authSegment.selectedSegmentIndex))
+            .toJSONString()
+        let data = str?.data(using: String.Encoding.utf8)
+        
+        
+        if let d = data {
+            let transData = ApnBleTool.dataTrans(with: d)
+            let resultData = ApnBleTool.package(data: transData)
+            
+            if self.settingDataBlock != nil {
+                self.settingDataBlock!(resultData)
+            }
         }
     }
     
@@ -101,10 +109,9 @@ class APNSettingVC: UITableViewController {
             case .setFail:
                 DispatchQueue.main.async {
                     self.showMessage("APN 设置失败")
-                }
-            case .xxx:
-                DispatchQueue.main.async {
-                    self.showMessage("APN 找到特征")
+                    self.activity.stopAnimating()
+                    self.okBun.isEnabled = true
+                    self.okBun.tintColor?.withAlphaComponent(1)
                 }
             case .sendDone:
                 print("APN 设置数据发送完成")
@@ -132,46 +139,6 @@ class APNSettingVC: UITableViewController {
         }
     }
     
-    
-//    数据转译
-    func dataTrans(with data: Data) -> Data {
-        
-        var tempData = Data()
-        
-        for byte in data {
-            if byte == transSymbol || byte == beginSymbol || byte == endSymbol {
-                tempData.append(byte)
-            }
-            tempData.append(byte)
-        }
-    
-        return tempData
-    }
-    
-//    数据分包
-    func generateTargetData(data: Data) -> Data {
-        var resultData = Data()
-//        总包数
-        let totalBag = data.count/13 + (data.count%13 == 0 ? 0:1)
-        
-        for i in 0..<totalBag {
-            resultData.append(beginSymbol)//开始符
-            resultData.append(UInt8(totalBag))//总包
-            resultData.append(UInt8(i + 1))//第几包
-            var tempData: Data?
-            if i == totalBag - 1 {
-                tempData = data.subdata(in: Range(uncheckedBounds: (lower: i*13, upper: data.count)))
-                resultData.append(UInt8(data.count - i*13))//长度
-            }else{
-                tempData = data.subdata(in: Range(uncheckedBounds: (lower: i*13, upper: i*13 + 13)))
-                resultData.append(UInt8(13))//长度
-            }
-            tempData?.append(CRC16.GetCRC(data: tempData!))//数据CRC处理
-            resultData.append(tempData!)//数据
-            resultData.append(endSymbol)//结束符
-        }
-        return resultData
-    }
     
     
 }

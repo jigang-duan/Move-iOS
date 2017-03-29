@@ -38,6 +38,8 @@ class UpgradeController: UIViewController {
     var progressLab: UILabel?
     
     
+    var needShowProgress = false//是否需要显示下载进度,下载操作可能非自己触发，或退出界面再进
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -59,14 +61,23 @@ class UpgradeController: UIViewController {
         
         
         viewModel.downEnabled
-            .drive(onNext: { [unowned self] valid, progress in
-                self.makeDownloadBlur(progress: progress)
+            .drive(onNext: { [unowned self] valid in
+                self.updateDownloadButton(isEnable: valid)
             })
             .addDisposableTo(disposeBag)
         
      
         
-        let progress = MessageServer.share.progressDownload
+        MessageServer.share.progressDownload?
+            .subscribe(
+                onNext: { info in
+                    print("下载进度===\(info.content ?? "")")
+                    self.downloadProgress.value = Int(info.content ?? "") ?? 0
+                    self.makeDownloadBlur(progress: self.downloadProgress.value)
+                    self.tipLab.isHidden = false
+            }, onError: { (er) in
+                print(er)
+            }).addDisposableTo(self.disposeBag)
         
         viewModel.downResult
             .drive(onNext: { [unowned self] result in
@@ -75,14 +86,8 @@ class UpgradeController: UIViewController {
                     self.showMessage(message)
                 case .ok(let message):
                     print(message)
+                    self.needShowProgress = true
                     self.updateDownloadButton(isEnable: false)
-                    progress?.subscribe(
-                    onNext: { info in
-                        print("下载进度===\(info.content ?? "")")
-                        self.downloadProgress.value = Int(info.content ?? "") ?? 0
-                    }, onError: { (er) in
-                        print(er)
-                    }).addDisposableTo(self.disposeBag)
                 default:
                     break
                 }
@@ -92,6 +97,8 @@ class UpgradeController: UIViewController {
     
     
     func makeDownloadBlur(progress: Int) {
+        if needShowProgress == false {return}
+        
         if downloadBlur == nil{
             downloadBlur = UIView()
             downloadBlur?.backgroundColor = UIColor(rgb: 0x0092EB)
@@ -114,20 +121,22 @@ class UpgradeController: UIViewController {
             progressLab?.text = "Download:\(progress)%"
             downloadBun.setTitle("", for: .disabled)
         }else{
-            if progress >= 100 {
+            if progress >= 100{
                 self.fetchProperty()
+                self.needShowProgress = false
+                self.downloadProgress.value = 0
             }
             downloadBlur?.removeFromSuperview()
             downloadBlur = nil
             progressLab?.removeFromSuperview()
             progressLab = nil
             downloadBun.setTitle("Download", for: .disabled)
+            
         }
     }
     
     
     func updateDownloadButton(isEnable: Bool) {
-        self.tipLab.isHidden = isEnable
         self.downloadBun.isEnabled = isEnable
         self.downloadBun.backgroundColor = UIColor(argb: isEnable ? 0xFF0092EB:0x880092EB)
     }
