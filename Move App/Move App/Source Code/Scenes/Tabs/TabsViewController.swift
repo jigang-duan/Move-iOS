@@ -31,12 +31,22 @@ class TabsViewController: UITabBarController {
         self.selectedIndex = inlet
         if inlet == 1 {
             self.viewControllers?[0].tabBarItem.isEnabled = false
-            self.viewControllers?[2].tabBarItem.isEnabled = false
         }
+        
+        MessageServer.share.subject
+            .flatMapLatest({ _ in
+                MeManager.shared.checkCurrentRole()
+            })
+            .bindNext({
+                if let _ = $0 {
+                    self.viewControllers?[0].tabBarItem.isEnabled = true
+                }
+            })
+            .addDisposableTo(bag)
         
         MessageServer.share.syncDataInitalization(disposeBag: bag)
         MessageServer.share.subscribe().addDisposableTo(bag)
-        AlertServer.share.subscribe().addDisposableTo(bag)
+        AlertServer.share.subscribe().addDisposableTo(bag) 
     }
 
     override func didReceiveMemoryWarning() {

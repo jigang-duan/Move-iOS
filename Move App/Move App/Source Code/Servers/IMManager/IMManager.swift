@@ -78,6 +78,18 @@ extension IMManager {
         
     }
     
+    func sendChatOp(_ chatOp: ImChatOp) -> Observable<ImChatOp> {
+        return sendChatMessage(message: MoveIM.ImMessage(op: chatOp))
+            .map { $0.msg_id }
+            .filterNil()
+            .map { ImChatOp(msg_id: $0,
+                            from: chatOp.from,
+                            to: chatOp.to,
+                            gid: chatOp.gid,
+                            ctime: chatOp.ctime,
+                            op: chatOp.op) }
+    }
+    
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
         return worker.sendChatMessage(message: message)
     }
@@ -128,6 +140,37 @@ struct ImContact {
 
 
 
+enum ImOpType: Int {
+/*
+    操作类型
+    1 - 进入聊天
+    2 - 退出聊天
+    3 - 删除消息
+    4 - 撤销发送
+    5 - 标记语音/视频已读
+    6 - 清空聊天记录
+    7 - 阅读消息
+ */
+    case enterChat = 1
+    case outOfChat = 2
+    case deleteMessage = 3
+    case undoMessage = 4
+    case tagRead = 5
+    case clearChat = 6
+    case readMessage = 7
+}
+
+struct ImChatOp {
+    var msg_id: String?
+    var from: String?
+    var to: String?
+    var gid: String?
+    var ctime: Date?
+    
+    var op: ImOpType?
+}
+
+
 struct ImEmoji {
     var msg_id: String?
     var from: String?
@@ -150,6 +193,20 @@ struct ImVoice {
     var duration: Int?
     
     var locationURL: URL?
+}
+
+
+fileprivate extension MoveIM.ImMessage {
+    init(op: ImChatOp) {
+        self.init()
+        self.type = 100
+        self.from = op.from
+        self.to = op.to
+        self.gid = op.gid
+        self.op = op.op?.rawValue
+        self.content = op.msg_id
+        self.ctime = op.ctime
+    }
 }
 
 
@@ -314,13 +371,7 @@ fileprivate extension NoticeEntity {
         self.readStatus = message.content_status ?? NoticeEntity.ReadStatus.unknown.rawValue
         self.type = message.notice ?? NoticeType.unknown.rawValue
         self.createDate = message.ctime
-        let noticeType = NoticeType(rawValue: type) ?? NoticeType.unknown
-        switch noticeType {
-        case .progressDownload:
-            self.content = message.content
-        default:
-            self.content = NoticeType(rawValue: type)?.description
-        }
+        self.content = message.content
     }
 }
 

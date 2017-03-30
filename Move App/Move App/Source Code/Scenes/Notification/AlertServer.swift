@@ -22,40 +22,44 @@ class AlertServer {
     
     func subscribe() -> Disposable {
         let realm = try! Realm()
-        let objects = realm.objects(NoticeEntity.self)//.filter("readStatus == %d", NoticeEntity.ReadStatus.unread.rawValue)
+        let objects = realm.objects(NoticeEntity.self)
         let notices = Observable.collection(from: objects)
             .share()
             
         return notices
-            .flatMapLatest({
-                Observable.just($0.filter({ $0.readStatus == NoticeEntity.ReadStatus.unread.rawValue }).first)
-            })
+            .map { $0.filter({$0.readStatus == NoticeEntity.ReadStatus.unread.rawValue}).first }
             .filterNil()
-            .flatMapLatest({ (notice) -> Observable<AlertResult> in
+            .flatMapLatest { (notice) -> Observable<AlertResult> in
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
                 let imageUrl = kids?.headPortrait == nil ? nil : FSManager.imageUrl(with: (kids?.headPortrait)!)
                 return AlertWireframe.shared.prompt(String(format: notice.content ?? "", kids?.nickname ?? ""),
                                                     title: NoticeType(rawValue: notice.type)?.title,
                                                     iconURL: imageUrl,
                                                     cancel: .ok(parcel: notice))
+            }
+            .map(transform)
+            .filterNil()
+            .flatMapLatest({ notice in
+                IMManager.shared.sendChatOp(
+                    ImChatOp(msg_id: notice.id, from: notice.from, to: notice.to, gid: notice.groupId, ctime: Date(), op: .readMessage)
+                )
+                .map { _ in notice }
+                .catchErrorJustReturn(notice)
             })
-            .bindNext { [weak self] (alertResult) in
-                switch alertResult {
-                case .confirm(let parcel):
-                    self?.readNotice(parcel, realm: realm)
-                case .ok(let parcel):
-                    self?.readNotice(parcel, realm: realm)
-                default: ()
+            .bindNext { notice in
+                try? realm.write {
+                    notice.readStatus = NoticeEntity.ReadStatus.read.rawValue
                 }
             }
-    }
         
-    private func readNotice(_ parcel: Any?, realm: Realm) {
-        if let notice = parcel as? NoticeEntity {
-            try? realm.write {
-                notice.readStatus = NoticeEntity.ReadStatus.read.rawValue
-            }
+        
+    }
+    
+    private func transform(alertResult: AlertResult) -> NoticeEntity? {
+        if let notice = alertResult.parcel as? NoticeEntity {
+            return notice
         }
+        return nil
     }
     
 }

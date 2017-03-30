@@ -11,7 +11,4 @@ import RxSwift
 
 
 class MoveApiMeWorker: MeWorkerProtocl {
-    
-    
-    
 }

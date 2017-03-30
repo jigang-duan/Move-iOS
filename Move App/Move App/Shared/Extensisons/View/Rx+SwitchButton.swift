@@ -12,18 +12,6 @@ import RxCocoa
 import UIKit
 import CustomViews
 
-
-extension Reactive where Base: UIButton {
-    
-    var enabled: UIBindingObserver<Base, Bool> {
-        return UIBindingObserver(UIElement: self.base) { button, enabled in
-            button.isEnabled = enabled
-            button.alpha = enabled ? 1.0 : 0.5
-        }
-    }
-    
-}
-
 extension Reactive where Base: SwitchButton {
     
     /// Reactive wrapper for `delegate`.

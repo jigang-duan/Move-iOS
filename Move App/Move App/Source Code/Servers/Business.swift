@@ -57,8 +57,7 @@ class KidSate {
     
     struct locatio {
         var location: CLLocationCoordinate2D?
-        var addr: String?
-        
+        var address: String?
     }
     
     var fences: [ElectronicFencea]?
@@ -85,7 +84,7 @@ struct KidSetting {
         struct Alarm {
             var alarmAt: Date?
             var day: [Bool] = []
-            var active : Bool?
+            var active: Bool?
         }
         
         struct ToDo {
@@ -191,7 +190,6 @@ extension Relation {
             self = .other(value: input)
         }
     }
-    
 }
 
 extension Relation: CustomStringConvertible {
@@ -246,30 +244,34 @@ extension Relation: CustomStringConvertible {
         case .brother:
             return "10"
         case .other(let value):
-            switch value {
-            case "Mother":
-                return "1"
-            case "Father":
-                return "2"
-            case "GrandmaF":
-                return "3"
-            case "GrandPaF":
-                return "4"
-            case "GrandmaM":
-                return "5"
-            case "GrandpaM":
-                return "6"
-            case "Uncle":
-                return "7"
-            case "Aunty":
-                return "8"
-            case "Sister":
-                return "9"
-            case "Brother":
-                return "10"
-            default:
-                return value
-            }
+            return otherIdentity(value)
+        }
+    }
+    
+    private func otherIdentity(_ value: String) -> String {
+        switch value {
+        case "Mother":
+            return "1"
+        case "Father":
+            return "2"
+        case "GrandmaF":
+            return "3"
+        case "GrandPaF":
+            return "4"
+        case "GrandmaM":
+            return "5"
+        case "GrandpaM":
+            return "6"
+        case "Uncle":
+            return "7"
+        case "Aunty":
+            return "8"
+        case "Sister":
+            return "9"
+        case "Brother":
+            return "10"
+        default:
+            return value
         }
     }
 }

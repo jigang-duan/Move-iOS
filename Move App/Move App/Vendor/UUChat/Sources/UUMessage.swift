@@ -30,18 +30,19 @@ enum MessageState {
 enum EmojiType: String {
     case aweat = "[aweat]"
     case bye = "[bye]"
-    case dizzy = "[dizzy]"
-    case heart = "[heart]"
     case cry = "[cry]"
-    case laugh = "[laugh]"
-    case naughty = "[naughty]"
+    case heart = "[heart]"
+    case lacrimation = "[lacrimation]"
+    case smile = "[smile]"
+    case angry = "[angry]"
     case sad = "[sad]"
     case sick = "[sick]"
-    case smile = "[smile]"
+    case dizzy = "[dizzy]"
+    
     case aweat_d = "[aweat_d]"
     case bye_d = "[bye_d]"
     case dizzy_d = "[dizzy_d]"
-    case heart_d = "[heart_d]"
+    case loveu_d = "[loveu_d]"
     case cry_d = "[cry_d]"
     case laught_d = "[laught_d]"
     case naughty_d = "[naughty_d]"
@@ -212,50 +213,50 @@ fileprivate func _minute(_ n: TimeInterval) -> TimeInterval {
 }
 
 
-
 extension EmojiType {
     
     static func getEmojis() -> [[EmojiType]] {
         return [
-            [.aweat, .bye, .dizzy, .heart, .cry, .laugh,.naughty, .sad, .sick, .smile],
-            [.aweat_d,.bye_d, .dizzy_d, .heart_d, .cry_d, laught_d, naughty_d, sad_d, sick_d, smile_d]
+            [.aweat, .bye, .cry, .heart, .lacrimation, .smile, .angry, .sad, .sick, .dizzy],
+            [.aweat_d,.bye_d, .dizzy_d, .loveu_d, .cry_d, laught_d, naughty_d, sad_d, sick_d, smile_d]
         ]
     }
     
     var url: URL? {
         switch self {
         case .aweat:
-            return R.file.emotion_11Png()
-        case .bye:
-            return R.file.emotion_12Png()
-        case .dizzy:
-            return R.file.emotion_14Png()
-        case .heart:
-            return R.file.emotion_15Png()
-        case .cry:
-            return R.file.emotion_16Png()
-        case .laugh:
-            return R.file.emotion_17Png()
-        case .naughty:
-            return R.file.emotion_18Png()
-        case .sad:
-            return R.file.emotion_19Png()
-        case .sick:
             return R.file.emotion_21Png()
-        case .smile:
+        case .bye:
             return R.file.emotion_22Png()
+        case .dizzy:
+            return R.file.emotion_30Png()
+        case .heart:
+            return R.file.emotion_24Png()
+        case .lacrimation:
+            return R.file.emotion_25Png()
+        case .angry:
+            return R.file.emotion_27Png()
+        case .cry:
+            return R.file.emotion_23Png()
+        case .sad:
+            return R.file.emotion_28Png()
+        case .sick:
+            return R.file.emotion_29Png()
+        case .smile:
+            return R.file.emotion_26Png()
+            
         case .aweat_d:
             return R.file.emotion_01Gif()
         case .bye_d:
             return R.file.emotion_02Gif()
         case .dizzy_d:
-            return R.file.emotion_03Gif()
-        case .heart_d:
             return R.file.emotion_04Gif()
-        case .cry_d:
-            return R.file.emotion_05Gif()
-        case .laught_d:
+        case .loveu_d:
             return R.file.emotion_06Gif()
+        case .cry_d:
+            return R.file.emotion_03Gif()
+        case .laught_d:
+            return R.file.emotion_05Gif()
         case .naughty_d:
             return R.file.emotion_07Gif()
         case .sad_d:
@@ -264,7 +265,7 @@ extension EmojiType {
             return R.file.emotion_09Gif()
         case .smile_d:
             return R.file.emotion_10Gif()
-        default:
+        case .warning:
             return nil
         }
     }
@@ -279,11 +280,11 @@ extension EmojiType {
             return false
         case .heart:
             return false
+        case .lacrimation:
+            return false
+        case .angry:
+            return false
         case .cry:
-            return false
-        case .laugh:
-            return false
-        case .naughty:
             return false
         case .sad:
             return false
@@ -297,7 +298,7 @@ extension EmojiType {
             return true
         case .dizzy_d:
             return true
-        case .heart_d:
+        case .loveu_d:
             return true
         case .cry_d:
             return true
@@ -311,7 +312,7 @@ extension EmojiType {
             return true
         case .smile_d:
             return true
-        default:
+        case .warning:
             return false
         }
     }
@@ -320,50 +321,7 @@ extension EmojiType {
 extension EmojiType: CustomStringConvertible {
     
     var description: String {
-        switch self {
-        case .aweat:
-            return "[aweat]"
-        case .bye:
-            return "[bye]"
-        case .dizzy:
-            return "[dizzy]"
-        case .heart:
-            return "[heart]"
-        case .cry:
-            return "[cry]"
-        case .laugh:
-            return "[laugh]"
-        case .naughty:
-            return "[naughty]"
-        case .sad:
-            return "[sad]"
-        case .sick:
-            return "[sick]"
-        case .smile:
-            return "[smile]"
-        case .aweat_d:
-            return "[aweat_d]"
-        case .bye_d:
-            return "[bye_d]"
-        case .dizzy_d:
-            return "[dizzy_d]"
-        case .heart_d:
-            return "[heart_d]"
-        case .cry_d:
-            return "[cry_d]"
-        case .laught_d:
-            return "[laught_d]"
-        case .naughty_d:
-            return "[naughty_d]"
-        case .sad_d:
-            return "[sad_d]"
-        case .sick_d:
-            return "[sick_d]"
-        case .smile_d:
-            return "[smile_d]"
-        default:
-            return "⚠️"
-        }
+        return self.rawValue
     }
 
 }

@@ -93,7 +93,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: R.reuseIdentifier.safezonecell.identifier, for: indexPath) as! SafezoneCell
         cell.nameLabel.text = self.fences[indexPath.row].name
-        cell.addrLabel.text = self.fences[indexPath.row].location?.addr
+        cell.addrLabel.text = self.fences[indexPath.row].location?.address
         cell.switchOnOffQutiet.isOn = self.fences[indexPath.row].active!
         return cell
     }

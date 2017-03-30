@@ -22,6 +22,7 @@ class LanguageViewModel {
     
     let saveFinish: Driver<Bool>
     // }
+    
     init(
         input: (
         selectedlanguage: Driver<String>,
@@ -42,6 +43,7 @@ class LanguageViewModel {
         self.lauguages = manager.fetchLanguages()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: [])
+        
         self.lauguage = manager.fetchLanguage()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: "")

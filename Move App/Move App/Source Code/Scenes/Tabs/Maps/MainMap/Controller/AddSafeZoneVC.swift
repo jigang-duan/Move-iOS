@@ -100,7 +100,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             //编辑
             self.title = self.editFenceDataSounrce?.name
             self.kidnameTF.text = self.editFenceDataSounrce?.name
-            self.kidaddressTF.text = self.editFenceDataSounrce?.location?.addr
+            self.kidaddressTF.text = self.editFenceDataSounrce?.location?.address
             self.fencelocation = CLLocationCoordinate2D(latitude: (self.editFenceDataSounrce?.location?.location?.latitude)!, longitude: (self.editFenceDataSounrce?.location?.location?.longitude)!)
             let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
             self.mainMapView.setRegion(region, animated: true)
@@ -362,7 +362,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 var fenceinfo : MoveApi.FenceInfo? = nil
                 var fencereq : MoveApi.FenceReq? = nil
                 if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
-                    fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.addr)
+                    fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.address)
                 }else{
                     fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
                 }

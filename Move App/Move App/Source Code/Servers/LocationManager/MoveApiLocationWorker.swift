@@ -48,7 +48,7 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
     }
     
     private func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFencea {
-        let locatio = KidSate.locatio(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), addr: fence.location?.addr)
+        let locatio = KidSate.locatio(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), address: fence.location?.addr)
         return KidSate.ElectronicFencea(ids: fence.id, name: fence.name, radius: fence.radius, active: fence.active, location: locatio)
     }
     
