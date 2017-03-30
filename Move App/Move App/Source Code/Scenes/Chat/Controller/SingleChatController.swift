@@ -118,3 +118,10 @@ extension SingleChatController: UITableViewDelegate {
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 }
+
+extension SingleChatController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        ifView.shrinkEmoji()
+    }
+}

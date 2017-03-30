@@ -193,12 +193,21 @@ extension UUInputView: ISEmojiViewDelegate {
 
 extension UUInputView {
     
-    @objc fileprivate func emojiRecord(_ sender: UIButton) {
-        
+    func shrinkEmoji() {
+        if isUnfoldEmoji {
+            unfoldEmoji()
+        }
+    }
+    
+    private func unfoldEmoji() {
         isUnfoldEmoji = !isUnfoldEmoji
         UIView.animate(withDuration: 0.6, animations: {
             self.frame = self.isUnfoldEmoji ? unfoldFrame : defaultFrame
         })
+    }
+    
+    @objc fileprivate func emojiRecord(_ sender: UIButton) {
+        unfoldEmoji()
     }
 }
 

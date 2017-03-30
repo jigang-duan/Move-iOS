@@ -2109,7 +2109,7 @@
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = BV28C32GBU;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -2885,8 +2885,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2917,8 +2917,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
