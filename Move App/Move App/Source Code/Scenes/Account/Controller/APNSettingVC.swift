@@ -27,16 +27,6 @@ class APNSettingVC: UITableViewController {
     
     @IBOutlet weak var okBun: UIBarButtonItem!
     
-    let transSymbol: UInt8 = 0xDD//转译符
-    
-    let beginSymbol: UInt8 = 0xFF//开始符
-    let endSymbol: UInt8 = 0x55//结束符
-    
-    /*
-     蓝牙数据结构  |-----最大20长度-----|
-     |开始符|总包|第几包|数据长度|---数据---|CRC16|结束符|
-    */
-    
     
     let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
@@ -62,13 +52,7 @@ class APNSettingVC: UITableViewController {
     }
     
     
-    
     @IBAction func sendAPNSettings(_ sender: Any) {
-        activity.startAnimating()
-        
-        okBun.isEnabled = false
-        okBun.tintColor?.withAlphaComponent(0.5)
-        
         
         let str = APNforWatchVC.APNData(
                 plmn: plmnTf.text,
@@ -84,6 +68,11 @@ class APNSettingVC: UITableViewController {
         
         
         if let d = data {
+            
+            activity.startAnimating()
+            okBun.isEnabled = false
+            okBun.tintColor?.withAlphaComponent(0.5)
+            
             let transData = ApnBleTool.dataTrans(with: d)
             let resultData = ApnBleTool.package(data: transData)
             
