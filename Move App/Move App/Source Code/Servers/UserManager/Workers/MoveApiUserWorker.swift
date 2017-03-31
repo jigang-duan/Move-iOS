@@ -13,9 +13,10 @@ import RxSwift
 class MoveApiUserWorker: UserWorkerProtocl {
     
     public enum LoginType: String{
-        case Twiter = "twitter"
-        case Facebook = "facebook"
-        case Google = "google+"
+        case none = ""
+        case twitter = "twitter"
+        case facebook = "facebook"
+        case google = "google+"
     }
     
     func tplogin(platform: LoginType,openld: String,secret: String) -> Observable<Bool> {

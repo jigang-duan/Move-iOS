@@ -31,54 +31,57 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var twitterLoginQulet: UIButton!
     @IBOutlet weak var googleaddLoginQulet: UIButton!
     
+    var thirdLogin = Variable(MoveApiUserWorker.LoginType.none,"","")
+    
     func facebookLogin() {
-//        授权
-                ShareSDK.authorize(SSDKPlatformType.typeFacebook, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
-        
-                    switch state{
-        
-                    case SSDKResponseState.success: print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
-                    case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
-                    case SSDKResponseState.cancel:  print("操作取消")
-        
-                    default:
-                        break
-                    }
-                })
+        ShareSDK.authorize(SSDKPlatformType.typeFacebook, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
 
+            switch state{
+            case SSDKResponseState.success:
+                print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+                self.thirdLogin.value = (.facebook,"344365305959182",user?.credential.token ?? "")
+            case SSDKResponseState.fail:
+                print("授权失败,错误描述:\(error)")
+            case SSDKResponseState.cancel:
+                print("操作取消")
+            default:
+                break
+            }
+        })
     }
+    
     func twitterLogin() {
-        //        授权
         ShareSDK.authorize(SSDKPlatformType.typeTwitter, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
             
             switch state{
-                
-            case SSDKResponseState.success: print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
-                
-            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
-            case SSDKResponseState.cancel:  print("操作取消")
-                
+            case SSDKResponseState.success:
+                print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+                self.thirdLogin.value = (.twitter,user?.credential.token ?? "",user?.credential.secret ?? "")
+            case SSDKResponseState.fail:
+                print("授权失败,错误描述:\(error)")
+            case SSDKResponseState.cancel:
+                print("操作取消")
             default:
                 break
             }
         })
-        
     }
+    
     func googleaddLogin() {
-        //        授权
         ShareSDK.authorize(SSDKPlatformType.typeGooglePlus, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
             
             switch state{
-                
-            case SSDKResponseState.success: print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
-            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
-            case SSDKResponseState.cancel:  print("操作取消")
-                
+            case SSDKResponseState.success:
+                print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+                self.thirdLogin.value = (.google,user?.credential.token ?? "",(user?.credential.rawData["id_token"] as? String ?? "")!)
+            case SSDKResponseState.fail:
+                print("授权失败,错误描述:\(error)")
+            case SSDKResponseState.cancel:
+                print("操作取消")
             default:
                 break
             }
         })
-        
     }
 
     
@@ -87,9 +90,10 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        facebookLoginQulet.addTarget(self, action: #selector(LoginViewController.facebookLogin), for: .touchUpInside)
-         twitterLoginQulet.addTarget(self, action: #selector(LoginViewController.twitterLogin), for: .touchUpInside)
-         googleaddLoginQulet.addTarget(self, action: #selector(LoginViewController.googleaddLogin), for: .touchUpInside)
+        facebookLoginQulet.addTarget(self, action: #selector(self.facebookLogin), for: .touchUpInside)
+        twitterLoginQulet.addTarget(self, action: #selector(self.twitterLogin), for: .touchUpInside)
+        googleaddLoginQulet.addTarget(self, action: #selector(self.googleaddLogin), for: .touchUpInside)
+        
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
         passwordValidationHCon.constant = 0
@@ -99,7 +103,8 @@ class LoginViewController: UIViewController {
             input:(
                 email: emailOutlet.rx.text.orEmpty.asDriver(),
                 passwd: passwordOutlet.rx.text.orEmpty.asDriver(),
-                loginTaps: loginOutlet.rx.tap.asDriver()
+                loginTaps: loginOutlet.rx.tap.asDriver(),
+                thirdLogin: thirdLogin.asDriver()
             ),
             dependency: (
                 userManager: UserManager.shared,
@@ -116,6 +121,8 @@ class LoginViewController: UIViewController {
         viewModel.logedIn.drive(onNext: loginOnValidation).addDisposableTo(disposeBag)
         
         viewModel.logedIn.map { $0.isValid }.drive(MessageServer.share.subject).addDisposableTo(disposeBag)
+        
+        viewModel.thirdLoginResult.map { $0.isValid }.drive(MessageServer.share.subject).addDisposableTo(disposeBag)
         
     }
     
@@ -218,46 +225,5 @@ extension LoginViewController {
     }
     
 }
-
-
-extension LoginViewController: OAuthWebViewControllerDelegate {
-    #if os(iOS) || os(tvOS)
-    
-    func oauthWebViewControllerDidPresent() {
-        
-    }
-    func oauthWebViewControllerDidDismiss() {
-        
-    }
-    #endif
-    
-    func oauthWebViewControllerWillAppear() {
-        
-    }
-    func oauthWebViewControllerDidAppear() {
-        
-    }
-    func oauthWebViewControllerWillDisappear() {
-        
-    }
-    func oauthWebViewControllerDidDisappear() {
-        // Ensure all listeners are removed if presented web view close
-//        oauthswift?.cancel()
-    }
-}
-
-
-
-fileprivate func generateStateWithLength (len : Int) -> NSString {
-    let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    let randomString : NSMutableString = NSMutableString(capacity: len)
-    for _ in 0..<len {
-        let length = UInt32 (letters.length)
-        let rand = arc4random_uniform(length)
-        randomString.appendFormat("%C", letters.character(at: Int(rand)))
-    }
-    return randomString
-}
-
 
 

@@ -206,17 +206,6 @@
 		E9260EE41E7CD11D00D272F5 /* safezone.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9260EE31E7CD11D00D272F5 /* safezone.plist */; };
 		E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E928BF091E76459800E70A57 /* RemindersCell.swift */; };
 		E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E928BF0A1E76459800E70A57 /* RemindersCell.xib */; };
-		E92A6F3D1E8CD09B00647726 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F2E1E8CD09B00647726 /* ShareSDK.framework */; };
-		E92A6F3E1E8CD09B00647726 /* ShareSDKConfigFile.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E92A6F311E8CD09B00647726 /* ShareSDKConfigFile.bundle */; };
-		E92A6F3F1E8CD09B00647726 /* ShareSDKConfigFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F321E8CD09B00647726 /* ShareSDKConfigFile.framework */; };
-		E92A6F401E8CD09B00647726 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F331E8CD09B00647726 /* ShareSDKExtension.framework */; };
-		E92A6F411E8CD09B00647726 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E92A6F341E8CD09B00647726 /* ShareSDKUI.bundle */; };
-		E92A6F421E8CD09B00647726 /* ShareSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F351E8CD09B00647726 /* ShareSDKUI.framework */; };
-		E92A6F431E8CD09B00647726 /* FacebookConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F371E8CD09B00647726 /* FacebookConnector.framework */; };
-		E92A6F441E8CD09B00647726 /* GooglePlusConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F381E8CD09B00647726 /* GooglePlusConnector.framework */; };
-		E92A6F451E8CD09B00647726 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F3A1E8CD09B00647726 /* MOBFoundation.framework */; };
-		E92A6F461E8CD09B00647726 /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E92A6F3B1E8CD09B00647726 /* ShareSDK.bundle */; };
-		E92A6F471E8CD09B00647726 /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F3C1E8CD09B00647726 /* ShareSDKConnector.framework */; };
 		E92A6F491E8CD6BB00647726 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F481E8CD6BB00647726 /* libicucore.tbd */; };
 		E92A6F4B1E8CD6C000647726 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F4A1E8CD6C000647726 /* libz.tbd */; };
 		E92A6F4D1E8CD6CA00647726 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F4C1E8CD6CA00647726 /* libstdc++.tbd */; };
@@ -581,17 +570,6 @@
 		E9260EE31E7CD11D00D272F5 /* safezone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = safezone.plist; sourceTree = "<group>"; };
 		E928BF091E76459800E70A57 /* RemindersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersCell.swift; sourceTree = "<group>"; };
 		E928BF0A1E76459800E70A57 /* RemindersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindersCell.xib; sourceTree = "<group>"; };
-		E92A6F2E1E8CD09B00647726 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
-		E92A6F311E8CD09B00647726 /* ShareSDKConfigFile.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKConfigFile.bundle; sourceTree = "<group>"; };
-		E92A6F321E8CD09B00647726 /* ShareSDKConfigFile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConfigFile.framework; sourceTree = "<group>"; };
-		E92A6F331E8CD09B00647726 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
-		E92A6F341E8CD09B00647726 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
-		E92A6F351E8CD09B00647726 /* ShareSDKUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKUI.framework; sourceTree = "<group>"; };
-		E92A6F371E8CD09B00647726 /* FacebookConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookConnector.framework; sourceTree = "<group>"; };
-		E92A6F381E8CD09B00647726 /* GooglePlusConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlusConnector.framework; sourceTree = "<group>"; };
-		E92A6F3A1E8CD09B00647726 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
-		E92A6F3B1E8CD09B00647726 /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
-		E92A6F3C1E8CD09B00647726 /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
 		E92A6F481E8CD6BB00647726 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		E92A6F4A1E8CD6C000647726 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E92A6F4C1E8CD6CA00647726 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -704,19 +682,11 @@
 				E92A6F4D1E8CD6CA00647726 /* libstdc++.tbd in Frameworks */,
 				E92A6F4B1E8CD6C000647726 /* libz.tbd in Frameworks */,
 				E92A6F491E8CD6BB00647726 /* libicucore.tbd in Frameworks */,
-				E92A6F451E8CD09B00647726 /* MOBFoundation.framework in Frameworks */,
 				E01DF7371E308D7F00EA003D /* CustomViews.framework in Frameworks */,
-				E92A6F421E8CD09B00647726 /* ShareSDKUI.framework in Frameworks */,
-				E92A6F401E8CD09B00647726 /* ShareSDKExtension.framework in Frameworks */,
 				E0931F3A1E30DE7400755B4A /* MapKit.framework in Frameworks */,
 				A5B3E1E81E7FF8A100F12E22 /* libopencore-amrnb.a in Frameworks */,
-				E92A6F441E8CD09B00647726 /* GooglePlusConnector.framework in Frameworks */,
-				E92A6F3D1E8CD09B00647726 /* ShareSDK.framework in Frameworks */,
-				E92A6F431E8CD09B00647726 /* FacebookConnector.framework in Frameworks */,
-				E92A6F3F1E8CD09B00647726 /* ShareSDKConfigFile.framework in Frameworks */,
 				A5B3E1E91E7FF8A100F12E22 /* libopencore-amrwb.a in Frameworks */,
 				3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */,
-				E92A6F471E8CD09B00647726 /* ShareSDKConnector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -974,7 +944,6 @@
 		601CEB9B915C944884D37A9C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E92A6F2D1E8CD09B00647726 /* ShareSDK */,
 				39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */,
 				D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */,
 				C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */,
@@ -1861,56 +1830,6 @@
 			path = UserManager;
 			sourceTree = "<group>";
 		};
-		E92A6F2D1E8CD09B00647726 /* ShareSDK */ = {
-			isa = PBXGroup;
-			children = (
-				E92A6F2E1E8CD09B00647726 /* ShareSDK.framework */,
-				E92A6F2F1E8CD09B00647726 /* Support */,
-			);
-			path = ShareSDK;
-			sourceTree = "<group>";
-		};
-		E92A6F2F1E8CD09B00647726 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				E92A6F301E8CD09B00647726 /* Optional */,
-				E92A6F361E8CD09B00647726 /* PlatformConnector */,
-				E92A6F391E8CD09B00647726 /* Required */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
-		E92A6F301E8CD09B00647726 /* Optional */ = {
-			isa = PBXGroup;
-			children = (
-				E92A6F311E8CD09B00647726 /* ShareSDKConfigFile.bundle */,
-				E92A6F321E8CD09B00647726 /* ShareSDKConfigFile.framework */,
-				E92A6F331E8CD09B00647726 /* ShareSDKExtension.framework */,
-				E92A6F341E8CD09B00647726 /* ShareSDKUI.bundle */,
-				E92A6F351E8CD09B00647726 /* ShareSDKUI.framework */,
-			);
-			path = Optional;
-			sourceTree = "<group>";
-		};
-		E92A6F361E8CD09B00647726 /* PlatformConnector */ = {
-			isa = PBXGroup;
-			children = (
-				E92A6F371E8CD09B00647726 /* FacebookConnector.framework */,
-				E92A6F381E8CD09B00647726 /* GooglePlusConnector.framework */,
-			);
-			path = PlatformConnector;
-			sourceTree = "<group>";
-		};
-		E92A6F391E8CD09B00647726 /* Required */ = {
-			isa = PBXGroup;
-			children = (
-				E92A6F3A1E8CD09B00647726 /* MOBFoundation.framework */,
-				E92A6F3B1E8CD09B00647726 /* ShareSDK.bundle */,
-				E92A6F3C1E8CD09B00647726 /* ShareSDKConnector.framework */,
-			);
-			path = Required;
-			sourceTree = "<group>";
-		};
 		E9735EA51E6942A300C0B944 /* FuntionList */ = {
 			isa = PBXGroup;
 			children = (
@@ -2282,7 +2201,6 @@
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				112D6E6F1E863CE1006135E3 /* emotion_06.gif in Resources */,
 				112D6E6B1E863CE1006135E3 /* emotion_02.gif in Resources */,
-				E92A6F461E8CD09B00647726 /* ShareSDK.bundle in Resources */,
 				FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
 				112D6E891E863D37006135E3 /* emotion_11.png in Resources */,
@@ -2291,13 +2209,11 @@
 				FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */,
 				112D6E951E863D37006135E3 /* emotion_23.png in Resources */,
 				112D6E8D1E863D37006135E3 /* emotion_15.png in Resources */,
-				E92A6F411E8CD09B00647726 /* ShareSDKUI.bundle in Resources */,
 				112D6E8B1E863D37006135E3 /* emotion_13.png in Resources */,
 				E92A7ABF1E79070100F1BC43 /* officaialNumber.plist in Resources */,
 				112D6E721E863CE1006135E3 /* emotion_09.gif in Resources */,
 				112D6E971E863D37006135E3 /* emotion_25.png in Resources */,
 				D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */,
-				E92A6F3E1E8CD09B00647726 /* ShareSDKConfigFile.bundle in Resources */,
 				112D6E6D1E863CE1006135E3 /* emotion_04.gif in Resources */,
 				112D6E701E863CE1006135E3 /* emotion_07.gif in Resources */,
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,

@@ -5,6 +5,7 @@ PODS:
   - IQKeyboardManager (4.0.8)
   - Kingfisher (3.5.2)
   - MJRefresh (3.1.12)
+  - MOBFoundation (2.2.17)
   - Moya (8.0.3):
     - Moya/Core (= 8.0.3)
   - Moya-ObjectMapper/Core (2.3.1):
@@ -52,6 +53,10 @@ PODS:
   - RxSwift (3.3.1)
   - RxTest (3.3.1):
     - RxSwift (~> 3.3)
+  - ShareSDK3/ShareSDKPlatforms/Facebook (3.6.2.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/GooglePlus (3.6.2.1):
+    - MOBFoundation
   - SVPulsingAnnotationView (0.3.0)
   - SwiftGifOrigin (1.6.1)
   - SwiftyBeaver (1.1.3)
@@ -74,6 +79,8 @@ DEPENDENCIES:
   - RxRealm
   - RxRealmDataSources
   - RxTest
+  - ShareSDK3/ShareSDKPlatforms/Facebook
+  - ShareSDK3/ShareSDKPlatforms/GooglePlus
   - SVPulsingAnnotationView
   - SwiftGifOrigin (~> 1.6.1)
   - SwiftyBeaver
@@ -85,6 +92,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   Kingfisher: 9950e382c500b6834ce004c7c4131c444e90c3a1
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MOBFoundation: fa12570bb16a7655dca3b3472ce6cd962e7ff5e3
   Moya: d3721622e3cc0cc2f038d69a258686f0b66e7252
   Moya-ObjectMapper: 952be2b261d38cf8d973b7e429708eb03d256e23
   OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
@@ -102,10 +110,11 @@ SPEC CHECKSUMS:
   RxRealmDataSources: 743901f35ef18533b2fc5d41a0f6b6b62b3c3304
   RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
   RxTest: f4e7360033fafa743f2f85097efa958402ed442a
+  ShareSDK3: 3c531b5e64576e4b947127b9b1f46b685dfa3b37
   SVPulsingAnnotationView: f1a8dc7a57ebb5fa231d0ef8b0da59a250005511
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   SwiftyBeaver: 949aa1439b8fa3667f68555cfef65de46a70ccde
 
-PODFILE CHECKSUM: 9c95ffe9b6f7a67b4ef620e54144c63369ad8f38
+PODFILE CHECKSUM: 15e06cf0fc35d36c42980e1b5fcffafe7cedd18c
 
 COCOAPODS: 1.2.0

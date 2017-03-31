@@ -27,13 +27,14 @@ class LoginViewModel {
     // Is signing process in progress
     let loggingIn: Driver<Bool>
     
-    // }
+    let thirdLoginResult: Driver<ValidationResult>
     
     init(
         input: (
         email: Driver<String>,
         passwd: Driver<String>,
-        loginTaps: Driver<Void>
+        loginTaps: Driver<Void>,
+        thirdLogin: Driver<(MoveApiUserWorker.LoginType,String,String)>
         ),
         dependency: (
         userManager: UserManager,
@@ -76,6 +77,19 @@ class LoginViewModel {
                 !loggingIn
             }
             .distinctUntilChanged()
+        
+        
+        let third = input.thirdLogin.filter({ $0.0 != MoveApiUserWorker.LoginType.none })
+        
+        self.thirdLoginResult = third.flatMapLatest({ info in
+            return userManager.tplogin(platform: info.0, openld: info.1, secret: info.2)
+                .trackActivity(signingIn)
+                .map { _ in
+                    ValidationResult.ok(message: "Login Success.")
+                }
+                .asDriver(onErrorRecover: loginErrorRecover)
+        })
+        
     }
     
 }
