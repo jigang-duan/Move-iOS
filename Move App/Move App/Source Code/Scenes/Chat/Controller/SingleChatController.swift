@@ -42,12 +42,11 @@ class SingleChatController: UIViewController {
         
         let messages = Observable.collection(from: group.messages)
             .share()
-            .map({ list -> [UUMessageFrame]  in
+            .map({ list -> [UUMessage]  in
                 let entitys: [MessageEntity] = list.filter({ ($0.groupId == nil) || ($0.groupId == "") })
-                return entitys.map({ it -> UUMessageFrame in
-                    UUMessageFrame(userId: Me.shared.user.id ?? "", messageEntity: it)
-                })
+                return entitys.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
             })
+            .map(transformMinuteOffSet)
         
         tableView.rx.setDelegate(self).addDisposableTo(bag)
         
@@ -75,8 +74,9 @@ class SingleChatController: UIViewController {
                     .asDriver(onErrorJustReturn: ImEmoji())
             })
             .filter({ $0.msg_id != nil  })
+            .map { UUMessage(imEmoji: $0, user: Me.shared.user) }
             .drive(onNext: {
-                self.messageFramesVariable.value.append(UUMessageFrame(imEmoji: $0, user: Me.shared.user))
+                self.messageFramesVariable.value.append(UUMessageFrame(message: $0))
             })
             .addDisposableTo(bag)
         
@@ -91,8 +91,9 @@ class SingleChatController: UIViewController {
                 IMManager.shared.sendChatVoice($0).catchErrorJustReturn(ImVoice())
             })
             .filter({ $0.msg_id != nil })
+            .map { UUMessage(imVoice: $0, user: Me.shared.user) }
             .bindNext({
-                self.messageFramesVariable.value.append(UUMessageFrame(imVoice: $0, user: Me.shared.user))
+                self.messageFramesVariable.value.append(UUMessageFrame(message: $0))
             })
             .addDisposableTo(bag)
     }

@@ -234,6 +234,7 @@ fileprivate extension MoveIM.ImMessage {
         self.content = voice.fid
         self.content_type = 3
         self.content_status = voice.readStatus
+        self.duration = voice.duration
         self.ctime = voice.ctime
     }
 }

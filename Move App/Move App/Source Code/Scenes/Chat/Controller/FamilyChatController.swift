@@ -43,14 +43,14 @@ class FamilyChatController: UIViewController {
         
         let messages = Observable.collection(from: group.messages)
             .share()
-            .map({ list -> [UUMessageFrame]  in
+            .map({ list -> [UUMessage]  in
                 let entitys: [MessageEntity] = list.filter({ ($0.groupId != nil) && ($0.groupId != "") })
-                return entitys.map({ it -> UUMessageFrame in
-                    UUMessageFrame(userId: Me.shared.user.id ?? "", messageEntity: it)
-                })
+                return entitys.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
             })
+            .map(transformMinuteOffSet)
         
         tableView.rx.setDelegate(self).addDisposableTo(bag)
+        
         
         messages.bindTo(messageFramesVariable).addDisposableTo(bag)
         
@@ -68,6 +68,12 @@ class FamilyChatController: UIViewController {
             })
             .addDisposableTo(bag)
         
+        tableView.rx.itemDeleted.asDriver()
+            .drive(onNext: {
+                print($0)
+            })
+            .addDisposableTo(bag)
+        
         ifView.rx.sendEmoji.asDriver()
             .map({ EmojiType(rawValue: $0) })
             .filterNil()
@@ -76,8 +82,9 @@ class FamilyChatController: UIViewController {
                     .asDriver(onErrorJustReturn: ImEmoji())
             })
             .filter({ $0.msg_id != nil })
+            .map { UUMessage(imEmoji: $0, user: Me.shared.user) }
             .drive(onNext: {
-                self.messageFramesVariable.value.append(UUMessageFrame(imEmoji: $0, user: Me.shared.user))
+                self.messageFramesVariable.value.append(UUMessageFrame(message: $0))
             })
             .addDisposableTo(bag)
         
@@ -91,9 +98,10 @@ class FamilyChatController: UIViewController {
             .flatMapLatest({
                 IMManager.shared.sendChatVoice($0).catchErrorJustReturn(ImVoice())
             })
-            .filter({ $0.msg_id != nil })
+            .filter { $0.msg_id != nil }
+            .map { UUMessage(imVoice: $0, user: Me.shared.user) }
             .bindNext({
-                self.messageFramesVariable.value.append(UUMessageFrame(imVoice: $0, user: Me.shared.user))
+                self.messageFramesVariable.value.append(UUMessageFrame(message: $0))
             })
             .addDisposableTo(bag)
 
@@ -109,6 +117,10 @@ class FamilyChatController: UIViewController {
 }
 
 extension FamilyChatController: UITableViewDelegate {
+    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        return .delete
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return messageFramesVariable.value[indexPath.row].cellHeight
@@ -131,7 +143,21 @@ extension FamilyChatController {
 }
 
 
-extension UUMessageFrame {
+func transformMinuteOffSet(messages: [UUMessage]) -> [UUMessageFrame] {
+    return minuteOffSet(messages: messages).map { UUMessageFrame(message: $0) }
+}
+
+private func minuteOffSet(messages: [UUMessage]) -> [UUMessage] {
+    return messages.reduce([]) { (initianl, next) -> [UUMessage] in
+        var message = next
+        var result = initianl
+        message.minuteOffSet(start: initianl.last?.time ?? Date(timeIntervalSince1970: 0), end: message.time)
+        result.append(message)
+        return result
+    }
+}
+
+extension UUMessage {
     
     init(imVoice: ImVoice, user: UserInfo) {
         var content = UUMessage.Content()
@@ -139,34 +165,33 @@ extension UUMessageFrame {
         content.voice = voice
         if let fileUrl = imVoice.locationURL {
             content.voice?.data = try? Data(contentsOf: fileUrl)
+            content.voice?.second = imVoice.duration
         }
-        let message = UUMessage(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
-                                msgId: imVoice.msg_id ?? "",
-                                time: imVoice.ctime ?? Date(),
-                                name: user.profile?.nickname ?? "",
-                                content: content,
-                                state: .unread,
-                                type: .voice,
-                                from: .me,
-                                showDateLabel: true)
-        self.init(message: message)
+        self.init(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
+                  msgId: imVoice.msg_id ?? "",
+                  time: imVoice.ctime ?? Date(),
+                  name: user.profile?.nickname ?? "",
+                  content: content,
+                  state: .unread,
+                  type: .voice,
+                  from: .me,
+                  showDateLabel: true)
     }
     
     init(imEmoji: ImEmoji, user: UserInfo) {
         var content = UUMessage.Content()
         content.emoji = imEmoji.content
-        let message = UUMessage(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
-                                msgId: imEmoji.msg_id ?? "",
-                                time: imEmoji.ctime ?? Date(),
-                                name: user.profile?.nickname ?? "",
-                                content: content,
-                                state: .unread,
-                                type: .emoji,
-                                from: .me,
-                                showDateLabel: true)
-        self.init(message: message)
+        self.init(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
+                  msgId: imEmoji.msg_id ?? "",
+                  time: imEmoji.ctime ?? Date(),
+                  name: user.profile?.nickname ?? "",
+                  content: content,
+                  state: .unread,
+                  type: .emoji,
+                  from: .me,
+                  showDateLabel: true)
     }
-
+    
     init(userId: String, messageEntity: MessageEntity) {
         var content = UUMessage.Content()
         
@@ -175,26 +200,42 @@ extension UUMessageFrame {
         let headURL = from?.headPortrait?.fsImageUrl ?? ""
         
         var type = MessageType.text
-        if messageEntity.contentType == 1 {
+        let contentType = MessageEntity.ContentType(rawValue: messageEntity.contentType) ?? .unknown
+        switch contentType {
+        case .text:
             content.emoji = EmojiType(rawValue: messageEntity.content ?? EmojiType.warning.rawValue)
             type = .emoji
-        } else if messageEntity.contentType == 3 {
+        case .voice:
             var voice = UUMessage.Voice()
             voice.url = URL(string: messageEntity.content?.fsImageUrl ?? "")
             content.voice = voice
+            content.voice?.second = Int(messageEntity.duration)
             type = .voice
+        default: ()
         }
         
-        let message = UUMessage(icon: headURL,
-                                msgId: messageEntity.id ?? "",
-                                time: messageEntity.createDate ?? Date(),
-                                name: from?.nickname ?? "",
-                                content: content,
-                                state: (messageEntity.readStatus == 0) ? .unread : .read,
-                                type: type,
-                                from: (messageEntity.from == userId) ? .me : .other,
-                                showDateLabel: true)
-        self.init(message: message)
+        self.init(icon: headURL,
+                  msgId: messageEntity.id ?? "",
+                  time: messageEntity.createDate ?? Date(),
+                  name: from?.nickname ?? "",
+                  content: content,
+                  state: MessageState(status: messageEntity.readStatus)!,
+                  type: type,
+                  from: (messageEntity.from == userId) ? .me : .other,
+                  showDateLabel: true)
     }
+    
+}
 
+
+fileprivate extension MessageState {
+    
+    init?(status: Int) {
+        self.init(status: MessageEntity.ReadStatus(rawValue: status)!)
+    }
+    
+    init?(status: MessageEntity.ReadStatus) {
+        self = (status == .unread) ? .unread : .read
+    }
+    
 }
