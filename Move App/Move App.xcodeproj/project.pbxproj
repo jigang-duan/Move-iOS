@@ -145,7 +145,6 @@
 		E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */; };
 		E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */; };
 		E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */; };
-		E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */; };
 		E03B1BD61E4C68CA006EDB7B /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */; };
 		E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */; };
 		E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */; };
@@ -175,7 +174,6 @@
 		E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0931F491E31C6DF00755B4A /* Social.storyboard */; };
 		E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0931F4C1E31C72C00755B4A /* Account.storyboard */; };
 		E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F501E31D59200755B4A /* TabsViewController.swift */; };
-		E0931F561E31E12100755B4A /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F551E31E12100755B4A /* AccountController.swift */; };
 		E0931F591E31ED6900755B4A /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0931F581E31ED6900755B4A /* CellData.swift */; };
 		E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A8BFFD1E5698D500D410B5 /* Router.swift */; };
 		E0C228E01E3458C400BCF83D /* MoyaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C228DF1E3458C400BCF83D /* MoyaTests.swift */; };
@@ -403,7 +401,6 @@
 		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
-		112D6EA91E88B3EE006135E3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Move App/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
@@ -522,7 +519,6 @@
 		E03B1BBC1E4AA8C9006EDB7B /* MoveApi+Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Account.swift"; sourceTree = "<group>"; };
 		E03B1BBD1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoveApi+Account+Mappable.swift"; sourceTree = "<group>"; };
 		E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderSectionView.swift; path = Shared/Extensisons/View/HeaderSectionView.swift; sourceTree = "<group>"; };
-		E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMapController.swift; sourceTree = "<group>"; };
 		E03B1BD81E4D4F51006EDB7B /* MainMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		E03B1BDA1E4D527D006EDB7B /* BaseAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAnnotation.swift; sourceTree = "<group>"; };
@@ -535,7 +531,7 @@
 		E04621371E499696007D3BD3 /* Response+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+MoveObjectMapper.swift"; sourceTree = "<group>"; };
 		E0931F0E1E30A94B00755B4A /* appColor.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = appColor.clr; path = Resource/Colors/appColor.clr; sourceTree = "<group>"; };
-		E0931F161E30B9A500755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Move App/Base.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		E0931F161E30B9A500755B4A /* Base */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Base; path = "Move App/Base.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E0931F181E30BC0600755B4A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "App Delegate/AppDelegate.swift"; sourceTree = "<group>"; };
 		E0931F201E30BDD700755B4A /* DistributionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionViewController.swift; sourceTree = "<group>"; };
 		E0931F251E30C05300755B4A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Shared/Common/Logger/Logger.swift; sourceTree = "<group>"; };
@@ -553,7 +549,6 @@
 		E0931F4A1E31C6DF00755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Social.storyboard; sourceTree = "<group>"; };
 		E0931F4D1E31C72C00755B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
 		E0931F501E31D59200755B4A /* TabsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsViewController.swift; sourceTree = "<group>"; };
-		E0931F551E31E12100755B4A /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		E0931F581E31ED6900755B4A /* CellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		E0A8BFFD1E5698D500D410B5 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E0C228DF1E3458C400BCF83D /* MoyaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoyaTests.swift; sourceTree = "<group>"; };
@@ -664,6 +659,7 @@
 		FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddViewModel.swift; sourceTree = "<group>"; };
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
+		FF0C01A81E8E0294008BCE10 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "Move App/en.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FF0D43C71E84F2E100F1418B /* EmergencyNumberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
@@ -1686,7 +1682,6 @@
 		E0931F541E31E0C800755B4A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E0931F551E31E12100755B4A /* AccountController.swift */,
 				D298B3AC1E5C115900613F94 /* AccountAndChoseDeviceController.swift */,
 				D298B3B01E5C3CEC00613F94 /* AccountKidsRulesuserController.swift */,
 				FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */,
@@ -1709,7 +1704,6 @@
 			isa = PBXGroup;
 			children = (
 				E0931F581E31ED6900755B4A /* CellData.swift */,
-				E03B1BC71E4B34CD006EDB7B /* AccountViewModel.swift */,
 				D298B3AE1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift */,
 				FFE84D951E702464006B80AE /* UpgradeViewModel.swift */,
 				FF0859131E7294F200EB81D9 /* MeLogoutViewModel.swift */,
@@ -2243,7 +2237,6 @@
 			knownRegions = (
 				en,
 				Base,
-				"zh-Hans",
 			);
 			mainGroup = E01DF6D91E3059A800EA003D;
 			productRefGroup = E01DF6E31E3059A800EA003D /* Products */;
@@ -2604,7 +2597,6 @@
 				FF4925361E8B91470010CE84 /* Ble+Apn.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
 				118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */,
-				E0931F561E31E12100755B4A /* AccountController.swift in Sources */,
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
 				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
@@ -2619,7 +2611,6 @@
 				FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */,
 				E0FA02961E5AEA05004A55BA /* Validation.swift in Sources */,
 				E01906E71E55A7E100F65852 /* OnlineProvider.swift in Sources */,
-				E03B1BC81E4B34CD006EDB7B /* AccountViewModel.swift in Sources */,
 				FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */,
 				A5B3E1E71E7FF8A100F12E22 /* amrFileCodec.mm in Sources */,
 				FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */,
@@ -2808,7 +2799,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E0931F161E30B9A500755B4A /* Base */,
-				112D6EA91E88B3EE006135E3 /* zh-Hans */,
+				FF0C01A81E8E0294008BCE10 /* en */,
 			);
 			name = Localizable.strings;
 			path = ..;

@@ -20,8 +20,8 @@ class ChoseDeviceController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navItem.title = R.string.localizable.id_title_chose_device()
-        skipBarBtnItem.title = R.string.localizable.id_baritem_skip()
+        navItem.title = R.string.localizable.choose_device()
+        skipBarBtnItem.title = R.string.localizable.skip()
         
         dev1Label.text = R.string.localizable.id_device_type_kids_watch2()
         dev2Label.text = R.string.localizable.id_device_type_mb12()
