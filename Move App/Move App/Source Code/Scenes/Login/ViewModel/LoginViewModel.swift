@@ -34,7 +34,7 @@ class LoginViewModel {
         email: Driver<String>,
         passwd: Driver<String>,
         loginTaps: Driver<Void>,
-        thirdLogin: Driver<(MoveApiUserWorker.LoginType,String,String)>
+        thirdLogin: Driver<MoveApiUserWorker.LoginType>
         ),
         dependency: (
         userManager: UserManager,
@@ -79,16 +79,51 @@ class LoginViewModel {
             .distinctUntilChanged()
         
         
-        let third = input.thirdLogin.filter({ $0.0 != MoveApiUserWorker.LoginType.none })
+        let third = input.thirdLogin.filter({ $0 != MoveApiUserWorker.LoginType.none })
         
-        self.thirdLoginResult = third.flatMapLatest({ info in
-            return userManager.tplogin(platform: info.0, openld: info.1, secret: info.2)
-                .trackActivity(signingIn)
-                .map { _ in
-                    ValidationResult.ok(message: "Login Success.")
+        self.thirdLoginResult = third.flatMapLatest({ type in
+            var platformType: SSDKPlatformType?
+            switch type {
+            case .facebook:
+                platformType = .typeFacebook
+            case .twitter:
+                platformType = .typeTwitter
+            case .google:
+                platformType = .typeGooglePlus
+            default:
+                platformType = .typeUnknown
+            }
+            
+            let auth = ShareSDK.authorize(SSDKPlatformType: platformType!).flatMap({user -> Observable<ValidationResult> in
+                var openid = ""
+                var secret = ""
+                switch type {
+                case .facebook:
+                    openid = "344365305959182"//facebook ID
+                    secret = user.credential.token
+                case .twitter:
+                    openid = user.credential.token
+                    secret = user.credential.secret
+                case .google:
+                    openid = user.credential.token
+                    secret = user.credential.rawData["id_token"] as? String ?? ""
+                default:
+                    break
                 }
-                .asDriver(onErrorRecover: loginErrorRecover)
+                
+                let loginRes = userManager.tplogin(platform: type, openld: openid, secret: secret)
+                    .trackActivity(signingIn)
+                    .map { _ in
+                        ValidationResult.ok(message: "Login Success.")
+                }
+                
+                return loginRes
+            })
+            
+            return auth.asDriver(onErrorRecover: loginErrorRecover)
         })
+        
+        
         
     }
     
@@ -109,3 +144,34 @@ fileprivate func loginErrorRecover(_ error: Error) -> Driver<ValidationResult> {
         
     return Driver.just(ValidationResult.failed(message: ""))
 }
+
+
+extension ShareSDK {
+    
+    class func authorize(SSDKPlatformType: SSDKPlatformType, settings: [AnyHashable: Any] = [:]) -> Observable<SSDKUser> {
+        
+        return Observable<SSDKUser>.create{ (observer: AnyObserver<SSDKUser>) -> Disposable in
+            
+            ShareSDK.authorize(SSDKPlatformType, settings: settings, onStateChanged: { (state, user, error) in
+                switch state{
+                case .success:
+                    observer.onNext(user!)
+                    observer.onCompleted()
+                    print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+                case .fail:
+                    observer.onError(error!)
+                    print("授权失败,错误描述:\(error)")
+                default:
+                    observer.onCompleted()
+                }
+            })
+            
+            return Disposables.create()
+            }
+            .share()
+    }
+}
+
+
+
+

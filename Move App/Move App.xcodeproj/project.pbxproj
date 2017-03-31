@@ -55,10 +55,6 @@
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
 		116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818C1E665C74003CEC39 /* NotificationServer.swift */; };
 		117577DA1E8B8D59007B2254 /* Rx+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117577D91E8B8D59007B2254 /* Rx+UIButton.swift */; };
-		118BA85F1E7B77B1003C3C13 /* OAuthRxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA85E1E7B77B1003C3C13 /* OAuthRxSwift.swift */; };
-		118BA8611E7B8525003C3C13 /* OAuthWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8601E7B8525003C3C13 /* OAuthWebController.swift */; };
-		118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */; };
-		118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8641E7B8930003C3C13 /* AuthService.swift */; };
 		118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8661E7CE8ED003C3C13 /* AlertController.swift */; };
 		118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8681E7CE992003C3C13 /* AlertServer.swift */; };
 		118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */; };
@@ -396,10 +392,6 @@
 		116F818A1E6599D6003CEC39 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Shared/Common/Application/Notification.swift; sourceTree = "<group>"; };
 		116F818C1E665C74003CEC39 /* NotificationServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationServer.swift; path = Shared/Common/Application/Notification/NotificationServer.swift; sourceTree = "<group>"; };
 		117577D91E8B8D59007B2254 /* Rx+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+UIButton.swift"; path = "Shared/Extensisons/View/Rx+UIButton.swift"; sourceTree = "<group>"; };
-		118BA85E1E7B77B1003C3C13 /* OAuthRxSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuthRxSwift.swift; path = Vendor/OAuthRxSwift/OAuthRxSwift.swift; sourceTree = "<group>"; };
-		118BA8601E7B8525003C3C13 /* OAuthWebController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuthWebController.swift; path = Vendor/OAuthRxSwift/OAuthWebController.swift; sourceTree = "<group>"; };
-		118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppDelegate+OAuthSwift.swift"; path = "Vendor/OAuthRxSwift/AppDelegate+OAuthSwift.swift"; sourceTree = "<group>"; };
-		118BA8641E7B8930003C3C13 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = Vendor/OAuthRxSwift/AuthService.swift; sourceTree = "<group>"; };
 		118BA8661E7CE8ED003C3C13 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		118BA8681E7CE992003C3C13 /* AlertServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertServer.swift; sourceTree = "<group>"; };
 		118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
@@ -819,17 +811,6 @@
 			name = Notification;
 			sourceTree = "<group>";
 		};
-		118BA85D1E7B76C4003C3C13 /* OAuthRxSwift */ = {
-			isa = PBXGroup;
-			children = (
-				118BA85E1E7B77B1003C3C13 /* OAuthRxSwift.swift */,
-				118BA8601E7B8525003C3C13 /* OAuthWebController.swift */,
-				118BA8621E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift */,
-				118BA8641E7B8930003C3C13 /* AuthService.swift */,
-			);
-			name = OAuthRxSwift;
-			sourceTree = "<group>";
-		};
 		118BA86A1E7D2AB9003C3C13 /* AFImageHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -1229,7 +1210,6 @@
 			isa = PBXGroup;
 			children = (
 				118BA86A1E7D2AB9003C3C13 /* AFImageHelper */,
-				118BA85D1E7B76C4003C3C13 /* OAuthRxSwift */,
 				11EAC2FE1E6D796F002906F1 /* UUChat */,
 				E03B1C541E53E8C4006EDB7B /* Popover */,
 				E0C228FD1E35DC0200BCF83D /* RxUtilities */,
@@ -2118,8 +2098,8 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BV28C32GBU;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = P7SEJF49Q7;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -2446,7 +2426,6 @@
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
-				118BA8611E7B8525003C3C13 /* OAuthWebController.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				E9DA9C3A1E6FD960009A9189 /* contactCell.swift in Sources */,
 				FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */,
@@ -2460,7 +2439,6 @@
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
 				FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */,
 				D2D661221E4F139900E46F41 /* ProtectAccountController.swift in Sources */,
-				118BA85F1E7B77B1003C3C13 /* OAuthRxSwift.swift in Sources */,
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
@@ -2512,7 +2490,6 @@
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				FF4925361E8B91470010CE84 /* Ble+Apn.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
-				118BA8651E7B8930003C3C13 /* AuthService.swift in Sources */,
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
 				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
@@ -2587,7 +2564,6 @@
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
-				118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
@@ -2875,7 +2851,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BV28C32GBU;
+				DEVELOPMENT_TEAM = P7SEJF49Q7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2883,6 +2859,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/Optional",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/FacebookMessengerSDK",
 				);
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2897,10 +2874,10 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2914,7 +2891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BV28C32GBU;
+				DEVELOPMENT_TEAM = P7SEJF49Q7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2922,6 +2899,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/Optional",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/FacebookMessengerSDK",
 				);
 				INFOPLIST_FILE = "Move App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2936,10 +2914,10 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

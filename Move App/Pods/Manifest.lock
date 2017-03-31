@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.4.0)
   - DZNEmptyDataSet (1.8.1)
+  - FBSDKMessengerShareKit (1.3.2)
   - FSCalendar (2.7.3)
   - IQKeyboardManager (4.0.8)
   - Kingfisher (3.5.2)
@@ -21,7 +22,6 @@ PODS:
   - Moya/RxSwift (8.0.3):
     - Moya/Core
     - RxSwift (~> 3.0)
-  - OAuthSwift (1.1.1)
   - ObjectMapper (2.2.5)
   - R.swift (3.2.0):
     - R.swift.Library (~> 3.0.2)
@@ -63,6 +63,7 @@ PODS:
 
 DEPENDENCIES:
   - DZNEmptyDataSet
+  - FBSDKMessengerShareKit
   - FSCalendar
   - IQKeyboardManager
   - Kingfisher (~> 3.0)
@@ -70,7 +71,6 @@ DEPENDENCIES:
   - Moya
   - Moya-ObjectMapper/RxSwift
   - Moya/RxSwift
-  - OAuthSwift (~> 1.1.0)
   - R.swift
   - RxBlocking
   - RxCocoa (~> 3.0)
@@ -88,6 +88,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FBSDKMessengerShareKit: 41c0b1a667d685c9433f993eb9611b3d5074e1cb
   FSCalendar: 574388d70778c22719eed9341653e1743b345573
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   Kingfisher: 9950e382c500b6834ce004c7c4131c444e90c3a1
@@ -95,7 +96,6 @@ SPEC CHECKSUMS:
   MOBFoundation: fa12570bb16a7655dca3b3472ce6cd962e7ff5e3
   Moya: d3721622e3cc0cc2f038d69a258686f0b66e7252
   Moya-ObjectMapper: 952be2b261d38cf8d973b7e429708eb03d256e23
-  OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   R.swift: 207a372a2b5977caef440c696a368009460641d1
   R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
@@ -115,6 +115,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   SwiftyBeaver: 949aa1439b8fa3667f68555cfef65de46a70ccde
 
-PODFILE CHECKSUM: 15e06cf0fc35d36c42980e1b5fcffafe7cedd18c
+PODFILE CHECKSUM: ef12293616f3d14af30e4e1dd3a526510a0a4d77
 
 COCOAPODS: 1.2.0

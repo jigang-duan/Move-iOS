@@ -20,6 +20,7 @@ target 'Move App' do
   #第三方分享登录
   pod 'ShareSDK3/ShareSDKPlatforms/GooglePlus'
   pod 'ShareSDK3/ShareSDKPlatforms/Facebook'
+  pod 'FBSDKMessengerShareKit'
 
   # 网络
   # https://github.com/Moya/Moya
@@ -54,8 +55,8 @@ target 'Move App' do
   
   # 基于Swift的 OAuth 库.
   # https://github.com/OAuthSwift/OAuthSwift
-  pod 'OAuthSwift', '~> 1.1.0'
-  
+  # pod 'OAuthSwift', '~> 1.1.0'
+
   # 下拉刷新
   pod 'MJRefresh'
   

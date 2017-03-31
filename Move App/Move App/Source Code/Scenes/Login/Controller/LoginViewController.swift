@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import OAuthSwift
 
 class LoginViewController: UIViewController {
     
@@ -26,62 +25,23 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
-    //Third-party login
-    @IBOutlet weak var facebookLoginQulet: UIButton!
-    @IBOutlet weak var twitterLoginQulet: UIButton!
-    @IBOutlet weak var googleaddLoginQulet: UIButton!
     
-    var thirdLogin = Variable(MoveApiUserWorker.LoginType.none,"","")
+    var thirdLogin = Variable(MoveApiUserWorker.LoginType.none)
     
-    func facebookLogin() {
-        ShareSDK.authorize(SSDKPlatformType.typeFacebook, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
-
-            switch state{
-            case SSDKResponseState.success:
-                print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
-                self.thirdLogin.value = (.facebook,"344365305959182",user?.credential.token ?? "")
-            case SSDKResponseState.fail:
-                print("授权失败,错误描述:\(error)")
-            case SSDKResponseState.cancel:
-                print("操作取消")
-            default:
-                break
-            }
-        })
+    
+    
+    
+    
+    @IBAction func facebookLogin(_ sender: Any) {
+        self.thirdLogin.value = .facebook
     }
     
-    func twitterLogin() {
-        ShareSDK.authorize(SSDKPlatformType.typeTwitter, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
-            
-            switch state{
-            case SSDKResponseState.success:
-                print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
-                self.thirdLogin.value = (.twitter,user?.credential.token ?? "",user?.credential.secret ?? "")
-            case SSDKResponseState.fail:
-                print("授权失败,错误描述:\(error)")
-            case SSDKResponseState.cancel:
-                print("操作取消")
-            default:
-                break
-            }
-        })
+    @IBAction func twitterLogin(_ sender: Any) {
+        self.thirdLogin.value = .twitter
     }
     
-    func googleaddLogin() {
-        ShareSDK.authorize(SSDKPlatformType.typeGooglePlus, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
-            
-            switch state{
-            case SSDKResponseState.success:
-                print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
-                self.thirdLogin.value = (.google,user?.credential.token ?? "",(user?.credential.rawData["id_token"] as? String ?? "")!)
-            case SSDKResponseState.fail:
-                print("授权失败,错误描述:\(error)")
-            case SSDKResponseState.cancel:
-                print("操作取消")
-            default:
-                break
-            }
-        })
+    @IBAction func googleLogin(_ sender: Any) {
+        self.thirdLogin.value = .google
     }
 
     
@@ -89,10 +49,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        facebookLoginQulet.addTarget(self, action: #selector(self.facebookLogin), for: .touchUpInside)
-        twitterLoginQulet.addTarget(self, action: #selector(self.twitterLogin), for: .touchUpInside)
-        googleaddLoginQulet.addTarget(self, action: #selector(self.googleaddLogin), for: .touchUpInside)
         
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true

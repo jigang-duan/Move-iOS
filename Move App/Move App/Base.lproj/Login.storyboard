@@ -201,6 +201,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIz-rr-t34" userLabel="facebook">
                                 <rect key="frame" x="65.5" y="599" width="48" height="48"/>
                                 <state key="normal" image="general_ic_facebook"/>
+                                <connections>
+                                    <action selector="facebookLogin:" destination="vjP-4m-D2c" eventType="touchUpInside" id="tOr-nC-FLs"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iir-Oq-Pcf" userLabel="twitter">
                                 <rect key="frame" x="163.5" y="599" width="48" height="48"/>
@@ -209,10 +212,16 @@
                                     <constraint firstAttribute="width" constant="48" id="UbC-2k-tPa"/>
                                 </constraints>
                                 <state key="normal" image="general_ic_twitter"/>
+                                <connections>
+                                    <action selector="twitterLogin:" destination="vjP-4m-D2c" eventType="touchUpInside" id="njG-L8-Fpc"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRO-b5-xLr" userLabel="google">
                                 <rect key="frame" x="261.5" y="599" width="48" height="48"/>
                                 <state key="normal" image="general_ic_google"/>
+                                <connections>
+                                    <action selector="googleLogin:" destination="vjP-4m-D2c" eventType="touchUpInside" id="lyf-tZ-hnj"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZnH-CB-kaZ">
                                 <rect key="frame" x="0.0" y="583" width="165" height="1"/>
@@ -266,14 +275,11 @@
                         <outlet property="emailLine" destination="llT-7X-wmS" id="mtd-FK-lz9"/>
                         <outlet property="emailOutlet" destination="rTs-oE-jQb" id="V9Z-eF-dmB"/>
                         <outlet property="emailValidationOutlet" destination="OKw-XK-bB7" id="pQw-xA-qjP"/>
-                        <outlet property="facebookLoginQulet" destination="EIz-rr-t34" id="WrB-8Z-1JE"/>
-                        <outlet property="googleaddLoginQulet" destination="BRO-b5-xLr" id="QPz-l2-Ku6"/>
                         <outlet property="loginOutlet" destination="960-KP-Uz1" id="aku-Uy-ooR"/>
                         <outlet property="passwordLine" destination="L0p-XS-oiU" id="Rwq-CN-Y0c"/>
                         <outlet property="passwordOutlet" destination="MBT-71-6t5" id="SjC-x4-z3S"/>
                         <outlet property="passwordValidationHCon" destination="6mR-Pr-vSF" id="YtX-fr-8eV"/>
                         <outlet property="passwordValidationOutlet" destination="Arv-CD-kyu" id="3p3-xr-LZc"/>
-                        <outlet property="twitterLoginQulet" destination="Iir-Oq-Pcf" id="5JD-eD-NLx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6t-eD-GgA" userLabel="First Responder" sceneMemberID="firstResponder"/>
