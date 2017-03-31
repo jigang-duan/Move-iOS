@@ -31,20 +31,65 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var twitterLoginQulet: UIButton!
     @IBOutlet weak var googleaddLoginQulet: UIButton!
     
-    var state: String?
-    lazy var internalWebViewController: OAuthWebController = {
-        let $ = OAuthWebController()
-        $.view = UIView(frame: UIScreen.main.bounds)
-        $.delegate = self
-        $.viewDidLoad()
-        return $
-    }()
+    func facebookLogin() {
+//        授权
+                ShareSDK.authorize(SSDKPlatformType.typeFacebook, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
+        
+                    switch state{
+        
+                    case SSDKResponseState.success: print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+                    case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
+                    case SSDKResponseState.cancel:  print("操作取消")
+        
+                    default:
+                        break
+                    }
+                })
+
+    }
+    func twitterLogin() {
+        //        授权
+        ShareSDK.authorize(SSDKPlatformType.typeTwitter, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
+            
+            switch state{
+                
+            case SSDKResponseState.success: print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+                
+            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
+            case SSDKResponseState.cancel:  print("操作取消")
+                
+            default:
+                break
+            }
+        })
+        
+    }
+    func googleaddLogin() {
+        //        授权
+        ShareSDK.authorize(SSDKPlatformType.typeGooglePlus, settings: nil, onStateChanged: { (state : SSDKResponseState, user : SSDKUser?, error : Error?) -> Void in
+            
+            switch state{
+                
+            case SSDKResponseState.success: print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
+            case SSDKResponseState.fail:    print("授权失败,错误描述:\(error)")
+            case SSDKResponseState.cancel:  print("操作取消")
+                
+            default:
+                break
+            }
+        })
+        
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        facebookLoginQulet.addTarget(self, action: #selector(LoginViewController.facebookLogin), for: .touchUpInside)
+         twitterLoginQulet.addTarget(self, action: #selector(LoginViewController.twitterLogin), for: .touchUpInside)
+         googleaddLoginQulet.addTarget(self, action: #selector(LoginViewController.googleaddLogin), for: .touchUpInside)
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
         passwordValidationHCon.constant = 0

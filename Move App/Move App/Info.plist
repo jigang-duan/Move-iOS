@@ -41,6 +41,14 @@
 				<string>MOVE_APP_schemes</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb344365305959182</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>5</string>
@@ -55,6 +63,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>QRCamera</string>
 	<key>NSLocationAlwaysUsageDescription</key>

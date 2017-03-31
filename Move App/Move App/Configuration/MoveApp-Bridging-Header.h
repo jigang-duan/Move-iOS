@@ -16,5 +16,9 @@
 #import "VoiceConverter.h"
 #import "UUProgressHUD.h"
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <FacebookConnector/FacebookConnector.h>
+#import <GooglePlusConnector/SSDKGooglePlusControllerStyle.h>
 
 #endif /* MoveApp_Bridging_Header_h */
