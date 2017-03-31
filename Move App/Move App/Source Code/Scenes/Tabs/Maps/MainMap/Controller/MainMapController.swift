@@ -190,10 +190,14 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         if (currentDeviceData != nil) {
             let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
             if device.user != nil {
-                let str : String = "telprompt://" + (device.user?.number)!
-                if UIApplication.shared.canOpenURL(URL(string: str)!) {
-                    UIApplication.shared.openURL(URL(string: str)!)
+                var str : String = "telprompt://" + (device.user?.number)!
+                str = str.replacingOccurrences(of: " ", with: "")
+                if let url = URL(string: str) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.openURL(url)
+                    }
                 }
+                
             }
         }
     }
