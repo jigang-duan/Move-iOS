@@ -54,16 +54,10 @@ class NotificationService {
     
     func saveDeviceToken(_ token: String) {
         let realm = try! Realm()
-        if let deviceToken = realm.object(ofType: DeviceTokenEntity.self, forPrimaryKey: 0) {
-            try! realm.write {
-                deviceToken.deviceToken = token
-            }
-        } else {
-            let entity = DeviceTokenEntity()
-            entity.deviceToken = token
-            try! realm.write {
-                realm.add(entity)
-            }
+        let entity = DeviceTokenEntity()
+        entity.deviceToken = token
+        try! realm.write {
+            realm.add(entity, update: true)
         }
     }
     
@@ -75,12 +69,12 @@ class NotificationService {
         
         return Observable<DeviceTokenEntity>
             .from(object: token)
-            .map({ entity in
-                guard let _ = entity.deviceToken else {
+            .map { entity in
+                guard let deviceToken = entity.deviceToken else {
                     throw NSError.deviceTokenError()
                 }
-                return entity.deviceToken!
-            })
+                return deviceToken
+            }
     }
 }
 

@@ -48,15 +48,6 @@ extension WorkerError {
         return WorkerError.messageNotFound
     }
     
-    static func accountNotFoundError (form error: Swift.Error) -> Swift.Error? {
-        if let _error = error as? MoveApi.ApiError {
-            if _error.id == 6 && _error.field == "account" {
-                return WorkerError.accountNotFound
-            }
-        }
-        return nil
-    }
-    
     static func workerError (form error: Swift.Error) -> Swift.Error? {
         if let _error = error as? MoveApi.ApiError {
             return WorkerError.webApi(id: _error.id!, field: _error.field, msg: _error.msg)

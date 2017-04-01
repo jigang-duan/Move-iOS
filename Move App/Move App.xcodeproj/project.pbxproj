@@ -2098,8 +2098,8 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P7SEJF49Q7;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = BV28C32GBU;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -2565,7 +2565,6 @@
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */,
-				118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
@@ -2852,7 +2851,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P7SEJF49Q7;
+				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2877,8 +2876,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2892,7 +2891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P7SEJF49Q7;
+				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2917,8 +2916,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
