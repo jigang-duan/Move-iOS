@@ -83,22 +83,22 @@ extension WorkerError {
             case 1:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Unsupported"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 2:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Required"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 3:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Type Error"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 4:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Parameter Error"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 5:
                 switch field ?? "" {
@@ -107,14 +107,14 @@ extension WorkerError {
                 case "vcode":
                     errorMessage = "vcode Invalid"
                 default:
-                    errorMessage = "\(msg) Invalid"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 6:
                 switch field ?? "" {
                 case "account":
                     errorMessage = "account Not Found"
                 default:
-                    errorMessage = "\(msg) Not Found"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 7:
                 switch field ?? "" {
@@ -123,32 +123,32 @@ extension WorkerError {
                 case "username":
                     errorMessage = "username Exist"
                 default:
-                    errorMessage = "\(msg) Exist"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 8:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Database Error"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 9:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Internal Error"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 10:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Unauthorized"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 11:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Forbidden"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 12:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(msg) Locked"
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             default:
                 break
