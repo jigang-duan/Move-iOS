@@ -34,8 +34,8 @@ extension MoveApi {
             return request(.getRecord(deviceId: deviceId, recordReq: recordReq)).mapMoveObject(ActivityList.self)
         }
 //        批量获取用户步数
-        final class func getContactListStep(contactList: [Contact]) -> Observable<StepList> {
-            return request(.getContactListStep(contactList: contactList)).mapMoveObject(StepList.self)
+        final class func getContactListStep(time: Int64, contactList: [Contact]) -> Observable<StepList> {
+            return request(.getContactListStep(time: time, contactList: contactList)).mapMoveObject(StepList.self)
         }
 //        运动点赞
         final class func sportLike(uid: String) -> Observable<ApiError> {
@@ -65,7 +65,7 @@ extension MoveApi {
         enum API {
             case addRecord(deviceId: String, activityList: [Activity])
             case getRecord(deviceId: String, recordReq: RecordReq)
-            case getContactListStep(contactList: [Contact])
+            case getContactListStep(time: Int64,contactList: [Contact])
             case sportLike(uid: String)
             case cancelSportLike(uid: String)
             case getContactStepSum(uid: String, stepSumReq: StepSumReq)
@@ -129,8 +129,8 @@ extension MoveApi.ActivityRecord.API: TargetType {
             return ["activity": activityList.toJSON()]
         case .getRecord(_, let recordReq):
             return recordReq.toJSON()
-        case .getContactListStep(let contactList):
-            return ["contacts": contactList.toJSON()]
+        case .getContactListStep(let time, let contactList):
+            return ["time": time,"contacts": contactList.toJSON()]
         case .sportLike, .cancelSportLike, .gameLike, .cancelGameLike:
             return nil
         case .getContactStepSum(_, let stepSumReq):

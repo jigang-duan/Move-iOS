@@ -65,7 +65,7 @@ class LoginViewModel {
                     .map { _ in
                         ValidationResult.ok(message: "Login Success.")
                     }
-                    .asDriver(onErrorRecover: loginErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
         self.loginEnabled = Driver.combineLatest(
@@ -120,29 +120,13 @@ class LoginViewModel {
                 return loginRes
             })
             
-            return auth.asDriver(onErrorRecover: loginErrorRecover)
+            return auth.asDriver(onErrorRecover: commonErrorRecover)
         })
         
         
         
     }
     
-}
-
-fileprivate func loginErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.accountNotFound == _error {
-        return Driver.just(ValidationResult.failed(message: "Account doesn’t exist."))
-    }
-    
-    if WorkerError.password == _error {
-        return Driver.just(ValidationResult.failed(message: "user or password error"))
-    }
-        
-    return Driver.just(ValidationResult.failed(message: ""))
 }
 
 

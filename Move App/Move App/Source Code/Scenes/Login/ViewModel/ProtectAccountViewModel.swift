@@ -56,7 +56,7 @@ class ProtectAccountViewModel {
         let firstEnter = userManager.sendVcode(to: (input.registerInfo.email)!).map({[weak self] sid in
             self?.sid = sid.sid
             return ValidationResult.ok(message: "Send Success")
-        }).asDriver(onErrorRecover: protectAccountErrorRecover)
+        }).asDriver(onErrorRecover: commonErrorRecover)
         
         
         self.doneEnabled = Driver.combineLatest(
@@ -74,7 +74,7 @@ class ProtectAccountViewModel {
                         self.sid = info.sid
                         return ValidationResult.ok(message: "Send Success")
                     })
-                    .asDriver(onErrorRecover: protectAccountErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
         
@@ -87,21 +87,9 @@ class ProtectAccountViewModel {
                     .map { _ in
                         ValidationResult.ok(message: "SignUp Success.")
                     }
-                    .asDriver(onErrorRecover: protectAccountErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
     }
     
 }
 
-fileprivate func protectAccountErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.vcodeIsIncorrect == _error {
-        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Send faild"))
-}

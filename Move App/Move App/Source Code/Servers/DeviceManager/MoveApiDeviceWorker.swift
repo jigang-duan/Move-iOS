@@ -31,18 +31,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         addInfo.weight = firstBindInfo.weight
         addInfo.birthday = firstBindInfo.birthday
         return MoveApi.Device.add(deviceId: firstBindInfo.deviceId!, addInfo: addInfo)
-            .map {info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
 
     
@@ -53,18 +43,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.profile = joinInfo.profile
     
         return MoveApi.Device.joinDeviceGroup(deviceId: joinInfo.deviceId!, joinInfo: info)
-            .map {info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     
@@ -82,25 +62,15 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.identity = identity.identity
     
         return MoveApi.Device.addNoRegisterMember(deviceId: deviceId, contactInfo: info)
-            .map(transform)
-            .catchError(handle)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     //        删除设备联系人:  解绑设备的绑定成员，仅设备管理员调用
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
         return MoveApi.Device.deleteBindUser(deviceId: deviceId, uid: uid)
-            .map{info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     //        获取设备联系人
     func getContacts(deviceId: String) -> Observable<[ImContact]> {
@@ -135,18 +105,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.profile = contactInfo.profile
         
         return MoveApi.Device.settingContactInfo(deviceId: deviceId, info: info, uid: contactInfo.uid!)
-            .map{info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     
@@ -163,56 +123,23 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.device?.user?.birthday = updateInfo.birthday
         
         return MoveApi.Device.update(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!, updateInfo: info)
-            .map{info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
-    
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     
     
     func deleteDevice(with deviceId: String) -> Observable<Bool> {
         return MoveApi.Device.delete(deviceId: deviceId)
-            .map{info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
-        
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
 
     
     func settingAdmin(deviceId: String, uid: String) -> Observable<Bool> {
         return MoveApi.Device.settingAdmin(deviceId: deviceId, admin: MoveApi.DeviceAdmin(uid: uid))
-            .map{info in
-                if info.msg == "ok", info.id == 0 {
-                    return true
-                }
-                throw WorkerError.webApi(id: info.id!, field: info.field, msg: info.msg)
-            }
-            .catchError { error in
-                if let _error = WorkerError.workerError(form: error) {
-                    throw _error
-                }
-                throw error
-        }
-        
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
 
     
@@ -224,8 +151,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
     func deleteWatchFriend(deviceId: String, uid: String) -> Observable<Bool> {
         return MoveApi.Device.deleteWatchFriend(deviceId: deviceId, uid: uid)
-            .map(transform)
-            .catchError(handle)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
 
     
@@ -252,26 +179,6 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
             .map({ $0.id == 0 })
     }
     
-}
-
-
-
-
-
-
-
-fileprivate func transform(error: MoveApi.ApiError) throws -> Bool {
-    if error.isOK {
-        return true
-    }
-    throw WorkerError.webApi(id: error.id!, field: error.field, msg: error.msg)
-}
-
-fileprivate func handle(error: Error) throws -> Observable<Bool> {
-    if let _error = WorkerError.workerError(form: error) {
-        throw _error
-    }
-    throw error
 }
 
 

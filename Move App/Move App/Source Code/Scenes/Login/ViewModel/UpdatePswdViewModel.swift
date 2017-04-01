@@ -98,7 +98,7 @@ class UpdatePswdViewModel {
                         self.sid = info.sid
                         return ValidationResult.ok(message: "Send Success.")
                     })
-                    .asDriver(onErrorRecover: updatePswdErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
        
         
@@ -115,21 +115,9 @@ class UpdatePswdViewModel {
                     .map { _ in
                         ValidationResult.ok(message: "Update Success.")
                     }
-                    .asDriver(onErrorRecover: updatePswdErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
     }
     
-}
-
-fileprivate func updatePswdErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.accountNotFound == _error {
-        return Driver.just(ValidationResult.failed(message: "Account not found"))
-    }
-    
-    return Driver.just(ValidationResult.failed(message: ""))
 }
 

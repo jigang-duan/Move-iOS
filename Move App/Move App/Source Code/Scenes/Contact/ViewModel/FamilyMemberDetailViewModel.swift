@@ -70,14 +70,14 @@ class FamilyMemberDetailViewModel {
                 let info = self.contactInfo?.value
                 return deviceManager.settingAdmin(deviceId: (deviceManager.currentDevice?.deviceId)!, uid: (info?.uid)!).map({ _ in
                     return ValidationResult.ok(message: "Set Success.")
-                }).asDriver(onErrorRecover: errorRecover)
+                }).asDriver(onErrorRecover: commonErrorRecover)
             })
         
         deleteResult = input.deleteTaps
             .flatMapLatest({ _ in
                 return deviceManager.deleteContact(deviceId: (deviceManager.currentDevice?.deviceId)!, uid: (self.contactInfo?.value.uid)!).map({ _ in
                     return ValidationResult.ok(message: "Delete Success.")
-                }).asDriver(onErrorRecover: errorRecover)
+                }).asDriver(onErrorRecover: commonErrorRecover)
             })
         
         saveResult = input.saveTaps
@@ -90,29 +90,15 @@ class FamilyMemberDetailViewModel {
                             return deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: info).map({ _ in
                                 return ValidationResult.ok(message: "Set Success.")
                             })
-                    }).asDriver(onErrorRecover: errorRecover)
+                    }).asDriver(onErrorRecover: commonErrorRecover)
                 }else{
                     return deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: (self.contactInfo?.value)!).map({ _ in
                         return ValidationResult.ok(message: "Set Success.")
-                    }).asDriver(onErrorRecover: errorRecover)
+                    }).asDriver(onErrorRecover: commonErrorRecover)
                 }
             })
         
     }
     
 }
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.vcodeIsIncorrect == _error {
-        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Set faild"))
-}
-
 

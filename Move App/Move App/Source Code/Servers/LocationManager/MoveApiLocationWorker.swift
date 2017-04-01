@@ -12,11 +12,11 @@ import RxSwift
 class MoveApiLocationWorker: LocationWorkerProtocl {
     
     func getCurrentLocation(id: String) -> Observable<KidSate.LocationInfo>{
-            return MoveApi.Location.getNew(deviceId: id).flatMapLatest(transformLocation)
+        return MoveApi.Location.getNew(deviceId: id).flatMapLatest(transformLocation)
     }
     
     func getHistoryLocation(id: String, start: Date, end: Date) -> Observable<[KidSate.LocationInfo]> {
-            return MoveApi.Location.getHistory(deviceId: id, locationReq: MoveApi.LocationReq(start: start, end: end)).flatMap(transformHistoryLocation)
+        return MoveApi.Location.getHistory(deviceId: id, locationReq: MoveApi.LocationReq(start: start, end: end)).flatMap(transformHistoryLocation)
     }
     
     func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]>
@@ -25,7 +25,9 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
     }
     
     func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool> {
-        return MoveApi.ElectronicFence.deleteFence(fenceId: fenceId).map{ $0.id == 0 }
+        return MoveApi.ElectronicFence.deleteFence(fenceId: fenceId)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
 
     func updateSafeZone(deviceId: String,  fence: KidSate.ElectronicFencea) -> Observable<Bool> {
@@ -40,7 +42,9 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
                                           location: MoveApi.Fencelocation(lat: lat, lng: lng),
                                           radius: fence.radius,
                                           active: fence.active)
-        return MoveApi.ElectronicFence.settingFence(fenceId: fenceId, fenceReq: MoveApi.FenceReq(fence: fenceInfo)).map({ $0.id == 0 })
+        return MoveApi.ElectronicFence.settingFence(fenceId: fenceId, fenceReq: MoveApi.FenceReq(fence: fenceInfo))
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     private func transform(fences: [MoveApi.FenceInfo]?) -> [KidSate.ElectronicFencea] {

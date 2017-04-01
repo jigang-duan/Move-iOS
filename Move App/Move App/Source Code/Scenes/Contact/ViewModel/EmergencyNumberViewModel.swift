@@ -65,27 +65,12 @@ class EmergencyNumberViewModel {
                     .trackActivity(activity)
                     .map({_ in
                     return ValidationResult.ok(message: "success")
-                }).asDriver(onErrorRecover: errorRecover)
+                }).asDriver(onErrorRecover: commonErrorRecover)
         })
         
       
     }
 }
-
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.vcodeIsIncorrect == _error {
-        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Set faild"))
-}
-
 
 
 

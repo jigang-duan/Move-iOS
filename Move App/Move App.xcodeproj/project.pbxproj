@@ -82,7 +82,6 @@
 		A5B3E1EA1E7FF8A100F12E22 /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1E61E7FF8A100F12E22 /* VoiceConverter.mm */; };
 		A5B3E1EC1E7FFBBB00F12E22 /* FileUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1EB1E7FFBBB00F12E22 /* FileUtility.swift */; };
 		A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031241E7D051A0077FC9F /* FileStorageManager.swift */; };
-		A5D031271E7D054C0077FC9F /* MoveApiFileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */; };
 		A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D740E11E81549300EC0CEB /* MessageServer.swift */; };
 		A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F71E8506BE00D2CE50 /* ChatController.swift */; };
 		A5ED01FA1E850AD300D2CE50 /* FamilyChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */; };
@@ -434,7 +433,6 @@
 		A5B3E1E61E7FF8A100F12E22 /* VoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceConverter.mm; sourceTree = "<group>"; };
 		A5B3E1EB1E7FFBBB00F12E22 /* FileUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileUtility.swift; path = Vendor/UUChat/OtherResources/Utils/FileUtility.swift; sourceTree = "<group>"; };
 		A5D031241E7D051A0077FC9F /* FileStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileStorageManager.swift; path = FileManager/FileStorageManager.swift; sourceTree = "<group>"; };
-		A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiFileWorker.swift; path = FileManager/MoveApiFileWorker.swift; sourceTree = "<group>"; };
 		A5D740E11E81549300EC0CEB /* MessageServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageServer.swift; path = Chat/MessageServer.swift; sourceTree = "<group>"; };
 		A5ED01F71E8506BE00D2CE50 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatController.swift; path = Chat/Controller/ChatController.swift; sourceTree = "<group>"; };
 		A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyChatController.swift; path = Chat/Controller/FamilyChatController.swift; sourceTree = "<group>"; };
@@ -939,7 +937,6 @@
 			isa = PBXGroup;
 			children = (
 				A5D031241E7D051A0077FC9F /* FileStorageManager.swift */,
-				A5D031261E7D054C0077FC9F /* MoveApiFileWorker.swift */,
 			);
 			name = FileManager;
 			sourceTree = "<group>";
@@ -2603,7 +2600,6 @@
 				E0931F341E30C9D400755B4A /* BaseAbility.swift in Sources */,
 				D2D661231E4F139900E46F41 /* PwdRecoveryController.swift in Sources */,
 				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
-				A5D031271E7D054C0077FC9F /* MoveApiFileWorker.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,
@@ -2874,7 +2870,7 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2914,7 +2910,7 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveappa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

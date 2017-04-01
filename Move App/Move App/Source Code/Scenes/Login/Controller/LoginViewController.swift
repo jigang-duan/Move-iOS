@@ -100,11 +100,11 @@ extension LoginViewController {
     }
     
     fileprivate func loginOnValidation(_ result: ValidationResult) {
-        retractionKeyboard()
         switch result {
         case .failed(let message):
             self.showAccountError(message)
         case .ok:
+            retractionKeyboard()
             Distribution.shared.showMainScreen()
         default: ()
         }

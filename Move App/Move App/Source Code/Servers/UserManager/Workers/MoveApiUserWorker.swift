@@ -21,20 +21,20 @@ class MoveApiUserWorker: UserWorkerProtocl {
     
     func tplogin(platform: LoginType,openld: String,secret: String) -> Observable<Bool> {
         return MoveApi.Account.tplogin(info: MoveApi.TpLoginInfo(platform: platform.rawValue, openid: openld, secret: secret))
-            .map(transform)
-            .catchError(handle)
+            .map(userInfoTransform)
+            .catchError(errorHandle)
     }
     
     func login(email: String, password: String) -> Observable<Bool> {
         return MoveApi.Account.login(info: MoveApi.LoginInfo(username: email, password: password))
-            .map(transform)
-            .catchError(handle)
+            .map(userInfoTransform)
+            .catchError(errorHandle)
     }
     
     func isRegistered(account: String) -> Observable<Bool> {
         return MoveApi.Account.isRegistered(account: account)
             .map { $0.isRegistered! }
-            .catchError(handle)
+            .catchError(errorHandle)
     }
     
     func signUp(username: String, password: String, sid: String, vcode: String) -> Observable<Bool> {
@@ -45,8 +45,8 @@ class MoveApiUserWorker: UserWorkerProtocl {
         info.sid = sid
         info.vcode = vcode
         return MoveApi.Account.register(registerInfo: info)
-            .map(transform)
-            .catchError(handle)
+            .map(userInfoTransform)
+            .catchError(errorHandle)
     }
     
     func sendVcode(to: String) -> Observable<MoveApi.VerificationCodeSend> {
@@ -67,15 +67,15 @@ class MoveApiUserWorker: UserWorkerProtocl {
     
     func checkVcode(sid: String, vcode: String) -> Observable<Bool> {
         return MoveApi.VerificationCode.verify(sid: sid, vcode: vcode)
-            .map(transform)
-            .catchError(handle)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool> {
         let info = MoveApi.UserFindInfo(sid: sid, vcode: vcode, email: email, password: password)
         return MoveApi.Account.findPassword(info: info)
-            .map(transform)
-            .catchError(handle)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     private func wrapProfile(_ profile: MoveApi.UserInfoMap) -> UserInfo.Profile {
@@ -123,20 +123,20 @@ class MoveApiUserWorker: UserWorkerProtocl {
                                            birthday: userInfo.birthday,
                                            mtime: userInfo.mtime)
         return MoveApi.Account.settingUserInfo(uid: UserInfo.shared.id!, info: info)
-            .map(transform)
-            .catchError(handle)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
     func logout() -> Observable<Bool> {
         return MoveApi.Account.logout()
-            .map(transform)
-            .catchError(handle)
+            .map(errorTransform)
+            .catchError(errorHandle)
     }
     
 }
 
 
-fileprivate func transform(userInfo: UserInfo) throws ->Bool {
+fileprivate func userInfoTransform(userInfo: UserInfo) throws ->Bool {
     if userInfo.id == nil {
         throw WorkerError.emptyField("user id is empty!")
     }
@@ -146,16 +146,5 @@ fileprivate func transform(userInfo: UserInfo) throws ->Bool {
     return true
 }
 
-fileprivate func transform(error: MoveApi.ApiError) throws -> Bool {
-    if error.msg == "ok", error.id == 0 {
-        return true
-    }
-    throw WorkerError.webApi(id: error.id!, field: error.field, msg: error.msg)
-}
 
-fileprivate func handle(error: Error) throws -> Observable<Bool> {
-    if let _error = WorkerError.workerError(form: error) {
-        throw _error
-    }
-    throw error
-}
+

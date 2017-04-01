@@ -88,26 +88,13 @@ class FamilyMemberAddViewModel {
                     return ValidationResult.ok(message: "Send Success.")
                 })
             })
-                .asDriver(onErrorRecover: errorRecover)
+                .asDriver(onErrorRecover: commonErrorRecover)
         }else{
             return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: nil, identity: Relation(input: identity)!).map({_ in
                 return ValidationResult.ok(message: "Send Success.")
             })
-                .asDriver(onErrorRecover: errorRecover)
+                .asDriver(onErrorRecover: commonErrorRecover)
         }
     }
     
-}
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.identityIsExist == _error {
-        return Driver.just(ValidationResult.failed(message: "Identity is Exists"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Set faild"))
 }

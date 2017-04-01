@@ -73,7 +73,7 @@ class SignUpViewModel {
                            return ValidationResult.failed(message: "Account already exists")
                         }
                     }
-                    .asDriver(onErrorRecover: signUpErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
         self.signUpEnabled = Driver.combineLatest(
@@ -89,17 +89,5 @@ class SignUpViewModel {
             .distinctUntilChanged()
     }
     
-}
-
-fileprivate func signUpErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.accountIsExist == _error {
-        return Driver.just(ValidationResult.failed(message: "Account already exists"))
-    }
-    
-    return Driver.just(ValidationResult.failed(message: ""))
 }
 

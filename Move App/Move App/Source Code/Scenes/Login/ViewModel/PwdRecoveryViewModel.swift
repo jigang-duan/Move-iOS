@@ -66,23 +66,10 @@ class PwdRecoveryViewModel {
                         self.sid = info.sid
                         return ValidationResult.ok(message: "Send Success.")
                     }
-                    .asDriver(onErrorRecover: pwdRecoveryErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
     
     }
     
 }
-
-fileprivate func pwdRecoveryErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.accountNotFound == _error {
-        return Driver.just(ValidationResult.failed(message: "Account not found"))
-    }
-    
-    return Driver.just(ValidationResult.failed(message: "Send faild"))
-}
-

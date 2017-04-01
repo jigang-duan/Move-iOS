@@ -54,7 +54,7 @@ class FamilyMemberViewModel {
                         self.contacts?[row].contactInfo?.flag = con.flag
                         self.cellDatasVariable.value[row].isHeartOn = self.transformIsHeartOn(flag: con.flag!)
                         return ValidationResult.ok(message: "Set Success.")
-                    }).asDriver(onErrorRecover: errorRecover))
+                    }).asDriver(onErrorRecover: commonErrorRecover))
             }else{
                 let res = Driver.just(ValidationResult.empty)
                 return Driver.just(res)
@@ -116,20 +116,6 @@ class FamilyMemberViewModel {
     func clearEmergency(flag: Int) -> Int {
         return Int(UInt(flag) & ~UInt(0x0100))
     }
-}
-
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.vcodeIsIncorrect == _error {
-        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Set faild"))
 }
 
 

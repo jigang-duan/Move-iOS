@@ -66,7 +66,7 @@ class VerificationCodeViewModel {
         let firstEnter = userManager.sendVcode(to: input.imei).map({[weak self] sid in
             self?.sid = sid.sid
             return ValidationResult.ok(message: "Send Success")
-        }).asDriver(onErrorRecover: errorRecover)
+        }).asDriver(onErrorRecover: commonErrorRecover)
      
         self.sendResult = input.sendTaps
             .flatMapLatest({ _ in
@@ -75,7 +75,7 @@ class VerificationCodeViewModel {
                         self.sid = info.sid
                         return  ValidationResult.ok(message: "Send Success")
                     })
-                    .asDriver(onErrorRecover: errorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
         
@@ -89,22 +89,9 @@ class VerificationCodeViewModel {
                     .map { _ in
                         ValidationResult.ok(message: "Verify Success.")
                     }
-                    .asDriver(onErrorRecover: errorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
     }
     
-}
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    if WorkerError.vcodeIsIncorrect == _error {
-        return Driver.just(ValidationResult.failed(message: "Vcode is Incorrect"))
-    }
-    
-    
-    return Driver.just(ValidationResult.failed(message: "Send faild"))
 }
 

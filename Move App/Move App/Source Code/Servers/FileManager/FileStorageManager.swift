@@ -131,26 +131,3 @@ struct FileStorageInfo {
     var progress: Double?
     var progressObject: Progress?
 }
-
-protocol FileWorkerProtocl {
-    func upload(fileInfo: MoveApi.FileInfo) -> Observable<MoveApi.FileUploadResp>
-    func download(fid: String) -> Observable<MoveApi.FileStorageInfo>
-}
-
-class FileStorageManager  {
-    static let share = FileStorageManager()
-    
-    fileprivate var worker: FileWorkerProtocl!
-    
-    init() {
-        worker = MoveApiFileWorker()
-    }
-    
-    func upload(fileInfo: MoveApi.FileInfo) -> Observable<FileUpload> {
-        return worker.upload(fileInfo:fileInfo).map({FileUpload(fid: $0.fid, progress: $0.progress)})
-    }
-    
-    func download(fid: String) -> Observable<MoveApi.FileStorageInfo> {
-        return worker.download(fid: fid)
-    }
-}
