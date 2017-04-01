@@ -64,19 +64,12 @@ class MeSetNameViewModel {
                         UserInfo.shared.profile?.nickname = name
                         return ValidationResult.ok(message: "Set Success.")
                     }
-                    .asDriver(onErrorRecover: meSetNameErrorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
     }
     
 }
 
-fileprivate func meSetNameErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard error is WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    return Driver.just(ValidationResult.failed(message: "Set faild"))
-}
 
 

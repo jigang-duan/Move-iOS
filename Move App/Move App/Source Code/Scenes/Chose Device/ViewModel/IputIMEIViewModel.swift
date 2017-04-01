@@ -67,7 +67,7 @@ class InputIMEIViewModel {
                     }else {
                         return ValidationResult.failed(message: "The watch has been paired by others,please contact this watch's master to share QR code with you.")
                     }
-                }).asDriver(onErrorRecover: checkIMEIErrorRecover)
+                }).asDriver(onErrorRecover: commonErrorRecover)
 
                 
                
@@ -76,12 +76,6 @@ class InputIMEIViewModel {
     }
     
 }
-
-
-fileprivate func checkIMEIErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    return Driver.just(ValidationResult.failed(message: "check failed"))
-}
-
 
 
 

@@ -89,7 +89,7 @@ class KidInformationViewModel {
                                     
                                     return  ValidationResult.ok(message: "Update Success")
                                 })
-                            }).asDriver(onErrorRecover: kidInformationErrorRecover)
+                            }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
                         return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
                             .map({_ -> ValidationResult in
@@ -104,7 +104,7 @@ class KidInformationViewModel {
                                 DeviceManager.shared.currentDevice?.user = user
                                 
                                 return  ValidationResult.ok(message: "Update Success")
-                            }).asDriver(onErrorRecover: kidInformationErrorRecover)
+                            }).asDriver(onErrorRecover: commonErrorRecover)
                     }
                   
                 }else{
@@ -118,26 +118,18 @@ class KidInformationViewModel {
                                     return  ValidationResult.ok(message: "Bind Success")
                                 })
                             
-                        }).asDriver(onErrorRecover: kidInformationErrorRecover)
+                        }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
                         return deviceManager.addDevice(firstBindInfo: f)
                             .map({_ in
                                 return  ValidationResult.ok(message: "Bind Success")
                             })
-                            .asDriver(onErrorRecover: kidInformationErrorRecover)
+                            .asDriver(onErrorRecover: commonErrorRecover)
                     }
                 }
             })
         
     }
     
-}
-
-fileprivate func kidInformationErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard error is WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    return Driver.just(ValidationResult.failed(message: "Send faild"))
 }
 

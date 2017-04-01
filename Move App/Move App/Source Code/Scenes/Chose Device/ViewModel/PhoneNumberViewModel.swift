@@ -72,7 +72,7 @@ class PhoneNumberViewModel {
                     
                     return deviceManager.joinGroup(joinInfo: self.info!).map({_ in
                         return ValidationResult.ok(message: "Send Success.")
-                    }).asDriver(onErrorRecover: pwdRecoveryErrorRecover)
+                    }).asDriver(onErrorRecover: commonErrorRecover)
                 })
         }else{
             nextResult = input.nextTaps
@@ -85,13 +85,5 @@ class PhoneNumberViewModel {
         
     }
     
-}
-
-fileprivate func pwdRecoveryErrorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard error is WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    return Driver.just(ValidationResult.failed(message: "Send faild"))
 }
 

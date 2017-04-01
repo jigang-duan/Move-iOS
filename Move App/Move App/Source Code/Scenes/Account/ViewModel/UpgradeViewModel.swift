@@ -44,7 +44,7 @@ class UpgradeViewModel {
                 .map{ _ in
                     return ValidationResult.ok(message: "Download Begin")
                 }
-                .asDriver(onErrorRecover: errorRecover)
+                .asDriver(onErrorRecover: commonErrorRecover)
         })
         
         
@@ -53,12 +53,3 @@ class UpgradeViewModel {
  
 }
 
-
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard error is WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    return Driver.just(ValidationResult.failed(message: "Set faild"))
-}
