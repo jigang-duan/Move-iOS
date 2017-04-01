@@ -39,13 +39,6 @@ class AlertServer {
             }
             .map(transform)
             .filterNil()
-            .flatMapLatest({ notice in
-                IMManager.shared.sendChatOp(
-                    ImChatOp(msg_id: notice.id, from: notice.from, to: notice.to, gid: notice.groupId, ctime: Date(), op: .readMessage)
-                )
-                .map { _ in notice }
-                .catchErrorJustReturn(notice)
-            })
             .bindNext { notice in
                 try? realm.write {
                     notice.readStatus = NoticeEntity.ReadStatus.read.rawValue

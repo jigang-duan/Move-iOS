@@ -50,6 +50,7 @@
 		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
 		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
 		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
+		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
@@ -385,6 +386,7 @@
 		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
+		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
@@ -972,6 +974,7 @@
 				A5ED01F71E8506BE00D2CE50 /* ChatController.swift */,
 				A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */,
 				112D6EA41E87A517006135E3 /* SingleChatController.swift */,
+				114D075D1E8F9FEA00349742 /* MessageModel.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2561,6 +2564,8 @@
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
+				114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */,
+				118BA8631E7B85F4003C3C13 /* AppDelegate+OAuthSwift.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,

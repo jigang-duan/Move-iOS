@@ -17,6 +17,8 @@ enum WorkerError: Swift.Error, Equatable {
     case webApi(id: Int, field: String?, msg: String?)
     
     case deviceNo
+    
+    case messageNotFound
 }
 
 func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
@@ -28,12 +30,32 @@ func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
     case (.webApi(let a1, let a2, let a3), .webApi(let b1, let b2, let b3)) where ((a1 == b1) && (a2 == b2) && (a3 == b3)) : return true
     case (.deviceNo, .deviceNo): return true
         
+    case (.messageNotFound, .messageNotFound): return true
+        
     default: return false
     }
 }
 
 extension WorkerError {
     
+
+    static func messageNotFoundError(form error: Swift.Error) -> WorkerError? {
+        guard let
+            error = error as? MoveApi.ApiError,
+            error.id == 6 else {
+            return nil
+        }
+        return WorkerError.messageNotFound
+    }
+    
+    static func accountNotFoundError (form error: Swift.Error) -> Swift.Error? {
+        if let _error = error as? MoveApi.ApiError {
+            if _error.id == 6 && _error.field == "account" {
+                return WorkerError.accountNotFound
+            }
+        }
+        return nil
+    }
     
     static func workerError (form error: Swift.Error) -> Swift.Error? {
         if let _error = error as? MoveApi.ApiError {

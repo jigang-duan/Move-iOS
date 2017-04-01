@@ -78,17 +78,22 @@ extension IMManager {
         
     }
     
-    func sendChatOp(_ chatOp: ImChatOp) -> Observable<ImChatOp> {
-        return sendChatMessage(message: MoveIM.ImMessage(op: chatOp))
-            .map { $0.msg_id }
-            .filterNil()
-            .map { ImChatOp(msg_id: $0,
-                            from: chatOp.from,
-                            to: chatOp.to,
-                            gid: chatOp.gid,
-                            ctime: chatOp.ctime,
-                            op: chatOp.op) }
+//    func sendChatOp(_ chatOp: ImChatOp) -> Observable<ImChatOp> {
+//        return sendChatMessage(message: MoveIM.ImMessage(op: chatOp))
+//            .map { $0.msg_id }
+//            .filterNil()
+//            .map { ImChatOp(msg_id: $0,
+//                            from: chatOp.from,
+//                            to: chatOp.to,
+//                            gid: chatOp.gid,
+//                            ctime: chatOp.ctime,
+//                            op: chatOp.op) }
+//    }
+    
+    func delete(message id: String) -> Observable<String> {
+        return worker.delete(message: id)
     }
+    
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
         return worker.sendChatMessage(message: message)
@@ -110,6 +115,8 @@ protocol IMWorkerProtocl {
     func syncData(syncData: SynckeyEntity?) -> Observable<EntityType>
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp>
+    
+    func delete(message id: String) -> Observable<String>
 }
 
 

@@ -86,6 +86,17 @@ class MoveApiIMWorker: IMWorkerProtocl {
                        members: members)
     }
     
+    
+    func delete(message id: String) -> Observable<String> {
+        return MoveIM.ImApi.delete(message: id)
+            .catchError { (error) -> Observable<String> in
+                if WorkerError.messageNotFoundError(form: error) != nil {
+                    return Observable.just(id)
+                }
+                throw error
+            }
+    }
+    
 }
 
 

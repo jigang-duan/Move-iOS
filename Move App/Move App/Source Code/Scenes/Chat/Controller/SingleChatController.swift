@@ -66,6 +66,22 @@ class SingleChatController: UIViewController {
             })
             .addDisposableTo(bag)
         
+        let itemDeleted = tableView.rx.itemDeleted.asObservable()
+        itemDeleted
+            .map({
+                self.messageFramesVariable.value[$0.row].message.msgId
+            })
+            .flatMapLatest({
+                IMManager.shared.delete(message: $0).catchErrorJustReturn("")
+            })
+            .filterEmpty()
+            .map({
+                realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)
+            })
+            .filterNil()
+            .subscribe(realm.rx.delete())
+            .addDisposableTo(bag)
+        
         ifView.rx.sendEmoji.asDriver()
             .map({ EmojiType(rawValue: $0) })
             .filterNil()

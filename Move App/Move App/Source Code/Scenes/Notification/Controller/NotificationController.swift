@@ -40,9 +40,8 @@ class NotificationController: UIViewController {
                 .map({ list -> [UUMessageFrame] in
                     list.map({ notice -> UUMessageFrame in
                         var content = UUMessage.Content()
-                        let headURL = FSManager.imageUrl(with: kids?.headPortrait ?? "")
                         content.text = String(format: notice.content ?? "", kids?.nickname ?? "")
-                        let message = UUMessage(icon: headURL,
+                        let message = UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),
                                                 name: _group.name ?? "",
@@ -57,6 +56,19 @@ class NotificationController: UIViewController {
             
             
             tableView.rx.setDelegate(self).addDisposableTo(bag)
+            
+            let itemDeleted = tableView.rx.itemDeleted.asObservable()
+            itemDeleted
+                .map({
+                    self.messageFramesVariable.value[$0.row].message.msgId
+                })
+                .filterEmpty()
+                .map({ id in
+                    objects.filter({ $0.id == id }).first
+                })
+                .filterNil()
+                .subscribe(Realm.rx.delete())
+                .addDisposableTo(bag)
             
             notices.bindTo(messageFramesVariable).addDisposableTo(bag)
             
@@ -77,10 +89,10 @@ class NotificationController: UIViewController {
     }
     
     private func tableViewScrollToBottom() {
-        guard tableView.visibleCells.count > 0 else {
+        guard messageFramesVariable.value.count > 0 else {
             return
         }
-        let indexPath = IndexPath(row: tableView.visibleCells.count - 1, section: 0)
+        let indexPath = IndexPath(row: messageFramesVariable.value.count - 1, section: 0)
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
@@ -99,3 +111,4 @@ extension NotificationController: UITableViewDelegate {
         return messageFramesVariable.value[indexPath.row].cellHeight
     }
 }
+

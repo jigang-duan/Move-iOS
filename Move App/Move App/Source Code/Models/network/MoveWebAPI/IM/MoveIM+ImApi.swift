@@ -61,7 +61,11 @@ extension MoveIM {
                 let date = info.ctime ?? Date()
                 info.locaId = Int(date.timeIntervalSince1970).description
             }
-            return request(.sendChatMessage(messageInfo: IMMessage(message: info))).mapMoveObject(ImMesageRsp.self)
+            return request(.sendChatMessage(message: IMMessage(message: info))).mapMoveObject(ImMesageRsp.self)
+        }
+        
+        final class func delete(message id: String) -> Observable<String> {
+            return request(.deleteMessage(id: id)).mapMoveObject(MoveApi.ApiError.self).map{ _ in id }
         }
         
         enum API {
@@ -71,7 +75,8 @@ extension MoveIM {
             case initSyncKey
             case checkSyncKey(userSynckey:ImCheckSynkey)
             case syncData(synckey: ImSynDatakey)
-            case sendChatMessage(messageInfo: IMMessage)
+            case sendChatMessage(message: IMMessage)
+            case deleteMessage(id: String)
         }
         
     }
@@ -105,6 +110,8 @@ extension MoveIM.ImApi.API: TargetType {
             return "sync"
         case .sendChatMessage:
             return "message"
+        case .deleteMessage(let id):
+            return "message/\(id)"
         }
     }
     
@@ -115,6 +122,8 @@ extension MoveIM.ImApi.API: TargetType {
             return .get
         case .createGroup, .initSyncKey, .syncData, .sendChatMessage:
             return .post
+        case .deleteMessage:
+            return .delete
         }
     }
     

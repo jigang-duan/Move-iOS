@@ -88,6 +88,21 @@ class MessageServer {
                     }
                 })
                 .addDisposableTo(disposeBag)
+            
+            syncData.map({ $0.chatops })
+                .filterNil()
+                .map({
+                    $0.filter({$0.type == ChatOpEntity.OpType.deleteMessage.rawValue})
+                })
+                .flatMap({ Observable.from($0) })
+                .map({ $0.id })
+                .filterNil()
+                .map({
+                    realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)
+                })
+                .filterNil()
+                .subscribe(realm.rx.delete())
+                .addDisposableTo(disposeBag)
         }
     }
     
