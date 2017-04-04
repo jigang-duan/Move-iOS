@@ -43,7 +43,25 @@ class AccountKidsRulesuserController: UITableViewController {
     
     let disposeBag = DisposeBag()
     
-    
+    func internationalization() {
+        
+        watchContactLabel.text = R.string.localizable.watch_contact()
+        safeZoneLabel.text = R.string.localizable.safe_zone()
+        schoolTimeLabel.text = R.string.localizable.school_time()
+        reminderLabel.text = R.string.localizable.reminder()
+        regularShutdownLabel.text = R.string.localizable.reminder()
+        regularShutdownLabel.text = R.string.localizable.regular_shutdown()
+        unpairedwithWatchLabel.text = R.string.localizable.auto_answer_call()
+        unpairedwithwatchIntroduceLabel.text = R.string.localizable.auto_answer_call_describe()
+        savepowerLabel.text = R.string.localizable.save_power()
+        savepowerIntroduceLabel.text = R.string.localizable.save_power_describe()
+        timeZoneLabel.text = R.string.localizable.time_zone()
+        languageforthiswatchLabel.text = R.string.localizable.language_for_watch()
+        apnLabel.text = R.string.localizable.apn()
+        updateLabel.text = R.string.localizable.update()
+        unpairedWithLabel.text = R.string.localizable.unpaired()
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -60,8 +78,12 @@ class AccountKidsRulesuserController: UITableViewController {
     }
 
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //国际化R.string.localizable
+       self.internationalization()
         
         let viewModel = AccountKidsRulesuserViewModel(
         input: (
@@ -147,6 +169,16 @@ class AccountKidsRulesuserController: UITableViewController {
         self.present(vc, animated: true) {
             
         }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1
+        {return R.string.localizable.function() }
+        else if (section == 2)
+        { return R.string.localizable.action_settings()}
+        else
+        {return ""}
     }
     
 }

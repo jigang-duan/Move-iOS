@@ -31,8 +31,20 @@ class UsepermissionController: UITableViewController {
     
     var disposeBag = DisposeBag()
     
+    func internationalization() {
+        usepermissonTitleItem.title = R.string.localizable.use_permission()
+        myfriendLabel.text = R.string.localizable.my_friends()
+        groupchatLabel.text = R.string.localizable.group_chat()
+        voicechangeLabel.text = R.string.localizable.voice_changer()
+        playingHamsteLabel.text = R.string.localizable.playing_hamster()
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.internationalization()
         
         let viewModel = UsepermissionViewModel(
             dependency: (

@@ -34,9 +34,20 @@ class ToDoListController: UITableViewController {
     
     var repeatStateVariable = Variable("Never")
     
+    func internationalization()  {
+            todolistTitleItem.title = R.string.localizable.todolist()
+            saveQutlet.setTitle(R.string.localizable.save(), for: .normal)
+            titleTextFieldQutle.placeholder = R.string.localizable.title()
+            remarkTextFieldQutlet.placeholder = R.string.localizable.remarks()
+            beginLabel.text = R.string.localizable.begin()
+            endLabel.text = R.string.localizable.end()
+            repeatLabel.text = R.string.localizable.repeat()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.internationalization()
         if todo != nil{
             titleTextFieldQutle.text = todo?["topic"] as? String
             remarkTextFieldQutlet.text = todo?["content"] as? String
@@ -102,13 +113,13 @@ class ToDoListController: UITableViewController {
     
     func repeatcount(name: String) -> Int {
     
-        return ["Never":0, "Every day":1, "Every week" : 2, "Every month":3][name] ?? 0
+        return [R.string.localizable.never():0, R.string.localizable.everyday():1, R.string.localizable.everyweek() : 2, R.string.localizable.everymonth():3][name] ?? 0
         
     }
     func repeatcountInt(Intt: Int) -> String {
         
         let InttString = String(Intt)
-        return ["0": "Never","1": "Every day","2": "Every week","3": "Every month" ][InttString]!
+        return ["0": R.string.localizable.never(),"1": R.string.localizable.everyday(),"2": R.string.localizable.everyweek(),"3": R.string.localizable.everymonth() ][InttString]!
     }
 
     

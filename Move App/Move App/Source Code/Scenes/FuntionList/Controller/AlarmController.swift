@@ -32,10 +32,14 @@ class AlarmController: UIViewController {
         btn.tag  = 805
         weekOutlet.weekAction(btn)
     }
+    func internationalization() {
+        alarmTitleItem.title = R.string.localizable.alarm()
+        saveOutlet.setTitle(R.string.localizable.save(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.internationalization()
         if alarms != nil {
             self.datePickerOulet.date = (alarms?["alarms"] as? Date ?? nil)!
             self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!

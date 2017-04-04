@@ -14,7 +14,7 @@ class RepeatViewController: UITableViewController {
      //internationalization
     @IBOutlet weak var NeverLabel: UILabel!
     @IBOutlet weak var everydayLabel: UILabel!
-    @IBOutlet weak var repeatLabel: UILabel!
+    @IBOutlet weak var everyweekhLabel: UILabel!
     @IBOutlet weak var everymonthLabel: UILabel!
     
 
@@ -23,7 +23,16 @@ class RepeatViewController: UITableViewController {
     @IBOutlet weak var everyweekcell: UITableViewCell!
     @IBOutlet weak var everymonthcell: UITableViewCell!
     
-     var repeatBlock: ((String) -> Void)?
+    var repeatBlock: ((String) -> Void)?
+    
+    func internationalization() {
+        self.navigationItem.title = R.string.localizable.repeat()
+        NeverLabel.text = R.string.localizable.never()
+        everydayLabel.text = R.string.localizable.everyday()
+        everyweekhLabel.text = R.string.localizable.everyweek()
+        everymonthLabel.text = R.string.localizable.everymonth()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

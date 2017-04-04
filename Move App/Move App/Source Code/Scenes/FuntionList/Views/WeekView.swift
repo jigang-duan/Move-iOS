@@ -75,6 +75,15 @@ class WeekView: UIView {
         let firButton = self.viewWithTag(WeekType.fir.rawValue) as? UIButton
         let satButton = self.viewWithTag(WeekType.sat.rawValue) as? UIButton
         let sunButton = self.viewWithTag(WeekType.sun.rawValue) as? UIButton
+        
+        monButton?.setTitle(R.string.localizable.monday_short(), for: .normal)
+        tueButton?.setTitle(R.string.localizable.tuesday_short(), for: .normal)
+        wedButton?.setTitle(R.string.localizable.wednesday_short(), for: .normal)
+        thuButton?.setTitle(R.string.localizable.thursday_short(), for: .normal)
+        firButton?.setTitle(R.string.localizable.friday_short(), for: .normal)
+        satButton?.setTitle(R.string.localizable.saturday_short(), for: .normal)
+        sunButton?.setTitle(R.string.localizable.sunday_short(), for: .normal)
+        
         buttons.append(monButton!)
         buttons.append(tueButton!)
         buttons.append(wedButton!)

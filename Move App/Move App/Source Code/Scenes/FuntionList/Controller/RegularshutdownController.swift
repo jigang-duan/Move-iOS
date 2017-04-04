@@ -42,10 +42,20 @@ class RegularshutdownController: UIViewController {
     
     var touchesBeganEnable = Variable(false)
     
-    
+    func internationalization() {
+        regularshutdownTitleItem.title = R.string.localizable.regular_shutdown()
+        automaticOnOffLabel.text =  R.string.localizable.automatic_power_on_off()
+        booTimeLabel.text = R.string.localizable.boot_time()
+        shutdownLabel.text = R.string.localizable.shutdown_time()
+        saveBtnQutlet.setTitle(R.string.localizable.save(), for: .normal)
+        comfirmQutlet.setTitle(R.string.localizable.confirm(), for: .normal)
+        cancelQutlet.setTitle(R.string.localizable.cancel(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.internationalization()
         
         self.datePicker.timeZone = TimeZone(secondsFromGMT: 0)
         

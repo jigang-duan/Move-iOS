@@ -53,9 +53,13 @@ class RemindersController: UIViewController {
         super.viewWillAppear(animated)
         updateTap.value += 1
     }
+    func internationalization() {
+        reminderTitleItem.title = R.string.localizable.reminder()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.internationalization()
         self.addFuntion()
         self.initView()
         self.loadData()
@@ -168,10 +172,10 @@ class RemindersController: UIViewController {
         let popover = RxPopover.shared
         popover.style = .dark
         let action1 = BasePopoverAction(placeholderImage: R.image.member_ic_qr(),
-                                        title: "Alarm",
+                                        title: R.string.localizable.alarm(),
                                         isSelected: false)
         let action2 = BasePopoverAction(placeholderImage: R.image.member_ic_input(),
-                                        title: "To do list",
+                                        title: R.string.localizable.todolist(),
                                         isSelected: false)
         addOutlet.rx.tap.asObservable()
             .flatMapLatest {
@@ -200,7 +204,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
 
         if indexPath.row < (self.alarms?.count)! {
             _cell.titleLabel.text =  DateUtility.dateTostringHHmm(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
-            _cell.detailtitleLabel?.text = "School day"
+            _cell.detailtitleLabel?.text = R.string.localizable.school_time()
             _cell.titleimage?.image = UIImage.init(named: "reminder_school")
             _cell.accviewBtn.isHidden = false
             _cell.accviewBtn.isOn = self.alarms?[indexPath.row]["active"] as! Bool
@@ -267,9 +271,9 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
 extension RemindersController {
 
     func showSubController(action: BasePopoverAction) {
-        if action.title == "Alarm" {
+        if action.title == R.string.localizable.alarm() {
             self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
-        } else if action.title == "To do list" {
+        } else if action.title == R.string.localizable.todolist() {
             self.performSegue(withIdentifier: R.segue.remindersController.showTodolist, sender: nil)
         }
     }

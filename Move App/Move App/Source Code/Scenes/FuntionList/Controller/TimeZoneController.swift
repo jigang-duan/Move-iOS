@@ -35,8 +35,18 @@ class TimeZoneController: UITableViewController {
     
     var disposeBag = DisposeBag()
     
+    func internationalization() {
+        timezoneTitleItem.title = R.string.localizable.time_zone()
+        hoursFormatLabel.text = R.string.localizable.hours_format24()
+        gettimeautoLabel.text = R.string.localizable.get_time_auto()
+        timezoneLabel.text = R.string.localizable.time_zone()
+        summerTimeLabel.text = R.string.localizable.summer_time()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.internationalization()
         
         selectedTimeZone.asDriver()
             .map({ $0.abbreviation() })

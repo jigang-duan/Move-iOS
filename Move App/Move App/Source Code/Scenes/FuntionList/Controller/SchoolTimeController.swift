@@ -45,8 +45,20 @@ class SchoolTimeController: UIViewController {
     
     var viewModel: SchoolTimeViewModel!
     
+    func internationalization() {
+        schooltimeTitleItem.title = R.string.localizable.school_time()
+        saveOutlet.setTitle(R.string.localizable.save(), for: .normal)
+        anLabel.text = R.string.localizable.date_am()
+        pmLabel.text = R.string.localizable.date_pm()
+        confirmOutlet.setTitle(R.string.localizable.confirm(), for: .normal)
+        cancelDatePickeOutlet.setTitle(R.string.localizable.cancel(), for: .normal)
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.internationalization()
         
         self.datepicke.timeZone = TimeZone(secondsFromGMT: 0)
         
