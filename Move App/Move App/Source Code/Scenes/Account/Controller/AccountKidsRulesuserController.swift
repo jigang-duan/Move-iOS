@@ -32,8 +32,12 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var unpairedWithLabel: UILabel!
     
+    @IBOutlet weak var putongHeadView: UILabel!
+    @IBOutlet weak var putongUnpairedBtn: UIButton!
+    
     
 //------------------------------------------------------------------------------------------------------
+    @IBOutlet weak var putongyonghu: UITableViewCell!
     
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
@@ -41,9 +45,13 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     @IBOutlet weak var savePowerQutel: SwitchButton!
     
+    var isAdminBool : Bool? = true
+    
     let disposeBag = DisposeBag()
     
     func internationalization() {
+        //判断用户，没有多语言字串
+        //kidswatchTitleItem.title =
         
         watchContactLabel.text = R.string.localizable.watch_contact()
         safeZoneLabel.text = R.string.localizable.safe_zone()
@@ -60,6 +68,8 @@ class AccountKidsRulesuserController: UITableViewController {
         apnLabel.text = R.string.localizable.apn()
         updateLabel.text = R.string.localizable.update()
         unpairedWithLabel.text = R.string.localizable.unpaired()
+        putongHeadView.text = R.string.localizable.action_settings()
+        putongUnpairedBtn.setTitle(R.string.localizable.unpaired(), for: .normal)
         
     }
     
@@ -68,6 +78,9 @@ class AccountKidsRulesuserController: UITableViewController {
         
         let deviceInfo = DeviceManager.shared.currentDevice
         
+    
+        putongyonghu.selectionStyle = .none
+        
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headQutlet.frame.width, height: headQutlet.frame.height), fullName: deviceInfo?.user?.nickname ?? "").imageRepresentation()!
      
         let imgUrl = URL(string: FSManager.imageUrl(with: deviceInfo?.user?.profile ?? ""))
@@ -75,10 +88,10 @@ class AccountKidsRulesuserController: UITableViewController {
         
         accountNameQutlet.text = deviceInfo?.user?.nickname
         
+        
     }
 
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,9 +128,7 @@ class AccountKidsRulesuserController: UITableViewController {
             case .next(let cons):
                 for con in cons {
                     if con.admin == true {
-                        if UserInfo.shared.id == con.uid {
-                            //todo
-                        }
+                        UserInfo.shared.id == con.uid ? (self.isAdminBool = true) : (self.isAdminBool = false)
                     }
                 }
             case .completed:
@@ -126,6 +137,8 @@ class AccountKidsRulesuserController: UITableViewController {
                 print(er)
             }
         })
+
+
         
     }
     
@@ -180,6 +193,23 @@ class AccountKidsRulesuserController: UITableViewController {
         else
         {return ""}
     }
+    
+    //判断用户 控制第二组 管：5，非就6
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0
+        {return 1}
+        else if section == 1
+        {return isAdminBool! ? 5 : 6}
+        else
+        {return 8}
+    }
+    //判断用户 管就2，非就3
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        
+        return isAdminBool! ? 3 : 2
+    }
+    
     
 }
 
