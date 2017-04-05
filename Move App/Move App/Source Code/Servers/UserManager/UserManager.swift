@@ -227,13 +227,6 @@ extension ObservableType where E == MoveApi.AccessToken {
             UserInfo.shared.id = element.uid
             UserInfo.shared.saveAccessToken()
             return Observable.just(UserInfo.shared)
-                .flatMapLatest({ user -> Observable<UserInfo> in
-                    let realm = try! Realm()
-                    if realm.object(ofType: SynckeyEntity.self, forPrimaryKey: user.id) == nil {
-                        return MoveIM.ImApi.initSyncKey().map({ _ in user })
-                    }
-                    return Observable.just(user)
-                })
         }
     }
     
