@@ -239,6 +239,20 @@ extension ObservableType where E == MoveApi.AccessToken {
     
 }
 
+
+extension ObservableType where E == UserInfo {
+
+    func pushToken() -> Observable<UserInfo> {
+        return flatMapLatest { info in
+            NotificationService.shared.fetchDeviceToken()
+                .flatMapLatest { MoveApi.Account.settingPushToken(deviceId: $0) }
+                .map {_ in info }
+                .catchErrorJustReturn(info)
+        }
+    }
+}
+
+
 extension ObservableType where E == MoveApi.UserInfoMap {
     func catchingUserProfile() -> Observable<UserInfo.Profile> {
         return flatMap { $ -> Observable<UserInfo.Profile> in

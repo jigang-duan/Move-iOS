@@ -409,13 +409,9 @@
 		11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUInputFunctionView.swift; path = Vendor/UUChat/Sources/UUInputFunctionView.swift; sourceTree = "<group>"; };
 		11EAC3121E6D7B24002906F1 /* UUProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UUProgressHUD.h; path = Vendor/UUChat/OtherResources/UUProgressHUD/UUProgressHUD.h; sourceTree = "<group>"; };
 		11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UUProgressHUD.m; path = Vendor/UUChat/OtherResources/UUProgressHUD/UUProgressHUD.m; sourceTree = "<group>"; };
-		11EAC3151E6D7B32002906F1 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lame.h; path = Vendor/UUChat/OtherResources/VoiceLib/lame.h; sourceTree = "<group>"; };
-		11EAC3171E6D7B32002906F1 /* Mp3Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mp3Recorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/Mp3Recorder.h; sourceTree = "<group>"; };
-		11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mp3Recorder.m; path = Vendor/UUChat/OtherResources/VoiceLib/Mp3Recorder.m; sourceTree = "<group>"; };
 		11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Utils.swift"; path = "Vendor/UUChat/OtherResources/Utils/Date+Utils.swift"; sourceTree = "<group>"; };
 		11EAC31F1E6E42B8002906F1 /* Rx+SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+SwitchButton.swift"; path = "Shared/Extensisons/View/Rx+SwitchButton.swift"; sourceTree = "<group>"; };
 		11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSwitchButtonDelegateProxy.swift; path = Shared/Extensisons/View/RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
-		11EAC3231E6E4307002906F1 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmp3lame.a; path = Vendor/UUChat/OtherResources/VoiceLib/libmp3lame.a; sourceTree = "<group>"; };
 		11EAC3281E6F99DE002906F1 /* SocialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
 		11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertWireframe.swift; sourceTree = "<group>"; };
 		141858BC35771DF061629EC7 /* Pods_Move_App_CustomViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App_CustomViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -887,10 +883,6 @@
 		11EAC3021E6D7A22002906F1 /* VoiceLib */ = {
 			isa = PBXGroup;
 			children = (
-				11EAC3231E6E4307002906F1 /* libmp3lame.a */,
-				11EAC3151E6D7B32002906F1 /* lame.h */,
-				11EAC3171E6D7B32002906F1 /* Mp3Recorder.h */,
-				11EAC3181E6D7B32002906F1 /* Mp3Recorder.m */,
 				112D6EA61E88A354006135E3 /* AmrRecorder.h */,
 				112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */,
 			);
