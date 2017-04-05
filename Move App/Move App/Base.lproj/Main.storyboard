@@ -1664,9 +1664,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itz-IW-kIG" userLabel="UserInfor">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itz-IW-kIG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TKs-rI-fIF" userLabel="headImage">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="relationship_ic_other" translatesAutoresizingMaskIntoConstraints="NO" id="8YO-Bu-9o3" userLabel="headImage">
                                         <rect key="frame" x="10" y="72" width="36" height="36"/>
                                         <constraints>
@@ -1722,14 +1725,17 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="0Hl-hd-sqr"/>
                                     <constraint firstAttribute="trailing" secondItem="moC-lp-aMN" secondAttribute="trailing" id="AiO-gh-9S5"/>
                                     <constraint firstItem="moC-lp-aMN" firstAttribute="top" secondItem="Itz-IW-kIG" secondAttribute="top" constant="27" id="Elw-89-FHN"/>
                                     <constraint firstItem="bLr-K9-cNr" firstAttribute="leading" secondItem="8YO-Bu-9o3" secondAttribute="trailing" constant="15" id="HtX-z8-P0H"/>
                                     <constraint firstAttribute="bottom" secondItem="8YO-Bu-9o3" secondAttribute="bottom" constant="20" id="MRo-lF-fFE"/>
+                                    <constraint firstItem="TKs-rI-fIF" firstAttribute="top" secondItem="Itz-IW-kIG" secondAttribute="top" id="ReJ-zQ-WQX"/>
                                     <constraint firstItem="8YO-Bu-9o3" firstAttribute="leading" secondItem="Itz-IW-kIG" secondAttribute="leading" constant="10" id="VAc-Cw-yLK"/>
+                                    <constraint firstItem="TKs-rI-fIF" firstAttribute="leading" secondItem="Itz-IW-kIG" secondAttribute="leading" id="fqI-xa-mxw"/>
+                                    <constraint firstAttribute="bottom" secondItem="TKs-rI-fIF" secondAttribute="bottom" id="mch-fp-Q7s"/>
+                                    <constraint firstAttribute="trailing" secondItem="TKs-rI-fIF" secondAttribute="trailing" id="r1w-5h-FuZ"/>
                                     <constraint firstItem="bLr-K9-cNr" firstAttribute="centerY" secondItem="8YO-Bu-9o3" secondAttribute="centerY" id="ufk-ju-YSw"/>
                                 </constraints>
                             </view>
@@ -1836,6 +1842,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="accountNameOutlet" destination="wVP-4V-Ivf" id="coG-N1-HCP"/>
+                        <outlet property="backImageView" destination="TKs-rI-fIF" id="I6L-BA-mZ7"/>
                         <outlet property="headOutlet" destination="8YO-Bu-9o3" id="6Op-h7-Yan"/>
                         <outlet property="tableView" destination="eWv-rt-lUO" id="cYv-LI-9Ex"/>
                     </connections>

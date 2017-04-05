@@ -44,7 +44,7 @@ class ShareQRcodeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let startColor = UIColor.init(red: 26/255, green: 189/255, blue: 241/255, alpha: 1)
+        let startColor = UIColor.init(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
         let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
         
         let backImg = UIImage(gradientColors: [startColor, endColor],size: CGSize(width: self.backImgV.frame.width, height: self.backImgV.frame.height),locations: [0.0,1.0])

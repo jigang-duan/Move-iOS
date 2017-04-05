@@ -135,10 +135,26 @@ class KidInformationController: UIViewController {
 
     @IBAction func selectPhoto(_ sender: Any) {
         photoPicker = ImageUtility()
-        photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 200, height: 200), callback: { (image) in
-            self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
-            self.photoVariable.value = image
-        })
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 200, height: 200), callback: { (image) in
+                self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+                self.photoVariable.value = image
+            })
+        }
+        let action2 = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 200, height: 200), callback: { (image) in
+                self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+                self.photoVariable.value = image
+            })
+        }
+        let action3 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
+        
+        vc.addAction(action1)
+        vc.addAction(action2)
+        vc.addAction(action3)
+        
+        self.present(vc, animated: true, completion: nil)
     }
     
 

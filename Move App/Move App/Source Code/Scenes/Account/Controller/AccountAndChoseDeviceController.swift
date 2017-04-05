@@ -16,6 +16,8 @@ import CustomViews
 
 class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
 
+
+    @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var headOutlet: UIImageView!
     @IBOutlet weak var accountNameOutlet: UILabel!
     
@@ -29,6 +31,13 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        let startColor = UIColor.init(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
+        let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
+        
+        backImageView.image = UIImage(gradientColors: [startColor, endColor],size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),locations: [0.0,1.0])
+        
+        
         
         let selectedDeviceInfo = tableView.rx.itemSelected.asObservable()
             .map({ [weak self] in self?.viewModel.devices?[$0.row] })
@@ -46,7 +55,6 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             )
         )
         
-      
         tableView.rx
             .setDelegate(self)
             .addDisposableTo(disposeBag)
