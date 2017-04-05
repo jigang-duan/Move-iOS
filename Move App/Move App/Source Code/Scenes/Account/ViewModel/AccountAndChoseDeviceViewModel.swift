@@ -55,8 +55,8 @@ class AccountAndChoseDeviceViewModel {
         
      
         self.cellDatas = enter.flatMapLatest({ _ in
-            deviceManager.fetchDevices().map{ deviceInfos in
-                self.devices = deviceInfos
+            deviceManager.fetchDevices().map{ [weak self] deviceInfos in
+                self?.devices = deviceInfos
                 var cellDatas: [DeviceCellData] = []
                 for info in deviceInfos {
                     var deviceType = ""

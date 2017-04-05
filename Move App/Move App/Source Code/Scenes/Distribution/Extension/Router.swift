@@ -67,8 +67,8 @@ class Distribution {
     
     
     func popToLoginScreen() {
-        self.backToDistribution(completion: {
-            self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+        self.backToDistribution(completion: { [weak self] in
+            self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
         })
     }
     
@@ -84,8 +84,8 @@ class Distribution {
     }
     
     func showMainScreen() {
-        self.backToDistribution {
-            self.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showMajor.identifier, sender: nil)
+        self.backToDistribution { [weak self] in
+            self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showMajor.identifier, sender: nil)
         }
     }
 }

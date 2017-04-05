@@ -31,7 +31,7 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
 
         
         let selectedDeviceInfo = tableView.rx.itemSelected.asObservable()
-            .map({ self.viewModel.devices?[$0.row] })
+            .map({ [weak self] in self?.viewModel.devices?[$0.row] })
             .filterNil()
         
         viewModel = AccountAndChoseDeviceViewModel(

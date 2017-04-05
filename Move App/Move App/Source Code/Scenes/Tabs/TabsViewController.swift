@@ -37,9 +37,9 @@ class TabsViewController: UITabBarController {
             .flatMapLatest({ _ in
                 MeManager.shared.checkCurrentRole()
             })
-            .bindNext({
+            .bindNext({ [weak self] in
                 if let _ = $0 {
-                    self.viewControllers?[0].tabBarItem.isEnabled = true
+                    self?.viewControllers?[0].tabBarItem.isEnabled = true
                 }
             })
             .addDisposableTo(bag)
