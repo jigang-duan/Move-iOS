@@ -89,7 +89,7 @@ class MessageServer {
                 })
                 .addDisposableTo(disposeBag)
             
-            syncData.map({ $0.chatops })
+            syncData.map { $0.chatops }
                 .filterNil()
                 .map({
                     $0.filter({$0.type == ChatOpEntity.OpType.deleteMessage.rawValue})
@@ -103,16 +103,22 @@ class MessageServer {
                 .filterNil()
                 .subscribe(realm.rx.delete())
                 .addDisposableTo(disposeBag)
+            
+            syncData.map { $0.groups }
+                .filterNil()
+                .map{_ in true}
+                .bindTo(subject)
+                .addDisposableTo(disposeBag)
         }
     }
     
     func subscribe() -> Disposable {
         let realm = try! Realm()
-        let uid = Me.shared.user.id
-        let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid)
+        //let uid = Me.shared.user.id
+        //let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid)
         return subject.asObservable()
             .filter { $0 }
-            .filter { _ in sync == nil }
+            //.filter { _ in sync == nil }
             .flatMapLatest { _ -> Observable<SynckeyEntity> in
                 IMManager.shared.initSyncKey()
                 .map {
