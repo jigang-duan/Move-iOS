@@ -483,6 +483,9 @@
                                                     <state key="normal" title="Unpaired with watch">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
+                                                    <connections>
+                                                        <segue destination="dyW-Fo-WDA" kind="presentation" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="xdu-SA-x1w"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2915,4 +2918,7 @@
         <image name="relationship_ic_sister" width="36" height="36"/>
         <image name="school_time_ic" width="210" height="210"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="xdu-SA-x1w"/>
+    </inferredMetricsTieBreakers>
 </document>

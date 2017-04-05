@@ -67,9 +67,9 @@ class AccountKidsRulesuserController: UITableViewController {
         languageforthiswatchLabel.text = R.string.localizable.language_for_watch()
         apnLabel.text = R.string.localizable.apn()
         updateLabel.text = R.string.localizable.update()
-        unpairedWithLabel.text = R.string.localizable.unpaired()
+        unpairedWithLabel.text = R.string.localizable.unpaired_with_watch()
         putongHeadView.text = R.string.localizable.action_settings()
-        putongUnpairedBtn.setTitle(R.string.localizable.unpaired(), for: .normal)
+        putongUnpairedBtn.setTitle(R.string.localizable.unpaired_with_watch(), for: .normal)
         
     }
     
