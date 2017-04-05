@@ -45,7 +45,7 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     @IBOutlet weak var savePowerQutel: SwitchButton!
     
-    var isAdminBool : Bool? = true
+    var isAdminBool : Bool? = false
     
     let disposeBag = DisposeBag()
     
@@ -123,12 +123,13 @@ class AccountKidsRulesuserController: UITableViewController {
             .addDisposableTo(disposeBag)
         
         //        判断当前是否是管理员
-        _ = DeviceManager.shared.getContacts(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!).subscribe({ (event) in
+        DeviceManager.shared.getContacts(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!).subscribe({ (event) in
             switch event {
             case .next(let cons):
                 for con in cons {
                     if con.admin == true {
                         UserInfo.shared.id == con.uid ? (self.isAdminBool = true) : (self.isAdminBool = false)
+                        self.tableView.reloadData()
                     }
                 }
             case .completed:
@@ -136,9 +137,9 @@ class AccountKidsRulesuserController: UITableViewController {
             case .error(let er):
                 print(er)
             }
-        })
+        }).addDisposableTo(disposeBag)
 
-
+        
         
     }
     
