@@ -26,6 +26,7 @@ class DateUtility {
     static func dateTostringHHmm(date: Date?) -> String {
         
         let dformatter = DateFormatter()
+        dformatter.timeZone = TimeZone(secondsFromGMT: 0)
         dformatter.dateFormat = "HH:mm"
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         

@@ -1531,11 +1531,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o36-AC-xeZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="74e-l5-Rbo">
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74e-l5-Rbo">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                        <date key="date" timeIntervalSinceReferenceDate="509269371.97193301">
-                                            <!--2017-02-20 07:42:51 +0000-->
+                                        <date key="date" timeIntervalSinceReferenceDate="-978307199.02806854">
+                                            <!--1970-01-01 00:00:00 +0000-->
+                                        </date>
+                                        <date key="minimumDate" timeIntervalSinceReferenceDate="-978336000">
+                                            <!--1969-12-31 16:00:00 +0000-->
+                                        </date>
+                                        <date key="maximumDate" timeIntervalSinceReferenceDate="-978249601">
+                                            <!--1970-01-01 15:59:59 +0000-->
                                         </date>
                                         <locale key="locale" localeIdentifier="en_AL"/>
                                     </datePicker>

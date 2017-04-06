@@ -35,6 +35,7 @@ class AlarmController: UIViewController {
     func internationalization() {
         alarmTitleItem.title = R.string.localizable.alarm()
         saveOutlet.setTitle(R.string.localizable.save(), for: .normal)
+        
     }
     
     override func viewDidLoad() {
@@ -45,14 +46,8 @@ class AlarmController: UIViewController {
             self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
            
         }
-
-        datePickerOulet.minimumDate = minDate
-//        if let _alarmDate = alarmExited?.alarmAt {
-//            datePickerOulet.date = _alarmDate
-//        }
-//        if let _day = alarmExited?.day {
-//            weekOutlet.weekSelected = _day
-//        }
+       
+        self.datePickerOulet.timeZone = TimeZone(secondsFromGMT: 0)
         
         let viewModel = AlarmViewModel(
             input: (
