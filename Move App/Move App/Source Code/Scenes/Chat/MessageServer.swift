@@ -24,9 +24,10 @@ class MessageServer {
     
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
-        if
-            let uid = Me.shared.user.id,
-            let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
+        if let uid = Me.shared.user.id {
+            //let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
+            
+            let syncObject = realm.objects(SynckeyEntity.self).filter("uid == %@", uid)
             
             let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
                 .flatMapFirst {_ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
@@ -41,6 +42,10 @@ class MessageServer {
                 .filterNil()
                 .flatMap { Observable.from($0) }
                 .subscribe(onNext: {(message) in
+                    guard let sync = syncObject.first else {
+                        return
+                    }
+                    
                     if let gid = message.groupId, gid != "" {
                         if let group = sync.groups.filter({ gid == $0.id }).first {
                             group.update(realm: realm, message: message)
@@ -70,6 +75,9 @@ class MessageServer {
             
             reNotice.filter { $0.type != NoticeType.progressDownload.rawValue }
                 .subscribe(onNext: { (notice) in
+                    guard let sync = syncObject.first else {
+                        return
+                    }
                     sync.groups.forEach { (group: GroupEntity) in
                         if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
                             group.update(realm: realm, notice: notice)
@@ -81,6 +89,9 @@ class MessageServer {
             syncData.map { $0.synckey }
                 .filterNil()
                 .subscribe(onNext: { item in
+                    guard let sync = syncObject.first else {
+                        return
+                    }
                     try! realm.write {
                         sync.contact = item.contact
                         sync.group = item.group
