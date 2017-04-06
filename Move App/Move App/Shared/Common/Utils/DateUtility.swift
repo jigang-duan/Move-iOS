@@ -34,14 +34,14 @@ class DateUtility {
     static func dateTostringyyMMdd(date: Date?) -> String {
         
         let dformatter = DateFormatter()
-        dformatter.dateFormat = "yyyy-MM-dd"
+        dformatter.dateFormat = "yyyy-MM-dd HH:mm"
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         
     }
     static func dateTostringMMddyy(date: Date?) -> String {
         
         let dformatter = DateFormatter()
-        dformatter.dateFormat = "MM-dd-yyyy"
+        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         
     }

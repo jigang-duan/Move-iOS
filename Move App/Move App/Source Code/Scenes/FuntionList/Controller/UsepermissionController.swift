@@ -16,7 +16,7 @@ class UsepermissionController: UITableViewController {
     //internationalization
     @IBOutlet weak var usepermissonTitleItem: UINavigationItem!
     @IBOutlet weak var myfriendLabel: UILabel!
-    @IBOutlet weak var calltofriendLabel: UILabel!
+//    @IBOutlet weak var calltofriendLabel: UILabel!
     @IBOutlet weak var groupchatLabel: UILabel!
     @IBOutlet weak var voicechangeLabel: UILabel!
     @IBOutlet weak var playingHamsteLabel: UILabel!
@@ -27,7 +27,7 @@ class UsepermissionController: UITableViewController {
     @IBOutlet weak var voicechagerQulet: SwitchButton!
     @IBOutlet weak var playinghamsterQulet: SwitchButton!
     
-    @IBOutlet weak var saveQulet: UIBarButtonItem!
+
     
     var disposeBag = DisposeBag()
     

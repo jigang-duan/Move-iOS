@@ -96,6 +96,7 @@ class ToDoListController: UITableViewController {
     func datepickerInput() -> UIDatePicker {
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 180))
         datePicker.locale = Locale(identifier: "en_GB")
+        datePicker.datePickerMode = .dateAndTime
         return datePicker
     }
     
@@ -141,7 +142,7 @@ extension ToDoListController: UITextFieldDelegate {
     
     fileprivate func stringchangeTime(dateString : String) -> Date{
         let dformatter = DateFormatter()
-        dformatter.dateFormat = "MM-dd-yyyy"
+        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
         return (dformatter.date(from: dateString)) ?? Date()
         
     }
@@ -152,7 +153,7 @@ extension Date {
     
     var stringMonthDayYearHourMinute: String? {
         let dformatter = DateFormatter()
-        dformatter.dateFormat = "MM-dd-yyyy"
+        dformatter.dateFormat = "MM-dd-yyyy HH:mm"
         return dformatter.string(from: self)
     }
 }

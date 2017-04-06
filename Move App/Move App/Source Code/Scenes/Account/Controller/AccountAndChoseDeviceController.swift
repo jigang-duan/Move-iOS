@@ -14,8 +14,7 @@ import RxOptional
 import CustomViews
 
 
-class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
-
+class AccountAndChoseDeviceController: UIViewController {
 
     @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var headOutlet: UIImageView!
@@ -23,30 +22,21 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var viewModel: AccountAndChoseDeviceViewModel!
-    
     let disposeBag = DisposeBag()
-    let enterCount = Variable(0)
+    let enterSubject = BehaviorSubject<Bool>(value: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        let startColor = UIColor.init(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
-        let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
-        
+        let startColor = UIColor(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
+        let endColor = UIColor(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
         backImageView.image = UIImage(gradientColors: [startColor, endColor],size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),locations: [0.0,1.0])
         
-        
-        
-        let selectedDeviceInfo = tableView.rx.itemSelected.asObservable()
-            .map({ [weak self] in self?.viewModel.devices?[$0.row] })
-            .filterNil()
-        
-        viewModel = AccountAndChoseDeviceViewModel(
+        let selectedInext = tableView.rx.itemSelected.asDriver().map { $0.row }
+        let viewModel = AccountAndChoseDeviceViewModel(
             input: (
-                enterCount: enterCount.asObservable(),
-                selectedDeviceInfo: selectedDeviceInfo
+                enter: enterSubject.asDriver(onErrorJustReturn: false),
+                selectedInext: selectedInext
             ),
             dependency:(
                 userManager: UserManager.shared,
@@ -59,8 +49,11 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
             .setDelegate(self)
             .addDisposableTo(disposeBag)
         
-        viewModel.cellDatas?
-            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier, cellType: UITableViewCell.self)){ (row, element, cell) in
+        viewModel.fetchDevices.drive(viewModel.devicesVariable).addDisposableTo(disposeBag)
+        
+        viewModel.devicesVariable.asDriver()
+            .map(transfer)
+            .drive(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier, cellType: UITableViewCell.self)){ (row, element, cell) in
                 cell.textLabel?.text = element.devType
                 cell.detailTextLabel?.text = element.name
                 cell.imageView?.image = UIImage(named: element.iconUrl!)
@@ -69,36 +62,27 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         
         viewModel.selected
             .drive(onNext: { [weak self] in
-                let vc = R.storyboard.account.accountKidsRulesuserController()!
-                self?.navigationController?.show(vc, sender: nil)
+                self?.showAccountKidsRulesuserController()
             })
             .addDisposableTo(disposeBag)
         
+        viewModel.head
+            .drive(onNext: { [weak self] in
+                self?.showHead(url: $0)
+            })
+            .addDisposableTo(disposeBag)
         
+        viewModel.accountName.drive(accountNameOutlet.rx.text).addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        enterCount.value += 1
         self.navigationController?.navigationBar.isHidden = true
-        
-        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headOutlet.frame.width, height: headOutlet.frame.height), fullName: UserInfo.shared.profile?.nickname ?? "").imageRepresentation()!
-        viewModel.head
-            .drive(onNext: { [weak self] in
-                let imgUrl = URL(string: FSManager.imageUrl(with: $0))
-                self?.headOutlet.kf.setImage(with: imgUrl, placeholder: placeImg)
-            })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.accountName
-            .drive(accountNameOutlet.rx.text)
-            .addDisposableTo(disposeBag)
+        enterSubject.onNext(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         self.navigationController?.navigationBar.isHidden = false
     }
 
@@ -107,29 +91,51 @@ class AccountAndChoseDeviceController: UIViewController, UITableViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension AccountAndChoseDeviceController {
+    
+    fileprivate func showAccountKidsRulesuserController() {
+        if let vc = R.storyboard.account.accountKidsRulesuserController() {
+            self.navigationController?.show(vc, sender: nil)
+        }
     }
-    */
+    
+    fileprivate func showHead(url: String) {
+        let placeImg = CDFInitialsAvatar(
+            rect: CGRect(x: 0, y: 0, width: headOutlet.frame.width, height: headOutlet.frame.height),
+            fullName: UserInfo.shared.profile?.nickname ?? "")
+            .imageRepresentation()!
+        
+        let imgUrl = URL(string: url.fsImageUrl)
+        headOutlet.kf.setImage(with: imgUrl, placeholder: placeImg)
+    }
+}
 
+fileprivate func transfer(deviceInfos: [DeviceInfo]) -> [DeviceCellData] {
+    return deviceInfos.map {
+        var deviceType = ""
+        var icon = ""
+        switch $0.pid ?? 0 {
+        case 0x101:
+            deviceType = "MB12"
+            icon = "device_ic_mb12"
+        case 0x201:
+            deviceType = "Kids Watch 2"
+            icon = "device_ic_kids"
+        default:
+            deviceType = "Other"
+            icon = "device_ic_mb22"
+        }
+        return DeviceCellData(devType: deviceType, name: $0.user?.nickname, iconUrl: icon)
+    }
+}
+
+
+extension AccountAndChoseDeviceController: UITableViewDelegate {
     
     // to prevent swipe to delete behavior
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)
-//        cell?.selectionStyle = UITableViewCellSelectionStyle.none
-//        let vc = R.storyboard.account.accountKidsRulesuserController()!
-//        DeviceManager.shared.currentDevice = viewModel.devices?[indexPath.row]
-//        self.navigationController?.show(vc, sender: nil)
-//    }
-    
 }

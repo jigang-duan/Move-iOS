@@ -25,12 +25,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
-    
     var thirdLogin = Variable(MoveApiUserWorker.LoginType.none)
-    
-    
-    
-    
     
     @IBAction func facebookLogin(_ sender: Any) {
         self.thirdLogin.value = .facebook
@@ -68,13 +63,25 @@ class LoginViewController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             ))
         
-        viewModel.validatedEmail.drive(onNext: showAccountValidation).addDisposableTo(disposeBag)
+        viewModel.validatedEmail
+            .drive(onNext: { [weak self] in
+                self?.showAccountValidation($0)
+            })
+            .addDisposableTo(disposeBag)
         
-        viewModel.validatedPassword.drive(onNext: showPasswordValidation).addDisposableTo(disposeBag)
+        viewModel.validatedPassword
+            .drive(onNext: { [weak self] in
+                self?.showPasswordValidation($0)
+            })
+            .addDisposableTo(disposeBag)
         
         viewModel.loginEnabled.drive(loginOutlet.rx.enabled).addDisposableTo(disposeBag)
         
-        viewModel.logedIn.drive(onNext: loginOnValidation).addDisposableTo(disposeBag)
+        viewModel.logedIn
+            .drive(onNext: { [weak self] in
+                self?.loginOnValidation($0)
+            })
+            .addDisposableTo(disposeBag)
         
         viewModel.logedIn.map { $0.isValid }.drive(MessageServer.share.subject).addDisposableTo(disposeBag)
         

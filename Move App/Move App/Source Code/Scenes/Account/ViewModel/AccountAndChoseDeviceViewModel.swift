@@ -15,15 +15,15 @@ class AccountAndChoseDeviceViewModel {
     
     let head: Driver<String>
     let accountName: Driver<String>
-    var cellDatas: Observable<[DeviceCellData]>?
     
     let selected: Driver<Void>
     
-    var devices: [DeviceInfo]?
+    let fetchDevices: Driver<[DeviceInfo]>
+    var devicesVariable: Variable<[DeviceInfo]> = Variable([])
     
     init (input: (
-        enterCount: Observable<Int>,
-        selectedDeviceInfo: Observable<DeviceInfo>
+        enter: Driver<Bool>,
+        selectedInext: Driver<Int>
         ),
         dependency: (
         userManager: UserManager,
@@ -36,49 +36,31 @@ class AccountAndChoseDeviceViewModel {
         let deviceManager = dependency.deviceManager
         let _ = dependency.wireframe
         
-        let enter = input.enterCount.filter({ $0 > 0 })
+        let enter = input.enter.filter({ $0 })
         
         self.accountName = enter.flatMapLatest { _ in
             userManger.getProfile()
                 .map{ $0.nickname ?? "" }
-        }.asDriver(onErrorJustReturn: "")
+                .asDriver(onErrorJustReturn: "")
+        }
         
-        self.head = enter.flatMapLatest({ _ in
+        self.head = enter.flatMapLatest { _ in
             userManger.getProfile()
-                .map({ $0.iconUrl ?? "" })
-        }).asDriver(onErrorJustReturn: "")
+                .map { $0.iconUrl ?? "" }
+                .asDriver(onErrorJustReturn: "")
+        }
         
-        self.selected = input.selectedDeviceInfo
-            .flatMapLatest(deviceManager.setCurrentDevice)
-            .map({ _ in Void() })
-            .asDriver(onErrorJustReturn: ())
-        
-     
-        self.cellDatas = enter.flatMapLatest({ _ in
-            deviceManager.fetchDevices().map{ [weak self] deviceInfos in
-                self?.devices = deviceInfos
-                var cellDatas: [DeviceCellData] = []
-                for info in deviceInfos {
-                    var deviceType = ""
-                    var icon = ""
-                    switch info.pid! {
-                    case 0x101:
-                        deviceType = "MB12"
-                        icon = "device_ic_mb12"
-                    case 0x201:
-                        deviceType = "Kids Watch 2"
-                        icon = "device_ic_kids"
-                    default:
-                        deviceType = "Other"
-                        icon = "device_ic_mb22"
-                    }
-                    let cellData = DeviceCellData(devType: deviceType, name: info.user?.nickname, iconUrl: icon)
-                    cellDatas.append(cellData)
-                }
-                return cellDatas
-            }
+        self.fetchDevices = enter.flatMapLatest({ _ in
+            deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
         })
         
+        self.selected = input.selectedInext
+            .withLatestFrom(devicesVariable.asDriver()) { $1[$0] }
+            .flatMapLatest {
+                deviceManager.setCurrentDevice(deviceInfo: $0)
+                    .map({ _ in Void() })
+                    .asDriver(onErrorJustReturn: ())
+            }
     }
     
 }
