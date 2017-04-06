@@ -122,9 +122,16 @@ class MemberEntity: Object {
     
     let owners = LinkingObjects(fromType: GroupEntity.self, property: "members")
     
-//    override static func primaryKey() -> String? {
-//        return "id"
-//    }
+    dynamic var gmid: String? = nil
+    
+    override static func primaryKey() -> String? {
+        return "gmid"
+    }
+    
+}
+
+
+extension MemberEntity {
     
     var relation: Relation? {
         guard let identity = self.identity else {
@@ -133,6 +140,7 @@ class MemberEntity: Object {
         return Relation(input: identity)
     }
 }
+
 
 class ChatOpEntity: Object {
     

@@ -109,6 +109,12 @@ class MessageServer {
                 .map{_ in true}
                 .bindTo(subject)
                 .addDisposableTo(disposeBag)
+            
+            syncData.map { $0.members }
+                .filterNil()
+                .map{_ in true}
+                .bindTo(subject)
+                .addDisposableTo(disposeBag)
         }
     }
     
@@ -157,6 +163,7 @@ class MessageServer {
         entity.createDate = group.ctime
         group.members?.forEach {
             let member = MemberEntity()
+            member.gmid = "\($0.uid ?? "")@\(group.gid ?? "")"
             member.id = $0.uid
             member.type = $0.type ?? MemberEntity.ContactType.unknown.rawValue
             member.username = $0.username
