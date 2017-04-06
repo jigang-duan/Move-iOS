@@ -36,13 +36,9 @@ extension DeviceManager {
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool> {
         return worker.joinGroup(joinInfo: joinInfo)
     }
-   
-    func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>  {
-        return worker.getDeviceList()
-    }
     
     func fetchDevices() -> Observable<[DeviceInfo]> {
-        return worker.getDeviceList().map({ $0.map({ DeviceInfo.init(element: $0) }) })
+        return worker.getDeviceList().map({ $0.map({ DeviceInfo(element: $0) }) })
     }
     
     func setCurrentDevice(deviceInfo: DeviceInfo) -> Observable<DeviceInfo> {
@@ -147,16 +143,6 @@ extension DeviceInfo {
         self.init()
         self.deviceId = element.deviceId
         self.pid = element.pid
-        self.property = DeviceProperty(active: element.property?.active,
-                                       bluetooth_address: element.property?.bluetooth_address,
-                                       device_model: element.property?.device_model,
-                                       firmware_version: element.property?.firmware_version,
-                                       ip_address: element.property?.ip_address,
-                                       kernel_version: element.property?.kernel_version,
-                                       mac_address: element.property?.mac_address,
-                                       phone_number: element.property?.phone_number,
-                                       languages: element.property?.languages,
-                                       power: element.property?.power)
         self.user = DeviceUser(uid: element.user?.uid,
                                number: element.user?.number,
                                nickname: element.user?.nickname,
@@ -192,6 +178,7 @@ struct DeviceProperty {
     var phone_number :String?
     var languages: [String]?
     var power :Int?
+    var maxgroups: Int?
 }
 
 struct DeviceBindInfo {

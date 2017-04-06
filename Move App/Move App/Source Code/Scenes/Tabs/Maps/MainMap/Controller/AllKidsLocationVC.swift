@@ -16,7 +16,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     var disposeBag = DisposeBag()
 
     @IBOutlet weak var guideBtn: UIButton!
-    var dataArr = NSArray()
+    var dataArr: [DeviceInfo] = []
     var locationOfDevice : [MoveApi.LocationOfDevice]? = []
     var annotationArr : [TagAnnotation]? = []
     
@@ -48,8 +48,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
         }
         
         var deviceids : [MoveApi.LocationDeviceId]? = []
-        for tels in dataArr {
-            let tel = tels as! MoveApi.DeviceInfo
+        for tel in dataArr {
             let device_id = MoveApi.LocationDeviceId(device_id : tel.deviceId)
             deviceids?.append(device_id)
         }
@@ -65,12 +64,11 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
                 let info = KidSate.LocationInfo(location: loc, address: located.location?.addr, accuracy: located.location?.accuracy, time: located.location?.time)
                 annotation.info = info
                 
-                for tels in self.dataArr {
-                    let tel = tels as! MoveApi.DeviceInfo
+                for tel in self.dataArr {
                     if tel.deviceId == located.device_id {
-                        annotation.name = (tel.user?.nickname)!
-                        annotation.device_id = tel.deviceId!
-                        annotation.profile = (tel.user?.profile)!
+                        annotation.name = tel.user?.nickname
+                        annotation.device_id = tel.deviceId
+                        annotation.profile = tel.user?.profile
                     }
                 }
                 
@@ -81,7 +79,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
         }).addDisposableTo(disposeBag)
         // Do any additional setup after loading the view.
     }
-    var activity = MoveApi.Activity()
+//    var activity = MoveApi.Activity()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -161,7 +159,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
                 annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             }
             let subannotation = annotation as! TagAnnotation
-            (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name, profile: subannotation.profile)
+            (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
             annoView?.annotation = annotation
             annoView?.canShowCallout = false
             return annoView

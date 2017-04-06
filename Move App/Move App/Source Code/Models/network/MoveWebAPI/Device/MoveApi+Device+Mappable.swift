@@ -64,7 +64,6 @@ extension MoveApi {
         var pid: Int?
         var deviceId: String?
         var user: DeviceUser?
-        var property: DeviceProperty?
     }
     
     struct DeviceUpdateReq {
@@ -98,6 +97,7 @@ extension MoveApi {
         var phone_number :String?
         var languages: [String]?
         var power :Int?
+        var maxgroups: Int?
     }
     
     
@@ -405,7 +405,6 @@ extension MoveApi.DeviceInfo: Mappable {
         pid <- map["pid"]
         deviceId <- map["device_id"]
         user <- map["user"]
-        property <- map["properties"]
     }
 }
 
@@ -460,6 +459,7 @@ extension MoveApi.DeviceProperty: Mappable {
         phone_number <- map["phone_number"]
         languages <- map["languages"]
         power <- map["power"]
+        maxgroups <- map["maxgroups"]
     }
 }
 

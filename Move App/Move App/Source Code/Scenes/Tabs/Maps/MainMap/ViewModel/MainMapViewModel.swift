@@ -17,22 +17,24 @@ class MainMapViewModel {
     // outputs {
     
     let authorized: Driver<Bool>
-    let userLocation: Driver<CLLocationCoordinate2D>
+    //let userLocation: Driver<CLLocationCoordinate2D>
     
-    let kidLocation: Driver<CLLocationCoordinate2D>
-    let kidAnnotion: Driver<BaseAnnotation>
+    let kidLocation: Observable<CLLocationCoordinate2D>
+    let kidAnnotion: Observable<BaseAnnotation>
     
     //let kidInfos: Driver<[MoveApi.DeviceInfo]>
     let selecedAction: Observable<BasePopoverAction>
     
     let activityIn: Driver<Bool>
     
-    // }
+    let deviceInfos: Driver<[DeviceInfo]>
     
-    init(input: (
-        avatarTap: Driver<Void>,
-        avatarView: UIView,
-        isAtThisPage: Driver<Bool>
+    init(
+        input: (
+            enterCount: Driver<Int>,
+            avatarTap: Driver<Void>,
+            avatarView: UIView,
+            isAtThisPage: Driver<Bool>
         ),
          dependency: (
             geolocationService: GeolocationService,
@@ -42,24 +44,30 @@ class MainMapViewModel {
         ) {
         
         authorized = dependency.geolocationService.authorized
-        userLocation = dependency.geolocationService.location
+        let userLocation = dependency.geolocationService.location
         let deviceManager = dependency.deviceManager
         let locationManager = dependency.locationManager
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-        kidLocation = Driver<Int>.timer(2, period: Configure.App.LoadDataOfPeriod)
+        
+        let enter = input.enterCount.filter {$0 > 0}
+        
+        deviceInfos = enter.flatMapLatest({ _ in
+            return deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
+        })
+        
+        kidLocation = Observable<Int>.timer(2, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
             .flatMapFirst({  _ in input.isAtThisPage    })
-            .debug()
-            .filter({  $0  }).debug()
+            .filter({  $0  })
             .flatMapLatest ({_ in
                 locationManager.getCurrentLocation()
                     .trackActivity(activitying)
                     .map({  $0.location })
                     .filterNil()
-                    .asDriver(onErrorRecover: {_ in
-                        dependency.geolocationService.location
+                    .catchError({ _ -> Observable<CLLocationCoordinate2D> in
+                        userLocation.asObservable().take(1)
                     })
             })
         
@@ -68,7 +76,7 @@ class MainMapViewModel {
         
         let kidInfos = input.avatarTap
             .flatMapLatest({
-                deviceManager.getDeviceList().debug()
+                deviceManager.fetchDevices()
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: [])
             })
@@ -85,10 +93,10 @@ class MainMapViewModel {
     }
 }
 
-fileprivate func transformAction(infos: [MoveApi.DeviceInfo]) -> [BasePopoverAction] {
+fileprivate func transformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
     
-    return infos
-        .map({  let action = BasePopoverAction(imageUrl: $0.user?.profile,
+    return infos.map({
+            let action = BasePopoverAction(imageUrl: $0.user?.profile,
                                                placeholderImage: R.image.home_pop_all(),
                                                title: $0.user?.nickname,
                                                isSelected: true,
@@ -99,7 +107,7 @@ fileprivate func transformAction(infos: [MoveApi.DeviceInfo]) -> [BasePopoverAct
         })
 }
 
-fileprivate func allAndTransformAction(infos: [MoveApi.DeviceInfo]) -> [BasePopoverAction] {
+fileprivate func allAndTransformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
     let allAction = BasePopoverAction(imageUrl: nil,
                                       placeholderImage: R.image.home_pop_all(),
                                       title: "ALL",

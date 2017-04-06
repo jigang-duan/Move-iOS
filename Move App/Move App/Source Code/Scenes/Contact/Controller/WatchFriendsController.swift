@@ -61,11 +61,9 @@ class WatchFriendsController: UIViewController {
         }).addDisposableTo(disposeBag)
         
         
-        
 //        判断当前是否是管理员
-        _ = DeviceManager.shared.getContacts(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!).subscribe({ (event) in
-            switch event {
-            case .next(let cons):
+         DeviceManager.shared.getContacts(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!)
+            .subscribe(onNext: { cons in
                 for con in cons {
                     if con.admin == true {
                         if UserInfo.shared.id == con.uid {
@@ -73,12 +71,9 @@ class WatchFriendsController: UIViewController {
                         }
                     }
                 }
-            case .completed:
-                break
-            case .error(let er):
+            }, onError: { er in
                 print(er)
-            }
-        })
+            }).addDisposableTo(disposeBag)
         
     }
     

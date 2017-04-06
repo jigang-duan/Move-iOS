@@ -30,7 +30,7 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             imagePickerController.allowsEditing = true
             if UIImagePickerController.isSourceTypeAvailable(soureType) {
                 imagePickerController.sourceType = soureType
-                self.target?.present(imagePickerController, animated: true, completion: nil)
+                self.target?.present(imagePickerController, animated: true)
             }
         }else{
             let vc = UIAlertController(title: nil, message: "没有相机/照片访问权限", preferredStyle: UIAlertControllerStyle.alert)
@@ -40,9 +40,7 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             let action2 = UIAlertAction(title: "Ok", style: .default)
             vc.addAction(action1)
             vc.addAction(action2)
-            self.target?.present(vc, animated: true) {
-                
-            }
+            self.target?.present(vc, animated: true)
         }
     }
 
@@ -59,14 +57,13 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let img = self.compressImage(with: image, size: self.imageSize)
-            if self.photoCallback != nil {
-                self.photoCallback!(img)
+        picker.dismiss(animated: true){
+            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                let img = self.compressImage(with: image, size: self.imageSize)
+                if self.photoCallback != nil {
+                    self.photoCallback!(img)
+                }
             }
-        }
-        picker.dismiss(animated: true) {
-            
         }
     }
     
@@ -92,9 +89,7 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
         let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel)
         vc.addAction(action)
-        self.target?.present(vc, animated: true) {
-            
-        }
+        self.target?.present(vc, animated: true)
     }
 }
 

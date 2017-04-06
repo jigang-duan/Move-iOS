@@ -166,7 +166,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     func getProperty(deviceId: String)  -> Observable<DeviceProperty>{
         return MoveApi.Device.getProperty(deviceId: deviceId)
             .map{p in
-                let info = DeviceProperty(active: p.active, bluetooth_address: p.bluetooth_address, device_model: p.device_model, firmware_version: p.firmware_version, ip_address: p.ip_address, kernel_version: p.kernel_version, mac_address: p.mac_address, phone_number: p.phone_number, languages: p.languages, power: p.power)
+                let info = DeviceProperty(active: p.active, bluetooth_address: p.bluetooth_address, device_model: p.device_model, firmware_version: p.firmware_version, ip_address: p.ip_address, kernel_version: p.kernel_version, mac_address: p.mac_address, phone_number: p.phone_number, languages: p.languages, power: p.power, maxgroups: p.maxgroups)
                 return info
         }
     }

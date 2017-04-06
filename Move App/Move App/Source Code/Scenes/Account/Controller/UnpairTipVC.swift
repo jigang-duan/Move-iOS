@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import RxSwift
 
 
 class UnpairTipVC: UIViewController {
     
     var unpairBlock: ((Bool, String) -> ())?
+    
+    var disposeBag = DisposeBag()
     
     
     override func viewDidLoad() {
@@ -21,31 +24,27 @@ class UnpairTipVC: UIViewController {
     
     @IBAction func unpairAction(_ sender: Any) {
         let manager = DeviceManager.shared
-        _ = manager.deleteDevice(with: (manager.currentDevice?.deviceId)!).subscribe({ event in
-            switch event {
-            case .next(let flag):
-                if self.unpairBlock != nil {
-                    self.unpairBlock!(flag, flag ? "unpaired success":"设备解绑失败")
+        manager.deleteDevice(with: (manager.currentDevice?.deviceId)!)
+            .subscribe(onNext: { flag in
+                self.dismiss(animated: true) {
+                    if self.unpairBlock != nil {
+                        self.unpairBlock!(flag, flag ? "unpaired success":"设备解绑失败")
+                    }
                 }
-            case .completed:
-                self.dismiss(animated: true, completion: {
-                })
-            case .error(let er):
+            }, onError: { er in
                 print(er)
-                self.dismiss(animated: true, completion: {
-                })
-                if self.unpairBlock != nil {
-                    self.unpairBlock!(false, "设备解绑失败")
+                self.dismiss(animated: true) {
+                    if self.unpairBlock != nil {
+                        self.unpairBlock!(false, "设备解绑失败")
+                    }
                 }
-                
-            }
-        })
+            }).addDisposableTo(disposeBag)
         
     }
     
  
     @IBAction func unpairCancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
     
     

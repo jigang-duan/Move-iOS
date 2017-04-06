@@ -11,7 +11,11 @@ import AVFoundation
 import RxSwift
 
 class ScanCodeController: UIViewController {
-
+    
+    var disposeBag = DisposeBag()
+    
+    var photoPicker: ImageUtility?
+    
     //会话
     lazy var session: AVCaptureSession = AVCaptureSession()
     
@@ -41,12 +45,9 @@ class ScanCodeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        preferredStatusBarStyle = UIStatusBarStyle.LightContent
-        
         qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
         qrCodeFrameView.layer.borderWidth = 2
         view.addSubview(qrCodeFrameView)
-
     }
     
     
@@ -54,7 +55,6 @@ class ScanCodeController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = true
-//        UIApplication.shared.isStatusBarHidden
         
         //扫描
         startScan()
@@ -96,30 +96,25 @@ class ScanCodeController: UIViewController {
     }
     
     
- 
-    
     @IBAction func openAbum(_ sender: AnyObject) {
+        photoPicker = ImageUtility()
         
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+        self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, callback: { (image) in
+            let ciImage:CIImage=CIImage(image: image)!
             
-            let picker = UIImagePickerController()
+            let context = CIContext(options: nil)
+            let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: context,
+                                      options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])
             
-            picker.delegate = self
-            picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            picker.allowsEditing = true
+            let features = detector?.features(in: ciImage)
             
-            self.present(picker, animated: true, completion: { 
-                
-            })
-        }
-        else
-            {
-                print("读取相册错误")
+            if features?.count == 0 {
+                self.showMessage("未检测到二维码")
+            }else{
+                let feature = features![0] as! CIQRCodeFeature
+                self.makeDeviceAdd(with: feature.messageString!)
             }
-            
-            
-        
-        
+        })
     }
     
     
@@ -127,32 +122,7 @@ class ScanCodeController: UIViewController {
 }
 
 
-extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        
-        let ciImage:CIImage=CIImage(image: image)!
-        
-        let context = CIContext(options: nil)
-        let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: context,
-                                  options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])
-        
-        let features = detector?.features(in: ciImage)
-        
-        
-        picker.dismiss(animated: true) {
-            if features?.count == 0 {
-                self.showMessage("未检测到二维码")
-            }else{
-                let feature = features![0] as! CIQRCodeFeature
-                self.makeDeviceAdd(with: feature.messageString!)
-            }
-        }
-        
-    }
-    
+extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
     
     //扫描代理方法：只要解析到数据就会调用
      func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
@@ -248,23 +218,19 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate, UIImagePic
     func checkImeiAndGoBind(with info: DeviceBindInfo) {
         //绑定管理员
         if info.isMaster == true {
-            _ = DeviceManager.shared.checkBind(deviceId: info.deviceId!).subscribe({ (event) in
-                switch event{
-                case .next(let value):
-                    if value == false {
-                        let vc  = R.storyboard.main.verificationCodeController()!
-                        vc.imei = info.deviceId
-                        self.navigationController?.show(vc, sender: nil)
-                    }else{
-                        self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                    }
-                case .error(let error):
-                    print(error)
+            DeviceManager.shared.checkBind(deviceId: info.deviceId!)
+            .subscribe(onNext: { flag in
+                if flag == false {
+                    let vc  = R.storyboard.main.verificationCodeController()!
+                    vc.imei = info.deviceId
+                    self.navigationController?.show(vc, sender: nil)
+                }else{
                     self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                default:
-                    break
                 }
-            })
+            }, onError: { error in
+                print(error)
+                self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
+            }).addDisposableTo(disposeBag)
             
             return
         }

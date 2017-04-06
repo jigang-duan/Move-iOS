@@ -23,8 +23,9 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     var curDirectionMode:MKDirectionsTransportType = .walking
 
     var disposeBag = DisposeBag()
-    var isOpenList : Bool? = false
-    var defaultDeviceData : [MoveApi.DeviceInfo]? = []
+    
+    var isOpenList = false
+    var deviceInfos: [DeviceInfo] = []
     
     var userPoint : CLLocationCoordinate2D?
     var selectPoint : CLLocationCoordinate2D?
@@ -36,7 +37,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     @IBOutlet weak var objectImageBtn: UIButton!
     @IBOutlet weak var objectNameL: UILabel!
-    @IBOutlet weak var objectNameLConstraintWidth: NSLayoutConstraint!
     @IBOutlet weak var objectLocationL: UILabel!
     @IBOutlet weak var signalImageV: UIImageView!
     @IBOutlet weak var electricV: UIImageView!
@@ -45,7 +45,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     var currentDeviceData : BasePopoverAction?
     
-    var accountViewModel: AccountAndChoseDeviceViewModel!
+
     let enterCount = Variable(0)
     
     var isAtThisPage = Variable(false)
@@ -54,7 +54,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         super.viewWillAppear(true)
         self.title = "Location"
         self.isAtThisPage.value = true
-        self.getDataSource()
+        
+        enterCount.value += 1
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,13 +65,14 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getDataSource()
+    
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         let geolocationService = GeolocationService.instance
         
         let viewModel = MainMapViewModel(
             input: (
+                enterCount: enterCount.asDriver(),
                 avatarTap: objectImageBtn.rx.tap.asDriver(),
                 avatarView: objectImageBtn,
                 isAtThisPage: isAtThisPage.asDriver()
@@ -83,11 +85,9 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         )
         
         viewModel.selecedAction
-            .bindNext({
-                Logger.info($0)
-                let device : MoveApi.DeviceInfo? = $0.data as? MoveApi.DeviceInfo
-                print("\(device)")
-                self.KidInfoToAnimation(dataSource: $0)
+            .bindNext({ [weak self] action in
+                Logger.info(action)
+                self?.KidInfoToAnimation(dataSource: action)
             })
             .addDisposableTo(disposeBag)
         
@@ -96,8 +96,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .addDisposableTo(disposeBag)
         
         openPreferencesBtn.rx.tap
-            .bindNext { [weak self] in
-                self?.openAppPreferences()
+            .bindNext { _ in
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }
             .addDisposableTo(disposeBag)
         
@@ -123,7 +123,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .addDisposableTo(disposeBag)
         
         viewModel.kidLocation
-            .drive(onNext: { [unowned self] in
+            .bindNext({ [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
                 //self.GetCurrentNew()
@@ -132,11 +132,51 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         
         viewModel.kidAnnotion
             .distinctUntilChanged()
-            .drive(onNext: { [unowned self] annotion in
+            .bindNext({ [unowned self] annotion in
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 self.mapView.addAnnotation(annotion)
         })
-            .addDisposableTo(disposeBag)
+        .addDisposableTo(disposeBag)
+        
+        
+        
+        viewModel.deviceInfos.drive(onNext: { [unowned self] deviceInfos in
+            self.deviceInfos = deviceInfos
+            
+            var deviceInfo = DeviceInfo()
+            
+            if let idstr = Me.shared.currDeviceID {
+                for data in self.deviceInfos{
+                    if data.deviceId == idstr {
+                        deviceInfo = data
+                    }
+                }
+            }else{
+                if let data = self.deviceInfos.first {
+                    deviceInfo = data
+                }
+            }
+            
+            
+            self.updateUIData(deviceInfo: deviceInfo)
+            
+            let action = BasePopoverAction(imageUrl: deviceInfo.user?.profile,
+                                           placeholderImage: R.image.home_pop_all(),
+                                           title: deviceInfo.user?.nickname,
+                                           isSelected: true)
+            action.canAvatar = true
+            action.data = deviceInfo
+            self.currentDeviceData = action
+            let device = self.currentDeviceData?.data as? DeviceInfo
+            let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: self.objectImageBtn.frame.size.width, height: self.objectImageBtn.frame.size.height), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
+            
+            let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
+            self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+            
+        })
+        .addDisposableTo(disposeBag)
+        
+        
         
     }
     
@@ -147,11 +187,11 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     func GetCurrentNew() {
-        if let idstr : String = Me.shared.currDeviceID {
-            MoveApi.Location.getNew(deviceId: idstr)
+        if let _ = Me.shared.currDeviceID {
+            LocationManager.share.getCurrentLocation()
                 .subscribe(onNext: {
-                    let annotation = BaseAnnotation(($0.location?.lat)!, ($0.location?.lng)!)
-                    self.objectLocationL.text = $0.location?.addr
+                    let annotation = BaseAnnotation($0.location?.latitude ?? 0, $0.location?.longitude ?? 0)
+                    self.objectLocationL.text = $0.address
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     self.mapView.addAnnotation(annotation)
                 }, onError: { error in
@@ -163,7 +203,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                             })
                         }
                     }
-                }).addDisposableTo(disposeBag)
+                })
+                .addDisposableTo(disposeBag)
         }
     }
     
@@ -176,22 +217,21 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         // Pass the selected object to the new view controller.
         if segue.identifier == "LocationHistory" {
             if (currentDeviceData != nil) {
-                let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
+                let device = self.currentDeviceData?.data as? DeviceInfo
                 //主要就是通过类型强转,然后通过拿到的对象进行成员变量的赋值,相对于Android,这真的是简单粗暴
                 let nav2Controller = segue.destination as! LocationHistoryVC
-                nav2Controller.Sprofile = device.user?.profile
-                nav2Controller.Snikename = device.user?.nickname
-                nav2Controller.deviceId = device.deviceId
+                nav2Controller.Sprofile = device?.user?.profile
+                nav2Controller.Snikename = device?.user?.nickname
+                nav2Controller.deviceId = device?.deviceId
             }
         }
     }
     
     @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
         if (currentDeviceData != nil) {
-            let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
-            if device.user != nil {
-                var str : String = "telprompt://" + (device.user?.number)!
-                str = str.replacingOccurrences(of: " ", with: "")
+            let device = currentDeviceData?.data as? DeviceInfo
+            if let phone = device?.user?.number {
+                let str = "telprompt://\(phone)".replacingOccurrences(of: " ", with: "")
                 if let url = URL(string: str) {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.openURL(url)
@@ -222,9 +262,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             
             case MessageComposeResult.failed:
             print("短信发送失败")
-            
-        default :
-            print("没有匹配的")
         }
     }
     
@@ -252,120 +289,40 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         // Dispose of any resources that can be recreated.
     }
     
-    private func openAppPreferences() {
-        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-    }
     
-    
-    func getDataSource() {
-        MoveApi.Device.getDeviceList(pid: 0)
+    func updateUIData(deviceInfo : DeviceInfo){
+        objectNameL.text = deviceInfo.user?.nickname
+        
+        DeviceManager.shared.getProperty(deviceId: deviceInfo.deviceId!)
             .bindNext({
-                self.defaultDeviceData = $0.devices
-                
-                if let idstr : String = Me.shared.currDeviceID {
-                    if (self.defaultDeviceData != nil) {
-                        for i in 0..<(self.defaultDeviceData?.count)!{
-                            let data = self.defaultDeviceData?[i]
-                            
-                            if data?.deviceId == idstr {
-                                self.UpdateUIData(dataSource: data!)
-                                
-                                let action = BasePopoverAction(imageUrl: data?.user?.profile,
-                                                               placeholderImage: R.image.home_pop_all(),
-                                                               title: data?.user?.nickname,
-                                                               isSelected: true,
-                                                               handler: nil)
-                                action.canAvatar = true
-                                action.data = data
-                                self.currentDeviceData = action
-                                let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
-                                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
-                                
-                                let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
-                                self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-                            }
-                        }
-                    }
-                }else{
-                    if let data = self.defaultDeviceData?.first {
-                        self.UpdateUIData(dataSource: data)
-                        
-                        let action = BasePopoverAction(imageUrl: data.user?.profile,
-                                                       placeholderImage: R.image.home_pop_all(),
-                                                       title: data.user?.nickname,
-                                                       isSelected: true,
-                                                       handler: nil)
-                        action.canAvatar = true
-                        action.data = data
-                        self.currentDeviceData = action
-                        let device : MoveApi.DeviceInfo = self.currentDeviceData?.data as! MoveApi.DeviceInfo
-                        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
-                        
-                        let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
-                        self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-                    }
-
-                }
+                self.electricL.text = "\($0.power ?? 0)%"
+                self.signalImageV.image = UIImage(named: "home_ic_battery\(($0.power ?? 0)/20)")
             }).addDisposableTo(disposeBag)
         
-    }
-    
-    func UpdateUIData(dataSource : MoveApi.DeviceInfo){
-        objectNameL.text = dataSource.user?.nickname
-        
-        MoveApi.Device.getPower(deviceId: dataSource.deviceId!)
+        LocationManager.share.getCurrentLocation()
             .bindNext({
-                self.changepower(power: $0.power!)
-            }).addDisposableTo(disposeBag)
-        
-        MoveApi.Location.getNew(deviceId: dataSource.deviceId!)
-            .bindNext({
-                self.objectLocationL.text = $0.location?.addr
-                self.objectLocationTimeL.text = $0.location?.time?.stringYearMonthDayHourMinuteSecond
+                self.objectLocationL.text = $0.address
+                self.objectLocationTimeL.text = $0.time?.stringYearMonthDayHourMinuteSecond
         }).addDisposableTo(disposeBag)
         
-        if dataSource.property != nil {
-            let property : MoveApi.DeviceProperty = (dataSource.property)!
-            let power = (property.power)!
-            self.changepower(power: power)
-        }
-    }
-    
-    func changepower(power : Int) {
-        electricL.text = String(format:"%d%@",power,"%")
-        if power == 0{
-            signalImageV.image = R.image.home_ic_battery0()
-        }else if power < 20 && power > 0{
-            signalImageV.image = R.image.home_ic_battery1()
-        }else if power < 40 && power > 20 {
-            signalImageV.image = R.image.home_ic_battery2()
-        }else if power < 60 && power > 40 {
-            signalImageV.image = R.image.home_ic_battery3()
-        }else if power < 80 && power > 60 {
-            signalImageV.image = R.image.home_ic_battery4()
-        }else if power < 100 && power > 80 {
-            signalImageV.image = R.image.home_ic_battery5()
-        }
     }
     
     func KidInfoToAnimation(dataSource : BasePopoverAction) {
         if dataSource.title == "ALL" {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC") as! AllKidsLocationVC
-            vc.dataArr = dataSource.data as! NSArray
+            vc.dataArr = dataSource.data as? [DeviceInfo] ?? []
             self.navigationController?.pushViewController(vc, animated: true)
         }else {
             objectNameL.text = dataSource.title
-            if dataSource.data != nil  {
-                self.currentDeviceData = dataSource
-                let device : MoveApi.DeviceInfo? = dataSource.data as? MoveApi.DeviceInfo
-                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: 54, height: 54), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
+            self.currentDeviceData = dataSource
+            if let device = dataSource.data as? DeviceInfo {
+                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: objectImageBtn.frame.size.width, height: objectImageBtn.frame.size.height), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
                 
-                let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
+                let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
                 self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-                if device?.property != nil {
-                    let property : MoveApi.DeviceProperty = (device?.property)!
-                    let power = (property.power)!
-                    self.changepower(power: power)
+                if let power = device.property?.power {
+                    electricL.text = "\(power)%"
+                    signalImageV.image = UIImage(named: "home_ic_battery\(power/20)")
                 }
             }
         }
@@ -395,8 +352,7 @@ extension MainMapController: MKMapViewDelegate {
             if annotationView == nil {
                 annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-            if currentDeviceData != nil {
-                let device : MoveApi.DeviceInfo = currentDeviceData?.data as! MoveApi.DeviceInfo
+            if let device = currentDeviceData?.data as? DeviceInfo {
                 (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)
             }
             annotationView?.canShowCallout = false
