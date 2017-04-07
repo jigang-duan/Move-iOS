@@ -240,8 +240,15 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                         UIApplication.shared.openURL(url)
                     }
                 }
-                
             }
+        }else {
+            let alertController = UIAlertController(title: "Error", message: "phone worry", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
+                (action : UIAlertAction!) -> Void in
+                
+            })
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
