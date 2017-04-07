@@ -51,7 +51,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     var isAtThisPage = Variable(false)
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         self.title = "Location"
         self.isAtThisPage.value = true
         
@@ -145,7 +145,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             
             var deviceInfo = DeviceInfo()
             
-            if let idstr = Me.shared.currDeviceID {
+            if let idstr = DeviceManager.shared.currentDevice?.deviceId {
                 for data in self.deviceInfos{
                     if data.deviceId == idstr {
                         deviceInfo = data
@@ -190,7 +190,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     func GetCurrentNew() {
-        if let _ = Me.shared.currDeviceID {
+        if let _ = DeviceManager.shared.currentDevice?.deviceId {
             LocationManager.share.getCurrentLocation()
                 .subscribe(onNext: {
                     let annotation = BaseAnnotation($0.location?.latitude ?? 0, $0.location?.longitude ?? 0)
@@ -200,7 +200,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 }, onError: { error in
                     if error is MoveApi.ApiError {
                         if let err = error as? MoveApi.ApiError  {
-                        self.alertController = UIAlertController(title: nil, message: err.msg, preferredStyle: .alert)
+                            self.alertController = UIAlertController(title: nil, message: err.msg, preferredStyle: .alert)
                             self.present(self.alertController!, animated: true, completion: {
                                 self.perform(#selector(self.dismissaler), with: nil, afterDelay: 1.0)
                             })
@@ -326,6 +326,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             objectNameL.text = dataSource.title
             self.currentDeviceData = dataSource
             if let device = dataSource.data as? DeviceInfo {
+                DeviceManager.shared.currentDevice = device
+                
                 let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: objectImageBtn.frame.size.width, height: objectImageBtn.frame.size.height), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
                 
                 let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
