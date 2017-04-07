@@ -12,7 +12,11 @@ class Me {
     static let shared = Me()
     
     var user: UserInfo
-    var currDeviceID: String?
+    var currDeviceID: String? {
+        get{
+            return DeviceManager.shared.currentDevice?.deviceId
+        }
+    }
     
     init() {
         self.user = UserInfo.shared
