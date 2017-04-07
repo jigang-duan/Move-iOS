@@ -253,3 +253,26 @@ class SynckeyEntity: Object {
     
     let groups = List<GroupEntity>()
 }
+
+extension SynckeyEntity {
+    
+    func add(groups: [GroupEntity], realm: Realm) {
+        let groupids = self.groups.flatMap({ $0.id })
+        
+        let addGroups = groups.filter({ $0.id != nil  }).filter({ group in !groupids.contains(group.id!) })
+        let addGroupIds = addGroups.flatMap({ $0.id })
+        
+        let allGroups = realm.objects(GroupEntity.self).filter({_ in true})
+        let allGroupIds = allGroups.flatMap({ $0.id })
+        
+        let newGroups = addGroups.filter({ group in !allGroupIds.contains(group.id!) })
+        let otherGroups = allGroups.filter({ group in addGroupIds.contains(group.id!) })
+        
+        try? realm.write {
+            self.groups.append(objectsIn: newGroups)
+            self.groups.append(objectsIn: otherGroups)
+        }
+        
+    }
+    
+}

@@ -42,7 +42,7 @@ class UUInputView: UIView {
     }()
     
     
-    @IBOutlet var superVC: UIViewController!
+    @IBOutlet weak var superVC: UIViewController!
     @IBOutlet var delegate: UUInputViewDelegate?
     
     fileprivate var isUnfoldEmoji = false

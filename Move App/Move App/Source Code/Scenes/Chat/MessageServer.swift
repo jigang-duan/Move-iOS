@@ -117,25 +117,29 @@ class MessageServer {
             
             syncData.map { $0.groups }
                 .filterNil()
-                .map{_ in true}
-                .bindTo(subject)
+                .map({ $0.filter({  $0.flag != -1 }) })
+                .subscribe(onNext: {
+                    if let sync = syncObject.first {
+                        sync.add(groups: $0, realm: realm)
+                    }
+                })
                 .addDisposableTo(disposeBag)
             
-            syncData.map { $0.members }
-                .filterNil()
-                .map{_ in true}
-                .bindTo(subject)
-                .addDisposableTo(disposeBag)
+//            syncData.map { $0.members }
+//                .filterNil()
+//                .map{_ in true}
+//                .bindTo(subject)
+//                .addDisposableTo(disposeBag)
         }
     }
     
     func subscribe() -> Disposable {
         let realm = try! Realm()
-        //let uid = Me.shared.user.id
-        //let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid)
+        let uid = Me.shared.user.id
+        let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid)
         return subject.asObservable()
             .filter { $0 }
-            //.filter { _ in sync == nil }
+            .filter { _ in sync == nil }
             .flatMapLatest { _ -> Observable<SynckeyEntity> in
                 IMManager.shared.initSyncKey()
                 .map {

@@ -17,7 +17,7 @@ import RxRealmDataSources
 
 class SingleChatController: UIViewController {
 
-    @IBOutlet var ifView: UUInputView!
+    @IBOutlet weak var ifView: UUInputView!
     @IBOutlet weak var tableView: UITableView!
     
     let bag = DisposeBag()
@@ -61,16 +61,14 @@ class SingleChatController: UIViewController {
             .addDisposableTo(bag)
         
         messageFramesVariable.asObservable()
-            .bindNext({_ in
-                self.tableViewScrollToBottom()
+            .bindNext({ [weak self] _ in
+                self?.tableViewScrollToBottom()
             })
             .addDisposableTo(bag)
         
         let itemDeleted = tableView.rx.itemDeleted.asObservable()
-        itemDeleted
-            .map({
-                self.messageFramesVariable.value[$0.row].message.msgId
-            })
+        itemDeleted.map({ $0.row })
+            .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
             .flatMapLatest({
                 IMManager.shared.delete(message: $0).catchErrorJustReturn("")
             })
@@ -91,8 +89,8 @@ class SingleChatController: UIViewController {
             })
             .filter({ $0.msg_id != nil  })
             .map { UUMessage(imEmoji: $0, user: Me.shared.user) }
-            .drive(onNext: {
-                self.messageFramesVariable.value.append(UUMessageFrame(message: $0))
+            .drive(onNext: { [weak self] in
+                self?.messageFramesVariable.value.append(UUMessageFrame(message: $0))
             })
             .addDisposableTo(bag)
         
@@ -108,8 +106,8 @@ class SingleChatController: UIViewController {
             })
             .filter({ $0.msg_id != nil })
             .map { UUMessage(imVoice: $0, user: Me.shared.user) }
-            .bindNext({
-                self.messageFramesVariable.value.append(UUMessageFrame(message: $0))
+            .bindNext({ [weak self] in
+                self?.messageFramesVariable.value.append(UUMessageFrame(message: $0))
             })
             .addDisposableTo(bag)
     }
