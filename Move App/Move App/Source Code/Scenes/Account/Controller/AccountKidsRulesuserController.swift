@@ -149,7 +149,17 @@ class AccountKidsRulesuserController: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = R.segue.accountKidsRulesuserController.showUnpairTip(segue: segue)?.destination {
+        if let vc = R.segue.accountKidsRulesuserController.showMasterUnpairTip(segue: segue)?.destination {
+            vc.unpairBlock = { flag, message in
+                if flag {
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                }else{
+                    self.showMessage(message)
+                }
+            }
+        }
+        
+        if let vc = R.segue.accountKidsRulesuserController.showGeneralUnpairTip(segue: segue)?.destination {
             vc.unpairBlock = { flag, message in
                 if flag {
                     _ = self.navigationController?.popToRootViewController(animated: true)

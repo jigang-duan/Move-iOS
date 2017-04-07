@@ -48,6 +48,9 @@ class ScanCodeController: UIViewController {
         qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
         qrCodeFrameView.layer.borderWidth = 2
         view.addSubview(qrCodeFrameView)
+        
+        //扫描
+        startScan()
     }
     
     
@@ -56,8 +59,9 @@ class ScanCodeController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = true
         
-        //扫描
-        startScan()
+        if self.session.isRunning == false {
+            self.session.startRunning()
+        }
     }
     
     
@@ -65,6 +69,9 @@ class ScanCodeController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
+        
+        qrCodeFrameView.frame = CGRect()
+        self.session.stopRunning()
     }
     
     private func startScan(){
@@ -87,8 +94,6 @@ class ScanCodeController: UIViewController {
         
         previewLayer.frame = UIScreen.main.bounds
         view.layer.insertSublayer(previewLayer, at: 0)
-        
-        session.startRunning()
     }
     
     @IBAction func BackAction(_ sender: AnyObject) {
@@ -148,8 +153,8 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
             qrCodeFrameView.frame = barCodeObject.bounds;
             
             if metadataObj.stringValue != nil {
-                self.makeDeviceAdd(with: metadataObj.stringValue)
                 self.session.stopRunning()
+                self.makeDeviceAdd(with: metadataObj.stringValue)
             }else{
                 self.showMessage("未检测到二维码")
             }
@@ -158,16 +163,20 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
     
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            if self.session.isRunning == false {
+                self.session.startRunning()
+            }
+        })
         vc.addAction(action)
-        self.present(vc, animated: true) { 
-            
-        }
+        self.present(vc, animated: true)
     }
 
     
     func makeDeviceAdd(with infoStr:String) {
+        
+        var isValidQRcode = false
         
         var info = DeviceBindInfo()
         
@@ -184,19 +193,20 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                         let now = Int(Date().timeIntervalSince1970)
                         if now > expired {
                             self.showMessage("二维码已过期")
-                            return
+                        }else{
+                            isValidQRcode = true
+                            
+                            info.isMaster = false
+                            info.deviceId = embeded["imei"] as? String
+                            info.phone = embeded["phone"] as? String
+                            info.profile = embeded["profile"] as? String
+                            if let str = embeded["identity"] as? String {
+                                info.identity = Relation(input: str)
+                            }
+                            
+                            self.checkImeiAndGoBind(with: info)
                         }
                     }
-                    
-                    info.isMaster = false
-                    info.deviceId = embeded["imei"] as? String
-                    info.phone = embeded["phone"] as? String
-                    info.profile = embeded["profile"] as? String
-                    if let str = embeded["identity"] as? String {
-                        info.identity = Relation(input: str)
-                    }
-                    
-                    self.checkImeiAndGoBind(with: info)
                 }
             }
         } catch {
@@ -205,11 +215,17 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         
 //        手表显示----管理员绑定
         if infoStr.characters.count == 19 {
+            isValidQRcode = true
+            
             let index = infoStr.index(infoStr.endIndex, offsetBy: -4)
             info.deviceId = infoStr.substring(to: index)
             info.isMaster = true
             
             self.checkImeiAndGoBind(with: info)
+        }
+        
+        if isValidQRcode == false {
+            self.showMessage("无效二维码")
         }
         
     }

@@ -17,6 +17,10 @@ class RelationshipTableController: UITableViewController {
     
     var deviceAddInfo: DeviceBindInfo?
     
+    var disposeBag = DisposeBag()
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
@@ -64,20 +68,26 @@ class RelationshipTableController: UITableViewController {
         if deviceAddInfo?.isMaster == true {
             self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)
         }else{
-            _ = DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!).subscribe({ (event) in
-                switch event{
-                case .next(let value):
-                    print(value)
-                case .completed:
-                    _ = self.navigationController?.popToRootViewController(animated: true)
-                case .error(let error):
-                    print(error)
-                }
-            })
+            DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!)
+                .subscribe(onNext: {[weak self] flag in
+                    _ = self?.navigationController?.popToRootViewController(animated: true)
+                }, onError: { er in
+                    print(er)
+                    if let _error = er as? WorkerError {
+                        let msg = WorkerError.apiErrorTransform(from: _error)
+                        self.showMessage(msg)
+                    }
+                })
+                .addDisposableTo(disposeBag)
         }
     }
     
-    
+    func showMessage(_ text: String) {
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
+        vc.addAction(action)
+        self.present(vc, animated: true)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.relationshipTableController.showKidInformation(segue: segue) {

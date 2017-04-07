@@ -18,7 +18,7 @@ class UnpairTipVC: UIViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad() 
         
     }
     
@@ -26,16 +26,16 @@ class UnpairTipVC: UIViewController {
         let manager = DeviceManager.shared
         manager.deleteDevice(with: (manager.currentDevice?.deviceId)!)
             .subscribe(onNext: { flag in
-                self.dismiss(animated: true) {
-                    if self.unpairBlock != nil {
-                        self.unpairBlock!(flag, flag ? "unpaired success":"设备解绑失败")
+                self.dismiss(animated: true) {[weak self] _ in
+                    if self?.unpairBlock != nil {
+                        self?.unpairBlock!(flag, flag ? "unpaired success":"设备解绑失败")
                     }
                 }
             }, onError: { er in
                 print(er)
-                self.dismiss(animated: true) {
-                    if self.unpairBlock != nil {
-                        self.unpairBlock!(false, "设备解绑失败")
+                self.dismiss(animated: true) {[weak self] _ in
+                    if self?.unpairBlock != nil {
+                        self?.unpairBlock!(false, "设备解绑失败")
                     }
                 }
             }).addDisposableTo(disposeBag)
