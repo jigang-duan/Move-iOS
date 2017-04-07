@@ -12,14 +12,14 @@ import RxSwift
 
 class MoveApiUserWorker: UserWorkerProtocl {
     
-    public enum LoginType: String{
+    enum LoginType: String{
         case none = ""
         case twitter = "twitter"
         case facebook = "facebook"
         case google = "google+"
     }
     
-    func tplogin(platform: LoginType,openld: String,secret: String) -> Observable<Bool> {
+    func tplogin(platform: LoginType, openld: String, secret: String) -> Observable<Bool> {
         return MoveApi.Account.tplogin(info: MoveApi.TpLoginInfo(platform: platform.rawValue, openid: openld, secret: secret))
             .map(userInfoTransform)
             .catchError(errorHandle)

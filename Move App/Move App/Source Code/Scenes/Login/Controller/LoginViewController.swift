@@ -20,25 +20,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailLine: UIView!
     @IBOutlet weak var passwordLine: UIView!
     
+    @IBOutlet weak var fecebookOutlet: UIButton!
+    @IBOutlet weak var twitterOutlet: UIButton!
+    @IBOutlet weak var googleOutlet: UIButton!
+    
+    
     var disposeBag = DisposeBag()
 
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
     var thirdLogin = Variable(MoveApiUserWorker.LoginType.none)
-    
-    @IBAction func facebookLogin(_ sender: Any) {
-        self.thirdLogin.value = .facebook
-    }
-    
-    @IBAction func twitterLogin(_ sender: Any) {
-        self.thirdLogin.value = .twitter
-    }
-    
-    @IBAction func googleLogin(_ sender: Any) {
-        self.thirdLogin.value = .google
-    }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +54,22 @@ class LoginViewController: UIViewController {
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             ))
+        
+        
+        fecebookOutlet.rx.tap.asDriver()
+            .map({ .facebook })
+            .drive(thirdLogin)
+            .addDisposableTo(disposeBag)
+        
+        twitterOutlet.rx.tap.asDriver()
+            .map({ .twitter })
+            .drive(thirdLogin)
+            .addDisposableTo(disposeBag)
+        
+        googleOutlet.rx.tap.asDriver()
+            .map({ .google })
+            .drive(thirdLogin)
+            .addDisposableTo(disposeBag)
         
         viewModel.validatedEmail
             .drive(onNext: { [weak self] in

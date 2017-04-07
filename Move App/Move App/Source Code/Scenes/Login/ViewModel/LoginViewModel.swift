@@ -60,11 +60,9 @@ class LoginViewModel {
         
         self.logedIn = input.loginTaps.withLatestFrom(emailAndPassword)
             .flatMapLatest({ (email, password) in
-                return userManager.login(email: email, password: password)
+                userManager.login(email: email, password: password)
                     .trackActivity(signingIn)
-                    .map { _ in
-                        ValidationResult.ok(message: "Login Success.")
-                    }
+                    .map { _ in ValidationResult.ok(message: "Login Success.") }
                     .asDriver(onErrorRecover: commonErrorRecover)
             })
         
@@ -79,65 +77,73 @@ class LoginViewModel {
             .distinctUntilChanged()
         
         
-        let third = input.thirdLogin.filter({ $0 != MoveApiUserWorker.LoginType.none })
+        let third = input.thirdLogin.filter { $0 != MoveApiUserWorker.LoginType.none }
         
         self.thirdLoginResult = third.flatMapLatest({ type in
-            var platformType: SSDKPlatformType?
-            switch type {
-            case .facebook:
-                platformType = .typeFacebook
-            case .twitter:
-                platformType = .typeTwitter
-            case .google:
-                platformType = .typeGooglePlus
-            default:
-                platformType = .typeUnknown
-            }
-            
-            let auth = ShareSDK.authorize(SSDKPlatformType: platformType!).flatMap({user -> Observable<ValidationResult> in
-                var openid = ""
-                var secret = ""
-                switch type {
-                case .facebook:
-                    openid = "344365305959182"//facebook ID
-                    secret = user.credential.token
-                case .twitter:
-                    openid = user.credential.token
-                    secret = user.credential.secret
-                case .google:
-                    openid = user.credential.token
-                    secret = user.credential.rawData["id_token"] as? String ?? ""
-                default:
-                    break
+            ShareSDK.rx.authorize(SSDKPlatformType: type.ssdkPlatformType)
+                .flatMap { user -> Observable<ValidationResult> in
+                    userManager.tplogin(platform: type, openld: type.openid(user: user) , secret: type.secret(user: user))
+                        .trackActivity(signingIn)
+                        .map { _ in ValidationResult.ok(message: "Login Success.") }
                 }
-                
-                let loginRes = userManager.tplogin(platform: type, openld: openid, secret: secret)
-                    .trackActivity(signingIn)
-                    .map { _ in
-                        ValidationResult.ok(message: "Login Success.")
-                }
-                
-                return loginRes
+                .asDriver(onErrorRecover: commonErrorRecover)
             })
-            
-            return auth.asDriver(onErrorRecover: commonErrorRecover)
-        })
-        
-        
         
     }
     
 }
 
+//MARK: ShareSDK type extensions
 
-extension ShareSDK {
+extension MoveApiUserWorker.LoginType {
     
-    class func authorize(SSDKPlatformType: SSDKPlatformType, settings: [AnyHashable: Any] = [:]) -> Observable<SSDKUser> {
-        
+    func secret(user: SSDKUser) -> String {
+        switch self {
+        case .facebook:
+            return user.credential.token
+        case .twitter:
+            return user.credential.secret
+        case .google:
+            return user.credential.rawData["id_token"] as? String ?? ""
+        default:
+            return ""
+        }
+    }
+    
+    func openid(user: SSDKUser) -> String {
+        switch self {
+        case .facebook:
+            return "344365305959182"    //facebook ID
+        case .twitter:
+            return user.credential.token
+        case .google:
+            return user.credential.token
+        default:
+            return ""
+        }
+    }
+    
+    var ssdkPlatformType: SSDKPlatformType {
+        switch self {
+        case .facebook:
+            return .typeFacebook
+        case .twitter:
+            return .typeTwitter
+        case .google:
+            return .typeGooglePlus
+        default:
+            return .typeUnknown
+        }
+    }
+}
+
+extension Reactive where Base: ShareSDK {
+    
+    static func authorize(SSDKPlatformType: SSDKPlatformType, settings: [AnyHashable: Any] = [:]) -> Observable<SSDKUser> {
         return Observable<SSDKUser>.create{ (observer: AnyObserver<SSDKUser>) -> Disposable in
             
             ShareSDK.authorize(SSDKPlatformType, settings: settings, onStateChanged: { (state, user, error) in
-                switch state{
+                switch state {
                 case .success:
                     observer.onNext(user!)
                     observer.onCompleted()
@@ -155,7 +161,3 @@ extension ShareSDK {
             .share()
     }
 }
-
-
-
-

@@ -157,6 +157,9 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                 }
             }
             
+            guard let _ = deviceInfo.deviceId else {
+                return
+            }
             
             self.updateUIData(deviceInfo: deviceInfo)
             
