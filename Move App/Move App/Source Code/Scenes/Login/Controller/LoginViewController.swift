@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var twitterOutlet: UIButton!
     @IBOutlet weak var googleOutlet: UIButton!
     
-    
     var disposeBag = DisposeBag()
 
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
