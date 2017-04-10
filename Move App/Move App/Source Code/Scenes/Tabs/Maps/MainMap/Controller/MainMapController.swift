@@ -334,13 +334,13 @@ extension MainMapController: MKMapViewDelegate {
             let identifier = "LocationAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if annotationView == nil {
-                annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+
+                annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+
             }
-            if let device = currentAction?.data as? DeviceInfo {
-                if let conView = annotationView as? ContactAnnotationView {
-                    conView.setAvatarImage(nikename: (device.user?.nickname ?? "")!, profile: (device.user?.profile ?? "")!)
-                }
-            }
+//            if let device = currentDeviceData?.data as? DeviceInfo {
+//                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)
+//            }
             annotationView?.canShowCallout = false
             return annotationView
         }
