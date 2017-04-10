@@ -43,7 +43,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     @IBOutlet weak var electricL: UILabel!
     @IBOutlet weak var objectLocationTimeL: UILabel!
     
-    var currentDeviceData : BasePopoverAction?
+    var currentAction : BasePopoverAction?
     
 
     let enterCount = Variable(0)
@@ -169,8 +169,8 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                                            isSelected: true)
             action.canAvatar = true
             action.data = deviceInfo
-            self.currentDeviceData = action
-            let device = self.currentDeviceData?.data as? DeviceInfo
+            self.currentAction = action
+            let device = self.currentAction?.data as? DeviceInfo
             let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: self.objectImageBtn.frame.size.width, height: self.objectImageBtn.frame.size.height), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
             
             let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
@@ -184,7 +184,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     @IBAction func locationBtnClick(_ sender: UIButton) {
-        if (currentDeviceData != nil) {
+        if (currentAction != nil) {
            self.GetCurrentNew()
         }
     }
@@ -216,23 +216,20 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "LocationHistory" {
-            if (currentDeviceData != nil) {
-                let device = self.currentDeviceData?.data as? DeviceInfo
-                //主要就是通过类型强转,然后通过拿到的对象进行成员变量的赋值,相对于Android,这真的是简单粗暴
-                let nav2Controller = segue.destination as! LocationHistoryVC
-                nav2Controller.Sprofile = device?.user?.profile
-                nav2Controller.Snikename = device?.user?.nickname
-                nav2Controller.deviceId = device?.deviceId
+        if let vc = R.segue.mainMapController.locationHistory(segue: segue)?.destination {
+            if let action = currentAction {
+                let device = action.data as? DeviceInfo
+                
+                vc.Sprofile = device?.user?.profile
+                vc.Snikename = device?.user?.nickname
+                vc.deviceId = device?.deviceId
             }
         }
     }
     
     @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
-        if (currentDeviceData != nil) {
-            let device = currentDeviceData?.data as? DeviceInfo
+        if let action = currentAction {
+            let device = action.data as? DeviceInfo
             if let phone = device?.user?.number {
                 let str = "telprompt://\(phone)".replacingOccurrences(of: " ", with: "")
                 if let url = URL(string: str) {
@@ -241,19 +238,10 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
                     }
                 }
             }
-        }else {
-            let alertController = UIAlertController(title: "Error", message: "phone worry", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
-                (action : UIAlertAction!) -> Void in
-                
-            })
-            alertController.addAction(cancelAction)
-            self.present(alertController, animated: true, completion: nil)
         }
     }
     
     @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-        
         if let chatController = R.storyboard.social.chat() {
             self.navigationController?.show(chatController, sender: nil)
         }
@@ -324,7 +312,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             self.navigationController?.pushViewController(vc, animated: true)
         }else {
             objectNameL.text = dataSource.title
-            self.currentDeviceData = dataSource
+            self.currentAction = dataSource
             if let device = dataSource.data as? DeviceInfo {
                 DeviceManager.shared.currentDevice = device
                 
@@ -341,20 +329,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
 }
 
-fileprivate extension UIImage {
-    
-    func scale(toSize: CGSize) -> UIImage? {
-        
-        UIGraphicsBeginImageContext(toSize)
-        
-        self.draw(in: CGRect.init(x: 0, y: 0, width: toSize.width, height: toSize.height))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return scaledImage
-    }
-}
 extension MainMapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -364,8 +338,10 @@ extension MainMapController: MKMapViewDelegate {
             if annotationView == nil {
                 annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-            if let device = currentDeviceData?.data as? DeviceInfo {
-                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)
+            if let device = currentAction?.data as? DeviceInfo {
+                if let conView = annotationView as? ContactAnnotationView {
+                    conView.setAvatarImage(nikename: (device.user?.nickname ?? "")!, profile: (device.user?.profile ?? "")!)
+                }
             }
             annotationView?.canShowCallout = false
             return annotationView

@@ -83,7 +83,7 @@ class MeSettingController: UITableViewController {
         headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
     }
     
-    @IBAction func selectPhoto(_ sender: Any) {
+    @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
@@ -103,6 +103,11 @@ class MeSettingController: UITableViewController {
         vc.addAction(action1)
         vc.addAction(action2)
         vc.addAction(action3)
+        
+        if let popover = vc.popoverPresentationController {
+            popover.sourceView = sender.superview
+            popover.sourceRect = sender.frame
+        }
         
         self.present(vc, animated: true, completion: nil)
     }

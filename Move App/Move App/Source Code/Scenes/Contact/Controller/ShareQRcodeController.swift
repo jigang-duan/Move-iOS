@@ -142,14 +142,17 @@ class ShareQRcodeController: UIViewController {
         return image!
     }
     
-    @IBAction func shareQRImage(_ sender: Any) {
+    @IBAction func shareQRImage(_ sender: UIButton) {
         let activity = UIActivity()
         
         let vc = UIActivityViewController(activityItems: ["分享标题", self.screenShot()], applicationActivities: [activity])
-        vc.excludedActivityTypes = [UIActivityType.assignToContact, UIActivityType.mail, UIActivityType.message,UIActivityType.postToWeibo, UIActivityType.postToFacebook];
-        self.present(vc, animated: true, completion: {
         
-        })
+        if let popover = vc.popoverPresentationController {
+            popover.sourceView = sender.superview
+            popover.sourceRect = sender.frame
+        }
+        
+        self.present(vc, animated: true)
     }
     
     
