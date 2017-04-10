@@ -20,6 +20,7 @@ struct Configure {
 
         static let testHost = "10.129.60.82:9092"
         static let Host = "139.196.178.104"
+        static let domainHost = "www.alcatel-move.com"
         static let apiPath = ""
         
         // Base

@@ -21,4 +21,6 @@
 #import <FacebookConnector/FacebookConnector.h>
 #import <GooglePlusConnector/SSDKGooglePlusControllerStyle.h>
 
+#import <Bugly/Bugly.h>
+
 #endif /* MoveApp_Bridging_Header_h */

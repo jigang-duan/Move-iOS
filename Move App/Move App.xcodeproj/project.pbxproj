@@ -60,6 +60,7 @@
 		118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8681E7CE992003C3C13 /* AlertServer.swift */; };
 		118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */; };
 		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
+		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
 		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
@@ -391,6 +392,7 @@
 		118BA8681E7CE992003C3C13 /* AlertServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertServer.swift; sourceTree = "<group>"; };
 		118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
+		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
 		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
@@ -1775,6 +1777,7 @@
 				FF08591A1E72A93300EB81D9 /* IMManager */,
 				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
 				11D0BEC81E5E784F006F957E /* Business.swift */,
+				11A0C63A1E9B282600AFB71F /* RxStore.swift */,
 			);
 			path = Servers;
 			sourceTree = "<group>";
@@ -2404,6 +2407,7 @@
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
 				11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */,
+				11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
 				FF0859171E72A38800EB81D9 /* MoveIM+ImApi.swift in Sources */,
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,

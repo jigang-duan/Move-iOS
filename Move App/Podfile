@@ -17,6 +17,10 @@ target 'Move App' do
   # Log
   pod 'SwiftyBeaver'
   
+  # 异常上报
+  # https://bugly.qq.com/
+  pod 'Bugly'
+  
   #第三方分享登录
   pod 'ShareSDK3/ShareSDKPlatforms/GooglePlus'
   pod 'ShareSDK3/ShareSDKPlatforms/Facebook'

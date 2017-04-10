@@ -138,8 +138,6 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         })
         .addDisposableTo(disposeBag)
         
-        
-        
         viewModel.deviceInfos.drive(onNext: { [unowned self] deviceInfos in
             self.deviceInfos = deviceInfos
             

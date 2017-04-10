@@ -17,12 +17,10 @@ class MainMapViewModel {
     // outputs {
     
     let authorized: Driver<Bool>
-    //let userLocation: Driver<CLLocationCoordinate2D>
     
     let kidLocation: Observable<CLLocationCoordinate2D>
     let kidAnnotion: Observable<BaseAnnotation>
     
-    //let kidInfos: Driver<[MoveApi.DeviceInfo]>
     let selecedAction: Observable<BasePopoverAction>
     
     let activityIn: Driver<Bool>
@@ -94,28 +92,32 @@ class MainMapViewModel {
 }
 
 fileprivate func transformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
-    
-    return infos.map({
-            let action = BasePopoverAction(imageUrl: $0.user?.profile,
-                                               placeholderImage: R.image.home_pop_all(),
-                                               title: $0.user?.nickname,
-                                               isSelected: true,
-                                               handler: nil)
-            action.canAvatar = true
-            action.data = $0
-            return action
-        })
+    return infos.map {BasePopoverAction(info: $0)}
 }
 
 fileprivate func allAndTransformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
-    let allAction = BasePopoverAction(imageUrl: nil,
-                                      placeholderImage: R.image.home_pop_all(),
-                                      title: "ALL",
-                                      isSelected: false,
-                                      handler: nil)
-    allAction.data = infos
-    return [allAction] + transformAction(infos: infos)
+    return [BasePopoverAction(infos: infos)] + transformAction(infos: infos)
 }
 
-
-
+extension BasePopoverAction {
+    
+    convenience init(info: DeviceInfo) {
+        self.init(imageUrl: info.user?.profile,
+                  placeholderImage: R.image.home_pop_all(),
+                  title: info.user?.nickname,
+                  isSelected: true,
+                  handler: nil)
+        self.canAvatar = true
+        self.data = info
+    }
+    
+    convenience init(infos: [DeviceInfo]) {
+        self.init(imageUrl: nil,
+                  placeholderImage: R.image.home_pop_all(),
+                  title: R.string.localizable.all(),
+                  isSelected: true,
+                  handler: nil)
+        self.data = infos
+    }
+    
+}

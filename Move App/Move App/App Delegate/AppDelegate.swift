@@ -23,40 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Init Common things
         ApplicationManager.sharedInstance.initCommon()
-        
-        ShareSDK.registerApp("1c4dd9ee2b8e2", activePlatforms: [
-            SSDKPlatformType.typeFacebook.rawValue,
-            SSDKPlatformType.typeTwitter.rawValue,
-            SSDKPlatformType.typeGooglePlus.rawValue,
-            ],
-             onImport: { (platform : SSDKPlatformType) in
-                switch platform
-                {
-                default:
-                    break
-                }
-        }) { (platform : SSDKPlatformType, appInfo : NSMutableDictionary?) in
-            
-            switch platform
-            {
-            //设置Facebook应用信息，其中authType设置为只用SSO形式授权
-            case SSDKPlatformType.typeFacebook:
-                appInfo?.ssdkSetupFacebook(byApiKey: "344365305959182",
-                                           appSecret : "909536c55a45ca4143139006f34900db",
-                                           authType : SSDKAuthTypeBoth)
-            //设置Twitter应用信息
-            case SSDKPlatformType.typeTwitter:
-                appInfo?.ssdkSetupTwitter(byConsumerKey: "YEtbencgFOdSEAqyEQQE61T94",
-                                          consumerSecret : "KvPYYDdVCVZMLRr2yElRTtoCAVLbEWUYDvBfnLEG3HS3O7PQOo",
-                                          redirectUri : "http://mob.com")
-            //设置gooleplus应用信息
-            case SSDKPlatformType.typeGooglePlus:
-                appInfo?.ssdkSetupGooglePlus(byClientID: "840509823178-rhb7j8vfqo00njo1o8cuph6cdge6kkej.apps.googleusercontent.com", clientSecret: "", redirectUri: "http://localhost");
-            default:
-                break
-            }
-            
-        }
 
         
         return true
