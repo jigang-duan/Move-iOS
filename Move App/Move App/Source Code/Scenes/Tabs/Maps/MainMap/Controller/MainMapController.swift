@@ -334,9 +334,7 @@ extension MainMapController: MKMapViewDelegate {
             let identifier = "LocationAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if annotationView == nil {
-
                 annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-
             }
 //            if let device = currentDeviceData?.data as? DeviceInfo {
 //                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)
