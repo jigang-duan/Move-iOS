@@ -334,9 +334,10 @@ extension LocationHistoryVC : MKMapViewDelegate {
                 let identifier = "LocationAnnotation"
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 if annotationView == nil {
-                    annotationView = ContactAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 }
-                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: Snikename, profile: Sprofile)
+                annotationView?.image = R.image.history_dot_pre()
+//                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: Snikename, profile: Sprofile)
                 annotationView?.canShowCallout = false
                 return annotationView
 //                annoView?.image = UIImage(named : "history_dot_pre")
