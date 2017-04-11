@@ -73,9 +73,9 @@ class MainMapViewModel {
         
         let period = Observable<Int>.timer(2, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
             .withLatestFrom(input.isAtThisPage.asObservable())
-            .takeWhile({ $0 })
+            .filter({ $0 })
             .map({ _ in Void() })
-            .share()
+            .shareReplay(1)
         
         let remindLocation = input.remindLocation
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
@@ -91,7 +91,7 @@ class MainMapViewModel {
                     .trackActivity(activitying)
                     .catchErrorJustReturn(KidSate.LocationInfo())
             })
-            .share()
+            .shareReplay(1)
         
         currentProperty = period.withLatestFrom(currentDeviceId.asObservable())
             .filterNil()
@@ -100,7 +100,7 @@ class MainMapViewModel {
                     .trackActivity(activitying)
                     .catchErrorJustReturn(DeviceProperty())
             })
-            .share()
+            .shareReplay(1)
         
         kidLocation = currentLocation.map{ $0.location }.filterNil()
         kidAddress = currentLocation.map{ $0.address }.filterNil()
@@ -118,7 +118,7 @@ class MainMapViewModel {
             .flatMapLatest({ actions in
                 return popoer.promptFor(toView: input.avatarView, actions: actions)
             })
-            .share()
+            .shareReplay(1)
         
         allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
         singleAction = selecedAction.map({ $0.data as? DeviceInfo  }).filterNil()

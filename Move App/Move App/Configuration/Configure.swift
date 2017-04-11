@@ -16,7 +16,7 @@ struct Configure {
         
         // Main
         static let isDebugJSON = false
-        static let isHTTPS = false
+        static let isHTTPS = true
 
         static let testHost = "10.129.60.82:9092"
         static let Host = "139.196.178.104"
@@ -25,7 +25,7 @@ struct Configure {
         
         // Base
         static let BaseURL: String = {
-            let host = Host
+            let host = domainHost
             if Configure.App.isHTTPS {
                 return "https://" + host + apiPath
             }

@@ -30,7 +30,7 @@ class TabsViewController: UITabBarController {
         
         let hasDevice = RxStore.shared.deviceInfosState.asObservable()
             .map({ $0.count > 0 })
-            .share()
+        
         
         hasDevice.bindNext({[weak self] in
                 self?.viewControllers?[0].tabBarItem.isEnabled = $0
@@ -38,10 +38,9 @@ class TabsViewController: UITabBarController {
             .addDisposableTo(bag)
         
         enterSubject.asObservable()
-            .takeWhile({ $0 })
-            .flatMapLatest({ _ in
-                hasDevice.filter({ !$0 })
-            })
+            .filter({$0})
+            .withLatestFrom(hasDevice)
+            .filter({ !$0 })
             .bindNext({ [weak self] _ in
                 self?.selectedIndex = 1
             })
