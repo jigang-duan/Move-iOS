@@ -11,16 +11,24 @@ import Foundation
 
 /*
  蓝牙数据结构  |-----最大20长度-----|
- |开始符|总包|第几包|数据长度|---数据---|CRC16|结束符|
+ |开始符|总包|第几包|业务类型|---数据---|CRC16|结束符|
 */
 
 
 class ApnBleTool {
     
+    private static let transSymbol: UInt8 = 0xDD    //转译符
+    private static let beginSymbol: UInt8 = 0xFF    //开始符
+    private static let endSymbol: UInt8 = 0x55      //结束符
     
-    static let transSymbol: UInt8 = 0xDD//转译符
-    static let beginSymbol: UInt8 = 0xFF//开始符
-    static let endSymbol: UInt8 = 0x55//结束符
+//    APN业务类型
+    enum APNType: UInt8{
+        case none = 0x00
+        case sendAPNSetting = 0x01      //发送apn设置
+        case setResult = 0x02           //apn设置结果
+        case receiveSetting = 0x03      //接收apn设置
+        case requestAPN = 0x04          //请求apn设置
+    }
     
     //校验公式为0x1021
     private static let CRC16Table: [UInt16] = [
@@ -102,7 +110,7 @@ class ApnBleTool {
     
     
     //    数据打包
-    class func package(data: Data) -> Data {
+    class func package(data: Data, type: APNType) -> Data {
         var resultData = Data()
         //        总包数
         let totalBag = data.count/13 + (data.count%13 == 0 ? 0:1)
@@ -111,54 +119,82 @@ class ApnBleTool {
             resultData.append(beginSymbol)//开始符
             resultData.append(UInt8(totalBag))//总包
             resultData.append(UInt8(i + 1))//第几包
+            resultData.append(type.rawValue)//业务类型
             var tempData: Data?
             if i == totalBag - 1 {
                 tempData = data.subdata(in: Range(uncheckedBounds: (lower: i*13, upper: data.count)))
-                resultData.append(UInt8(data.count - i*13))//长度
             }else{
                 tempData = data.subdata(in: Range(uncheckedBounds: (lower: i*13, upper: i*13 + 13)))
-                resultData.append(UInt8(13))//长度
             }
-            tempData?.append(self.CRC16(data: tempData!))//数据CRC处理
             resultData.append(tempData!)//数据
+            resultData.append(self.CRC16(data: tempData!))//CRC
             resultData.append(endSymbol)//结束符
         }
         return resultData
     }
     
     
-    //    数据解包
-    class func unPackage(data: Data) -> (data: Data,isDone: Bool,isError: Bool) {
+    /*!   
+     * 数据解包,每段数据独立解包，每段最大长度20
+     *
+     * @param currentBag	数据包去重，防止重复接收
+     */
+    class func unPackage(data: Data, currentBag: Int) -> (type: APNType, data: Data, currentBag: Int, isDone: Bool,isError: Bool) {
         var resultData = Data()
         var isDone = false
         var isError = false
+        var apnType = APNType.none
+        var cBag = currentBag
+        
         
         if data.count > 7 {
             if data[0] == beginSymbol {
                 let totalBag = data[1]//总包数
                 let bagIndex = data[2]//第几包
+                
                 if totalBag == bagIndex {
                     print("数据接收完毕")
                     isDone = true
                 }
-                let length = data[3]//长度
                 
-                let tempData = data.subdata(in: Range(uncheckedBounds: (lower: 3, upper: Int(length) + 3)))
-                let resData = self.dataUntrans(with: tempData)
+                //      业务类型
+                switch data[3] {
+                case 0x02:
+                    apnType = APNType.setResult
+                case 0x03:
+                    apnType = APNType.receiveSetting
+                default:
+                    break
+                }
                 
-                let crc = data.subdata(in: Range(uncheckedBounds: (lower: 3 + Int(length), upper: 2 + 3 + Int(length))))//crc
-                if crc == self.CRC16(data: resData) {
+                if cBag == Int(bagIndex) {
+                    return (type: apnType, data: resultData, currentBag: cBag, isDone: isDone, isError: isError)
+                }
+                cBag = Int(bagIndex)
+                
+                let length = data.count - 7
+                
+                let tempData = data.subdata(in: Range(uncheckedBounds: (lower: 4, upper: length + 4)))
+                
+                let crc = data.subdata(in: Range(uncheckedBounds: (lower: 4 + length, upper: 2 + 4 + length)))//crc
+                
+                if crc == self.CRC16(data: tempData) {
                     print("数据校验成功")
-                    resultData = resData
-                    isError = false
+                    resultData = tempData
                 }else{
                     print("数据校验错误")
                     isError = true
                 }
+            }else{
+                print("数据结构错误")
+                isError = true
             }
+        }else{
+            print("数据结构错误，长度不足")
+            isError = true
         }
         
-        return (data: resultData, isDone: isDone, isError: isError)
+        return (type: apnType, data: resultData, currentBag: cBag, isDone: isDone, isError: isError)
     }
 
     

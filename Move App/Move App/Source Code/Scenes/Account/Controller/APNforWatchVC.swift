@@ -26,7 +26,7 @@ class APNforWatchVC: UIViewController {
     fileprivate let apnUUID = "00003333-0000-1000-8000-00805f9b34fb"
     fileprivate let apnService = "00009999-0000-1000-8000-00805f9b34fb"
     fileprivate let apnCharacteristic = "00009998-0000-1000-8000-00805f9b34fb"
-    fileprivate let apnCharacteristicDone = "00009997-0000-1000-8000-00805f9b34fb"
+    fileprivate let apnCharacteristicReceive = "00009997-0000-1000-8000-00805f9b34fb"
     fileprivate let maxWriteLength = 20
    
     
@@ -34,15 +34,22 @@ class APNforWatchVC: UIViewController {
     var writeIndex = 0
     
     
-    var responseData: Data?
+    var response = ApnResponse()
+    
+    struct ApnResponse {
+        var data = Data()
+        var bagIndex = 0
+    }
     
     
     enum ApnSettingResult {
+        case sendData(apnData: APNData)
         case sending
         case error
         case sendDone
         case setSuccess
         case setFail
+        case disconnect
     }
     
     
@@ -79,6 +86,12 @@ class APNforWatchVC: UIViewController {
                     self.writeApnData()
                 }
             }
+            
+            vc.requestSettingsBlock = { data in
+                self.willWriteData = data
+                self.writeIndex = 0
+                self.writeApnData()
+            }
         }
     }
     
@@ -98,26 +111,49 @@ class APNforWatchVC: UIViewController {
     
     
     
-    func apnSetDoneResponde(data: Data) {
+    func apnSetResponde(data: Data) {
         
-        let res = ApnBleTool.unPackage(data: data)
+        let res = ApnBleTool.unPackage(data: data, currentBag: response.bagIndex)
         
         if res.isError {
-            responseData = nil
+            response = ApnResponse()
         }else{
-            responseData?.append(res.data)
+            response.data.append(res.data)
+            response.bagIndex = res.currentBag
         }
         if res.isDone {
-            let state = responseData
-            if state == Data(bytes: [0x01]) {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setSuccess)
-            }else{
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setFail)
+            let resData = ApnBleTool.dataUntrans(with: response.data)
+            
+            switch res.type {
+            case .setResult:
+                if resData == Data(bytes: [0x01]) {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setSuccess)
+                }else{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setFail)
+                }
+            case .receiveSetting:
+                if let apnStr = String(data: resData, encoding: .utf8) {
+                    if let apnSettings = Mapper<APNData>().map(JSONString: apnStr) {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sendData(apnData: apnSettings))
+                    }
+                }
+            default:
+                break
             }
-            responseData = nil
+            
+            response = ApnResponse()
         }
     }
     
+    
+    
+    func gotoSettingApnVC() {
+        if let vc = self.navigationController?.topViewController {
+            if !(vc is APNSettingVC) {
+                self.performSegue(withIdentifier: R.segue.aPNforWatchVC.showAPNSetting, sender: nil)
+            }
+        }
+    }
     
     
     deinit {
@@ -208,6 +244,7 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("蓝牙设备解绑:\(peripheral)")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.disconnect)
     }
 
 }
@@ -219,7 +256,7 @@ extension APNforWatchVC: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for ser in peripheral.services ?? [] {
             if ser.uuid == CBUUID(string: apnService) {
-                peripheral.discoverCharacteristics([CBUUID(string: apnCharacteristic),CBUUID(string: apnCharacteristicDone)], for: ser)
+                peripheral.discoverCharacteristics([CBUUID(string: apnCharacteristic),CBUUID(string: apnCharacteristicReceive)], for: ser)
             }
         }
     }
@@ -227,24 +264,25 @@ extension APNforWatchVC: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for ch in service.characteristics ?? [] {
             if ch.uuid == CBUUID(string: apnCharacteristic) {
-                print("找到特征值,待写入数据")
+                print("找到写入数据特征值")
                 self.currentCharacteristic = ch
                 DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: R.segue.aPNforWatchVC.showAPNSetting, sender: nil)
+                    self.gotoSettingApnVC()
                 }
             }
             
-            if ch.uuid == CBUUID(string: apnCharacteristicDone) {
-                peripheral.readValue(for: ch)
+            if ch.uuid == CBUUID(string: apnCharacteristicReceive) {
+                print("找到接收数据特征值")
                 peripheral.setNotifyValue(true, for: ch)
+                peripheral.readValue(for: ch)
             }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if characteristic.uuid == CBUUID(string: apnCharacteristicDone) {
+        if characteristic.uuid == CBUUID(string: apnCharacteristicReceive) {
             if let d = characteristic.value {
-                self.apnSetDoneResponde(data: d)
+                self.apnSetResponde(data: d)
             }
         }
     }
@@ -307,9 +345,7 @@ extension APNforWatchVC: UITableViewDelegate, UITableViewDataSource {
         }
         vc.addAction(action1)
         vc.addAction(action2)
-        self.present(vc, animated: true) {
-            
-        }
+        self.present(vc, animated: true)
     }
 
 }

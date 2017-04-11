@@ -28,9 +28,8 @@ class AccountAndChoseDeviceController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let startColor = UIColor(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
-        let endColor = UIColor(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
-        backImageView.image = UIImage(gradientColors: [startColor, endColor],size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),locations: [0.0,1.0])
+        let darkPrimaryColor = R.color.appColor.darkPrimary()
+        backImageView.image = UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),locations: [0.0,1.0])
         
         let selectedInext = tableView.rx.itemSelected.asDriver().map { $0.row }
         let viewModel = AccountAndChoseDeviceViewModel(
