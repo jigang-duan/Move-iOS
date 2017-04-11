@@ -29,7 +29,7 @@ class LocationManager  {
         worker = MoveApiLocationWorker()
     }
     
-    func getCurrentLocation() ->  Observable<KidSate.LocationInfo>{
+    func getCurrentLocation() -> Observable<KidSate.LocationInfo>{
         guard let deviceId = Me.shared.currDeviceID else {
             return Observable<KidSate.LocationInfo>.empty()
         }

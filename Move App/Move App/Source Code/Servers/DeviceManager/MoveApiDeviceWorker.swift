@@ -75,25 +75,20 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     //        获取设备联系人
     func getContacts(deviceId: String) -> Observable<[ImContact]> {
         return MoveApi.Device.getContacts(deviceId: deviceId)
-            .map{ info in
-                var cons: [ImContact] = []
-                if let cs = info.contacts {
-                    for c in cs {
-                        var con = ImContact()
-                        con.uid = c.uid
-                        if let rl = c.identity {
-                            con.identity = Relation(input: rl)
-                        }
-                        con.profile = c.profile
-                        con.phone = c.phone
-                        con.flag = c.flag
-                        con.admin = c.admin
-                        
-                        cons.append(con)
-                    }
-                }
-             return cons
-        }
+            .map { info in
+                 info.contacts?.map({ ImContact(uid: $0.uid,
+                                               type: $0.type,
+                                               username: $0.username,
+                                               nickname: $0.nickname,
+                                               profile: $0.profile,
+                                               identity: ($0.identity == nil) ? nil : Relation(input: $0.identity!),
+                                               phone: $0.phone,
+                                               email: $0.email,
+                                               time: $0.time,
+                                               sex: $0.sex,
+                                               flag: $0.flag,
+                                               admin: $0.admin) }) ?? []
+            }
     }
     
     //        设置联系人信息:  由管理员或联系人自己调用
@@ -157,17 +152,31 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
 
     
     func checkVersion(checkInfo: DeviceVersionCheck)  -> Observable<DeviceVersion>{
-        let check = MoveApi.DeviceVersionCheck(id: checkInfo.deviceId, mode: checkInfo.mode, cktp: checkInfo.cktp, curef: checkInfo.curef, cltp: checkInfo.cltp, type: checkInfo.type, fv: checkInfo.fv)
+        let check = MoveApi.DeviceVersionCheck(id: checkInfo.deviceId,
+                                               mode: checkInfo.mode,
+                                               cktp: checkInfo.cktp,
+                                               curef: checkInfo.curef,
+                                               cltp: checkInfo.cltp,
+                                               type: checkInfo.type,
+                                               fv: checkInfo.fv)
         return MoveApi.Device().checkVersion(checkInfo: check)
             .map{ DeviceVersion(currentVersion: $0.version?.fv, newVersion: $0.version?.tv) }
     }
     
     
     func getProperty(deviceId: String)  -> Observable<DeviceProperty>{
-        return MoveApi.Device.getProperty(deviceId: deviceId)
-            .map{p in
-                let info = DeviceProperty(active: p.active, bluetooth_address: p.bluetooth_address, device_model: p.device_model, firmware_version: p.firmware_version, ip_address: p.ip_address, kernel_version: p.kernel_version, mac_address: p.mac_address, phone_number: p.phone_number, languages: p.languages, power: p.power, maxgroups: p.maxgroups)
-                return info
+        return MoveApi.Device.getProperty(deviceId: deviceId).map {
+            DeviceProperty(active: $0.active,
+                           bluetooth_address: $0.bluetooth_address,
+                           device_model: $0.device_model,
+                           firmware_version: $0.firmware_version,
+                           ip_address: $0.ip_address,
+                           kernel_version: $0.kernel_version,
+                           mac_address: $0.mac_address,
+                           phone_number: $0.phone_number,
+                           languages: $0.languages,
+                           power: $0.power,
+                           maxgroups: $0.maxgroups)
         }
     }
     

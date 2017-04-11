@@ -14,7 +14,18 @@ class DeviceManager {
     
     static let shared = DeviceManager()
     
-    var currentDevice: DeviceInfo?
+    var currentDevice: DeviceInfo? {
+        get {
+            let id = RxStore.shared.currentDeviceId.value
+            return RxStore.shared.deviceInfosState.value.filter({ $0.deviceId == id }).first
+        }
+        set(newValue) {
+            let id = newValue?.deviceId
+            if RxStore.shared.deviceInfosState.value.contains(where: { $0.deviceId == id}) {
+                RxStore.shared.currentDeviceId.value = id
+            }
+        }
+    }
     
     fileprivate var worker: DeviceWorkerProtocl!
     
@@ -39,11 +50,6 @@ extension DeviceManager {
     
     func fetchDevices() -> Observable<[DeviceInfo]> {
         return worker.getDeviceList().map({ $0.map({ DeviceInfo(element: $0) }) })
-    }
-    
-    func setCurrentDevice(deviceInfo: DeviceInfo) -> Observable<DeviceInfo> {
-        self.currentDevice = deviceInfo
-        return Observable.just(deviceInfo)
     }
     
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
@@ -84,6 +90,10 @@ extension DeviceManager {
     
     func getProperty(deviceId: String)  -> Observable<DeviceProperty> {
         return worker.getProperty(deviceId: deviceId)
+    }
+    
+    func remindLocation(deviceId: String) -> Observable<Bool> {
+        return sendNotify(deviceId: deviceId, code: .uploadLocation)
     }
     
     func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool> {

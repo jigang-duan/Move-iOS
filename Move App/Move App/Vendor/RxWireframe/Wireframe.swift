@@ -33,7 +33,9 @@ class DefaultWireframe: Wireframe {
 
     func open(url: URL) {
         #if os(iOS)
-            UIApplication.shared.openURL(url)
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.openURL(url)
+            }
         #elseif os(macOS)
             NSWorkspace.shared().open(url)
         #endif
@@ -48,7 +50,7 @@ class DefaultWireframe: Wireframe {
 
     static func presentAlert(_ message: String) {
         #if os(iOS)
-            let alertView = UIAlertController(title: "RxExample", message: message, preferredStyle: .alert)
+            let alertView = UIAlertController(title: "TCLMOVE", message: message, preferredStyle: .alert)
             alertView.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in
             })
             rootViewController().present(alertView, animated: true, completion: nil)
@@ -58,7 +60,7 @@ class DefaultWireframe: Wireframe {
     func promptFor<Action : CustomStringConvertible>(_ message: String, cancelAction: Action, actions: [Action]) -> Observable<Action> {
         #if os(iOS)
         return Observable.create { observer in
-            let alertView = UIAlertController(title: "RxExample", message: message, preferredStyle: .alert)
+            let alertView = UIAlertController(title: "TCLMOVE", message: message, preferredStyle: .alert)
             alertView.addAction(UIAlertAction(title: cancelAction.description, style: .cancel) { _ in
                 observer.on(.next(cancelAction))
             })

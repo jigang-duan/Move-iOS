@@ -61,7 +61,11 @@ class AccountAndChoseDeviceController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.selected
-            .drive(onNext: { [weak self] in
+            .drive(RxStore.shared.currentDeviceId)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.selected
+            .drive(onNext: { [weak self] _ in
                 self?.showAccountKidsRulesuserController()
             })
             .addDisposableTo(disposeBag)

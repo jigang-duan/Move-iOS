@@ -21,25 +21,26 @@ class DistributionViewController: UIViewController {
         
         let viewModel = DistributionViewModel(
             dependency: (
-                meManager: MeManager.shared,
+                deviceManager: DeviceManager.shared,
                 userManager: UserManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
         
-        viewModel.enterLogin.debug().drive(onNext: enterLoginScreen).addDisposableTo(disposeBag)
-        viewModel.enterChoose.debug().drive(onNext: enterChoseDeviceScreen).addDisposableTo(disposeBag)
-        viewModel.enterMain.debug().drive(onNext: enterMainScreen).addDisposableTo(disposeBag)
+        viewModel.enterLogin.debug()
+            .drive(onNext: { [weak self] in
+                self?.enterLoginScreen(enter: $0)
+            })
+            .addDisposableTo(disposeBag)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        viewModel.fetchDevices
+            .drive(RxStore.shared.deviceInfosState)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.deviceId
+            .drive(RxStore.shared.currentDeviceId)
+            .addDisposableTo(disposeBag)
         
     }
 
@@ -49,42 +50,23 @@ class DistributionViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    private var inlet = 0
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let _segue = R.segue.distributionViewController.showMajor(segue: segue) {
-            _segue.destination.inlet = inlet
-        }
     }
 
     @IBAction func unwindSegueToDistribution(segue: UIStoryboardSegue) {
-//        if let typeInfoChoseDevice = R.segue.accountAndChoseDeviceController.unwindChoseDevice(segue: segue) {
-//            Logger.debug(typeInfoChoseDevice)
-//        }
-        
     }
-    
-    private func enterLoginScreen(enter: Bool) {
-        if enter {
-            self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin, sender: nil)
-        }
-    }
-    
-    func enterChoseDeviceScreen(enter: Bool) {
-        if enter {
-            //self.performSegue(withIdentifier: R.segue.distributionViewController.showChoseDevice, sender: nil)
-            inlet = 1
-            self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
-        }
-    }
-    
-    func enterMainScreen(enter: Bool) {
-        if enter {
-            self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
-        }
-    }
-
 }
 
 
+extension DistributionViewController {
+    
+    fileprivate func enterLoginScreen(enter: Bool) {
+        if enter {
+            self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin, sender: nil)
+        } else {
+            self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
+        }
+    }
+}

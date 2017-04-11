@@ -19,20 +19,30 @@ class MainMapViewModel {
     let authorized: Driver<Bool>
     
     let kidLocation: Observable<CLLocationCoordinate2D>
+    let kidAddress: Observable<String>
+    let locationTime: Observable<Date>
+    
     let kidAnnotion: Observable<BaseAnnotation>
     
-    let selecedAction: Observable<BasePopoverAction>
+    let singleAction: Observable<DeviceInfo>
+    let allAction: Observable<[DeviceInfo]>
     
     let activityIn: Driver<Bool>
     
-    let deviceInfos: Driver<[DeviceInfo]>
+    let devicesVariable: Variable<[DeviceInfo]>
+    let currentDevice: Driver<DeviceInfo>
+    
+    let currentProperty: Observable<DeviceProperty>
+    
+    let fetchDevices: Driver<[DeviceInfo]>
     
     init(
         input: (
-            enterCount: Driver<Int>,
+            enter: Driver<Bool>,
             avatarTap: Driver<Void>,
             avatarView: UIView,
-            isAtThisPage: Driver<Bool>
+            isAtThisPage: Variable<Bool>,
+            remindLocation: Observable<Void>
         ),
          dependency: (
             geolocationService: GeolocationService,
@@ -42,52 +52,76 @@ class MainMapViewModel {
         ) {
         
         authorized = dependency.geolocationService.authorized
-        let userLocation = dependency.geolocationService.location
+        let _ = dependency.geolocationService.location
         let deviceManager = dependency.deviceManager
         let locationManager = dependency.locationManager
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
+        let currentDeviceId = RxStore.shared.currentDeviceId.asDriver()
+        devicesVariable = RxStore.shared.deviceInfosState
+
+        currentDevice = Driver.combineLatest(devicesVariable.asDriver(), currentDeviceId.filterNil()) { (devices, id) in devices.filter({$0.deviceId == id}).first }
+            .filterNil()
         
-        let enter = input.enterCount.filter {$0 > 0}
+        let enter = input.enter.filter {$0}
         
-        deviceInfos = enter.flatMapLatest({ _ in
-            return deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
-        })
+        fetchDevices = enter.flatMapLatest({ _ in
+                deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
+            })
         
-        kidLocation = Observable<Int>.timer(2, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
-            .flatMapFirst({  _ in input.isAtThisPage    })
-            .filter({  $0  })
-            .flatMapLatest ({_ in
+        let period = Observable<Int>.timer(2, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
+            .withLatestFrom(input.isAtThisPage.asObservable())
+            .takeWhile({ $0 })
+            .map({ _ in Void() })
+            .share()
+        
+        let remindLocation = input.remindLocation
+            .withLatestFrom(currentDeviceId.asObservable().filterNil())
+            .flatMapLatest({
+                deviceManager.remindLocation(deviceId: $0)
+            })
+            .catchErrorJustReturn(false)
+            .map({ _ in Void() })
+        
+        let currentLocation = Observable.merge(period, remindLocation)
+            .flatMapLatest ({
                 locationManager.getCurrentLocation()
                     .trackActivity(activitying)
-                    .map({  $0.location })
-                    .filterNil()
-                    .catchError({ _ -> Observable<CLLocationCoordinate2D> in
-                        userLocation.asObservable().take(1)
-                    })
+                    .catchErrorJustReturn(KidSate.LocationInfo())
             })
+            .share()
         
-        kidAnnotion = kidLocation
-            .map { BaseAnnotation($0) }
+        currentProperty = period.withLatestFrom(currentDeviceId.asObservable())
+            .filterNil()
+            .flatMapLatest ({
+                deviceManager.getProperty(deviceId: $0)
+                    .trackActivity(activitying)
+                    .catchErrorJustReturn(DeviceProperty())
+            })
+            .share()
+        
+        kidLocation = currentLocation.map{ $0.location }.filterNil()
+        kidAddress = currentLocation.map{ $0.address }.filterNil()
+        locationTime = currentLocation.map{ $0.time }.filterNil()
+        
+        kidAnnotion = kidLocation.map { BaseAnnotation($0) }
         
         let kidInfos = input.avatarTap
-            .flatMapLatest({
-                deviceManager.fetchDevices()
-                    .trackActivity(activitying)
-                    .asDriver(onErrorJustReturn: [])
-            })
+            .withLatestFrom(devicesVariable.asDriver())
         
         let popoer = RxPopover.shared
-        
         popoer.style = .dark
-        
-        selecedAction = kidInfos.asObservable()
+        let selecedAction = kidInfos.asObservable()
             .map(allAndTransformAction)
             .flatMapLatest({ actions in
                 return popoer.promptFor(toView: input.avatarView, actions: actions)
             })
+            .share()
+        
+        allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
+        singleAction = selecedAction.map({ $0.data as? DeviceInfo  }).filterNil()
     }
 }
 

@@ -16,46 +16,40 @@ class DistributionViewModel {
     
     //
     let enterLogin: Driver<Bool>
-    let enterMain: Driver<Bool>
-    let enterChoose: Driver<Bool>
+    //let enterMain: Driver<Bool>
+    //let enterChoose: Driver<Bool>
+    
+    let fetchDevices: Driver<[DeviceInfo]>
+    let deviceId: Driver<String>
     
     // }
     
     init(
         dependency: (
-        meManager: MeManager,
+        deviceManager: DeviceManager,
         userManager: UserManager,
         validation: DefaultValidation,
         wireframe: Wireframe
         )
         ) {
         
-        let meManager = dependency.meManager
         let userManager = dependency.userManager
+        let deviceManger = dependency.deviceManager
         
-        let delay = Observable.just(1).delay(5, scheduler: MainScheduler.instance)
+        let delay = Observable.just(1).delay(5, scheduler: MainScheduler.instance).share()
         
         self.enterLogin =  delay
             .flatMap { _ in
-                userManager.isValid()
-                    .map { !$0 }
+                userManager.isValid().map { !$0 }
             }
             .asDriver(onErrorJustReturn: true)
         
-        let hasRole = enterLogin
+        self.fetchDevices = enterLogin
             .filter({ !$0 })
-            .flatMap ({_ in
-                meManager.checkCurrentRole()
-                    .map { $0 != nil }
-                    .asDriver(onErrorJustReturn: false)
+            .flatMapLatest({ _ in
+                deviceManger.fetchDevices().asDriver(onErrorJustReturn: [])
             })
         
-        self.enterChoose = Driver.combineLatest(
-            enterLogin,
-            hasRole) { enterLogin, hasRole in
-                !enterLogin && !hasRole
-            }
-        
-        self.enterMain = self.enterChoose.map { !$0 }
+        self.deviceId = fetchDevices.map({ $0.first?.deviceId }).filterNil()
     }
 }

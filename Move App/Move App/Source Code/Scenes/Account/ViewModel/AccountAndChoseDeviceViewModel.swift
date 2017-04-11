@@ -16,10 +16,10 @@ class AccountAndChoseDeviceViewModel {
     let head: Driver<String>
     let accountName: Driver<String>
     
-    let selected: Driver<Void>
+    let selected: Driver<String>
     
     let fetchDevices: Driver<[DeviceInfo]>
-    var devicesVariable: Variable<[DeviceInfo]> = Variable([])
+    let devicesVariable: Variable<[DeviceInfo]> = RxStore.shared.deviceInfosState
     
     init (input: (
         enter: Driver<Bool>,
@@ -56,11 +56,9 @@ class AccountAndChoseDeviceViewModel {
         
         self.selected = input.selectedInext
             .withLatestFrom(devicesVariable.asDriver()) { $1[$0] }
-            .flatMapLatest {
-                deviceManager.setCurrentDevice(deviceInfo: $0)
-                    .map({ _ in Void() })
-                    .asDriver(onErrorJustReturn: ())
-            }
+            .map { $0.deviceId }
+            .filterNil()
+        
     }
     
 }

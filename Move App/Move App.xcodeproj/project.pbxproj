@@ -62,8 +62,6 @@
 		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
-		11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECB1E5EBC73006F957E /* MeManager.swift */; };
-		11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */; };
 		11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3041E6D7B14002906F1 /* UUMessage.swift */; };
 		11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */; };
 		11EAC30D1E6D7B14002906F1 /* UUMessageContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3061E6D7B14002906F1 /* UUMessageContentButton.swift */; };
@@ -394,8 +392,6 @@
 		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
-		11D0BECB1E5EBC73006F957E /* MeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeManager.swift; path = MeManager/MeManager.swift; sourceTree = "<group>"; };
-		11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiMeWorker.swift; path = MeManager/MoveApiMeWorker.swift; sourceTree = "<group>"; };
 		11EAC3041E6D7B14002906F1 /* UUMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessage.swift; path = Vendor/UUChat/Sources/UUMessage.swift; sourceTree = "<group>"; };
 		11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessageFrame.swift; path = Vendor/UUChat/Sources/UUMessageFrame.swift; sourceTree = "<group>"; };
 		11EAC3061E6D7B14002906F1 /* UUMessageContentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessageContentButton.swift; path = Vendor/UUChat/Sources/UUMessageContentButton.swift; sourceTree = "<group>"; };
@@ -818,8 +814,6 @@
 		11D0BECA1E5EBC09006F957E /* MeManager */ = {
 			isa = PBXGroup;
 			children = (
-				11D0BECB1E5EBC73006F957E /* MeManager.swift */,
-				11D0BECD1E5EC454006F957E /* MoveApiMeWorker.swift */,
 			);
 			name = MeManager;
 			sourceTree = "<group>";
@@ -2392,7 +2386,6 @@
 				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
 				FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */,
 				FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */,
-				11D0BECC1E5EBC73006F957E /* MeManager.swift in Sources */,
 				E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */,
 				112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
@@ -2524,7 +2517,6 @@
 				D299374F1E53126400350E1C /* MoveApi+ActivityRecord+Mappable.swift in Sources */,
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */,
-				11D0BECE1E5EC454006F957E /* MoveApiMeWorker.swift in Sources */,
 				F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */,
 				112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */,
 				FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */,
@@ -2862,7 +2854,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2888,8 +2880,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
+				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

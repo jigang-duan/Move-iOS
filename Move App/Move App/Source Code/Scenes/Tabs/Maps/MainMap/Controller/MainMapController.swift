@@ -17,36 +17,30 @@ import MessageUI
 import CustomViews
 
 
-class MainMapController: UIViewController , MFMessageComposeViewControllerDelegate{
+class MainMapController: UIViewController {
     
-    var alertController : UIAlertController?
-    var curDirectionMode:MKDirectionsTransportType = .walking
-
     var disposeBag = DisposeBag()
-    
-    var isOpenList = false
-    var deviceInfos: [DeviceInfo] = []
-    
-    var userPoint : CLLocationCoordinate2D?
-    var selectPoint : CLLocationCoordinate2D?
     
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet var noGeolocationView: UIView!
     @IBOutlet weak var openPreferencesBtn: UIButton!
     
-    @IBOutlet weak var objectImageBtn: UIButton!
-    @IBOutlet weak var objectNameL: UILabel!
-    @IBOutlet weak var objectLocationL: UILabel!
-    @IBOutlet weak var signalImageV: UIImageView!
-    @IBOutlet weak var electricV: UIImageView!
-    @IBOutlet weak var electricL: UILabel!
-    @IBOutlet weak var objectLocationTimeL: UILabel!
+    @IBOutlet weak var callOutlet: UIButton!
+    @IBOutlet weak var messageOutlet: UIButton!
+    @IBOutlet weak var guideOutlet: UIButton!
     
-    var currentAction : BasePopoverAction?
+    @IBOutlet weak var nameOutle: UILabel!
+    @IBOutlet weak var addressOutlet: UILabel!
+    @IBOutlet weak var timeOutlet: UILabel!
+    @IBOutlet weak var headPortraitOutlet: UIButton!
     
+    @IBOutlet weak var voltameterOutlet: UILabel!
+    @IBOutlet weak var voltameterImageOutlet: UIImageView!
 
-    let enterCount = Variable(0)
+    @IBOutlet weak var remindLocationOutlet: UIButton!
+    
+    let enterSubject = BehaviorSubject<Bool>(value: false)
     
     var isAtThisPage = Variable(false)
     
@@ -54,8 +48,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         super.viewWillAppear(animated)
         self.title = "Location"
         self.isAtThisPage.value = true
-        
-        enterCount.value += 1
+        enterSubject.onNext(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,12 +63,15 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         view.addSubview(noGeolocationView)
         let geolocationService = GeolocationService.instance
         
+        let wireframe = DefaultWireframe.sharedInstance
+        
         let viewModel = MainMapViewModel(
             input: (
-                enterCount: enterCount.asDriver(),
-                avatarTap: objectImageBtn.rx.tap.asDriver(),
-                avatarView: objectImageBtn,
-                isAtThisPage: isAtThisPage.asDriver()
+                enter: enterSubject.asDriver(onErrorJustReturn: false),
+                avatarTap: headPortraitOutlet.rx.tap.asDriver(),
+                avatarView: headPortraitOutlet,
+                isAtThisPage: isAtThisPage,
+                remindLocation: remindLocationOutlet.rx.tap.asObservable()
             ),
             dependency: (
                 geolocationService: geolocationService,
@@ -84,11 +80,16 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             )
         )
         
-        viewModel.selecedAction
-            .bindNext({ [weak self] action in
-                Logger.info(action)
-                self?.KidInfoToAnimation(dataSource: action)
+        viewModel.allAction
+            .bindNext({ [weak self] devices in
+                self?.showAllKidsLocationController(data: devices)
             })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.singleAction
+            .map({ $0.deviceId })
+            .filterNil()
+            .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
         
         viewModel.authorized
@@ -97,8 +98,51 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
         
         openPreferencesBtn.rx.tap
             .bindNext { _ in
-                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                wireframe.open(url: URL(string: UIApplicationOpenSettingsURLString)!)
             }
+            .addDisposableTo(disposeBag)
+        
+        callOutlet.rx.tap.asDriver()
+            .withLatestFrom(viewModel.currentDevice)
+            .map({ URL(deviceInfo: $0) })
+            .filterNil()
+            .drive(onNext: {
+                wireframe.open(url: $0)
+            })
+            .addDisposableTo(disposeBag)
+        
+        messageOutlet.rx.tap
+            .bindNext { [unowned self] in
+                if let chatController = R.storyboard.social.chat() {
+                    self.navigationController?.show(chatController, sender: nil)
+                }
+            }
+            .addDisposableTo(disposeBag)
+        
+        let name = viewModel.currentDevice.map { $0.user?.nickname }.filterNil()
+        name.drive(nameOutle.rx.text).addDisposableTo(disposeBag)
+        
+        let nameAndLocation = Observable.combineLatest(name.asObservable(), viewModel.kidLocation)
+        guideOutlet.rx.tap.asObservable()
+            .withLatestFrom(nameAndLocation)
+            .bindNext { [weak self] in
+                self?.openPlacemark(name: $0.0, location: $0.1)
+            }
+            .addDisposableTo(disposeBag)
+        
+        viewModel.fetchDevices.drive(viewModel.devicesVariable).addDisposableTo(disposeBag)
+        
+        viewModel.currentDevice
+            .drive(onNext: { [weak self] in
+                self?.showHeadPortrait(deviceInfo: $0)
+                self?.showVoltameterOutlet(deviceInfo: $0)
+            })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.currentProperty
+            .withLatestFrom(viewModel.currentDevice) { (property, info) in DeviceInfo(property: property, info: info) }
+            .withLatestFrom(viewModel.devicesVariable.asObservable()) { (info, infos) in transform(info: info, infos: infos) }
+            .bindTo(viewModel.devicesVariable)
             .addDisposableTo(disposeBag)
         
         mapView.rx.willStartLoadingMap
@@ -122,11 +166,16 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             })
             .addDisposableTo(disposeBag)
         
+        viewModel.kidAddress.bindTo(addressOutlet.rx.text).addDisposableTo(disposeBag)
+        viewModel.locationTime
+            .map({ $0.stringYearMonthDayHourMinuteSecond })
+            .bindTo(timeOutlet.rx.text)
+            .addDisposableTo(disposeBag)
+        
         viewModel.kidLocation
             .bindNext({ [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
-                //self.GetCurrentNew()
             })
             .addDisposableTo(disposeBag)
         
@@ -135,197 +184,57 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
             .bindNext({ [unowned self] annotion in
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 self.mapView.addAnnotation(annotion)
-        })
-        .addDisposableTo(disposeBag)
+            })
+            .addDisposableTo(disposeBag)
         
-        viewModel.deviceInfos.drive(onNext: { [unowned self] deviceInfos in
-            self.deviceInfos = deviceInfos
-            
-            var deviceInfo = DeviceInfo()
-            
-            if let idstr = DeviceManager.shared.currentDevice?.deviceId {
-                for data in self.deviceInfos{
-                    if data.deviceId == idstr {
-                        deviceInfo = data
-                    }
-                }
-            }else{
-                if let data = self.deviceInfos.first {
-                    deviceInfo = data
-                }
-            }
-            
-            guard let _ = deviceInfo.deviceId else {
-                return
-            }
-            
-            self.updateUIData(deviceInfo: deviceInfo)
-            
-            let action = BasePopoverAction(imageUrl: deviceInfo.user?.profile,
-                                           placeholderImage: R.image.home_pop_all(),
-                                           title: deviceInfo.user?.nickname,
-                                           isSelected: true)
-            action.canAvatar = true
-            action.data = deviceInfo
-            self.currentAction = action
-            let device = self.currentAction?.data as? DeviceInfo
-            let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: self.objectImageBtn.frame.size.width, height: self.objectImageBtn.frame.size.height), fullName: device?.user?.nickname ?? "" ).imageRepresentation()!
-            
-            let imgUrl = URL(string: FSManager.imageUrl(with: device?.user?.profile ?? ""))
-            self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-            
-        })
-        .addDisposableTo(disposeBag)
-        
-        
-        
-    }
-    
-    @IBAction func locationBtnClick(_ sender: UIButton) {
-        if (currentAction != nil) {
-           self.GetCurrentNew()
-        }
-    }
-    
-    func GetCurrentNew() {
-        if let _ = DeviceManager.shared.currentDevice?.deviceId {
-            LocationManager.share.getCurrentLocation()
-                .subscribe(onNext: {
-                    let annotation = BaseAnnotation($0.location?.latitude ?? 0, $0.location?.longitude ?? 0)
-                    self.objectLocationL.text = $0.address
-                    self.mapView.removeAnnotations(self.mapView.annotations)
-                    self.mapView.addAnnotation(annotation)
-                }, onError: { error in
-                    if error is MoveApi.ApiError {
-                        if let err = error as? MoveApi.ApiError  {
-                            self.alertController = UIAlertController(title: nil, message: err.msg, preferredStyle: .alert)
-                            self.present(self.alertController!, animated: true, completion: {
-                                self.perform(#selector(self.dismissaler), with: nil, afterDelay: 1.0)
-                            })
-                        }
-                    }
-                })
-                .addDisposableTo(disposeBag)
-        }
-    }
-    
-    func dismissaler() {
-        self.alertController?.dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.mainMapController.locationHistory(segue: segue)?.destination {
-            if let action = currentAction {
-                let device = action.data as? DeviceInfo
-                
-                vc.Sprofile = device?.user?.profile
-                vc.Snikename = device?.user?.nickname
-                vc.deviceId = device?.deviceId
+            if let device = DeviceManager.shared.currentDevice {
+                vc.Sprofile = device.user?.profile
+                vc.Snikename = device.user?.nickname
+                vc.deviceId = device.deviceId
             }
         }
     }
     
-    @IBAction func MobilePhoneBtnClick(_ sender: UIButton) {
-        if let action = currentAction {
-            let device = action.data as? DeviceInfo
-            if let phone = device?.user?.number {
-                let str = "telprompt://\(phone)".replacingOccurrences(of: " ", with: "")
-                if let url = URL(string: str) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.openURL(url)
-                    }
-                }
-            }
-        }
-    }
-    
-    @IBAction func MobileMessageBtnClick(_ sender: UIButton) {
-        if let chatController = R.storyboard.social.chat() {
-            self.navigationController?.show(chatController, sender: nil)
-        }
-    }
-    
-    
-    
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss(animated: true, completion: nil)
-        switch result{
-            case MessageComposeResult.sent :
-            print("短信已发送")
-            
-            case MessageComposeResult.cancelled:
-            print("短信取消发送")
-            
-            case MessageComposeResult.failed:
-            print("短信发送失败")
-        }
-    }
-    
-    @IBAction func GuideToWalk(_ sender: UIButton) {
-        
-        if mapView.annotations.count > 0 {
-            for annotation in mapView.annotations {
-                if annotation is BaseAnnotation {
-                    let kidCoordinate = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
-                    let options = [
-                        MKLaunchOptionsDirectionsModeKey: self.curDirectionMode == .walking ? MKLaunchOptionsDirectionsModeWalking : MKLaunchOptionsDirectionsModeDriving,
-                        ]
-                    let placemark = MKPlacemark(coordinate: kidCoordinate, addressDictionary: nil)
-                    let mapItem = MKMapItem(placemark: placemark)
-                    mapItem.name = "\(self.objectNameL.text ?? "")"
-                    mapItem.openInMaps(launchOptions: options)
-                }
-            }
-            
-        }
-
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+}
+
+
+extension MainMapController {
     
-    func updateUIData(deviceInfo : DeviceInfo){
-        objectNameL.text = deviceInfo.user?.nickname
-        
-        DeviceManager.shared.getProperty(deviceId: deviceInfo.deviceId!)
-            .bindNext({
-                self.electricL.text = "\($0.power ?? 0)%"
-                self.signalImageV.image = UIImage(named: "home_ic_battery\(($0.power ?? 0)/20)")
-            }).addDisposableTo(disposeBag)
-        
-        LocationManager.share.getCurrentLocation()
-            .bindNext({
-                self.objectLocationL.text = $0.address
-                self.objectLocationTimeL.text = $0.time?.stringYearMonthDayHourMinuteSecond
-        }).addDisposableTo(disposeBag)
-        
-    }
-    
-    func KidInfoToAnimation(dataSource : BasePopoverAction) {
-        if (dataSource.title == "ALL" || dataSource.title == "All" || dataSource.title == "all"){
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC") as! AllKidsLocationVC
-            vc.dataArr = dataSource.data as? [DeviceInfo] ?? []
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else {
-            objectNameL.text = dataSource.title
-            self.currentAction = dataSource
-            if let device = dataSource.data as? DeviceInfo {
-                DeviceManager.shared.currentDevice = device
-                
-                let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: objectImageBtn.frame.size.width, height: objectImageBtn.frame.size.height), fullName: device.user?.nickname ?? "" ).imageRepresentation()!
-                
-                let imgUrl = URL(string: FSManager.imageUrl(with: device.user?.profile ?? ""))
-                self.objectImageBtn.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
-                if let power = device.property?.power {
-                    electricL.text = "\(power)%"
-                    signalImageV.image = UIImage(named: "home_ic_battery\(power/20)")
-                }
-            }
+    fileprivate func showAllKidsLocationController(data: [DeviceInfo]) {
+        if let toVC = R.storyboard.major.allKidsLocationVC() {
+            toVC.dataArr = data
+            self.navigationController?.show(toVC, sender: nil)
         }
     }
+    
+    fileprivate func showVoltameterOutlet(deviceInfo: DeviceInfo) {
+        if let power = deviceInfo.property?.power {
+            voltameterOutlet.text = "\(power)%"
+            voltameterImageOutlet.image = UIImage(named: "home_ic_battery\(power/20)")
+        }
+    }
+
+    fileprivate func showHeadPortrait(deviceInfo: DeviceInfo) {
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0,
+                                                      width: headPortraitOutlet.frame.size.width,
+                                                      height: headPortraitOutlet.frame.size.height),
+                                         fullName: deviceInfo.user?.nickname ?? "" )
+            .imageRepresentation()!
+        
+        let imgUrl = deviceInfo.user?.profile?.fsImageUrl.url
+        self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+    }
 }
+
 
 extension MainMapController: MKMapViewDelegate {
     
@@ -334,16 +243,69 @@ extension MainMapController: MKMapViewDelegate {
             let identifier = "LocationAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if annotationView == nil {
-                
                 annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-//            if let device = currentDeviceData?.data as? DeviceInfo {
-//                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: (device.user?.nickname)!, profile: (device.user?.profile)!)
-//            }
             annotationView?.canShowCallout = false
             return annotationView
         }
         
         return nil
+    }
+    
+    fileprivate func openPlacemark(name: String, location: CLLocationCoordinate2D) {
+        let options = [ MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking ]
+        let placemark = MKPlacemark(coordinate: location, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = name
+        mapItem.openInMaps(launchOptions: options)
+    }
+}
+
+extension MainMapController: MFMessageComposeViewControllerDelegate {
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+        switch result{
+        case .sent :
+            Logger.debug("短信已发送")
+        case .cancelled:
+            Logger.debug("短信取消发送")
+        case .failed:
+            Logger.debug("短信发送失败")
+        }
+    }
+}
+
+fileprivate func transform(info: DeviceInfo, infos: [DeviceInfo]) -> [DeviceInfo] {
+    var devices = infos
+    if let index = infos.index(where: { $0.deviceId == info.deviceId }) {
+        devices[index] = info
+    }
+    return devices
+}
+
+fileprivate extension DeviceInfo {
+
+    init(property: DeviceProperty, info: DeviceInfo) {
+        self.init()
+        self = info
+        self.property = property
+    }
+}
+
+
+fileprivate extension String {
+    var url: URL? {
+        return URL(string: self)
+    }
+}
+
+fileprivate extension URL {
+    init?(deviceInfo: DeviceInfo) {
+        guard let number = deviceInfo.user?.number else {
+            return nil
+        }
+        let phone = "telprompt://\(number)".replacingOccurrences(of: " ", with: "")
+        self.init(string: phone)
     }
 }

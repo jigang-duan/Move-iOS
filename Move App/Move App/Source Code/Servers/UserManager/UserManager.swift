@@ -94,6 +94,14 @@ protocol UserWorkerProtocl {
     func logout() -> Observable<Bool>
 }
 
+extension UserManager {
+    
+    func isValid() -> Observable<Bool> {
+        return UserInfo.shared.isValid()
+    }
+    
+}
+
 
 class UserInfo {
     

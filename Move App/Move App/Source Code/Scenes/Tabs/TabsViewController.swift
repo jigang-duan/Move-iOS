@@ -14,10 +14,10 @@ import RxCocoa
 
 class TabsViewController: UITabBarController {
     
-    var inlet = 0
+    let enterSubject = BehaviorSubject<Bool>(value: false)
     
     let bag = DisposeBag()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,25 +28,33 @@ class TabsViewController: UITabBarController {
             //R.storyboard.social.instantiateInitialViewController()!
         ]
         
-        self.selectedIndex = inlet
-        if inlet == 1 {
-            self.viewControllers?[0].tabBarItem.isEnabled = false
-        }
+        let hasDevice = RxStore.shared.deviceInfosState.asObservable()
+            .map({ $0.count > 0 })
+            .share()
         
-        MessageServer.share.subject
-            .flatMapLatest({ _ in
-                MeManager.shared.checkCurrentRole()
+        hasDevice.bindNext({[weak self] in
+                self?.viewControllers?[0].tabBarItem.isEnabled = $0
             })
-            .bindNext({ [weak self] in
-                if let _ = $0 {
-                    self?.viewControllers?[0].tabBarItem.isEnabled = true
-                }
+            .addDisposableTo(bag)
+        
+        enterSubject.asObservable()
+            .takeWhile({ $0 })
+            .flatMapLatest({ _ in
+                hasDevice.filter({ !$0 })
+            })
+            .bindNext({ [weak self] _ in
+                self?.selectedIndex = 1
             })
             .addDisposableTo(bag)
         
         MessageServer.share.syncDataInitalization(disposeBag: bag)
         MessageServer.share.subscribe().addDisposableTo(bag)
         AlertServer.share.subscribe().addDisposableTo(bag) 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        enterSubject.onNext(true)
     }
 
     override func didReceiveMemoryWarning() {
