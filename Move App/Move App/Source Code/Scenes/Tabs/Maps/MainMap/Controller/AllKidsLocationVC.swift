@@ -22,6 +22,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     
     @IBOutlet weak var addressL: UILabel!
     @IBOutlet weak var nameL: UILabel!
+     var item : UIBarButtonItem?
     
     let locationManager:CLLocationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
@@ -32,6 +33,8 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        item=UIBarButtonItem(image: R.image.nav_member_nor(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
+        self.navigationItem.rightBarButtonItem=item
         mapView.delegate = self
         locationManager.delegate = self
         //设置定位进度
@@ -47,6 +50,16 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             print("定位开始")
         }
         
+        self.reloadkidlocation()
+        // Do any additional setup after loading the view.
+    }
+//    var activity = MoveApi.Activity()
+    
+     func rightBarButtonClick (sender : UIBarButtonItem){
+        self.reloadkidlocation()
+    }
+    
+    func reloadkidlocation() {
         var deviceids : [MoveApi.LocationDeviceId]? = []
         for tel in dataArr {
             let device_id = MoveApi.LocationDeviceId(device_id : tel.deviceId)
@@ -57,7 +70,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
         MoveApi.Location.getMultiLocations(with: locationlist).bindNext({
             
             self.locationOfDevice = $0.locations!
-            
+            self.mapView.removeAnnotations(self.mapView.annotations)
             for located in self.locationOfDevice! {
                 let loc = CLLocationCoordinate2D(latitude: (located.location?.lat)!, longitude: (located.location?.lng)!)
                 let annotation = TagAnnotation(loc)
@@ -74,12 +87,11 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
                 
                 self.annotationArr?.append(annotation)
             }
+            
             self.mapView.addAnnotations(self.annotationArr!)
             self.mapView.showAnnotations(self.annotationArr!, animated: true)
         }).addDisposableTo(disposeBag)
-        // Do any additional setup after loading the view.
     }
-//    var activity = MoveApi.Activity()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

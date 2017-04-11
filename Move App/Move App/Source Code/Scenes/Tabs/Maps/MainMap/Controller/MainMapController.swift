@@ -304,7 +304,7 @@ class MainMapController: UIViewController , MFMessageComposeViewControllerDelega
     }
     
     func KidInfoToAnimation(dataSource : BasePopoverAction) {
-        if dataSource.title == "ALL" {
+        if (dataSource.title == "ALL" || dataSource.title == "All" || dataSource.title == "all"){
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AllKidsLocationVC") as! AllKidsLocationVC
             vc.dataArr = dataSource.data as? [DeviceInfo] ?? []
             self.navigationController?.pushViewController(vc, animated: true)

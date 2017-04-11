@@ -47,6 +47,10 @@ class LocationHistoryVC: UIViewController {
     
     @IBOutlet weak var calendar: FSCalendar!
     
+    @IBOutlet weak var bottomView: UIView!
+    
+    @IBOutlet weak var bottomViewheight: NSLayoutConstraint!
+        
     var isCalendarOpen : Bool = false
     
     var item : UIBarButtonItem?
@@ -60,7 +64,6 @@ class LocationHistoryVC: UIViewController {
     var selectedDate = Variable(Date())
     var LocationsVariable: Variable<[KidSate.LocationInfo]> = Variable([])
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.title = "Location History"
@@ -70,19 +73,20 @@ class LocationHistoryVC: UIViewController {
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
-        
-        if isOpenList == false {
-            let img=UIImage(named: "nav_slider_nor")
-            sender.image = img
-            addressDetailL.isHidden = true
-            timeZoneSlider.isHidden = false
-            isOpenList = true
-        }else {
-            let img=UIImage(named: "nav_location_nor")
-            sender.image = img
-            addressDetailL.isHidden = false
-            timeZoneSlider.isHidden = true
-            isOpenList = false
+        if self.annotationArr.count > 0 {
+            if isOpenList == false {
+                let img=UIImage(named: "nav_slider_nor")
+                sender.image = img
+                addressDetailL.isHidden = true
+                timeZoneSlider.isHidden = false
+                isOpenList = true
+            }else {
+                let img=UIImage(named: "nav_location_nor")
+                sender.image = img
+                addressDetailL.isHidden = false
+                timeZoneSlider.isHidden = true
+                isOpenList = false
+            }
         }
     }
     
@@ -115,7 +119,7 @@ class LocationHistoryVC: UIViewController {
                 Logger.debug("地图Annotion个数: \($0.count)")
             })
             .addDisposableTo(disposeBag)
-        
+        //测试
 //        self.routeLine = self.polyline()
 //        if self.routeLine != nil {
 //            locationMap.add(routeLine!)
@@ -146,7 +150,12 @@ class LocationHistoryVC: UIViewController {
                 if $0.count == 0 {
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     self.annotationArr.removeAll()
+                    self.bottomViewheight.constant = 50
+                    self.bottomView.isHidden = true
+                    
                 }else{
+                    self.bottomViewheight.constant = 80
+                    self.bottomView.isHidden = false
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     self.locationMap.addAnnotations($0)
                     self.locationMap.showAnnotations($0, animated: true)
@@ -177,6 +186,10 @@ class LocationHistoryVC: UIViewController {
 
     }
     
+    func DefaultDatalabel(){
+        
+    }
+    
     func TimePointSelect(index : Int){
         if self.annotationArr.count > 0 {
             let annotation = annotationArr[index]
@@ -197,10 +210,10 @@ class LocationHistoryVC: UIViewController {
     private func openAppPreferences() {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
-    
+    //测试
 //    func polyline() -> MKPolyline {
 //        var coords = [CLLocationCoordinate2D]()
-//        var locationarr = [LocationAnnotation]()
+//        var locationarr = [TagAnnotation]()
 //        for  i in 0...10  {
 //            var location = CLLocationCoordinate2D()
 //            if i%2 != 0 {
@@ -209,7 +222,7 @@ class LocationHistoryVC: UIViewController {
 //                 location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
 //            }
 //            coords .append(location)
-//            let annotation = LocationAnnotation(location)
+//            let annotation = TagAnnotation(location)
 //            annotation.tag = i
 //            locationarr.append(annotation)
 //        }
@@ -237,6 +250,11 @@ class LocationHistoryVC: UIViewController {
         self .changeBtnType(time: time , date : perivday)
         selectedDate.value = perivday
         index = 0
+        //测试
+//        self.routeLine = self.polyline()
+//        if self.routeLine != nil {
+//            locationMap.add(routeLine!)
+//        }
     }
     
     @IBAction func NextBtnClick(_ sender: UIButton) {
@@ -247,6 +265,11 @@ class LocationHistoryVC: UIViewController {
         self .changeBtnType(time: time , date : nextday)
         selectedDate.value = nextday
         index = 0
+        //测试
+//        self.routeLine = self.polyline()
+//        if self.routeLine != nil {
+//            locationMap.add(routeLine!)
+//        }
     }
     
     @IBAction func NextPointClick(_ sender: UIButton) {
@@ -261,7 +284,8 @@ class LocationHistoryVC: UIViewController {
             self.TimePointSelect(index: index)
             self.timeZoneSlider.value = Float(index)
         }
-        //        self.routeLine = self.polyline()
+        //测试
+//        self.routeLine = self.polyline()
 //        if self.routeLine != nil {
 //            locationMap.add(routeLine!)
 //        }
@@ -278,7 +302,8 @@ class LocationHistoryVC: UIViewController {
             self.TimePointSelect(index: index)
             self.timeZoneSlider.value = Float(index)
         }
-       //        self.routeLine = self.polyline()
+        //测试
+//        self.routeLine = self.polyline()
 //        if self.routeLine != nil {
 //            locationMap.add(routeLine!)
 //        }
@@ -380,6 +405,8 @@ extension LocationHistoryVC : MKMapViewDelegate {
 extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition)
     {
+        calendar.isHidden = true
+        isCalendarOpen = false
         let time = self.calenderConversion(from: calendar.today!, to: date)
         self .changeBtnType(time: time , date : date)
         print("did select date \(self.formatter.string(from: date))")
