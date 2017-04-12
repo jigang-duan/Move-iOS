@@ -29,7 +29,7 @@ class AlarmController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let btn = UIButton()
-        btn.tag  = 805
+        btn.tag  = 0
         weekOutlet.weekAction(btn)
     }
     func internationalization() {
