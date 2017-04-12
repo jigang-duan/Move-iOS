@@ -174,7 +174,7 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     }
     
     func fetchLanguages(id: String) ->  Observable<[String]> {
-        return MoveApi.Device.getSetting(deviceId: id)
+        return MoveApi.Device.getProperty(deviceId: id)
             .map({ $0.languages ?? [] })
     }
     

@@ -22,7 +22,7 @@ class LanguageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableview.contentInset = UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
+        self.tableview.contentInset = UIEdgeInsets(top: -32, left: 0, bottom: 0, right: 0)
         
         let selected = tableview.rx.itemSelected.asDriver()
             .map({ self.tableview.cellForRow(at: $0)?.textLabel?.text })
