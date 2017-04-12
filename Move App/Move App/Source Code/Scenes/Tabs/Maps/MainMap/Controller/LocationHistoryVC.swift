@@ -386,7 +386,16 @@ extension LocationHistoryVC : MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        
+        if view.annotation is TagAnnotation {
+            let point = view.annotation as! TagAnnotation
+            index = point.tag
+            self.locationMap.removeAnnotations(self.locationMap.annotations)
+            if annotationArr.count > 0 {
+                self.locationMap.addAnnotations(annotationArr)
+                self.TimePointSelect(index: index)
+                self.timeZoneSlider.value = Float(index)
+            }
+        }
     }
     
 //    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
