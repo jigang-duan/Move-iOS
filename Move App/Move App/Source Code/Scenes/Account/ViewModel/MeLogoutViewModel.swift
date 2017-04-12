@@ -45,18 +45,9 @@ class MeLogoutViewModel {
                     .map { _ in
                         return ValidationResult.ok(message: "Logout Success.")
                     }
-                    .asDriver(onErrorRecover: errorRecover)
+                    .asDriver(onErrorRecover: commonErrorRecover)
             })
         
     }
     
 }
-
-fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult> {
-    guard error is WorkerError else {
-        return Driver.just(ValidationResult.empty)
-    }
-    
-    return Driver.just(ValidationResult.failed(message: "Logout failed."))
-}
-

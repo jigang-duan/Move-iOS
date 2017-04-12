@@ -47,9 +47,9 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     
     private func cameraPermissions() -> Bool {
-        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         
-        if(authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted) {
+        if(authStatus == .denied || authStatus == .restricted) {
             return false
         }
         return true
@@ -83,13 +83,5 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         return img
     }
     
-    
-    
-    private func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel)
-        vc.addAction(action)
-        self.target?.present(vc, animated: true)
-    }
 }
 

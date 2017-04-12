@@ -35,7 +35,14 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
                 self.target?.present(pickController, animated: true, completion: nil)
             }
         }else{
-            self.showMessage("没有通讯录访问权限")
+            let vc = UIAlertController(title: nil, message: "没有通讯录访问权限", preferredStyle: UIAlertControllerStyle.alert)
+            let action1 = UIAlertAction(title: "Settings", style: .default) { action in
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            }
+            let action2 = UIAlertAction(title: "Ok", style: .default)
+            vc.addAction(action1)
+            vc.addAction(action2)
+            self.target?.present(vc, animated: true)
         }
     }
     
@@ -43,12 +50,12 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
     private func addressBookPermissions() -> Bool {
         if #available(iOS 9.0, *) {
             let status = CNContactStore.authorizationStatus(for: CNEntityType.contacts)
-            if status == CNAuthorizationStatus.denied || status == CNAuthorizationStatus.restricted {
+            if status == .denied || status == .restricted {
                 return false
             }
         } else {
             let status = ABAddressBookGetAuthorizationStatus()
-            if status == ABAuthorizationStatus.denied || status == ABAuthorizationStatus.restricted {
+            if status == .denied || status == .restricted {
                 return false
             }
         }
@@ -88,16 +95,6 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
             self.phoneCallback!(phs)
         }
         self.target?.dismiss(animated: true, completion: nil)
-    }
-    
-
-    private func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel)
-        vc.addAction(action)
-        self.target?.present(vc, animated: true) {
-            
-        }
     }
     
 }

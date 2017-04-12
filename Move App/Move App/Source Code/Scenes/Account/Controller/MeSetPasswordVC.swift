@@ -51,13 +51,7 @@ class MeSetPasswordViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        oldTf.resignFirstResponder()
-        newTf.resignFirstResponder()
-    }
-    
+
     
     func showOldError(_ text: String) {
         oldValidHeiCon.constant = 16
@@ -139,8 +133,6 @@ class MeSetPasswordViewController: UIViewController {
         
         viewModel.saveResult
             .drive(onNext: { [unowned self] result in
-                self.oldTf.resignFirstResponder()
-                self.newTf.resignFirstResponder()
                 switch result {
                 case .failed(let message):
                     self.showNewError(message)

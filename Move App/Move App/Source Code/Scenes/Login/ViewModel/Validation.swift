@@ -144,15 +144,23 @@ class DefaultValidation {
             return .empty
         }
         
-        if numberOfCharacters < minPasswordCount {
-            return .failed(message: "Password must be at least \(minPasswordCount) characters")
+        if numberOfCharacters < minPasswordCount || numberOfCharacters > maxPasswordCount {
+            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
         }
         
-        let setString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-        for character in password.characters {
-            if setString.characters.index(of: character) == nil {
-                return .failed(message: "In passwords, space and Special symbols not allowed.")
-            }
+        let setRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9]+$")
+        if !setRegex.evaluate(with: password) {
+            return .failed(message: "In passwords, space and Special symbols not allowed.")
+        }
+        
+        let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
+        if letterRegex.evaluate(with: password) {
+            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+        }
+        
+        let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        if lnumberRegex.evaluate(with: password) {
+            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
         }
         
         
@@ -168,12 +176,21 @@ class DefaultValidation {
             return .failed(message: "Twice input password not same")
         }
         
-        let setString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-        for character in password.characters {
-            if setString.characters.index(of: character) == nil {
-                return .failed(message: "In passwords, space and Special symbols not allowed.")
-            }
+        let setRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9]+$")
+        if !setRegex.evaluate(with: password) {
+            return .failed(message: "In passwords, space and Special symbols not allowed.")
         }
+        
+        let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
+        if letterRegex.evaluate(with: password) {
+            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+        }
+        
+        let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        if lnumberRegex.evaluate(with: password) {
+            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+        }
+        
         
         return .ok(message: "Password acceptable")
     }

@@ -607,12 +607,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sBI-ag-MED">
-                                <rect key="frame" x="16" y="33" width="16" height="16"/>
+                                <rect key="frame" x="16" y="23" width="35" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="M9E-Og-Eqz"/>
-                                    <constraint firstAttribute="width" constant="16" id="r0X-TR-SaA"/>
+                                    <constraint firstAttribute="height" constant="35" id="M9E-Og-Eqz"/>
+                                    <constraint firstAttribute="width" constant="35" id="r0X-TR-SaA"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="nav_back_nor"/>
+                                <state key="normal" image="nav_back_nor"/>
                                 <connections>
                                     <action selector="backAction:" destination="Pyr-7e-nFs" eventType="touchUpInside" id="hLg-cU-6SN"/>
                                 </connections>
@@ -628,7 +628,7 @@
                             <constraint firstItem="SKN-dn-woE" firstAttribute="top" secondItem="ho2-4y-iWu" secondAttribute="bottom" constant="27" id="AMA-Wi-dNk"/>
                             <constraint firstItem="sBI-ag-MED" firstAttribute="leading" secondItem="Cbq-Fp-GHf" secondAttribute="leading" constant="16" id="FlT-HA-yno"/>
                             <constraint firstAttribute="trailing" secondItem="SKN-dn-woE" secondAttribute="trailing" constant="20" id="Jni-sd-gWh"/>
-                            <constraint firstItem="sBI-ag-MED" firstAttribute="top" secondItem="ho2-4y-iWu" secondAttribute="bottom" constant="33" id="MCd-94-f7Z"/>
+                            <constraint firstItem="sBI-ag-MED" firstAttribute="top" secondItem="ho2-4y-iWu" secondAttribute="bottom" constant="23" id="MCd-94-f7Z"/>
                             <constraint firstItem="SJY-mM-Kk6" firstAttribute="top" secondItem="9qf-r6-pdX" secondAttribute="bottom" id="XIw-1n-weo"/>
                             <constraint firstItem="V7V-6h-Mp1" firstAttribute="centerX" secondItem="Cbq-Fp-GHf" secondAttribute="centerX" id="Xva-9l-qK7"/>
                             <constraint firstItem="V7V-6h-Mp1" firstAttribute="top" secondItem="ho2-4y-iWu" secondAttribute="bottom" constant="30" id="kM3-I9-QBa"/>

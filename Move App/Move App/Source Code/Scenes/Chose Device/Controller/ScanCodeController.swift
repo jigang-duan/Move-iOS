@@ -49,8 +49,8 @@ class ScanCodeController: UIViewController {
         qrCodeFrameView.layer.borderWidth = 2
         view.addSubview(qrCodeFrameView)
         
-        //扫描
-        startScan()
+        //准备扫描
+        prepareForScan()
     }
     
     
@@ -59,9 +59,7 @@ class ScanCodeController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = true
         
-        if self.session.isRunning == false {
-            self.session.startRunning()
-        }
+        self.sessionRun()
     }
     
     
@@ -71,10 +69,29 @@ class ScanCodeController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         
         qrCodeFrameView.frame = CGRect()
-        self.session.stopRunning()
+        self.sessionStop()
     }
     
-    private func startScan(){
+    
+    
+    func sessionRun(){
+        if session.inputs.count > 0 {
+            if !self.session.isRunning {
+                self.session.startRunning()
+            }
+        }
+    }
+    
+    func sessionStop(){
+        if session.inputs.count > 0 {
+            if self.session.isRunning {
+                self.session.stopRunning()
+            }
+        }
+    }
+    
+    
+    private func prepareForScan(){
         
         if !session.canAddInput(deviceInput)
         {
@@ -153,7 +170,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
             qrCodeFrameView.frame = barCodeObject.bounds;
             
             if metadataObj.stringValue != nil {
-                self.session.stopRunning()
+                self.sessionStop()
                 self.makeDeviceAdd(with: metadataObj.stringValue)
             }else{
                 self.showMessage("未检测到二维码")
@@ -165,9 +182,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            if self.session.isRunning == false {
-                self.session.startRunning()
-            }
+            self.sessionRun()
         })
         vc.addAction(action)
         self.present(vc, animated: true)
