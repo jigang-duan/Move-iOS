@@ -109,11 +109,30 @@ class MeSetPasswordViewController: UIViewController {
         oldValidHeiCon.constant = 0
         newValid.isHidden = true
         
+        let oldText = oldTf.rx.observe(String.self, "text").filterNil()
+        let oldDrier = oldTf.rx.text.orEmpty.asDriver()
+        let combineOld = Driver.of(oldText.asDriver(onErrorJustReturn: ""), oldDrier).merge()
+        
+        combineOld.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.oldTf.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
+        
+        let newText = newTf.rx.observe(String.self, "text").filterNil()
+        let newDrier = newTf.rx.text.orEmpty.asDriver()
+        let combineNew = Driver.of(newText.asDriver(onErrorJustReturn: ""), newDrier).merge()
+        
+        combineNew.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.newTf.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
         
         viewModel = MeSetPasswordViewModel(
             input:(
-                old: oldTf.rx.text.orEmpty.asDriver(),
-                new: newTf.rx.text.orEmpty.asDriver(),
+                old: combineOld,
+                new: combineNew,
                 saveTaps: saveBun.rx.tap.asDriver()
             ),
             dependency: (

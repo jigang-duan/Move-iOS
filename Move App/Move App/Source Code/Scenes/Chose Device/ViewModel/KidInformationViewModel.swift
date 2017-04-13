@@ -49,10 +49,7 @@ class KidInformationViewModel {
         
         
         nameValid = input.name.map { name in
-            if name.characters.count > 0{
-                return ValidationResult.ok(message: "")
-            }
-            return ValidationResult.empty
+            return validation.validateNickName(name)
         }
         
         phoneValid = input.phone.map { phone in

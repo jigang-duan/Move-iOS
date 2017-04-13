@@ -122,11 +122,32 @@ class SignUpViewController: UIViewController {
         self.initUI()
         // Do any additional setup after loading the view.
         
+        
+        let passwdText = passwordTf.rx.observe(String.self, "text").filterNil()
+        let passwdDrier = passwordTf.rx.text.orEmpty.asDriver()
+        let combinePasswd = Driver.of(passwdText.asDriver(onErrorJustReturn: ""), passwdDrier).merge()
+        
+        combinePasswd.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.passwordTf.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
+        
+        let rePasswdText = rePasswordTf.rx.observe(String.self, "text").filterNil()
+        let rePasswdDrier = rePasswordTf.rx.text.orEmpty.asDriver()
+        let combineRePasswd = Driver.of(rePasswdText.asDriver(onErrorJustReturn: ""), rePasswdDrier).merge()
+        
+        combineRePasswd.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.rePasswordTf.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
+        
         viewModel = SignUpViewModel(
             input:(
                 email: emailTf.rx.text.orEmpty.asDriver(),
-                passwd: passwordTf.rx.text.orEmpty.asDriver(),
-                rePasswd: rePasswordTf.rx.text.orEmpty.asDriver(),
+                passwd: combinePasswd,
+                rePasswd: combineRePasswd,
                 signUpTaps: signUpBtn.rx.tap.asDriver()
             ),
             dependency: (

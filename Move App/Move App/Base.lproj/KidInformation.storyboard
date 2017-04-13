@@ -540,14 +540,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTg-Bz-fqW">
                                 <rect key="frame" x="0.0" y="286" width="375" height="200"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="set_data_choose" translatesAutoresizingMaskIntoConstraints="NO" id="8gA-Sy-RS8">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="set_data_choose" translatesAutoresizingMaskIntoConstraints="NO" id="8gA-Sy-RS8">
                                         <rect key="frame" x="179" y="8" width="18" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="5wn-jy-KSL"/>
+                                            <constraint firstAttribute="width" constant="18" id="z7v-oj-yFj"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="8gA-Sy-RS8" firstAttribute="centerX" secondItem="eTg-Bz-fqW" secondAttribute="centerX" id="TKW-50-dcG"/>
                                     <constraint firstAttribute="height" constant="200" id="Yha-3f-WQk"/>
+                                    <constraint firstItem="8gA-Sy-RS8" firstAttribute="top" secondItem="eTg-Bz-fqW" secondAttribute="top" constant="8" id="tDg-Nl-GSv"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcd-uV-hDT">
@@ -811,8 +816,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="nhZ-Zf-YY0" firstAttribute="centerY" secondItem="Xfv-HB-Von" secondAttribute="centerY" constant="-52" id="Fhb-B4-nJQ"/>
                                     <constraint firstItem="nhZ-Zf-YY0" firstAttribute="centerX" secondItem="Xfv-HB-Von" secondAttribute="centerX" id="T6c-hG-V8T"/>
+                                    <constraint firstItem="nhZ-Zf-YY0" firstAttribute="top" secondItem="Xfv-HB-Von" secondAttribute="top" constant="8" id="dSa-EO-CyV"/>
                                     <constraint firstAttribute="height" constant="200" id="qE1-1A-gYy"/>
                                 </constraints>
                             </view>

@@ -21,7 +21,7 @@ class SetYourHeghtController: UIViewController {
         
     }
     func drawRule() -> () {
-        let rect = CGRect(x: 0, y: 0, width: RulesVView.frame.size.width, height: 140)
+        let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140)
         let ruler = TXHRrettyRuler.init(frame: rect)
         ruler.rulerDeletate = self
         ruler.showScrollView(withCount: 230, average: NSNumber(value: 1), currentValue: CGFloat(selectedHeight), smallMode: true)

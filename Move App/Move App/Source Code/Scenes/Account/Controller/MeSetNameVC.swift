@@ -71,10 +71,19 @@ class MeSetNameViewController: UIViewController {
         
         nameValid.isHidden = true
         
+        let nameText = nameTf.rx.observe(String.self, "text").filterNil()
+        let nameDrier = nameTf.rx.text.orEmpty.asDriver()
+        let combineName = Driver.of(nameText.asDriver(onErrorJustReturn: ""), nameDrier).merge()
+        
+        combineName.drive(onNext: {[weak self] name in
+            if name.characters.count > 14 {
+                self?.nameTf.text = name.substring(to: name.index(name.startIndex, offsetBy: 14))
+            }
+        }).addDisposableTo(disposeBag)
         
         viewModel = MeSetNameViewModel(
             input:(
-                name: nameTf.rx.text.orEmpty.asDriver(),
+                name: combineName,
                 saveTaps: saveBun.rx.tap.asDriver()
             ),
             dependency: (

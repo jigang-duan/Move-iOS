@@ -127,11 +127,31 @@ class UpdatePwdController: UIViewController {
         helpLabel.text = "The verification code was sent to your Email \(self.email!)."
         
         
+        let passwdText = passwordTf.rx.observe(String.self, "text").filterNil()
+        let passwdDrier = passwordTf.rx.text.orEmpty.asDriver()
+        let combinePasswd = Driver.of(passwdText.asDriver(onErrorJustReturn: ""), passwdDrier).merge()
+        
+        combinePasswd.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.passwordTf.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
+        
+        let rePasswdText = rePasswordTf.rx.observe(String.self, "text").filterNil()
+        let rePasswdDrier = rePasswordTf.rx.text.orEmpty.asDriver()
+        let combineRePasswd = Driver.of(rePasswdText.asDriver(onErrorJustReturn: ""), rePasswdDrier).merge()
+        
+        combineRePasswd.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.rePasswordTf.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
+        
         viewModel = UpdatePswdViewModel(
             input:(
                 vcode: vcodeTf.rx.text.orEmpty.asDriver(),
-                passwd: passwordTf.rx.text.orEmpty.asDriver(),
-                rePasswd: rePasswordTf.rx.text.orEmpty.asDriver(),
+                passwd: combinePasswd,
+                rePasswd: combineRePasswd,
                 sendTaps: sendBun.rx.tap.asDriver(),
                 doneTaps: doneBun.rx.tap.asDriver()
             ),

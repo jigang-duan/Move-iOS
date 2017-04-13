@@ -35,7 +35,7 @@ class SetYourWeightController: UIViewController {
     
     
     func drawRule() -> () {
-        let rect = CGRect(x: 0, y: 0, width: RuleView.frame.size.width, height: 140)
+        let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140)
         ruler = TXHRrettyRuler.init(frame: rect)
         ruler.rulerDeletate = self
         ruler.showScrollView(withCount: 248, average: NSNumber(value: 1), currentValue: CGFloat(selectedWeight), smallMode: true)

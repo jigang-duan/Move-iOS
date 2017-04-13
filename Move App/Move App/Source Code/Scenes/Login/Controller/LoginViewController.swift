@@ -41,10 +41,21 @@ class LoginViewController: UIViewController {
         passwordValidationHCon.constant = 0
         passwordValidationOutlet.isHidden = true
         
+        
+        let passwdText = passwordOutlet.rx.observe(String.self, "text").filterNil()
+        let passwdDrier = passwordOutlet.rx.text.orEmpty.asDriver()
+        let combinePasswd = Driver.of(passwdText.asDriver(onErrorJustReturn: ""), passwdDrier).merge()
+        
+        combinePasswd.drive(onNext: {[weak self] passwd in
+            if passwd.characters.count > 16 {
+                self?.passwordOutlet.text = passwd.substring(to: passwd.index(passwd.startIndex, offsetBy: 16))
+            }
+        }).addDisposableTo(disposeBag)
+        
         let viewModel = LoginViewModel(
             input:(
                 email: emailOutlet.rx.text.orEmpty.asDriver(),
-                passwd: passwordOutlet.rx.text.orEmpty.asDriver(),
+                passwd: combinePasswd,
                 loginTaps: loginOutlet.rx.tap.asDriver(),
                 thirdLogin: thirdLogin.asDriver()
             ),

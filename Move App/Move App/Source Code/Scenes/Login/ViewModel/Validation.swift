@@ -88,6 +88,10 @@ class DefaultValidation {
             return .empty
         }
         
+        if name.hasPrefix(" ") || name.hasSuffix(" ") {
+            return .failed(message: "Name invalid")
+        }
+        
         return .ok(message: "Name available")
     }
     
@@ -99,6 +103,13 @@ class DefaultValidation {
         
         if numberOfCharacters < minPhoneCount {
             return .failed(message: "Phone must be at least \(minPhoneCount) characters")
+        }
+        
+        let setString = "0123456789*#"
+        for character in phone.characters {
+            if setString.characters.index(of: character) == nil {
+                return .failed(message: "Phone input incorrect")
+            }
         }
         
         return .ok(message: "Phone available")
@@ -130,7 +141,7 @@ class DefaultValidation {
             return .empty
         }
         
-        let prdEmail = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9_\\-\\.]{1,}@[a-zA-Z0-9_\\-]{1,}\\.[a-zA-Z0-9_\\-.]{1,}$")
+        let prdEmail = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")
         if !prdEmail.evaluate(with: email) {
             return .failed(message: "Not an email address")
         }
