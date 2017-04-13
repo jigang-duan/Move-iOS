@@ -35,6 +35,7 @@ class MainMapController: UIViewController {
     @IBOutlet weak var timeOutlet: UILabel!
     @IBOutlet weak var headPortraitOutlet: UIButton!
     
+    @IBOutlet weak var statesOutlet: UIImageView!
     @IBOutlet weak var voltameterOutlet: UILabel!
     @IBOutlet weak var voltameterImageOutlet: UIImageView!
 
@@ -202,6 +203,27 @@ class MainMapController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func StatesChange(code : Int)  {
+        let info = MoveApi.DeviceSendNotify(code : 1 , value : nil)
+        MoveApi.Device.sendNotify(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!, sendInfo: info)
+            .subscribe({ event in
+                switch event{
+                case .next(let numbers):
+                    print(numbers)
+                    break
+                case .completed:
+                    break
+                case .error(let er):
+                    print(er)
+                }
+                }).addDisposableTo(self.disposeBag)
+        if code == 10 {
+            self.statesOutlet.image = R.image.home_ic_wear()
+        }else if code == 11 {
+            self.statesOutlet.image = R.image.home_ic_nottowear()
+        }
     }
     
 }
