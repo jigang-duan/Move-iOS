@@ -19,9 +19,8 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
         return MoveApi.Location.getHistory(deviceId: id, locationReq: MoveApi.LocationReq(start: start, end: end)).flatMap(transformHistoryLocation)
     }
     
-    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]>
-    {
-        return MoveApi.ElectronicFence.getFences(deviceId: deviceId).map({ self.transform(fences: $0.fences) })
+    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]> {
+        return MoveApi.ElectronicFence.getFences(deviceId: deviceId).map({ transform(fences: $0.fences) })
     }
     
     func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool> {
@@ -47,40 +46,122 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
             .catchError(errorHandle)
     }
     
-    private func transform(fences: [MoveApi.FenceInfo]?) -> [KidSate.ElectronicFencea] {
-        return fences?.map(transforma) ?? []
-    }
     
-    private func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFencea {
-        let locatio = KidSate.locatio(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), address: fence.location?.addr)
-        return KidSate.ElectronicFencea(ids: fence.id, name: fence.name, radius: fence.radius, active: fence.active, location: locatio)
-    }
-    
-    private func transformLocation(_ new: MoveApi.LocationOfDevice) -> Observable<KidSate.LocationInfo> {
-        guard let location = new.location, let lat = location.lat, let lng = location.lng else {
-                return Observable.empty()
+    func fetchLbsLocation(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS> {
+        guard let deviceId = lbs.imei else {
+            return Observable.just(KidSateSOS.empty())
         }
-        return  Observable.just(KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
-                                    address: location.addr,
-                                    accuracy: location.accuracy,
-                                    time: location.time))
-    }
-    
-    private func transformHistoryLocation(_ history: MoveApi.LocationHistory) -> Observable<[KidSate.LocationInfo]> {
-        guard let  locs = history.locations  else {
-            return Observable.empty()
+        
+        let nearbts = lbs.bts?.map { MoveApi.Bts(bts: $0) }
+        let nearwifi = lbs.wifi?.map({ MoveApi.Wifi(wifi: $0) })
+        let info = MoveApi.LocationAdd(time: lbs.utc,
+                            gps:  nil,
+                            network: nil,
+                            imei: deviceId,
+                            smac: nil,
+                            serverip: nil,
+                            cdma: nil,
+                            imsi: nil,
+                            bts:  nil,
+                            nearbts: nearbts,
+                            wifi: nil,
+                            nearwifi: nearwifi,
+                            fences: nil)
+        
+        let location = MoveApi.Location.getByLBS(deviceId: deviceId, locationAdd: info)
+            .map{ $0.location }
+            .filterNil()
+            .map{ KidSate.LocationInfo(location: $0) }
+        
+        if let location = lbs.location {
+            return Observable.just(KidSateSOS.gps(imei: deviceId, location: location))
         }
-        return  Observable.just(locs.flatMap(transform))
-    }
-    
-    private func transform(_ location: MoveApi.LocationInfo) -> KidSate.LocationInfo? {
-        guard let lat = location.lat, let lng = location.lng else {
-            return nil
+        
+        if (nearbts == nil) && (nearwifi == nil) {
+            return Observable.just(KidSateSOS.imei(deviceId))
         }
-        return KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
-                             address: location.addr,
-                             accuracy: location.accuracy,
-                             time: location.time)
+        
+        if (nearbts != nil) && (nearwifi != nil) {
+            return location.map { KidSateSOS.btsAndWifi(imei: deviceId, location: $0) }
+        }
+        
+        if nearbts != nil {
+            return location.map { KidSateSOS.bts(imei: deviceId, location: $0) }
+        }
+        
+        return location.map { KidSateSOS.wifi(imei: deviceId, location: $0) }
     }
     
+}
+
+
+fileprivate extension KidSate.LocationInfo {
+    init(location: MoveApi.LocationInfo) {
+        self.init()
+        if let lat = location.lat, let lng = location.lng {
+            self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        }
+        self.address = location.addr
+        self.accuracy = location.accuracy
+        self.time = location.time
+    }
+
+}
+
+
+fileprivate extension MoveApi.Wifi {
+    init(wifi: KidSate.SOSLbsModel.WiFi) {
+        self.init()
+        self.mac = wifi.mac
+        self.signal = wifi.signal
+        self.ssid = wifi.ssid
+    }
+}
+
+fileprivate extension MoveApi.Bts {
+    init(bts: KidSate.SOSLbsModel.BTS) {
+        self.init()
+        self.mcc = bts.mcc
+        self.mnc = bts.mnc
+        self.lac =  bts.lac
+        self.cellid = bts.cellId
+        self.signal = bts.signal
+    }
+}
+
+
+fileprivate func transform(fences: [MoveApi.FenceInfo]?) -> [KidSate.ElectronicFencea] {
+    return fences?.map(transforma) ?? []
+}
+
+fileprivate func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFencea {
+    let locatio = KidSate.locatio(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), address: fence.location?.addr)
+    return KidSate.ElectronicFencea(ids: fence.id, name: fence.name, radius: fence.radius, active: fence.active, location: locatio)
+}
+
+fileprivate func transformLocation(_ new: MoveApi.LocationOfDevice) -> Observable<KidSate.LocationInfo> {
+    guard let location = new.location, let lat = location.lat, let lng = location.lng else {
+        return Observable.empty()
+    }
+    return  Observable.just(KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
+                                                 address: location.addr,
+                                                 accuracy: location.accuracy,
+                                                 time: location.time))
+}
+
+fileprivate func transformHistoryLocation(_ history: MoveApi.LocationHistory) -> Observable<[KidSate.LocationInfo]> {
+    guard let  locs = history.locations  else {
+        return Observable.empty()
+    }
+    return  Observable.just(locs.flatMap(transform))
+}
+
+fileprivate func transform(_ location: MoveApi.LocationInfo) -> KidSate.LocationInfo? {
+    guard let lat = location.lat, let lng = location.lng else {
+        return nil
+    }
+    return KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
+                                address: location.addr,
+                                accuracy: location.accuracy,
+                                time: location.time)
 }

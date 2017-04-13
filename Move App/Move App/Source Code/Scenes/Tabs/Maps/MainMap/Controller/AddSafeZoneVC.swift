@@ -146,11 +146,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let geolocationService = GeolocationService.instance
         let locationManager = LocationManager.share
         
-        let viewModel = SafeZoneViewModel.init(input: (), dependency: (
-            geolocationService: geolocationService,
-            locationManager: locationManager,
-            kidinfo: MokKidInfo()
-        ))
+        let viewModel = SafeZoneViewModel(
+            input: (),
+            dependency: (
+                geolocationService: geolocationService,
+                locationManager: locationManager
+            )
+        )
         
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()

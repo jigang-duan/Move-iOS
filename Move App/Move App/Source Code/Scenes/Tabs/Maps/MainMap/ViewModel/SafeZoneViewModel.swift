@@ -22,8 +22,7 @@ class SafeZoneViewModel {
     
     init(input: (),dependency: (
         geolocationService: GeolocationService,
-        locationManager: LocationManager,
-        kidinfo:MokKidInfo
+        locationManager: LocationManager
         )
         ) {
         
@@ -34,7 +33,7 @@ class SafeZoneViewModel {
         
         kidLocation = Driver<Int>.timer(2, period: Configure.App.LoadDataOfPeriod)
             .flatMapLatest ({_ in
-                locationManager.getCurrentLocation()
+                locationManager.currentLocation
                     .map({
                         $0.location
                     })
@@ -56,5 +55,3 @@ class SafeZoneViewModel {
     }
 }
 
-class MokKidInfo {
-}

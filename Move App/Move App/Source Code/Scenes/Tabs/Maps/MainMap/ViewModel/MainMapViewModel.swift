@@ -87,7 +87,7 @@ class MainMapViewModel {
         
         let currentLocation = Observable.merge(period, remindLocation)
             .flatMapLatest ({
-                locationManager.getCurrentLocation()
+                locationManager.currentLocation
                     .trackActivity(activitying)
                     .catchErrorJustReturn(KidSate.LocationInfo())
             })

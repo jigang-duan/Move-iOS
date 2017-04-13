@@ -48,6 +48,10 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     }
     
     
+    func fetchDevice(deviceId: String) -> Observable<DeviceInfo> {
+        return MoveApi.Device.getDeviceInfo(deviceId: deviceId).map({ DeviceInfo(element: $0) })
+    }
+    
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
         return MoveApi.Device.getDeviceList()
                 .map({ $0.devices ?? [] })

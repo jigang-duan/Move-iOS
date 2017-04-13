@@ -48,7 +48,15 @@ class TabsViewController: UITabBarController {
         
         MessageServer.share.syncDataInitalization(disposeBag: bag)
         MessageServer.share.subscribe().addDisposableTo(bag)
-        AlertServer.share.subscribe().addDisposableTo(bag) 
+        AlertServer.share.subscribe().addDisposableTo(bag)
+        
+        SOSService.shared.subject
+            .flatMapLatest(transform)
+            .flatMapLatest(transform)
+            .bindNext({ [weak self] in
+                self?.showSOSViewController(sos: $0)
+            })
+            .addDisposableTo(bag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,4 +69,37 @@ class TabsViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+
+fileprivate func transform(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS> {
+    let fetchSOS = LocationManager.share.fetch(lbs: lbs)
+    if let imei = lbs.imei {
+        if let location = lbs.location {
+            return fetchSOS.catchErrorJustReturn(KidSateSOS.gps(imei: imei, location: location))
+        }
+        return fetchSOS.catchErrorJustReturn(KidSateSOS.imei(imei))
+    } else {
+        return fetchSOS.catchErrorJustReturn(KidSateSOS.empty())
+    }
+}
+
+fileprivate func transform(sos: KidSateSOS) -> Observable<KidSateSOS> {
+    guard let deviceId = sos.imei else {
+        return Observable.just(KidSateSOS.empty())
+    }
+    return DeviceManager.shared.fetchDevice(id: deviceId)
+        .map({ sos.clone(deviceInof: $0) })
+        .catchErrorJustReturn(sos)
+}
+
+
+extension TabsViewController {
+
+    fileprivate func showSOSViewController(sos: KidSateSOS) {
+        if let toVC = R.storyboard.social.showSOS() {
+            toVC.sos = sos
+            self.present(toVC, animated: true, completion: nil)
+        }
+    }
 }

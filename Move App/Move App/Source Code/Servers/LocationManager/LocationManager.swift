@@ -17,7 +17,8 @@ protocol LocationWorkerProtocl {
     func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]>
     func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool>
     func updateSafeZone(deviceId: String, fence: KidSate.ElectronicFencea) -> Observable<Bool>
-
+    
+    func fetchLbsLocation(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS>
 }
 
 class LocationManager  {
@@ -29,7 +30,7 @@ class LocationManager  {
         worker = MoveApiLocationWorker()
     }
     
-    func getCurrentLocation() -> Observable<KidSate.LocationInfo>{
+    var currentLocation: Observable<KidSate.LocationInfo>{
         guard let deviceId = Me.shared.currDeviceID else {
             return Observable<KidSate.LocationInfo>.empty()
         }
@@ -43,26 +44,78 @@ class LocationManager  {
         return self.worker.getHistoryLocation(id: deviceId, start: start, end: end)
     }
     
-    func fetchSafeZone() -> Observable<[KidSate.ElectronicFencea]>
-    {
+    func fetchSafeZone() -> Observable<[KidSate.ElectronicFencea]> {
         guard let deviceld = Me.shared.currDeviceID else {
             return Observable<[KidSate.ElectronicFencea]>.empty()
         }
         return self.worker.fetchSafeZone(deviceId: deviceld)
     }
+    
     func delectSafeZone(_ fenceId: String) -> Observable<Bool>{
         guard let deviceld = Me.shared.currDeviceID else {
             return Observable<Bool>.empty()
         }
         return self.worker.delectSafeZone(deviceId: deviceld, fenceId: fenceId)
     }
-    func updateSafeZone(_ fence: KidSate.ElectronicFencea) -> Observable<Bool>
-    {
+    
+    func updateSafeZone(_ fence: KidSate.ElectronicFencea) -> Observable<Bool> {
         guard let deviceld = Me.shared.currDeviceID else {
             return Observable<Bool>.empty()
         }
         return self.worker.updateSafeZone(deviceId: deviceld, fence: fence)
     }
  
+    func fetch(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS>  {
+        return self.worker.fetchLbsLocation(lbs: lbs)
+    }
+}
+
+
+struct KidSateSOS {
+    var type: KidSateSOSType
+    var imei: String?
+    var location: KidSate.LocationInfo?
+    var deviceInof: DeviceInfo?
+}
+
+enum KidSateSOSType {
+    case empty
+    case imei
+    case gps
+    case bts
+    case wifi
+    case btsAndWifi
+}
+
+extension KidSateSOS {
+    
+    static func empty() -> KidSateSOS {
+        return KidSateSOS(type: .empty, imei: nil, location: nil, deviceInof: nil)
+    }
+    
+    static func imei(_ id: String) -> KidSateSOS {
+        return KidSateSOS(type: .imei, imei: id, location: nil, deviceInof: nil)
+    }
+    
+    static func gps(imei: String, location: KidSate.LocationInfo) -> KidSateSOS {
+        return KidSateSOS(type: .gps, imei: imei, location: location, deviceInof: nil)
+    }
+    
+    static func bts(imei: String, location: KidSate.LocationInfo) -> KidSateSOS {
+        return KidSateSOS(type: .bts, imei: imei, location: location, deviceInof: nil)
+    }
+    
+    static func wifi(imei: String, location: KidSate.LocationInfo) -> KidSateSOS {
+        return KidSateSOS(type: .wifi, imei: imei, location: location, deviceInof: nil)
+    }
+    
+    static func btsAndWifi(imei: String, location: KidSate.LocationInfo) -> KidSateSOS {
+        return KidSateSOS(type: .btsAndWifi, imei: imei, location: location, deviceInof: nil)
+    }
+    
+    func clone(deviceInof: DeviceInfo) -> KidSateSOS {
+        return KidSateSOS(type: self.type, imei: self.imei, location: self.location, deviceInof: deviceInof)
+    }
     
 }
+

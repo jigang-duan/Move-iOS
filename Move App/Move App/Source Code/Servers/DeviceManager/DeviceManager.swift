@@ -52,6 +52,11 @@ extension DeviceManager {
         return worker.getDeviceList().map({ $0.map({ DeviceInfo(element: $0) }) })
     }
     
+    func fetchDevice(id: String) -> Observable<DeviceInfo> {
+        return worker.fetchDevice(deviceId: id)
+    }
+    
+    
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
         return worker.deleteContact(deviceId: deviceId, uid: uid)
     }
@@ -115,6 +120,8 @@ protocol DeviceWorkerProtocl {
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool>
     
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>
+    
+    func fetchDevice(deviceId: String) -> Observable<DeviceInfo>
     
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool>
     
