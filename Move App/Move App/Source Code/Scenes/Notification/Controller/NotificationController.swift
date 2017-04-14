@@ -37,11 +37,11 @@ class NotificationController: UIViewController {
             let objects = _group.notices
             let notices = Observable.collection(from: objects)
                 .share()
-                .map({ list -> [UUMessageFrame] in
-                    list.map({ notice -> UUMessageFrame in
+                .map({ list -> [UUMessage] in
+                    list.map({ notice -> UUMessage in
                         var content = UUMessage.Content()
                         content.text = String(format: notice.content ?? "", kids?.nickname ?? "")
-                        let message = UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
+                        return UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),
                                                 name: _group.name ?? "",
@@ -50,18 +50,16 @@ class NotificationController: UIViewController {
                                                 type: .text,
                                                 from: .other,
                                                 showDateLabel: true)
-                        return UUMessageFrame(message: message)
                     })
                 })
+                .map(transformMinuteOffSet)
             
             
             tableView.rx.setDelegate(self).addDisposableTo(bag)
             
             let itemDeleted = tableView.rx.itemDeleted.asObservable()
-            itemDeleted
-                .map({
-                    self.messageFramesVariable.value[$0.row].message.msgId
-                })
+            itemDeleted.map({ $0.row })
+                .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
                 .filterEmpty()
                 .map({ id in
                     objects.filter({ $0.id == id }).first
@@ -81,8 +79,8 @@ class NotificationController: UIViewController {
                 .addDisposableTo(bag)
             
             messageFramesVariable.asObservable()
-                .bindNext({_ in
-                    self.tableViewScrollToBottom()
+                .bindNext({ [weak self] _ in
+                    self?.tableViewScrollToBottom()
                 })
                 .addDisposableTo(bag)
         }

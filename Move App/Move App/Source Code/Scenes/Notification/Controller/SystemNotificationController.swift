@@ -76,7 +76,7 @@ class SystemNotificationController: UIViewController {
                                         options: [.transition(.fade(1))],
                                         progressBlock: nil,
                                         completionHandler: nil)
-            cell.imageView?.cornerRadius = 22.0
+            cell.imageView?.makeRoundedCorners()
             
             cell.textLabel?.text = kids.nickname
             cell.detailTextLabel?.text = String(format: group.notices.last?.content ?? "", kids.nickname ?? "")
@@ -99,9 +99,9 @@ class SystemNotificationController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let rSegue = R.segue.systemNotificationController.showNotification(segue: segue) {
+        if let rsegue = R.segue.systemNotificationController.showNotification(segue: segue) {
             if let group = sender as? GroupEntity {
-                rSegue.destination.group = group
+                rsegue.destination.group = group
             }
         }
         
