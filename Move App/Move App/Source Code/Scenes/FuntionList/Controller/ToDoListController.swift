@@ -20,12 +20,21 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var endLabel: UILabel!
     @IBOutlet weak var repeatLabel: UILabel!
     
-    
-    @IBOutlet weak var beginTimeQutlet: UITextField!
-    @IBOutlet weak var endTimeQutlet: UITextField!
 
     @IBOutlet weak var repeatCell: UITableViewCell!
     @IBOutlet weak var repeatStateQutlet: UILabel!
+    
+    
+    @IBOutlet weak var beginTimeQutle: UIButton!
+    @IBOutlet weak var endTimeQutle: UIButton!
+    @IBOutlet weak var cancelQutle: UIButton!
+    @IBOutlet weak var comfirmQutle: UIButton!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var DatePickerView: UIView!
+    
+    
+    var beginTimeVariable = Variable(Date())
+    var endTimeVariabel = Variable(Date())
     
     var todo: NSDictionary?
     
@@ -51,24 +60,57 @@ class ToDoListController: UITableViewController {
         if todo != nil{
             titleTextFieldQutle.text = todo?["topic"] as? String
             remarkTextFieldQutlet.text = todo?["content"] as? String
-            beginTimeQutlet.text = DateUtility.dateTostringMMddyy(date: todo?["start"] as? Date)
-            endTimeQutlet.text = DateUtility.dateTostringMMddyy(date: todo?["end"] as? Date)
+            
+            beginTimeVariable.value = (todo?["start"] as? Date)!
+            endTimeVariabel.value = (todo?["end"] as? Date)!
+         
             repeatStateVariable.value = repeatcountInt(Intt: (todo?["repeat"] as? Int)!)
         }
         
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
-        beginTimeQutlet.inputView = self.datepickerInput()
-        endTimeQutlet.inputView = self.datepickerInput()
-
         repeatStateVariable.asDriver().drive(repeatStateQutlet.rx.text).addDisposableTo(disposeBag)
+        
+        
+        beginTimeVariable.asDriver()
+            .drive(onNext: {date in
+                self.beginTime = date
+            })
+            .addDisposableTo(disposeBag)
+        
+        self.beginTimeQutle.rx.tap
+            .asDriver()
+            .drive(onNext: selectBeginTime)
+            .addDisposableTo(disposeBag)
+        
+        endTimeVariabel.asDriver()
+            .drive(onNext: {date in
+                self.endTime = date
+            })
+            .addDisposableTo(disposeBag)
+
+        self.endTimeQutle.rx.tap
+            .asDriver()
+            .drive(onNext: selectEndTime)
+            .addDisposableTo(disposeBag)
+        
+        self.comfirmQutle.rx.tap
+            .asDriver()
+            .drive(onNext: comfirmDatepicker)
+            .addDisposableTo(disposeBag)
+        
+        self.cancelQutle.rx.tap
+            .asDriver()
+            .drive(onNext: cancelDatepicker)
+            .addDisposableTo(disposeBag)
+
         
         let viewModel = ToDoListViewModel(
             input: (
                 save: saveQutlet.rx.tap.asDriver(),
                 topic: titleTextFieldQutle.rx.text.orEmpty.asDriver(),
                 content: remarkTextFieldQutlet.rx.text.orEmpty.asDriver(),
-                startime: beginTimeQutlet.rx.text.orEmpty.asDriver().map(stringchangeTime),
-                endtime: endTimeQutlet.rx.text.orEmpty.asDriver().map(stringchangeTime),
+                startime: beginTimeVariable.asDriver(),
+                endtime: endTimeVariabel.asDriver(),
                 repeatcount: repeatStateVariable.asDriver().map(repeatcount).debug()
             ),
             dependency: (
@@ -93,12 +135,6 @@ class ToDoListController: UITableViewController {
     
    
     
-    func datepickerInput() -> UIDatePicker {
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 180))
-        datePicker.locale = Locale(identifier: "en_GB")
-        datePicker.datePickerMode = .dateAndTime
-        return datePicker
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
@@ -123,22 +159,49 @@ class ToDoListController: UITableViewController {
         return ["0": R.string.localizable.never(),"1": R.string.localizable.everyday(),"2": R.string.localizable.everyweek(),"3": R.string.localizable.everymonth() ][InttString]!
     }
 
-    
-}
-
-extension ToDoListController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    private func selectBeginTime() {
         
-        if let datePicker = textField.inputView as? UIDatePicker {
-            textField.text = datePicker.date.stringMonthDayYearHourMinute
-        }
-        
-
-       
+        self.beginTimeQutle.isSelected = true
+        self.endTimeQutle.isSelected = false
+        self.datePicker.date = beginTime
+        self.DatePickerView.isHidden = false
     }
     
+    private func selectEndTime() {
+    
+        self.endTimeQutle.isSelected = true
+        self.beginTimeQutle.isSelected = false
+        self.datePicker.date = endTime
+        self.DatePickerView.isHidden = false
+        
+    }
+    
+    private func cancelDatepicker() {
+        DatePickerView.isHidden = true
+        beginTimeQutle.isSelected = false
+        endTimeQutle.isSelected = false
+    }
+    
+    private func comfirmDatepicker() {
+        
+        if beginTimeQutle.isSelected {
+            beginTimeQutle.isSelected = false
+            beginTimeVariable.value = datePicker.date
+        }
+        
+        if endTimeQutle.isSelected {
+            endTimeQutle.isSelected = false
+            endTimeVariabel.value = datePicker.date
+        }
+        
+        DatePickerView.isHidden = true
 
+        
+    }
+
+    
+}
+extension ToDoListController {
     
     fileprivate func stringchangeTime(dateString : String) -> Date{
         let dformatter = DateFormatter()
@@ -147,15 +210,36 @@ extension ToDoListController: UITextFieldDelegate {
         
     }
     
-}
-
-extension Date {
-    
-    var stringMonthDayYearHourMinute: String? {
+    private func DateString(form date: Date) -> String {
         let dformatter = DateFormatter()
         dformatter.dateFormat = "MM-dd-yyyy HH:mm"
-        return dformatter.string(from: self)
+        let dateStr = dformatter.string(from: date)
+        return dateStr
     }
+
+    
+    
+    fileprivate var beginTime: Date {
+        get {
+            return  stringchangeTime(dateString: (beginTimeQutle.titleLabel?.text)!)
+        }
+        set(newValue) {
+            beginTimeQutle.setTitle(DateString(form: newValue), for: .normal)
+            
+        }
+    }
+    
+    fileprivate var endTime: Date {
+        get {
+            return stringchangeTime(dateString: (endTimeQutle.titleLabel?.text)!)
+        }
+        set(newValue) {
+            endTimeQutle.setTitle(DateString(form: newValue), for: .normal)
+        }
+    }
+
+    
+
 }
 
 

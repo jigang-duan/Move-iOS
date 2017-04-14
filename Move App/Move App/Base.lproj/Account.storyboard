@@ -1648,6 +1648,59 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="ySe-wJ-FNJ" userLabel="DatePickView">
+                            <rect key="frame" x="0.0" y="345" width="375" height="230"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KQe-8T-BMM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Zm-yl-ugv">
+                                            <rect key="frame" x="10" y="8" width="48" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="uYx-0W-YD9"/>
+                                            </constraints>
+                                            <state key="normal" title="Cancel"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te2-dS-Li0">
+                                            <rect key="frame" x="305" y="8" width="60" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="ChL-6k-eVd"/>
+                                            </constraints>
+                                            <state key="normal" title="Comfirm"/>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="1Zm-yl-ugv" firstAttribute="centerY" secondItem="KQe-8T-BMM" secondAttribute="centerY" id="Shp-Jf-qVd"/>
+                                        <constraint firstItem="te2-dS-Li0" firstAttribute="centerY" secondItem="KQe-8T-BMM" secondAttribute="centerY" id="l5h-Dq-lmr"/>
+                                        <constraint firstAttribute="trailing" secondItem="te2-dS-Li0" secondAttribute="trailing" constant="10" id="nSt-xD-nYC"/>
+                                        <constraint firstItem="1Zm-yl-ugv" firstAttribute="leading" secondItem="KQe-8T-BMM" secondAttribute="leading" constant="10" id="s88-mm-Tw2"/>
+                                    </constraints>
+                                </view>
+                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eDo-io-5qK">
+                                    <rect key="frame" x="0.0" y="45" width="375" height="185"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="185" id="8vL-h5-lxn"/>
+                                    </constraints>
+                                    <date key="date" timeIntervalSinceReferenceDate="509269371.97193301">
+                                        <!--2017-02-20 07:42:51 +0000-->
+                                    </date>
+                                    <locale key="locale" localeIdentifier="en_AL"/>
+                                </datePicker>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="KQe-8T-BMM" firstAttribute="top" secondItem="ySe-wJ-FNJ" secondAttribute="top" id="Shw-lA-CuD"/>
+                                <constraint firstItem="eDo-io-5qK" firstAttribute="leading" secondItem="ySe-wJ-FNJ" secondAttribute="leading" id="Y4e-XK-ejc"/>
+                                <constraint firstItem="KQe-8T-BMM" firstAttribute="leading" secondItem="ySe-wJ-FNJ" secondAttribute="leading" id="gLx-NH-ysF"/>
+                                <constraint firstItem="eDo-io-5qK" firstAttribute="top" secondItem="KQe-8T-BMM" secondAttribute="bottom" id="jkz-pq-xgu"/>
+                                <constraint firstAttribute="trailing" secondItem="KQe-8T-BMM" secondAttribute="trailing" id="oPM-mQ-0MB"/>
+                                <constraint firstAttribute="bottom" secondItem="eDo-io-5qK" secondAttribute="bottom" id="qIN-OY-uVB"/>
+                                <constraint firstAttribute="trailing" secondItem="eDo-io-5qK" secondAttribute="trailing" id="rW2-gl-rZE"/>
+                                <constraint firstAttribute="height" constant="230" id="tKo-Q4-8aA"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="0Wa-36-qPi">
                                 <cells>
@@ -1713,21 +1766,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="time" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lF8-qy-1LX">
-                                                    <rect key="frame" x="232" y="6" width="127" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R0-ad-y6r">
+                                                    <rect key="frame" x="190" y="6" width="177" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="SCd-7s-CnS" id="sX9-TN-Q2c"/>
-                                                    </connections>
-                                                </textField>
+                                                    <state key="normal" title="time">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <state key="selected">
+                                                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="accessoryView" destination="lF8-qy-1LX" id="dzk-YY-toJ"/>
+                                            <outlet property="accessoryView" destination="1R0-ad-y6r" id="Ap6-0S-V4u"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="k2v-Br-dx7" style="IBUITableViewCellStyleDefault" id="W2B-QD-sh1">
@@ -1744,21 +1797,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="time" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o4Z-gb-DiR">
-                                                    <rect key="frame" x="235" y="6" width="127" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaN-DX-5Af">
+                                                    <rect key="frame" x="193" y="6" width="174" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="SCd-7s-CnS" id="R1e-Ha-hLK"/>
-                                                    </connections>
-                                                </textField>
+                                                    <state key="normal" title="time">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <state key="selected">
+                                                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="accessoryView" destination="o4Z-gb-DiR" id="gym-Qp-Wry"/>
+                                            <outlet property="accessoryView" destination="ZaN-DX-5Af" id="7Rh-vt-0AW"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1834,10 +1887,14 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="DatePickerView" destination="ySe-wJ-FNJ" id="Qlv-a6-Kwh"/>
                         <outlet property="beginLabel" destination="ROU-bF-Udn" id="6gI-dz-Sww"/>
-                        <outlet property="beginTimeQutlet" destination="lF8-qy-1LX" id="Umf-sr-B0h"/>
+                        <outlet property="beginTimeQutle" destination="1R0-ad-y6r" id="sdn-gO-Gus"/>
+                        <outlet property="cancelQutle" destination="1Zm-yl-ugv" id="8yR-2P-K9E"/>
+                        <outlet property="comfirmQutle" destination="te2-dS-Li0" id="mAt-ix-ivY"/>
+                        <outlet property="datePicker" destination="eDo-io-5qK" id="jdP-QV-Os5"/>
                         <outlet property="endLabel" destination="k2v-Br-dx7" id="9lM-rP-ffs"/>
-                        <outlet property="endTimeQutlet" destination="o4Z-gb-DiR" id="5Lx-Q3-r0U"/>
+                        <outlet property="endTimeQutle" destination="ZaN-DX-5Af" id="FYx-5C-b4p"/>
                         <outlet property="remarkTextFieldQutlet" destination="rGV-Gq-ur0" id="Rtc-u6-YCF"/>
                         <outlet property="repeatCell" destination="PIs-4K-5cP" id="j57-K4-POh"/>
                         <outlet property="repeatLabel" destination="ZW9-Ms-gGh" id="aBf-3G-vbe"/>
@@ -1849,7 +1906,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yyh-U9-atn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5036" y="2510"/>
+            <point key="canvasLocation" x="5036" y="2509.2953523238384"/>
         </scene>
         <!--Repeat-->
         <scene sceneID="Gg2-ul-Jcg">
