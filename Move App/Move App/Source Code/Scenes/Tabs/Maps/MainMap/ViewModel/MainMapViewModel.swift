@@ -59,10 +59,10 @@ class MainMapViewModel {
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-        let currentDeviceId = RxStore.shared.currentDeviceId.asDriver()
+        let currentDeviceId = RxStore.shared.currentDeviceId.asDriver().debug()
         devicesVariable = RxStore.shared.deviceInfosState
 
-        currentDevice = Driver.combineLatest(devicesVariable.asDriver(), currentDeviceId.filterNil()) { (devices, id) in devices.filter({$0.deviceId == id}).first }
+        currentDevice = Driver.combineLatest(devicesVariable.asDriver().debug(), currentDeviceId.filterNil()) { (devices, id) in devices.filter({$0.deviceId == id}).first }
             .filterNil()
         
         let enter = input.enter.filter {$0}

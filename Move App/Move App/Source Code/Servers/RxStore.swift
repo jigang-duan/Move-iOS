@@ -15,6 +15,8 @@ class RxStore {
     
     // MARK: - State
     
+    var userId: Variable<String?> = Variable(nil)
+    
     // MARK: - -Device-
     
     var deviceInfosState: Variable<[DeviceInfo]> = Variable([])

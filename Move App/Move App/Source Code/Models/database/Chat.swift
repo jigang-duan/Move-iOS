@@ -275,4 +275,12 @@ extension SynckeyEntity {
         
     }
     
+    func remove(groups: [GroupEntity], realm: Realm) {
+        let groupids = groups.flatMap({ $0.id })
+        let removeGroups = self.groups.filter({ $0.id != nil  }).filter({ group in !groupids.contains(group.id!) })
+        try? realm.write {
+            realm.delete(removeGroups)
+        }
+    }
+    
 }

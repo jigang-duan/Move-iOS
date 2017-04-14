@@ -107,8 +107,16 @@ class UserInfo {
     
     static let shared = UserInfo()
     
+    var id: String? {
+        get {
+            return RxStore.shared.userId.value
+        }
+        set(newValue) {
+            RxStore.shared.userId.value = newValue
+        }
+    }
+    
     var accessToken: AccessToken
-    var id: String?
     var profile: Profile?
     
     private init() {

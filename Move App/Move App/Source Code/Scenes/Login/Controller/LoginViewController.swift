@@ -101,10 +101,6 @@ class LoginViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.logedIn.map { $0.isValid }.drive(MessageServer.share.subject).addDisposableTo(disposeBag)
-        
-        viewModel.thirdLoginResult.map { $0.isValid }.drive(MessageServer.share.subject).addDisposableTo(disposeBag)
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -16,7 +16,7 @@ import RxRealm
 
 class MessageServer {
     
-    var subject = BehaviorSubject<Bool>(value: false)
+    var syncSubject = BehaviorSubject<Bool>(value: false)
     
     static let share = MessageServer()
     
@@ -114,32 +114,18 @@ class MessageServer {
                 .filterNil()
                 .subscribe(realm.rx.delete())
                 .addDisposableTo(disposeBag)
-            
-            syncData.map { $0.groups }
-                .filterNil()
-                .map({ $0.filter({  $0.flag != -1 }) })
-                .subscribe(onNext: {
-                    if let sync = syncObject.first {
-                        sync.add(groups: $0, realm: realm)
-                    }
-                })
-                .addDisposableTo(disposeBag)
-            
-//            syncData.map { $0.members }
-//                .filterNil()
-//                .map{_ in true}
-//                .bindTo(subject)
-//                .addDisposableTo(disposeBag)
         }
     }
     
     func subscribe() -> Disposable {
         let realm = try! Realm()
-        let uid = Me.shared.user.id
-        let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid)
-        return subject.asObservable()
-            .filter { $0 }
-            .filter { _ in sync == nil }
+        return RxStore.shared.deviceInfosState.asObservable()
+            .map({ $0.flatMap({$0.deviceId}).sorted() })
+            .distinctUntilChanged({ $0.0 == $0.1 })
+            .withLatestFrom(RxStore.shared.userId.asObservable())
+            .filterNil()
+            .map({ realm.object(ofType: SynckeyEntity.self, forPrimaryKey: $0) })
+            //.filter { $0 == nil }
             .flatMapLatest { _ -> Observable<SynckeyEntity> in
                 IMManager.shared.initSyncKey()
                 .map {
@@ -148,10 +134,7 @@ class MessageServer {
                 }.catchErrorJustReturn(SynckeyEntity())
             }
             .filter { $0.uid != nil }
-            .flatMapLatest {
-                Observable.combineLatest(Observable.just($0),
-                                         IMManager.shared.getGroups().errorOnEmpty()) { ($0, $1) }
-            }
+            .flatMapLatest { Observable.combineLatest(Observable.just($0), IMManager.shared.getGroups().catchError(catchEmptyError)) { ($0, $1) } }
             .map { self.transform(synckey: $0, groups: $1) }
             .map { (synckey, groups) in
                 synckey.groups.append(objectsIn: groups)
@@ -191,7 +174,19 @@ class MessageServer {
             member.flag = $0.flag ??  MemberEntity.Flag.unknown.rawValue
             entity.members.append(member)
         }
+        if
+            let gid = group.gid,
+            let realm = try? Realm(),
+            let oldgroup = realm.object(ofType: GroupEntity.self, forPrimaryKey: gid) {
+            entity.messages.append(objectsIn: oldgroup.messages)
+            entity.notices.append(objectsIn: oldgroup.notices)
+        }
         return entity
     }
 
+}
+
+
+fileprivate func catchEmptyError(error: Error) -> Observable<[ImGroup]> {
+    return Observable<[ImGroup]>.empty()
 }

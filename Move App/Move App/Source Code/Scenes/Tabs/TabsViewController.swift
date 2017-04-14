@@ -31,11 +31,13 @@ class TabsViewController: UITabBarController {
         let hasDevice = RxStore.shared.deviceInfosState.asObservable()
             .map({ $0.count > 0 })
         
-        
         hasDevice.bindNext({[weak self] in
                 self?.viewControllers?[0].tabBarItem.isEnabled = $0
             })
             .addDisposableTo(bag)
+        
+        let nonOrOneDevice = RxStore.shared.deviceInfosState.asObservable().filter({ $0.count <= 1 }).map({ $0.first?.deviceId })
+        nonOrOneDevice.bindTo(RxStore.shared.currentDeviceId).addDisposableTo(bag)
         
         enterSubject.asObservable()
             .filter({$0})
@@ -57,6 +59,7 @@ class TabsViewController: UITabBarController {
                 self?.showSOSViewController(sos: $0)
             })
             .addDisposableTo(bag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
