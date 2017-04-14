@@ -50,11 +50,11 @@ extension MoveApi {
         var gender: String?
         var height: Int?
         var weight: Int?
-        var unit_value: Int?
-        var unit_weight_value: Int?
-        var orientation:Int?
+        var heightUnit: Int?
+        var weightUnit: Int?
+        var orientation:Int?//手表携带位置
         var birthday: Date?
-        var mtime: Date?
+        var mtime: Date?//更新时间(更新数据时会自动修改,不用手动上传该参数)
     }
     
     struct LoginInfo {
@@ -78,8 +78,8 @@ extension MoveApi {
         var gender: String?
         var height: Int?
         var weight: Int?
-        var unit_value: Int?
-        var unit_weight_value: Int?
+        var heightUnit: Int?
+        var weightUnit: Int?
         var orientation:Int?
         var birthday: Date?
         var mtime: Date?
@@ -172,8 +172,8 @@ extension MoveApi.UserInfoMap: Mappable{
         gender <- map["gender"]
         height <- map["height"]
         weight <- map["weight"]
-        unit_value <- map["unit_value"]
-        unit_weight_value <- map["unit_weight_value"]
+        heightUnit <- map["height_unit"]
+        weightUnit <- map["weight_unit"]
         orientation <- map["orientation"]
         birthday <- (map["birthday"], DateIntTransform())
         mtime <- (map["mtime"], DateIntTransform())
@@ -219,8 +219,8 @@ extension MoveApi.UserInfoSetting: Mappable{
         gender <- map["gender"]
         height <- map["height"]
         weight <- map["weight"]
-        unit_value <- map["unit_value"]
-        unit_weight_value <- map["unit_weight_value"]
+        heightUnit <- map["height_unit"]
+        weightUnit <- map["weight_unit"]
         orientation <- map["orientation"]
         birthday <- (map["birthday"], DateIntTransform())
         mtime <- (map["mtime"], DateIntTransform())

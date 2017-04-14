@@ -179,6 +179,8 @@ class AccountKidsRulesuserController: UITableViewController {
             info.gender = kidInfo?.gender
             info.height = kidInfo?.height
             info.weight = kidInfo?.weight
+            info.heightUnit = kidInfo?.heightUnit
+            info.weightUnit = kidInfo?.weightUnit
             info.birthday = kidInfo?.birthday
             info.profile = kidInfo?.profile
             

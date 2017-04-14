@@ -9,22 +9,21 @@
 import UIKit
 
 
-let changeUnit = 2.2046226218488
-
 class SetYourWeightController: UIViewController {
+    
+    let changeUnit = 2.2046226218488
     
     @IBOutlet weak var weightValue: UILabel!
     @IBOutlet weak var RuleView: UIView!
     @IBOutlet weak var lbBtn: UIButton!
     @IBOutlet weak var kgBtn: UIButton!
 
-    var weightBlock: ((Int) -> Void)?
+    var weightBlock: ((Int, UnitType) -> Void)?
     
     var selectedWeight = 70
     var isUnitKg = true
     
-    var ruler = TXHRrettyRuler()
-    
+    var ruler:TXHRrettyRuler!
     
     
     override func viewDidLoad() {
@@ -35,8 +34,7 @@ class SetYourWeightController: UIViewController {
     
     
     func drawRule() -> () {
-        let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140)
-        ruler = TXHRrettyRuler.init(frame: rect)
+        ruler = TXHRrettyRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
         ruler.rulerDeletate = self
         ruler.showScrollView(withCount: 248, average: NSNumber(value: 1), currentValue: CGFloat(selectedWeight), smallMode: true)
         
@@ -46,7 +44,7 @@ class SetYourWeightController: UIViewController {
     
     
     
-    @IBAction func BackAction(_ sender: AnyObject?) {
+    @IBAction func backAction(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -71,20 +69,15 @@ class SetYourWeightController: UIViewController {
     
     @IBAction func saveAction(_ sender: UIButton) {
         if self.weightBlock != nil {
-            var weight = selectedWeight
-            if !isUnitKg {
-                weight = Int(Double(weight)*changeUnit)
-            }
-            self.weightBlock!(weight)
+            self.weightBlock!(selectedWeight, isUnitKg ? .metric : .british)
         }
-        self.BackAction(nil)
+        self.backAction(nil)
     }
     
 }
 extension SetYourWeightController: TXHRrettyRulerDelegate{
     
     func txhRrettyRuler(_ rulerScrollView: TXHRulerScrollView!) {
-        print(rulerScrollView.rulerValue)
         selectedWeight = Int(rulerScrollView.rulerValue)
         weightValue.text = String(describing: selectedWeight)
         

@@ -103,6 +103,11 @@ extension UserManager {
 }
 
 
+enum UnitType: Int {
+    case metric = 0
+    case british = 1
+}
+
 class UserInfo {
     
     static let shared = UserInfo()
@@ -142,11 +147,11 @@ class UserInfo {
         var gender: String?
         var height: Int?
         var weight: Int?
-        var unit_value: Int?
-        var unit_weight_value: Int?
-        var orientation:Int?
+        var heightUnit: UnitType?
+        var weightUnit: UnitType?
+        var orientation:Int?//手表携带位置
         var birthday: Date?
-        var mtime: Date?
+        var mtime: Date?//更新时间(更新数据时会自动修改,不用手动上传该参数)
     }
 }
 
@@ -274,8 +279,8 @@ extension ObservableType where E == MoveApi.UserInfoMap {
                                            gender: $.gender,
                                            height: $.height,
                                            weight: $.weight,
-                                           unit_value: $.unit_value,
-                                           unit_weight_value: $.unit_weight_value,
+                                           heightUnit: UnitType(rawValue: $.heightUnit ?? 0),
+                                           weightUnit: UnitType(rawValue: $.weightUnit ?? 0),
                                            orientation: $.orientation,
                                            birthday: $.birthday,
                                            mtime: $.mtime)

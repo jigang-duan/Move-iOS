@@ -31,6 +31,12 @@
                         currentValue:(CGFloat)currentValue
                            smallMode:(BOOL)mode {
     
+    for (UIView *vw in self.subviews) {
+        if ([vw isKindOfClass:[rulerScrollView class]]){
+            [vw removeFromSuperview];
+        }
+    }
+    
     NSAssert(rulerScrollView != nil, @"***** 调用此方法前，请先调用 initWithFrame:(CGRect)frame 方法初始化对象 rulerScrollView\n");
     NSAssert(currentValue < [average floatValue] * count, @"***** currentValue 不能大于直尺最大值（count * average）\n");
     rulerScrollView.rulerAverage = average;
@@ -38,6 +44,7 @@
     rulerScrollView.rulerValue = currentValue;
     rulerScrollView.mode = mode;
     [rulerScrollView drawRuler];
+    
     [self addSubview:rulerScrollView];
     [self drawRacAndLine];
 }
@@ -97,29 +104,6 @@
 }
 
 - (void)drawRacAndLine {
-
-    
-    // 渐变
-//    CAGradientLayer *gradient = [CAGradientLayer layer];
-//    gradient.frame = self.bounds;
-//    
-//    gradient.colors = @[(id)[[UIColor whiteColor] colorWithAlphaComponent:1.f].CGColor,
-//                        (id)[[UIColor whiteColor] colorWithAlphaComponent:0.0f].CGColor,
-//                        (id)[[UIColor whiteColor] colorWithAlphaComponent:1.f].CGColor];
-//    
-//    gradient.locations = @[[NSNumber numberWithFloat:0.0f],
-//                           [NSNumber numberWithFloat:0.6f]];
-//    
-//    gradient.startPoint = CGPointMake(0, .5);
-//    gradient.endPoint = CGPointMake(1, .5);
-//    
-//    CGMutablePathRef pathArc = CGPathCreateMutable();
-//    
-//    CGPathMoveToPoint(pathArc, NULL, 0, DISTANCETOPANDBOTTOM);
-//    CGPathAddQuadCurveToPoint(pathArc, NULL, self.frame.size.width / 2, - 20, self.frame.size.width, DISTANCETOPANDBOTTOM);
-//    
-//    
-//    [self.layer addSublayer:gradient];
     
     // 红色指示器
     CAShapeLayer *shapeLayerLine = [CAShapeLayer layer];
@@ -169,6 +153,3 @@
 }
 
 @end
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com

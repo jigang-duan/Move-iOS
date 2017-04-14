@@ -29,6 +29,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         addInfo.gender = firstBindInfo.gender
         addInfo.height = firstBindInfo.height
         addInfo.weight = firstBindInfo.weight
+        addInfo.heightUnit = firstBindInfo.heightUnit?.rawValue
+        addInfo.weightUnit = firstBindInfo.weightUnit?.rawValue
         addInfo.birthday = firstBindInfo.birthday
         return MoveApi.Device.add(deviceId: firstBindInfo.deviceId!, addInfo: addInfo)
             .map(errorTransform)
@@ -119,6 +121,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.device?.user?.gender = updateInfo.gender
         info.device?.user?.height = updateInfo.height
         info.device?.user?.weight = updateInfo.weight
+        info.device?.user?.heightUnit = updateInfo.heightUnit?.rawValue
+        info.device?.user?.weightUnit = updateInfo.weightUnit?.rawValue
         info.device?.user?.birthday = updateInfo.birthday
         
         return MoveApi.Device.update(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!, updateInfo: info)

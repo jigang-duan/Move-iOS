@@ -2475,7 +2475,7 @@
         <!--Contact us-->
         <scene sceneID="6KQ-hi-IIU">
             <objects>
-                <tableViewController id="GuX-MJ-td2" sceneMemberID="viewController">
+                <tableViewController id="GuX-MJ-td2" customClass="ContactUsTableVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Nt-Iw-uYc">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -61,13 +61,13 @@ class KidInformationController: UIViewController {
         
         genderLab.text = deviceAddInfo?.gender ?? "Gender"
         if let height = deviceAddInfo?.height {
-             heightLab.text =  "\(height) cm"
+             heightLab.text =  "\(height) " + ((deviceAddInfo?.heightUnit == UnitType.metric) ? "cm":"inch")
         }else{
              heightLab.text = "Height"
         }
         
         if let weight = deviceAddInfo?.weight {
-            weightLab.text =  "\(weight) kg"
+            weightLab.text =  "\(weight) " + ((deviceAddInfo?.weightUnit == UnitType.metric) ? "kg":"lb")
         }else{
             weightLab.text = "Weight"
         }
@@ -215,16 +215,18 @@ class KidInformationController: UIViewController {
             }
         }
         if let sg = R.segue.kidInformationController.setWeightVC(segue: segue) {
-            sg.destination.weightBlock = { (weight) in
+            sg.destination.weightBlock = { (weight, unit) in
                 self.deviceAddInfo?.weight = weight
-                self.weightLab.text = "\(weight) kg"
+                self.deviceAddInfo?.weightUnit = unit
+                self.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let sg = R.segue.kidInformationController.setHeightVC(segue: segue) {
-            sg.destination.heightBlock = { (height) in
+            sg.destination.heightBlock = { (height, unit) in
                 self.deviceAddInfo?.height = height
-                self.heightLab.text = "\(height) cm"
+                self.deviceAddInfo?.heightUnit = unit
+                self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }

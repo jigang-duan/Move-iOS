@@ -166,6 +166,8 @@ extension DeviceInfo {
                                gender: element.user?.gender,
                                height: element.user?.height,
                                weight: element.user?.weight,
+                               heightUnit: UnitType(rawValue: element.user?.heightUnit ?? 0),
+                               weightUnit: UnitType(rawValue: element.user?.weightUnit ?? 0),
                                birthday: element.user?.birthday,
                                gid: element.user?.gid)
     }
@@ -179,6 +181,8 @@ struct DeviceUser {
     var gender: String?
     var height: Int?
     var weight: Int?
+    var heightUnit: UnitType?
+    var weightUnit: UnitType?
     var birthday: Date?
     var gid: String?
 }
@@ -210,6 +214,8 @@ struct DeviceBindInfo {
     var gender: String?
     var height: Int?
     var weight: Int?
+    var heightUnit: UnitType?
+    var weightUnit: UnitType?
     var birthday: Date?
 }
 

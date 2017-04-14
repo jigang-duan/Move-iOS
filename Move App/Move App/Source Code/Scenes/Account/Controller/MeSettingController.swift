@@ -11,13 +11,15 @@ import CustomViews
 
 class MeSettingController: UITableViewController {
     
-    var settingSaveBlock: ((String?, Int?, Int?, Date?, UIImage?) -> Void)?
+    var settingSaveBlock: ((String?, Int?, UnitType?, Int?, UnitType?, Date?, UIImage?) -> Void)?
     
     var gender: String?
     var height: Int?
     var weight: Int?
     var birthday: Date?
     
+    var heightUnit:UnitType?
+    var weightUnit:UnitType?
     
     @IBOutlet weak var headBun: UIButton!
     
@@ -55,7 +57,7 @@ class MeSettingController: UITableViewController {
                 || weight != info?.weight
                 || birthday != info?.birthday
                 || changedImage != nil {
-                self.settingSaveBlock!(gender, height, weight, birthday, changedImage)
+                self.settingSaveBlock!(gender, height, heightUnit, weight, weightUnit, birthday, changedImage)
             }
         }
     }
@@ -73,8 +75,8 @@ class MeSettingController: UITableViewController {
         
         emailLab.text = info?.email
         genderLab.text = info?.gender
-        heightLab.text = String(info?.height ?? 0)
-        weightLab.text = String(info?.weight ?? 0)
+        heightLab.text = "\(info?.height ?? 0) " + ((info?.heightUnit == UnitType.metric) ? "cm":"inch")
+        weightLab.text = "\(info?.weight ?? 0) " + ((info?.weightUnit == UnitType.metric) ? "kg":"lb")
         birthdayLab.text = info?.birthday?.stringYearMonthDay
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
@@ -126,36 +128,30 @@ class MeSettingController: UITableViewController {
                     self.gender = gender
                     self.genderLab.text = gender
                 }
-                self.present(vc, animated: true, completion: {
-                    
-                })
+                self.present(vc, animated: true)
             case 1:
                 let vc = R.storyboard.kidInformation.setYourHeghtController()!
-                vc.heightBlock = { height in
+                vc.heightBlock = { height, unit in
                     self.height = height
-                    self.heightLab.text = String(height)
+                    self.heightUnit = unit
+                    self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
                 }
-                self.present(vc, animated: true, completion: {
-                    
-                })
+                self.present(vc, animated: true);
             case 2:
                 let vc = R.storyboard.kidInformation.setYourWeightController()!
-                vc.weightBlock = {weight in
+                vc.weightBlock = {weight, unit in
                     self.weight = weight
-                    self.weightLab.text = String(weight)
+                    self.weightUnit = unit
+                    self.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
                 }
-                self.present(vc, animated: true, completion: {
-                    
-                })
+                self.present(vc, animated: true)
             case 3:
                 let vc = R.storyboard.kidInformation.setYourBirthdayController()!
                 vc.birthdayBlock = {birthday in
                     self.birthday = birthday
                     self.birthdayLab.text = birthday.stringYearMonthDay
                 }
-                self.present(vc, animated: true, completion: {
-                    
-                })
+                self.present(vc, animated: true)
             default:
                 break
             }

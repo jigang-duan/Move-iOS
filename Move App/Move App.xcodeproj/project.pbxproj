@@ -277,6 +277,7 @@
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 		FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */; };
+		FF2F1B6E1E9F9131007F6B30 /* ContactUsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */; };
 		FF3D7A761E7D2B5900239DFE /* ImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */; };
 		FF4925361E8B91470010CE84 /* Ble+Apn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4925351E8B91470010CE84 /* Ble+Apn.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
@@ -632,6 +633,7 @@
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberVC.swift; sourceTree = "<group>"; };
+		FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsTableVC.swift; sourceTree = "<group>"; };
 		FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageUtility.swift; path = Shared/Common/Utils/ImageUtility.swift; sourceTree = "<group>"; };
 		FF4925351E8B91470010CE84 /* Ble+Apn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ble+Apn.swift"; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
@@ -1644,6 +1646,7 @@
 				FF0859091E72371A00EB81D9 /* MeSetNameVC.swift */,
 				FF08590B1E72372B00EB81D9 /* MeSetPasswordVC.swift */,
 				FF0859111E72892F00EB81D9 /* OtherSettingsVC.swift */,
+				FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */,
 				E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */,
 				E92A7ABE1E79070100F1BC43 /* officaialNumber.plist */,
 			);
@@ -2553,6 +2556,7 @@
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */,
+				FF2F1B6E1E9F9131007F6B30 /* ContactUsTableVC.swift in Sources */,
 				FFB543B11E7175DD00E11F5A /* MeSettingController.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,

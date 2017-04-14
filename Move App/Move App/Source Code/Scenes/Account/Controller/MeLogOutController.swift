@@ -22,8 +22,8 @@ class MeLogoutController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: MeLogoutViewModel!
     
-    typealias SaveData = (String?, Int?, Int?, Date?, UIImage?)
-    var saveSubject = PublishSubject<SaveData>()
+//    typealias SaveData = (String?, Int?, Int?, Date?, UIImage?)
+//    var saveSubject = PublishSubject<SaveData>()
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,13 +108,15 @@ class MeLogoutController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.meLogoutController.shwoMeSettings(segue: segue) {
-            sg.destination.settingSaveBlock = { gender, height, weight, birthday, changedImage in
+            sg.destination.settingSaveBlock = { gender, height, heightUnit, weight, weightUnit, birthday, changedImage in
                 
                 var info = UserInfo.Profile()
                 info.gender = gender
                 info.weight = weight
                 info.height = height
                 info.birthday = birthday
+                info.heightUnit = heightUnit
+                info.weightUnit = weightUnit
                 
                 
                 var result: Observable<ValidationResult>?
@@ -136,6 +138,8 @@ class MeLogoutController: UIViewController {
                         UserInfo.shared.profile?.height = info.height
                         UserInfo.shared.profile?.weight = info.weight
                         UserInfo.shared.profile?.birthday = info.birthday
+                        UserInfo.shared.profile?.heightUnit = info.heightUnit
+                        UserInfo.shared.profile?.weightUnit = info.weightUnit
                         if changedImage != nil {
                             UserInfo.shared.profile?.iconUrl = info.iconUrl
                             self.updateAvatar(with: info.iconUrl ?? "")

@@ -72,7 +72,7 @@ class KidInformationViewModel {
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
-                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: pid, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
+                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
                                 .map({_ -> ValidationResult in
                                     var user = DeviceManager.shared.currentDevice?.user
                                     user?.number = phone
@@ -81,6 +81,8 @@ class KidInformationViewModel {
                                     user?.gender = f.gender
                                     user?.height = f.height
                                     user?.weight = f.weight
+                                    user?.heightUnit = f.heightUnit
+                                    user?.weightUnit = f.weightUnit
                                     user?.birthday = f.birthday
                                     DeviceManager.shared.currentDevice?.user = user
                                     
@@ -88,7 +90,7 @@ class KidInformationViewModel {
                                 })
                             }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
-                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, birthday: f.birthday, gid: nil))
+                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
                             .map({_ -> ValidationResult in
                                 var user = DeviceManager.shared.currentDevice?.user
                                 user?.number = phone
@@ -97,6 +99,8 @@ class KidInformationViewModel {
                                 user?.gender = f.gender
                                 user?.height = f.height
                                 user?.weight = f.weight
+                                user?.heightUnit = f.heightUnit
+                                user?.weightUnit = f.weightUnit
                                 user?.birthday = f.birthday
                                 DeviceManager.shared.currentDevice?.user = user
                                 

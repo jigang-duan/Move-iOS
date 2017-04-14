@@ -27,6 +27,8 @@ extension MoveApi {
         var gender: String?
         var height: Int?
         var weight: Int?
+        var heightUnit: Int?
+        var weightUnit: Int?
         var birthday: Date?
     }
     
@@ -82,6 +84,8 @@ extension MoveApi {
         var gender: String?
         var height: Int?
         var weight: Int?
+        var heightUnit: Int?
+        var weightUnit: Int?
         var birthday: Date?
         var gid: String?
     }
@@ -328,6 +332,8 @@ extension MoveApi.DeviceAdd: Mappable {
         gender <- map["gender"]
         height <- map["height"]
         weight <- map["weight"]
+        heightUnit <- map["height_unit"]
+        weightUnit <- map["weight_unit"]
         birthday <- (map["birthday"], DateIntTransform())
     }
 }
@@ -439,6 +445,8 @@ extension MoveApi.DeviceUser: Mappable {
         gender <- map["gender"]
         height <- map["height"]
         weight <- map["weight"]
+        heightUnit <- map["height_unit"]
+        weightUnit <- map["weight_unit"]
         birthday <- (map["birthday"], DateIntTransform())
         gid <- map["gid"]
     }

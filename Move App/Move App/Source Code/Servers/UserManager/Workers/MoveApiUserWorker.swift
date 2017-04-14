@@ -16,7 +16,7 @@ class MoveApiUserWorker: UserWorkerProtocl {
         case none = ""
         case twitter = "twitter"
         case facebook = "facebook"
-        case google = "google+"
+        case google = "google"
     }
     
     func tplogin(platform: LoginType, openld: String, secret: String) -> Observable<Bool> {
@@ -88,8 +88,8 @@ class MoveApiUserWorker: UserWorkerProtocl {
                                                    gender: profile.gender,
                                                    height: profile.height,
                                                    weight: profile.weight,
-                                                   unit_value: profile.unit_value,
-                                                   unit_weight_value: profile.unit_weight_value,
+                                                   heightUnit: UnitType(rawValue: profile.heightUnit ?? 0),
+                                                   weightUnit: UnitType(rawValue: profile.weightUnit ?? 0),
                                                    orientation: profile.orientation,
                                                    birthday: profile.birthday,
                                                    mtime: profile.mtime)
@@ -117,8 +117,8 @@ class MoveApiUserWorker: UserWorkerProtocl {
                                            gender: userInfo.gender,
                                            height: userInfo.height,
                                            weight: userInfo.weight,
-                                           unit_value: userInfo.unit_value,
-                                           unit_weight_value: userInfo.unit_weight_value,
+                                           heightUnit: userInfo.heightUnit?.rawValue,
+                                           weightUnit: userInfo.weightUnit?.rawValue,
                                            orientation: userInfo.orientation,
                                            birthday: userInfo.birthday,
                                            mtime: userInfo.mtime)

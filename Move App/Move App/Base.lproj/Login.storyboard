@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -37,21 +37,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gwf-gF-0qI">
-                                <rect key="frame" x="152.5" y="84" width="70" height="70"/>
-                                <color key="backgroundColor" red="0.12156862765550613" green="0.50196081399917603" blue="0.93725490570068359" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="67U-F0-bN2"/>
-                                    <constraint firstAttribute="height" constant="70" id="VwS-Q3-tlJ"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogL-tR-whX" userLabel="Account">
-                                <rect key="frame" x="0.0" y="174" width="375" height="232"/>
+                                <rect key="frame" x="0.0" y="194" width="375" height="232"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="general_ic_email" translatesAutoresizingMaskIntoConstraints="NO" id="jLp-VW-gFb">
                                         <rect key="frame" x="35" y="6" width="20" height="20"/>
@@ -234,6 +221,9 @@
                                     <constraint firstAttribute="height" constant="1" id="OzR-T5-Hm2"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_ic_launcher" translatesAutoresizingMaskIntoConstraints="NO" id="1UT-Oq-9Rk">
+                                <rect key="frame" x="142.5" y="84" width="90" height="90"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -241,6 +231,7 @@
                             <constraint firstItem="B2f-rA-COw" firstAttribute="top" secondItem="Iir-Oq-Pcf" secondAttribute="bottom" constant="20" id="8WJ-Ct-heX"/>
                             <constraint firstItem="Iir-Oq-Pcf" firstAttribute="leading" secondItem="EIz-rr-t34" secondAttribute="trailing" constant="50" id="DUG-6G-iAz"/>
                             <constraint firstItem="sks-BJ-sxO" firstAttribute="leading" secondItem="Czz-QO-uP3" secondAttribute="trailing" constant="15" id="DlF-Gt-5Yk"/>
+                            <constraint firstItem="1UT-Oq-9Rk" firstAttribute="centerX" secondItem="jmS-Sn-Y7S" secondAttribute="centerX" id="HXZ-ps-G3Q"/>
                             <constraint firstItem="ZnH-CB-kaZ" firstAttribute="leading" secondItem="jmS-Sn-Y7S" secondAttribute="leading" id="K6J-VK-gDT"/>
                             <constraint firstItem="BRO-b5-xLr" firstAttribute="top" secondItem="sks-BJ-sxO" secondAttribute="bottom" constant="15" id="KcG-9w-1JO"/>
                             <constraint firstItem="Iir-Oq-Pcf" firstAttribute="centerX" secondItem="jmS-Sn-Y7S" secondAttribute="centerX" id="OHe-3e-BSl"/>
@@ -248,12 +239,11 @@
                             <constraint firstItem="ogL-tR-whX" firstAttribute="leading" secondItem="jmS-Sn-Y7S" secondAttribute="leading" id="Vr9-g3-0ir"/>
                             <constraint firstAttribute="trailing" secondItem="ogL-tR-whX" secondAttribute="trailing" id="ZBe-Ub-UNJ"/>
                             <constraint firstItem="EIz-rr-t34" firstAttribute="top" secondItem="Iir-Oq-Pcf" secondAttribute="top" id="ZmX-TH-G9D"/>
-                            <constraint firstItem="ogL-tR-whX" firstAttribute="top" secondItem="gwf-gF-0qI" secondAttribute="bottom" constant="20" id="aSW-B1-7SZ"/>
                             <constraint firstItem="Iir-Oq-Pcf" firstAttribute="top" secondItem="Czz-QO-uP3" secondAttribute="bottom" constant="9" id="coY-cE-KYx"/>
-                            <constraint firstItem="gwf-gF-0qI" firstAttribute="centerX" secondItem="jmS-Sn-Y7S" secondAttribute="centerX" id="e8h-Cm-IUX"/>
-                            <constraint firstItem="gwf-gF-0qI" firstAttribute="top" secondItem="zLJ-E2-bGQ" secondAttribute="bottom" constant="20" id="iDd-NM-jjU"/>
+                            <constraint firstItem="ogL-tR-whX" firstAttribute="top" secondItem="1UT-Oq-9Rk" secondAttribute="bottom" constant="20" id="fsM-3O-WMp"/>
                             <constraint firstItem="EIz-rr-t34" firstAttribute="top" secondItem="ZnH-CB-kaZ" secondAttribute="bottom" constant="15" id="ji2-WB-6bP"/>
                             <constraint firstItem="BRO-b5-xLr" firstAttribute="top" secondItem="Iir-Oq-Pcf" secondAttribute="top" id="jqw-xT-9uu"/>
+                            <constraint firstItem="1UT-Oq-9Rk" firstAttribute="top" secondItem="zLJ-E2-bGQ" secondAttribute="bottom" constant="20" id="kVj-Md-D47"/>
                             <constraint firstItem="Czz-QO-uP3" firstAttribute="centerX" secondItem="jmS-Sn-Y7S" secondAttribute="centerX" id="lIY-SW-Ncf"/>
                             <constraint firstItem="Czz-QO-uP3" firstAttribute="leading" secondItem="ZnH-CB-kaZ" secondAttribute="trailing" constant="15" id="sh6-ZZ-7fd"/>
                         </constraints>
@@ -278,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6t-eD-GgA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1908.75" y="-177.5"/>
+            <point key="canvasLocation" x="1908" y="-177.66116941529236"/>
         </scene>
         <!--Password recovery-->
         <scene sceneID="5ZJ-NJ-m6a">
@@ -886,5 +876,6 @@ Terms of use,Privacy and Secunity</string>
         <image name="general_ic_google" width="48" height="48"/>
         <image name="general_ic_password" width="20" height="20"/>
         <image name="general_ic_twitter" width="48" height="48"/>
+        <image name="login_ic_launcher" width="90" height="90"/>
     </resources>
 </document>
