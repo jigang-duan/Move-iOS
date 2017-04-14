@@ -2384,7 +2384,7 @@
         <!--Settings-->
         <scene sceneID="cu7-91-1QJ">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="0Yj-y6-81N" customClass="OtherSettingsVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="0Yj-y6-81N" customClass="OtherSettingsViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QE7-Lh-WyR">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

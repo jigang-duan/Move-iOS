@@ -248,6 +248,7 @@
 		E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC61E6A909000B66979 /* UsepermissionController.swift */; };
 		E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */; };
 		E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
+		E9EA91DC1EA0BB3A000216AA /* OtherSettingsVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA91DB1EA0BB3A000216AA /* OtherSettingsVCTableViewController.swift */; };
 		F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293A1E69160F002F4606 /* KidInformationController.swift */; };
 		F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68238531E6C57E50056EBE5 /* CountryCodeController.swift */; };
 		FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */; };
@@ -604,6 +605,7 @@
 		E9E30CC61E6A909000B66979 /* UsepermissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionController.swift; sourceTree = "<group>"; };
 		E9E30CC81E6AA06200B66979 /* UsepermissionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionViewModel.swift; sourceTree = "<group>"; };
 		E9E3F13E1E5704CD00B01E29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Major.storyboard; sourceTree = "<group>"; };
+		E9EA91DB1EA0BB3A000216AA /* OtherSettingsVCTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherSettingsVCTableViewController.swift; sourceTree = "<group>"; };
 		F68238531E6C57E50056EBE5 /* CountryCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeController.swift; sourceTree = "<group>"; };
 		FF02FBC61E6804EE008D0C84 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		FF02FBC81E68050C008D0C84 /* MoveApiDeviceWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiDeviceWorker.swift; sourceTree = "<group>"; };
@@ -1652,6 +1654,7 @@
 				FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */,
 				E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */,
 				E92A7ABE1E79070100F1BC43 /* officaialNumber.plist */,
+				E9EA91DB1EA0BB3A000216AA /* OtherSettingsVCTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2469,6 +2472,7 @@
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
+				E9EA91DC1EA0BB3A000216AA /* OtherSettingsVCTableViewController.swift in Sources */,
 				FF08590A1E72371A00EB81D9 /* MeSetNameVC.swift in Sources */,
 				F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */,
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
