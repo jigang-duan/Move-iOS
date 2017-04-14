@@ -304,6 +304,30 @@ extension Relation: CustomStringConvertible {
 
 extension KidSate.SOSLbsModel {
     
+    init?(aURL: URL) {
+        guard
+            let queryString = aURL.queryParameters,
+            let imei = queryString["i"] else {
+                return nil
+        }
+        self.init()
+        self.imei = imei
+        self.location =  KidSate.LocationInfo(ls: queryString["l"] ?? "")
+        
+        if let utcString = queryString["t"],
+            let interval = TimeInterval(utcString) {
+            self.utc = Date(timeIntervalSince1970: interval)
+            self.location?.time = self.utc
+        }
+        if let btsString = queryString["c"] {
+            self.bts = KidSate.SOSLbsModel.BTS.queryParameters(str: btsString)
+        }
+        if let wifiString = queryString["w"] {
+            self.wifi = KidSate.SOSLbsModel.WiFi.queryParameters(str: wifiString)
+        }
+        
+    }
+    
     init?(url: URL) {
         guard
             let queryString = url.urlParameters,
@@ -359,6 +383,10 @@ fileprivate extension KidSate.SOSLbsModel.BTS {
         self.cellId = components[3]
         self.signal = components[4]
     }
+    
+    static func queryParameters(str: String) -> [KidSate.SOSLbsModel.BTS] {
+        return str.components(separatedBy: "],[").map({  $0.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "") }).flatMap({ KidSate.SOSLbsModel.BTS(cs: $0) })
+    }
 }
 
 fileprivate extension KidSate.SOSLbsModel.WiFi {
@@ -371,6 +399,10 @@ fileprivate extension KidSate.SOSLbsModel.WiFi {
         self.mac = components[0]
         self.ssid = components[1]
         self.signal = Int(components[2])
+    }
+    
+    static func queryParameters(str: String) -> [KidSate.SOSLbsModel.WiFi] {
+        return str.components(separatedBy: "],[").map({  $0.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "") }).flatMap({ KidSate.SOSLbsModel.WiFi(ws: $0) })
     }
 }
 

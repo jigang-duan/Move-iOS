@@ -43,8 +43,8 @@ extension AppDelegate {
         guard
             let scheme = url.scheme, scheme == "tclmove",
             let host = url.host, host == "www.alcatel-move.com",
-            url.path == "/latam/lbs/v1.0",
-            let sos = KidSate.SOSLbsModel(url: url) else {
+            //url.path == "/latam/lbs/v1.0",
+            let sos = KidSate.SOSLbsModel(aURL: url) else {
             return
         }
         SOSService.shared.handle(sos)

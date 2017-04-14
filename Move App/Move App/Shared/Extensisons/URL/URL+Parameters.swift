@@ -10,6 +10,29 @@ import Foundation
 
 extension URL {
     
+    var queryParameters: [String: String]? {
+        // 判断是否有参数
+        guard let queryString = self.query else {
+            return nil
+        }
+        
+        var params = [String: String]()
+        let urlComponents = queryString.components(separatedBy: "&")
+        
+        // 遍历参数
+        for keyValuePair in urlComponents {
+            // 生成Key/Value
+            let pairComponents = keyValuePair.components(separatedBy: "=")
+            let key = pairComponents.first?.removingPercentEncoding
+            let value = pairComponents.last?.removingPercentEncoding
+            if let key = key, let value = value {
+                params[key] = value
+            }
+        }
+        
+        return params
+    }
+    
     var urlParameters: [String: Any]? {
         // 判断是否有参数
         guard let queryString = self.query else {

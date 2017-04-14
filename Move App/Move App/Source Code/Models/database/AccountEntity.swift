@@ -42,3 +42,4 @@ class DeviceTokenEntity: Object {
         return "tokenId"
     }
 }
+

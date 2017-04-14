@@ -256,30 +256,14 @@ class SynckeyEntity: Object {
 
 extension SynckeyEntity {
     
-    func add(groups: [GroupEntity], realm: Realm) {
-        let groupids = self.groups.flatMap({ $0.id })
-        
-        let addGroups = groups.filter({ $0.id != nil  }).filter({ group in !groupids.contains(group.id!) })
-        let addGroupIds = addGroups.flatMap({ $0.id })
-        
-        let allGroups = realm.objects(GroupEntity.self).filter({_ in true})
-        let allGroupIds = allGroups.flatMap({ $0.id })
-        
-        let newGroups = addGroups.filter({ group in !allGroupIds.contains(group.id!) })
-        let otherGroups = allGroups.filter({ group in addGroupIds.contains(group.id!) })
-        
-        try? realm.write {
-            self.groups.append(objectsIn: newGroups)
-            self.groups.append(objectsIn: otherGroups)
-        }
-        
-    }
-    
-    func remove(groups: [GroupEntity], realm: Realm) {
-        let groupids = groups.flatMap({ $0.id })
-        let removeGroups = self.groups.filter({ $0.id != nil  }).filter({ group in !groupids.contains(group.id!) })
-        try? realm.write {
-            realm.delete(removeGroups)
+    static func clearMessages() {
+        if let realm = try? Realm() {
+            let messages = realm.objects(MessageEntity.self)
+            let notices = realm.objects(NoticeEntity.self)
+            try? realm.write {
+                realm.delete(messages)
+                realm.delete(notices)
+            }
         }
     }
     
