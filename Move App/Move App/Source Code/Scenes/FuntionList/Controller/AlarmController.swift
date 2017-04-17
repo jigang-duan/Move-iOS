@@ -20,6 +20,8 @@ class AlarmController: UIViewController {
     @IBOutlet weak var datePickerOulet: UIDatePicker!
     @IBOutlet weak var weekOutlet: WeekView!
     
+    @IBOutlet weak var back: UIButton!
+    
     var alarmExited: KidSetting.Reminder.Alarm?
     
     var activeVariable = Variable(true)
@@ -31,6 +33,7 @@ class AlarmController: UIViewController {
         let btn = UIButton()
         btn.tag  = 10
         weekOutlet.weekAction(btn)
+        
     }
     func internationalization() {
         alarmTitleItem.title = R.string.localizable.alarm()
@@ -41,10 +44,11 @@ class AlarmController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.internationalization()
+        back.isHidden = false
         if alarms != nil {
             self.datePickerOulet.date = (alarms?["alarms"] as? Date ?? nil)!
             self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
-           
+           back.isHidden = true
         }
        
         
@@ -79,6 +83,10 @@ class AlarmController: UIViewController {
             .map({ !$0 })
             .drive(saveOutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+         _ = self.navigationController?.popViewController(animated: true)
     }
     
     func back(_ $: Bool) {

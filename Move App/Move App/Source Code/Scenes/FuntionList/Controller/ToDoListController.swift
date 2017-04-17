@@ -32,6 +32,9 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var DatePickerView: UIView!
     
+
+    @IBOutlet weak var back: UIButton!
+    
     
     var beginTimeVariable = Variable(Date())
     var endTimeVariabel = Variable(Date())
@@ -57,6 +60,7 @@ class ToDoListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.internationalization()
+        back.isHidden = false
         if todo != nil{
             titleTextFieldQutle.text = todo?["topic"] as? String
             remarkTextFieldQutlet.text = todo?["content"] as? String
@@ -65,6 +69,7 @@ class ToDoListController: UITableViewController {
             endTimeVariabel.value = (todo?["end"] as? Date)!
          
             repeatStateVariable.value = repeatcountInt(Intt: (todo?["repeat"] as? Int)!)
+            back.isHidden = true
         }
         
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
@@ -135,6 +140,11 @@ class ToDoListController: UITableViewController {
     
    
     
+
+
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
