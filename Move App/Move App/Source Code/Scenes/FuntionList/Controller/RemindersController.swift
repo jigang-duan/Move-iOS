@@ -246,15 +246,23 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     
     func timeToType(weeks : [Bool]) -> String {
         // 7 tian , every day ,schooltime
-//        let week : [String] = ["M","T","W","T","F","S","S","every day","School time"]
-//        var s : String = ""
-//        for index in 0 ... 6{
-//            if weeks[index]{
-//              
-//            }
-//        }
-        
-        return ""
+        let week : [String] = ["M","T","W","T","F","S","S","Every day","School time"]
+        var s : String = ""
+        for index in 0 ... 6{
+            if weeks[index]{
+              s += week[index]
+              s += " "
+            }
+        }
+        if s == "M T W T F "
+        {
+            s = "School time"
+        }
+        if s == "M T W T F S S "
+        {
+            s = "Every day"
+        }
+        return s
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
