@@ -16,9 +16,18 @@ class UnpairTipVC: UIViewController {
     
     var disposeBag = DisposeBag()
     
+    var isMaster = false
+    
+    @IBOutlet weak var tipLab: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad() 
+        
+        if isMaster == true {
+            tipLab.text = "As a master, unpaired with watch will factory reset the watch and all of the general user will also unpaired with watch"
+        }else{
+            tipLab.text = "You can't make a call with watch and can't receive notification or position from watch by unpaired with watch"
+        }
         
     }
     

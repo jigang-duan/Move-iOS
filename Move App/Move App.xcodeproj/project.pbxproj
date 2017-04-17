@@ -207,7 +207,6 @@
 		E92A6F4D1E8CD6CA00647726 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F4C1E8CD6CA00647726 /* libstdc++.tbd */; };
 		E92A6F4F1E8CD6CF00647726 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F4E1E8CD6CF00647726 /* JavaScriptCore.framework */; };
 		E92A7ABD1E79064700F1BC43 /* OfficaialNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */; };
-		E92A7ABF1E79070100F1BC43 /* officaialNumber.plist in Resources */ = {isa = PBXBuildFile; fileRef = E92A7ABE1E79070100F1BC43 /* officaialNumber.plist */; };
 		E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */; };
 		E956E7F41E752B3500E4298D /* reminder.plist in Resources */ = {isa = PBXBuildFile; fileRef = E956E7F31E752B3500E4298D /* reminder.plist */; };
 		E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */; };
@@ -283,6 +282,7 @@
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
 		FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
+		FF517A2A1EA498C80014E53F /* countryphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF517A291EA498C80014E53F /* countryphone.plist */; };
 		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
 		FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */; };
 		FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */; };
@@ -560,7 +560,6 @@
 		E92A6F4C1E8CD6CA00647726 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		E92A6F4E1E8CD6CF00647726 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfficaialNumberController.swift; sourceTree = "<group>"; };
-		E92A7ABE1E79070100F1BC43 /* officaialNumber.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = officaialNumber.plist; sourceTree = "<group>"; };
 		E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersViewModel.swift; sourceTree = "<group>"; };
 		E956E7F31E752B3500E4298D /* reminder.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reminder.plist; sourceTree = "<group>"; };
 		E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+WeekView.swift"; sourceTree = "<group>"; };
@@ -636,6 +635,7 @@
 		FF4925351E8B91470010CE84 /* Ble+Apn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ble+Apn.swift"; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
+		FF517A291EA498C80014E53F /* countryphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = countryphone.plist; path = Resource/countryphone.plist; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
 		FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailController.swift; sourceTree = "<group>"; };
 		FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddController.swift; sourceTree = "<group>"; };
@@ -1455,6 +1455,7 @@
 		E0931F121E30ADD100755B4A /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				FF517A291EA498C80014E53F /* countryphone.plist */,
 				112D6E741E863D0C006135E3 /* Png */,
 				112D6E5F1E863C65006135E3 /* Gif */,
 			);
@@ -1644,7 +1645,6 @@
 				FF08590B1E72372B00EB81D9 /* MeSetPasswordVC.swift */,
 				FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */,
 				E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */,
-				E92A7ABE1E79070100F1BC43 /* officaialNumber.plist */,
 				E9EA91DB1EA0BB3A000216AA /* OtherSettingsTableViewController.swift */,
 			);
 			path = Controller;
@@ -2178,6 +2178,7 @@
 				112D6E6B1E863CE1006135E3 /* emotion_02.gif in Resources */,
 				FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */,
 				E0931F4B1E31C6DF00755B4A /* Social.storyboard in Resources */,
+				FF517A2A1EA498C80014E53F /* countryphone.plist in Resources */,
 				112D6E891E863D37006135E3 /* emotion_11.png in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
 				112D6E921E863D37006135E3 /* emotion_20.png in Resources */,
@@ -2185,7 +2186,6 @@
 				112D6E951E863D37006135E3 /* emotion_23.png in Resources */,
 				112D6E8D1E863D37006135E3 /* emotion_15.png in Resources */,
 				112D6E8B1E863D37006135E3 /* emotion_13.png in Resources */,
-				E92A7ABF1E79070100F1BC43 /* officaialNumber.plist in Resources */,
 				112D6E721E863CE1006135E3 /* emotion_09.gif in Resources */,
 				112D6E971E863D37006135E3 /* emotion_25.png in Resources */,
 				D29988C81E5A952000D23899 /* KidInformation.storyboard in Resources */,

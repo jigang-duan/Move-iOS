@@ -26,7 +26,7 @@ class EmergencyNumberVC: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    
+    var numbers = ""
     
     
     
@@ -57,6 +57,8 @@ class EmergencyNumberVC: UIViewController {
         super.viewDidLoad()
         
         validate.isHidden = true
+        
+        numberTf.text = numbers
         
         viewModel = EmergencyNumberViewModel(
             input: (

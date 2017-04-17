@@ -45,7 +45,7 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     @IBOutlet weak var savePowerQutel: SwitchButton!
     
-    var isAdminBool : Bool? = false
+    var isAdminBool : Bool = false
     
     let disposeBag = DisposeBag()
     
@@ -150,6 +150,7 @@ class AccountKidsRulesuserController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.accountKidsRulesuserController.showMasterUnpairTip(segue: segue)?.destination {
+            vc.isMaster = self.isAdminBool
             vc.unpairBlock = { flag, message in
                 if flag {
                     _ = self.navigationController?.popToRootViewController(animated: true)
@@ -161,6 +162,7 @@ class AccountKidsRulesuserController: UITableViewController {
         
         if let vc = R.segue.accountKidsRulesuserController.showGeneralUnpairTip(segue: segue)?.destination {
             vc.unpairBlock = { flag, message in
+                vc.isMaster = self.isAdminBool
                 if flag {
                     _ = self.navigationController?.popToRootViewController(animated: true)
                 }else{
@@ -212,7 +214,7 @@ class AccountKidsRulesuserController: UITableViewController {
         if section == 0
         {return 1}
         else if section == 1
-        {return isAdminBool! ? 5 : 6}
+        {return isAdminBool ? 5 : 6}
         else
         {return 8}
     }
@@ -220,7 +222,7 @@ class AccountKidsRulesuserController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         
-        return isAdminBool! ? 3 : 2
+        return isAdminBool ? 3 : 2
     }
     
     

@@ -68,7 +68,7 @@ class ShareQRcodeController: UIViewController {
         kidName.text = device.user?.nickname
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        countDownTime.text = format.string(from: downTime)
+        countDownTime.text = format.string(from: Date())
         
         let embededDic = ["imei": device.deviceId ?? "", "expired_at": Int(downTime.timeIntervalSince1970), "phone":self.memberPhone ?? "", "identity":self.relation ?? "", "profile":self.profile ?? ""] as [String : Any]
         

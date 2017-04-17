@@ -193,7 +193,6 @@ class UpgradeController: UIViewController {
                 }
             }
             checkInfo.fv = ff
-            checkInfo.curef = "MT\(property.device_model ?? "")"
             
             return self.checkVersion(checkInfo: checkInfo)
         }

@@ -8,118 +8,140 @@
 
 import UIKit
 
-class OfficaialNumberController: UIViewController {
+class OfficialNumberController: UIViewController {
 
     @IBOutlet var tableview: UITableView!
     
-    var allArray :[NSDictionary]?
+    @IBOutlet weak var search: UISearchBar!
     
-    fileprivate var IndexLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.map({String($0)})
     
-    var searchController: UISearchController?
-    var cityNameArray: [String]!
-    var visibleResultsIndexs: [[String]]!
+    var visibleDatas: [Group] = []
+    var cellDatas: [Group] = []
+    
+    var indexLetters:[String]? {
+        get{
+            return visibleDatas.map({$0.indexLetter})
+        }
+    }
+    
+    struct Group {
+        var officialNumbers: [OfficialNumber]
+        var indexLetter: String
+    }
+    
+    struct OfficialNumber {
+        var country: String
+        var number: String
+        var abbreviation: String
+    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableview.delegate = self
-        tableview.dataSource = self
-//        tableview.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         
         
-        searchController = UISearchController(searchResultsController: nil)
-        self.searchController?.searchResultsUpdater = self
-        self.searchController?.dimsBackgroundDuringPresentation = false
-        self.searchController?.delegate = self
-        self.searchController?.searchBar .sizeToFit()
-        self.definesPresentationContext = true
         
-        tableview.tableHeaderView = self.searchController?.searchBar
-//        let path = Bundle.main.path(forResource: "officaialNumber.plist", ofType: nil)
-//        let data = NSMutableDictionary(contentsOfFile: path!)
-//        self.allArray = data?["cityOrnumber"] as! [NSDictionary]?
-//        
-//        for i in 0 ..< (self.allArray?.count)!
-//        {
-//            cityNameArray?.append(self.allArray?[i]["cityName"] as! String)
-//            
-//        }
-//        visibleResultsIndexs = IndexLetter.map({ c in cityNameArray.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
+        let path = Bundle.main.path(forResource: "countryphone.plist", ofType: nil)
+        if let arr = NSArray(contentsOf: URL(fileURLWithPath: path ?? "")) as? [[NSArray]]{
+            
+            for group in arr {
+                var gp = Group(officialNumbers: [], indexLetter: "")
+                
+                for a in group {
+                    let number = OfficialNumber(country: a[0] as! String, number: a[1] as! String, abbreviation: a[2] as! String)
+                    gp.officialNumbers.append(number)
+                    if let letter = a[0] as? String, let c = letter.characters.first {
+                        gp.indexLetter = String(c)
+                    }
+                }
+            
+                cellDatas.append(gp)
+            }
+        }
+        visibleDatas = cellDatas
         
     }
     
 }
-extension OfficaialNumberController: UISearchResultsUpdating,UISearchControllerDelegate {
+extension OfficialNumberController: UISearchBarDelegate {
     
-    //点取消搜索
-    func willDismissSearchController(_ searchController: UISearchController) {
-        self.tableview.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        visibleDatas = []
         
-//        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
-//        self.tableviewQulet.reloadData()
+        if searchText.characters.count > 0 {
+            for gp in cellDatas {
+                
+                var g = Group(officialNumbers: [], indexLetter: gp.indexLetter)
+                for on in gp.officialNumbers {
+                    if on.country.lowercased().contains(searchText.lowercased()) {
+                        g.officialNumbers.append(on)
+                    }
+                }
+                
+                if g.officialNumbers.count > 0 {
+                    visibleDatas.append(g)
+                }
+            }
+        }else{
+            visibleDatas = cellDatas
+        }
+        
+        tableview.reloadData()
     }
     
-    //更新
-    func updateSearchResults(for searchController: UISearchController) {
-//        if let text = searchController.searchBar.text,
-//            let count = searchController.searchBar.text?.characters.count, count > 0 {
-//            visibleResultsIdentifiers = ableTimeZoneIdentifiers.filter({ $0.contains(text) })
-//        } else {
-//            visibleResultsIdentifiers = ableTimeZoneIdentifiers
-//        }
-//        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
-//        self.tableviewQulet.reloadData()
-    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        visibleDatas = cellDatas
+        tableview.reloadData()
+    }
     
 }
 
 
-extension OfficaialNumberController: UITableViewDelegate,UITableViewDataSource{
+
+extension OfficialNumberController: UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.IndexLetter.count
+        return visibleDatas.count
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.visibleResultsIndexs[section].count
-        return 1
+        return visibleDatas[section].officialNumbers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: R.reuseIdentifier.officialnumaberCell.identifier, for: indexPath)
-        let cellNumber = cell.accessoryView as! UILabel
+        var cell = tableview.dequeueReusableCell(withIdentifier: "cell")
+        if cell == nil {
+            cell = UITableViewCell.init(style: .value1, reuseIdentifier: "cell")
+        }
         
-//        cell.textLabel?.text = visibleResultsIndexs[indexPath.section][indexPath.row]
-//        
-//        for i in 0 ..< (self.allArray?.count)!
-//        {
-//           if cell.textLabel?.text == self.allArray?[i]["cityName"] as? String
-//           {
-//                cellNumber.text = self.allArray?[i]["Number"] as! String
-//            }
-//        }
+        cell?.textLabel?.text = visibleDatas[indexPath.section].officialNumbers[indexPath.row].country
+        cell?.detailTextLabel?.text = visibleDatas[indexPath.section].officialNumbers[indexPath.row].number
         
-        return cell
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //电话功能 ：模拟器没有电话功能
-        let url = NSURL(string: "tel://10086")
-        UIApplication.shared.openURL(url! as URL)
+        let number = visibleDatas[indexPath.section].officialNumbers[indexPath.row].number
+        if let url = URL(string: "tel://\(number)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
+    
+    
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return IndexLetter[section]
+        return indexLetters?[section]
     }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 25
-    }
+    
+    
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return IndexLetter
+        return indexLetters
     }
 
 }
+

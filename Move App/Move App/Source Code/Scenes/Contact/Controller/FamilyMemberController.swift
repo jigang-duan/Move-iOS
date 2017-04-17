@@ -150,6 +150,10 @@ class FamilyMemberController: UIViewController {
             vc.info = selectInfo
         }
         
+        if let vc = R.segue.familyMemberController.showEmergency(segue: segue)?.destination {
+            vc.numbers = emergencyLab.text ?? ""
+        }
+        
     }
     
 }
