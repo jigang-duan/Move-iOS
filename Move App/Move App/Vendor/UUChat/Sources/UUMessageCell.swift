@@ -17,6 +17,10 @@ protocol UUMessageCellDelegate {
     @objc optional func cellContentDidClick(cell: UUMessageCell, image contentImage: UIImage)
 }
 
+@objc
+protocol UUMessageCellMenuDelegate {
+    @objc optional func handleMenu(cell: UUMessageCell, menuItem title: String, at index: Int)
+}
 
 class UUMessageCell: UITableViewCell {
 
@@ -162,6 +166,8 @@ class UUMessageCell: UITableViewCell {
     }
     
     @IBOutlet weak var delegate: UUMessageCellDelegate?
+    @IBOutlet weak var menuDelegate: UUMessageCellMenuDelegate?
+    var index: Int?
     
     private var audio: UUAVAudioPlayer?
     
@@ -179,6 +185,21 @@ class UUMessageCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.steupViews()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if self.isEditing {
+            for subview in self.subviews {
+                if (subview is UIControl) && (subview.subviews.count == 1) {
+                    if let image = subview.subviews.first as? UIImageView {
+                        image.image = selected ? UIImage(named: "general_del_pre") : UIImage(named: "general_del_nor")
+                        break
+                    }
+                }
+            }
+        }
     }
     
     private func steupViews() {
@@ -211,6 +232,14 @@ class UUMessageCell: UITableViewCell {
         
         contentVoiceIsPlaying = false
         imageAvatarBrowser = UUImageAvatarBrowser()
+        
+        // Menu
+        let itDelete = UIMenuItem(title: "Delete", action: #selector(handleDeleteMenu(_:)))
+        let itMore = UIMenuItem(title: "More", action: #selector(handleMoreMenu(_:)))
+        
+        let menu = UIMenuController.shared
+        menu.menuItems = [itDelete, itMore]
+        menu.update()
     }
     
     // 头像点击
@@ -274,6 +303,25 @@ class UUMessageCell: UITableViewCell {
         view.layer.mask = imageViewMask.layer
     }
 }
+
+extension UUMessageCell {
+    
+    @objc fileprivate func handleDeleteMenu(_ sender: Any) {
+        if let index = self.index {
+            menuDelegate?.handleMenu?(cell: self, menuItem: "Delete", at: index)
+        }
+    }
+    
+    @objc fileprivate func handleMoreMenu(_ sender: Any) {
+        menuDelegate?.handleMenu?(cell: self, menuItem: "More", at: index ?? 0)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return action == #selector(handleDeleteMenu(_:)) || action == #selector(handleMoreMenu(_:))
+    }
+    
+}
+
 
 extension UUMessageCell {
     

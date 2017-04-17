@@ -83,9 +83,23 @@ extension IMManager {
     }
     
     
+    
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
         return worker.sendChatMessage(message: message)
     }
+    
+    func delete(messages ids: [String]) -> Observable<[String]> {
+        return worker.delete(messages: ids).map({ _ in ids })
+    }
+    
+    func deleteMessages(uid: String) -> Observable<Bool> {
+        return worker.deleteMessages(uid: uid)
+    }
+    
+    func deleteMessages(gid: String) -> Observable<Bool> {
+        return worker.deleteMessages(gid: gid)
+    }
+    
     
 }
 
@@ -105,6 +119,10 @@ protocol IMWorkerProtocl {
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp>
     
     func delete(message id: String) -> Observable<String>
+    
+    func delete(messages ids: [String]) -> Observable<Bool>
+    func deleteMessages(uid: String) -> Observable<Bool>
+    func deleteMessages(gid: String) -> Observable<Bool>
 }
 
 

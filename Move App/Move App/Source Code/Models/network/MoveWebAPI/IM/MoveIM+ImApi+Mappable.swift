@@ -99,6 +99,36 @@ extension MoveIM {
         var groups: [ImGroup]?
         var synckey: [ImSynckey]?
     }
+    
+    struct ImMessagesIDs {
+        var mids: [String]?
+        var uid: String?
+        var gid: String?
+    }
+    
+    struct ImMessagesCount {
+        var count: Int?
+    }
+}
+
+extension MoveIM.ImMessagesIDs: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        mids <- map["mids"]
+        uid <- map["uid"]
+        gid <- map["gid"]
+    }
+}
+
+extension MoveIM.ImMessagesCount: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        count <- map["count"]
+    }
 }
 
 extension MoveIM.ImGid: Mappable {

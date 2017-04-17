@@ -86,8 +86,6 @@ class UUInputView: UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
         
-        
-        
     }
     
     required convenience init?(coder aDecoder: NSCoder) {

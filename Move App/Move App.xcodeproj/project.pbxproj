@@ -54,6 +54,8 @@
 		113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E411E9E06DC00B3628C /* URL+Parameters.swift */; };
 		113F2E461E9E12B400B3628C /* SOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E451E9E12B400B3628C /* SOSService.swift */; };
 		113F2E481E9E3D2C00B3628C /* SOSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E471E9E3D2C00B3628C /* SOSController.swift */; };
+		1140A0821EA4B8E200185200 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0811EA4B8E200185200 /* MoreView.swift */; };
+		1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */; };
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
@@ -387,6 +389,8 @@
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
 		113F2E451E9E12B400B3628C /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = SOS/SOSService.swift; sourceTree = "<group>"; };
 		113F2E471E9E3D2C00B3628C /* SOSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSController.swift; sourceTree = "<group>"; };
+		1140A0811EA4B8E200185200 /* MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreView.swift; path = Vendor/UUChat/Sources/MoreView.swift; sourceTree = "<group>"; };
+		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
@@ -789,6 +793,7 @@
 			isa = PBXGroup;
 			children = (
 				112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */,
+				1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */,
 			);
 			name = Rx;
 			sourceTree = "<group>";
@@ -864,6 +869,7 @@
 				11EAC30A1E6D7B14002906F1 /* UUInputFunctionView.swift */,
 				112D6E9D1E865C02006135E3 /* UUInputView.swift */,
 				112D6E9F1E86713B006135E3 /* ISEmojiView.swift */,
+				1140A0811EA4B8E200185200 /* MoreView.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -2413,6 +2419,7 @@
 				FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */,
 				FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */,
 				E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */,
+				1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */,
 				112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */,
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
@@ -2504,6 +2511,7 @@
 				A5ED01FA1E850AD300D2CE50 /* FamilyChatController.swift in Sources */,
 				117577DA1E8B8D59007B2254 /* Rx+UIButton.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
+				1140A0821EA4B8E200185200 /* MoreView.swift in Sources */,
 				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */,

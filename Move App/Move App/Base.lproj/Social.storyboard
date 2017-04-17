@@ -373,6 +373,7 @@
                     </view>
                     <connections>
                         <outlet property="ifView" destination="srb-GD-rWH" id="chh-CI-a4E"/>
+                        <outlet property="moreView" destination="qYj-zk-abQ" id="DIA-Es-4Yi"/>
                         <outlet property="tableView" destination="qat-C3-6yT" id="tI4-ly-vH2"/>
                     </connections>
                 </viewController>
@@ -384,6 +385,11 @@
                     <connections>
                         <outlet property="superVC" destination="rZW-9c-AXH" id="iGh-ku-Hvy"/>
                     </connections>
+                </view>
+                <view contentMode="scaleToFill" id="qYj-zk-abQ" customClass="MoreView" customModule="Move_App" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="4836" y="2958.6206896551726"/>
@@ -424,6 +430,7 @@
                     </view>
                     <connections>
                         <outlet property="ifView" destination="xp3-VT-AMK" id="6h6-hW-dg9"/>
+                        <outlet property="moreView" destination="0iM-Hx-Qny" id="5p8-Wq-BgW"/>
                         <outlet property="tableView" destination="8bJ-GU-kRL" id="vND-nN-6uc"/>
                     </connections>
                 </viewController>
@@ -435,6 +442,11 @@
                     <connections>
                         <outlet property="superVC" destination="v3Z-GN-82X" id="psb-vB-MFO"/>
                     </connections>
+                </view>
+                <view contentMode="scaleToFill" id="0iM-Hx-Qny" customClass="MoreView" customModule="Move_App" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="4857" y="3791"/>

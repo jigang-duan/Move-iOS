@@ -97,6 +97,42 @@ class MoveApiIMWorker: IMWorkerProtocl {
             }
     }
     
+    func delete(messages ids: [String]) -> Observable<Bool> {
+        var messageIDs = MoveIM.ImMessagesIDs()
+        messageIDs.mids = ids
+        return MoveIM.ImApi.deleteMessages(ids: messageIDs)
+            .map(transformMessageIDs)
+            .catchError(messageNotFoundError)
+    }
+    
+    
+    func deleteMessages(uid: String) -> Observable<Bool> {
+        var messageIDs = MoveIM.ImMessagesIDs()
+        messageIDs.uid = uid
+        return MoveIM.ImApi.deleteMessages(ids: messageIDs)
+            .map(transformMessageIDs)
+            .catchError(messageNotFoundError)
+    }
+    
+    
+    func deleteMessages(gid: String) -> Observable<Bool> {
+        var messageIDs = MoveIM.ImMessagesIDs()
+        messageIDs.gid = gid
+        return MoveIM.ImApi.deleteMessages(ids: messageIDs)
+            .map(transformMessageIDs)
+            .catchError(messageNotFoundError)
+    }
+    
+    
 }
 
+fileprivate func transformMessageIDs(count: Int) -> Bool {
+    return true
+}
 
+fileprivate func messageNotFoundError(error: Error) throws -> Observable<Bool> {
+    if WorkerError.messageNotFoundError(form: error) != nil {
+        return Observable.just(true)
+    }
+    throw error
+}

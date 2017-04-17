@@ -68,6 +68,10 @@ extension MoveIM {
             return request(.deleteMessage(id: id)).mapMoveObject(MoveApi.ApiError.self).map{ _ in id }
         }
         
+        final class func deleteMessages(ids: ImMessagesIDs) -> Observable<Int> {
+            return request(.deleteMessages(ids: ids)).mapMoveObject(MoveIM.ImMessagesCount.self).map({ $0.count ?? 0 })
+        }
+        
         enum API {
             case getGroups
             case createGroup(group: ImGroup)
@@ -77,6 +81,7 @@ extension MoveIM {
             case syncData(synckey: ImSynDatakey)
             case sendChatMessage(message: IMMessage)
             case deleteMessage(id: String)
+            case deleteMessages(ids: ImMessagesIDs)
         }
         
     }
@@ -112,6 +117,8 @@ extension MoveIM.ImApi.API: TargetType {
             return "message"
         case .deleteMessage(let id):
             return "message/\(id)"
+        case .deleteMessages:
+            return "messages"
         }
     }
     
@@ -122,7 +129,7 @@ extension MoveIM.ImApi.API: TargetType {
             return .get
         case .createGroup, .initSyncKey, .syncData, .sendChatMessage:
             return .post
-        case .deleteMessage:
+        case .deleteMessage, .deleteMessages:
             return .delete
         }
     }
@@ -140,6 +147,8 @@ extension MoveIM.ImApi.API: TargetType {
             return synckey.toJSON()
         case .sendChatMessage(let messageInfo):
             return messageInfo.toJSON()
+        case .deleteMessages(let ids):
+            return ids.toJSON()
         default:
             return nil
         }
