@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import CustomViews
 
 
 class SetYourHeghtController: UIViewController {
     
-     let changeUnit = 2.54
+    let changeUnit = 2.54
+    let maxInch: UInt = 90
+    let maxCm: UInt = 230
 
     var heightBlock: ((Int, UnitType) -> Void)?
     
@@ -19,27 +22,31 @@ class SetYourHeghtController: UIViewController {
     @IBOutlet weak var cmBun: UIButton!
     
     var isUnitCm = true
-    
     var selectedHeight = 160
     
-    var ruler:TXHRrettyRuler!
+    var ruler:CustomRuler!
     
-    @IBOutlet weak var RulesVView: UIView!
-    @IBOutlet weak var heighLabel: UILabel!
+    @IBOutlet weak var rulerView: UIView!
+    @IBOutlet weak var heightLab: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self .drawRule()
         
+        inchBun.isEnabled = isUnitCm
+        cmBun.isEnabled = !isUnitCm
+        self.heightLab.text = "\(selectedHeight)"
     }
     
     func drawRule() -> () {
-        ruler = TXHRrettyRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
-        ruler.rulerDeletate = self
-        ruler.showScrollView(withCount: 230, average: NSNumber(value: 1), currentValue: CGFloat(selectedHeight), smallMode: true)
-        
-        self.RulesVView .insertSubview(ruler, at: 0)
+        ruler = CustomRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
+        ruler.showRuler(with: isUnitCm ? maxCm:maxInch, currentValue: UInt(selectedHeight))
+        ruler.selectValue = { value in
+            self.selectedHeight = Int(value)
+            self.heightLab.text = "\(value)"
+        }
+        self.rulerView.insertSubview(ruler, at: 0)
     }
 
     
@@ -52,7 +59,8 @@ class SetYourHeghtController: UIViewController {
         cmBun.isEnabled = true
         isUnitCm = false
         
-        ruler.showScrollView(withCount: 90, average: NSNumber(value: 1), currentValue: CGFloat(Double(selectedHeight)/changeUnit), smallMode: true)
+        let currentValue = UInt(Double(selectedHeight)/changeUnit)
+        ruler.showRuler(with: maxInch, currentValue: currentValue > maxInch ? maxInch:currentValue)
     }
     
     @IBAction func cmAction(_ sender: UIButton) {
@@ -60,7 +68,8 @@ class SetYourHeghtController: UIViewController {
         inchBun.isEnabled = true
         isUnitCm = true
         
-        ruler.showScrollView(withCount: 230, average: NSNumber(value: 1), currentValue: CGFloat(Double(selectedHeight)*changeUnit), smallMode: true)
+        let currentValue = UInt(Double(selectedHeight)*changeUnit)
+        ruler.showRuler(with: maxCm, currentValue: currentValue > maxCm ? maxCm:currentValue)
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
@@ -71,10 +80,4 @@ class SetYourHeghtController: UIViewController {
     }
    
 }
-extension SetYourHeghtController: TXHRrettyRulerDelegate{
 
-    func txhRrettyRuler(_ rulerScrollView: TXHRulerScrollView!) {
-        selectedHeight = Int(rulerScrollView.rulerValue)
-        heighLabel.text = String(describing: selectedHeight)
-    }
-}

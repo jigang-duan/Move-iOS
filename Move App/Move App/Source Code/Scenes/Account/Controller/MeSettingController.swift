@@ -131,6 +131,8 @@ class MeSettingController: UITableViewController {
                 self.present(vc, animated: true)
             case 1:
                 let vc = R.storyboard.kidInformation.setYourHeghtController()!
+                vc.selectedHeight = self.height ?? 160
+                vc.isUnitCm = (self.heightUnit == .metric) ? true:false
                 vc.heightBlock = { height, unit in
                     self.height = height
                     self.heightUnit = unit
@@ -139,6 +141,8 @@ class MeSettingController: UITableViewController {
                 self.present(vc, animated: true);
             case 2:
                 let vc = R.storyboard.kidInformation.setYourWeightController()!
+                vc.selectedWeight = self.weight ?? 70
+                vc.isUnitKg = (self.weightUnit == .metric) ? true:false
                 vc.weightBlock = {weight, unit in
                     self.weight = weight
                     self.weightUnit = unit

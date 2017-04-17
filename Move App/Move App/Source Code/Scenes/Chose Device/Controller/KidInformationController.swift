@@ -214,16 +214,20 @@ class KidInformationController: UIViewController {
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }
-        if let sg = R.segue.kidInformationController.setWeightVC(segue: segue) {
-            sg.destination.weightBlock = { (weight, unit) in
+        if let vc = R.segue.kidInformationController.setWeightVC(segue: segue)?.destination {
+            vc.selectedWeight = self.deviceAddInfo?.weight ?? 70
+            vc.isUnitKg = (self.deviceAddInfo?.weightUnit == UnitType.metric) ? true:false
+            vc.weightBlock = { (weight, unit) in
                 self.deviceAddInfo?.weight = weight
                 self.deviceAddInfo?.weightUnit = unit
                 self.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
                 self.viewModel.addInfo = self.deviceAddInfo
             }
         }
-        if let sg = R.segue.kidInformationController.setHeightVC(segue: segue) {
-            sg.destination.heightBlock = { (height, unit) in
+        if let vc = R.segue.kidInformationController.setHeightVC(segue: segue)?.destination {
+            vc.selectedHeight = self.deviceAddInfo?.height ?? 160
+            vc.isUnitCm = (self.deviceAddInfo?.heightUnit == UnitType.metric) ? true:false
+            vc.heightBlock = { (height, unit) in
                 self.deviceAddInfo?.height = height
                 self.deviceAddInfo?.heightUnit = unit
                 self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")

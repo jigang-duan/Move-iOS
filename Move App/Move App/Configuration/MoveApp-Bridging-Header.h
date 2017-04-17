@@ -10,7 +10,6 @@
 #define MoveApp_Bridging_Header_h
 
 #import <SVPulsingAnnotationView/SVPulsingAnnotationView.h>
-#import "TXHRrettyRuler.h"
 
 #import "AmrRecorder.h"
 #import "VoiceConverter.h"

@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import CustomViews
 
 
 class SetYourWeightController: UIViewController {
     
     let changeUnit = 2.2046226218488
+    let maxKg: UInt = 248
+    let maxLb: UInt = 550
     
-    @IBOutlet weak var weightValue: UILabel!
-    @IBOutlet weak var RuleView: UIView!
+    @IBOutlet weak var weightLab: UILabel!
+    @IBOutlet weak var rulerView: UIView!
     @IBOutlet weak var lbBtn: UIButton!
     @IBOutlet weak var kgBtn: UIButton!
 
@@ -23,26 +26,29 @@ class SetYourWeightController: UIViewController {
     var selectedWeight = 70
     var isUnitKg = true
     
-    var ruler:TXHRrettyRuler!
+    var ruler:CustomRuler!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self .drawRule()
         
+        kgBtn.isEnabled = !isUnitKg
+        lbBtn.isEnabled = isUnitKg
+        self.weightLab.text = "\(selectedWeight)"
     }
     
     
     func drawRule() -> () {
-        ruler = TXHRrettyRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
-        ruler.rulerDeletate = self
-        ruler.showScrollView(withCount: 248, average: NSNumber(value: 1), currentValue: CGFloat(selectedWeight), smallMode: true)
-        
-        self.RuleView.insertSubview(ruler, at: 0)
+        ruler = CustomRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
+        ruler.showRuler(with: isUnitKg ? maxKg:maxLb, currentValue: UInt(selectedWeight))
+        ruler.selectValue = { value in
+            self.selectedWeight = Int(value)
+            self.weightLab.text = "\(value)"
+        }
+        self.rulerView.insertSubview(ruler, at: 0)
     }
 
-    
-    
     
     @IBAction func backAction(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
@@ -55,7 +61,8 @@ class SetYourWeightController: UIViewController {
         lbBtn.isEnabled = true
         isUnitKg = true
         
-        ruler.showScrollView(withCount: 248, average: NSNumber(value: 1), currentValue: CGFloat(Double(selectedWeight)/changeUnit), smallMode: true)
+        let currentValue = UInt(Double(selectedWeight)/changeUnit)
+        ruler.showRuler(with: maxKg, currentValue: currentValue > maxKg ? maxKg:currentValue)
     }
     
     @IBAction func lbAction(_ sender: UIButton) {
@@ -63,7 +70,8 @@ class SetYourWeightController: UIViewController {
         kgBtn.isEnabled = true
         isUnitKg = false
         
-        ruler.showScrollView(withCount: 550, average: NSNumber(value: 1), currentValue: CGFloat(Double(selectedWeight)*changeUnit), smallMode: true)
+        let currentValue = UInt(Double(selectedWeight)*changeUnit)
+        ruler.showRuler(with: maxLb, currentValue: currentValue > maxLb ? maxLb:currentValue)
     }
     
     
@@ -75,11 +83,4 @@ class SetYourWeightController: UIViewController {
     }
     
 }
-extension SetYourWeightController: TXHRrettyRulerDelegate{
-    
-    func txhRrettyRuler(_ rulerScrollView: TXHRulerScrollView!) {
-        selectedWeight = Int(rulerScrollView.rulerValue)
-        weightValue.text = String(describing: selectedWeight)
-        
-    }
-}
+
