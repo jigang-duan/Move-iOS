@@ -204,7 +204,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
 
         if indexPath.row < (self.alarms?.count)! {
             _cell.titleLabel.text =  DateUtility.dateTostringHHmm(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
-            _cell.detailtitleLabel?.text = R.string.localizable.school_time()
+            _cell.detailtitleLabel?.text = timeToType(weeks: self.alarms?[indexPath.row]["dayFromWeek"] as! [Bool])
             _cell.titleimage?.image = UIImage.init(named: "reminder_school")
             _cell.accviewBtn.isHidden = false
             _cell.accviewBtn.isOn = self.alarms?[indexPath.row]["active"] as! Bool
@@ -242,6 +242,19 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         
         deleteTap.value += 1
     
+    }
+    
+    func timeToType(weeks : [Bool]) -> String {
+        // 7 tian , every day ,schooltime
+//        let week : [String] = ["M","T","W","T","F","S","S","every day","School time"]
+//        var s : String = ""
+//        for index in 0 ... 6{
+//            if weeks[index]{
+//              
+//            }
+//        }
+        
+        return ""
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

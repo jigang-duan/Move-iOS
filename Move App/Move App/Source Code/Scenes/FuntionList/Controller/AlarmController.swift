@@ -29,7 +29,7 @@ class AlarmController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let btn = UIButton()
-        btn.tag  = 0
+        btn.tag  = 10
         weekOutlet.weekAction(btn)
     }
     func internationalization() {
@@ -47,6 +47,8 @@ class AlarmController: UIViewController {
            
         }
        
+        
+        
         self.datePickerOulet.timeZone = TimeZone(secondsFromGMT: 0)
         
         let viewModel = AlarmViewModel(
