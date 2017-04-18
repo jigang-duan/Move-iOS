@@ -214,9 +214,9 @@ class AccountKidsRulesuserController: UITableViewController {
         if section == 0
         {return 1}
         else if section == 1
-        {return isAdminBool ? 5 : 6}
+        {return isAdminBool ? 4 : 5}
         else
-        {return 8}
+        {return 9}
     }
     //判断用户 管就2，非就3
     override func numberOfSections(in tableView: UITableView) -> Int {
