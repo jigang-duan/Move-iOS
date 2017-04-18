@@ -19,7 +19,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     var fenceName : String? = ""
     var fencelocation : CLLocationCoordinate2D?
     var fenceActive: Bool?
-    
+    var fences: [KidSate.ElectronicFencea] = []
     var currentRadius :Double = 600
     var kidOverlay: MKCircle!
     var circleOverlay:MKCircle?
@@ -321,21 +321,57 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
             if self.kidnameTF.text != "" {
-                let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
-                let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
-                let fencereq = MoveApi.FenceReq(fence : fenceinfo)
-                let postFence = MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
-                    .map({
-                        $0
-                    })
-                postFence.subscribe(onNext: {
-                    print($0)
-                    if $0.msg != "ok" {
-                        self.errorshow(message: $0.field!)
-                    }else{
-                        self.navigationController?.popViewController(animated: true)
+                if (self.editFenceDataSounrce != nil) {
+                    //编辑
+                    var issame : Bool = false
+                    for i in 0..<self.fences.count {
+                        if ( self.editFenceDataSounrce?.ids != self.fences[i].ids ){
+                            if self.fences[i].name == self.kidnameTF.text {
+                                self.errorshow(message: "Enter a new, previously unused name.")
+                                issame = true
+                            }
+                        }
                     }
-                }).addDisposableTo(self.disposeBag)
+                    if issame == false {
+                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : self.editFenceDataSounrce?.ids ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
+                        let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                        MoveApi.ElectronicFence.settingFence(fenceId : (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq)
+                            .subscribe(onNext: {
+                                print($0)
+                                if $0.msg != "ok" {
+                                    self.errorshow(message: $0.field!)
+                                }else{
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            }).addDisposableTo(self.disposeBag)
+                    }
+                }else{
+                    //新增
+                    var issame : Bool = false
+                    for i in 0..<self.fences.count {
+                            if self.fences[i].name == self.kidnameTF.text {
+                                self.errorshow(message: "Enter a new, previously unused name.")
+                                issame = true
+                            }
+                    }
+                    if issame == false {
+                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
+                        let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                        MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
+                            .subscribe(onNext: {
+                                print($0)
+                                if $0.msg != "ok" {
+                                    self.errorshow(message: $0.field!)
+                                }else{
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            }).addDisposableTo(self.disposeBag)
+                    }
+                }
+            } else {
+                self.errorshow(message: "Enter a new, previously unused name.")
             }
         })
         

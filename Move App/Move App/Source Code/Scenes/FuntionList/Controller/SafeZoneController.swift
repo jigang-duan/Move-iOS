@@ -109,6 +109,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc : AddSafeZoneVC = R.storyboard.major.addSafeZoneVC()  {
             vc.editFenceDataSounrce = self.fences[indexPath.row]
+            vc.fences = self.fences
             self.navigationController?.show(vc, sender: nil)
         }
     }
