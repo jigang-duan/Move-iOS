@@ -170,6 +170,17 @@ extension DeviceInfo {
                                weightUnit: UnitType(rawValue: element.user?.weightUnit ?? 0),
                                birthday: element.user?.birthday,
                                gid: element.user?.gid)
+//        self.property = DeviceProperty(active: element.property?.active,
+//                                       bluetooth_address: element.property?.bluetooth_address,
+//                                       device_model: element.property?.device_model,
+//                                       firmware_version: element.property?.firmware_version,
+//                                       ip_address: element.property?.ip_address,
+//                                       kernel_version: element.property?.kernel_version,
+//                                       mac_address: element.property?.mac_address,
+//                                       phone_number: element.property?.phone_number,
+//                                       languages: element.property?.languages,
+//                                       power: element.property?.power,
+//                                       maxgroups: element.property?.maxgroups)
     }
 }
 

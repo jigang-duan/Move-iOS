@@ -63,9 +63,16 @@ extension MoveApi {
     }
     
     struct DeviceInfo {
-        var pid: Int?
         var deviceId: String?
+        var pid: Int?
+        var uid: String?
+        var property: DeviceProperty?
+        var settings: DeviceSetting?
         var user: DeviceUser?
+    }
+    
+    struct DeviceInfoResp {
+        var device: DeviceInfo?
     }
     
     struct DeviceUpdateReq {
@@ -403,6 +410,16 @@ extension MoveApi.DeviceGetListResp: Mappable{
     }
 }
 
+extension MoveApi.DeviceInfoResp: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        device <- map["device"]
+    }
+}
+
+
 extension MoveApi.DeviceInfo: Mappable {
     init?(map: Map) {
     }
@@ -410,9 +427,13 @@ extension MoveApi.DeviceInfo: Mappable {
     mutating func mapping(map: Map) {
         pid <- map["pid"]
         deviceId <- map["device_id"]
+        uid <- map["uid"]
+        property <- map["propertites"]
+        settings <- map["settings"]
         user <- map["user"]
     }
 }
+
 
 extension MoveApi.DeviceUpdateReq: Mappable {
     init?(map: Map) {

@@ -19,6 +19,7 @@ class KidInformationController: UIViewController {
     
     @IBOutlet weak var nameTf: UITextField!
     @IBOutlet weak var phoneTf: UITextField!
+    @IBOutlet weak var validateLab: UILabel!
     
     @IBOutlet weak var genderLab: UILabel!
     @IBOutlet weak var dateLab: UILabel!
@@ -26,15 +27,14 @@ class KidInformationController: UIViewController {
     @IBOutlet weak var heightLab: UILabel!
     
     
-    var isForSetting: Bool?
+    var isForSetting = false
     
-    var deviceAddInfo: DeviceBindInfo?
+    var addInfoVariable = Variable(DeviceBindInfo())
     
     var viewModel: KidInformationViewModel!
     var disposeBag = DisposeBag()
     
     var photoPicker: ImageUtility?
-    
     var photoVariable:Variable<UIImage?> = Variable(nil)
     
     
@@ -44,35 +44,63 @@ class KidInformationController: UIViewController {
     }
     
     
+    
+    func showvalidateError(_ text: String) {
+        validateLab.isHidden = false
+        validateLab.alpha = 0.0
+        validateLab.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validateLab.textColor = ValidationColors.errorColor
+            self?.validateLab.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    func revertvalidateError() {
+        validateLab.isHidden = true
+        validateLab.alpha = 1.0
+        validateLab.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validateLab.textColor = ValidationColors.okColor
+            self?.validateLab.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    
     func  setupUI() {
-        if deviceAddInfo?.nickName == nil {
-            deviceAddInfo?.nickName = "baby"
+        validateLab.isHidden = true
+        
+        var info = addInfoVariable.value
+        
+        if info.nickName == nil {
+            info.nickName = "baby"
             nameTf.text = "baby"
         }else{
-            nameTf.text = deviceAddInfo?.nickName
+            nameTf.text = info.nickName
         }
         
-        phoneTf.text = deviceAddInfo?.number
+        phoneTf.text = info.number
         
         
-        let imgUrl = URL(string: FSManager.imageUrl(with: deviceAddInfo?.profile ?? ""))
+        let imgUrl = URL(string: FSManager.imageUrl(with: info.profile ?? ""))
         cameraBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: cameraBun.currentBackgroundImage!)
         
         
-        genderLab.text = deviceAddInfo?.gender ?? "Gender"
-        if let height = deviceAddInfo?.height {
-             heightLab.text =  "\(height) " + ((deviceAddInfo?.heightUnit == UnitType.metric) ? "cm":"inch")
+        genderLab.text = info.gender ?? "Gender"
+        if let height = info.height {
+             heightLab.text =  "\(height) " + ((info.heightUnit == UnitType.metric) ? "cm":"inch")
         }else{
              heightLab.text = "Height"
         }
         
-        if let weight = deviceAddInfo?.weight {
-            weightLab.text =  "\(weight) " + ((deviceAddInfo?.weightUnit == UnitType.metric) ? "kg":"lb")
+        if let weight = info.weight {
+            weightLab.text =  "\(weight) " + ((info.weightUnit == UnitType.metric) ? "kg":"lb")
         }else{
             weightLab.text = "Weight"
         }
         
-        if let birthday = deviceAddInfo?.birthday {
+        if let birthday = info.birthday {
             dateLab.text =  birthday.stringYearMonthDay
         }else{
             dateLab.text = "Birthday"
@@ -80,23 +108,41 @@ class KidInformationController: UIViewController {
         
     }
     
+    
+    func cutString(_ text: String) -> String {
+        var length = 0
+        for char in text.characters {
+            // 判断是否中文，是中文+2 ，不是+1
+            length += "\(char)".lengthOfBytes(using: .utf8) == 3 ? 2 : 1
+        }
+        
+        if length > 11 {
+            let str = text.characters.dropLast()
+            return cutString(String(str))
+        }
+        
+        return text
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupUI()
+
         
-        let nameText = nameTf.rx.observe(String.self, "text").filterNil()
+        let nameText = nameTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
         let nameDrier = nameTf.rx.text.orEmpty.asDriver()
-        let combineName = Driver.of(nameText.asDriver(onErrorJustReturn: ""), nameDrier).merge()
+        let combineName = Driver.of(nameText, nameDrier).merge()
         
         combineName.drive(onNext: {[weak self] name in
-            if name.characters.count > 14 {
-                self?.nameTf.text = name.substring(to: name.index(name.startIndex, offsetBy: 14))
+            if self?.nameTf.text != self?.cutString(name) {
+                self?.nameTf.text = self?.cutString(name)
             }
         }).addDisposableTo(disposeBag)
         
         viewModel = KidInformationViewModel(
             input:(
+                addInfo: addInfoVariable,
                 photo: photoVariable,
                 name: combineName,
                 phone: phoneTf.rx.text.orEmpty.asDriver(),
@@ -110,7 +156,24 @@ class KidInformationController: UIViewController {
         )
         viewModel.isForSetting = isForSetting
         
-        viewModel.addInfo = self.deviceAddInfo
+        viewModel.nameValid.drive(onNext: {[weak self] result in
+            switch result{
+            case .failed(let message):
+                self?.showvalidateError(message)
+            default:
+                self?.revertvalidateError()
+            }
+        }).addDisposableTo(disposeBag)
+        
+        viewModel.phoneValid.drive(onNext: {[weak self] result in
+            switch result{
+            case .failed(let message):
+                self?.showvalidateError(message)
+            default:
+                self?.revertvalidateError()
+            }
+        }).addDisposableTo(disposeBag)
+        
         
         viewModel.nextEnabled
             .drive(onNext: { [weak self] valid in
@@ -121,18 +184,18 @@ class KidInformationController: UIViewController {
         
         
         viewModel.nextResult?
-            .drive(onNext: {[unowned self] doneResult in
+            .drive(onNext: {[weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showMessage(message)
+                    self?.showMessage(message)
                 case .ok(_):
-                    for vc in (self.navigationController?.viewControllers)! {
+                    for vc in (self?.navigationController?.viewControllers)! {
                         if vc.isKind(of: ChoseDeviceController.self) {
-                            _ = self.navigationController?.popToRootViewController(animated: true)
+                            _ = self?.navigationController?.popToRootViewController(animated: true)
                             return
                         }
                     }
-                    _ = self.navigationController?.popViewController(animated: true)
+                    _ = self?.navigationController?.popViewController(animated: true)
                 default:
                     break
                 }
@@ -144,20 +207,20 @@ class KidInformationController: UIViewController {
 
     @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
-        let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "PhotoLibrary", style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 200, height: 200), callback: { (image) in
-                self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+                self.cameraBun.setBackgroundImage(image, for: .normal)
                 self.photoVariable.value = image
             })
         }
-        let action2 = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { _ in
+        let action2 = UIAlertAction(title: "Camera", style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 200, height: 200), callback: { (image) in
-                self.cameraBun.setBackgroundImage(image, for: UIControlState.normal)
+                self.cameraBun.setBackgroundImage(image, for: .normal)
                 self.photoVariable.value = image
             })
         }
-        let action3 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
+        let action3 = UIAlertAction(title: "Cancel", style: .cancel)
         
         vc.addAction(action1)
         vc.addAction(action2)
@@ -168,17 +231,15 @@ class KidInformationController: UIViewController {
             popover.sourceRect = sender.frame
         }
         
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: true)
     }
     
 
     func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
-        self.present(vc, animated: true) {
-            
-        }
+        self.present(vc, animated: true)
     }
     
     
@@ -202,36 +263,32 @@ class KidInformationController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.kidInformationController.setGenderVC(segue: segue) {
             sg.destination.genderBlock = { (gender) in
-                self.deviceAddInfo?.gender = gender
+                self.addInfoVariable.value.gender = gender
                 self.genderLab.text = gender
-                self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let sg = R.segue.kidInformationController.setBirthdayVC(segue: segue) {
             sg.destination.birthdayBlock = { (birthday) in
-                self.deviceAddInfo?.birthday = birthday
+                self.addInfoVariable.value.birthday = birthday
                 self.dateLab.text = birthday.stringYearMonthDay
-                self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let vc = R.segue.kidInformationController.setWeightVC(segue: segue)?.destination {
-            vc.selectedWeight = self.deviceAddInfo?.weight ?? 70
-            vc.isUnitKg = (self.deviceAddInfo?.weightUnit == UnitType.metric) ? true:false
+            vc.selectedWeight = self.addInfoVariable.value.weight ?? 70
+            vc.isUnitKg = (self.addInfoVariable.value.weightUnit == UnitType.metric) ? true:false
             vc.weightBlock = { (weight, unit) in
-                self.deviceAddInfo?.weight = weight
-                self.deviceAddInfo?.weightUnit = unit
+                self.addInfoVariable.value.weight = weight
+                self.addInfoVariable.value.weightUnit = unit
                 self.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
-                self.viewModel.addInfo = self.deviceAddInfo
             }
         }
         if let vc = R.segue.kidInformationController.setHeightVC(segue: segue)?.destination {
-            vc.selectedHeight = self.deviceAddInfo?.height ?? 160
-            vc.isUnitCm = (self.deviceAddInfo?.heightUnit == UnitType.metric) ? true:false
+            vc.selectedHeight = self.addInfoVariable.value.height ?? 160
+            vc.isUnitCm = (self.addInfoVariable.value.heightUnit == UnitType.metric) ? true:false
             vc.heightBlock = { (height, unit) in
-                self.deviceAddInfo?.height = height
-                self.deviceAddInfo?.heightUnit = unit
+                self.addInfoVariable.value.height = height
+                self.addInfoVariable.value.heightUnit = unit
                 self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
-                self.viewModel.addInfo = self.deviceAddInfo
             }
         }
     }

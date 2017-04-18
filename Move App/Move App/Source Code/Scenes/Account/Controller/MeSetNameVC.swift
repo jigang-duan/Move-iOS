@@ -63,7 +63,20 @@ class MeSetNameViewController: UIViewController {
         }
     }
 
-    
+    func cutString(_ text: String) -> String {
+        var length = 0
+        for char in text.characters {
+            // 判断是否中文，是中文+2 ，不是+1
+            length += "\(char)".lengthOfBytes(using: .utf8) == 3 ? 2 : 1
+        }
+        
+        if length > 11 {
+            let str = text.characters.dropLast()
+            return cutString(String(str))
+        }
+        
+        return text
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,13 +84,13 @@ class MeSetNameViewController: UIViewController {
         
         nameValid.isHidden = true
         
-        let nameText = nameTf.rx.observe(String.self, "text").filterNil()
+        let nameText = nameTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
         let nameDrier = nameTf.rx.text.orEmpty.asDriver()
-        let combineName = Driver.of(nameText.asDriver(onErrorJustReturn: ""), nameDrier).merge()
+        let combineName = Driver.of(nameText, nameDrier).merge()
         
         combineName.drive(onNext: {[weak self] name in
-            if name.characters.count > 14 {
-                self?.nameTf.text = name.substring(to: name.index(name.startIndex, offsetBy: 14))
+            if self?.nameTf.text != self?.cutString(name) {
+                self?.nameTf.text = self?.cutString(name)
             }
         }).addDisposableTo(disposeBag)
         

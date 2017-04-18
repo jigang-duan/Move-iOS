@@ -78,22 +78,19 @@ class AccountKidsRulesuserController: UITableViewController {
         
         let deviceInfo = DeviceManager.shared.currentDevice
         
-    
-        putongyonghu.selectionStyle = .none
-        
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headQutlet.frame.width, height: headQutlet.frame.height), fullName: deviceInfo?.user?.nickname ?? "").imageRepresentation()!
      
         let imgUrl = URL(string: FSManager.imageUrl(with: deviceInfo?.user?.profile ?? ""))
         headQutlet.kf.setImage(with: imgUrl, placeholder: placeImg)
         
         accountNameQutlet.text = deviceInfo?.user?.nickname
-        
-        
     }
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         putongyonghu.selectionStyle = .none
         
         //国际化R.string.localizable
        self.internationalization()
@@ -186,42 +183,42 @@ class AccountKidsRulesuserController: UITableViewController {
             info.birthday = kidInfo?.birthday
             info.profile = kidInfo?.profile
             
-            vc.deviceAddInfo = info
+            vc.addInfoVariable.value = info
         }
     }
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
-        self.present(vc, animated: true) {
-            
-        }
+        self.present(vc, animated: true)
     }
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1
-        {return R.string.localizable.function() }
-        else if (section == 2)
-        { return R.string.localizable.action_settings()}
-        else
-        {return ""}
+        if section == 1 {
+            return R.string.localizable.function()
+        }
+        else if (section == 2){
+            return R.string.localizable.action_settings()
+        }else{
+            return ""
+        }
     }
     
     //判断用户 控制第二组 管：5，非就6
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0
-        {return 1}
-        else if section == 1
-        {return isAdminBool ? 5 : 6}
-        else
-        {return 8}
+        if section == 0{
+            return 1
+        }
+        else if section == 1{
+            return isAdminBool ? 5 : 6
+        }else{
+            return 8
+        }
     }
     //判断用户 管就2，非就3
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        
         return isAdminBool ? 3 : 2
     }
     

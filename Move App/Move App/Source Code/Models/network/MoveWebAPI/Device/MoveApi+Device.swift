@@ -60,7 +60,7 @@ extension MoveApi {
         }
 //        获取设备信息
         final class func getDeviceInfo(deviceId: String) -> Observable<DeviceInfo> {
-            return request(.getDeviceInfo(deviceId: deviceId)).mapMoveObject(DeviceInfo.self)
+            return request(.getDeviceInfo(deviceId: deviceId)).mapMoveObject(DeviceInfoResp.self).map({$0.device ?? DeviceInfo()})
         }
 //        修改设备信息
         final class func update(deviceId: String, updateInfo: DeviceUpdateReq) -> Observable<ApiError> {

@@ -16,36 +16,29 @@ class KidInformationViewModel {
     let nameValid: Driver<ValidationResult>
     let phoneValid: Driver<ValidationResult>
     
-    
-    let sending: Driver<Bool>
-    
     let nextEnabled: Driver<Bool>
     var nextResult: Driver<ValidationResult>?
     
-    var addInfo: DeviceBindInfo?
-    
-    var isForSetting: Bool?
+    var isForSetting = false
     
     init(
         input: (
-        photo: Variable<UIImage?>,
-        name: Driver<String>,
-        phone: Driver<String>,
-        nextTaps: Driver<Void>
+            addInfo: Variable<DeviceBindInfo>,
+            photo: Variable<UIImage?>,
+            name: Driver<String>,
+            phone: Driver<String>,
+            nextTaps: Driver<Void>
         ),
         dependency: (
-        deviceManager: DeviceManager,
-        validation: DefaultValidation,
-        wireframe: Wireframe
+            deviceManager: DeviceManager,
+            validation: DefaultValidation,
+            wireframe: Wireframe
         )
         ) {
         
         let deviceManager = dependency.deviceManager
         let validation = dependency.validation
         _ = dependency.wireframe
-        
-        let activity = ActivityIndicator()
-        self.sending = activity.asDriver()
         
         
         nameValid = input.name.map { name in
@@ -57,60 +50,39 @@ class KidInformationViewModel {
         }
         
         
-        nextEnabled = Driver.combineLatest(nameValid, phoneValid, sending) { name, phone, sending in
-                name.isValid && phone.isValid && !sending
+        nextEnabled = Driver.combineLatest(nameValid, phoneValid) { name, phone in
+                name.isValid && phone.isValid
             }
             .distinctUntilChanged()
         
-        let com = Driver.combineLatest(input.name, input.phone){($0, $1)}
+        let com = Driver.combineLatest(input.name, input.phone, input.addInfo.asDriver()){($0, $1, $2)}
         
         self.nextResult = input.nextTaps.withLatestFrom(com)
-            .flatMapLatest({ name, phone in
-                var f = self.addInfo!
+            .flatMapLatest({ name, phone, addInfo in
+                
+                var f = addInfo
+                f.nickName = name
+                f.number = phone
                 
                 if self.isForSetting == true {
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
-                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
-                                .map({_ -> ValidationResult in
-                                    var user = DeviceManager.shared.currentDevice?.user
-                                    user?.number = phone
-                                    user?.nickname = name
-                                    user?.profile = f.profile
-                                    user?.gender = f.gender
-                                    user?.height = f.height
-                                    user?.weight = f.weight
-                                    user?.heightUnit = f.heightUnit
-                                    user?.weightUnit = f.weightUnit
-                                    user?.birthday = f.birthday
-                                    DeviceManager.shared.currentDevice?.user = user
-                                    
+                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
+                                .map({_ in
+                                    self.updateDeviceUser(addInfo: f)
                                     return  ValidationResult.ok(message: "Update Success")
                                 })
                             }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
-                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: phone, nickname: name, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
-                            .map({_ -> ValidationResult in
-                                var user = DeviceManager.shared.currentDevice?.user
-                                user?.number = phone
-                                user?.nickname = name
-                                user?.profile = f.profile
-                                user?.gender = f.gender
-                                user?.height = f.height
-                                user?.weight = f.weight
-                                user?.heightUnit = f.heightUnit
-                                user?.weightUnit = f.weightUnit
-                                user?.birthday = f.birthday
-                                DeviceManager.shared.currentDevice?.user = user
-                                
+                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
+                            .map({_  in
+                                self.updateDeviceUser(addInfo: f)
                                 return  ValidationResult.ok(message: "Update Success")
                             }).asDriver(onErrorRecover: commonErrorRecover)
                     }
                   
                 }else{
-                    f.nickName = name
-                    f.phone = phone
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
@@ -131,6 +103,34 @@ class KidInformationViewModel {
             })
         
     }
+    
+    
+    func  updateDeviceUser(addInfo: DeviceBindInfo) {
+        
+        var user = DeviceManager.shared.currentDevice?.user
+        user?.number = addInfo.number
+        user?.nickname = addInfo.nickName
+        user?.profile = addInfo.profile
+        user?.gender = addInfo.gender
+        user?.height = addInfo.height
+        user?.weight = addInfo.weight
+        user?.heightUnit = addInfo.heightUnit
+        user?.weightUnit = addInfo.weightUnit
+        user?.birthday = addInfo.birthday
+        
+        var arr: [DeviceInfo] = []
+        
+        for info in RxStore.shared.deviceInfosState.value {
+            var f = info
+            if f.deviceId == DeviceManager.shared.currentDevice?.deviceId {
+                f.user = user
+            }
+            arr.append(f)
+        }
+        
+        RxStore.shared.deviceInfosState.value = arr
+    }
+    
     
 }
 

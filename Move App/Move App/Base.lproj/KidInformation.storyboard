@@ -114,6 +114,12 @@
                                     <constraint firstAttribute="width" constant="30" id="BRi-CG-YtV"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickname invalid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhK-sF-hdS">
+                                <rect key="frame" x="137" y="199" width="100.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBy-z6-Vvg">
                                 <rect key="frame" x="82.5" y="276.5" width="50" height="50"/>
                                 <constraints>
@@ -205,6 +211,8 @@
                             <constraint firstItem="YtZ-zr-FDT" firstAttribute="leading" secondItem="vIa-bp-J4u" secondAttribute="leading" id="aUW-f3-dWP"/>
                             <constraint firstItem="mMC-0x-N4F" firstAttribute="top" secondItem="xAu-WE-3aK" secondAttribute="top" id="bML-3c-moW"/>
                             <constraint firstItem="dBy-z6-Vvg" firstAttribute="centerX" secondItem="erm-BZ-FWi" secondAttribute="centerX" constant="-80" id="cEe-Qk-1hQ"/>
+                            <constraint firstItem="rhK-sF-hdS" firstAttribute="top" secondItem="YtZ-zr-FDT" secondAttribute="bottom" constant="5" id="eD1-6q-1Ap"/>
+                            <constraint firstItem="rhK-sF-hdS" firstAttribute="centerX" secondItem="erm-BZ-FWi" secondAttribute="centerX" id="eEu-Ow-fxr"/>
                             <constraint firstItem="hGM-SX-9YX" firstAttribute="top" secondItem="dBy-z6-Vvg" secondAttribute="top" id="ew5-ul-9yH"/>
                             <constraint firstItem="foX-n3-65d" firstAttribute="top" secondItem="Agn-xl-DHG" secondAttribute="bottom" constant="50" id="fVQ-oj-fOD"/>
                             <constraint firstItem="Yvg-Bc-GSZ" firstAttribute="leading" secondItem="erm-BZ-FWi" secondAttribute="leading" constant="15" id="g2B-LW-h1c"/>
@@ -236,6 +244,7 @@
                         <outlet property="nameTf" destination="3y9-nO-LHY" id="mKi-Yf-WSQ"/>
                         <outlet property="nextBun" destination="Yvg-Bc-GSZ" id="Cgz-4e-xRo"/>
                         <outlet property="phoneTf" destination="vIa-bp-J4u" id="QV1-OP-EdN"/>
+                        <outlet property="validateLab" destination="rhK-sF-hdS" id="z9u-cS-Cqe"/>
                         <outlet property="weightLab" destination="s7A-jc-G0T" id="E3x-pR-mKn"/>
                         <segue destination="f0O-Dy-3UW" kind="presentation" identifier="setGenderVC" id="QTt-9v-JBX"/>
                         <segue destination="M0b-OA-Gky" kind="presentation" identifier="setBirthdayVC" id="t1b-pl-DCl"/>
@@ -526,7 +535,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5YR-6B-Xeo">
-                                <rect key="frame" x="128" y="173" width="119.5" height="21"/>
+                                <rect key="frame" x="128" y="173" width="119" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -773,7 +782,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your height" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hew-hA-ulv">
-                                <rect key="frame" x="129.5" y="173" width="116.5" height="21"/>
+                                <rect key="frame" x="129" y="173" width="117" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
