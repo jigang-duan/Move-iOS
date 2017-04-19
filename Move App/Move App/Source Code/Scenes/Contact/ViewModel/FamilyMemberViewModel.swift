@@ -49,7 +49,7 @@ class FamilyMemberViewModel {
                 }else{
                     con.flag = self.clearEmergency(flag: con.flag!)
                 }
-                return Driver.just(deviceManager.settingContactInfo(deviceId: (deviceManager.currentDevice?.deviceId)!, contactInfo: con)
+                return Driver.just(deviceManager.settingContactInfo(contactInfo: con)
                     .map({ _ in
                         self.contacts?[row].contactInfo?.flag = con.flag
                         self.cellDatasVariable.value[row].isHeartOn = self.transformIsHeartOn(flag: con.flag!)
@@ -63,11 +63,14 @@ class FamilyMemberViewModel {
         
         self.cellDatas = enter.flatMapLatest({ _ in
             deviceManager.getContacts(deviceId: (deviceManager.currentDevice?.deviceId)!).map{ members in
+                
+                let ms = self.sortedContacts(members)
+                
                 var cellDatas: [FamilyMemberCellData] = []
                 var cons: [FamilyMemberDetailController.ContactDetailInfo] = []
                 var isNowMaster = false
                 
-                for mb in members {
+                for mb in ms {
                     var memberState = [FamilyMemberCellState.other]
                    
                     if UserInfo.shared.id == mb.uid {
@@ -101,6 +104,43 @@ class FamilyMemberViewModel {
                 return cellDatas
             }
         })
+    }
+    
+    
+    func sortedContacts(_ cons: [ImContact]) -> [ImContact] {
+        //根据identity排序
+        let ms = cons.sorted(by: { (c1, c2) -> Bool in
+            (c1.identity?.description)! < (c2.identity?.description)!
+        })
+        //找出自己放到最前
+        var arr: [ImContact] = ms
+        var meIndex = 0
+        var me: ImContact?
+       
+        for i in 0..<ms.count {
+            let m = ms[i]
+            if m.uid == UserInfo.shared.id {
+                meIndex = i
+                me = m
+            }
+        }
+        arr.remove(at: meIndex)
+        arr.insert(me!, at: 0)
+        //找出master放到最前
+        var arr1 = arr
+        var masterIndex = 0
+        var master: ImContact?
+        for i in 0..<arr.count {
+            let m = arr[i]
+            if m.admin == true {
+                masterIndex = i
+                master = m
+            }
+        }
+        arr1.remove(at: masterIndex)
+        arr1.insert(master!, at: 0)
+        
+        return arr1
     }
     
     

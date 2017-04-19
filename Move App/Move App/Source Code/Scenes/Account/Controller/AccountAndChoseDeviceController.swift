@@ -124,7 +124,7 @@ fileprivate func transfer(deviceInfos: [DeviceInfo]) -> [DeviceCellData] {
             deviceType = "MB12"
             icon = "device_ic_mb12"
         case 0x201:
-            deviceType = "Kids Watch 2"
+            deviceType = "Family watch"
             icon = "device_ic_kids"
         default:
             deviceType = "Other"

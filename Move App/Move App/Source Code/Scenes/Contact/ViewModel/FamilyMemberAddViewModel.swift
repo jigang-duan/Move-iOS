@@ -69,10 +69,10 @@ class FamilyMemberAddViewModel {
         
         
         saveResult = input.saveTaps.withLatestFrom(com)
-            .flatMapLatest({self.operation(phone: $0.0, identity: $0.1)})
+            .flatMapLatest({self.operation(phone: $0.1, identity: $0.0)})
         
         doneResult = input.doneTaps.withLatestFrom(com)
-            .flatMapLatest({self.operation(phone: $0.0, identity: $0.1)})
+            .flatMapLatest({self.operation(phone: $0.1, identity: $0.0)})
         
     }
     

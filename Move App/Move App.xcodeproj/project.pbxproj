@@ -273,6 +273,7 @@
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */; };
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
+		FF2144151EA6FF6C00BA7C7B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 		FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */; };
@@ -631,6 +632,7 @@
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
+		FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberVC.swift; sourceTree = "<group>"; };
@@ -1655,6 +1657,7 @@
 				FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */,
 				E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */,
 				E9EA91DB1EA0BB3A000216AA /* OtherSettingsTableViewController.swift */,
+				FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2503,6 +2506,7 @@
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */,
 				112D6EA01E86713B006135E3 /* ISEmojiView.swift in Sources */,
+				FF2144151EA6FF6C00BA7C7B /* AboutViewController.swift in Sources */,
 				E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */,
 				FF02FBCD1E6838E1008D0C84 /* ShareQRcodeController.swift in Sources */,
 				D29937461E53123C00350E1C /* MoveApi+HistoryMessage+Mappable.swift in Sources */,

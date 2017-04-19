@@ -216,12 +216,10 @@ class FamilyMemberDetailController: UIViewController {
     
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
-        self.present(vc, animated: true) {
-            
-        }
+        self.present(vc, animated: true)
     }
     
     

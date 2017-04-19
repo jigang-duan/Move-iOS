@@ -135,6 +135,8 @@ extension LoginViewController {
         switch result{
         case .failed(let message):
             self.showAccountError(message)
+        case .empty:
+            self.showAccountError("Please fill")
         default:
             self.revertAccountError()
         }
@@ -144,6 +146,8 @@ extension LoginViewController {
         switch result{
         case .failed(let message):
             self.showPasswordError(message)
+        case .empty:
+            self.showPasswordError("Please fill")
         default:
             self.revertPasswordError()
         }

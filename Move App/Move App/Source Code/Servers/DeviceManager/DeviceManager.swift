@@ -57,7 +57,10 @@ extension DeviceManager {
     }
     
     
-    func deleteContact(deviceId: String, uid: String) -> Observable<Bool> {
+    func deleteContact(uid: String) -> Observable<Bool> {
+        guard let deviceId = RxStore.shared.currentDeviceId.value  else {
+            return Observable<Bool>.empty()
+        }
         return worker.deleteContact(deviceId: deviceId, uid: uid)
     }
     
@@ -65,7 +68,10 @@ extension DeviceManager {
         return worker.getContacts(deviceId: deviceId)
     }
     
-    func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool> {
+    func settingContactInfo(contactInfo: ImContact) -> Observable<Bool> {
+        guard let deviceId = RxStore.shared.currentDeviceId.value  else {
+            return Observable<Bool>.empty()
+        }
         return worker.settingContactInfo(deviceId: deviceId, contactInfo: contactInfo)
     }
     
@@ -77,7 +83,10 @@ extension DeviceManager {
         return worker.deleteDevice(with: deviceId)
     }
     
-    func settingAdmin(deviceId: String, uid: String) -> Observable<Bool> {
+    func settingAdmin(uid: String) -> Observable<Bool> {
+        guard let deviceId = RxStore.shared.currentDeviceId.value  else {
+            return Observable<Bool>.empty()
+        }
         return worker.settingAdmin(deviceId: deviceId, uid: uid)
     }
     
