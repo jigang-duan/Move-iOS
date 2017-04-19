@@ -15,6 +15,7 @@ import SwiftGifOrigin
 protocol UUMessageCellDelegate {
     @objc optional func headImageDidClick(cell: UUMessageCell, userId: String)
     @objc optional func cellContentDidClick(cell: UUMessageCell, image contentImage: UIImage)
+    @objc optional func cellContentDidClick(cell: UUMessageCell, voice messageId: String)
 }
 
 @objc
@@ -63,6 +64,14 @@ class UUMessageCell: UITableViewCell {
         return $
     }()
     
+    lazy var badgeView: UIView = {
+        let $ = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 6.0, height: 6.0)))
+        $.backgroundColor = UIColor.red
+        $.layer.cornerRadius = 3.0
+        $.layer.masksToBounds = true
+        return $
+    }()
+    
     var messageFrame: UUMessageFrame! {
         didSet {
             let message = messageFrame.message
@@ -103,6 +112,9 @@ class UUMessageCell: UITableViewCell {
             self.btnContent.backImageView.isHidden = true
             
             self.btnContent.frame = messageFrame.contentF
+            self.badgeView.frame = messageFrame.badgeF
+            
+            self.badgeView.isHidden = true
             
             if message.from == .me {
                 self.btnContent.isMyMessage = true
@@ -144,6 +156,9 @@ class UUMessageCell: UITableViewCell {
                 self.btnContent.voiceBackView.isHidden = false
                 self.btnContent.second.text = String(format: "%d's Voice", message.content.voice?.second ?? 0)
                 voiceURL = message.content.voice?.url
+                if message.from == .other {
+                    self.badgeView.isHidden = (message.state == .read)
+                }
                 
             case .emoji:
                 if
@@ -222,6 +237,8 @@ class UUMessageCell: UITableViewCell {
         self.contentView.addSubview(btnContent)
         btnContent.addTarget(self, action: #selector(btnContentClick), for: .touchUpInside)
         
+        self.contentView.addSubview(badgeView)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(UUAVAudioPlayerDidFinishPlay), name: NSNotification.Name("VoicePlayHasInterrupt"), object: nil)
         
         //红外线感应监听
@@ -272,6 +289,7 @@ class UUMessageCell: UITableViewCell {
                         }
                     }
                 }
+                self.delegate?.cellContentDidClick?(cell: self, voice: self.messageFrame.message.msgId)
             } else {
                 self.UUAVAudioPlayerDidFinishPlay()
             }

@@ -46,7 +46,7 @@ class AlertServer {
                 guard let noticeId = notice.id else {
                     return Observable.empty()
                 }
-                return IMManager.shared.markNotification(id: noticeId).map {_ in notice }
+                return IMManager.shared.mark(notification: noticeId).map {_ in notice }
             }
             .bindNext { notice in
                 try? realm.write {

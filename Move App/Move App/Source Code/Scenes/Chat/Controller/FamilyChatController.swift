@@ -26,6 +26,8 @@ class FamilyChatController: UIViewController {
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
+    let markReadSubject = PublishSubject<String>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(ifView)
@@ -64,6 +66,7 @@ class FamilyChatController: UIViewController {
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellFamilyChat.identifier)) { index, model, cell in
                 if let cell = cell as? UUMessageCell {
                     cell.messageFrame = model
+                    cell.delegate = self
                     cell.menuDelegate = self
                     cell.index = index
                 }
@@ -140,6 +143,19 @@ class FamilyChatController: UIViewController {
             .map({ ids in ids.flatMap {realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)} })
             .subscribe(realm.rx.delete())
             .addDisposableTo(bag)
+        
+        markReadSubject.asObserver()
+            .flatMapLatest { IMManager.shared.mark(message: $0).catchErrorJustReturn($0) }
+            .filterEmpty()
+            .subscribe(onNext: { (msgId) in
+                if let message = group.messages.filter({ $0.id == msgId }).first {
+                    try? realm.write {
+                        message.readStatus = MessageEntity.ReadStatus.read.rawValue
+                    }
+                }
+            })
+            .addDisposableTo(bag)
+        
     }
     
     
@@ -150,6 +166,16 @@ class FamilyChatController: UIViewController {
     }
 
 }
+
+extension FamilyChatController: UUMessageCellDelegate {
+    
+    func cellContentDidClick(cell: UUMessageCell, voice messageId: String) {
+        if cell.messageFrame.message.from == .other {
+            markReadSubject.onNext(messageId)
+        }
+    }
+}
+
 
 extension FamilyChatController: MoreViewDelegate {
     

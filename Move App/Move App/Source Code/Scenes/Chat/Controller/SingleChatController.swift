@@ -26,6 +26,8 @@ class SingleChatController: UIViewController {
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
+    let markReadSubject = PublishSubject<String>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(ifView)
@@ -49,10 +51,10 @@ class SingleChatController: UIViewController {
         
         let messages = Observable.collection(from: group.messages)
             .share()
-            .map({ list -> [UUMessage]  in
-                let entitys: [MessageEntity] = list.filter({ ($0.groupId == nil) || ($0.groupId == "") })
+            .map { list -> [UUMessage]  in
+                let entitys: [MessageEntity] = list.filter { ($0.groupId == nil) || ($0.groupId == "") }
                 return entitys.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
-            })
+            }
             .map(transformMinuteOffSet)
         
         tableView.rx.setDelegate(self).addDisposableTo(bag)
@@ -63,6 +65,7 @@ class SingleChatController: UIViewController {
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellSingleChat.identifier)) { index, model, cell in
                 if let cell = cell as? UUMessageCell {
                     cell.messageFrame = model
+                    cell.delegate = self
                     cell.menuDelegate = self
                     cell.index = index
                 }
@@ -76,27 +79,27 @@ class SingleChatController: UIViewController {
             .addDisposableTo(bag)
         
         let itemDeleted = tableView.rx.itemDeleted.asObservable()
-        itemDeleted.map({ $0.row })
+        itemDeleted.map { $0.row }
             .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
-            .flatMapLatest({
+            .flatMapLatest {
                 IMManager.shared.delete(message: $0).catchErrorJustReturn("")
-            })
+            }
             .filterEmpty()
-            .map({
+            .map {
                 realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)
-            })
+            }
             .filterNil()
             .subscribe(realm.rx.delete())
             .addDisposableTo(bag)
         
         ifView.rx.sendEmoji.asDriver()
-            .map({ EmojiType(rawValue: $0) })
+            .map { EmojiType(rawValue: $0) }
             .filterNil()
-            .flatMapLatest({
+            .flatMapLatest {
                 IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: "", ctime: Date(), content: $0))
                     .asDriver(onErrorJustReturn: ImEmoji())
-            })
-            .filter({ $0.msg_id != nil  })
+            }
+            .filter { $0.msg_id != nil  }
             .map { UUMessage(imEmoji: $0, user: Me.shared.user) }
             .drive(onNext: { [weak self] in
                 self?.messageFramesVariable.value.append(UUMessageFrame(message: $0))
@@ -104,16 +107,16 @@ class SingleChatController: UIViewController {
             .addDisposableTo(bag)
         
         ifView.rx.sendVoice.asObservable()
-            .flatMapFirst({ (url, duration) in
+            .flatMapFirst { (url, duration) in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: url), duration: duration)
                     .catchErrorJustReturn("")
                     .map({ ($0,duration,url) })
-            })
+            }
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: "", ctime: Date(), fid: $0, readStatus: 0, duration: $1, locationURL: $2) }
-            .flatMapLatest({
+            .flatMapLatest {
                 IMManager.shared.sendChatVoice($0).catchErrorJustReturn(ImVoice())
-            })
-            .filter({ $0.msg_id != nil })
+            }
+            .filter { $0.msg_id != nil }
             .map { UUMessage(imVoice: $0, user: Me.shared.user) }
             .bindNext({ [weak self] in
                 self?.messageFramesVariable.value.append(UUMessageFrame(message: $0))
@@ -129,9 +132,21 @@ class SingleChatController: UIViewController {
             .withLatestFrom(messageFramesVariable.asObservable()) {  $0.1.map({$0.message.msgId}) }
         
         Observable.merge(deleteMessages, clearMessages)
-            .flatMapLatest({ IMManager.shared.delete(messages: $0).catchErrorJustReturn($0)  })
-            .map({ ids in ids.flatMap {realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)} })
+            .flatMapLatest { IMManager.shared.delete(messages: $0).catchErrorJustReturn($0) }
+            .map { ids in ids.flatMap { realm.object(ofType: MessageEntity.self, forPrimaryKey: $0) } }
             .subscribe(realm.rx.delete())
+            .addDisposableTo(bag)
+        
+        markReadSubject.asObserver()
+            .flatMapLatest { IMManager.shared.mark(message: $0).catchErrorJustReturn($0) }
+            .filterEmpty()
+            .subscribe(onNext: { (msgId) in
+                if let message = group.messages.filter({ $0.id == msgId }).first {
+                    try? realm.write {
+                        message.readStatus = MessageEntity.ReadStatus.read.rawValue
+                    }
+                }
+            })
             .addDisposableTo(bag)
         
     }
@@ -141,6 +156,15 @@ class SingleChatController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension SingleChatController: UUMessageCellDelegate {
+    
+    func cellContentDidClick(cell: UUMessageCell, voice messageId: String) {
+        if cell.messageFrame.message.from == .other {
+            markReadSubject.onNext(messageId)
+        }
+    }
 }
 
 extension SingleChatController: MoreViewDelegate {

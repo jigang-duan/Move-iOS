@@ -37,6 +37,7 @@ struct UUMessageFrame {
     var iconF: CGRect
     var timeF: CGRect
     var contentF: CGRect
+    var badgeF: CGRect
     
     var cellHeight: CGFloat
     var message: UUMessage
@@ -104,6 +105,13 @@ struct UUMessageFrame {
         
         self.cellHeight = CGFloat._max(self.contentF.maxY, self.nameF.maxY) + ChatMargin
         
+        // 5、计算红点位置
+        var badgeX = self.contentF.maxX + 10.0
+        let badgeY = self.contentF.midY
+        if message.from == .me {
+            badgeX = self.contentF.minX - 10.0 - 6.0
+        }
+        self.badgeF = CGRect(x: badgeX, y: badgeY, width: 6.0, height: 6.0)
     }
     
 }

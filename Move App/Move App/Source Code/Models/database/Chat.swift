@@ -43,7 +43,7 @@ extension GroupEntity {
     
     func update(realm: Realm, message: MessageEntity) {
         let old = self.messages.filter({ $0.id == message.id }).first
-        try! realm.write {
+        try? realm.write {
             if let _old = old {
                 realm.delete(_old)
             }
