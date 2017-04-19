@@ -68,9 +68,18 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Hup-br-veo">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4kq-5c-ahc">
+                                <rect key="frame" x="341" y="11" width="18" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="nav_call_nor"/>
+                                <state key="highlighted" image="nav_call_pre"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="familyChatView" destination="49I-oy-LSF" id="Fkw-03-SGq"/>
+                        <outlet property="messageCall" destination="4kq-5c-ahc" id="vqf-AT-pGV"/>
                         <outlet property="segmentedOutlet" destination="r2l-Zi-dyA" id="fdw-fW-cI5"/>
                         <outlet property="singleChatView" destination="6xJ-gZ-2iL" id="I05-W0-hyH"/>
                     </connections>
@@ -438,6 +447,8 @@
     </scenes>
     <resources>
         <image name="backArrow1" width="12" height="21"/>
+        <image name="nav_call_nor" width="18" height="18"/>
+        <image name="nav_call_pre" width="18" height="18"/>
         <image name="relationship_ic_other" width="36" height="36"/>
         <image name="tab_social_nor" width="23" height="23"/>
     </resources>

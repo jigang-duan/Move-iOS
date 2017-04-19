@@ -50,6 +50,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let item=UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
         
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +78,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         self.currentRadius = Double(slider.value)
         self.drawOverlay(radius: self.currentRadius)
+         RadiusL.text = String.init(format: "Radius:"+"%.fm", safeZoneSlider.value)
     }
     
     func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
