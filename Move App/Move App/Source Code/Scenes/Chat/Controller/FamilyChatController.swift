@@ -107,7 +107,7 @@ class FamilyChatController: UIViewController {
         ifView.rx.sendVoice.asObservable()
             .flatMapFirst({ (url, duration) in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: url), duration: duration)
-                    .errorOnEmpty()
+                    .catchErrorJustReturn("")
                     .map({ ($0,duration,url) })
             })
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), fid: $0, readStatus: 0, duration: $1, locationURL: $2) }

@@ -68,6 +68,7 @@
 		118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */; };
 		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
+		11AEC1991EA7159F004F13A3 /* MapUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AEC1981EA7159F004F13A3 /* MapUtility.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3041E6D7B14002906F1 /* UUMessage.swift */; };
 		11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */; };
@@ -404,6 +405,7 @@
 		118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
+		11AEC1981EA7159F004F13A3 /* MapUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapUtility.swift; path = Shared/Common/Utils/MapUtility.swift; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11EAC3041E6D7B14002906F1 /* UUMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessage.swift; path = Vendor/UUChat/Sources/UUMessage.swift; sourceTree = "<group>"; };
 		11EAC3051E6D7B14002906F1 /* UUMessageFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUMessageFrame.swift; path = Vendor/UUChat/Sources/UUMessageFrame.swift; sourceTree = "<group>"; };
@@ -1546,6 +1548,7 @@
 				116F815F1E63E5E3003CEC39 /* DateUtility.swift */,
 				FF11D4581E796146005C53ED /* AddressbookUtility.swift */,
 				FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */,
+				11AEC1981EA7159F004F13A3 /* MapUtility.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2444,6 +2447,7 @@
 				D24C4D4E1E4DD57F00F9E33A /* MoveApi+FileStorage+Mappable.swift in Sources */,
 				FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */,
 				E046213A1E49977A007D3BD3 /* Observable+MoveObjectMapper.swift in Sources */,
+				11AEC1991EA7159F004F13A3 /* MapUtility.swift in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */,
 				E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */,

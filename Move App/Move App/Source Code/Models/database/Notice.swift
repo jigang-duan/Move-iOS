@@ -100,13 +100,13 @@ extension NoticeType {
         case .instantPosition:
             return nil
         case .intoFence:
-            return "Warning"
+            return R.string.localizable.warming()
         case .outFence:
-            return "Warning"
+            return R.string.localizable.warming()
         case .lowBattery:
-            return "Warning"
+            return R.string.localizable.warming()
         case .sos:
-            return "Warning"
+            return R.string.localizable.warming()
         case .unbound:
             return nil
         case .numberChanged:
@@ -143,56 +143,72 @@ extension NoticeType {
     }
 }
 
-extension NoticeType: CustomStringConvertible {
-    
+enum NoticeAlertStyle {
+    case `default`
+    case navigate
+}
+
+extension NoticeAlertStyle : CustomStringConvertible {
     var description: String {
         switch self {
+        case .default:
+            return ""
+        case .navigate:
+            return "Navigate"
+        }
+    }
+}
+
+extension NoticeType {
+    
+    var style: NoticeAlertStyle {
+        switch self {
         case .newContact:
-            return "%@ has added a new friend %@"
+            return .default
         case .bindRandomCode:
-            return ""
+            return .default
         case .instantPosition:
-            return ""
+            return .default
         case .intoFence:
-            return "%@ is enter of safe zone home"
+            return .default
         case .outFence:
-            return "%@ is out of safe zone home"
+            return .navigate
         case .lowBattery:
-            return "Only %d% battery left"
+            return .default
         case .sos:
-            return "%@ has sent an SOS alert"
+            return .navigate
         case .unbound:
-            return "Master has unpaired this watch"
+            return .default
         case .numberChanged:
-            return "%@'s phone number has been changed"
+            return .default
         case .powered:
-            return "%@ is online"
+            return .default
         case .shutdown:
-            return "%@ is offline"
+            return .default
         case .roam:
-            return ""
+            return .default
         case .update:
-            return ""
+            return .default
         case .thumbUpFromSportsFriend:
-            return ""
+            return .default
         case .thumbUpFromGameFriend:
-            return ""
+            return .default
         case .groupInvited:
-            return ""
+            return .default
         case .firmwareDownload:
-            return ""
+            return .default
         case .progressDownload:
-            return ""
+            return .default
         case .configurationUpdated:
-            return ""
+            return .default
         case .wear:
-            return ""
+            return .default
         case .loss:
-            return ""
+            return .default
         case .deviceNumberChanged:
-            return "%@ has changed SIM card number to %@"
+            return .default
         case .unknown:
-            return "unknow"
+            return .default
         }
     }
 }

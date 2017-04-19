@@ -170,38 +170,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydo-SS-BwD">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aU4-Df-wR9">
-                                        <rect key="frame" x="20" y="31" width="22" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="EYC-xl-Hyd"/>
-                                            <constraint firstAttribute="width" constant="22" id="LlI-zD-tAB"/>
-                                        </constraints>
-                                        <state key="normal" image="backArrow1"/>
-                                        <connections>
-                                            <action selector="backPressed:" destination="cps-06-kdy" eventType="touchUpInside" id="Jz4-iw-eVl"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23e-rE-sMj">
-                                        <rect key="frame" x="170" y="32" width="34" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.61176472900000001" green="0.84313726430000002" blue="0.99215686319999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="aU4-Df-wR9" firstAttribute="leading" secondItem="ydo-SS-BwD" secondAttribute="leading" constant="20" id="7Zi-1v-lqY"/>
-                                    <constraint firstItem="aU4-Df-wR9" firstAttribute="centerY" secondItem="ydo-SS-BwD" secondAttribute="centerY" constant="10" id="Yrb-m6-TSC"/>
-                                    <constraint firstItem="23e-rE-sMj" firstAttribute="centerY" secondItem="ydo-SS-BwD" secondAttribute="centerY" constant="10" id="ZV1-cK-yqz"/>
-                                    <constraint firstAttribute="height" constant="64" id="nI1-1U-XIW"/>
-                                    <constraint firstItem="23e-rE-sMj" firstAttribute="centerX" secondItem="ydo-SS-BwD" secondAttribute="centerX" id="qEz-4P-pUo"/>
-                                </constraints>
-                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6C1-Ne-aib">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="603" id="HND-Hi-dRu"/>
+                                </constraints>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HD7-6O-tUe">
                                 <rect key="frame" x="0.0" y="64" width="375" height="76"/>
@@ -219,7 +192,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="none" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lea-X3-aGb">
-                                        <rect key="frame" x="124" y="10" width="38.5" height="21"/>
+                                        <rect key="frame" x="124" y="10" width="39" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.13333334029999999" green="0.13333334029999999" blue="0.13333334029999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -280,7 +253,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name is making an SOS call" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vC0-sU-QJv">
-                                        <rect key="frame" x="66" y="10" width="210.5" height="21"/>
+                                        <rect key="frame" x="66" y="10" width="211" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.99215686319999996" green="0.058823529630000003" blue="0.058823529630000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -305,6 +278,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyc-1M-rwV">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="SOS" id="jJK-yL-TSC">
+                                        <barButtonItem key="leftBarButtonItem" image="backArrow1" id="gBL-Im-084">
+                                            <connections>
+                                                <action selector="backPressed:" destination="cps-06-kdy" id="oTP-dj-JIJ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -312,15 +297,14 @@
                             <constraint firstAttribute="trailing" secondItem="HD7-6O-tUe" secondAttribute="trailing" id="5Fd-UX-ea6"/>
                             <constraint firstItem="n5D-h8-8DM" firstAttribute="top" secondItem="6C1-Ne-aib" secondAttribute="bottom" id="7ud-8v-kkS"/>
                             <constraint firstItem="HD7-6O-tUe" firstAttribute="leading" secondItem="HI0-aj-6d6" secondAttribute="leading" id="DdG-kO-uDr"/>
-                            <constraint firstItem="HD7-6O-tUe" firstAttribute="top" secondItem="ydo-SS-BwD" secondAttribute="bottom" id="IJa-1b-5JS"/>
                             <constraint firstItem="6C1-Ne-aib" firstAttribute="leading" secondItem="HI0-aj-6d6" secondAttribute="leading" id="KB9-QH-EqC"/>
                             <constraint firstItem="VpW-Ux-edq" firstAttribute="leading" secondItem="HI0-aj-6d6" secondAttribute="leading" id="OaN-lF-UH1"/>
                             <constraint firstItem="n5D-h8-8DM" firstAttribute="top" secondItem="VpW-Ux-edq" secondAttribute="bottom" id="Otp-cf-8rn"/>
-                            <constraint firstItem="ydo-SS-BwD" firstAttribute="top" secondItem="HI0-aj-6d6" secondAttribute="top" id="bC9-Ll-GkU"/>
+                            <constraint firstItem="6C1-Ne-aib" firstAttribute="top" secondItem="HD7-6O-tUe" secondAttribute="top" id="SaO-tu-Jcx"/>
+                            <constraint firstItem="6C1-Ne-aib" firstAttribute="top" secondItem="Tyc-1M-rwV" secondAttribute="bottom" id="acC-S3-a8f"/>
                             <constraint firstAttribute="trailing" secondItem="6C1-Ne-aib" secondAttribute="trailing" id="i4W-Pa-c8X"/>
-                            <constraint firstItem="ydo-SS-BwD" firstAttribute="leading" secondItem="HI0-aj-6d6" secondAttribute="leading" id="nkx-aV-Krl"/>
-                            <constraint firstItem="6C1-Ne-aib" firstAttribute="top" secondItem="ydo-SS-BwD" secondAttribute="bottom" id="noI-Gg-EZ0"/>
-                            <constraint firstAttribute="trailing" secondItem="ydo-SS-BwD" secondAttribute="trailing" id="ple-JT-mSj"/>
+                            <constraint firstItem="6C1-Ne-aib" firstAttribute="leading" secondItem="Tyc-1M-rwV" secondAttribute="leading" id="oGu-5g-Lgm"/>
+                            <constraint firstItem="6C1-Ne-aib" firstAttribute="trailing" secondItem="Tyc-1M-rwV" secondAttribute="trailing" id="zdF-Ve-5Qd"/>
                         </constraints>
                     </view>
                     <connections>

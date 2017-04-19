@@ -31,6 +31,7 @@ extension UUMessage {
         if let fileUrl = imVoice.locationURL {
             content.voice?.data = try? Data(contentsOf: fileUrl)
             content.voice?.second = imVoice.duration
+            content.voice?.url = URL(string: imVoice.fid?.fsImageUrl ?? "")
         }
         self.init(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
                   msgId: imVoice.msg_id ?? "",

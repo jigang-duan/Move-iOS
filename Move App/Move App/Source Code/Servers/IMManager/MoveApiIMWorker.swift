@@ -123,7 +123,12 @@ class MoveApiIMWorker: IMWorkerProtocl {
             .catchError(messageNotFoundError)
     }
     
-    
+    func markNotification(id: String) -> Observable<String> {
+        guard let uid = Me.shared.user.id else {
+            return Observable.empty()
+        }
+        return MoveApi.HistoryMessage.settingReadStatus(uid: uid, msgid: id).map({_ in id })
+    }
 }
 
 fileprivate func transformMessageIDs(count: Int) -> Bool {

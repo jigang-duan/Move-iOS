@@ -100,7 +100,9 @@ extension IMManager {
         return worker.deleteMessages(gid: gid)
     }
     
-    
+    func markNotification(id: String) -> Observable<String> {
+        return worker.markNotification(id: id)
+    }
 }
 
 
@@ -123,6 +125,8 @@ protocol IMWorkerProtocl {
     func delete(messages ids: [String]) -> Observable<Bool>
     func deleteMessages(uid: String) -> Observable<Bool>
     func deleteMessages(gid: String) -> Observable<Bool>
+    
+    func markNotification(id: String) -> Observable<String>
 }
 
 

@@ -30,10 +30,14 @@ class LocationManager  {
         worker = MoveApiLocationWorker()
     }
     
-    var currentLocation: Observable<KidSate.LocationInfo>{
+    var currentLocation: Observable<KidSate.LocationInfo> {
         guard let deviceId = Me.shared.currDeviceID else {
             return Observable<KidSate.LocationInfo>.empty()
         }
+        return self.worker.getCurrentLocation(id: deviceId)
+    }
+    
+    func location(deviceId: String) -> Observable<KidSate.LocationInfo> {
         return self.worker.getCurrentLocation(id: deviceId)
     }
     

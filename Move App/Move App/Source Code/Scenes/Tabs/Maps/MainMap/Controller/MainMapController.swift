@@ -126,9 +126,7 @@ class MainMapController: UIViewController {
         let nameAndLocation = Observable.combineLatest(name.asObservable(), viewModel.kidLocation)
         guideOutlet.rx.tap.asObservable()
             .withLatestFrom(nameAndLocation)
-            .bindNext { [weak self] in
-                self?.openPlacemark(name: $0.0, location: $0.1)
-            }
+            .bindNext { MapUtility.openPlacemark(name: $0.0, location: $0.1) }
             .addDisposableTo(disposeBag)
         
         viewModel.fetchDevices.drive(viewModel.devicesVariable).addDisposableTo(disposeBag)
@@ -253,13 +251,6 @@ extension MainMapController: MKMapViewDelegate {
         return nil
     }
     
-    fileprivate func openPlacemark(name: String, location: CLLocationCoordinate2D) {
-        let options = [ MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking ]
-        let placemark = MKPlacemark(coordinate: location, addressDictionary: nil)
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = name
-        mapItem.openInMaps(launchOptions: options)
-    }
 }
 
 extension MainMapController: MFMessageComposeViewControllerDelegate {

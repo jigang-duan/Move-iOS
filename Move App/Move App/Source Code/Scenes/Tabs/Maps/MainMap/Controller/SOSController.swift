@@ -66,13 +66,13 @@ class SOSController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func backPressed(_ sender: UIButton) {
+    @IBAction func backPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func navigationPressed(_ sender: UIButton) {
         if let location = sos?.location?.location {
-            openPlacemark(name: sos?.deviceInof?.user?.nickname ?? "kids", location: location)
+            MapUtility.openPlacemark(name: sos?.deviceInof?.user?.nickname ?? "kids", location: location)
         }
     }
     
@@ -91,13 +91,6 @@ extension SOSController {
         self.headPortrait.kf.setImage(with: imgUrl, placeholder: placeImg)
     }
     
-    fileprivate func openPlacemark(name: String, location: CLLocationCoordinate2D) {
-        let options = [ MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking ]
-        let placemark = MKPlacemark(coordinate: location, addressDictionary: nil)
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = name
-        mapItem.openInMaps(launchOptions: options)
-    }
 }
 
 extension SOSController: MKMapViewDelegate {

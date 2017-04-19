@@ -50,7 +50,7 @@ class TabsViewController: UITabBarController {
         
         MessageServer.share.syncDataInitalization(disposeBag: bag)
         MessageServer.share.subscribe().addDisposableTo(bag)
-        AlertServer.share.subscribe().addDisposableTo(bag)
+        AlertServer.share.subscribe(disposeBag: bag)
         
         SOSService.shared.subject
             .flatMapLatest(transform)
