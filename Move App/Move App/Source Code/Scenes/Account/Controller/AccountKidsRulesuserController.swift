@@ -122,7 +122,7 @@ class AccountKidsRulesuserController: UITableViewController {
             case .next(let cons):
                 for con in cons {
                     if con.admin == true {
-                        UserInfo.shared.id == con.uid ? (self.isAdminBool = false) : (self.isAdminBool = true)
+                        UserInfo.shared.id == con.uid ? (self.isAdminBool = true) : (self.isAdminBool = false)
                         self.tableView.reloadData()
                     }
                 }
