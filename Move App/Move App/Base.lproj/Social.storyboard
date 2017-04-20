@@ -78,8 +78,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="chatIconBtn" destination="4kq-5c-ahc" id="ByH-aG-JSL"/>
                         <outlet property="familyChatView" destination="49I-oy-LSF" id="Fkw-03-SGq"/>
-                        <outlet property="messageCall" destination="4kq-5c-ahc" id="vqf-AT-pGV"/>
                         <outlet property="segmentedOutlet" destination="r2l-Zi-dyA" id="fdw-fW-cI5"/>
                         <outlet property="singleChatView" destination="6xJ-gZ-2iL" id="I05-W0-hyH"/>
                     </connections>

@@ -20,23 +20,29 @@ class ChatController: UIViewController {
     
     var guideimageView = UIImageView()
     
-    @IBOutlet weak var messageCall: UIButton!
+    @IBOutlet weak var chatIconBtn: UIButton!
     
-    func callAction() {
-        
+    func chatAction(enable: Bool) {
+        if enable{
+            chatIconBtn.setImage(UIImage(named: "nav_member_nor"), for: .normal)
+            chatIconBtn.setImage(UIImage(named: "nav_member_pre"), for: .highlighted)
+            chatIconBtn.tag = 10
+        }else
+        {
+            chatIconBtn.setImage(UIImage(named: "nav_call_nor"), for: .normal)
+            chatIconBtn.setImage(UIImage(named: "nav_call_pre"), for: .highlighted)
+            chatIconBtn.tag = 11
+        }
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        messageCall.isHidden = true
+
         // Do any additional setup after loading the view.
 
         self.guideView()
         
-        messageCall.rx.tap
-            .asDriver()
-            .drive(onNext: callAction)
-            .addDisposableTo(disposeBag)
         
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
         
@@ -49,8 +55,9 @@ class ChatController: UIViewController {
         segmentedOutlet.rx.selectedSegmentIndex
             .asDriver()
             .map({ $0 == 0 })
-            .drive(messageCall.rx.isHidden)
+            .drive(onNext:chatAction)
             .addDisposableTo(disposeBag)
+      
 
         segmentedOutlet.rx.selectedSegmentIndex
             .asDriver()
