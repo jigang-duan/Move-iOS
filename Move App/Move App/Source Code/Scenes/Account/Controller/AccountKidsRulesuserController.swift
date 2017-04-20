@@ -32,18 +32,16 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var unpairedWithLabel: UILabel!
     
-    @IBOutlet weak var putongHeadView: UILabel!
-    @IBOutlet weak var putongUnpairedBtn: UIButton!
-    
+
     
 //------------------------------------------------------------------------------------------------------
-    @IBOutlet weak var putongyonghu: UITableViewCell!
     
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
     
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     @IBOutlet weak var savePowerQutel: SwitchButton!
+    
     
     var isAdminBool : Bool = false
     
@@ -68,8 +66,7 @@ class AccountKidsRulesuserController: UITableViewController {
         apnLabel.text = R.string.localizable.apn()
         updateLabel.text = R.string.localizable.update()
         unpairedWithLabel.text = R.string.localizable.unpaired_with_watch()
-        putongHeadView.text = R.string.localizable.action_settings()
-        putongUnpairedBtn.setTitle(R.string.localizable.unpaired_with_watch(), for: .normal)
+      
         
     }
     
@@ -90,7 +87,7 @@ class AccountKidsRulesuserController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         putongyonghu.selectionStyle = .none
+        
         
         //国际化R.string.localizable
        self.internationalization()
@@ -125,7 +122,7 @@ class AccountKidsRulesuserController: UITableViewController {
             case .next(let cons):
                 for con in cons {
                     if con.admin == true {
-                        UserInfo.shared.id == con.uid ? (self.isAdminBool = true) : (self.isAdminBool = false)
+                        UserInfo.shared.id == con.uid ? (self.isAdminBool = false) : (self.isAdminBool = true)
                         self.tableView.reloadData()
                     }
                 }
@@ -149,17 +146,6 @@ class AccountKidsRulesuserController: UITableViewController {
         if let vc = R.segue.accountKidsRulesuserController.showMasterUnpairTip(segue: segue)?.destination {
             vc.isMaster = self.isAdminBool
             vc.unpairBlock = { flag, message in
-                if flag {
-                    _ = self.navigationController?.popToRootViewController(animated: true)
-                }else{
-                    self.showMessage(message)
-                }
-            }
-        }
-        
-        if let vc = R.segue.accountKidsRulesuserController.showGeneralUnpairTip(segue: segue)?.destination {
-            vc.unpairBlock = { flag, message in
-                vc.isMaster = self.isAdminBool
                 if flag {
                     _ = self.navigationController?.popToRootViewController(animated: true)
                 }else{
@@ -194,6 +180,39 @@ class AccountKidsRulesuserController: UITableViewController {
         self.present(vc, animated: true)
     }
     
+   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if isAdminBool{
+    if indexPath.section == 0{
+        return 55}
+    else if indexPath.section == 1{
+        return 44}
+    else{
+        if ((indexPath.row == 0) || (indexPath.row == 1)){
+            return 95}
+    else{
+            return 44}
+    }
+    }else
+    {
+        if indexPath.section == 0 {
+            return 55
+        }else if indexPath.section == 1 {
+            if indexPath.row == 4 {
+                return 0
+            }else{
+                return 44
+            }
+        }else{
+            if indexPath.row == 7 {
+                return 44
+            }else{
+                return 0
+            }
+        }
+
+    }
+}
+    
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
@@ -205,23 +224,6 @@ class AccountKidsRulesuserController: UITableViewController {
             return ""
         }
     }
-    
-    //判断用户 控制第二组 管：5，非就6
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
-        }
-        else if section == 1{
-            return isAdminBool ? 5 : 6
-        }else{
-            return 8
-        }
-    }
-    //判断用户 管就2，非就3
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return isAdminBool ? 3 : 2
-    }
-    
     
 }
 
