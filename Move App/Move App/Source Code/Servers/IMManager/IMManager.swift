@@ -147,7 +147,7 @@ struct ImGroup {
 
 struct ImContact {
     var uid: String?
-    var type: Int?
+    var type: Int?//联系人类型0 - 非注册用户 1 - 注册用户 2 - 注册设备
     var username: String?
     var nickname: String?
     var profile: String?

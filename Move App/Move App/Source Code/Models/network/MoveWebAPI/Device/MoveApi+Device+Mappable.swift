@@ -33,6 +33,7 @@ extension MoveApi {
     }
     
     struct DeviceContacts {
+        var gid: String?
         var contacts: [MoveIM.ImContact]?
     }
     
@@ -351,6 +352,7 @@ extension MoveApi.DeviceContacts: Mappable {
     
     mutating func mapping(map: Map) {
         contacts <- map["contacts"]
+        gid <- map["gid"]
     }
 }
 

@@ -67,7 +67,7 @@ class PhoneNumberViewModel {
             nextResult = input.nextTaps.withLatestFrom(input.phone)
                 .flatMapLatest({ phone in
                     if phone != self.phoneSuffix {
-                        return Driver.just(ValidationResult.failed(message: "PhoneNumber incorrect"))
+                        return Driver.just(ValidationResult.failed(message: "Your number can't match"))
                     }
                     
                     return deviceManager.joinGroup(joinInfo: self.info!).map({_ in

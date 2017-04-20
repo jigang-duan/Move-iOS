@@ -17,23 +17,16 @@ class FamilyMemberAddViewModel {
     let nameInvalidte: Driver<ValidationResult>
     let phoneInvalidte: Driver<ValidationResult>
 
-    
     let saveEnabled: Driver<Bool>
     var saveResult: Driver<ValidationResult>?
     
-    let doneEnabled: Driver<Bool>
-    var doneResult: Driver<ValidationResult>?
-    
     var photo: Variable<UIImage?>?
-    
-    var fid: String?
     
     init(
         input:(
         name: Driver<String>,
         number: Driver<String>,
-        saveTaps: Driver<Void>,
-        doneTaps: Driver<Void>
+        saveTaps: Driver<Void>
         ),
         dependency: (
         validation: DefaultValidation,
@@ -58,20 +51,16 @@ class FamilyMemberAddViewModel {
         }
         
         
-        self.doneEnabled = Driver.combineLatest( nameInvalidte, phoneInvalidte) {name, phone in
+        self.saveEnabled = Driver.combineLatest( nameInvalidte, phoneInvalidte) {name, phone in
                 name.isValid && phone.isValid
             }
             .distinctUntilChanged()
         
-        self.saveEnabled = self.doneEnabled
         
         let com =  Driver.combineLatest( input.name, input.number){($0,$1)}
         
         
         saveResult = input.saveTaps.withLatestFrom(com)
-            .flatMapLatest({self.operation(phone: $0.1, identity: $0.0)})
-        
-        doneResult = input.doneTaps.withLatestFrom(com)
             .flatMapLatest({self.operation(phone: $0.1, identity: $0.0)})
         
     }
@@ -82,7 +71,6 @@ class FamilyMemberAddViewModel {
         
         if let photo = self.photo?.value.value {
             return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMap({ fid -> Observable<ValidationResult> in
-                self.fid = fid
                 
                 return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: Relation(input: identity)!).map({_ in
                     return ValidationResult.ok(message: "Send Success.")

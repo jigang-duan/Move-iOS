@@ -105,7 +105,7 @@ class DefaultValidation {
             return .failed(message: "Phone must be at least \(minPhoneCount) characters")
         }
         
-        let setString = "0123456789*#"
+        let setString = "0123456789"
         for character in phone.characters {
             if setString.characters.index(of: character) == nil {
                 return .failed(message: "Phone input incorrect")
@@ -126,7 +126,7 @@ class DefaultValidation {
             return .failed(message: "Phone must be at least \(minPhoneCount) characters")
         }
         
-        let setString = "0123456789,*#"
+        let setString = "0123456789,"
         for character in phoneStr.characters {
             if setString.characters.index(of: character) == nil {
                 return .failed(message: "Phones input incorrect")

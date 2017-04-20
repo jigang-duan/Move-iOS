@@ -18,6 +18,11 @@ class FamilyMemberController: UIViewController {
     
     @IBOutlet weak var emergencyLab: UILabel!
     
+    @IBOutlet weak var addBun: UIBarButtonItem!
+    
+    
+    var isMater = false//是否是管理员
+    
     var viewModel: FamilyMemberViewModel!
     var disposeBag = DisposeBag()
     let enterCount = Variable(0)
@@ -31,17 +36,12 @@ class FamilyMemberController: UIViewController {
         
         enterCount.value += 1
         
-        _ = WatchSettingsManager.share.fetchEmergencyNumbers()
-            .subscribe({ event in
-            switch event{
-            case .next(let numbers):
-                self.emergencyLab.text = numbers.joined(separator: ",")
-            case .completed:
-                break
-            case .error(let er):
-                print(er)
-            }
-        })
+        if isMater == true {
+            WatchSettingsManager.share.fetchEmergencyNumbers()
+                .subscribe(onNext: { numbers in
+                    self.emergencyLab.text = numbers.joined(separator: ",")
+                }).addDisposableTo(disposeBag)
+        }
         
     }
     
@@ -57,9 +57,11 @@ class FamilyMemberController: UIViewController {
         
         popView.isHidden = true
         
-        tableView.rx
-            .setDelegate(self)
-            .addDisposableTo(disposeBag)
+        if isMater == false {
+            self.navigationItem.rightBarButtonItem = nil
+            tableView.tableHeaderView = UIView()
+        }
+        
         
         tableView.register(R.nib.familyMemberTableViewCell)
         
@@ -86,9 +88,11 @@ class FamilyMemberController: UIViewController {
                 cell.heartBun.setImage(element.isHeartOn ? R.image.member_heart_on() : R.image.member_heart_off(), for: .normal)
                 cell.isHeartOn = element.isHeartOn
                 
-                cell.heartClick = {[weak cell] _ in
-                    cell?.isHeartOn = !(cell?.isHeartOn)!
-                    self.cellHeart.value = (flag: (cell?.isHeartOn)!, row: row)
+                if self.isMater == true {
+                    cell.heartClick = {[weak cell] _ in
+                        cell?.isHeartOn = !(cell?.isHeartOn)!
+                        self.cellHeart.value = (flag: (cell?.isHeartOn)!, row: row)
+                    }
                 }
                 
                 cell.relationName.text = element.relation + (element.state.contains(.me) ? "(Me)":"")
@@ -137,12 +141,10 @@ class FamilyMemberController: UIViewController {
     
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
-        self.present(vc, animated: true) {
-            
-        }
+        self.present(vc, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -158,11 +160,3 @@ class FamilyMemberController: UIViewController {
     
 }
 
-
-extension FamilyMemberController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .none
-    }
-
-}

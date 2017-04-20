@@ -24,25 +24,31 @@ class FamilyMemberDetailController: UIViewController {
     @IBOutlet weak var nameTf: UITextField!
     @IBOutlet weak var numberTf: UITextField!
     
+    @IBOutlet weak var qrCodeView: UIView!
+    @IBOutlet weak var qrCodeHCons: NSLayoutConstraint!
+    
+    
+    
     @IBOutlet weak var masterBun: UIButton!
+    @IBOutlet weak var masterHCons: NSLayoutConstraint!
     @IBOutlet weak var deleteBun: UIButton!
     
     @IBOutlet weak var saveBun: UIBarButtonItem!
     
-    var photoVariable:Variable<UIImage?> = Variable(nil)
+    private var photoVariable:Variable<UIImage?> = Variable(nil)
     
     var info: ContactDetailInfo?
     
-    var contactInfo = Variable(ImContact())
+    private var contactInfo = Variable(ImContact())
     
-    var photoPicker: ImageUtility?
-    
-    
-    var viewModel: FamilyMemberDetailViewModel!
-    let disposeBag = DisposeBag()
+    private var photoPicker: ImageUtility?
     
     
-    let addressbookHelper = AddressbookUtility()
+    private var viewModel: FamilyMemberDetailViewModel!
+    private let disposeBag = DisposeBag()
+    
+    
+    private let addressbookHelper = AddressbookUtility()
     
     
     struct ContactDetailInfo {
@@ -55,8 +61,7 @@ class FamilyMemberDetailController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        nameTf.resignFirstResponder()
-        numberTf.resignFirstResponder()
+       self.view.endEditing(true)
     }
     
     
@@ -101,8 +106,7 @@ class FamilyMemberDetailController: UIViewController {
         viewModel.saveEnabled?
             .drive(onNext: { [unowned self] valid in
                 if self.info?.isNowMaster == false && self.info?.isMe == false {
-                    self.saveBun.isEnabled = false
-                    self.saveBun.tintColor?.withAlphaComponent(0.5)
+                    self.navigationItem.rightBarButtonItem = nil
                 }else{
                     self.saveBun.isEnabled = valid
                     self.saveBun.tintColor?.withAlphaComponent(valid ? 1.0 : 0.5)
@@ -160,6 +164,9 @@ class FamilyMemberDetailController: UIViewController {
     
     func setupUI() {
         if self.info?.isNowMaster == false {
+            qrCodeView.isHidden = true
+            qrCodeHCons.constant = 0
+            
             masterBun.isHidden = true
             deleteBun.isHidden = true
             if info?.isMe == false {
@@ -170,9 +177,19 @@ class FamilyMemberDetailController: UIViewController {
                 numberTf.isEnabled = false
                 saveBun.isEnabled = false
             }
-        }else if self.info?.isNowMaster == true && info?.isMe == true {
-            masterBun.isHidden = true
-            deleteBun.isHidden = true
+        }else{
+            if info?.isMe == true {
+                masterBun.isHidden = true
+                deleteBun.isHidden = true
+            }
+           
+            if info?.contactInfo?.type == 1 {
+                qrCodeView.isHidden = true
+                qrCodeHCons.constant = 0
+            }else{
+                masterBun.isHidden = true
+                masterHCons.constant = 0
+            }
         }
         
         let imgUrl = URL(string: FSManager.imageUrl(with: info?.contactInfo?.profile ?? ""))
@@ -209,7 +226,14 @@ class FamilyMemberDetailController: UIViewController {
     @IBAction func selectPhone(_ sender: Any) {
         addressbookHelper.phoneCallback(with: self) {[unowned self] phones in
             if phones.count > 0 {
-                self.numberTf.text = phones[0]
+                let phone = phones[0]
+                var str = ""
+                for ch in phone.characters {
+                    if "0123456789".characters.contains(ch){
+                        str.append(ch)
+                    }
+                }
+                self.numberTf.text = str
             }
         }
     }

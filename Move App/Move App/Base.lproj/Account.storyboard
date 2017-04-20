@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="avg-XR-5s9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="avg-XR-5s9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -200,9 +200,6 @@
                                                 <constraint firstItem="4As-Sj-hKR" firstAttribute="centerY" secondItem="5NT-tG-HXW" secondAttribute="centerY" id="wIb-xY-5fb"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="nif-PI-MU0" kind="show" id="VNC-jh-Dm1"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ptR-NH-n82">
                                         <rect key="frame" x="0.0" y="139" width="375" height="44"/>
@@ -706,6 +703,7 @@
                         <outlet property="unpairedwithwatchIntroduceLabel" destination="4xW-M3-XTj" id="FT6-9D-KdP"/>
                         <outlet property="updateLabel" destination="bhF-pG-ImJ" id="jMv-k8-OyE"/>
                         <outlet property="usePermissiorLabel" destination="69I-if-kDG" id="tt9-NA-JUy"/>
+                        <outlet property="watchContactCell" destination="Raa-Mu-wBQ" id="yyW-Hh-9Hs"/>
                         <outlet property="watchContactLabel" destination="4As-Sj-hKR" id="9qH-uU-3hJ"/>
                     </connections>
                 </tableViewController>
@@ -2782,14 +2780,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RX4-Uw-xb8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3402" y="2173"/>
-        </scene>
-        <!--Contact-->
-        <scene sceneID="x5X-m7-ydj">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Contact" id="nif-PI-MU0" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aaB-b0-v4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3369" y="2382"/>
         </scene>
         <!--APN-->
         <scene sceneID="Xyd-Gh-4N7">

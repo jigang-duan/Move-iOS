@@ -21,9 +21,8 @@ class FamilyMemberAddController: UIViewController {
     
     @IBOutlet weak var nameTf: UITextField!
     @IBOutlet weak var numberTf: UITextField!
-    
-    @IBOutlet weak var doneBun: UIButton!
 
+    @IBOutlet weak var validate: UILabel!
     
     var viewModel: FamilyMemberAddViewModel!
     var disposeBag = DisposeBag()
@@ -34,6 +33,8 @@ class FamilyMemberAddController: UIViewController {
     
     var photoVariable:Variable<UIImage?> = Variable(nil)
     
+    
+    var contactInfo: ImContact?
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -46,29 +47,30 @@ class FamilyMemberAddController: UIViewController {
                 break
             }
         })
-            .addDisposableTo(disposeBag)
+        .addDisposableTo(disposeBag)
         
         viewModel.phoneInvalidte.drive(onNext: { result in
             switch result{
-            case .failed(_):
-                self.numberTf.becomeFirstResponder()
+            case .failed(let message):
+                self.validate.text = message
+                self.validate.isHidden = false
             default:
-                break
+                self.validate.isHidden = true
             }
         })
-            .addDisposableTo(disposeBag)
+        .addDisposableTo(disposeBag)
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        nameTf.resignFirstResponder()
-        numberTf.resignFirstResponder()
-        
+        self.view.endEditing(true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        validate.isHidden = true
         
         let name = nameTf.rx.text.orEmpty.asDriver()
         let nameText = nameTf.rx.observe(String.self, "text").filterNil()
@@ -82,8 +84,7 @@ class FamilyMemberAddController: UIViewController {
             input:(
                 name: combineName,
                 number: combineNumber,
-                saveTaps: saveBun.rx.tap.asDriver(),
-                doneTaps: doneBun.rx.tap.asDriver()
+                saveTaps: saveBun.rx.tap.asDriver()
             ),
             dependency: (
                 validation: DefaultValidation.shared,
@@ -102,34 +103,12 @@ class FamilyMemberAddController: UIViewController {
         
         
         viewModel.saveResult?
-            .drive(onNext: { doneResult in
-                switch doneResult {
+            .drive(onNext: { result in
+                switch result {
                 case .failed(let message):
                     self.showMessage(message)
                 case .ok:
-                    _ = self.navigationController?.popViewController(animated: true)
-                default:
-                    break
-                }
-            })
-            .addDisposableTo(disposeBag)
-    
-      
-        viewModel.doneEnabled
-            .drive(onNext: { [weak self] valid in
-                self?.doneBun.isEnabled = valid
-                self?.doneBun.alpha = valid ? 1.0 : 0.5
-            })
-            .addDisposableTo(disposeBag)
-        
-        
-        viewModel.doneResult?
-            .drive(onNext: { doneResult in
-                switch doneResult {
-                case .failed(let message):
-                    self.showMessage(message)
-                case .ok:
-                    self.performSegue(withIdentifier: R.segue.familyMemberAddController.showShareQRCode, sender: nil)
+                    self.fetchContactInfo()
                 default:
                     break
                 }
@@ -138,15 +117,22 @@ class FamilyMemberAddController: UIViewController {
         
     }
     
-  
-
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let sg = R.segue.familyMemberAddController.showShareQRCode(segue: segue) {
-            sg.destination.relation = Relation(input: nameTf.text ?? "")?.identity
-            sg.destination.profile = self.viewModel.fid
-            sg.destination.memberPhone = numberTf.text
-        }
+    func fetchContactInfo() {
+        DeviceManager.shared.getContacts(deviceId: RxStore.shared.currentDeviceId.value!)
+            .subscribe(onNext: { cons in
+                for con in cons {
+                    if con.phone == self.numberTf.text {
+                        self.contactInfo = con
+                        let vc = R.storyboard.contact.familyMemberDetailController()!
+                        vc.info = FamilyMemberDetailController.ContactDetailInfo(contactInfo: self.contactInfo, isNowMaster: true, isMe: false)
+                        var vcs = self.navigationController?.viewControllers
+                        _ = vcs?.popLast()
+                        vcs?.append(vc)
+                        self.navigationController?.setViewControllers(vcs!, animated: true)
+                    }
+                }
+            }).addDisposableTo(disposeBag)
     }
     
     
@@ -175,19 +161,24 @@ class FamilyMemberAddController: UIViewController {
     @IBAction func selectPhone(_ sender: Any) {
         addressbookHelper.phoneCallback(with: self) {[unowned self] phones in
             if phones.count > 0 {
-                self.numberTf.text = phones[0]
+                let phone = phones[0]
+                var str = ""
+                for ch in phone.characters {
+                    if "0123456789".characters.contains(ch){
+                        str.append(ch)
+                    }
+                }
+                self.numberTf.text = str
             }
         }
     }
     
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
-        self.present(vc, animated: true) {
-            
-        }
+        self.present(vc, animated: true)
     }
     
     

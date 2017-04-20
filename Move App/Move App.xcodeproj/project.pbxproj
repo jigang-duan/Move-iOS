@@ -273,6 +273,7 @@
 		FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */; };
 		FF1C4FAF1E73A554008248FE /* FamilyMemberDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */; };
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
+		FF1CA44E1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1CA44D1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift */; };
 		FF2144151EA6FF6C00BA7C7B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
@@ -632,6 +633,7 @@
 		FF15DF2E1E5EDFC200692B5B /* PwdRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdRecoveryViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailViewModel.swift; sourceTree = "<group>"; };
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
+		FF1CA44D1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFamilyAndWatchVC.swift; sourceTree = "<group>"; };
 		FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -1943,6 +1945,7 @@
 		FF02FBCA1E6838E1008D0C84 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FF1CA44D1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift */,
 				FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */,
 				FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */,
 				FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */,
@@ -2617,6 +2620,7 @@
 				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
 				113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
+				FF1CA44E1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,

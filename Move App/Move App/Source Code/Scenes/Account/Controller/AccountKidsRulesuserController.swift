@@ -14,6 +14,7 @@ import CustomViews
 
 class AccountKidsRulesuserController: UITableViewController {
     
+    @IBOutlet weak var watchContactCell: UITableViewCell!
     //internationalization
     @IBOutlet weak var kidswatchTitleItem: UINavigationItem!
     @IBOutlet weak var watchContactLabel: UILabel!
@@ -172,6 +173,23 @@ class AccountKidsRulesuserController: UITableViewController {
             vc.addInfoVariable.value = info
         }
     }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        if cell == watchContactCell {
+            if isAdminBool == true {
+                let vc = R.storyboard.contact().instantiateInitialViewController()
+                self.navigationController?.show(vc!, sender: nil)
+            }else{
+                let vc = R.storyboard.contact.familyMemberController()!
+                vc.isMater = false
+                self.navigationController?.show(vc, sender: nil)
+            }
+        }
+    }
+    
+    
     
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
