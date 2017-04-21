@@ -177,16 +177,30 @@ enum PositioningMode {
 enum Relation {
     case mother
     case father
-    case grandmaF
-    case grandPaF
-    case grandmaM
-    case grandpaM
+    case grandpa
+    case grandma
     case uncle
     case aunty
-    case sister
     case brother
+    case sister
     case other(value: String)
 }
+
+//func ==(lhs: Relation, rhs: Relation) -> Bool {
+//    switch (lhs, rhs) {
+//        case (.mother, .mother): return true
+//        case (.father, .father): return true
+//        case (.grandpa, .grandpa): return true
+//        case (.grandma, .grandma): return true
+//        case (.uncle, .uncle): return true
+//        case (.aunty, .aunty): return true
+//        case (.brother, .brother): return true
+//        case (.sister, .sister): return true
+//        case (.other(let a), .other(let b)) where a == b: return true
+//        default: return false
+//    }
+//}
+
 
 extension Relation {
     
@@ -197,21 +211,17 @@ extension Relation {
         case "2":
             self = .father
         case "3":
-            self = .grandmaF
+            self = .grandpa
         case "4":
-            self = .grandPaF
+            self = .grandma
         case "5":
-            self = .grandmaM
-        case "6":
-            self = .grandpaM
-        case "7":
             self = .uncle
-        case "8":
+        case "6":
             self = .aunty
-        case "9":
-            self = .sister
-        case "10":
+        case "7":
             self = .brother
+        case "8":
+            self = .sister
         default:
             self = .other(value: input)
         }
@@ -226,14 +236,10 @@ extension Relation: CustomStringConvertible {
             return "Mother"
         case .father:
             return "Father"
-        case .grandmaF:
-            return "GrandmaF"
-        case .grandPaF:
-            return "GrandPaF"
-        case .grandmaM:
-            return "GrandmaM"
-        case .grandpaM:
-            return "GrandpaM"
+        case .grandpa:
+            return "Grandpa"
+        case .grandma:
+            return "Grandma"
         case .uncle:
             return "Uncle"
         case .aunty:
@@ -242,7 +248,7 @@ extension Relation: CustomStringConvertible {
             return "Sister"
         case .brother:
             return "Brother"
-        case . other(let value):
+        case .other(let value):
             return value
         }
     }
@@ -253,22 +259,18 @@ extension Relation: CustomStringConvertible {
             return "1"
         case .father:
             return "2"
-        case .grandmaF:
+        case .grandpa:
             return "3"
-        case .grandPaF:
+        case .grandma:
             return "4"
-        case .grandmaM:
-            return "5"
-        case .grandpaM:
-            return "6"
         case .uncle:
-            return "7"
+            return "5"
         case .aunty:
-            return "8"
-        case .sister:
-            return "9"
+            return "6"
         case .brother:
-            return "10"
+            return "7"
+        case .sister:
+            return "8"
         case .other(let value):
             return otherIdentity(value)
         }
@@ -280,22 +282,18 @@ extension Relation: CustomStringConvertible {
             return "1"
         case "Father":
             return "2"
-        case "GrandmaF":
+        case "Grandpa":
             return "3"
-        case "GrandPaF":
+        case "Grandma":
             return "4"
-        case "GrandmaM":
-            return "5"
-        case "GrandpaM":
-            return "6"
         case "Uncle":
-            return "7"
+            return "5"
         case "Aunty":
-            return "8"
-        case "Sister":
-            return "9"
+            return "6"
         case "Brother":
-            return "10"
+            return "7"
+        case "Sister":
+            return "8"
         default:
             return value
         }

@@ -270,6 +270,16 @@ class UpdatePwdController: UIViewController {
         rePasswordTf.resignFirstResponder()
     }
     
+    @IBAction func passwordEyeClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        passwordTf.isSecureTextEntry = !sender.isSelected
+    }
+    
+    @IBAction func repasswordEyeClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        rePasswordTf.isSecureTextEntry = !sender.isSelected
+    }
+    
     
     @IBAction func backAction(_ sender: AnyObject?) {
         _ = self.navigationController?.popViewController(animated: true)

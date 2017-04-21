@@ -24,17 +24,18 @@ class FamilyMemberAddController: UIViewController {
 
     @IBOutlet weak var validate: UILabel!
     
-    var viewModel: FamilyMemberAddViewModel!
-    var disposeBag = DisposeBag()
+    private var viewModel: FamilyMemberAddViewModel!
+    private var disposeBag = DisposeBag()
 
-    var photoPicker: ImageUtility?
+    private var photoPicker: ImageUtility?
     
-    let addressbookHelper = AddressbookUtility()
+    private let addressbookHelper = AddressbookUtility()
     
-    var photoVariable:Variable<UIImage?> = Variable(nil)
+    private var photoVariable:Variable<UIImage?> = Variable(nil)
     
+    private var contactInfo: ImContact?
     
-    var contactInfo: ImContact?
+    var exsitIdentities: [Relation] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -93,6 +94,7 @@ class FamilyMemberAddController: UIViewController {
         )
         
         viewModel.photo = photoVariable
+        viewModel.exsitIdentities = exsitIdentities
         
         viewModel.saveEnabled
             .drive(onNext: { [weak self] valid in
@@ -126,6 +128,7 @@ class FamilyMemberAddController: UIViewController {
                         self.contactInfo = con
                         let vc = R.storyboard.contact.familyMemberDetailController()!
                         vc.info = FamilyMemberDetailController.ContactDetailInfo(contactInfo: self.contactInfo, isNowMaster: true, isMe: false)
+                        vc.exsitIdentities = self.exsitIdentities
                         var vcs = self.navigationController?.viewControllers
                         _ = vcs?.popLast()
                         vcs?.append(vc)
@@ -147,12 +150,8 @@ class FamilyMemberAddController: UIViewController {
     
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
-        vc.relationBlock = {[weak self] relation in
-            if relation == 10 {
-                self?.nameTf.text = "Other"
-            }else{
-                self?.nameTf.text = Relation(input: String(relation + 1))?.description
-            }
+        vc.relationBlock = {[weak self] (relation) in
+            self?.nameTf.text = relation.description
         }
         self.navigationController?.show(vc, sender: nil)
     }

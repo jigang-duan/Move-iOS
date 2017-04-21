@@ -22,6 +22,8 @@ class FamilyMemberAddViewModel {
     
     var photo: Variable<UIImage?>?
     
+    var exsitIdentities: [Relation] = []
+    
     init(
         input:(
         name: Driver<String>,
@@ -71,18 +73,35 @@ class FamilyMemberAddViewModel {
         
         if let photo = self.photo?.value.value {
             return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMap({ fid -> Observable<ValidationResult> in
-                
-                return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: Relation(input: identity)!).map({_ in
+                let relation = self.createIdentity(identity)
+                return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: relation).map({_ in
                     return ValidationResult.ok(message: "Send Success.")
                 })
             })
                 .asDriver(onErrorRecover: commonErrorRecover)
         }else{
-            return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: nil, identity: Relation(input: identity)!).map({_ in
+            let relation = self.createIdentity(identity)
+            return deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: nil, identity: relation).map({_ in
                 return ValidationResult.ok(message: "Send Success.")
             })
                 .asDriver(onErrorRecover: commonErrorRecover)
         }
     }
+    
+    
+ 
+    func createIdentity(_ identity: String) -> Relation {
+        var relation = Relation(input: identity)!
+        
+        for iden in exsitIdentities {
+            if relation.description == iden.description {
+                relation = createIdentity("\(identity)-1")
+                break
+            }
+        }
+        
+        return relation
+    }
+    
     
 }

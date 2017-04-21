@@ -85,7 +85,7 @@ class FamilyMemberDetailViewModel {
                 var info = (self.contactInfo?.value)!
                 
                 if let photo = input.photo.value {
-                    return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil()
+                    return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1)
                         .flatMapLatest({ fid -> Observable<ValidationResult> in
                             info.profile = fid
                             return deviceManager.settingContactInfo(contactInfo: info).map({ _ in

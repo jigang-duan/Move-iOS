@@ -220,7 +220,15 @@ class SignUpViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
+    @IBAction func passwordEyeClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        passwordTf.isSecureTextEntry = !sender.isSelected
+    }
     
+    @IBAction func repasswordEyeClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        rePasswordTf.isSecureTextEntry = !sender.isSelected
+    }
 
    
     

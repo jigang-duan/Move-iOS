@@ -426,7 +426,7 @@
                                         </constraints>
                                         <state key="normal" title="   Input number" image="member_ic_input"/>
                                         <connections>
-                                            <segue destination="sPO-aa-qwW" kind="show" id="XCk-tY-jpd"/>
+                                            <segue destination="sPO-aa-qwW" kind="show" identifier="showAddMember" id="XCk-tY-jpd"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -580,7 +580,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For safety reason this QR code just in effect In one hour" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stH-AP-Gdh">
-                                        <rect key="frame" x="40" y="476" width="295" height="34"/>
+                                        <rect key="frame" x="40" y="476" width="295" height="33.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>

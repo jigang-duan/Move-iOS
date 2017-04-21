@@ -10,11 +10,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class IputIMEIControllerTableController: UITableViewController {
+class IputIMEIControllerTableController: UIViewController {
 
     @IBOutlet weak var IMEITextF: UITextField!
     @IBOutlet weak var confirmBun: UIButton!
     
+    @IBOutlet weak var validate: UILabel!
     
     var disposeBag = DisposeBag()
     var viewModel: InputIMEIViewModel!
@@ -22,28 +23,26 @@ class IputIMEIControllerTableController: UITableViewController {
     
     func showValidateError(_ text: String) {
         
-//        emailValidation.isHidden = false
-//        emailValidation.alpha = 0.0
-//        emailValidation.text = text
-//        UIView.animate(withDuration: 0.6) { [weak self] in
-//            self?.emailValidation.textColor = ValidationColors.errorColor
-//            self?.emailValidation.alpha = 1.0
-//            self?.view.layoutIfNeeded()
-//        }
+        validate.isHidden = false
+        validate.alpha = 0.0
+        validate.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validate.textColor = ValidationColors.errorColor
+            self?.validate.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
         IMEITextF.placeholder = text
     }
     
     func revertValidateError() {
-//        emailValidation.isHidden = true
-//        emailValidation.alpha = 1.0
-//        emailValidation.text = ""
-//        UIView.animate(withDuration: 0.6) { [weak self] in
-//            self?.emailValidation.textColor = ValidationColors.okColor
-//            self?.emailValidation.alpha = 0.0
-//            self?.view.layoutIfNeeded()
-//        }
-        
-        IMEITextF.placeholder = "please input IMEI"
+        validate.isHidden = true
+        validate.alpha = 1.0
+        validate.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validate.textColor = ValidationColors.okColor
+            self?.validate.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,16 +52,9 @@ class IputIMEIControllerTableController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         
-      
+        validate.isHidden = true
         
         viewModel = InputIMEIViewModel(
             input:(
@@ -90,7 +82,7 @@ class IputIMEIControllerTableController: UITableViewController {
             .drive(onNext: { doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showMessage(message)
+                    self.showValidateError(message)
                 case .ok(let message):
                     self.gotoVerifyVC(message)
                 default:
@@ -101,16 +93,6 @@ class IputIMEIControllerTableController: UITableViewController {
         
     }
     
-    
-    func showMessage(_ text: String) {
-        let vc = UIAlertController.init(title: "提示", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-        vc.addAction(action)
-        self.present(vc, animated: true) {
-            
-        }
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -118,6 +100,8 @@ class IputIMEIControllerTableController: UITableViewController {
             switch result{
             case .failed(let message):
                 self.showValidateError(message)
+            case .empty:
+                self.showValidateError("Please input IMEI")
             default:
                 self.revertValidateError()
             }
@@ -135,7 +119,6 @@ class IputIMEIControllerTableController: UITableViewController {
         if let sg = R.segue.iputIMEIControllerTableController.showVerification(segue: segue) {
             sg.destination.imei = IMEITextF.text
         }
-        
     }
     
     func gotoVerifyVC(_ sid: String){

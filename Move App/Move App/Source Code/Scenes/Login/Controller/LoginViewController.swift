@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+let lastLoginAccount = "lastLoginAccount"
+
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailOutlet: UITextField!
@@ -40,6 +42,10 @@ class LoginViewController: UIViewController {
         emailValidationOutlet.isHidden = true
         passwordValidationHCon.constant = 0
         passwordValidationOutlet.isHidden = true
+        
+        if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
+            emailOutlet.text = email
+        }
         
         
         let passwdText = passwordOutlet.rx.observe(String.self, "text").filterNil()
@@ -101,6 +107,17 @@ class LoginViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+        viewModel.thirdLoginResult
+            .drive(onNext: { [weak self] in
+                self?.loginOnValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+        
+    }
+    
+    @IBAction func eyeButtonClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        passwordOutlet.isSecureTextEntry = !sender.isSelected
     }
     
     override func viewWillDisappear(_ animated: Bool) {

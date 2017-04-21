@@ -269,6 +269,7 @@
 		FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF08591F1E72BD6500EB81D9 /* FamilyMemberViewModel.swift */; };
 		FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */; };
 		FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */; };
+		FF0C6D571EA9EF2A00282808 /* CantPairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0C6D561EA9EF2A00282808 /* CantPairViewController.swift */; };
 		FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0D43C71E84F2E100F1418B /* EmergencyNumberViewModel.swift */; };
 		FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */; };
 		FF1011811E80E2B40038DBE9 /* UnpairTipVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1011801E80E2B40038DBE9 /* UnpairTipVC.swift */; };
@@ -632,6 +633,7 @@
 		FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddViewModel.swift; sourceTree = "<group>"; };
 		FF0B13411E5FDD1900DF12D3 /* UpdatePswdViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePswdViewModel.swift; sourceTree = "<group>"; };
 		FF0C01A81E8E0294008BCE10 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "Move App/en.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FF0C6D561EA9EF2A00282808 /* CantPairViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CantPairViewController.swift; sourceTree = "<group>"; };
 		FF0D43C71E84F2E100F1418B /* EmergencyNumberViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberViewModel.swift; sourceTree = "<group>"; };
 		FF0E293A1E69160F002F4606 /* KidInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationController.swift; sourceTree = "<group>"; };
 		FF0E293D1E694C5A002F4606 /* KidInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidInformationViewModel.swift; sourceTree = "<group>"; };
@@ -1630,6 +1632,7 @@
 				D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */,
 				D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */,
 				F68238531E6C57E50056EBE5 /* CountryCodeController.swift */,
+				FF0C6D561EA9EF2A00282808 /* CantPairViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1961,8 +1964,8 @@
 				FF02FBCB1E6838E1008D0C84 /* ShareQRcodeController.swift */,
 				FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */,
 				FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */,
-				FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */,
 				FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */,
+				FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */,
 				FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */,
 				FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */,
 			);
@@ -2500,6 +2503,7 @@
 				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
+				FF0C6D571EA9EF2A00282808 /* CantPairViewController.swift in Sources */,
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,

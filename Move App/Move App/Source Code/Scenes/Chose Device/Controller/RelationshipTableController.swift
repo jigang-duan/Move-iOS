@@ -11,7 +11,7 @@ import RxSwift
 
 class RelationshipTableController: UITableViewController {
     
-    var relationBlock: ((Int) -> Void)?
+    var relationBlock: ((Relation) -> ())?
     
     @IBOutlet var cells: [UITableViewCell]!
     
@@ -51,19 +51,20 @@ class RelationshipTableController: UITableViewController {
             }
         }
         
+        var identity: Relation?
+        if indexPath.row < 8 {
+            identity = Relation(input: String(indexPath.row + 1))
+        }else{
+            identity = Relation.other(value: "Other")
+        }
+        
         if self.relationBlock != nil {
-            self.relationBlock!(indexPath.row)
+            self.relationBlock!(identity!)
             _ = self.navigationController?.popViewController(animated: true)
             return
         }
         
-        if indexPath.row < 10 {
-            deviceAddInfo?.identity = Relation(input: String(indexPath.row + 1))
-        }else{
-            deviceAddInfo?.identity = Relation(input: "Other")
-        }
-        
-        
+        deviceAddInfo?.identity = identity
         
         if deviceAddInfo?.isMaster == true {
             self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)

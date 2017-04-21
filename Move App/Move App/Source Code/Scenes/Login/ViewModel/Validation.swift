@@ -101,8 +101,8 @@ class DefaultValidation {
             return .empty
         }
         
-        if numberOfCharacters < minPhoneCount {
-            return .failed(message: "Phone must be at least \(minPhoneCount) characters")
+        if numberOfCharacters < 4 {
+            return .failed(message: "Phone must be at least 4 characters")
         }
         
         let setString = "0123456789"

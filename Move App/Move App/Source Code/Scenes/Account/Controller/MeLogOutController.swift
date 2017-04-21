@@ -121,7 +121,7 @@ class MeLogoutController: UIViewController {
                 
                 var result: Observable<ValidationResult>?
                 if changedImage != nil {
-                    result = FSManager.shared.uploadPngImage(with: changedImage!).map{$0.fid}.filterNil().flatMap({fid ->Observable<ValidationResult> in
+                    result = FSManager.shared.uploadPngImage(with: changedImage!).map{$0.fid}.filterNil().takeLast(1).flatMap({fid ->Observable<ValidationResult> in
                         info.iconUrl = fid
                         return self.settingUserInfo(with: info)
                     })

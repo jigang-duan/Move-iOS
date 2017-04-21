@@ -62,7 +62,10 @@ class LoginViewModel {
             .flatMapLatest({ (email, password) in
                 userManager.login(email: email, password: password)
                     .trackActivity(signingIn)
-                    .map { _ in ValidationResult.ok(message: "Login Success.") }
+                    .map { _ in
+                        UserDefaults.standard.setValue(email, forKey: lastLoginAccount)
+                        return ValidationResult.ok(message: "Login Success.")
+                    }
                     .asDriver(onErrorRecover: commonErrorRecover)
             })
         

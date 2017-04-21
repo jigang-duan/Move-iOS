@@ -23,13 +23,13 @@ class FamilyMemberController: UIViewController {
     
     var isMater = false//是否是管理员
     
-    var viewModel: FamilyMemberViewModel!
-    var disposeBag = DisposeBag()
-    let enterCount = Variable(0)
+    private var viewModel: FamilyMemberViewModel!
+    private var disposeBag = DisposeBag()
+    private let enterCount = Variable(0)
     
-    var selectInfo: FamilyMemberDetailController.ContactDetailInfo?
+    private var selectInfo: FamilyMemberDetailController.ContactDetailInfo?
     
-    var cellHeart = Variable((flag: false, row: 0))
+    private var cellHeart = Variable((flag: false, row: 0))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -148,8 +148,13 @@ class FamilyMemberController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.familyMemberController.showAddMember(segue: segue)?.destination {
+            vc.exsitIdentities = self.viewModel.contacts!.map({($0.contactInfo?.identity)!})
+        }
+        
         if let vc = R.segue.familyMemberController.showFamilyMemberDetail(segue: segue)?.destination {
             vc.info = selectInfo
+            vc.exsitIdentities = self.viewModel.contacts!.map({($0.contactInfo?.identity)!})
         }
         
         if let vc = R.segue.familyMemberController.showEmergency(segue: segue)?.destination {

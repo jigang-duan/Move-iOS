@@ -39,6 +39,8 @@ class FamilyMemberDetailController: UIViewController {
     
     var info: ContactDetailInfo?
     
+    var exsitIdentities: [Relation] = []
+    
     private var contactInfo = Variable(ImContact())
     
     private var photoPicker: ImageUtility?
@@ -211,13 +213,8 @@ class FamilyMemberDetailController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] relation in
-            if relation == 10 {
-                self?.nameTf.text = "Other"
-                self?.viewModel.contactInfo?.value.identity = Relation(input: "Other")
-            }else{
-                self?.viewModel.contactInfo?.value.identity = Relation(input: String(relation + 1))
-                self?.nameTf.text =  self?.viewModel.contactInfo?.value.identity?.description
-            }
+            self?.nameTf.text = relation.description
+            self?.viewModel.contactInfo?.value.identity = relation
         }
         self.navigationController?.show(vc, sender: nil)
     }
