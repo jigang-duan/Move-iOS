@@ -18,7 +18,7 @@ class ChatController: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    var guideimageView = UIImageView()
+    var guideimageView: UIImageView!
     
     @IBOutlet weak var chatIconBtn: UIButton!
     
