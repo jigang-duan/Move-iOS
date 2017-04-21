@@ -292,7 +292,7 @@ extension String {
     }
 }
 
-fileprivate extension URL {
+extension URL {
     init?(deviceInfo: DeviceInfo) {
         guard let number = deviceInfo.user?.number else {
             return nil

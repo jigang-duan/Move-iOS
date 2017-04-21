@@ -22,30 +22,46 @@ class ChatController: UIViewController {
     
     @IBOutlet weak var chatIconBtn: UIButton!
     
+    var selectedIndexVariable = Variable(0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
 
-        self.showGuide()
-        
+        showGuide()
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
         
-        segmentedOutlet.rx.selectedSegmentIndex
+        (segmentedOutlet.rx.value <-> selectedIndexVariable).addDisposableTo(disposeBag)
+        
+        selectedIndexVariable
             .asDriver()
             .map({ $0 != 0 })
             .drive(familyChatView.rx.isHidden)
             .addDisposableTo(disposeBag)
         
-        segmentedOutlet.rx.selectedSegmentIndex
+        selectedIndexVariable
             .asDriver()
             .map({ $0 != 1 })
             .drive(singleChatView.rx.isHidden)
             .addDisposableTo(disposeBag)
         
-        segmentedOutlet.rx.selectedSegmentIndex.asDriver()
+        selectedIndexVariable.asDriver()
             .drive(chatIconBtn.rx.selectedSegmentIndex)
             .addDisposableTo(disposeBag)
+        
+        chatIconBtn.rx.tap.asDriver()
+            .withLatestFrom(selectedIndexVariable.asDriver())
+            .filter { $0 == 1 }
+            .withLatestFrom(RxStore.shared.currentDeviceId.asDriver())
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosState.asDriver()) { (id, infos) in infos.filter { id == $0.deviceId }.first }
+            .filterNil()
+            .map({ URL(deviceInfo: $0) })
+            .filterNil()
+            .drive(onNext: { DefaultWireframe.sharedInstance.open(url: $0) })
+            .addDisposableTo(disposeBag)
+        
     }
  
     override func didReceiveMemoryWarning() {
