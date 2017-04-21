@@ -42,6 +42,8 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var pmOutlet: UILabel!
     
     @IBOutlet weak var helpBtnQutlet: UIButton!
+    @IBOutlet weak var NullQutlet: UIButton!
+    
     var touchesBeganEnable = Variable(false)
     
     var viewModel: SchoolTimeViewModel!
@@ -63,10 +65,9 @@ class SchoolTimeController: UIViewController {
         super.viewDidLoad()
         self.internationalization()
         
-        if UserDefaults.standard.value(forKey: "isFirstschooltime") == nil {
-        
-           self.helpView()
-         UserDefaults.standard.set(false, forKey: "isFirstschooltime")
+        if Preferences.shared.mkSchoolTimeFirst {
+         self.helpView()
+         Preferences.shared.mkSchoolTimeFirst = false
         }
         helpBtnQutlet.rx.tap
             .asDriver()
@@ -84,6 +85,10 @@ class SchoolTimeController: UIViewController {
         openEnable
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
+        
+//        self.NullQutlet.rx.tap.asDriver()
+//            .drive(onNext: selectNullTime)
+//            .addDisposableTo(disposeBag)
         
         self.amStartTimeOutlet.rx.tap
             .asDriver()
@@ -189,7 +194,7 @@ class SchoolTimeController: UIViewController {
     
     private func selectAmStartTime() {
         self.datepicke.minimumDate = self.amMin
-        self.datepicke.maximumDate = self.amMax
+        self.datepicke.maximumDate = amEndTime
         self.amStartTimeOutlet.isSelected = true
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = false
@@ -199,7 +204,7 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectAmEndTime() {
-        self.datepicke.minimumDate = self.amMin
+        self.datepicke.minimumDate = amStartTime
         self.datepicke.maximumDate = self.amMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = true
@@ -211,7 +216,7 @@ class SchoolTimeController: UIViewController {
     
     private func selectPmStartTime() {
         self.datepicke.minimumDate = self.pmMin
-        self.datepicke.maximumDate = self.pmMax
+        self.datepicke.maximumDate = pmEndTime
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = true
@@ -221,7 +226,7 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectPmEndTime() {
-        self.datepicke.minimumDate = self.pmMin
+        self.datepicke.minimumDate = pmStartTime
         self.datepicke.maximumDate = self.pmMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
@@ -237,6 +242,28 @@ class SchoolTimeController: UIViewController {
         amEndTimeOutlet.isSelected = false
         pmStartTimeOutlet.isSelected = false
     }
+    
+//    private func selectNullTime() {
+//        if amStartTimeOutlet.isSelected {
+//            viewModel.amStartDateVariable.value =
+//            amStartTimeOutlet.isSelected = false
+//        }
+//        if amEndTimeOutlet.isSelected {
+//            viewModel.amEndDateVariable.value = datepicke.date
+//            amEndTimeOutlet.isSelected = false
+//        }
+//        if pmStartTimeOutlet.isSelected {
+//            viewModel.pmStartDateVariable.value = datepicke.date
+//            pmStartTimeOutlet.isSelected = false
+//        }
+//        if pmEndTimeOutlet.isSelected {
+//            viewModel.pmEndDateVariable.value = datepicke.date
+//            pmEndTimeOutlet.isSelected = false
+//        }
+//        
+//        datePickView.isHidden = true
+//
+//    }
     
     private func comfirmDatepicker() {
         if amStartTimeOutlet.isSelected {

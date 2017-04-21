@@ -24,6 +24,17 @@ class Preferences {
         }
     }
     
-    private let mkChatFirst_K = "mark:ChatFirst"
+    var mkSchoolTimeFirst: Bool {
+        get {
+            let result = UserDefaults.standard.value(forKey: mkSchoolTimeFirst_K) as? Bool
+            return result ?? true
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: mkSchoolTimeFirst_K)
+        }
+    }
 
+    private let mkChatFirst_K = "mark:ChatFirst"
+    private let mkSchoolTimeFirst_K = "mark:SchoolTimeFirst"
+    
 }
