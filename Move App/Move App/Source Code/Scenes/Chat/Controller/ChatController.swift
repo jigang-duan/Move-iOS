@@ -22,26 +22,12 @@ class ChatController: UIViewController {
     
     @IBOutlet weak var chatIconBtn: UIButton!
     
-    func chatAction(enable: Bool) {
-        if enable{
-            chatIconBtn.setImage(UIImage(named: "nav_member_nor"), for: .normal)
-            chatIconBtn.setImage(UIImage(named: "nav_member_pre"), for: .highlighted)
-            chatIconBtn.tag = 10
-        }else
-        {
-            chatIconBtn.setImage(UIImage(named: "nav_call_nor"), for: .normal)
-            chatIconBtn.setImage(UIImage(named: "nav_call_pre"), for: .highlighted)
-            chatIconBtn.tag = 11
-        }
-    }
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
 
-        self.guideView()
+        self.showGuide()
         
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
         
@@ -53,39 +39,13 @@ class ChatController: UIViewController {
         
         segmentedOutlet.rx.selectedSegmentIndex
             .asDriver()
-            .map({ $0 == 0 })
-            .drive(onNext:chatAction)
-            .addDisposableTo(disposeBag)
-      
-
-        segmentedOutlet.rx.selectedSegmentIndex
-            .asDriver()
             .map({ $0 != 1 })
             .drive(singleChatView.rx.isHidden)
             .addDisposableTo(disposeBag)
-    }
-    
-
-    
-    func guideView() {
         
-        if UserDefaults.standard.value(forKey: "isFirst") == nil {
-            //引导
-            guideimageView = UIImageView(image: UIImage(named: "Message_friendsuser_guide"))
-            guideimageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            let window = UIApplication.shared.windows[0]
-            window.addSubview(guideimageView)
-            guideimageView.isUserInteractionEnabled = true
-            //手势
-            let tap = UITapGestureRecognizer(target: self, action: #selector(ChatController.removeView))
-            guideimageView.addGestureRecognizer(tap)
-            
-            UserDefaults.standard.set(false, forKey: "isFirst")
-        }
-    }
-    
-    func removeView() {
-        guideimageView.removeFromSuperview()
+        segmentedOutlet.rx.selectedSegmentIndex.asDriver()
+            .drive(chatIconBtn.rx.selectedSegmentIndex)
+            .addDisposableTo(disposeBag)
     }
  
     override func didReceiveMemoryWarning() {
@@ -93,4 +53,45 @@ class ChatController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension ChatController {
+        
+    fileprivate func showGuide() {
+        
+        if Preferences.shared.mkChatFirst {
+            //引导
+            guideimageView = UIImageView(image: R.image.message_friendsuser_guide())
+            guideimageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            let window = UIApplication.shared.keyWindow
+            window?.addSubview(guideimageView)
+            guideimageView.isUserInteractionEnabled = true
+            //手势
+            let tap = UITapGestureRecognizer(target: self, action: #selector(removeView))
+            guideimageView.addGestureRecognizer(tap)
+            
+            Preferences.shared.mkChatFirst = false
+        }
+    }
+    
+    @objc fileprivate func removeView() {
+        guideimageView.removeFromSuperview()
+    }
+}
+
+
+fileprivate extension Reactive where Base: UIButton {
+    
+    var selectedSegmentIndex: UIBindingObserver<Base, Int> {
+        return UIBindingObserver(UIElement: self.base) { button, index in
+            if index == 0 {
+                button.setImage(R.image.nav_member_nor(), for: .normal)
+                button.setImage(R.image.nav_member_pre(), for: .highlighted)
+            } else {
+                button.setImage(R.image.nav_call_nor(), for: .normal)
+                button.setImage(R.image.nav_call_pre(), for: .highlighted)
+            }
+        }
+    }
+    
 }

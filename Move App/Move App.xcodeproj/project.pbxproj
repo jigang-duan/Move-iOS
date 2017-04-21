@@ -83,6 +83,7 @@
 		11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */; };
 		11EAC3291E6F99DE002906F1 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3281E6F99DE002906F1 /* SocialController.swift */; };
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
+		11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F71CF71EA9F0360066B9FC /* Preferences.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		A53513571E790E8E0093445F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53513561E790E8E0093445F /* Chat.swift */; };
 		A5B3E1E71E7FF8A100F12E22 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1E01E7FF8A100F12E22 /* amrFileCodec.mm */; };
@@ -427,6 +428,7 @@
 		11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSwitchButtonDelegateProxy.swift; path = Shared/Extensisons/View/RxSwitchButtonDelegateProxy.swift; sourceTree = "<group>"; };
 		11EAC3281E6F99DE002906F1 /* SocialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
 		11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertWireframe.swift; sourceTree = "<group>"; };
+		11F71CF71EA9F0360066B9FC /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Preferences.swift; path = Shared/Common/Application/Preferences.swift; sourceTree = "<group>"; };
 		141858BC35771DF061629EC7 /* Pods_Move_App_CustomViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App_CustomViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E731807D2860715DF8F413 /* Pods_Move_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1548,6 +1550,7 @@
 				E0931F2C1E30C63500755B4A /* ApplicationManager.swift */,
 				116F818A1E6599D6003CEC39 /* Notification.swift */,
 				113F2E3F1E9DC3E100B3628C /* URLSchema.swift */,
+				11F71CF71EA9F0360066B9FC /* Preferences.swift */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -2549,6 +2552,7 @@
 				FFF2E8EC1E8272020082FEB7 /* APNSettingVC.swift in Sources */,
 				E0FA02A01E5C05B7004A55BA /* MoveApiUserWorker.swift in Sources */,
 				11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */,
+				11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */,
 				A53513571E790E8E0093445F /* Chat.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
