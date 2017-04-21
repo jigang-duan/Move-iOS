@@ -137,7 +137,7 @@ extension ApplicationManager {
             case .typeTwitter:
                 appInfo?.ssdkSetupTwitter(byConsumerKey: "YEtbencgFOdSEAqyEQQE61T94",
                                           consumerSecret : "KvPYYDdVCVZMLRr2yElRTtoCAVLbEWUYDvBfnLEG3HS3O7PQOo",
-                                          redirectUri : "http://mob.com")
+                                          redirectUri : "TCLMove://")
             //设置gooleplus应用信息
             case .typeGooglePlus:
                 appInfo?.ssdkSetupGooglePlus(byClientID: "840509823178-rhb7j8vfqo00njo1o8cuph6cdge6kkej.apps.googleusercontent.com", clientSecret: "", redirectUri: "http://localhost");
