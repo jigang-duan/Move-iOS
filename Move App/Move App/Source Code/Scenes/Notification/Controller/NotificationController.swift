@@ -56,6 +56,7 @@ class NotificationController: UIViewController {
                                                 state: (notice.readStatus == NoticeEntity.ReadStatus.read.rawValue) ? .read : .unread,
                                                 type: .text,
                                                 from: .other,
+                                                isFailure: false,
                                                 showDateLabel: true)
                     })
                 })

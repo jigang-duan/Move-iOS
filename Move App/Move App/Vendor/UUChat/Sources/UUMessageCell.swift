@@ -72,6 +72,13 @@ class UUMessageCell: UITableViewCell {
         return $
     }()
     
+    lazy var indicator: UIActivityIndicatorView = {
+        let $ = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        //$.center = CGPoint(x: 85, y: 15)
+        $.isUserInteractionEnabled = false
+        return $
+    }()
+    
     var messageFrame: UUMessageFrame! {
         didSet {
             let message = messageFrame.message
@@ -113,8 +120,17 @@ class UUMessageCell: UITableViewCell {
             
             self.btnContent.frame = messageFrame.contentF
             self.badgeView.frame = messageFrame.badgeF
+            self.indicator.center = messageFrame.indicatorP
             
             self.badgeView.isHidden = true
+            
+            if message.isFailure {
+                self.indicator.isHidden = false
+                self.indicator.startAnimating()
+            } else {
+                self.indicator.stopAnimating()
+                self.indicator.isHidden = true
+            }
             
             if message.from == .me {
                 self.btnContent.isMyMessage = true
@@ -237,7 +253,11 @@ class UUMessageCell: UITableViewCell {
         self.contentView.addSubview(btnContent)
         btnContent.addTarget(self, action: #selector(btnContentClick), for: .touchUpInside)
         
+        // 红点
         self.contentView.addSubview(badgeView)
+        
+        // indicator
+        self.contentView.addSubview(indicator)
         
         NotificationCenter.default.addObserver(self, selector: #selector(UUAVAudioPlayerDidFinishPlay), name: NSNotification.Name("VoicePlayHasInterrupt"), object: nil)
         

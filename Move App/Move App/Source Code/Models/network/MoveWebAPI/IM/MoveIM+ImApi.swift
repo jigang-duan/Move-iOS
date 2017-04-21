@@ -59,7 +59,7 @@ extension MoveIM {
             var info = messageInfo
             if info.locaId == nil {
                 let date = info.ctime ?? Date()
-                info.locaId = Int(date.timeIntervalSince1970).description
+                info.locaId = Int(date.timeIntervalSince1970).description + Random.numberStr(scope: 4)
             }
             return request(.sendChatMessage(message: IMMessage(message: info))).mapMoveObject(ImMesageRsp.self)
         }

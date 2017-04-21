@@ -25,30 +25,35 @@ class MessageServer {
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
         if let uid = Me.shared.user.id {
-            //let sync = realm.object(ofType: SynckeyEntity.self, forPrimaryKey: uid) {
             
             let syncObject = realm.objects(SynckeyEntity.self).filter("uid == %@", uid)
             
             let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
-                .flatMapFirst {_ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
+                .flatMapFirst { _ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
                 .filter { $0 }
-                .flatMapLatest {_ in
+                .flatMapLatest { _ in
                     IMManager.shared.syncData()
-                        .catchErrorJustReturn((synckey: nil,messages: nil,members: nil,groups: nil,notices: nil,chatops: nil))
+                        .catchErrorJustReturn( (synckey: nil,
+                                                messages: nil,
+                                                members: nil,
+                                                groups: nil,
+                                                notices: nil,
+                                                chatops: nil) )
                 }
                 .shareReplay(1)
             
             syncData.map { $0.messages }
                 .filterNil()
                 .flatMap { Observable.from($0) }
-                .subscribe(onNext: {(message) in
+                .subscribe(onNext: { (message) in
                     guard let sync = syncObject.first else {
                         return
                     }
                     
                     if let gid = message.groupId, gid != "" {
                         if let group = sync.groups.filter({ gid == $0.id }).first {
-                            group.update(realm: realm, message: message)
+                            let readStatus = (uid == message.from) ? MessageEntity.ReadStatus.finished: nil
+                            group.update(realm: realm, message: message, readStatus: readStatus)
                         }
                     } else if uid == message.to {
                         sync.groups.forEach { group in
@@ -59,7 +64,7 @@ class MessageServer {
                     } else if uid == message.from {
                         sync.groups.forEach { group in
                             if group.members.map({ $0.id }).contains(where: { message.to == $0 }) {
-                                group.update(realm: realm, message: message)
+                                group.update(realm: realm, message: message, readStatus: .finished)
                             }
                         }
                     }
@@ -92,7 +97,7 @@ class MessageServer {
                     guard let sync = syncObject.first else {
                         return
                     }
-                    try! realm.write {
+                    try? realm.write {
                         sync.contact = item.contact
                         sync.group = item.group
                         sync.message = item.message
@@ -100,17 +105,14 @@ class MessageServer {
                 })
                 .addDisposableTo(disposeBag)
             
+            // 删除 消息
             syncData.map { $0.chatops }
                 .filterNil()
-                .map({
-                    $0.filter({$0.type == ChatOpEntity.OpType.deleteMessage.rawValue})
-                })
+                .map { $0.filter({$0.type == ChatOpEntity.OpType.deleteMessage.rawValue}) }
                 .flatMap({ Observable.from($0) })
-                .map({ $0.id })
+                .map { $0.id }
                 .filterNil()
-                .map({
-                    realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)
-                })
+                .map { realm.object(ofType: MessageEntity.self, forPrimaryKey: $0) }
                 .filterNil()
                 .subscribe(realm.rx.delete())
                 .addDisposableTo(disposeBag)

@@ -50,6 +50,7 @@
 		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
 		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
 		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
+		11393AED1EA877C800F571C8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11393AEC1EA877C800F571C8 /* Random.swift */; };
 		113F2E401E9DC3E100B3628C /* URLSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E3F1E9DC3E100B3628C /* URLSchema.swift */; };
 		113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E411E9E06DC00B3628C /* URL+Parameters.swift */; };
 		113F2E461E9E12B400B3628C /* SOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E451E9E12B400B3628C /* SOSService.swift */; };
@@ -390,6 +391,7 @@
 		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
+		11393AEC1EA877C800F571C8 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Shared/Common/Utils/Random.swift; sourceTree = "<group>"; };
 		113F2E3F1E9DC3E100B3628C /* URLSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchema.swift; path = Shared/Common/Application/URLSchema.swift; sourceTree = "<group>"; };
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
 		113F2E451E9E12B400B3628C /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = SOS/SOSService.swift; sourceTree = "<group>"; };
@@ -1557,6 +1559,7 @@
 				FF11D4581E796146005C53ED /* AddressbookUtility.swift */,
 				FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */,
 				11AEC1981EA7159F004F13A3 /* MapUtility.swift */,
+				11393AEC1EA877C800F571C8 /* Random.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2511,6 +2514,7 @@
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
 				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
+				11393AED1EA877C800F571C8 /* Random.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				FF08590C1E72372B00EB81D9 /* MeSetPasswordVC.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,

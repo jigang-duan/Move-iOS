@@ -38,6 +38,7 @@ struct UUMessageFrame {
     var timeF: CGRect
     var contentF: CGRect
     var badgeF: CGRect
+    var indicatorP: CGPoint
     
     var cellHeight: CGFloat
     var message: UUMessage
@@ -112,6 +113,9 @@ struct UUMessageFrame {
             badgeX = self.contentF.minX - 10.0 - 6.0
         }
         self.badgeF = CGRect(x: badgeX, y: badgeY, width: 6.0, height: 6.0)
+        
+        // 6, indicatorP
+        self.indicatorP = CGPoint(x: badgeX, y: badgeY)
     }
     
 }

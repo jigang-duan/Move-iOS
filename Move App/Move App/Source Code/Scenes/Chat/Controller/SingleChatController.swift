@@ -51,10 +51,7 @@ class SingleChatController: UIViewController {
         
         let messages = Observable.collection(from: group.messages)
             .share()
-            .map { list -> [UUMessage]  in
-                let entitys: [MessageEntity] = list.filter { ($0.groupId == nil) || ($0.groupId == "") }
-                return entitys.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
-            }
+            .map { list -> [UUMessage]  in list.filter { !$0.isGroup }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) } }
             .map(transformMinuteOffSet)
         
         tableView.rx.setDelegate(self).addDisposableTo(bag)
@@ -62,7 +59,7 @@ class SingleChatController: UIViewController {
         messages.bindTo(messageFramesVariable).addDisposableTo(bag)
         
         messageFramesVariable.asObservable()
-            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellSingleChat.identifier)) { index, model, cell in
+            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellSingleChat.identifier)) { [weak self] (index, model, cell) in
                 if let cell = cell as? UUMessageCell {
                     cell.messageFrame = model
                     cell.delegate = self
@@ -73,57 +70,79 @@ class SingleChatController: UIViewController {
             .addDisposableTo(bag)
         
         messageFramesVariable.asObservable()
-            .bindNext({ [weak self] _ in
-                self?.tableViewScrollToBottom()
-            })
+            .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
             .addDisposableTo(bag)
+        
+        // MARK: 发送 Enoji 和 语音
+        
+        let topEnoji = ifView.rx.sendEmoji.asObservable()
+            .map { EmojiType(rawValue: $0) }
+            .filterNil()
+            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: false) }
+        
+        let timingMessages = Observable<Int>.timer(2.0, period: 16.0, scheduler: MainScheduler.instance)
+            .map { _ in group.messages  }
+            .share()
+        
+        let resendEnoji = timingMessages
+            .map { $0.filter{ $0.isTextOfFailed }.first }
+            .filterNil()
+            .map { ImEmoji(entity: $0) }
+        
+        let needResendVoice = timingMessages
+            .map { $0.filter{ $0.isVoiceOfFailed }.first }
+            .filterNil()
+            .map { ImVoice(entity: $0) }
+        
+        let resendVoice = needResendVoice.filter { ($0.fid != nil) && ($0.locationURL == nil) }
+        let needReUpdateVoice = needResendVoice.filter { ($0.fid != nil) && ($0.locationURL != nil) }
+        
+        let sendEnoji = Observable.merge(topEnoji, resendEnoji)
+            .flatMapLatest { IMManager.shared.sendChatEmoji($0).catchErrorJustReturn($0.clone(failure: true)) }
+            .share()
+        
+        let sentEnoji = sendEnoji.filter { $0.msg_id != nil }.map { MessageEntity(meoji: $0) }
+        let failedEnoji = sendEnoji.filter { $0.msg_id == nil }.map { MessageEntity(meoji: $0) }
+        
+        let topVoice = ifView.rx.sendVoice.asObservable()
+            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
+        
+        let updateVoice = Observable.merge(topVoice, needReUpdateVoice)
+            .filter { ($0.locationURL != nil) && ($0.duration != nil) }
+            .flatMapFirst { (imVoice) in
+                FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
+                    .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
+                    .map { imVoice.clone(fId: $0) }
+        }
+        
+        let sendVoice = Observable.merge(updateVoice, resendVoice)
+            .flatMapLatest { IMManager.shared.sendChatVoice($0).catchErrorJustReturn($0.clone(failure: true)) }
+            .share()
+        
+        let sentVoice = sendVoice.filter { $0.msg_id != nil }.map { MessageEntity(voice: $0) }
+        let failedVoice = sendVoice.filter { $0.msg_id == nil }.map { MessageEntity(voice: $0) }
+        
+        Observable.merge(sentEnoji, sentVoice)
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .sent) }
+            .addDisposableTo(bag)
+        
+        Observable.merge(failedEnoji, failedVoice)
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .failedSend) }
+            .addDisposableTo(bag)
+        
+        moreView.delegate = self
+        
+        // MARK: 删除
         
         let itemDeleted = tableView.rx.itemDeleted.asObservable()
         itemDeleted.map { $0.row }
             .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
-            .flatMapLatest {
-                IMManager.shared.delete(message: $0).catchErrorJustReturn("")
-            }
+            .flatMapLatest { IMManager.shared.delete(message: $0).catchErrorJustReturn("") }
             .filterEmpty()
-            .map {
-                realm.object(ofType: MessageEntity.self, forPrimaryKey: $0)
-            }
+            .map { realm.object(ofType: MessageEntity.self, forPrimaryKey: $0) }
             .filterNil()
             .subscribe(realm.rx.delete())
             .addDisposableTo(bag)
-        
-        ifView.rx.sendEmoji.asDriver()
-            .map { EmojiType(rawValue: $0) }
-            .filterNil()
-            .flatMapLatest {
-                IMManager.shared.sendChatEmoji(ImEmoji(msg_id: nil, from: uid, to: devuid, gid: "", ctime: Date(), content: $0))
-                    .asDriver(onErrorJustReturn: ImEmoji())
-            }
-            .filter { $0.msg_id != nil  }
-            .map { UUMessage(imEmoji: $0, user: Me.shared.user) }
-            .drive(onNext: { [weak self] in
-                self?.messageFramesVariable.value.append(UUMessageFrame(message: $0))
-            })
-            .addDisposableTo(bag)
-        
-        ifView.rx.sendVoice.asObservable()
-            .flatMapFirst { (url, duration) in
-                FSManager.shared.uploadVoice(with: try Data(contentsOf: url), duration: duration)
-                    .catchErrorJustReturn("")
-                    .map({ ($0,duration,url) })
-            }
-            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: "", ctime: Date(), fid: $0, readStatus: 0, duration: $1, locationURL: $2) }
-            .flatMapLatest {
-                IMManager.shared.sendChatVoice($0).catchErrorJustReturn(ImVoice())
-            }
-            .filter { $0.msg_id != nil }
-            .map { UUMessage(imVoice: $0, user: Me.shared.user) }
-            .bindNext({ [weak self] in
-                self?.messageFramesVariable.value.append(UUMessageFrame(message: $0))
-            })
-            .addDisposableTo(bag)
-        
-        moreView.delegate = self
         
         let deleteMessages = moreView.rx.delete.asObservable()
             .withLatestFrom(messageFramesVariable.asObservable()) { (indexs, messages) in  indexs.map({  messages[$0].message.msgId }) }
@@ -137,16 +156,12 @@ class SingleChatController: UIViewController {
             .subscribe(realm.rx.delete())
             .addDisposableTo(bag)
         
+        // mark Read
+        
         markReadSubject.asObserver()
             .flatMapLatest { IMManager.shared.mark(message: $0).catchErrorJustReturn($0) }
             .filterEmpty()
-            .subscribe(onNext: { (msgId) in
-                if let message = group.messages.filter({ $0.id == msgId }).first {
-                    try? realm.write {
-                        message.readStatus = MessageEntity.ReadStatus.read.rawValue
-                    }
-                }
-            })
+            .subscribe(onNext: { group.markRead(realm: realm, message: $0) })
             .addDisposableTo(bag)
         
     }

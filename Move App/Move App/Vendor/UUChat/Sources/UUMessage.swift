@@ -93,6 +93,8 @@ struct UUMessage {
     var type: MessageType
     var from: MessageFrom
     
+    var isFailure: Bool = false
+    
     var showDateLabel: Bool = true
     
     mutating func minuteOffSet(start: Date, end: Date) {
@@ -159,6 +161,7 @@ extension UUMessage {
                          state: .read,
                          type: .text,
                          from: .me,
+                         isFailure: false,
                          showDateLabel: true)
     }
     
@@ -173,6 +176,7 @@ extension UUMessage {
                          state: .read,
                          type: .picture,
                          from: .me,
+                         isFailure: false,
                          showDateLabel: true)
     }
     
@@ -187,6 +191,7 @@ extension UUMessage {
                          state: .read,
                          type: .voice,
                          from: .me,
+                         isFailure: false,
                          showDateLabel: true)
     }
     
@@ -201,6 +206,7 @@ extension UUMessage {
                          state: .read,
                          type: .voice,
                          from: .me,
+                         isFailure: false,
                          showDateLabel: true)
     }
 

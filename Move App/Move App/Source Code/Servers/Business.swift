@@ -397,8 +397,8 @@ fileprivate extension KidSate.SOSLbsModel.WiFi {
         }
         self.init()
         self.mac = components[0]
-        self.ssid = components[1]
-        self.signal = Int(components[2])
+        self.ssid = components[2]
+        self.signal = Int(components[1])
     }
     
     static func queryParameters(str: String) -> [KidSate.SOSLbsModel.WiFi] {

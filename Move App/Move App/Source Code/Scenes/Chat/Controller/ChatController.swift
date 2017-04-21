@@ -43,7 +43,6 @@ class ChatController: UIViewController {
 
         self.guideView()
         
-        
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
         
         segmentedOutlet.rx.selectedSegmentIndex

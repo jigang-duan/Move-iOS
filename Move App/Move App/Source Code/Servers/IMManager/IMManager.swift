@@ -59,23 +59,14 @@ extension IMManager {
         return sendChatMessage(message: MoveIM.ImMessage(meoji: emoji))
             .map { $0.msg_id }
             .filterNil()
-            .map { ImEmoji(msg_id: $0, from: emoji.from, to: emoji.to, gid: emoji.gid, ctime: emoji.ctime, content: emoji.content) }
+            .map { emoji.clone(msgId: $0) }
     }
     
     func sendChatVoice(_ voice: ImVoice) -> Observable<ImVoice> {
         return sendChatMessage(message: MoveIM.ImMessage(voice: voice))
             .map { $0.msg_id }
             .filterNil()
-            .map { ImVoice(msg_id: $0,
-                           from: voice.from,
-                           to: voice.to,
-                           gid: voice.gid,
-                           ctime: voice.ctime,
-                           fid: voice.fid,
-                           readStatus: voice.readStatus,
-                           duration: voice.duration,
-                           locationURL: voice.locationURL) }
-        
+            .map { voice.clone(msgId: $0) }
     }
     
     func delete(message id: String) -> Observable<String> {
@@ -198,9 +189,11 @@ struct ImEmoji {
     var from: String?
     var to: String?
     var gid: String?
-    var ctime: Date?
+    var ctime: Date
     
     var content: EmojiType?
+    
+    var failure: Bool?
 }
 
 struct ImVoice {
@@ -208,7 +201,7 @@ struct ImVoice {
     var from: String?
     var to: String?
     var gid: String?
-    var ctime: Date?
+    var ctime: Date
     
     var fid: String?
     var readStatus: Int?
@@ -232,10 +225,96 @@ fileprivate extension MoveIM.ImMessage {
 }
 
 
+extension ImEmoji {
+    
+    fileprivate func clone(msgId: String) -> ImEmoji {
+        return ImEmoji(msg_id: msgId, from: self.from, to: self.to, gid: self.gid, ctime: self.ctime, content: self.content, failure: self.failure)
+    }
+    
+    func clone(failure: Bool) -> ImEmoji {
+        return ImEmoji(msg_id: self.msg_id, from: self.from, to: self.to, gid: self.gid, ctime: self.ctime, content: self.content, failure: failure)
+    }
+    
+    init(entity: MessageEntity) {
+        self.init(msg_id: nil,
+                  from: entity.from,
+                  to: entity.to,
+                  gid: entity.groupId,
+                  ctime: entity.createDate ?? Date(),
+                  content: EmojiType(rawValue: entity.content ?? ""),
+                  failure: false)
+        self.msg_id = (entity.readStatus == MessageEntity.ReadStatus.failedSend.rawValue) ? nil : entity.id
+    }
+}
+
+
+extension ImVoice {
+    
+    fileprivate func clone(msgId: String) -> ImVoice {
+        return ImVoice(msg_id: msgId,
+                       from: self.from,
+                       to: self.to,
+                       gid: self.gid,
+                       ctime: self.ctime,
+                       fid: self.fid,
+                       readStatus: self.readStatus,
+                       duration: self.duration,
+                       locationURL: self.locationURL)
+    }
+    
+    func clone(fId: String) -> ImVoice {
+        return ImVoice(msg_id: self.msg_id,
+                       from: self.from,
+                       to: self.to,
+                       gid: self.gid,
+                       ctime: self.ctime,
+                       fid: fId,
+                       readStatus: self.readStatus,
+                       duration: self.duration,
+                       locationURL: self.locationURL)
+    }
+    
+    func clone(failure: Bool) -> ImVoice {
+        var it = ImVoice(msg_id: self.msg_id,
+                       from: self.from,
+                       to: self.to,
+                       gid: self.gid,
+                       ctime: self.ctime,
+                       fid: self.fid,
+                       readStatus: self.readStatus,
+                       duration: self.duration,
+                       locationURL: self.locationURL)
+        if failure {
+            it.readStatus = MessageEntity.ReadStatus.failedSend.rawValue
+        }
+        return it
+    }
+    
+    init(entity: MessageEntity) {
+        self.init(msg_id: nil,
+                  from: entity.from,
+                  to: entity.to,
+                  gid: entity.groupId,
+                  ctime: entity.createDate ?? Date(),
+                  fid: nil,
+                  readStatus: entity.readStatus,
+                  duration: Int(entity.duration),
+                  locationURL: nil)
+        self.msg_id = (entity.readStatus == MessageEntity.ReadStatus.failedSend.rawValue) ? nil : entity.id
+        if let content = entity.content {
+            if let url = URL(string: content), url.isFileURL {
+                self.locationURL = url
+            }
+            self.fid = content
+        }
+    }
+}
+
 fileprivate extension MoveIM.ImMessage {
     init(meoji: ImEmoji) {
         self.init()
         self.type = 1
+        self.msg_id = meoji.msg_id
         self.from = meoji.from
         self.to = meoji.to
         self.gid = meoji.gid
@@ -243,6 +322,8 @@ fileprivate extension MoveIM.ImMessage {
         self.content_type = 1
         self.content_status = 0
         self.ctime = meoji.ctime
+        
+        self.locaId = Int(ctime!.timeIntervalSince1970).description
     }
 }
 
@@ -250,6 +331,7 @@ fileprivate extension MoveIM.ImMessage {
     init(voice: ImVoice) {
         self.init()
         self.type = 1
+        self.msg_id = voice.msg_id
         self.from = voice.from
         self.to = voice.to
         self.gid = voice.gid
@@ -258,6 +340,8 @@ fileprivate extension MoveIM.ImMessage {
         self.content_status = voice.readStatus
         self.duration = voice.duration
         self.ctime = voice.ctime
+        
+        self.locaId = Int(ctime!.timeIntervalSince1970).description
     }
 }
 
@@ -347,6 +431,56 @@ fileprivate extension MessageEntity {
         self.duration = TimeInterval(message.duration ?? 0)
         self.status = message.status ?? MessageEntity.Status.unknown.rawValue
         self.createDate = message.ctime
+    }
+}
+
+extension MessageEntity {
+    
+    convenience init(meoji: ImEmoji) {
+        let imMessage = MoveIM.ImMessage(meoji: meoji)
+        self.init(im: imMessage)!
+        if let failure = meoji.failure, failure {
+            self.readStatus = MessageEntity.ReadStatus.failedSend.rawValue
+        }
+        if imMessage.msg_id == nil {
+            self.id = imMessage.locaId
+        }
+    }
+    
+    convenience init(voice: ImVoice) {
+        let imMessage = MoveIM.ImMessage(voice: voice)
+        self.init(im: imMessage)!
+        if imMessage.msg_id == nil {
+            self.id = imMessage.locaId
+        }
+    }
+    
+    var hasContent: Bool {
+        return self.content != nil
+    }
+    
+    var isText: Bool {
+        return self.contentType == MessageEntity.ContentType.text.rawValue
+    }
+    
+    var isVoice: Bool {
+        return self.contentType == MessageEntity.ContentType.voice.rawValue
+    }
+    
+    var isSendFailed: Bool {
+        return self.readStatus == MessageEntity.ReadStatus.failedSend.rawValue
+    }
+    
+    var isTextOfFailed: Bool {
+        return isText && isSendFailed && hasContent
+    }
+    
+    var isVoiceOfFailed: Bool {
+        return isVoice && isSendFailed && hasContent
+    }
+    
+    var isGroup: Bool {
+        return (groupId != nil) && (groupId != "")
     }
 }
 

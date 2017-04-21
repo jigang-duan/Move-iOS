@@ -41,21 +41,56 @@ class GroupEntity: Object {
 
 extension GroupEntity {
     
-    func update(realm: Realm, message: MessageEntity) {
-        let old = self.messages.filter({ $0.id == message.id }).first
-        try? realm.write {
-            if let _old = old {
-                realm.delete(_old)
+    func markRead(realm: Realm, message id: String) {
+        if let message = messages.filter({ $0.id == id }).first {
+            try? realm.write {
+                message.readStatus = MessageEntity.ReadStatus.read.rawValue
             }
-            self.messages.append(message)
         }
     }
     
+    func update(realm: Realm, message: MessageEntity, readStatus: MessageEntity.ReadStatus?) {
+        if let status = readStatus {
+            message.readStatus = status.rawValue
+        }
+        self.update(realm: realm, message: message)
+    }
+    
+    func update(realm: Realm, message: MessageEntity) {
+        guard let messageId = message.id else {
+            return
+        }
+        
+        if let indexSame = self.messages.index(where: { $0.id == messageId }) {
+            let same = self.messages[indexSame]
+            if
+                same.readStatus == MessageEntity.ReadStatus.failedSend.rawValue,
+                message.readStatus == MessageEntity.ReadStatus.failedSend.rawValue {
+                return
+            }
+            try? realm.write {
+                realm.delete(same)
+                self.messages.insert(message, at: indexSame)
+            }
+        } else if let indexOld = self.messages.index(where: { $0.createDate == message.createDate }) {
+            let old = self.messages[indexOld]
+            try? realm.write {
+                realm.delete(old)
+                self.messages.insert(message, at: indexOld)
+            }
+        } else {
+            try? realm.write {
+                self.messages.append(message)
+            }
+        }
+        
+    }
+    
     func update(realm: Realm, notice: NoticeEntity) {
-        let old = self.notices.filter({ $0.id == notice.id }).first
-        try! realm.write {
-            if let _old = old {
-                realm.delete(_old)
+        let sameIdEntity = self.notices.filter({ $0.id == notice.id }).first
+        try? realm.write {
+            if let same = sameIdEntity {
+                realm.delete(same)
             }
             self.notices.append(notice)
         }
@@ -65,7 +100,7 @@ extension GroupEntity {
         let olds: [NoticeEntity] = self.notices.filter({ it in
             notices.contains(where: { $0.id == it.id })
         })
-        try! realm.write {
+        try? realm.write {
             realm.delete(olds)
             self.notices.append(objectsIn: notices)
         }
@@ -198,17 +233,17 @@ class MessageEntity: Object {
     /*
      0 - 未读
      1 - 已读
-     101 - 发送中
+     101 - 发送了: - 发送成功了，但还没用通过服务器同步
      102 - 发送失败
-     100 - 发送成功
+     100 - 成功: - 通过服务器同步
      */
     enum ReadStatus: Int {
         case unknown = -100
         case unread = 0
         case read = 1
-        case sending = 101
+        case sent = 101
         case failedSend = 102
-        case finishedSend = 100
+        case finished = 100
     }
     
     enum Status: Int {
