@@ -241,6 +241,8 @@
 		E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */; };
 		E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */; };
 		E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */; };
+		E9DD2A941EA89EF60057784F /* schoolTimeHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DD2A931EA89EF60057784F /* schoolTimeHelp.xib */; };
+		E9DD2A961EA8B13B0057784F /* schoolTimeHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD2A951EA8B13B0057784F /* schoolTimeHelp.swift */; };
 		E9E2B8AA1E711D9800149257 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2B8A91E711D9800149257 /* RepeatViewController.swift */; };
 		E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */; };
 		E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E30CC61E6A909000B66979 /* UsepermissionController.swift */; };
@@ -600,6 +602,8 @@
 		E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
 		E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
 		E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
+		E9DD2A931EA89EF60057784F /* schoolTimeHelp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = schoolTimeHelp.xib; sourceTree = "<group>"; };
+		E9DD2A951EA8B13B0057784F /* schoolTimeHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = schoolTimeHelp.swift; sourceTree = "<group>"; };
 		E9E2B8A91E711D9800149257 /* RepeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		E9E30CC61E6A909000B66979 /* UsepermissionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsepermissionController.swift; sourceTree = "<group>"; };
@@ -1848,6 +1852,8 @@
 				E928BF0A1E76459800E70A57 /* RemindersCell.xib */,
 				E91466A71E7C0B12009C0C52 /* SafezoneCell.swift */,
 				E91466A81E7C0B12009C0C52 /* SafezoneCell.xib */,
+				E9DD2A931EA89EF60057784F /* schoolTimeHelp.xib */,
+				E9DD2A951EA8B13B0057784F /* schoolTimeHelp.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2187,6 +2193,7 @@
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				112D6E9B1E863D37006135E3 /* emotion_29.png in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
+				E9DD2A941EA89EF60057784F /* schoolTimeHelp.xib in Resources */,
 				112D6E911E863D37006135E3 /* emotion_19.png in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
 				112D6E6F1E863CE1006135E3 /* emotion_06.gif in Resources */,
@@ -2575,6 +2582,7 @@
 				FFB543B11E7175DD00E11F5A /* MeSettingController.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
+				E9DD2A961EA8B13B0057784F /* schoolTimeHelp.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */,

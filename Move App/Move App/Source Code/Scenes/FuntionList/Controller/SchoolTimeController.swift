@@ -41,6 +41,7 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var amOutlet: UILabel!
     @IBOutlet weak var pmOutlet: UILabel!
     
+    @IBOutlet weak var helpBtnQutlet: UIButton!
     var touchesBeganEnable = Variable(false)
     
     var viewModel: SchoolTimeViewModel!
@@ -55,13 +56,25 @@ class SchoolTimeController: UIViewController {
         
         
     }
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.internationalization()
         
-        self.datepicke.timeZone = TimeZone(secondsFromGMT: 0)
+        if UserDefaults.standard.value(forKey: "isFirstschooltime") == nil {
         
+           self.helpView()
+         UserDefaults.standard.set(false, forKey: "isFirstschooltime")
+        }
+        helpBtnQutlet.rx.tap
+            .asDriver()
+            .drive(onNext: helpView)
+            .addDisposableTo(disposeBag)
+        
+        
+        self.datepicke.timeZone = TimeZone(secondsFromGMT: 0)
         let openEnable = openSchoolSwitch.rx.switch.asDriver()
         
         openEnable
@@ -155,6 +168,14 @@ class SchoolTimeController: UIViewController {
     //
     /// MARK: -- Private
     //
+    
+ private  func helpView() {
+        let view = Bundle.main.loadNibNamed("schoolTimeHelp", owner: nil, options: nil)?[0] as! UIView
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        let window = UIApplication.shared.windows[0]
+        
+        window.addSubview(view)
+    }
     private func enableView(_ enable: Bool) {
         self.amOutlet.isEnabled = enable
         self.pmOutlet.isEnabled = enable
