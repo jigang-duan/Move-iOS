@@ -66,10 +66,13 @@ class RemindersController: UIViewController {
         timeSelectBtn.rx.tap.asDriver().drive(onNext: calenderIsOpen).addDisposableTo(disposeBag)
         timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
         timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
-        
-       
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
-        
+        //判断self.alarms 是否为空 添加一个默认的 08:00，school day off
+        if self.alarms?.count == 0 {
+          let _ = KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: DateUtility.zone8hour(), day: [false,false,false,false,false,false,false], active: false))
+            self.tableViw.reloadData()
+        }
+
     }
     func loadData() {
         viewModel = RemindersViewModel(
@@ -104,12 +107,6 @@ class RemindersController: UIViewController {
                 self.tableViw.reloadData()
             })
             .addDisposableTo(disposeBag)
-        
-        
-   
-//            queshengView.isHidden = !(self.todos?.count == 0) && (self.alarms?.count == 0)
-       
-        
         
     }
     
@@ -174,6 +171,7 @@ class RemindersController: UIViewController {
         let action1 = BasePopoverAction(placeholderImage: R.image.member_ic_qr(),
                                         title: R.string.localizable.alarm(),
                                         isSelected: false)
+        
         let action2 = BasePopoverAction(placeholderImage: R.image.member_ic_input(),
                                         title: R.string.localizable.todolist(),
                                         isSelected: false)
@@ -246,7 +244,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     
     func timeToType(weeks : [Bool]) -> String {
         // 7 tian , every day ,schooltime
-        let week : [String] = ["M","T","W","T","F","S","S","Every day","School time"]
+        let week : [String] = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Every day","School time"]
         var s : String = ""
         for index in 0 ... 6{
             if weeks[index]{
@@ -254,13 +252,17 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
               s += " "
             }
         }
-        if s == "M T W T F "
+        if s == "Mon Tue Wed Thu Fri "
         {
             s = "School time"
         }
-        if s == "M T W T F S S "
+        if s == "Mon Tue Wed Thu Fri Sat Sun "
         {
             s = "Every day"
+        }
+        if s == ""
+        {
+            s = "No repeat"
         }
         return s
     }
@@ -293,7 +295,17 @@ extension RemindersController {
 
     func showSubController(action: BasePopoverAction) {
         if action.title == R.string.localizable.alarm() {
-            self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
+            if (self.alarms?.count)! <= 9{
+                self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
+            }
+            else
+            {
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "You have add 10 alarm,please delete some to add new.", preferredStyle: .alert)
+                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okActiojn)
+                self.present(alertController, animated: true)
+            }
+            
         } else if action.title == R.string.localizable.todolist() {
             self.performSegue(withIdentifier: R.segue.remindersController.showTodolist, sender: nil)
         }

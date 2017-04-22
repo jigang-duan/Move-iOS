@@ -86,9 +86,9 @@ class SchoolTimeController: UIViewController {
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
         
-//        self.NullQutlet.rx.tap.asDriver()
-//            .drive(onNext: selectNullTime)
-//            .addDisposableTo(disposeBag)
+        self.NullQutlet.rx.tap.asDriver()
+            .drive(onNext: selectNullTime)
+            .addDisposableTo(disposeBag)
         
         self.amStartTimeOutlet.rx.tap
             .asDriver()
@@ -243,27 +243,31 @@ class SchoolTimeController: UIViewController {
         pmStartTimeOutlet.isSelected = false
     }
     
-//    private func selectNullTime() {
-//        if amStartTimeOutlet.isSelected {
-//            viewModel.amStartDateVariable.value =
-//            amStartTimeOutlet.isSelected = false
-//        }
-//        if amEndTimeOutlet.isSelected {
-//            viewModel.amEndDateVariable.value = datepicke.date
-//            amEndTimeOutlet.isSelected = false
-//        }
-//        if pmStartTimeOutlet.isSelected {
-//            viewModel.pmStartDateVariable.value = datepicke.date
-//            pmStartTimeOutlet.isSelected = false
-//        }
-//        if pmEndTimeOutlet.isSelected {
-//            viewModel.pmEndDateVariable.value = datepicke.date
-//            pmEndTimeOutlet.isSelected = false
-//        }
-//        
-//        datePickView.isHidden = true
-//
-//    }
+    private func selectNullTime() {
+        if amStartTimeOutlet.isSelected {
+            viewModel.amStartDateVariable.value = Date(timeIntervalSince1970: 0)
+            viewModel.amEndDateVariable.value = Date(timeIntervalSince1970: 0)
+            amStartTimeOutlet.isSelected = false
+        }
+        if amEndTimeOutlet.isSelected {
+            viewModel.amStartDateVariable.value = Date(timeIntervalSince1970: 0)
+            viewModel.amEndDateVariable.value = Date(timeIntervalSince1970: 0)
+            amEndTimeOutlet.isSelected = false
+        }
+        if pmStartTimeOutlet.isSelected {
+             viewModel.pmStartDateVariable.value = Date(timeIntervalSince1970: 0)
+             viewModel.pmEndDateVariable.value = Date(timeIntervalSince1970: 0)
+             pmStartTimeOutlet.isSelected = false
+         }
+         if pmEndTimeOutlet.isSelected {
+             viewModel.pmStartDateVariable.value = Date(timeIntervalSince1970: 0)
+             viewModel.pmEndDateVariable.value = Date(timeIntervalSince1970: 0)
+             pmEndTimeOutlet.isSelected = false
+         }
+         
+         datePickView.isHidden = true
+ 
+     }
     
     private func comfirmDatepicker() {
         if amStartTimeOutlet.isSelected {
@@ -325,11 +329,17 @@ class SchoolTimeController: UIViewController {
 extension SchoolTimeController {
     
     private func zoneDateString(form date: Date) -> String {
+        if date == Date(timeIntervalSince1970: 0){
+            return "Null"
+        }
+        else
+        {
         let dformatter = DateFormatter()
         dformatter.timeZone = TimeZone(secondsFromGMT: 0)
         dformatter.dateFormat = "HH:mm"
         let dateStr = dformatter.string(from: date)
         return dateStr
+        }
     }
     
     fileprivate var amStartTime: Date {
@@ -347,6 +357,7 @@ extension SchoolTimeController {
         }
         set(newValue) {
             amEndTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
+            
         }
     }
     
