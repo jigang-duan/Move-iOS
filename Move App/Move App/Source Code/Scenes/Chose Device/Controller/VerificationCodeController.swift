@@ -16,7 +16,11 @@ class VerificationCodeController: UIViewController {
     @IBOutlet weak var sendBun: UIButton!
     @IBOutlet weak var nextBun: UIButton!
     
+    @IBOutlet weak var validate: UILabel!
 
+    @IBOutlet weak var tipLab: UILabel!
+    
+    
     var disposeBag = DisposeBag()
     var viewModel: VerificationCodeViewModel!
     
@@ -26,29 +30,25 @@ class VerificationCodeController: UIViewController {
     var timer: Timer?
     
     func showValidateError(_ text: String) {
-        
-        //        emailValidation.isHidden = false
-        //        emailValidation.alpha = 0.0
-        //        emailValidation.text = text
-        //        UIView.animate(withDuration: 0.6) { [weak self] in
-        //            self?.emailValidation.textColor = ValidationColors.errorColor
-        //            self?.emailValidation.alpha = 1.0
-        //            self?.view.layoutIfNeeded()
-        //        }
-        vcodeTf.placeholder = text
+        validate.isHidden = false
+        validate.alpha = 0.0
+        validate.text = text
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validate.textColor = ValidationColors.errorColor
+            self?.validate.alpha = 1.0
+            self?.view.layoutIfNeeded()
+        }
     }
     
     func revertValidateError() {
-        //        emailValidation.isHidden = true
-        //        emailValidation.alpha = 1.0
-        //        emailValidation.text = ""
-        //        UIView.animate(withDuration: 0.6) { [weak self] in
-        //            self?.emailValidation.textColor = ValidationColors.okColor
-        //            self?.emailValidation.alpha = 0.0
-        //            self?.view.layoutIfNeeded()
-        //        }
-        
-        vcodeTf.placeholder = "please input vcode"
+        validate.isHidden = true
+        validate.alpha = 1.0
+        validate.text = ""
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            self?.validate.textColor = ValidationColors.okColor
+            self?.validate.alpha = 0.0
+            self?.view.layoutIfNeeded()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,15 +59,7 @@ class VerificationCodeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        
-        
+        tipLab.isHidden = true
         
         viewModel = VerificationCodeViewModel(
             input:(
@@ -172,19 +164,27 @@ class VerificationCodeController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let sg = R.segue.verificationCodeController.showPhoneNumber(segue: segue) {
+        if let vc = R.segue.verificationCodeController.showPhoneNumber(segue: segue)?.destination {
             var addInfo = DeviceBindInfo()
             addInfo.deviceId = self.imei
             addInfo.sid = viewModel.sid
             addInfo.vcode = vcodeTf.text
             addInfo.isMaster = true
-            sg.destination.deviceAddInfo = addInfo
+            vc.deviceAddInfo = addInfo
         }
+        
+        if let vc = R.segue.verificationCodeController.showHelp(segue: segue)?.destination {
+            vc.imei = imei!
+            vc.showTipBlock = { _ in
+                self.tipLab.isHidden = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { 
+                    self.tipLab.isHidden = true
+                })
+            }
+        }
+        
     }
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+
 }
 
 

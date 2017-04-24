@@ -144,7 +144,8 @@ class AccountKidsRulesuserController: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = R.segue.accountKidsRulesuserController.showMasterUnpairTip(segue: segue)?.destination {
+        //unpair
+        if let vc = R.segue.accountKidsRulesuserController.showUnpairTip(segue: segue)?.destination {
             vc.isMaster = self.isAdminBool
             vc.unpairBlock = { flag, message in
                 if flag {
@@ -154,8 +155,12 @@ class AccountKidsRulesuserController: UITableViewController {
                 }
             }
         }
-        
-        
+        //apn
+        if let vc = R.segue.accountKidsRulesuserController.showApn(segue: segue)?.destination {
+            vc.hasPairedWatch = true
+            vc.imei = RxStore.shared.currentDeviceId.value!
+        }
+        //infomation
         if let vc = R.segue.accountKidsRulesuserController.showKidInfomation(segue: segue)?.destination {
             vc.isForSetting = true
             let kidInfo = DeviceManager.shared.currentDevice?.user

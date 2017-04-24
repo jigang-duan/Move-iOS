@@ -613,7 +613,7 @@
         <!--Can't pair-->
         <scene sceneID="38g-k7-esJ">
             <objects>
-                <viewController id="apW-GE-wBu" sceneMemberID="viewController">
+                <viewController id="apW-GE-wBu" customClass="CantPairToApnVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wkq-Lw-Gq7"/>
                         <viewControllerLayoutGuide type="bottom" id="0ov-13-lDZ"/>
@@ -622,7 +622,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pair_Verification_Code" translatesAutoresizingMaskIntoConstraints="NO" id="AWv-OS-Tv2">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_bg" translatesAutoresizingMaskIntoConstraints="NO" id="AWv-OS-Tv2">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If there is no &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is wrong, press below &quot;APN setting&quot; to set APN" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-hT-VjF">
@@ -649,7 +649,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="48K-Vm-bJI" kind="show" identifier="" id="pPS-Qr-8MH"/>
+                                    <segue destination="48K-Vm-bJI" kind="show" identifier="showApn" id="pPS-Qr-8MH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -799,6 +799,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pair_Verification_Code" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-RM-Mei">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="If there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is correct, press &quot;resend&quot; to  resend Verification Code." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evq-pB-sEQ">
+                                <rect key="frame" x="16" y="72" width="343" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n75-Sz-36j" userLabel="Navbar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
@@ -902,14 +909,13 @@
                                     <color key="titleColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hZ8-Ro-6rk" kind="show" id="vIb-5g-x2A"/>
+                                    <segue destination="hZ8-Ro-6rk" kind="show" identifier="showHelp" id="vIb-5g-x2A"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="If there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is correct, press &quot;resend&quot; to  resend Verification Code." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evq-pB-sEQ">
-                                <rect key="frame" x="16" y="72" width="343" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please input vcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRU-Un-dRe">
+                                <rect key="frame" x="20" y="425" width="115" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Jf-Pg-ior">
@@ -931,6 +937,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="59S-vP-hfg" secondAttribute="trailing" constant="15" id="3N0-jQ-L3U"/>
+                            <constraint firstItem="dRU-Un-dRe" firstAttribute="top" secondItem="59S-vP-hfg" secondAttribute="bottom" constant="8" id="3a2-S2-bg9"/>
                             <constraint firstAttribute="trailing" secondItem="2Jf-Pg-ior" secondAttribute="trailing" constant="15" id="Ah4-kl-Kn8"/>
                             <constraint firstItem="Ny0-yp-Exy" firstAttribute="centerX" secondItem="OoE-sQ-T7L" secondAttribute="centerX" id="FZe-jV-RES"/>
                             <constraint firstItem="59S-vP-hfg" firstAttribute="centerY" secondItem="OoE-sQ-T7L" secondAttribute="centerY" constant="64" id="I3T-Ez-xSc"/>
@@ -947,6 +954,7 @@
                             <constraint firstItem="2Jf-Pg-ior" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" constant="15" id="gri-e0-aN3"/>
                             <constraint firstItem="rEP-NY-CaF" firstAttribute="centerY" secondItem="1mr-GJ-WAd" secondAttribute="centerY" id="hus-Rg-L5q"/>
                             <constraint firstItem="59S-vP-hfg" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" constant="15" id="kQ6-vv-4DT"/>
+                            <constraint firstItem="dRU-Un-dRe" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" constant="20" id="krE-Eo-wZm"/>
                             <constraint firstItem="n75-Sz-36j" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" id="wga-dB-eNO"/>
                             <constraint firstItem="59S-vP-hfg" firstAttribute="top" secondItem="Ny0-yp-Exy" secondAttribute="bottom" constant="10" id="wnn-DZ-2nT"/>
                         </constraints>
@@ -958,6 +966,8 @@
                     <connections>
                         <outlet property="nextBun" destination="2Jf-Pg-ior" id="jhQ-4l-Pwy"/>
                         <outlet property="sendBun" destination="YDF-j2-DMB" id="FWy-gz-3gC"/>
+                        <outlet property="tipLab" destination="evq-pB-sEQ" id="fJI-Fw-z0P"/>
+                        <outlet property="validate" destination="dRU-Un-dRe" id="xVn-JN-NoU"/>
                         <outlet property="vcodeTf" destination="ocz-M2-P2J" id="Ahf-ur-KZH"/>
                         <segue destination="Tlv-50-wiA" kind="show" identifier="showPhoneNumber" id="cMI-uX-ruM"/>
                     </connections>
@@ -1505,7 +1515,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pair_Verification_Code" translatesAutoresizingMaskIntoConstraints="NO" id="2II-lr-Ddd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_bg" translatesAutoresizingMaskIntoConstraints="NO" id="2II-lr-Ddd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannot_pair_3g" translatesAutoresizingMaskIntoConstraints="NO" id="NPB-7P-DLp">
@@ -1527,7 +1537,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="apW-GE-wBu" kind="show" id="SE2-r0-2Aj"/>
+                                    <segue destination="apW-GE-wBu" kind="show" identifier="showApnSetting" id="SE2-r0-2Aj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K24-xb-SfL">
@@ -2733,6 +2743,7 @@
         <image name="nav_back_nor" width="18" height="18"/>
         <image name="nav_back_pre" width="18" height="18"/>
         <image name="nav_setting_nor" width="18" height="18"/>
+        <image name="pair_bg" width="375" height="667"/>
         <image name="qr_ic1" width="15" height="15"/>
         <image name="qr_ic2" width="15" height="15"/>
         <image name="qrcode_border" width="56" height="56"/>

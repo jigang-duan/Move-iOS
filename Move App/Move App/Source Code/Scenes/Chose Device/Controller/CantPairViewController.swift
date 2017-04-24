@@ -11,6 +11,9 @@ import UIKit
 class CantPairViewController: UIViewController {
     
     
+    var imei = ""
+    var showTipBlock: (() -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,10 +22,22 @@ class CantPairViewController: UIViewController {
     
     
     
-    
     @IBAction func yesClick(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
+        if self.showTipBlock != nil {
+            self.showTipBlock!()
+        }
     }
  
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.cantPairViewController.showApnSetting(segue: segue)?.destination {
+            vc.imei = imei
+        }
+    }
+    
+    
+    
     
 }

@@ -13,15 +13,24 @@ import ObjectMapper
 
 class APNforWatchVC: UIViewController {
     
-    static let ApnDoneNotification = "ApnDoneNotification"
+    @IBOutlet weak var helpImgV: UIImageView!
+    @IBOutlet weak var helpHCons: NSLayoutConstraint!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var deviceNameLab: UILabel!
+    
+    @IBOutlet weak var deviceView: UIView!
+    @IBOutlet weak var deviceHCons: NSLayoutConstraint!
+    
+    
+    var hasPairedWatch = false///是否已绑定手表
+    var imei = ""
+    
+    static let ApnNotification = "ApnNotification"
     
     var manager: CBCentralManager?
-    var currentPeripheral: CBPeripheral?
     var currentCharacteristic: CBCharacteristic?
     
-    var devices: Array<CBPeripheral> = []
+    var targetPeripheral: CBPeripheral?
     
     fileprivate let apnUUID = "00003333-0000-1000-8000-00805f9b34fb"
     fileprivate let apnService = "00009999-0000-1000-8000-00805f9b34fb"
@@ -43,7 +52,7 @@ class APNforWatchVC: UIViewController {
     
     
     enum ApnSettingResult {
-        case sendData(apnData: APNData)
+        case fecthApn(apnData: APNData)
         case sending
         case error
         case sendDone
@@ -68,16 +77,52 @@ class APNforWatchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        if hasPairedWatch == true {
+            helpHCons.constant = UIScreen.main.bounds.size.width*188/375
+        }else{
+            helpHCons.constant = 0
+            helpImgV.isHidden = true
+        }
         
-        tableView.delegate = self
+        deviceView.isHidden = true
+        deviceHCons.constant = 0
+        
         
         let queue = DispatchQueue(label: "com.apn.myqueue")
         manager = CBCentralManager(delegate: self, queue: queue, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true, CBCentralManagerOptionShowPowerAlertKey: false])
         
     }
     
+ 
+    @IBAction func tapToPair(_ sender: Any) {
+        if targetPeripheral != nil {
+            if let pers = manager?.retrieveConnectedPeripherals(withServices: [CBUUID(string: apnService)]) {
+                for p in pers {
+                    p.delegate = nil
+                    manager?.cancelPeripheralConnection(p)
+                }
+            }
+            
+            let vc = UIAlertController(title: nil, message: "Connect to \(deviceNameLab.text ?? "")", preferredStyle: .alert)
+            let action1 = UIAlertAction(title: "Cancel", style: .default)
+            let action2 = UIAlertAction(title: "YES", style: .default) { _ in
+                self.manager?.connect(self.targetPeripheral!, options: nil)
+            }
+            vc.addAction(action1)
+            vc.addAction(action2)
+            self.present(vc, animated: true)
+        }
+    }
+    
+    
+    func sendApnNotification(_ notify: ApnSettingResult) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnNotification), object: notify)
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //setting
         if let vc = R.segue.aPNforWatchVC.showAPNSetting(segue: segue)?.destination {
             vc.settingDataBlock = { data in
                 if let d = data {
@@ -93,6 +138,14 @@ class APNforWatchVC: UIViewController {
                 self.writeApnData()
             }
         }
+        
+        
+        //help
+        if let vc = R.segue.aPNforWatchVC.showHelp(segue: segue)?.destination {
+            vc.isPaired = hasPairedWatch
+        }
+        
+        
     }
     
     
@@ -106,7 +159,7 @@ class APNforWatchVC: UIViewController {
             tempData = willWriteData?.subdata(in: Range(uncheckedBounds: (lower: writeIndex, upper: writeIndex + 20)))
             writeIndex += 20
         }
-        self.currentPeripheral?.writeValue(tempData, for: self.currentCharacteristic!, type: CBCharacteristicWriteType.withResponse)
+        self.targetPeripheral?.writeValue(tempData, for: self.currentCharacteristic!, type: CBCharacteristicWriteType.withResponse)
     }
     
     
@@ -127,14 +180,14 @@ class APNforWatchVC: UIViewController {
             switch res.type {
             case .setResult:
                 if resData == Data(bytes: [0x01]) {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setSuccess)
+                    self.sendApnNotification(.setSuccess)
                 }else{
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.setFail)
+                    self.sendApnNotification(.setFail)
                 }
             case .receiveSetting:
                 if let apnStr = String(data: resData, encoding: .utf8) {
                     if let apnSettings = Mapper<APNData>().map(JSONString: apnStr) {
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sendData(apnData: apnSettings))
+                        self.sendApnNotification(.fecthApn(apnData: apnSettings))
                     }
                 }
             default:
@@ -157,9 +210,9 @@ class APNforWatchVC: UIViewController {
     
     
     deinit {
-        if currentPeripheral != nil {
-            currentPeripheral?.delegate = nil
-            manager?.cancelPeripheralConnection(currentPeripheral!)
+        if targetPeripheral != nil {
+            targetPeripheral?.delegate = nil
+            manager?.cancelPeripheralConnection(targetPeripheral!)
         }
         if manager != nil {
             manager?.delegate = nil
@@ -196,16 +249,14 @@ extension APNforWatchVC: CBCentralManagerDelegate {
         case .poweredOn:
             manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
-            let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"MOVETIME\" to connect to watch", preferredStyle: UIAlertControllerStyle.alert)
+            let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"MOVETIME\" to connect to watch", preferredStyle: .alert)
             let action1 = UIAlertAction(title: "Settings", style: .default) { _ in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }
             let action2 = UIAlertAction(title: "Ok", style: .default)
             vc.addAction(action1)
             vc.addAction(action2)
-            self.present(vc, animated: true) {
-                
-            }
+            self.present(vc, animated: true)
         default:
             break;
         }
@@ -218,12 +269,17 @@ extension APNforWatchVC: CBCentralManagerDelegate {
 //    }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if self.devices.contains(peripheral) {
-            return
-        }else {
-            self.devices.append(peripheral)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        if self.imei.characters.count > 4 {
+            let lastImei = imei.substring(from: imei.index(imei.endIndex, offsetBy: -4))
+            let watchName = "Family watch \(lastImei)"
+            
+            if watchName == peripheral.name {
+                DispatchQueue.main.async {
+                    self.targetPeripheral = peripheral
+                    self.deviceView.isHidden = false
+                    self.deviceHCons.constant = 50
+                    self.deviceNameLab.text = watchName
+                }
             }
         }
     }
@@ -232,7 +288,6 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         self.manager?.stopScan()
         print("设备连接成功，扫描服务...")
-        self.currentPeripheral = peripheral
         peripheral.delegate = self
         peripheral.discoverServices([CBUUID(string: apnService)])
     }
@@ -240,11 +295,15 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("连接设备失败" + error.debugDescription)
+        let vc = UIAlertController(title: "Bluetooth Pairing Failed", message: "Can not pair this watch, please check the watch again.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
+        vc.addAction(action)
+        self.present(vc, animated: true)
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("蓝牙设备解绑:\(peripheral)")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.disconnect)
+        self.sendApnNotification(.disconnect)
     }
 
 }
@@ -289,63 +348,19 @@ extension APNforWatchVC: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
-            print(error.debugDescription)
-            print("发送数据失败")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.error)
+            print("发送数据失败" + error.debugDescription)
+            self.sendApnNotification(.error)
         }else{
             print("发送数据成功")
             if writeIndex == willWriteData?.count {
                 writeIndex = 0
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sendDone)
+                self.sendApnNotification(.sendDone)
             }else{
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: ApnSettingResult.sending)
+                self.sendApnNotification(.sending)
                 self.writeApnData()
             }
         }
     }
     
     
-}
-
-
-extension APNforWatchVC: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.devices.count
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "reuseIdentifier")
-        }
-        
-        let per = self.devices[indexPath.row]
-        cell?.textLabel?.text = per.name
-        
-        
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let pers = manager?.retrieveConnectedPeripherals(withServices: [CBUUID(string: apnService)]) {
-            for p in pers {
-                p.delegate = nil
-                manager?.cancelPeripheralConnection(p)
-            }
-        }
-        
-        let per = self.devices[indexPath.row]
-        
-        let vc = UIAlertController(title: nil, message: "Connect to \(per.name ?? "")", preferredStyle: UIAlertControllerStyle.alert)
-        let action1 = UIAlertAction(title: "Cancel", style: .default)
-        let action2 = UIAlertAction(title: "YES", style: .default) { _ in
-            self.manager?.connect(per, options: nil)
-        }
-        vc.addAction(action1)
-        vc.addAction(action2)
-        self.present(vc, animated: true)
-    }
-
 }

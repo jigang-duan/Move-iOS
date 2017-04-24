@@ -26,7 +26,7 @@ class APNSettingVC: UITableViewController {
     @IBOutlet weak var authSegment: UISegmentedControl!
  
     
-    @IBOutlet weak var okBun: UIBarButtonItem!
+    @IBOutlet weak var saveBun: UIBarButtonItem!
     
     
     let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -43,7 +43,7 @@ class APNSettingVC: UITableViewController {
         super.viewDidLoad()
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.apnSettingNotification(_:)), name: NSNotification.Name(rawValue: APNforWatchVC.ApnDoneNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.apnSettingNotification(_:)), name: NSNotification.Name(rawValue: APNforWatchVC.ApnNotification), object: nil)
         
         
         authSegment.selectedSegmentIndex = 0
@@ -51,11 +51,11 @@ class APNSettingVC: UITableViewController {
         activity.center = self.view.center
         self.view.addSubview(activity)
         
-        self.requestAPNSettings()
+        self.fetchWtachAPN()
     }
     
     
-    func requestAPNSettings() {
+    func fetchWtachAPN() {
         let resultData = ApnBleTool.package(data: Data(bytes: [0x01]), type: .requestAPN)
         if self.requestSettingsBlock != nil {
             self.requestSettingsBlock!(resultData)
@@ -64,7 +64,23 @@ class APNSettingVC: UITableViewController {
     
     
     
-    @IBAction func sendAPNSettings(_ sender: Any) {
+    @IBAction func sendAPNSettings(_ sender: UIBarButtonItem) {
+        
+        if sender.title == "Edit" {
+            plmnTf.text = ""
+            apnTf.text = ""
+            spnTf.text = ""
+            userTf.text = ""
+            passwordTf.text = ""
+            proxyAddTf.text = ""
+            proxyPortTf.text = ""
+            authSegment.selectedSegmentIndex = 0
+            
+            sender.title = "Save"
+            
+            return
+        }
+        
         let str = APNforWatchVC.APNData(
                 plmn: plmnTf.text,
                 apn: apnTf.text,
@@ -81,8 +97,8 @@ class APNSettingVC: UITableViewController {
             self.view.endEditing(true)
             
             activity.startAnimating()
-            okBun.isEnabled = false
-            okBun.tintColor?.withAlphaComponent(0.5)
+            saveBun.isEnabled = false
+            saveBun.tintColor?.withAlphaComponent(0.5)
             
             let transData = ApnBleTool.dataTrans(with: d)
             let resultData = ApnBleTool.package(data: transData, type: .sendAPNSetting)
@@ -94,7 +110,7 @@ class APNSettingVC: UITableViewController {
     }
     
     
-    func setApnDatas(with data: APNforWatchVC.APNData) {
+    func showApnDatas(with data: APNforWatchVC.APNData) {
         plmnTf.text = data.plmn
         apnTf.text = data.apn
         spnTf.text = data.spn
@@ -121,30 +137,30 @@ class APNSettingVC: UITableViewController {
         DispatchQueue.main.async {
             if let res = notification.object as? APNforWatchVC.ApnSettingResult {
                 switch res {
-                case .sendData(let apnData):
-                    self.setApnDatas(with: apnData)
+                case .fecthApn(let apnData):
+                    self.showApnDatas(with: apnData)
                 case .setSuccess:
-//                    _ = self.navigationController?.popViewController(animated: true)
-                    self.showMessage("APN 设置成功")
+                    self.showApnMessage("Upload completed")
                     self.activity.stopAnimating()
-                    self.okBun.isEnabled = true
-                    self.okBun.tintColor?.withAlphaComponent(1)
+                    self.saveBun.isEnabled = true
+                    self.saveBun.tintColor?.withAlphaComponent(1)
+                    self.saveBun.title = "Edit"
                 case .setFail:
-                    self.showMessage("APN 设置失败")
+                    self.showApnMessage("Failed to upload data")
                     self.activity.stopAnimating()
-                    self.okBun.isEnabled = true
-                    self.okBun.tintColor?.withAlphaComponent(1)
+                    self.saveBun.isEnabled = true
+                    self.saveBun.tintColor?.withAlphaComponent(1)
                 case .sendDone:
                     print("APN 数据发送完成")
                 case .error:
-                    self.showMessage("APN 发送数据出错")
+                    self.showApnMessage("Failed to upload data")
                     self.activity.stopAnimating()
-                    self.okBun.isEnabled = true
-                    self.okBun.tintColor?.withAlphaComponent(1)
+                    self.saveBun.isEnabled = true
+                    self.saveBun.tintColor?.withAlphaComponent(1)
                 case .sending:
                     print("APN 发送数据中...")
                 case .disconnect:
-                    let vc = UIAlertController(title: "提示", message: "设备断开", preferredStyle: .alert)
+                    let vc = UIAlertController(title: nil, message: "Watch disconnected", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                         _ = self.navigationController?.popViewController(animated: true)
                     })
@@ -156,11 +172,21 @@ class APNSettingVC: UITableViewController {
     }
     
     
-    func showMessage(_ text: String) {
-        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
-        vc.addAction(action)
-        self.present(vc, animated: true)
+    func showApnMessage(_ text: String) {
+        let tip = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: 20))
+        tip.backgroundColor = UIColor.lightGray
+        tip.textAlignment = .center
+        tip.text = text
+        
+        UIView.animate(withDuration: 0.3) { 
+            self.tableView.tableHeaderView = tip
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.tableHeaderView = UIView()
+            }
+        }
     }
     
     

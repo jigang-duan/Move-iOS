@@ -288,6 +288,8 @@
 		FF3F06801EA0BFD400B00939 /* CustomRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F067F1EA0BFD400B00939 /* CustomRuler.swift */; };
 		FF3F06821EA0C7B100B00939 /* RulerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F06811EA0C7B100B00939 /* RulerScrollView.swift */; };
 		FF4925361E8B91470010CE84 /* Ble+Apn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4925351E8B91470010CE84 /* Ble+Apn.swift */; };
+		FF499E451EADF5F200EF16F8 /* HelpForApnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF499E441EADF5F200EF16F8 /* HelpForApnVC.swift */; };
+		FF499E471EAE077800EF16F8 /* CantPairToApnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF499E461EAE077800EF16F8 /* CantPairToApnVC.swift */; };
 		FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
 		FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB91E66D9C00029C643 /* APN.storyboard */; };
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
@@ -653,6 +655,8 @@
 		FF3F067F1EA0BFD400B00939 /* CustomRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRuler.swift; sourceTree = "<group>"; };
 		FF3F06811EA0C7B100B00939 /* RulerScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulerScrollView.swift; sourceTree = "<group>"; };
 		FF4925351E8B91470010CE84 /* Ble+Apn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ble+Apn.swift"; sourceTree = "<group>"; };
+		FF499E441EADF5F200EF16F8 /* HelpForApnVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpForApnVC.swift; sourceTree = "<group>"; };
+		FF499E461EAE077800EF16F8 /* CantPairToApnVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CantPairToApnVC.swift; sourceTree = "<group>"; };
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FF517A291EA498C80014E53F /* countryphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = countryphone.plist; path = Resource/countryphone.plist; sourceTree = "<group>"; };
@@ -1633,6 +1637,7 @@
 				D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */,
 				F68238531E6C57E50056EBE5 /* CountryCodeController.swift */,
 				FF0C6D561EA9EF2A00282808 /* CantPairViewController.swift */,
+				FF499E461EAE077800EF16F8 /* CantPairToApnVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1663,6 +1668,7 @@
 				FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */,
 				FFF2E8EB1E8272020082FEB7 /* APNSettingVC.swift */,
 				FF4925351E8B91470010CE84 /* Ble+Apn.swift */,
+				FF499E441EADF5F200EF16F8 /* HelpForApnVC.swift */,
 				FF1011801E80E2B40038DBE9 /* UnpairTipVC.swift */,
 				FFE84D931E7021F2006B80AE /* UpgradeController.swift */,
 				FFB543AE1E7175C400E11F5A /* MeLogoutController.swift */,
@@ -2442,6 +2448,7 @@
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
 				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
 				FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */,
+				FF499E451EADF5F200EF16F8 /* HelpForApnVC.swift in Sources */,
 				FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */,
 				E9DA9C391E6FD960009A9189 /* ContactAnnotationView.swift in Sources */,
 				1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */,
@@ -2616,6 +2623,7 @@
 				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationVC.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
+				FF499E471EAE077800EF16F8 /* CantPairToApnVC.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */,
