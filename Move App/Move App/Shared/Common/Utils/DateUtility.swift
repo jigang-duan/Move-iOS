@@ -22,6 +22,29 @@ class DateUtility {
         dformatter.dateFormat = "HH:mm"
         return dformatter.date(from: _text) ?? Date(timeIntervalSince1970: 0)
     }
+
+    static func today18() -> Date {
+        
+      let dformatter = DateFormatter()
+      dformatter.dateFormat = "yyyy-MM-dd HH:mm"
+      var todayString = dformatter.string(from: Date.today().startDate)
+      
+      todayString = todayString.replacingOccurrences(of: "00:00", with: "18:00")
+      
+       return dformatter.date(from: todayString)!
+    }
+    
+    static func today18half() -> Date {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "yyyy-MM-dd HH:mm"
+        var todayString = dformatter.string(from: Date.today().startDate)
+        
+        todayString = todayString.replacingOccurrences(of: "00:00", with: "18:30")
+        
+        return dformatter.date(from: todayString)!
+    }
+
     
     static func dateTostringHHmm(date: Date?) -> String {
         
@@ -89,6 +112,9 @@ class DateUtility {
         return (startDate!, endDate!)
     }
     
+   
+    
+    
     static func TimeStamp(time: Date) -> Int64 {
         
         let dateStamp = time.timeIntervalSince1970
@@ -105,8 +131,9 @@ class DateUtility {
         let date = NSDate(timeIntervalSince1970: timeSta)
         
         return date as Date
-        
     }
+    
+    
     
 }
 

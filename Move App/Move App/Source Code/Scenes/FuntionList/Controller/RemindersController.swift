@@ -67,12 +67,20 @@ class RemindersController: UIViewController {
         timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
         timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
-        //判断self.alarms 是否为空 添加一个默认的 08:00，school day off
-        if self.alarms?.count == 0 {
-          let _ = KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: DateUtility.zone8hour(), day: [false,false,false,false,false,false,false], active: false))
-            self.tableViw.reloadData()
-        }
-
+        //默认闹钟
+//        if Preferences.shared.mkAlarmFirst {
+//            let _ = KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: Date.init(timeIntervalSince1970: 28800), day: [true,true,true,true,true,false,false], active: false)).subscribe(onNext:
+//                {
+//                    print($0)
+//                    if $0 {
+//                        
+//                    }else{
+//                        
+//                    }
+//            }).addDisposableTo(self.disposeBag)
+//            Preferences.shared.mkAlarmFirst = false
+//        }
+        
     }
     func loadData() {
         viewModel = RemindersViewModel(
@@ -96,10 +104,13 @@ class RemindersController: UIViewController {
         viewModel.reminderVariable.asDriver()
             .map({ $0.alarms  })
             .drive(onNext: {
+                
                 self.alarms =  $0.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
                 self.tableViw.reloadData()
             } )
             .addDisposableTo(disposeBag)
+
+        
         viewModel.reminderVariable.asDriver()
             .map({  $0.todo })
             .drive(onNext: {
@@ -307,7 +318,19 @@ extension RemindersController {
             }
             
         } else if action.title == R.string.localizable.todolist() {
-            self.performSegue(withIdentifier: R.segue.remindersController.showTodolist, sender: nil)
+            
+            if (self.todos?.count)! <= 9{
+                self.performSegue(withIdentifier: R.segue.remindersController.showTodolist, sender: nil)
+            }
+            else
+            {
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "You have add 10 to do list,please delete some to add new.", preferredStyle: .alert)
+                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okActiojn)
+                self.present(alertController, animated: true)
+            }
+
+            
         }
     }
 }

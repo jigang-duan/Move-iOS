@@ -36,8 +36,8 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var back: UIButton!
     
     
-    var beginTimeVariable = Variable(Date())
-    var endTimeVariabel = Variable(Date())
+    var beginTimeVariable = Variable(DateUtility.today18())
+    var endTimeVariabel = Variable(DateUtility.today18half())
     
     var todo: NSDictionary?
     
@@ -59,6 +59,7 @@ class ToDoListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.internationalization()
         back.isHidden = false
         if todo != nil{
@@ -125,9 +126,40 @@ class ToDoListController: UITableViewController {
         
         viewModel.saveFinish
             .drive(onNext: {[weak self] finish in
-                if finish {
+               
+                if self?.beginTime == self?.endTime{
+                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
+                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okActiojn)
+                    self?.present(alertController, animated: true)
+                    
+                } else if (self?.beginTime)! < Date()
+                {
+                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
+                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okActiojn)
+                    self?.present(alertController, animated: true)
+                }else if ((self?.titleTextFieldQutle.text?.characters.count)! > 20 || ((self?.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
+                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okActiojn)
+                    self?.present(alertController, animated: true)
+                }else if self?.titleTextFieldQutle.text == "" || self?.remarkTextFieldQutlet.text == ""{
+                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
+                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okActiojn)
+                    self?.present(alertController, animated: true)
+                }else if (self?.beginTime)! > (self?.endTime)! {
+                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
+                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okActiojn)
+                    self?.present(alertController, animated: true)
+                
+                }else if finish {
                     let _ = self?.navigationController?.popViewController(animated: true)
                 }
+                
+
             })
             .addDisposableTo(disposeBag)
       
@@ -137,9 +169,6 @@ class ToDoListController: UITableViewController {
             .addDisposableTo(disposeBag)
         
     }
-    
-   
-    
 
 
     @IBAction func backAction(_ sender: Any) {
@@ -178,7 +207,7 @@ class ToDoListController: UITableViewController {
     }
     
     private func selectEndTime() {
-    
+        
         self.endTimeQutle.isSelected = true
         self.beginTimeQutle.isSelected = false
         self.datePicker.date = endTime

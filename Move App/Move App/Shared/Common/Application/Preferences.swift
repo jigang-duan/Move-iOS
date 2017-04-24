@@ -33,6 +33,16 @@ class Preferences {
             UserDefaults.standard.set(newValue, forKey: mkSchoolTimeFirst_K)
         }
     }
+    var mkAlarmFirst: Bool {
+        get {
+            let result = UserDefaults.standard.value(forKey: mkAlarmFirst_K) as? Bool
+            return result ?? true
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: mkAlarmFirst_K)
+        }
+    }
+
     var mkAPNFirst: Bool {
         get {
             let result = UserDefaults.standard.value(forKey: mkAPNFirst_K) as? Bool
@@ -45,6 +55,7 @@ class Preferences {
 
     private let mkChatFirst_K = "mark:ChatFirst"
     private let mkSchoolTimeFirst_K = "mark:SchoolTimeFirst"
+    private let mkAlarmFirst_K = "mark:AlarmFrist"
     private let mkAPNFirst_K = "mark:mkAPNFirst"
     
 }
