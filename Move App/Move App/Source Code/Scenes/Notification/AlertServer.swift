@@ -31,7 +31,7 @@ class AlertServer {
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
                 let noticeType = NoticeType(rawValue: notice.type)
                 let confirm = (noticeType?.style == .navigate) ? AlertResult.confirm(parcel: notice) : nil
-                return AlertWireframe.shared.prompt(String(format: notice.content ?? "", kids?.nickname ?? ""),
+                return AlertWireframe.shared.prompt(notice.content ?? "",
                                                     title: noticeType?.title,
                                                     iconURL: kids?.headPortrait?.fsImageUrl,
                                                     cancel: .ok(parcel: notice),
