@@ -67,19 +67,7 @@ class RemindersController: UIViewController {
         timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
         timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
-        //默认闹钟
-//        if Preferences.shared.mkAlarmFirst {
-//            let _ = KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: Date.init(timeIntervalSince1970: 28800), day: [true,true,true,true,true,false,false], active: false)).subscribe(onNext:
-//                {
-//                    print($0)
-//                    if $0 {
-//                        
-//                    }else{
-//                        
-//                    }
-//            }).addDisposableTo(self.disposeBag)
-//            Preferences.shared.mkAlarmFirst = false
-//        }
+
         
     }
     func loadData() {
@@ -245,6 +233,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
             viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
             if let vc = R.storyboard.account.addTodo() {
                 vc.todo = self.oldtodos?[indexPath.row - (self.alarms?.count ?? 0)]
+                vc.todos = (self.todos ?? nil)!
                 self.navigationController?.show(vc, sender: nil)
             }
         }
@@ -320,7 +309,11 @@ extension RemindersController {
         } else if action.title == R.string.localizable.todolist() {
             
             if (self.todos?.count)! <= 9{
-                self.performSegue(withIdentifier: R.segue.remindersController.showTodolist, sender: nil)
+                
+                if let vc = R.storyboard.account.addTodo() {
+                    vc.todos = (self.todos ?? nil)!
+                    self.navigationController?.show(vc, sender: nil)
+                }
             }
             else
             {

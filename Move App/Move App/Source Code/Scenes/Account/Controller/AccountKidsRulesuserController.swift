@@ -45,7 +45,7 @@ class AccountKidsRulesuserController: UITableViewController {
     
     
     var isAdminBool : Bool = false
-    
+     var alarms:  [NSDictionary]?
     let disposeBag = DisposeBag()
     
     func internationalization() {
@@ -88,8 +88,8 @@ class AccountKidsRulesuserController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+       self.defultAlarm()
+
         //国际化R.string.localizable
        self.internationalization()
         
@@ -134,13 +134,37 @@ class AccountKidsRulesuserController: UITableViewController {
             }
         }).addDisposableTo(disposeBag)
 
-        
-        
     }
     
     func userInteractionEnabled(enable: Bool) {
        
     }
+    func defultAlarm()  {
+        let activitying = ActivityIndicator()
+        let reminderInfomation = KidSettingsManager.shared.fetchreminder().trackActivity(activitying)
+            .asDriver(onErrorJustReturn: KidSetting.Reminder())
+        reminderInfomation.asDriver()
+            .map({ $0.alarms  })
+            .drive(onNext: {
+                
+                self.alarms =  $0.map({  [ "alarms": $0.alarmAt! , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
+                if self.alarms?.count == 0
+                {
+                    let _ = KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: Date.init(timeIntervalSince1970: 28800), day: [true,true,true,true,true,false,false], active: false)).subscribe(onNext:
+                        {
+                            print($0)
+                            if $0 {
+                                
+                            }else{
+                                
+                            }
+                    }).addDisposableTo(self.disposeBag)
+                    
+                }
+
+            } )
+            .addDisposableTo(disposeBag)
+           }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

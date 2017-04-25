@@ -40,6 +40,8 @@ class ToDoListController: UITableViewController {
     var endTimeVariabel = Variable(DateUtility.today18half())
     
     var todo: NSDictionary?
+    var todos: [NSDictionary?] = []
+     var isSame : Bool?
     
     var disposeBag = DisposeBag()
     
@@ -59,7 +61,7 @@ class ToDoListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         self.internationalization()
         back.isHidden = false
         if todo != nil{
@@ -108,68 +110,133 @@ class ToDoListController: UITableViewController {
             .asDriver()
             .drive(onNext: cancelDatepicker)
             .addDisposableTo(disposeBag)
-
         
-        let viewModel = ToDoListViewModel(
-            input: (
-                save: saveQutlet.rx.tap.asDriver(),
-                topic: titleTextFieldQutle.rx.text.orEmpty.asDriver(),
-                content: remarkTextFieldQutlet.rx.text.orEmpty.asDriver(),
-                startime: beginTimeVariable.asDriver(),
-                endtime: endTimeVariabel.asDriver(),
-                repeatcount: repeatStateVariable.asDriver().map(repeatcount).debug()
-            ),
-            dependency: (
-                kidSettingsManager: KidSettingsManager.shared,
-                validation: DefaultValidation.shared,
-                wireframe: DefaultWireframe.sharedInstance))
+        self.saveQutlet.rx.tap.asDriver().drive(onNext: saveAction).addDisposableTo(disposeBag)
         
-        viewModel.saveFinish
-            .drive(onNext: {[weak self] finish in
-               
-                if self?.beginTime == self?.endTime{
-                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
-                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okActiojn)
-                    self?.present(alertController, animated: true)
-                    
-                } else if (self?.beginTime)! < Date()
-                {
-                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
-                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okActiojn)
-                    self?.present(alertController, animated: true)
-                }else if ((self?.titleTextFieldQutle.text?.characters.count)! > 20 || ((self?.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
-                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
-                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okActiojn)
-                    self?.present(alertController, animated: true)
-                }else if self?.titleTextFieldQutle.text == "" || self?.remarkTextFieldQutlet.text == ""{
-                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
-                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okActiojn)
-                    self?.present(alertController, animated: true)
-                }else if (self?.beginTime)! > (self?.endTime)! {
-                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
-                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okActiojn)
-                    self?.present(alertController, animated: true)
-                
-                }else if finish {
-                    let _ = self?.navigationController?.popViewController(animated: true)
-                }
-                
-
-            })
-            .addDisposableTo(disposeBag)
-      
-        viewModel.activityIn
-            .map({ !$0 })
-            .drive(saveQutlet.rx.isEnabled)
-            .addDisposableTo(disposeBag)
+//        let viewModel = ToDoListViewModel(
+//            input: (
+//                save: saveQutlet.rx.tap.asDriver(),
+//                topic: titleTextFieldQutle.rx.text.orEmpty.asDriver(),
+//                content: remarkTextFieldQutlet.rx.text.orEmpty.asDriver(),
+//                startime: beginTimeVariable.asDriver(),
+//                endtime: endTimeVariabel.asDriver(),
+//                repeatcount: repeatStateVariable.asDriver().map(repeatcount).debug()
+//            ),
+//            dependency: (
+//                kidSettingsManager: KidSettingsManager.shared,
+//                validation: DefaultValidation.shared,
+//                wireframe: DefaultWireframe.sharedInstance))
+//        
+//        viewModel.saveFinish
+//            .drive(onNext: {[weak self] finish in
+//               
+//                if self?.beginTime == self?.endTime{
+//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
+//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    alertController.addAction(okActiojn)
+//                    self?.present(alertController, animated: true)
+//                    
+//                } else if (self?.beginTime)! < Date()
+//                {
+//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
+//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    alertController.addAction(okActiojn)
+//                    self?.present(alertController, animated: true)
+//                }else if ((self?.titleTextFieldQutle.text?.characters.count)! > 20 || ((self?.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
+//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    alertController.addAction(okActiojn)
+//                    self?.present(alertController, animated: true)
+//                }else if self?.titleTextFieldQutle.text == "" || self?.remarkTextFieldQutlet.text == ""{
+//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
+//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    alertController.addAction(okActiojn)
+//                    self?.present(alertController, animated: true)
+//                }else if (self?.beginTime)! > (self?.endTime)! {
+//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
+//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    alertController.addAction(okActiojn)
+//                    self?.present(alertController, animated: true)
+//                
+//                }
+//                else if finish {
+//                    let _ = self?.navigationController?.popViewController(animated: true)
+//                }
+//
+//
+//            })
+//            .addDisposableTo(disposeBag)
+//      
+//        viewModel.activityIn
+//            .map({ !$0 })
+//            .drive(saveQutlet.rx.isEnabled)
+//            .addDisposableTo(disposeBag)
         
     }
-
+    
+    func saveAction() {
+        if self.beginTime == self.endTime{
+            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
+            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okActiojn)
+            self.present(alertController, animated: true)
+            
+        } else if (self.beginTime) < Date()
+        {
+            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
+            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okActiojn)
+            self.present(alertController, animated: true)
+        }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
+            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okActiojn)
+            self.present(alertController, animated: true)
+        }else if self.titleTextFieldQutle.text == "" || self.remarkTextFieldQutlet.text == ""{
+            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
+            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okActiojn)
+            self.present(alertController, animated: true)
+        }else if (self.beginTime) > (self.endTime) {
+            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
+            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okActiojn)
+            self.present(alertController, animated: true)
+            
+        }else
+        {
+           
+            //过滤
+            for tod in self.todos
+            {
+                if tod?["topic"] as? String == self.titleTextFieldQutle.text
+                {
+                    self.isSame = true
+                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The existing of the same title to do list", preferredStyle: .alert)
+                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okActiojn)
+                    self.present(alertController, animated: true)
+                    
+                }else
+                {
+                    self.isSame = false
+                }
+            }
+            if !self.isSame!{
+            let _ = KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
+                            {
+                                print($0)
+                                if $0 {
+                                let _ = self.navigationController?.popViewController(animated: true)
+                                }else{
+                            print("网络错误重新")
+                                }
+                        }).addDisposableTo(self.disposeBag)
+            }
+        }
+        
+    
+    }
 
     @IBAction func backAction(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
