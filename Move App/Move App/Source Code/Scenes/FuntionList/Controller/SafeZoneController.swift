@@ -66,8 +66,17 @@ class SafeZoneController: UIViewController {
     }
     
     func showAddSafeZoneVC() {
-        if let vc = R.storyboard.major.addSafeZoneVC() {
-            self.navigationController?.show(vc, sender: nil)
+        if self.fences.count >= 5 {
+            let alertController = UIAlertController(title: nil, message: "not more than 5 safezone", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
+                (action : UIAlertAction!) -> Void in
+            })
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }else{
+            if let vc = R.storyboard.major.addSafeZoneVC() {
+                self.navigationController?.show(vc, sender: nil)
+            }
         }
     }
     

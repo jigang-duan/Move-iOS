@@ -167,10 +167,13 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
         {
             let reuseIdentifier = "targetAnnoteationReuseIdentifier"
             var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-            if annoView == nil {
+            let subannotation = annotation as! TagAnnotation
+            if selectAnnotation == subannotation {
+                annoView = BigContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            }else{
                 annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             }
-            let subannotation = annotation as! TagAnnotation
+            
             (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
             annoView?.annotation = annotation
             annoView?.canShowCallout = false
@@ -187,7 +190,8 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             nameL.text = annot.name
             addressL.text = annot.info?.address
             self.selectAnnotation = annot
-            
+            self.mapView.removeAnnotations(self.mapView.annotations)
+             self.mapView.addAnnotations(self.annotationArr!)
         }
         
         
