@@ -15,7 +15,6 @@ class InputIMEIViewModel {
     
     let imeiInvalidte: Driver<ValidationResult>
     
-    let sending: Driver<Bool>
     
     let confirmEnabled: Driver<Bool>
     var confirmResult: Driver<ValidationResult>?
@@ -33,31 +32,14 @@ class InputIMEIViewModel {
         ) {
         
         let deviceManager = dependency.deviceManager
-        _ = dependency.validation
+        let validation = dependency.validation
         _ = dependency.wireframe
-       
         
-        let activity = ActivityIndicator()
-        self.sending = activity.asDriver()
-        
-        
-        imeiInvalidte = input.imei
-            .map {  imei in
-                if imei.characters.count > 0{
-                    return ValidationResult.ok(message: "")
-                }
-                return ValidationResult.empty
+        imeiInvalidte = input.imei.map{ imei in
+            return validation.validateIMEI(imei)
         }
         
-        
-        self.confirmEnabled = Driver.combineLatest(
-            imeiInvalidte,
-            sending) { imei, sending in
-                imei.isValid &&
-                    !sending
-            }
-            .distinctUntilChanged()
-   
+        self.confirmEnabled = imeiInvalidte.map({$0.isValid})
         
         self.confirmResult = input.confirmTaps.withLatestFrom(input.imei)
             .flatMapLatest({ imei in

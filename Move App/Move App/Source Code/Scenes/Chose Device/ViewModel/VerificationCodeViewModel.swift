@@ -17,7 +17,6 @@ class VerificationCodeViewModel {
     let vcodeInvalidte: Driver<ValidationResult>
     var sendEnabled: Driver<Bool>?
 
-    let sending: Driver<Bool>
     var sendResult: Driver<ValidationResult>?
     
     let nextEnabled: Driver<Bool>
@@ -40,28 +39,14 @@ class VerificationCodeViewModel {
         ) {
         
         let userManager = dependency.userManager
-        _ = dependency.validation
+        let validation = dependency.validation
         _ = dependency.wireframe
         
-        let activity = ActivityIndicator()
-        self.sending = activity.asDriver()
-        
-        
         vcodeInvalidte = input.vcode.map{vcode in
-            if vcode.characters.count > 0{
-                return ValidationResult.ok(message: "Vcode avaliable")
-            }
-            return ValidationResult.empty
+            return validation.validateVCode(vcode)
         }
         
-        
-        self.nextEnabled = Driver.combineLatest(
-            vcodeInvalidte,
-            sending) { vcode, sending in
-                vcode.isValid &&
-                    !sending
-            }
-            .distinctUntilChanged()
+        self.nextEnabled = vcodeInvalidte.map({$0.isValid})
         
         let firstEnter = userManager.sendVcode(to: input.imei).map({[weak self] sid in
             self?.sid = sid.sid
@@ -85,7 +70,6 @@ class VerificationCodeViewModel {
         self.nextResult = input.nextTaps.withLatestFrom(input.vcode)
             .flatMapLatest({ (vcode) in
                 return userManager.checkVcode(sid: self.sid!, vcode: vcode)
-                    .trackActivity(activity)
                     .map { _ in
                         ValidationResult.ok(message: "Verify Success.")
                     }

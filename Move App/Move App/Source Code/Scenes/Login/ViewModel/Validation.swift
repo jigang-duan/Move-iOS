@@ -82,7 +82,7 @@ class DefaultValidation {
     let minPasswordCount = 8
     let maxPasswordCount = 16
     
-    
+    //昵称
     func validateNickName(_ name: String) ->ValidationResult {
         if name.characters.count == 0 {
             return .empty
@@ -94,7 +94,7 @@ class DefaultValidation {
         
         return .ok(message: "Name available")
     }
-    
+    //电话号码
     func validatePhone(_ phone: String) -> ValidationResult {
         let numberOfCharacters = phone.characters.count
         if phone.characters.count == 0 {
@@ -115,7 +115,7 @@ class DefaultValidation {
         return .ok(message: "Phone available")
     }
 
-    
+    //多个电话号码
     func validateMultiPhones(_ phoneStr: String) -> ValidationResult {
         let numberOfCharacters = phoneStr.characters.count
         if phoneStr.characters.count == 0 {
@@ -135,7 +135,7 @@ class DefaultValidation {
         
         return .ok(message: "Phones available")
     }
-    
+    //邮箱
     func validateEmail(_ email: String) -> ValidationResult {
         if email.characters.count == 0 {
             return .empty
@@ -148,7 +148,41 @@ class DefaultValidation {
         
         return .ok(message: "Email available")
     }
-    
+    //IMEI号
+    func validateIMEI(_ imei: String) -> ValidationResult {
+        if imei.characters.count == 0 {
+            return .empty
+        }
+        
+        if imei.characters.count != 15 {
+            return .failed(message: "IMEI must be 15 characters")
+        }
+        
+        let prdImei = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        if !prdImei.evaluate(with: imei) {
+            return .failed(message: "IMEI invalid")
+        }
+        
+        return .ok(message: "IMEI available")
+    }
+    //验证码
+    func validateVCode(_ vcode: String) -> ValidationResult {
+        if vcode.characters.count == 0 {
+            return .empty
+        }
+        
+        if vcode.characters.count != 6 {
+            return .failed(message: "Vcode must be 6 characters")
+        }
+        
+        let prdCode = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        if !prdCode.evaluate(with: vcode) {
+            return .failed(message: "Vcode invalid")
+        }
+        
+        return .ok(message: "Vcode available")
+    }
+    //密码
     func validatePassword(_ password: String) -> ValidationResult {
         let numberOfCharacters = password.characters.count
         if numberOfCharacters == 0 {
@@ -177,7 +211,7 @@ class DefaultValidation {
         
         return .ok(message: "Password acceptable")
     }
-    
+    //确认密码
     func validateRePassword(_ password: String, rePasswd: String) -> ValidationResult {
         if rePasswd.characters.count == 0{
             return .empty

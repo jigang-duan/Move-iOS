@@ -122,7 +122,7 @@ class KidInformationViewModel {
         
         for info in RxStore.shared.deviceInfosState.value {
             var f = info
-            if f.deviceId == DeviceManager.shared.currentDevice?.deviceId {
+            if f.deviceId == RxStore.shared.currentDeviceId.value {
                 f.user = user
             }
             arr.append(f)

@@ -96,7 +96,7 @@ class APNforWatchVC: UIViewController {
     
  
     @IBAction func tapToPair(_ sender: Any) {
-        if targetPeripheral != nil {
+        if let pp = targetPeripheral {
             if let pers = manager?.retrieveConnectedPeripherals(withServices: [CBUUID(string: apnService)]) {
                 for p in pers {
                     p.delegate = nil
@@ -106,13 +106,30 @@ class APNforWatchVC: UIViewController {
             
             let vc = UIAlertController(title: nil, message: "Connect to \(deviceNameLab.text ?? "")", preferredStyle: .alert)
             let action1 = UIAlertAction(title: "Cancel", style: .default)
-            let action2 = UIAlertAction(title: "YES", style: .default) { _ in
-                self.manager?.connect(self.targetPeripheral!, options: nil)
+            
+            let action2 = UIAlertAction(title: "YES", style: .default) {[weak self] _ in
+                self?.manager?.connect(pp, options: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
+                    
+                    let peripherals = self?.manager?.retrieveConnectedPeripherals(withServices: [CBUUID(string: (self?.apnService)!)])
+                    if peripherals?.contains(pp) == false {
+                        self?.manager?.cancelPeripheralConnection(pp)
+                        self?.showFailToPair()
+                    }
+                })
             }
             vc.addAction(action1)
             vc.addAction(action2)
             self.present(vc, animated: true)
         }
+    }
+    
+    
+    func showFailToPair() {
+        let vc = UIAlertController(title: "Bluetooth Pairing Failed", message: "Can not pair this watch, please check the watch again.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
+        vc.addAction(action)
+        self.present(vc, animated: true)
     }
     
     
@@ -262,11 +279,6 @@ extension APNforWatchVC: CBCentralManagerDelegate {
         }
     }
     
-//    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
-//        if dict[CBCentralManagerOptionRestoreIdentifierKey] as? String ==  "currentDeviceIdentify" {
-//            print("找到需要恢复的连接")
-//        }
-//    }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if self.imei.characters.count > 4 {
@@ -274,8 +286,11 @@ extension APNforWatchVC: CBCentralManagerDelegate {
             let watchName = "Family watch \(lastImei)"
             
             if watchName == peripheral.name {
+                print("找到目标设备")
+                manager?.stopScan()
+                targetPeripheral = peripheral
+                
                 DispatchQueue.main.async {
-                    self.targetPeripheral = peripheral
                     self.deviceView.isHidden = false
                     self.deviceHCons.constant = 50
                     self.deviceNameLab.text = watchName
@@ -286,7 +301,6 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        self.manager?.stopScan()
         print("设备连接成功，扫描服务...")
         peripheral.delegate = self
         peripheral.discoverServices([CBUUID(string: apnService)])
@@ -295,10 +309,7 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("连接设备失败" + error.debugDescription)
-        let vc = UIAlertController(title: "Bluetooth Pairing Failed", message: "Can not pair this watch, please check the watch again.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default)
-        vc.addAction(action)
-        self.present(vc, animated: true)
+        self.showFailToPair()
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {

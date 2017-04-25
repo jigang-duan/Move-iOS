@@ -44,6 +44,11 @@ class FamilyMemberViewModel {
         heartResult = input.cellHeartClick.asDriver().flatMapLatest({ (flag, row) in
             if let cons = self.contacts {
                 var con = (cons[row].contactInfo)!
+                //管理员不能取消紧急联系人身份
+                if con.admin == true {
+                    let res = Driver.just(ValidationResult.empty)
+                    return Driver.just(res)
+                }
                 if flag {
                     con.flag = self.setEmergency(flag: con.flag!)
                 }else{

@@ -15,8 +15,6 @@ class PhoneNumberViewModel {
     
     let phoneInvalidte: Driver<ValidationResult>
     
-    let sending: Driver<Bool>
-    
     let nextEnabled: Driver<Bool>
     var nextResult: Driver<ValidationResult>?
     
@@ -45,23 +43,12 @@ class PhoneNumberViewModel {
         let validation = dependency.validation
         _ = dependency.wireframe
         
-//        let activity = ActivityIndicator()
-        self.sending = Driver.just(false)
-        
         
         phoneInvalidte = input.phone.map { phone in
             return validation.validatePhone(phone)
         }
         
-        
-        nextEnabled = Driver.combineLatest(
-            phoneInvalidte,
-            sending) { phone, sending in
-                phone.isValid && !sending
-            }
-            .distinctUntilChanged()
-        
-        
+        nextEnabled = phoneInvalidte.map({$0.isValid})
         
         if input.forCheckNumber == true {
             nextResult = input.nextTaps.withLatestFrom(input.phone)

@@ -22,7 +22,6 @@ class IputIMEIControllerTableController: UIViewController {
     
     
     func showValidateError(_ text: String) {
-        
         validate.isHidden = false
         validate.alpha = 0.0
         validate.text = text
@@ -31,7 +30,6 @@ class IputIMEIControllerTableController: UIViewController {
             self?.validate.alpha = 1.0
             self?.view.layoutIfNeeded()
         }
-        IMEITextF.placeholder = text
     }
     
     func revertValidateError() {

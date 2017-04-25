@@ -174,15 +174,15 @@ class UpgradeController: UIViewController {
     
     
     func fetchProperty() {
-        let device = DeviceManager.shared.currentDevice!
+        let deviceId = RxStore.shared.currentDeviceId.value!
         
-        let propertyResult = DeviceManager.shared.getProperty(deviceId: device.deviceId!).flatMapLatest { property -> Observable<ValidationResult> in
-            DeviceManager.shared.currentDevice?.property = property
+        let propertyResult = DeviceManager.shared.getProperty(deviceId: deviceId).flatMapLatest { property -> Observable<ValidationResult> in
+            self.updateProperty(property)
             self.batteryLevel.text = "\(property.power ?? 0)%"
             self.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
             
             
-            var checkInfo = DeviceVersionCheck(deviceId: device.deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
+            var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
             var ff = ""
             if let fv = property.firmware_version {
                 if fv.characters.count > 6 {
@@ -207,22 +207,38 @@ class UpgradeController: UIViewController {
         }).addDisposableTo(disposeBag)
     }
     
+    func updateProperty(_ property: DeviceProperty) {
+        var arr: [DeviceInfo] = []
+        
+        for info in RxStore.shared.deviceInfosState.value {
+            var f = info
+            if f.deviceId == RxStore.shared.currentDeviceId.value {
+                f.property = property
+            }
+            arr.append(f)
+        }
+        RxStore.shared.deviceInfosState.value = arr
+    }
     
     
     func checkVersion(checkInfo: DeviceVersionCheck) -> Observable<ValidationResult> {
         return DeviceManager.shared.checkVersion(checkInfo: checkInfo).map{ info -> ValidationResult in
-            if info.currentVersion == info.newVersion {
-                self.versionLab.text = "Firmware Version " + (info.currentVersion ?? "")
+            if let vs = info.newVersion {
+                self.versionLab.text = "New Firmware Version " + vs
+                self.versionInfo.isHidden = true
+                self.tipLab.isHidden = true
+                self.downloadBun.isHidden = false
+                self.updateDownloadButton(isEnable: true)
+            }else{
+                var version = DeviceManager.shared.currentDevice?.property?.firmware_version
+//                if let vs = version, vs.characters.count > 4 {
+//                    version = vs.substring(from: vs.index(vs.endIndex, offsetBy: -4))
+//                }
+                self.versionLab.text = "Firmware Version " + (version ?? "")
                 self.versionInfo.isHidden = false
                 self.versionInfo.text = "This watch's firmware is up to date."
                 self.tipLab.isHidden = true
                 self.downloadBun.isHidden = true
-                self.updateDownloadButton(isEnable: true)
-            }else{
-                self.versionLab.text = "New Firmware Version " + (info.newVersion ?? "")
-                self.versionInfo.isHidden = true
-                self.tipLab.isHidden = true
-                self.downloadBun.isHidden = false
                 self.updateDownloadButton(isEnable: true)
             }
             self.activity.stopAnimating()
