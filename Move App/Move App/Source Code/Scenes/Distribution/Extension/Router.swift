@@ -6,8 +6,8 @@
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import RxSwift
 
 class Distribution {
     
@@ -64,12 +64,24 @@ class Distribution {
         }
     }
     
+    func backToMainMap() {
+        if
+            let navVC = self.currentViewCotroller?.navigationController,
+            let tabVC = navVC.tabBarController {
+            
+            if tabVC.selectedIndex == 0 {
+                navVC.popToRootViewController(animated: true)
+            } else {
+                tabVC.selectedIndex = 0
+            }
+        }
+    }
     
     
     func popToLoginScreen() {
-        self.backToDistribution(completion: { [weak self] in
+        self.backToDistribution() { [weak self] in
             self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
-        })
+        }
     }
     
     func showChoseDeviceScreen() {

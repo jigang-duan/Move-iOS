@@ -192,7 +192,6 @@ class UUMessageCell: UITableViewCell {
             default:
                 break
             }
-            
         }
     }
     

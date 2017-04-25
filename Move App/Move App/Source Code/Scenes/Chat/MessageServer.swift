@@ -109,13 +109,25 @@ class MessageServer {
             syncData.map { $0.chatops }
                 .filterNil()
                 .map { $0.filter({$0.type == ChatOpEntity.OpType.deleteMessage.rawValue}) }
-                .flatMap({ Observable.from($0) })
+                .flatMap { Observable.from($0) }
                 .map { $0.id }
                 .filterNil()
                 .map { realm.object(ofType: MessageEntity.self, forPrimaryKey: $0) }
                 .filterNil()
                 .subscribe(realm.rx.delete())
                 .addDisposableTo(disposeBag)
+            
+            
+            syncData.map{ $0.groups }
+                .filterNil()
+                .flatMap { Observable.from($0) }
+                .map { $0.id }
+                .filterNil()
+                .flatMapLatest { IMManager.shared.getGroupInfo(gid: $0).catchError(catchImGroupEmptyError) }
+                .map(transform)
+                .subscribe(realm.rx.add(update: true))
+                .addDisposableTo(disposeBag)
+            
         }
     }
     
@@ -136,8 +148,8 @@ class MessageServer {
                 }.catchErrorJustReturn(SynckeyEntity())
             }
             .filter { $0.uid != nil }
-            .flatMapLatest { Observable.combineLatest(Observable.just($0), IMManager.shared.getGroups().catchError(catchEmptyError)) { ($0, $1) } }
-            .map { self.transform(synckey: $0, groups: $1) }
+            .flatMapLatest { Observable.combineLatest(Observable.just($0), IMManager.shared.getGroups().catchError(catchImGroupsEmptyError)) { ($0, $1) } }
+            .map { transform(synckey: $0, groups: $1) }
             .map { (synckey, groups) in
                 synckey.groups.append(objectsIn: groups)
                 return synckey
@@ -145,50 +157,55 @@ class MessageServer {
             .subscribe(realm.rx.add(update: true))
     }
     
-    private func transform(synckey: SynckeyEntity, groups: [ImGroup]) -> (SynckeyEntity, [GroupEntity]) {
-        return (synckey, groups.map(transform))
-    }
     
-    private func transform(groups: [ImGroup]) -> [GroupEntity] {
-        return groups.map(transform)
-    }
-    
-    private func transform(group: ImGroup) -> GroupEntity {
-        let entity = GroupEntity()
-        entity.id = group.gid
-        entity.name = group.topic
-        entity.headPortrait = group.profile
-        entity.owner = group.owner
-        entity.flag = group.flag ?? GroupEntity.Flag.unknown.rawValue
-        entity.createDate = group.ctime
-        group.members?.forEach {
-            let member = MemberEntity()
-            member.gmid = "\($0.uid ?? "")@\(group.gid ?? "")"
-            member.id = $0.uid
-            member.type = $0.type ?? MemberEntity.ContactType.unknown.rawValue
-            member.username = $0.username
-            member.nickname = $0.nickname
-            member.headPortrait = $0.profile
-            member.identity = $0.identity?.identity
-            member.sex = $0.sex ?? MemberEntity.Sex.female.rawValue
-            member.phone = $0.phone
-            member.email = $0.email
-            member.flag = $0.flag ??  MemberEntity.Flag.unknown.rawValue
-            entity.members.append(member)
-        }
-        if
-            let gid = group.gid,
-            let realm = try? Realm(),
-            let oldgroup = realm.object(ofType: GroupEntity.self, forPrimaryKey: gid) {
-            entity.messages.append(objectsIn: oldgroup.messages)
-            entity.notices.append(objectsIn: oldgroup.notices)
-        }
-        return entity
-    }
 
 }
 
+fileprivate func transform(synckey: SynckeyEntity, groups: [ImGroup]) -> (SynckeyEntity, [GroupEntity]) {
+    return (synckey, groups.map(transform))
+}
 
-fileprivate func catchEmptyError(error: Error) -> Observable<[ImGroup]> {
+fileprivate func transform(groups: [ImGroup]) -> [GroupEntity] {
+    return groups.map(transform)
+}
+
+fileprivate func transform(group: ImGroup) -> GroupEntity {
+    let entity = GroupEntity()
+    entity.id = group.gid
+    entity.name = group.topic
+    entity.headPortrait = group.profile
+    entity.owner = group.owner
+    entity.flag = group.flag ?? GroupEntity.Flag.unknown.rawValue
+    entity.createDate = group.ctime
+    group.members?.forEach {
+        let member = MemberEntity()
+        member.gmid = "\($0.uid ?? "")@\(group.gid ?? "")"
+        member.id = $0.uid
+        member.type = $0.type ?? MemberEntity.ContactType.unknown.rawValue
+        member.username = $0.username
+        member.nickname = $0.nickname
+        member.headPortrait = $0.profile
+        member.identity = $0.identity?.identity
+        member.sex = $0.sex ?? MemberEntity.Sex.female.rawValue
+        member.phone = $0.phone
+        member.email = $0.email
+        member.flag = $0.flag ??  MemberEntity.Flag.unknown.rawValue
+        entity.members.append(member)
+    }
+    if
+        let gid = group.gid,
+        let realm = try? Realm(),
+        let oldgroup = realm.object(ofType: GroupEntity.self, forPrimaryKey: gid) {
+        entity.messages.append(objectsIn: oldgroup.messages)
+        entity.notices.append(objectsIn: oldgroup.notices)
+    }
+    return entity
+}
+
+fileprivate func catchImGroupEmptyError(error: Error) -> Observable<ImGroup> {
+    return Observable<ImGroup>.empty()
+}
+
+fileprivate func catchImGroupsEmptyError(error: Error) -> Observable<[ImGroup]> {
     return Observable<[ImGroup]>.empty()
 }

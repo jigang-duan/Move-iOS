@@ -46,7 +46,7 @@ class AlertServer {
                 guard let noticeId = notice.id else {
                     return Observable.empty()
                 }
-                return IMManager.shared.mark(notification: noticeId).map {_ in notice }
+                return IMManager.shared.mark(notification: noticeId).map {_ in notice }.catchErrorJustReturn(notice)
             }
             .bindNext { notice in
                 try? realm.write {
@@ -62,11 +62,8 @@ class AlertServer {
             .filter { NoticeType(rawValue: $0.type)?.style == .navigate }
             .map { $0.from }
             .filterNil()
-            .flatMapLatest { LocationManager.share.location(deviceId: $0).catchErrorJustReturn(KidSate.LocationInfo()) }
-            .bindNext { (locationInfo) in
-                if let location = locationInfo.location {
-                    MapUtility.openPlacemark(name: locationInfo.address ?? "", location: location)
-                }
+            .bindNext { _ in
+                Distribution.shared.backToMainMap()
             }
             .addDisposableTo(disposeBag)
     }

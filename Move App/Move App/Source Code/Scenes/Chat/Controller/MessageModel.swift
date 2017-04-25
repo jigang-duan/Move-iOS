@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
 func transformMinuteOffSet(messages: [UUMessage]) -> [UUMessageFrame] {
     return minuteOffSet(messages: messages).map { UUMessageFrame(message: $0) }
@@ -19,6 +21,14 @@ private func minuteOffSet(messages: [UUMessage]) -> [UUMessage] {
         message.minuteOffSet(start: initianl.last?.time ?? Date(timeIntervalSince1970: 0), end: message.time)
         result.append(message)
         return result
+    }
+}
+
+func markRead(realm: Realm, messages: [MessageEntity]) {
+    try? realm.write {
+        messages.forEach { (entity) in
+            entity.readStatus = MessageEntity.ReadStatus.read.rawValue
+        }
     }
 }
 
@@ -35,7 +45,7 @@ extension UUMessage {
         }
         self.init(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
                   msgId: imVoice.msg_id ?? "",
-                  time: imVoice.ctime ?? Date(),
+                  time: imVoice.ctime,
                   name: user.profile?.nickname ?? "",
                   content: content,
                   state: .unread,
@@ -50,7 +60,7 @@ extension UUMessage {
         content.emoji = imEmoji.content
         self.init(icon: user.profile?.iconUrl?.fsImageUrl ?? "",
                   msgId: imEmoji.msg_id ?? "",
-                  time: imEmoji.ctime ?? Date(),
+                  time: imEmoji.ctime,
                   name: user.profile?.nickname ?? "",
                   content: content,
                   state: .unread,

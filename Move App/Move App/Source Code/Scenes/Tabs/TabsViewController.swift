@@ -59,7 +59,6 @@ class TabsViewController: UITabBarController {
                 self?.showSOSViewController(sos: $0)
             })
             .addDisposableTo(bag)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

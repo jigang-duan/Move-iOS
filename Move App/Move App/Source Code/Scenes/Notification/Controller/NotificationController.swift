@@ -79,12 +79,10 @@ class NotificationController: UIViewController {
             notices.bindTo(messageFramesVariable).addDisposableTo(bag)
             
             messageFramesVariable.asObservable()
-                .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotification.identifier)) { index, model, cell in
-                    if let cell = cell as? UUMessageCell {
-                        cell.messageFrame = model
-                        cell.menuDelegate = self
-                        cell.index = index
-                    }
+                .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotification.identifier, cellType: UUMessageCell.self)) { index, model, cell in
+                    cell.messageFrame = model
+                    cell.menuDelegate = self
+                    cell.index = index
                 }
                 .addDisposableTo(bag)
             

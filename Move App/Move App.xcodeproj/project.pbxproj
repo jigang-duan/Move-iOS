@@ -58,6 +58,9 @@
 		1140A0821EA4B8E200185200 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0811EA4B8E200185200 /* MoreView.swift */; };
 		1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */; };
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
+		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
+		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
+		1162A5091EAE185500DA6164 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5081EAE185500DA6164 /* HomeController.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
@@ -403,6 +406,9 @@
 		1140A0811EA4B8E200185200 /* MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreView.swift; path = Vendor/UUChat/Sources/MoreView.swift; sourceTree = "<group>"; };
 		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
+		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
+		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
+		1162A5081EAE185500DA6164 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
@@ -725,6 +731,7 @@
 		110528E61E78DF0300FE97A8 /* Badge */ = {
 			isa = PBXGroup;
 			children = (
+				1162A5041EADE5C900DA6164 /* UIView+Badge.swift */,
 			);
 			name = Badge;
 			sourceTree = "<group>";
@@ -1390,6 +1397,7 @@
 				E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */,
 				E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */,
 				113F2E471E9E3D2C00B3628C /* SOSController.swift */,
+				1162A5081EAE185500DA6164 /* HomeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1590,6 +1598,7 @@
 				E0931F311E30C97000755B4A /* Protocol+Extenstion.swift */,
 				E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */,
 				117577D91E8B8D59007B2254 /* Rx+UIButton.swift */,
+				1162A5061EADFEE000DA6164 /* Rx+Badge.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2464,6 +2473,7 @@
 				D299374B1E53125800350E1C /* MoveApi+Location+Mappable.swift in Sources */,
 				D24F835C1E52D1C90035CB17 /* IputIMEIControllerTableController.swift in Sources */,
 				E0C229041E35E55600BCF83D /* ActivityIndicator.swift in Sources */,
+				1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */,
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
 				113F2E481E9E3D2C00B3628C /* SOSController.swift in Sources */,
 				11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */,
@@ -2627,6 +2637,7 @@
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */,
+				1162A5091EAE185500DA6164 /* HomeController.swift in Sources */,
 				E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */,
 				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
 				A5B3E1EC1E7FFBBB00F12E22 /* FileUtility.swift in Sources */,
@@ -2678,6 +2689,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */,
+				1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */,
 				1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */,
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
 				E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */,

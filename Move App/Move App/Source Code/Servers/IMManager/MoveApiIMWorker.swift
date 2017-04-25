@@ -52,38 +52,12 @@ class MoveApiIMWorker: IMWorkerProtocl {
     
     //    获取群组列表
     func getGroups() -> Observable<[ImGroup]> {
-        return MoveIM.ImApi.getGroups().map({ $0.groups?.map(self.convertGroup) ?? [] })
+        return MoveIM.ImApi.getGroups().map({ $0.groups?.map(convertGroup) ?? [] })
     }
     
     //    查看群组信息
     func getGroupInfo(gid: String) -> Observable<ImGroup> {
-        return MoveIM.ImApi.getGroupInfo(gid: MoveIM.ImGid(gid: gid))
-            .map({self.convertGroup($0)})
-    }
-
-    
-    func convertGroup(_ group: MoveIM.ImGroup) -> ImGroup {
-        let members = group.members?.map {
-            return ImContact(uid: $0.uid,
-                              type: $0.type,
-                              username: $0.username,
-                              nickname: $0.nickname,
-                              profile: $0.profile,
-                              identity: Relation(input: $0.identity ?? ""),
-                              phone: $0.phone,
-                              email: $0.email,
-                              time: $0.time,
-                              sex: $0.sex,
-                              flag: $0.flag,
-                              admin: $0.admin)
-        } ?? []
-        return ImGroup(gid: group.gid,
-                       topic: group.topic,
-                       profile: group.profile,
-                       owner: group.owner,
-                       flag: group.flag,
-                       ctime: group.ctime,
-                       members: members)
+        return MoveIM.ImApi.fetchGroup(gid: gid).map(convertGroup)
     }
     
     
@@ -136,6 +110,30 @@ class MoveApiIMWorker: IMWorkerProtocl {
         }
         return MoveApi.HistoryMessage.settingReadStatus(uid: uid, msgid: id).map({_ in id })
     }
+}
+
+func convertGroup(_ group: MoveIM.ImGroup) -> ImGroup {
+    let members = group.members?.map {
+        return ImContact(uid: $0.uid,
+                         type: $0.type,
+                         username: $0.username,
+                         nickname: $0.nickname,
+                         profile: $0.profile,
+                         identity: Relation(input: $0.identity ?? ""),
+                         phone: $0.phone,
+                         email: $0.email,
+                         time: $0.time,
+                         sex: $0.sex,
+                         flag: $0.flag,
+                         admin: $0.admin)
+        } ?? []
+    return ImGroup(gid: group.gid,
+                   topic: group.topic,
+                   profile: group.profile,
+                   owner: group.owner,
+                   flag: group.flag,
+                   ctime: group.ctime,
+                   members: members)
 }
 
 fileprivate func transformMessageIDs(count: Int) -> Bool {

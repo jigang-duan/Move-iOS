@@ -8,4 +8,4 @@
 
 proj_path=`pwd`
 scriptpath="${proj_path}/buildTool/iosapp-package.py -t ${proj_path}"
-exec "${proj_path}/buildTool/iosapp-package.py" -t "${proj_path}"
+exec "${proj_path}/buildTool/iosapp-package.py" -d -t "${proj_path}"

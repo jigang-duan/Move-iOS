@@ -17,6 +17,7 @@ import RxRealmDataSources
 import Kingfisher
 import CustomViews
 //import AFImageHelper
+import DZNEmptyDataSet
 
 
 class SystemNotificationController: UIViewController {
@@ -29,25 +30,23 @@ class SystemNotificationController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableView.emptyDataSetSource = self
         
-        let dataSource = RxTableViewRealmDataSource<GroupEntity>(cellIdentifier: R.reuseIdentifier.cellNotificationClassify.identifier,
-                                                                 cellType: UITableViewCell.self,
-                                                                 cellConfig: cellConfig)
         let realm = try! Realm()
         if let uid = Me.shared.user.id {
             let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.groups
-            let groups = Observable.changeset(from: objects )
-                .share()
-        
-            groups
-                .bindTo(tableView.rx.realmChanges(dataSource))
+            
+            Observable.collection(from: objects)
+                .map({ (list) -> [GroupEntity] in list.filter{ $0.notices.count > 0 }.sorted(by: { ($0.notices.last?.createDate)! < ($1.notices.last?.createDate)! })})
+                .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotificationClassify.identifier)) { [weak self] (row, element, cell) in
+                    self?.cellConfig(cell: cell, row: row, group: element)
+                }
                 .addDisposableTo(bag)
             
-            tableView.rx.itemSelected
-                .asDriver()
-                .drive(onNext: { [weak self] ip in
-                    self?.performSegue(withIdentifier: R.segue.systemNotificationController.showNotification.identifier, sender: objects[ip.row])
-                })
+            tableView.rx.modelSelected(GroupEntity.self)
+                .bindNext { [weak self] in
+                    self?.performSegue(withIdentifier: R.segue.systemNotificationController.showNotification.identifier, sender: $0)
+                }
                 .addDisposableTo(bag)
             
         }
@@ -55,7 +54,7 @@ class SystemNotificationController: UIViewController {
     }
     
     
-    private func cellConfig(cell: UITableViewCell, ip: IndexPath, group: GroupEntity) {
+    private func cellConfig(cell: UITableViewCell, row: Int, group: GroupEntity) {
         
         if
             let kidsId = group.notices.first?.from,
@@ -75,14 +74,24 @@ class SystemNotificationController: UIViewController {
                                         placeholder: placeholder,
                                         options: [.transition(.fade(1))],
                                         progressBlock: nil,
-                                        completionHandler: nil)
-            cell.imageView?.makeRoundedCorners()
+                                        completionHandler: { [weak self] (image, _, _, _) in
+                                            guard let image = image else {
+                                                return
+                                            }
+                                            cell.imageView?.image = self?.convert(image: image, size: placeholder.size)
+            })
             
             cell.textLabel?.text = kids.nickname
             cell.detailTextLabel?.text = String(format: group.notices.last?.content ?? "", kids.nickname ?? "")
         }
         
-        (cell.accessoryView as? UILabel)?.text = "\(group.notices.count)"
+        if let numberLable = cell.accessoryView as? UILabel {
+            let number = group.notices.filter({ $0.readStatus == 0 }).count
+            numberLable.text = number > 99 ? "99+" : "\(number)"
+            if let n = numberLable.text?.characters.count, n > 1 {
+                numberLable.sizeToFit()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,10 +113,19 @@ class SystemNotificationController: UIViewController {
                 rsegue.destination.group = group
             }
         }
-        
     }
     
+}
 
+extension SystemNotificationController: DZNEmptyDataSetSource {
+    
+    func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
+        return R.image.system_notification_empty()!
+    }
+    
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+        return R.color.appColor.background()
+    }
 }
 
 

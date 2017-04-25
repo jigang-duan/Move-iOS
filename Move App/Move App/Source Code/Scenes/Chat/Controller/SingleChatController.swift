@@ -50,22 +50,23 @@ class SingleChatController: UIViewController {
         }
         
         let messages = Observable.collection(from: group.messages)
-            .share()
+            //.share()
+        
+        let chatMessages = messages
             .map { list -> [UUMessage]  in list.filter { !$0.isGroup }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) } }
             .map(transformMinuteOffSet)
         
         tableView.rx.setDelegate(self).addDisposableTo(bag)
         
-        messages.bindTo(messageFramesVariable).addDisposableTo(bag)
+        chatMessages.bindTo(messageFramesVariable).addDisposableTo(bag)
         
+        let cellIdentifier = R.reuseIdentifier.cellSingleChat.identifier
         messageFramesVariable.asObservable()
-            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellSingleChat.identifier)) { [weak self] (index, model, cell) in
-                if let cell = cell as? UUMessageCell {
-                    cell.messageFrame = model
-                    cell.delegate = self
-                    cell.menuDelegate = self
-                    cell.index = index
-                }
+            .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
+                cell.messageFrame = model
+                cell.delegate = self
+                cell.menuDelegate = self
+                cell.index = index
             }
             .addDisposableTo(bag)
         
@@ -161,6 +162,14 @@ class SingleChatController: UIViewController {
         markReadSubject.asObserver()
             .flatMapLatest { IMManager.shared.mark(message: $0).catchErrorJustReturn($0) }
             .filterEmpty()
+            .subscribe(onNext: { group.markRead(realm: realm, message: $0) })
+            .addDisposableTo(bag)
+        
+        Observable<Int>.timer(1.0, period: 6.0, scheduler: MainScheduler.instance)
+            .map { _ in group.messages  }
+            .map { list in list.filter { !$0.isGroup && $0.isText && $0.isUnRead }.first }
+            .map { $0?.id }
+            .filterNil()
             .subscribe(onNext: { group.markRead(realm: realm, message: $0) })
             .addDisposableTo(bag)
         

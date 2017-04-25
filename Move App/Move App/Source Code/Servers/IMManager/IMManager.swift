@@ -482,6 +482,11 @@ extension MessageEntity {
     var isGroup: Bool {
         return (groupId != nil) && (groupId != "")
     }
+    
+    var isUnRead: Bool {
+        return readStatus == MessageEntity.ReadStatus.unread.rawValue
+    }
+    
 }
 
 fileprivate extension GroupEntity {

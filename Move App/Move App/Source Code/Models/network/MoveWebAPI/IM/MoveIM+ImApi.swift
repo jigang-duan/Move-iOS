@@ -34,8 +34,8 @@ extension MoveIM {
             return request(.createGroup(group: group)).mapMoveObject(ImGid.self)
         }
 //        查看群组信息
-        final class func getGroupInfo(gid: ImGid) -> Observable<ImGroup> {
-            return request(.getGroupInfo(gid: gid)).mapMoveObject(ImGroup.self)
+        final class func fetchGroup(gid: String) -> Observable<ImGroup> {
+            return request(.readGroup(gid: gid)).mapMoveObject(ImGroup.self)
         }
         
         final class func initSyncKey() -> Observable<SynckeyEntity> {
@@ -75,7 +75,7 @@ extension MoveIM {
         enum API {
             case getGroups
             case createGroup(group: ImGroup)
-            case getGroupInfo(gid: ImGid)
+            case readGroup(gid: String)
             case initSyncKey
             case checkSyncKey(userSynckey:ImCheckSynkey)
             case syncData(synckey: ImSynDatakey)
@@ -105,7 +105,7 @@ extension MoveIM.ImApi.API: TargetType {
             return "groups"
         case .createGroup:
             return "group"
-        case .getGroupInfo(let gid):
+        case .readGroup(let gid):
             return "group/\(gid)"
         case .initSyncKey:
             return "init"
@@ -125,7 +125,7 @@ extension MoveIM.ImApi.API: TargetType {
     /// The HTTP method used in the request.
     var method: Moya.Method {
         switch self {
-        case .getGroups, .getGroupInfo, .checkSyncKey:
+        case .getGroups, .readGroup, .checkSyncKey:
             return .get
         case .createGroup, .initSyncKey, .syncData, .sendChatMessage:
             return .post
@@ -139,8 +139,8 @@ extension MoveIM.ImApi.API: TargetType {
         switch self {
         case .createGroup(let group):
             return group.toJSON()
-        case .getGroupInfo(let gid):
-            return gid.toJSON()
+        case .readGroup:
+            return nil
         case .checkSyncKey(let userSynckey):
             return userSynckey.toJSON()
         case .syncData(let synckey):

@@ -50,6 +50,13 @@ class MainMapController: UIViewController {
         self.title = "Location"
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
+        self.hidesBottomBarWhenPushed = true
+//        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //self.tabBarController?.tabBar.isHidden = false
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -184,6 +191,20 @@ class MainMapController: UIViewController {
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 self.mapView.addAnnotation(annotion)
             })
+            .addDisposableTo(disposeBag)
+        
+        let realm = try! Realm()
+        let userID = RxStore.shared.userId.asObservable().filterNil()
+        let devUID = viewModel.currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
+        Observable.combineLatest(userID, devUID) { ($0, $1) }
+            .flatMapLatest { (uid, devuid) -> Observable<Int> in
+                guard let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
+                    let group = groups.filter({ $0.members.contains(where: { $0.id == devuid }) }).first else {
+                    return Observable.empty()
+                }
+                return Observable.collection(from: group.messages).map{ $0.filter("readStatus == 0").count }
+            }
+            .bindTo(messageOutlet.rx.badgeCount)
             .addDisposableTo(disposeBag)
         
     }
