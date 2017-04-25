@@ -62,9 +62,9 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
                             serverip: nil,
                             cdma: nil,
                             imsi: nil,
-                            bts:  nil,
+                            bts:  nearbts?.first,
                             nearbts: nearbts,
-                            wifi: nil,
+                            wifi: nearwifi?.first,
                             nearwifi: nearwifi,
                             fences: nil)
         

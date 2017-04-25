@@ -41,7 +41,7 @@ extension AppDelegate {
         Logger.verbose(url)
         
         guard
-            let scheme = url.scheme, scheme == "tclmove",
+            let scheme = url.scheme, scheme.uppercased() == "TCLMOVE",
             let host = url.host, host == "www.alcatel-move.com",
             //url.path == "/latam/lbs/v1.0",
             let sos = KidSate.SOSLbsModel(aURL: url) else {

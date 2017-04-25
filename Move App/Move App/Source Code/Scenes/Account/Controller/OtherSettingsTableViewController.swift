@@ -10,6 +10,16 @@ import UIKit
 
 class OtherSettingsViewController: UITableViewController {
     
+    @IBOutlet weak var appNameLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        appNameLabel.text = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+        versionLabel.text = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
         if (indexPath.row == 0) {
