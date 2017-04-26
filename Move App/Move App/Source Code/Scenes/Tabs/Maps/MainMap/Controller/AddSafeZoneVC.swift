@@ -344,7 +344,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                                 if $0.msg != "ok" {
                                     self.errorshow(message: $0.field!)
                                 }else{
-                                    self.navigationController?.popViewController(animated: true)
+                                  let _ = self.navigationController?.popViewController(animated: true)
                                 }
                             }).addDisposableTo(self.disposeBag)
                     }
@@ -415,7 +415,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     if $0.msg != "ok" {
                         self.errorshow(message: $0.field!)
                     }else{
-                        self.navigationController?.popViewController(animated: true)
+                      let _ = self.navigationController?.popViewController(animated: true)
                     }
                     }.addDisposableTo(self.disposeBag)
             }

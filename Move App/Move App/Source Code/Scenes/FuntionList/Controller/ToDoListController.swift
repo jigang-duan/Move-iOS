@@ -205,7 +205,7 @@ class ToDoListController: UITableViewController {
             
         }else
         {
-           
+          self.isSame = false
             //过滤
             for tod in self.todos
             {
@@ -220,8 +220,11 @@ class ToDoListController: UITableViewController {
                 }else
                 {
                     self.isSame = false
+                   
                 }
             }
+           
+            
             if !self.isSame!{
             let _ = KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
                             {
@@ -233,8 +236,8 @@ class ToDoListController: UITableViewController {
                                 }
                         }).addDisposableTo(self.disposeBag)
             }
-        }
         
+        }
     
     }
 

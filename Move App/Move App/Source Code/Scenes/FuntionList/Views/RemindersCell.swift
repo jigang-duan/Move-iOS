@@ -9,6 +9,8 @@
 import UIKit
 import CustomViews
 
+
+
 class RemindersCell: UITableViewCell {
     @IBOutlet weak var titleimage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

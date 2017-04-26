@@ -278,14 +278,38 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
             if indexPath.row < (self.alarms?.count ?? 0) {
 //
                 viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
+                deleteTap.value += 1
             }
             else
             {
-             
-               viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
+                if self.todos?[indexPath.row-(self.alarms?.count)!]["repeat"] as? Int != 0{
+                    let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: .actionSheet)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let deletThis = UIAlertAction(title: "Delete This To do List only", style: .destructive, handler: { (UIAlertAction) in
+                        self.viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
+                        self.deleteTap.value += 1
+                    })
+                    let deletall = UIAlertAction(title: "Delete All Future To do list", style: .destructive, handler: { (UIAlertAction) in
+                        var index = self.viewModel.reminderVariable.value.todo.count
+                        while index > 0{
+                        self.viewModel.reminderVariable.value.todo.remove(at: 0)
+                            index = index - 1
+                            self.deleteTap.value += 1
+                        }
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(deletThis)
+                    alertController.addAction(deletall)
+                    self.present(alertController, animated: true, completion: nil)
+                }else
+                {
+                    viewModel.reminderVariable.value.todo.remove(at: indexPath.row - (self.alarms?.count ?? 0))
+                    deleteTap.value += 1
+                }
+                
             }
            
-            deleteTap.value += 1
+            
             
             
         }
