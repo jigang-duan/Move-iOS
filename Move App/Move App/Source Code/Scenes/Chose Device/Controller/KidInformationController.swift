@@ -18,7 +18,10 @@ class KidInformationController: UIViewController {
     @IBOutlet weak var nextBun: UIButton!
     
     @IBOutlet weak var nameTf: UITextField!
+    @IBOutlet weak var regionCodeBun: UIButton!
+    @IBOutlet weak var phonePrefix: UILabel!
     @IBOutlet weak var phoneTf: UITextField!
+    
     @IBOutlet weak var validateLab: UILabel!
     
     @IBOutlet weak var genderLab: UILabel!
@@ -43,7 +46,10 @@ class KidInformationController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
+    }
     
     func showvalidateError(_ text: String) {
         validateLab.isHidden = false

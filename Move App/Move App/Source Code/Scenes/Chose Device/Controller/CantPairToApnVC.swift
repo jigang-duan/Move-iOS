@@ -13,6 +13,10 @@ class CantPairToApnVC: UIViewController {
     
     var imei = ""
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +33,10 @@ class CantPairToApnVC: UIViewController {
         }
     }
     
-    
+  
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
     
 }
 

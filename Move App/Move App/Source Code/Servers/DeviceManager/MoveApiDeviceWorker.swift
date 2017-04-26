@@ -15,6 +15,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     func checkBind(deviceId: String) -> Observable<Bool> {
         return MoveApi.Device.checkBind(deviceId: deviceId)
             .map({$0.bind ?? true})
+            .catchError(errorHandle)
     }
     
     func addDevice(firstBindInfo: DeviceBindInfo) -> Observable<Bool> {

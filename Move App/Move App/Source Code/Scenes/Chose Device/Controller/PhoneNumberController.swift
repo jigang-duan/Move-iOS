@@ -12,6 +12,8 @@ import RxCocoa
 
 class PhoneNumberController: UIViewController {
 
+    @IBOutlet weak var regionBun: UIButton!
+    
     @IBOutlet weak var phoneTf: UITextField!
     @IBOutlet weak var nextBun: UIButton!
    
@@ -81,13 +83,6 @@ class PhoneNumberController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         validate.isHidden = true
         
         if isForCheckNumber {
@@ -97,9 +92,10 @@ class PhoneNumberController: UIViewController {
             
             phoneTf.placeholder = "****"
             
-            validate.isHidden = false
-            validate.textColor = UIColor.white
-            validate.text = "Please input the last 4 number to verify"
+            self.showValidateError("Please input the last 4 number to verify")
+        }else{
+            phonePrefix.text = "+\(Locale.current.regionCode)"
+            regionBun.setTitle(Locale.current.regionCode, for: .normal)
         }
         
         

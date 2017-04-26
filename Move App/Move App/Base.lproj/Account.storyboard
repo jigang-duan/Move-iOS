@@ -625,9 +625,27 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnH-JA-gBG">
+                                                    <rect key="frame" x="325" y="11.5" width="40" height="20"/>
+                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="1S9-fB-tyC"/>
+                                                        <constraint firstAttribute="width" constant="40" id="iYh-JC-zeR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="uCT-3X-qBO" firstAttribute="centerY" secondItem="GfK-P0-Rvh" secondAttribute="centerY" id="5i0-hX-F7a"/>
+                                                <constraint firstAttribute="trailing" secondItem="tnH-JA-gBG" secondAttribute="trailing" constant="10" id="a2I-7p-PGW"/>
+                                                <constraint firstItem="tnH-JA-gBG" firstAttribute="centerY" secondItem="GfK-P0-Rvh" secondAttribute="centerY" id="bBq-WS-ukD"/>
                                                 <constraint firstItem="bhF-pG-ImJ" firstAttribute="centerY" secondItem="GfK-P0-Rvh" secondAttribute="centerY" id="nRu-cf-v5c"/>
                                                 <constraint firstItem="uCT-3X-qBO" firstAttribute="leading" secondItem="GfK-P0-Rvh" secondAttribute="leading" constant="10" id="qAY-5u-mQd"/>
                                                 <constraint firstItem="bhF-pG-ImJ" firstAttribute="leading" secondItem="uCT-3X-qBO" secondAttribute="trailing" constant="15" id="uNM-qY-qGE"/>
@@ -703,6 +721,7 @@
                         <outlet property="unpairedwithWatchLabel" destination="3ao-zz-KIk" id="WlI-Ax-Fy2"/>
                         <outlet property="unpairedwithwatchIntroduceLabel" destination="4xW-M3-XTj" id="FT6-9D-KdP"/>
                         <outlet property="updateLabel" destination="bhF-pG-ImJ" id="jMv-k8-OyE"/>
+                        <outlet property="updateNewLab" destination="tnH-JA-gBG" id="D2L-JY-AXa"/>
                         <outlet property="usePermissiorLabel" destination="69I-if-kDG" id="tt9-NA-JUy"/>
                         <outlet property="watchContactCell" destination="Raa-Mu-wBQ" id="yyW-Hh-9Hs"/>
                         <outlet property="watchContactLabel" destination="4As-Sj-hKR" id="9qH-uU-3hJ"/>
@@ -1966,7 +1985,7 @@
                         <viewControllerLayoutGuide type="top" id="1ie-MF-CXu"/>
                         <viewControllerLayoutGuide type="bottom" id="YtJ-KS-Yfc"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bmY-0a-Mb2">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="bmY-0a-Mb2">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2356,7 +2375,7 @@
                         <viewControllerLayoutGuide type="top" id="NgA-kS-hhx"/>
                         <viewControllerLayoutGuide type="bottom" id="qa8-Id-gMQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iiq-7d-hKL">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="iiq-7d-hKL">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

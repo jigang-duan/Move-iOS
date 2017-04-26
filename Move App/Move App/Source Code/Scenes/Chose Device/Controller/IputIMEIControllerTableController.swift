@@ -1,5 +1,5 @@
 //
-//  IputIMEIControllerTableController.swift
+//  InputImeiVC.swift
 //  Move App
 //
 //  Created by Vernon yellow on 17/2/14.
@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class IputIMEIControllerTableController: UIViewController {
+class InputImeiVC: UIViewController {
 
     @IBOutlet weak var IMEITextF: UITextField!
     @IBOutlet weak var confirmBun: UIButton!
@@ -51,7 +51,6 @@ class IputIMEIControllerTableController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         validate.isHidden = true
         
         viewModel = InputIMEIViewModel(
@@ -81,8 +80,8 @@ class IputIMEIControllerTableController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                case .ok(let message):
-                    self.gotoVerifyVC(message)
+                case .ok:
+                    self.performSegue(withIdentifier: R.segue.inputImeiVC.showVerification, sender: nil)
                 default:
                     self.revertValidateError()
                 }
@@ -114,13 +113,9 @@ class IputIMEIControllerTableController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let sg = R.segue.iputIMEIControllerTableController.showVerification(segue: segue) {
+        if let sg = R.segue.inputImeiVC.showVerification(segue: segue) {
             sg.destination.imei = IMEITextF.text
         }
-    }
-    
-    func gotoVerifyVC(_ sid: String){
-        self.performSegue(withIdentifier: R.segue.iputIMEIControllerTableController.showVerification, sender: nil)
     }
     
     

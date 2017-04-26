@@ -31,6 +31,7 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var languageforthiswatchLabel: UILabel!
     @IBOutlet weak var apnLabel: UILabel!
     @IBOutlet weak var updateLabel: UILabel!
+    @IBOutlet weak var updateNewLab: UILabel!
     @IBOutlet weak var unpairedWithLabel: UILabel!
     
 
@@ -88,10 +89,13 @@ class AccountKidsRulesuserController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       self.defultAlarm()
+        updateNewLab.isHidden = true
+        self.fetchProperty()
+        
+        self.defultAlarm()
 
         //国际化R.string.localizable
-       self.internationalization()
+        self.internationalization()
         
         let viewModel = AccountKidsRulesuserViewModel(
         input: (
@@ -135,6 +139,52 @@ class AccountKidsRulesuserController: UITableViewController {
         }).addDisposableTo(disposeBag)
 
     }
+    
+    func fetchProperty() {
+        let deviceId = RxStore.shared.currentDeviceId.value!
+        
+        DeviceManager.shared.getProperty(deviceId: deviceId)
+            .subscribe(onNext: { property in
+            self.updateProperty(property)
+            
+            var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
+            var ff = ""
+            if let fv = property.firmware_version {
+                if fv.characters.count > 6 {
+                    let f1 = fv.substring(to: fv.index(fv.startIndex, offsetBy: 4))
+                    let f2 = fv.substring(from: fv.index(fv.endIndex, offsetBy: -2))
+                    ff.append(f1)
+                    ff.append(f2)
+                }
+            }
+            checkInfo.fv = ff
+            
+            self.checkNewVersion(checkInfo: checkInfo)
+        }).addDisposableTo(disposeBag)
+    }
+    
+    func updateProperty(_ property: DeviceProperty) {
+        var arr: [DeviceInfo] = []
+        
+        for info in RxStore.shared.deviceInfosState.value {
+            var f = info
+            if f.deviceId == RxStore.shared.currentDeviceId.value {
+                f.property = property
+            }
+            arr.append(f)
+        }
+        RxStore.shared.deviceInfosState.value = arr
+    }
+    
+    func checkNewVersion(checkInfo: DeviceVersionCheck) {
+        DeviceManager.shared.checkVersion(checkInfo: checkInfo).subscribe(onNext: { info in
+            if info.newVersion != nil {
+               self.updateNewLab.isHidden = false
+            }
+        }).addDisposableTo(disposeBag)
+    }
+    
+    
     
     func userInteractionEnabled(enable: Bool) {
        
@@ -227,38 +277,19 @@ class AccountKidsRulesuserController: UITableViewController {
         self.present(vc, animated: true)
     }
     
-   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if isAdminBool{
-    if indexPath.section == 0{
-        return 55}
-    else if indexPath.section == 1{
-        return 44}
-    else{
-        if ((indexPath.row == 0) || (indexPath.row == 1)){
-            return 95}
-    else{
-            return 44}
-    }
-    }else
-    {
-        if indexPath.section == 0 {
-            return 55
-        }else if indexPath.section == 1 {
-            if indexPath.row == 4 {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if isAdminBool == false {
+            if indexPath.section == 1 && indexPath.row == 4 {
                 return 0
-            }else{
-                return 44
             }
-        }else{
-            if indexPath.row == 7 {
-                return 44
-            }else{
+           
+            if indexPath.section == 2 && indexPath.row != 7{
                 return 0
             }
         }
-
+        
+        return super.tableView(tableView, heightForRowAt: indexPath)
     }
-}
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
