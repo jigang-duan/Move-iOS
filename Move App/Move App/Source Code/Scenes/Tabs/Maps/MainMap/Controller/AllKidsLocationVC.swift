@@ -170,11 +170,11 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             let subannotation = annotation as! TagAnnotation
             if selectAnnotation == subannotation {
                 annoView = BigContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                (annoView as! BigContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
             }else{
                 annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
             }
-            
-            (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
             annoView?.annotation = annotation
             annoView?.canShowCallout = false
             return annoView
