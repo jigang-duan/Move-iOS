@@ -186,10 +186,9 @@ class FamilyChatController: UIViewController {
         
         Observable<Int>.timer(1.0, period: 6.0, scheduler: MainScheduler.instance)
             .map { _ in group.messages  }
-            .map { list in list.filter { $0.isGroup && $0.isText && $0.isUnRead }.first }
-            .map { $0?.id }
-            .filterNil()
-            .subscribe(onNext: { group.markRead(realm: realm, message: $0) })
+            .map { list -> [MessageEntity] in list.filter { $0.isGroup && $0.isText && $0.isUnRead } }
+            .filterEmpty()
+            .subscribe(onNext: { markRead(realm: realm, messages: $0) })
             .addDisposableTo(bag)
         
     }
