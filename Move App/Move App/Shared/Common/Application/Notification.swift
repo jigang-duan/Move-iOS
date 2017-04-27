@@ -32,8 +32,6 @@ extension AppDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let hexToken = deviceToken.map({ String(format: "%02x", $0) }).reduce(""){ $0 + $1 }
-//        let tokenChars = deviceToken.description.characters.filter{$0 != Character(" ")}.filter{$0 != Character("<")}.filter{$0 != Character(">")}
-//        let tokenString = String(tokenChars)
         Logger.verbose("notification register device token: \(hexToken)")
         NotificationService.shared.saveDeviceToken(hexToken)
     }

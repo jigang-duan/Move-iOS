@@ -18,6 +18,8 @@ class AlertServer {
     
     static let share = AlertServer()
     
+//    let goToSeeSubject = BehaviorSubject<String?>(value: nil)
+    
     func subscribe(disposeBag: DisposeBag) {
         let realm = try! Realm()
         let objects = realm.objects(NoticeEntity.self)
@@ -29,13 +31,15 @@ class AlertServer {
             .filterNil()
             .flatMapLatest { (notice) -> Observable<AlertResult> in
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
-                let noticeType = NoticeType(rawValue: notice.type)
-                let confirm = (noticeType?.style == .navigate) ? AlertResult.confirm(parcel: notice) : nil
+                guard let noticeType = NoticeType(rawValue: notice.type) else {
+                    return Observable.empty()
+                }
+                let confirm = noticeType.style.hasConfirm ? AlertResult.confirm(parcel: notice) : nil
                 return AlertWireframe.shared.prompt(notice.content ?? "",
-                                                    title: noticeType?.title,
+                                                    title: noticeType.title,
                                                     iconURL: kids?.headPortrait?.fsImageUrl,
                                                     cancel: .ok(parcel: notice),
-                                                    confirm: confirm, confirmTitle: noticeType?.style.description)
+                                                    confirm: confirm, confirmTitle: noticeType.style.description)
             }
             .shareReplay(1)
         
@@ -48,24 +52,61 @@ class AlertServer {
                 }
                 return IMManager.shared.mark(notification: noticeId).map {_ in notice }.catchErrorJustReturn(notice)
             }
-            .bindNext { notice in
-                try? realm.write {
-                    notice.readStatus = NoticeEntity.ReadStatus.read.rawValue
-                }
-            }
+            .bindNext { $0.makeRead(realm: realm) }
             .addDisposableTo(disposeBag)
         
-        alertResult
+        let confirmNotice = alertResult
             .filter { $0.isConfirm }
             .map(transform)
             .filterNil()
+            .share()
+        
+        let okNotice = alertResult
+            .filter { $0.isOK }
+            .map(transform)
+            .filterNil()
+            .share()
+
+        confirmNotice
             .filter { NoticeType(rawValue: $0.type)?.style == .navigate }
             .map { $0.from }
             .filterNil()
-            .bindNext { _ in
-                Distribution.shared.backToMainMap()
-            }
+            .bindNext { _ in Distribution.shared.backToMainMap() }
             .addDisposableTo(disposeBag)
+        
+        okNotice
+            .filter { NoticeType(rawValue: $0.type)?.style == .unpired }
+            .map { $0.from }
+            .filterNil()
+            .bindNext { _ in Distribution.shared.backToTabAccount() }
+            .addDisposableTo(disposeBag)
+        
+        let goToSeeKidInformation = confirmNotice
+            .filter { NoticeType(rawValue: $0.type)?.style == .goToSee }
+            .filter { NoticeType(rawValue: $0.type) == .deviceNumberChanged }
+            .map { $0.from }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
+            .filterNil()
+            .map{ $0.deviceId }
+            .filterNil()
+            .share()
+        
+        let goToSeeFamilyMember = confirmNotice
+            .filter { NoticeType(rawValue: $0.type)?.style == .goToSee }
+            .filter { NoticeType(rawValue: $0.type) == .numberChanged }
+            .map { $0.from }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
+            .filterNil()
+            .map{ $0.deviceId }
+            .filterNil()
+            .share()
+        
+        Observable.merge(goToSeeKidInformation, goToSeeFamilyMember).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
+        goToSeeKidInformation.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
+        goToSeeFamilyMember.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
+        
     }
 }
 

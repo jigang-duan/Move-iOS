@@ -38,21 +38,24 @@ class AccountAndChoseDeviceViewModel {
         
         let enter = input.enter.filter({ $0 })
         
-        self.accountName = enter.flatMapLatest { _ in
-            userManger.getProfile()
-                .map{ $0.nickname ?? "" }
-                .asDriver(onErrorJustReturn: "")
-        }
+        self.accountName = enter
+            .flatMapLatest { _ in
+                userManger.getProfile()
+                    .map{ $0.nickname ?? "" }
+                    .asDriver(onErrorJustReturn: "")
+            }
         
-        self.head = enter.flatMapLatest { _ in
-            userManger.getProfile()
-                .map { $0.iconUrl ?? "" }
-                .asDriver(onErrorJustReturn: "")
-        }
+        self.head = enter
+            .flatMapLatest { _ in
+                userManger.getProfile()
+                    .map { $0.iconUrl ?? "" }
+                    .asDriver(onErrorJustReturn: "")
+            }
         
-        self.fetchDevices = enter.flatMapLatest({ _ in
-            deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
-        })
+        self.fetchDevices = enter
+            .flatMapLatest({ _ in
+                deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
+            })
         
         self.selected = input.selectedInext
             .withLatestFrom(devicesVariable.asDriver()) { $1[$0] }

@@ -88,6 +88,15 @@ class NoticeEntity: Object {
     
 }
 
+extension NoticeEntity {
+    
+    func makeRead(realm: Realm) {
+        try? realm.write {
+            self.readStatus = ReadStatus.read.rawValue
+        }
+    }
+}
+
 
 extension NoticeType {
     
@@ -146,6 +155,8 @@ extension NoticeType {
 enum NoticeAlertStyle {
     case `default`
     case navigate
+    case unpired
+    case goToSee
 }
 
 extension NoticeAlertStyle : CustomStringConvertible {
@@ -155,6 +166,21 @@ extension NoticeAlertStyle : CustomStringConvertible {
             return ""
         case .navigate:
             return "Navigate"
+        case .unpired:
+            return R.string.localizable.ok()
+        case .goToSee:
+            return R.string.localizable.system_notice_go_to_see()
+        }
+    }
+}
+
+extension NoticeAlertStyle {
+    var hasConfirm: Bool {
+        switch self {
+        case .default, .unpired:
+            return false
+        case .navigate, .goToSee:
+            return true
         }
     }
 }
@@ -178,9 +204,9 @@ extension NoticeType {
         case .sos:
             return .navigate
         case .unbound:
-            return .default
+            return .unpired
         case .numberChanged:
-            return .default
+            return .goToSee
         case .powered:
             return .default
         case .shutdown:
@@ -206,7 +232,7 @@ extension NoticeType {
         case .loss:
             return .default
         case .deviceNumberChanged:
-            return .default
+            return .goToSee
         case .unknown:
             return .default
         }

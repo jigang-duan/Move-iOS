@@ -78,8 +78,9 @@ class NotificationController: UIViewController {
             
             notices.bindTo(messageFramesVariable).addDisposableTo(bag)
             
+            let cellIdentifier = R.reuseIdentifier.cellNotification.identifier
             messageFramesVariable.asObservable()
-                .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotification.identifier, cellType: UUMessageCell.self)) { index, model, cell in
+                .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
                     cell.messageFrame = model
                     cell.menuDelegate = self
                     cell.index = index

@@ -39,23 +39,23 @@ class AccountKidsRulesuserViewModel {
         let fetchsavePower = manager.fetchSavepower()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
+        
         self.savePowerEnable = Driver.of(fetchsavePower, input.savePower).merge()
         
         let fetchautoAnswer = manager.fetchAutoanswer()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
+        
         self.autoAnswereEnable = Driver.of(fetchautoAnswer, input.autoAnswer).merge()
         
-        
         let down = Driver.combineLatest(savePowerEnable , autoAnswereEnable) { ($0, $1) }
-        
         
         self.saveFinish = down
             .flatMapLatest { (savepower, autoanswer) in
                 manager.updateSavepowerAndautoAnswer(autoanswer, savepower: savepower)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
-        }
+            }
     }
    
 }

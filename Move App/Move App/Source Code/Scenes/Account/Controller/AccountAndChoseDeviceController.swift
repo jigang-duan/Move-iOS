@@ -23,13 +23,15 @@ class AccountAndChoseDeviceController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let disposeBag = DisposeBag()
-    let enterSubject = BehaviorSubject<Bool>(value: false)
+    let enterSubject = PublishSubject<Bool>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let darkPrimaryColor = R.color.appColor.darkPrimary()
-        backImageView.image = UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),locations: [0.0,1.0])
+        backImageView.image = UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
+                                      size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),
+                                      locations: [0.0,1.0])
         
         let selectedInext = tableView.rx.itemSelected.asDriver().map { $0.row }
         let viewModel = AccountAndChoseDeviceViewModel(
@@ -44,24 +46,20 @@ class AccountAndChoseDeviceController: UIViewController {
             )
         )
         
-        tableView.rx
-            .setDelegate(self)
-            .addDisposableTo(disposeBag)
+        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
         
         viewModel.fetchDevices.drive(viewModel.devicesVariable).addDisposableTo(disposeBag)
         
         viewModel.devicesVariable.asDriver()
             .map(transfer)
-            .drive(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier, cellType: UITableViewCell.self)){ (row, element, cell) in
+            .drive(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier)){ (row, element, cell) in
                 cell.textLabel?.text = element.devType
                 cell.detailTextLabel?.text = element.name
                 cell.imageView?.image = UIImage(named: element.iconUrl!)
             }
             .addDisposableTo(disposeBag)
         
-        viewModel.selected
-            .drive(RxStore.shared.currentDeviceId)
-            .addDisposableTo(disposeBag)
+        viewModel.selected.drive(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
         
         viewModel.selected
             .drive(onNext: { [weak self] _ in
@@ -76,12 +74,15 @@ class AccountAndChoseDeviceController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.accountName.drive(accountNameOutlet.rx.text).addDisposableTo(disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         enterSubject.onNext(true)
+        
+        propelToTargetController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,9 +99,18 @@ class AccountAndChoseDeviceController: UIViewController {
 
 extension AccountAndChoseDeviceController {
     
+    func propelToTargetController() {
+        if let target = Distribution.shared.target {
+            switch target {
+            case .kidInformation, .familyMember :
+                showAccountKidsRulesuserController()
+            }
+        }
+    }
+    
     fileprivate func showAccountKidsRulesuserController() {
-        if let vc = R.storyboard.account.accountKidsRulesuserController() {
-            self.navigationController?.show(vc, sender: nil)
+        if let toVC = R.storyboard.account.accountKidsRulesuserController() {
+            self.navigationController?.show(toVC, sender: nil)
         }
     }
     

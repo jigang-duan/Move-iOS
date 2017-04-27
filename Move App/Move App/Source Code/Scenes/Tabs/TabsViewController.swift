@@ -37,7 +37,7 @@ class TabsViewController: UITabBarController {
             .addDisposableTo(bag)
         
         let nonOrOneDevice = RxStore.shared.deviceInfosState.asObservable().filter({ $0.count <= 1 }).map({ $0.first?.deviceId })
-        nonOrOneDevice.bindTo(RxStore.shared.currentDeviceId).addDisposableTo(bag)
+        nonOrOneDevice.distinctUntilChanged().bindTo(RxStore.shared.currentDeviceId).addDisposableTo(bag)
         
         enterSubject.asObservable()
             .filter({$0})

@@ -60,6 +60,7 @@ class AlertWireframe {
         alertView.iconURL = iconURL
         
         return Observable.create { observer in
+            
             alertView.cancelAction = NoticeAlertControoler.Action(title: cancelAction.description) {
                 observer.on(.next(cancelAction))
             }
@@ -102,6 +103,19 @@ extension AlertResult {
             return false
         case .confirm:
             return true
+        case .empty:
+            return false
+        }
+    }
+    
+    var isOK: Bool {
+        switch self {
+        case .ok:
+            return true
+        case .cancel:
+            return false
+        case .confirm:
+            return false
         case .empty:
             return false
         }

@@ -21,20 +21,20 @@ class OtherSettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        if (indexPath.row == 0) {
+        if indexPath.row == 0 {
             let alert = UIAlertController(title: nil, message: "clean the cache!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Clean", style: .default) { _ in
+            let action = UIAlertAction(title: "Clean", style: .default) { _ in
                 SynckeyEntity.clearMessages()
-                _ = clearCachesFromDirectoryPath(path: NSTemporaryDirectory())
-            })
+                _ = clearCache(path: NSTemporaryDirectory())
+            }
+            alert.addAction(action)
             alert.addAction(UIAlertAction(title: "Cancle", style: .default))
             present(alert, animated: true, completion: nil)
         }
     }
 }
 
-fileprivate func clearCachesFromDirectoryPath(path: String) -> Bool {
+fileprivate func clearCache(path: String) -> Bool {
     let manage = FileManager.default
     guard manage.fileExists(atPath: path) else {
         return false

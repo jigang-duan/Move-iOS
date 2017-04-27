@@ -65,16 +65,74 @@ class Distribution {
     }
     
     func backToMainMap() {
+        guard let current = self.currentViewCotroller else {
+            return
+        }
+        if (current as? MainMapController) != nil {
+            return
+        }
         if
-            let navVC = self.currentViewCotroller?.navigationController,
+            let navVC = current.navigationController,
             let tabVC = navVC.tabBarController {
             
-            if tabVC.selectedIndex == 0 {
-                navVC.popToRootViewController(animated: true)
-            } else {
+            if tabVC.selectedIndex != 0 {
                 tabVC.selectedIndex = 0
             }
+            navVC.popToRootViewController(animated: true)
         }
+    }
+    
+    func backToTabAccount() {
+        guard let current = self.currentViewCotroller else {
+            return
+        }
+        if (current as? AccountAndChoseDeviceController) != nil {
+            return
+        }
+        popToTabAccount(current: current)
+    }
+    
+    private func popToTabAccount(current: UIViewController) {
+        if
+            let navVC = current.navigationController,
+            let tabVC = navVC.tabBarController {
+            
+            if tabVC.selectedIndex != 1 {
+                tabVC.selectedIndex = 1
+            }
+            navVC.popToRootViewController(animated: true)
+        }
+    }
+    
+    
+    var target: Target? = nil
+    enum Target {
+        case kidInformation
+        case familyMember
+    }
+    
+    func propelToKidInformation() {
+        guard let current = self.currentViewCotroller else {
+            return
+        }
+        target = .kidInformation
+        if let current = current as? AccountAndChoseDeviceController {
+            current.propelToTargetController()
+            return
+        }
+        popToTabAccount(current: current)
+    }
+    
+    func propelToFamilyMember() {
+        guard let current = self.currentViewCotroller else {
+            return
+        }
+        target = .familyMember
+        if let current = current as? AccountAndChoseDeviceController {
+            current.propelToTargetController()
+            return
+        }
+        popToTabAccount(current: current)
     }
     
     

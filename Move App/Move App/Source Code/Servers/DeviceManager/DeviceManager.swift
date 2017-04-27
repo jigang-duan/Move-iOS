@@ -221,6 +221,20 @@ struct DeviceProperty {
     var maxgroups: Int?
 }
 
+func ==(lhs: DeviceProperty, rhs: DeviceProperty) -> Bool {
+    return (lhs.active == rhs.active)
+        && (lhs.bluetooth_address == rhs.bluetooth_address)
+        && (lhs.device_model == rhs.device_model)
+        && (lhs.firmware_version == rhs.firmware_version)
+        && (lhs.ip_address == rhs.ip_address)
+        && (lhs.kernel_version == rhs.kernel_version)
+        && (lhs.mac_address == rhs.mac_address)
+        && (lhs.phone_number == rhs.phone_number)
+        && ((lhs.languages ?? []) == (rhs.languages ?? []))
+        && (lhs.power == rhs.power)
+        && (lhs.maxgroups == rhs.maxgroups)
+}
+
 struct DeviceBindInfo {
     var isMaster: Bool?
     var deviceId: String?
