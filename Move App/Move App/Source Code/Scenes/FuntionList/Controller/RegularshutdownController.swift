@@ -161,6 +161,7 @@ class RegularshutdownController: UIViewController {
     func userInteractionEnabled(enable: Bool) {
         
     }
+  
     private func cancelDatepicker() {
         datePickView.isHidden = true
         bootTimeOutlet.isSelected = false
@@ -171,19 +172,45 @@ class RegularshutdownController: UIViewController {
         
         if bootTimeOutlet.isSelected {
             bootTimeOutlet.isSelected = false
-            bootTimeVariable.value = datePicker.date
+            let selectTime = Double(datePicker.date.timeIntervalSince1970)
+            let currTime = Double(shutdownTimeVariable.value.timeIntervalSince1970)
+            let result = selectTime - currTime
+            if (datePicker.date == shutdownTimeVariable.value) ||  (fabsf(Float(result)) <= 600) {
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okActiojn)
+                self.present(alertController, animated: true)
+
+            }else
+            {
+                bootTimeVariable.value = datePicker.date
+               
+            }
         }
         
         if shutdownTimeQutlet.isSelected {
             shutdownTimeQutlet.isSelected = false
-            shutdownTimeVariable.value = datePicker.date
+            let selectTime = Double(datePicker.date.timeIntervalSince1970)
+            let currTime = Double(bootTimeVariable.value.timeIntervalSince1970)
+            let result = selectTime - currTime
+            if (datePicker.date == bootTimeVariable.value) || (fabsf(Float(result)) <= 600) {
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okActiojn)
+                self.present(alertController, animated: true)
+                
+            }else
+            {
+                
+                shutdownTimeVariable.value = datePicker.date
+                
+            }
+
         }
-       
+        
         datePickView.isHidden = true
-//        (playinghamsterQulet.rx.value <-> viewModel.selected3Variable).addDisposableTo(disposeBag)
-        
-        
         openShutdown.isOn = true
+        
         
     }
     

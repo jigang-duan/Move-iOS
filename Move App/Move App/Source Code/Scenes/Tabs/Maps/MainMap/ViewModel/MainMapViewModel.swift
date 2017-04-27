@@ -136,7 +136,7 @@ fileprivate func allAndTransformAction(infos: [DeviceInfo]) -> [BasePopoverActio
 extension BasePopoverAction {
     
     convenience init(info: DeviceInfo) {
-        self.init(imageUrl: info.user?.profile,
+        self.init(imageUrl: info.user?.profile?.fsImageUrl,
                   placeholderImage: R.image.home_pop_all(),
                   title: info.user?.nickname,
                   isSelected: true,

@@ -66,7 +66,9 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        
+        
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         let geolocationService = GeolocationService.instance
@@ -171,6 +173,10 @@ class MainMapController: UIViewController {
                 Logger.debug("地图Annotion个数: \($0.count)")
             })
             .addDisposableTo(disposeBag)
+        
+        remindLocationOutlet.rx.tap.asDriver().drive(onNext: {
+            
+        }).addDisposableTo(disposeBag)
         
         viewModel.kidAddress.bindTo(addressOutlet.rx.text).addDisposableTo(disposeBag)
         viewModel.locationTime
