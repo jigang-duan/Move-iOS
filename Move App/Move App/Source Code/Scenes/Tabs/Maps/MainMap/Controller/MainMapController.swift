@@ -51,12 +51,6 @@ class MainMapController: UIViewController {
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
-//        self.tabBarController?.tabBar.isHidden = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //self.tabBarController?.tabBar.isHidden = false
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,8 +60,6 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
@@ -107,18 +99,14 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         openPreferencesBtn.rx.tap
-            .bindNext { _ in
-                wireframe.open(url: URL(string: UIApplicationOpenSettingsURLString)!)
-            }
+            .bindNext { _ in wireframe.openSettings() }
             .addDisposableTo(disposeBag)
         
         callOutlet.rx.tap.asDriver()
             .withLatestFrom(viewModel.currentDevice)
             .map({ URL(deviceInfo: $0) })
             .filterNil()
-            .drive(onNext: {
-                wireframe.open(url: $0)
-            })
+            .drive(onNext: { wireframe.open(url: $0) })
             .addDisposableTo(disposeBag)
         
         messageOutlet.rx.tap
@@ -200,7 +188,7 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         let realm = try! Realm()
-        let userID = RxStore.shared.userId.asObservable().filterNil()
+        let userID = RxStore.shared.uidObservable
         let devUID = viewModel.currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
         Observable.combineLatest(userID, devUID) { ($0, $1) }
             .flatMapLatest { (uid, devuid) -> Observable<Int> in
@@ -213,6 +201,9 @@ class MainMapController: UIViewController {
             .bindTo(messageOutlet.rx.badgeCount)
             .addDisposableTo(disposeBag)
         
+        AlertServer.share.navigateLocationSubject
+            .bindNext { [weak self] in self?.showNavigationSheetView(locationInfo: $0) }
+            .addDisposableTo(disposeBag)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -234,6 +225,21 @@ class MainMapController: UIViewController {
 
 
 extension MainMapController {
+    
+    fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
+        
+        let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        sheetView.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        if let name = locationInfo.address, let location = locationInfo.location {
+            sheetView.addAction(UIAlertAction(title: "Navigation", style: .default) { _ in
+                MapUtility.openPlacemark(name: name, location: location)
+            })
+        }
+        
+        self.present(sheetView, animated: true, completion: nil)
+    }
     
     fileprivate func showAllKidsLocationController(data: [DeviceInfo]) {
         if let toVC = R.storyboard.major.allKidsLocationVC() {

@@ -18,7 +18,7 @@ class AlertServer {
     
     static let share = AlertServer()
     
-//    let goToSeeSubject = BehaviorSubject<String?>(value: nil)
+    let navigateLocationSubject = PublishSubject<KidSate.LocationInfo>()
     
     func subscribe(disposeBag: DisposeBag) {
         let realm = try! Realm()
@@ -67,11 +67,19 @@ class AlertServer {
             .filterNil()
             .share()
 
-        confirmNotice
+        let navigate = confirmNotice
             .filter { NoticeType(rawValue: $0.type)?.style == .navigate }
             .map { $0.from }
             .filterNil()
-            .bindNext { _ in Distribution.shared.backToMainMap() }
+        
+        navigate.bindNext { _ in Distribution.shared.backToMainMap() }.addDisposableTo(disposeBag)
+        navigate
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
+            .filterNil()
+            .map{ $0.deviceId }
+            .filterNil()
+            .flatMapLatest { LocationManager.share.location(deviceId: $0).catchErrorJustReturn(KidSate.LocationInfo()).filter{ $0.location != nil } }
+            .bindTo(navigateLocationSubject)
             .addDisposableTo(disposeBag)
         
         okNotice

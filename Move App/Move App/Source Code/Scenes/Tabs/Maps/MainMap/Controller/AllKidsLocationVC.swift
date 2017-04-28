@@ -163,8 +163,8 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             annotationView?.canShowCallout = false
             return annotationView
         }
-        else if annotation is TagAnnotation
-        {
+        
+        if annotation is TagAnnotation {
             let reuseIdentifier = "targetAnnoteationReuseIdentifier"
             var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
             let subannotation = annotation as! TagAnnotation
@@ -237,14 +237,6 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             mapItem.openInMaps(launchOptions: options)
         }
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

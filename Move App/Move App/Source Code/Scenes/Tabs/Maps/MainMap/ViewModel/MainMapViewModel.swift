@@ -115,9 +115,7 @@ class MainMapViewModel {
         popoer.style = .dark
         let selecedAction = kidInfos.asObservable()
             .map(allAndTransformAction)
-            .flatMapLatest({ actions in
-                return popoer.promptFor(toView: input.avatarView, actions: actions)
-            })
+            .flatMapLatest({ actions in popoer.promptFor(toView: input.avatarView, actions: actions) })
             .shareReplay(1)
         
         allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()

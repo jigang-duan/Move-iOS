@@ -14,7 +14,6 @@ import RealmSwift
 import CustomViews
 
 class HomeController: UIViewController {
-
     
     @IBOutlet weak var noticeOutlet: UIView!
     
@@ -26,9 +25,8 @@ class HomeController: UIViewController {
         // Do any additional setup after loading the view.
         
         let realm = try! Realm()
-        let userID = RxStore.shared.userId.asObservable().filterNil()
-        
-        userID.flatMapLatest { (uid) -> Observable<Bool> in
+        RxStore.shared.uidObservable
+            .flatMapLatest { (uid) -> Observable<Bool> in
                 let notices = realm.objects(NoticeEntity.self).filter("to == %@", uid)
                 return Observable.collection(from: notices).map({ $0.filter("readStatus == 0").count > 0 })
             }

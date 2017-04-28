@@ -39,7 +39,7 @@ extension RxStore {
     }
     
     var deviceIdObservable: Observable<String> {
-        return currentDeviceId.asObservable().filterNil().distinctUntilChanged()
+        return currentDeviceId.asObservable().filterNil()
     }
     
     var currentDevice: Observable<DeviceInfo> {
