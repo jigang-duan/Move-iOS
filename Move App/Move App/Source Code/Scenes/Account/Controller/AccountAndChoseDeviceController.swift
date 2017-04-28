@@ -85,9 +85,16 @@ class AccountAndChoseDeviceController: UIViewController {
         propelToTargetController()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,7 +109,7 @@ extension AccountAndChoseDeviceController {
     func propelToTargetController() {
         if let target = Distribution.shared.target {
             switch target {
-            case .kidInformation, .familyMember :
+            case .kidInformation, .familyMember, .friendList :
                 showAccountKidsRulesuserController()
             }
         }

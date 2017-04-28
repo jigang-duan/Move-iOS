@@ -55,7 +55,6 @@ class AccountKidsRulesuserController: UITableViewController {
 
         initializeI18N()
 
-        
         let viewModel = AccountKidsRulesuserViewModel(
             input: (
                 savePower: savePowerQutel.rx.value.asDriver(),
@@ -136,9 +135,9 @@ class AccountKidsRulesuserController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        propelToTargetController()
-        
+        self.navigationController?.navigationBar.isHidden = false
         enterSubject.onNext(true)
+        propelToTargetController()
     }
 
     
@@ -194,6 +193,9 @@ extension AccountKidsRulesuserController {
                 Distribution.shared.target = nil
             case .familyMember:
                 showFamilyMemberController()
+                Distribution.shared.target = nil
+            case .friendList:
+                showFriendListController()
                 Distribution.shared.target = nil
             }
         }
@@ -257,6 +259,11 @@ extension AccountKidsRulesuserController {
         }
     }
     
+    fileprivate func showFriendListController() {
+        if let toVC = R.storyboard.contact.watchFriends() {
+            self.navigationController?.show(toVC, sender: nil)
+        }
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 44, 44, 44, 44, 44, 44]]

@@ -8,26 +8,16 @@
 
 import UIKit
 
-
-
 class AboutViewController: UIViewController {
-    
     
     @IBOutlet weak var versionLab: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             versionLab.text = "V \(version)"
         }
-        
     }
-    
-    
-    
-    
-    
     
 }

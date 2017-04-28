@@ -111,10 +111,21 @@ class AlertServer {
             .filterNil()
             .share()
         
-        Observable.merge(goToSeeKidInformation, goToSeeFamilyMember).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
+        let goToSeeFriendList = confirmNotice
+            .filter { NoticeType(rawValue: $0.type)?.style == .goToSee }
+            .filter { NoticeType(rawValue: $0.type) == .newContact }
+            .map { $0.from }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
+            .filterNil()
+            .map{ $0.deviceId }
+            .filterNil()
+            .share()
+        
+        Observable.merge(goToSeeKidInformation, goToSeeFamilyMember, goToSeeFriendList).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
         goToSeeKidInformation.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
         goToSeeFamilyMember.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
-        
+        goToSeeFriendList.bindNext { _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)
     }
 }
 

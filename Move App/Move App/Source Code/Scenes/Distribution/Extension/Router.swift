@@ -109,6 +109,7 @@ class Distribution {
     enum Target {
         case kidInformation
         case familyMember
+        case friendList
     }
     
     func propelToKidInformation() {
@@ -128,6 +129,18 @@ class Distribution {
             return
         }
         target = .familyMember
+        if let current = current as? AccountAndChoseDeviceController {
+            current.propelToTargetController()
+            return
+        }
+        popToTabAccount(current: current)
+    }
+    
+    func propelToFriendList() {
+        guard let current = self.currentViewCotroller else {
+            return
+        }
+        target = .friendList
         if let current = current as? AccountAndChoseDeviceController {
             current.propelToTargetController()
             return

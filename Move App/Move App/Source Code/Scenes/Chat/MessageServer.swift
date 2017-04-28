@@ -12,6 +12,7 @@ import RxCocoa
 import Realm
 import RealmSwift
 import RxRealm
+import AudioToolbox
 
 
 class MessageServer {
@@ -42,9 +43,11 @@ class MessageServer {
                 }
                 .shareReplay(1)
             
-            syncData.map { $0.messages }
+            let messageObservable = syncData.map { $0.messages }
                 .filterNil()
                 .flatMap { Observable.from($0) }
+            
+            messageObservable
                 .subscribe(onNext: { (message) in
                     guard let sync = syncObject.first else {
                         return
@@ -69,6 +72,11 @@ class MessageServer {
                         }
                     }
                 })
+                .addDisposableTo(disposeBag)
+            
+            messageObservable
+                .filter { $0.from != uid }
+                .bindNext({ (_) in AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) })
                 .addDisposableTo(disposeBag)
 
             

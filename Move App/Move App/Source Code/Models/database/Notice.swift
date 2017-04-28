@@ -190,7 +190,7 @@ extension NoticeType {
     var style: NoticeAlertStyle {
         switch self {
         case .newContact:
-            return .default
+            return .goToSee
         case .bindRandomCode:
             return .default
         case .instantPosition:

@@ -19,7 +19,6 @@ class SafeZoneViewModel {
     let kidLocation: Driver<CLLocationCoordinate2D>
     let kidAnnotion: Driver<BaseAnnotation>
     
-    
     init(input: (),dependency: (
         geolocationService: GeolocationService,
         locationManager: LocationManager
@@ -29,20 +28,10 @@ class SafeZoneViewModel {
         userLocation = dependency.geolocationService.location
         let locationManager = dependency.locationManager
         
-//        Me.shared.currDeviceID
-        
         kidLocation = Driver<Int>.timer(2, period: Configure.App.LoadDataOfPeriod)
-            .flatMapLatest ({_ in
-                locationManager.currentLocation
-                    .map({
-                        $0.location
-                    })
-                    .debug()
-                    .filterNil()
-                    .asDriver(onErrorRecover: {_ in
-                        dependency.geolocationService.location
-                    })
-            })
+            .flatMapLatest{ _ in
+                locationManager.currentLocation.map { $0.location }.asDriver(onErrorJustReturn: nil).filterNil()
+            }
         
         kidAnnotion = kidLocation
             .map { BaseAnnotation($0) }
