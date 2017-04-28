@@ -167,7 +167,7 @@
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="loading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esF-SI-Qpm">
-                                        <rect key="frame" x="145" y="34" width="182" height="18"/>
+                                        <rect key="frame" x="63" y="34" width="264" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -194,21 +194,14 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_battery0" translatesAutoresizingMaskIntoConstraints="NO" id="819-oq-ciP">
                                         <rect key="frame" x="132" y="11" width="16" height="16"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(LBS+WIFI)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfY-rO-dsl">
-                                        <rect key="frame" x="63" y="34" width="78" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.79526104041916168" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Tx3-nC-fyZ" secondAttribute="trailing" constant="10" id="1pL-ea-pYf"/>
                                     <constraint firstItem="fzE-4h-zm9" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="top" constant="8" id="75J-T8-Yen"/>
                                     <constraint firstAttribute="bottom" secondItem="esF-SI-Qpm" secondAttribute="bottom" constant="8" id="F8O-3i-fRZ"/>
-                                    <constraint firstItem="esF-SI-Qpm" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="90" id="FLe-yi-hqf"/>
+                                    <constraint firstItem="esF-SI-Qpm" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="8" id="FLe-yi-hqf"/>
                                     <constraint firstItem="qVH-Ns-GUh" firstAttribute="centerY" secondItem="819-oq-ciP" secondAttribute="centerY" id="HR3-fY-nd4"/>
-                                    <constraint firstItem="CfY-rO-dsl" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="8" id="ItA-hf-pFa"/>
                                     <constraint firstItem="5vP-5M-IIQ" firstAttribute="leading" secondItem="qVH-Ns-GUh" secondAttribute="trailing" constant="8" id="SaN-9G-ZWK"/>
                                     <constraint firstItem="qVH-Ns-GUh" firstAttribute="leading" secondItem="819-oq-ciP" secondAttribute="trailing" constant="5" id="WXp-Tk-Jtm"/>
                                     <constraint firstItem="Tx3-nC-fyZ" firstAttribute="centerY" secondItem="esF-SI-Qpm" secondAttribute="centerY" constant="2" id="Wmr-Nm-6A4"/>
@@ -219,9 +212,7 @@
                                     <constraint firstAttribute="trailing" secondItem="5vP-5M-IIQ" secondAttribute="trailing" constant="8" id="h9c-n9-0Re"/>
                                     <constraint firstItem="819-oq-ciP" firstAttribute="centerY" secondItem="jCk-Qg-6qK" secondAttribute="centerY" id="iE7-wY-QrZ"/>
                                     <constraint firstItem="GI0-OT-WGr" firstAttribute="centerY" secondItem="mZQ-sj-e6I" secondAttribute="centerY" id="koK-ph-VYM"/>
-                                    <constraint firstItem="esF-SI-Qpm" firstAttribute="leading" secondItem="CfY-rO-dsl" secondAttribute="trailing" constant="4" id="kyR-u0-c1v"/>
                                     <constraint firstItem="jCk-Qg-6qK" firstAttribute="leading" secondItem="fzE-4h-zm9" secondAttribute="trailing" constant="5" id="paI-ad-f0b"/>
-                                    <constraint firstItem="CfY-rO-dsl" firstAttribute="top" secondItem="esF-SI-Qpm" secondAttribute="top" id="uTM-Id-VDF"/>
                                     <constraint firstItem="jCk-Qg-6qK" firstAttribute="centerY" secondItem="fzE-4h-zm9" secondAttribute="centerY" id="wLl-RJ-5Id"/>
                                     <constraint firstAttribute="height" constant="60" id="y7w-9E-gsl"/>
                                     <constraint firstItem="5vP-5M-IIQ" firstAttribute="centerY" secondItem="qVH-Ns-GUh" secondAttribute="centerY" id="zom-yE-5ap"/>
