@@ -200,15 +200,16 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         let _cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.reminderCell.identifier, for: indexPath) as! RemindersCell
 
         if indexPath.row < (self.alarms?.count)! {
-            _cell.titleLabel.text =  DateUtility.dateTostringHHmm(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
-            _cell.detailtitleLabel?.text = timeToType(weeks: self.alarms?[indexPath.row]["dayFromWeek"] as! [Bool])
-            _cell.titleimage?.image = UIImage.init(named: "reminder_school")
-            _cell.accviewBtn.isHidden = false
-            _cell.accviewBtn.isOn = self.alarms?[indexPath.row]["active"] as! Bool
+            _cell.model = self.alarms?[indexPath.row]
+//            _cell.titleLabel.text =  DateUtility.dateTostringHHmm(date: (self.alarms?[indexPath.row]["alarms"] as! Date))
+//            _cell.detailtitleLabel?.text = timeToType(weeks: self.alarms?[indexPath.row]["dayFromWeek"] as! [Bool])
+//            _cell.titleimage?.image = UIImage.init(named: "reminder_school")
+//            _cell.accviewBtn.isHidden = false
+//            _cell.accviewBtn.isOn = self.alarms?[indexPath.row]["active"] as! Bool
         }
         else {
             _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
-            _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("--")\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
+            _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("--")\(DateUtility.dateTostringMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
             _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
             _cell.accviewBtn.isHidden = true
         }
@@ -276,9 +277,25 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         
         if editingStyle == .delete {
             if indexPath.row < (self.alarms?.count ?? 0) {
-//
-                viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
-                deleteTap.value += 1
+
+                    let alertController = UIAlertController(title: "This is a repeating alram.", message: "", preferredStyle: .actionSheet)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let deletThis = UIAlertAction(title: "Delete This alarm only", style: .destructive, handler: { (UIAlertAction) in
+                        self.viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
+                        self.deleteTap.value += 1
+                    })
+                    let deletall = UIAlertAction(title: "Delete All Future alarms", style: .destructive, handler: { (UIAlertAction) in
+                        var index = self.viewModel.reminderVariable.value.alarms.count
+                        while index > 0{
+                            self.viewModel.reminderVariable.value.alarms.remove(at: 0)
+                            index = index - 1
+                            self.deleteTap.value += 1
+                        }
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(deletThis)
+                    alertController.addAction(deletall)
+                    self.present(alertController, animated: true, completion: nil)
             }
             else
             {

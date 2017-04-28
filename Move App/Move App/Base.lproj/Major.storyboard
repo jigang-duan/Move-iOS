@@ -292,6 +292,27 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTz-BE-8U4" userLabel="blackView">
+                                <rect key="frame" x="10" y="60" width="355" height="36"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Newwork disconnected,please check the WiFi or Mobile data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vt5-KZ-AgA">
+                                        <rect key="frame" x="59" y="0.0" width="256" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="k8Q-7a-cyk"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -305,13 +326,16 @@
                             <constraint firstItem="Hpy-90-pyP" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" constant="20" id="MKE-j3-lQG"/>
                             <constraint firstAttribute="trailing" secondItem="Edu-4d-HAK" secondAttribute="trailing" constant="16" id="NlI-c8-r5K"/>
                             <constraint firstItem="Edu-4d-HAK" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" constant="92" id="XFj-tQ-4eu"/>
+                            <constraint firstItem="bTz-BE-8U4" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" constant="10" id="cJW-M6-siz"/>
                             <constraint firstAttribute="trailing" secondItem="d2n-Cm-dk9" secondAttribute="trailing" constant="16" id="fTd-P2-2c1"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="BJv-uG-4Cf" secondAttribute="bottom" constant="20" id="fUq-d5-PS9"/>
                             <constraint firstItem="C76-YW-V2X" firstAttribute="centerX" secondItem="EZI-JX-nJk" secondAttribute="centerX" id="fgY-A6-ziz"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="Hpy-90-pyP" secondAttribute="bottom" constant="20" id="gOM-RF-tQL"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="C76-YW-V2X" secondAttribute="bottom" constant="20" id="h80-b4-eki"/>
                             <constraint firstAttribute="trailing" secondItem="mZQ-sj-e6I" secondAttribute="trailing" id="hSE-gG-UMQ"/>
+                            <constraint firstAttribute="trailing" secondItem="bTz-BE-8U4" secondAttribute="trailing" constant="10" id="k2G-QF-ll5"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="EZI-JX-nJk" secondAttribute="bottom" id="kco-MP-EBq"/>
+                            <constraint firstItem="bTz-BE-8U4" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="bottom" id="lJL-N3-TP4"/>
                             <constraint firstItem="mZQ-sj-e6I" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" id="nQa-ps-gcj"/>
                             <constraint firstItem="BJv-uG-4Cf" firstAttribute="leading" secondItem="Hpy-90-pyP" secondAttribute="trailing" constant="20" id="pKM-iB-rvE"/>
                             <constraint firstAttribute="trailing" secondItem="vNr-iq-d0W" secondAttribute="trailing" constant="16" id="vMh-A0-Syh"/>
@@ -319,6 +343,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="WarmingView" destination="bTz-BE-8U4" id="7Ak-Vz-qHW"/>
                         <outlet property="addressOutlet" destination="esF-SI-Qpm" id="r7C-zF-dud"/>
                         <outlet property="callOutlet" destination="Hpy-90-pyP" id="ddV-9q-P9j"/>
                         <outlet property="guideOutlet" destination="Tx3-nC-fyZ" id="V5i-HI-F8D"/>
@@ -972,18 +997,18 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jcn-7i-TmB" id="hxE-dU-j0I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XgJ-ba-0Aj">
-                                                    <rect key="frame" x="15" y="4" width="5" height="21"/>
+                                                    <rect key="frame" x="15" y="5" width="4.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dEc-0b-xbD">
-                                                    <rect key="frame" x="15" y="25" width="4" height="15"/>
+                                                    <rect key="frame" x="15" y="25.5" width="3.5" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>

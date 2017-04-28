@@ -41,6 +41,7 @@ class MainMapController: UIViewController {
 
     @IBOutlet weak var remindLocationOutlet: UIButton!
     
+    @IBOutlet weak var WarmingView: UIView!
     let enterSubject = BehaviorSubject<Bool>(value: false)
     
     var isAtThisPage = Variable(false)
@@ -163,10 +164,16 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         remindLocationOutlet.rx.tap.asDriver().drive(onNext: {
+           
+           
             
         }).addDisposableTo(disposeBag)
         
         viewModel.kidAddress.bindTo(addressOutlet.rx.text).addDisposableTo(disposeBag)
+//订阅，把流转普通
+//        viewModel.kidType.map({String($0)}).subscribe(onNext: { str in
+//            self.addressOutlet.text = str
+//        }).addDisposableTo(disposeBag)
         viewModel.locationTime
             .map({ $0.stringYearMonthDayHourMinuteSecond })
             .bindTo(timeOutlet.rx.text)
@@ -220,6 +227,7 @@ class MainMapController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 }
 

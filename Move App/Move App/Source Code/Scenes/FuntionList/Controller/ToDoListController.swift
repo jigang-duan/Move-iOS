@@ -269,7 +269,7 @@ class ToDoListController: UITableViewController {
     }
 
     private func selectBeginTime() {
-        
+        self.datePicker.datePickerMode = .dateAndTime
         self.beginTimeQutle.isSelected = true
         self.endTimeQutle.isSelected = false
         self.datePicker.date = beginTime
@@ -277,7 +277,7 @@ class ToDoListController: UITableViewController {
     }
     
     private func selectEndTime() {
-        
+        self.datePicker.datePickerMode = .time
         self.endTimeQutle.isSelected = true
         self.beginTimeQutle.isSelected = false
         self.datePicker.date = endTime
