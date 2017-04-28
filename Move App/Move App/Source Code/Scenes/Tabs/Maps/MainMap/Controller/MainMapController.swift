@@ -171,9 +171,9 @@ class MainMapController: UIViewController {
         
         viewModel.kidAddress.bindTo(addressOutlet.rx.text).addDisposableTo(disposeBag)
 //订阅，把流转普通
-//        viewModel.kidType.map({String($0)}).subscribe(onNext: { str in
-//            self.addressOutlet.text = str
-//        }).addDisposableTo(disposeBag)
+        viewModel.kidType.map({String($0)}).subscribe(onNext: { str in
+            self.addressOutlet.text = self.typeChange(type: str) + self.addressOutlet.text!
+        }).addDisposableTo(disposeBag)
         viewModel.locationTime
             .map({ $0.stringYearMonthDayHourMinuteSecond })
             .bindTo(timeOutlet.rx.text)
@@ -228,6 +228,24 @@ class MainMapController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func typeChange(type: String) -> String {
+        switch type {
+        case "1":
+            return ""
+        case "16":
+            return "(LBS)"
+        case "256":
+            return "(WIFI)"
+        case "17":
+            return "GPS+LBS"
+        case "257":
+            return "GPS+WIFI"
+        case "272":
+            return "(LBS+WIFI)"
+        default:
+            return ""
+        }
+    }
     
 }
 

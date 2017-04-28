@@ -104,6 +104,7 @@ fileprivate extension KidSate.LocationInfo {
         self.address = location.addr
         self.accuracy = location.accuracy
         self.time = location.time
+        self.type = location.type
     }
 
 }
@@ -146,7 +147,8 @@ fileprivate func transformLocation(_ new: MoveApi.LocationOfDevice) -> Observabl
     return  Observable.just(KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
                                                  address: location.addr,
                                                  accuracy: location.accuracy,
-                                                 time: location.time))
+                                                 time: location.time,
+                                                 type: location.type))
 }
 
 fileprivate func transformHistoryLocation(_ history: MoveApi.LocationHistory) -> Observable<[KidSate.LocationInfo]> {
@@ -163,5 +165,6 @@ fileprivate func transform(_ location: MoveApi.LocationInfo) -> KidSate.Location
     return KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
                                 address: location.addr,
                                 accuracy: location.accuracy,
-                                time: location.time)
+                                time: location.time,
+                                type: location.type)
 }

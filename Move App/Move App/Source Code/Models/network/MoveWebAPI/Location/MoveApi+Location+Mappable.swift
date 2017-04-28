@@ -93,6 +93,7 @@ extension MoveApi {
         var addr: String?
         var accuracy: Double?
         var time: Date?
+        var type: Int?
     }
     
     struct LocationLatAndLng {
@@ -254,6 +255,7 @@ extension MoveApi.LocationInfo: Mappable{
         addr <- map["addr"]
         accuracy <- map["accuracy"]
         time <- (map["time"], DateIntTransform())
+        type <- map["type"]
     }
 }
 

@@ -49,6 +49,7 @@ class KidSate {
         var address: String?
         var accuracy: CLLocationDistance?
         var time: Date?
+        var type: Int?
     }
     
     struct ElectronicFencea {

@@ -74,7 +74,7 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             for located in self.locationOfDevice! {
                 let loc = CLLocationCoordinate2D(latitude: (located.location?.lat)!, longitude: (located.location?.lng)!)
                 let annotation = TagAnnotation(loc)
-                let info = KidSate.LocationInfo(location: loc, address: located.location?.addr, accuracy: located.location?.accuracy, time: located.location?.time)
+                let info = KidSate.LocationInfo(location: loc, address: located.location?.addr, accuracy: located.location?.accuracy, time: located.location?.time, type: 272)
                 annotation.info = info
                 
                 for tel in self.dataArr {

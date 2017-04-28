@@ -20,6 +20,7 @@ class MainMapViewModel {
     
     let kidLocation: Observable<CLLocationCoordinate2D>
     let kidAddress: Observable<String>
+    let kidType: Observable<Int>
     let locationTime: Observable<Date>
     
     let kidAnnotion: Observable<BaseAnnotation>
@@ -104,6 +105,7 @@ class MainMapViewModel {
         
         kidLocation = currentLocation.map{ $0.location }.filterNil()
         kidAddress = currentLocation.map{ $0.address }.filterNil()
+        kidType = currentLocation.map{ $0.type }.filterNil()
         locationTime = currentLocation.map{ $0.time }.filterNil()
         
         kidAnnotion = kidLocation.map { BaseAnnotation($0) }

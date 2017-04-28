@@ -139,7 +139,7 @@ class LocationHistoryVC: UIViewController {
                 $0.flatMap({ $ -> TagAnnotation?  in
                     if let location = $.location {
                         let annotation = TagAnnotation(location)
-                        let info = KidSate.LocationInfo(location: location, address: $.address, accuracy: $.accuracy, time: $.time)
+                        let info = KidSate.LocationInfo(location: location, address: $.address, accuracy: $.accuracy, time: $.time , type: $.type)
                         annotation.info = info
                         return annotation
                     }
