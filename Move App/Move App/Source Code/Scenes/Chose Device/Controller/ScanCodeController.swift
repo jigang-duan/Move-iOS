@@ -131,7 +131,7 @@ class ScanCodeController: UIViewController {
             let features = detector?.features(in: ciImage)
             
             if features?.count == 0 {
-                self.showMessage("未检测到二维码")
+                self.showMessage("no QRCode")
             }else{
                 let feature = features![0] as! CIQRCodeFeature
                 self.makeDeviceAdd(with: feature.messageString!)
@@ -173,7 +173,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                 self.sessionStop()
                 self.makeDeviceAdd(with: metadataObj.stringValue)
             }else{
-                self.showMessage("未检测到二维码")
+                self.showMessage("no QRCode")
             }
         }
     }
@@ -207,7 +207,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                     if let expired = embeded["expired_at"] as? Int {
                         let now = Int(Date().timeIntervalSince1970)
                         if now > expired {
-                            self.showMessage("二维码已过期")
+                            self.showMessage("This code has expired")
                         }else{
                             isValidQRcode = true
                             
@@ -240,7 +240,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         }
         
         if isValidQRcode == false {
-            self.showMessage("无效二维码")
+            self.showMessage("This code has invalid")
         }
         
     }

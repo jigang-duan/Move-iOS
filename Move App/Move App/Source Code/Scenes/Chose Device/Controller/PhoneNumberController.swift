@@ -94,8 +94,8 @@ class PhoneNumberController: UIViewController {
             
             self.showValidateError("Please input the last 4 number to verify")
         }else{
-            phonePrefix.text = "+\(Locale.current.regionCode)"
-            regionBun.setTitle(Locale.current.regionCode, for: .normal)
+//            phonePrefix.text = "+\(Locale.current.regionCode)"
+//            regionBun.setTitle(Locale.current.regionCode, for: .normal)
         }
         
         

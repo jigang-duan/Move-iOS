@@ -105,7 +105,7 @@ extension WorkerError {
                 case "password":
                     errorMessage = "password Invalid"
                 case "vcode":
-                    errorMessage = "vcode Invalid"
+                    errorMessage = "This code has expired"
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
@@ -121,7 +121,7 @@ extension WorkerError {
                 case "identity":
                     errorMessage = "identity Exist"
                 case "username":
-                    errorMessage = "username Exist"
+                    errorMessage = "Account already exists"
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }

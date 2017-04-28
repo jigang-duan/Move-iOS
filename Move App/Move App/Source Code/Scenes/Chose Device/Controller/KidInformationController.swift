@@ -29,8 +29,13 @@ class KidInformationController: UIViewController {
     @IBOutlet weak var weightLab: UILabel!
     @IBOutlet weak var heightLab: UILabel!
     
+    @IBOutlet weak var genderBun: UIButton!
+    @IBOutlet weak var birthdayBun: UIButton!
+    @IBOutlet weak var weightBun: UIButton!
+    @IBOutlet weak var heightBun: UIButton!
     
     var isForSetting = false
+    var isMaster = false//设置资料时，是否为管理员
     
     var addInfoVariable = Variable(DeviceBindInfo())
     
@@ -76,6 +81,20 @@ class KidInformationController: UIViewController {
     
     func  setupUI() {
         validateLab.isHidden = true
+        
+        if isForSetting == true && isMaster == false {
+            cameraBun.isEnabled = false
+            nameTf.isEnabled = false
+            regionCodeBun.isEnabled = false
+            phoneTf.isEnabled = false
+            
+            genderBun.isEnabled = false
+            birthdayBun.isEnabled = false
+            weightBun.isEnabled = false
+            heightBun.isEnabled = false
+            
+            nextBun.isHidden = true
+        }
         
         var info = addInfoVariable.value
         

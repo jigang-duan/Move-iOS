@@ -155,12 +155,12 @@ class DefaultValidation {
         }
         
         if imei.characters.count != 15 {
-            return .failed(message: "IMEI must be 15 characters")
+            return .failed(message: "15 numbers only")
         }
         
         let prdImei = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
         if !prdImei.evaluate(with: imei) {
-            return .failed(message: "IMEI invalid")
+            return .failed(message: "15 numbers only")
         }
         
         return .ok(message: "IMEI available")
@@ -172,12 +172,12 @@ class DefaultValidation {
         }
         
         if vcode.characters.count != 6 {
-            return .failed(message: "Vcode must be 6 characters")
+            return .failed(message: "6 numbers only")
         }
         
         let prdCode = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
         if !prdCode.evaluate(with: vcode) {
-            return .failed(message: "Vcode invalid")
+            return .failed(message: "6 numbers only")
         }
         
         return .ok(message: "Vcode available")
@@ -195,7 +195,7 @@ class DefaultValidation {
         
         let setRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9]+$")
         if !setRegex.evaluate(with: password) {
-            return .failed(message: "In passwords, space and Special symbols not allowed.")
+            return .failed(message: "Password can't contain spaces or Special symbols")
         }
         
         let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
@@ -218,12 +218,12 @@ class DefaultValidation {
         }
         
         if password != rePasswd {
-            return .failed(message: "Twice input password not same")
+            return .failed(message: "Password do not match")
         }
         
         let setRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9]+$")
         if !setRegex.evaluate(with: password) {
-            return .failed(message: "In passwords, space and Special symbols not allowed.")
+            return .failed(message: "Password can't contain spaces or Special symbols")
         }
         
         let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")

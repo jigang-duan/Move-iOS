@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class RelationshipTableController: UITableViewController {
     
@@ -74,8 +75,7 @@ class RelationshipTableController: UITableViewController {
                     _ = self?.navigationController?.popToRootViewController(animated: true)
                 }, onError: { er in
                     print(er)
-                    if let _error = er as? WorkerError {
-                        let msg = WorkerError.apiErrorTransform(from: _error)
+                    if let msg = errorRecover(er) {
                         self.showMessage(msg)
                     }
                 })
@@ -100,7 +100,18 @@ class RelationshipTableController: UITableViewController {
 }
 
 
-
+fileprivate func errorRecover(_ error: Error) -> String? {
+    guard let _error = error as?  WorkerError else {
+        return nil
+    }
+    
+    if WorkerError.webApi(id: 7, field: "uid", msg: "Exists") == _error {
+        return "This watch is existed"
+    }
+    
+    let msg = WorkerError.apiErrorTransform(from: _error)
+    return msg
+}
 
 
 

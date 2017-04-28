@@ -54,10 +54,7 @@ class UpdatePswdViewModel {
         
         validatedVcode = input.vcode
             .map { vcode in
-                if vcode.characters.count > 0{
-                    return ValidationResult.ok(message: "Vcode Avaliable")
-                }
-                return ValidationResult.empty
+                return validation.validateVCode(vcode)
         }
         
         validatedPassword = input.passwd

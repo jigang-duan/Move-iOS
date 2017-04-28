@@ -183,16 +183,9 @@ class UpgradeController: UIViewController {
             
             
             var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
-            var ff = ""
-            if let fv = property.firmware_version {
-                if fv.characters.count > 6 {
-                    let f1 = fv.substring(to: fv.index(fv.startIndex, offsetBy: 4))
-                    let f2 = fv.substring(from: fv.index(fv.endIndex, offsetBy: -2))
-                    ff.append(f1)
-                    ff.append(f2)
-                }
+            if let fv = property.firmware_version, fv.characters.count > 6 {
+                checkInfo.fv = fv.substring(with:  Range<String.Index>(uncheckedBounds: (lower: fv.index(fv.startIndex, offsetBy: 4), upper: fv.index(fv.endIndex, offsetBy: -2))))
             }
-            checkInfo.fv = ff
             
             return self.checkVersion(checkInfo: checkInfo)
         }

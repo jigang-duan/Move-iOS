@@ -16,6 +16,8 @@ class KidInformationViewModel {
     let nameValid: Driver<ValidationResult>
     let phoneValid: Driver<ValidationResult>
     
+    let sending: Driver<Bool>
+    
     let nextEnabled: Driver<Bool>
     var nextResult: Driver<ValidationResult>?
     
@@ -49,9 +51,12 @@ class KidInformationViewModel {
             return validation.validatePhone(phone)
         }
         
+        let activity = ActivityIndicator()
+        sending = activity.asDriver()
         
-        nextEnabled = Driver.combineLatest(nameValid, phoneValid) { name, phone in
-                name.isValid && phone.isValid
+        
+        nextEnabled = Driver.combineLatest(nameValid, phoneValid, sending) { name, phone, send in
+                name.isValid && phone.isValid && !send
             }
             .distinctUntilChanged()
         
@@ -69,6 +74,7 @@ class KidInformationViewModel {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
                             return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
+                                .trackActivity(activity)
                                 .map({_ in
                                     self.updateDeviceUser(addInfo: f)
                                     return  ValidationResult.ok(message: "Update Success")
@@ -76,6 +82,7 @@ class KidInformationViewModel {
                             }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
                         return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil))
+                            .trackActivity(activity)
                             .map({_  in
                                 self.updateDeviceUser(addInfo: f)
                                 return  ValidationResult.ok(message: "Update Success")
@@ -87,6 +94,7 @@ class KidInformationViewModel {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
                             return deviceManager.addDevice(firstBindInfo: f)
+                                .trackActivity(activity)
                                 .map({_ in
                                     return  ValidationResult.ok(message: "Bind Success")
                                 })
@@ -94,6 +102,7 @@ class KidInformationViewModel {
                         }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
                         return deviceManager.addDevice(firstBindInfo: f)
+                            .trackActivity(activity)
                             .map({_ in
                                 return  ValidationResult.ok(message: "Bind Success")
                             })

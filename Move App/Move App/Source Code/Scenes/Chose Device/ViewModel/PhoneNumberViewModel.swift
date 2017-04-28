@@ -59,7 +59,7 @@ class PhoneNumberViewModel {
                     
                     return deviceManager.joinGroup(joinInfo: self.info!).map({_ in
                         return ValidationResult.ok(message: "Send Success.")
-                    }).asDriver(onErrorRecover: commonErrorRecover)
+                    }).asDriver(onErrorRecover: errorRecover)
                 })
         }else{
             nextResult = input.nextTaps
@@ -73,4 +73,19 @@ class PhoneNumberViewModel {
     }
     
 }
+
+
+fileprivate func errorRecover(_ error: Error) -> Driver<ValidationResult>  {
+    guard let _error = error as?  WorkerError else {
+        return Driver.just(ValidationResult.empty)
+    }
+    
+    if WorkerError.webApi(id: 7, field: "uid", msg: "Exists") == _error {
+        return Driver.just(ValidationResult.failed(message: "This watch is existed"))
+    }
+    
+    let msg = WorkerError.apiErrorTransform(from: _error)
+    return Driver.just(ValidationResult.failed(message: msg))
+}
+
 

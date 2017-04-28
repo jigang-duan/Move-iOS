@@ -236,6 +236,15 @@ class FamilyMemberDetailController: UIViewController {
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.familyMemberDetailController.showShareQRcode(segue: segue)?.destination {
+            vc.profile = viewModel.contactInfo?.value.profile
+            vc.relation = viewModel.contactInfo?.value.identity?.description
+            vc.memberPhone = viewModel.contactInfo?.value.phone
+        }
+    }
+    
+    
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)

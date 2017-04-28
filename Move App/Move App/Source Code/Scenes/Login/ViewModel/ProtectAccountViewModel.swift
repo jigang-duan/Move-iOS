@@ -40,17 +40,14 @@ class ProtectAccountViewModel {
         ) {
         
         let userManager = dependency.userManager
-        _ = dependency.validation
+        let validation = dependency.validation
         _ = dependency.wireframe
         
         let activity = ActivityIndicator()
         self.sending = activity.asDriver()
         
         vcodeInvalidte = input.vcode.map{vcode in
-            if vcode.characters.count > 0{
-                return ValidationResult.ok(message: "Vcode avaliable")
-            }
-            return ValidationResult.empty
+            return validation.validateVCode(vcode)
         }
         
         let firstEnter = userManager.sendVcode(to: (input.registerInfo.email)!).map({[weak self] sid in
