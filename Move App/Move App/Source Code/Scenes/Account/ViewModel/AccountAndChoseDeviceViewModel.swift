@@ -13,17 +13,14 @@ import RxCocoa
 class AccountAndChoseDeviceViewModel {
     // outputs {
     
-    let head: Driver<String>
+    let profile: Driver<UserInfo.Profile>
     let accountName: Driver<String>
     
-    let selected: Driver<String>
-    
     let fetchDevices: Driver<[DeviceInfo]>
-    let devicesVariable: Variable<[DeviceInfo]> = RxStore.shared.deviceInfosState
     
     init (input: (
         enter: Driver<Bool>,
-        selectedInext: Driver<Int>
+        empty: Void
         ),
         dependency: (
         userManager: UserManager,
@@ -36,23 +33,12 @@ class AccountAndChoseDeviceViewModel {
         let deviceManager = dependency.deviceManager
         let _ = dependency.wireframe
         
-        let enter = input.enter.filter({ $0 })
+        let enter = input.enter.filter{ $0 }
         
-        self.accountName = enter.flatMapLatest { _ in userManger.getProfile().map{ $0.nickname ?? "" }.asDriver(onErrorJustReturn: "") }
-        
-        self.head = enter
-            .flatMapLatest { _ in
-                userManger.getProfile()
-                    .map { $0.iconUrl ?? "" }
-                    .asDriver(onErrorJustReturn: "")
-            }
+        self.profile = enter.flatMapLatest { (_) in userManger.getProfile().asDriver(onErrorJustReturn: UserInfo.Profile()) }
+        self.accountName = profile.map { $0.nickname ?? "" }
         
         self.fetchDevices = enter.flatMapLatest({ _ in deviceManager.fetchDevices().asDriver(onErrorJustReturn: []) })
-        
-        self.selected = input.selectedInext
-            .withLatestFrom(devicesVariable.asDriver()) { $1[$0] }
-            .map { $0.deviceId }
-            .filterNil()
         
     }
     

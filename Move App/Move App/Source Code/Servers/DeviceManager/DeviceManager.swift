@@ -157,9 +157,60 @@ protocol DeviceWorkerProtocl {
 
 struct DeviceInfo {
     var pid: Int?
+    var deviceType: DeviceType?
     var deviceId: String?
     var user: DeviceUser?
     var property: DeviceProperty?
+}
+
+enum DeviceType {
+    case mb12
+    case familyWatch
+    case other
+    case all
+}
+
+extension DeviceType {
+    init(pid: Int) {
+        switch pid  {
+        case 0:
+            self = .all
+        case 0x101:
+            self = .mb12
+        case 0x201:
+            self = .familyWatch
+        default:
+            self = .other
+        }
+    }
+    
+    var pid: Int {
+        switch self {
+        case .mb12:
+            return 0x101
+        case .familyWatch:
+            return 0x201
+        case .other:
+            return -1
+        case .all:
+            return 0
+        }
+    }
+}
+
+extension DeviceType : CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .mb12:
+            return "MB12"
+        case .familyWatch:
+            return "Family watch"
+        case .other:
+            return "Other"
+        case .all:
+            return "All"
+        }
+    }
 }
 
 extension DeviceInfo {
@@ -168,6 +219,7 @@ extension DeviceInfo {
         self.init()
         self.deviceId = element.deviceId
         self.pid = element.pid
+        self.deviceType = DeviceType(pid: element.pid ?? -1)
         self.user = DeviceUser(uid: element.user?.uid,
                                number: element.user?.number,
                                nickname: element.user?.nickname,

@@ -28,16 +28,12 @@ class AccountAndChoseDeviceController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let darkPrimaryColor = R.color.appColor.darkPrimary()
-        backImageView.image = UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
-                                      size: CGSize(width: self.backImageView.frame.width, height: self.backImageView.frame.height),
-                                      locations: [0.0,1.0])
+        backImageView.image(gradientColors: [R.color.appColor.darkPrimary()], locations: [0.0,1.0])
         
-        let selectedInext = tableView.rx.itemSelected.asDriver().map { $0.row }
         let viewModel = AccountAndChoseDeviceViewModel(
             input: (
                 enter: enterSubject.asDriver(onErrorJustReturn: false),
-                selectedInext: selectedInext
+                empty: Void()
             ),
             dependency:(
                 userManager: UserManager.shared,
@@ -48,33 +44,29 @@ class AccountAndChoseDeviceController: UIViewController {
         
         tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
         
-        viewModel.fetchDevices.drive(viewModel.devicesVariable).addDisposableTo(disposeBag)
+        viewModel.fetchDevices.drive(RxStore.shared.deviceInfosState).addDisposableTo(disposeBag)
         
-        viewModel.devicesVariable.asDriver()
-            .map(transfer)
-            .drive(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier)){ (row, element, cell) in
-                cell.textLabel?.text = element.devType
-                cell.detailTextLabel?.text = element.name
-                cell.imageView?.image = UIImage(named: element.iconUrl!)
+        RxStore.shared.deviceInfosObservable
+            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier)) { (row, device, cell) in
+                cell.textLabel?.text = device.deviceType?.description
+                cell.detailTextLabel?.text = device.user?.nickname
+                cell.imageView?.image = device.deviceType?.image
             }
             .addDisposableTo(disposeBag)
-        
-        viewModel.selected.drive(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
-        
-        viewModel.selected
-            .drive(onNext: { [weak self] _ in
-                self?.showAccountKidsRulesuserController()
-            })
+
+        tableView.rx.modelSelected(DeviceInfo.self).asObservable()
+            .map{ $0.deviceId }
+            .filterNil()
+            .distinctUntilChanged()
+            .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
         
-        viewModel.head
-            .drive(onNext: { [weak self] in
-                self?.showHead(url: $0)
-            })
+        tableView.rx.itemSelected.asDriver()
+            .drive(onNext: { [weak self] _ in self?.showAccountKidsRulesuserController() })
             .addDisposableTo(disposeBag)
         
         viewModel.accountName.drive(accountNameOutlet.rx.text).addDisposableTo(disposeBag)
-        
+        viewModel.profile.drive(onNext: { [weak self] in self?.show(head: $0) }).addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,33 +113,30 @@ extension AccountAndChoseDeviceController {
         }
     }
     
-    fileprivate func showHead(url: String) {
+    fileprivate func show(head profile: UserInfo.Profile) {
         let placeImg = CDFInitialsAvatar(
             rect: CGRect(x: 0, y: 0, width: headOutlet.frame.width, height: headOutlet.frame.height),
-            fullName: UserInfo.shared.profile?.nickname ?? "")
+            fullName: profile.nickname ?? "")
             .imageRepresentation()!
         
-        let imgUrl = URL(string: url.fsImageUrl)
+        let imgUrl = URL(string: profile.iconUrl?.fsImageUrl ?? "")
         headOutlet.kf.setImage(with: imgUrl, placeholder: placeImg)
     }
 }
 
-fileprivate func transfer(deviceInfos: [DeviceInfo]) -> [DeviceCellData] {
-    return deviceInfos.map {
-        var deviceType = ""
-        var icon = ""
-        switch $0.pid ?? 0 {
-        case 0x101:
-            deviceType = "MB12"
-            icon = "device_ic_mb12"
-        case 0x201:
-            deviceType = "Family watch"
-            icon = "device_ic_kids"
-        default:
-            deviceType = "Other"
-            icon = "device_ic_mb22"
+
+extension DeviceType  {
+    var image: UIImage {
+        switch self {
+        case .mb12:
+            return R.image.device_ic_mb12()!
+        case .familyWatch:
+            return R.image.device_ic_kids()!
+        case .other:
+            return R.image.device_ic_mb22()!
+        case .all:
+            return R.image.device_ic_mb22()!
         }
-        return DeviceCellData(devType: deviceType, name: $0.user?.nickname, iconUrl: icon)
     }
 }
 
@@ -157,5 +146,12 @@ extension AccountAndChoseDeviceController: UITableViewDelegate {
     // to prevent swipe to delete behavior
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
+    }
+}
+
+fileprivate extension UIImageView {
+
+    func image(gradientColors:[UIColor], locations: [Float] = []) {
+        self.image = UIImage(gradientColors: gradientColors, size: self.frame.size, locations: locations)
     }
 }
