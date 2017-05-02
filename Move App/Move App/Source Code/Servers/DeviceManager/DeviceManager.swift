@@ -230,7 +230,8 @@ extension DeviceInfo {
                                heightUnit: UnitType(rawValue: element.user?.heightUnit ?? 0),
                                weightUnit: UnitType(rawValue: element.user?.weightUnit ?? 0),
                                birthday: element.user?.birthday,
-                               gid: element.user?.gid)
+                               gid: element.user?.gid,
+                               online: element.user?.online)
 //        self.property = DeviceProperty(active: element.property?.active,
 //                                       bluetooth_address: element.property?.bluetooth_address,
 //                                       device_model: element.property?.device_model,
@@ -257,6 +258,7 @@ struct DeviceUser {
     var weightUnit: UnitType?
     var birthday: Date?
     var gid: String?
+    var online: Bool?
 }
 
 struct DeviceProperty {

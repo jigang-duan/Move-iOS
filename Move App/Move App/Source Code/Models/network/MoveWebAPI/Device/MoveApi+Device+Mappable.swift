@@ -96,6 +96,7 @@ extension MoveApi {
         var weightUnit: Int?
         var birthday: Date?
         var gid: String?
+        var online: Bool?
     }
     
     struct DeviceProperty {
@@ -472,6 +473,7 @@ extension MoveApi.DeviceUser: Mappable {
         weightUnit <- map["weight_unit"]
         birthday <- (map["birthday"], DateIntTransform())
         gid <- map["gid"]
+        online <- map["online"]
     }
 }
 
