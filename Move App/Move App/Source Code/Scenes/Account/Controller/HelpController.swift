@@ -15,29 +15,23 @@ fileprivate let PrivacyPolicyURLString = "http://www.tcl-move.com/help/#/mt30_pr
 class HelpController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
         
         if indexPath.row == 1 {
-            let url = URL(string: TermsConditionsURLString + language)!
-            if #available(iOS 9.0, *) {
-                let sVC = SFSafariViewController(url: url)
-                self.present(sVC, animated: true, completion: nil)
-            } else {
-                let webVC = WebViewController()
-                webVC.targetURL = url
-                self.navigationController?.show(webVC, sender: nil)
-            }
+            open(url: URL(string: TermsConditionsURLString + language)!)
         } else if indexPath.row == 2 {
-            let url = URL(string: PrivacyPolicyURLString + language)!
-            if #available(iOS 9.0, *) {
-                let sVC = SFSafariViewController(url: url)
-                self.present(sVC, animated: true, completion: nil)
-            } else {
-                let webVC = WebViewController()
-                webVC.targetURL = url
-                self.navigationController?.show(webVC, sender: nil)
-            }
+            open(url: URL(string: PrivacyPolicyURLString + language)!)
+        }
+    }
+    
+    private func open(url: URL) {
+        if #available(iOS 9.0, *) {
+            let sVC = SFSafariViewController(url: url)
+            self.present(sVC, animated: true, completion: nil)
+        } else {
+            let webVC = WebViewController()
+            webVC.targetURL = url
+            self.navigationController?.show(webVC, sender: nil)
         }
     }
 
