@@ -62,6 +62,15 @@ class ChatController: UIViewController {
             .drive(onNext: { DefaultWireframe.sharedInstance.open(url: $0) })
             .addDisposableTo(disposeBag)
         
+        chatIconBtn.rx.tap.asDriver()
+            .withLatestFrom(selectedIndexVariable.asDriver())
+            .filter { $0 == 0 }
+            .drive(onNext: { [weak self] (_) in
+                self?.performSegue(withIdentifier: R.segue.chatController.showFamilyMembers, sender: nil)
+            })
+            .addDisposableTo(disposeBag)
+        
+        
     }
  
     override func didReceiveMemoryWarning() {

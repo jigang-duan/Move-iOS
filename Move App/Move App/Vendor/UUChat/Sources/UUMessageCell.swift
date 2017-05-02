@@ -18,12 +18,16 @@ protocol UUMessageCellDelegate {
     @objc optional func cellContentDidClick(cell: UUMessageCell, voice messageId: String)
 }
 
+
 @objc
 protocol UUMessageCellMenuDelegate {
     @objc optional func handleMenu(cell: UUMessageCell, menuItem title: String, at index: Int)
 }
 
 class UUMessageCell: UITableViewCell {
+    
+    static let MenuItem_Delete = "Delete"
+    static let MenuItem_More = "More"
 
     lazy var labelTime: UILabel = {
         let $ = UILabel()
@@ -272,10 +276,12 @@ class UUMessageCell: UITableViewCell {
         // Menu
         let itDelete = UIMenuItem(title: "Delete", action: #selector(handleDeleteMenu(_:)))
         let itMore = UIMenuItem(title: "More", action: #selector(handleMoreMenu(_:)))
+        let itTurnOnSpeaker = UIMenuItem(title: speekerDescription, action: #selector(handleSpeakerMenu(_:)))
         
         let menu = UIMenuController.shared
-        menu.menuItems = [itDelete, itMore]
+        menu.menuItems = [itTurnOnSpeaker, itDelete, itMore]
         menu.update()
+        
     }
     
     // 头像点击
@@ -345,18 +351,32 @@ extension UUMessageCell {
     
     @objc fileprivate func handleDeleteMenu(_ sender: Any) {
         if let index = self.index {
-            menuDelegate?.handleMenu?(cell: self, menuItem: "Delete", at: index)
+            menuDelegate?.handleMenu?(cell: self, menuItem: UUMessageCell.MenuItem_Delete, at: index)
         }
     }
     
     @objc fileprivate func handleMoreMenu(_ sender: Any) {
-        menuDelegate?.handleMenu?(cell: self, menuItem: "More", at: index ?? 0)
+        menuDelegate?.handleMenu?(cell: self, menuItem: UUMessageCell.MenuItem_More, at: index ?? 0)
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return action == #selector(handleDeleteMenu(_:)) || action == #selector(handleMoreMenu(_:))
+        return action == #selector(handleDeleteMenu(_:)) || action == #selector(handleMoreMenu(_:)) || action == #selector(handleSpeakerMenu(_:))
     }
     
+    @objc fileprivate func handleSpeakerMenu(_ sender: UIMenuController) {
+        let on = !isTurnOnSpeeker
+        UIDevice.current.isProximityMonitoringEnabled = on
+        if on {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } else {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+        }
+        isTurnOnSpeeker = on
+        if let menuItems = sender.menuItems, menuItems.count >= 3 {
+            let menuTurnOnSpeeker = menuItems[0]
+            menuTurnOnSpeeker.title = speekerDescription
+        }
+    }
 }
 
 
@@ -401,5 +421,24 @@ extension UUMessageCell: UUAVAudioPlayerDelegate {
         self.btnContent.stopPlay()
         UUAVAudioPlayer.shared.stop()
         contentVoiceIsPlaying = false
+    }
+    
+    var isTurnOnSpeeker: Bool {
+        get {
+            let key = "Turn On Speeker"
+            guard let on = UserDefaults.standard.value(forKey: key) as? Bool else {
+                UserDefaults.standard.set(true, forKey: key)
+                return true
+            }
+            return on
+        }
+        set {
+            let key = "Turn On Speeker"
+            UserDefaults.standard.set(newValue, forKey: key)
+        }
+    }
+    
+    var speekerDescription: String {
+        return isTurnOnSpeeker ? "Turn On Speeker" : "Turn Off Speeker"
     }
 }

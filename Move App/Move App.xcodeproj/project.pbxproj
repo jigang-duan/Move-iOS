@@ -58,6 +58,8 @@
 		1140A0821EA4B8E200185200 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0811EA4B8E200185200 /* MoreView.swift */; };
 		1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */; };
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
+		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
+		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
 		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
 		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
 		1162A5091EAE185500DA6164 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5081EAE185500DA6164 /* HomeController.swift */; };
@@ -409,6 +411,8 @@
 		1140A0811EA4B8E200185200 /* MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreView.swift; path = Vendor/UUChat/Sources/MoreView.swift; sourceTree = "<group>"; };
 		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
+		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
+		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
 		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
 		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
 		1162A5081EAE185500DA6164 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -1014,6 +1018,8 @@
 				A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */,
 				112D6EA41E87A517006135E3 /* SingleChatController.swift */,
 				114D075D1E8F9FEA00349742 /* MessageModel.swift */,
+				114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */,
+				114D961C1EB842F3000D2809 /* FamilyMembersController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2466,6 +2472,7 @@
 				FFB543AF1E7175C400E11F5A /* MeLogoutController.swift in Sources */,
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
 				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
+				114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */,
 				FF0E293E1E694C5A002F4606 /* KidInformationViewModel.swift in Sources */,
 				FF499E451EADF5F200EF16F8 /* HelpForApnVC.swift in Sources */,
 				FF0D43C81E84F2E100F1418B /* EmergencyNumberViewModel.swift in Sources */,
@@ -2499,6 +2506,7 @@
 				11AEC1991EA7159F004F13A3 /* MapUtility.swift in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */,
+				114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */,
 				E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,

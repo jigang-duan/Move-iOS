@@ -209,9 +209,9 @@ extension SingleChatController: MoreViewDelegate {
 extension SingleChatController: UUMessageCellMenuDelegate {
     
     func handleMenu(cell: UUMessageCell, menuItem title: String, at index: Int) {
-        if title == "Delete" {
+        if title == UUMessageCell.MenuItem_Delete {
             delete(index: index)
-        } else if title == "More" {
+        } else if title == UUMessageCell.MenuItem_More {
             more()
         }
     }

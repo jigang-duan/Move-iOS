@@ -49,6 +49,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="MVn-kv-pro">
                         <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="lsm-kx-d2O"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="r2l-Zi-dyA">
                             <rect key="frame" x="89" y="7" width="198" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -82,6 +83,7 @@
                         <outlet property="familyChatView" destination="49I-oy-LSF" id="Fkw-03-SGq"/>
                         <outlet property="segmentedOutlet" destination="r2l-Zi-dyA" id="fdw-fW-cI5"/>
                         <outlet property="singleChatView" destination="6xJ-gZ-2iL" id="I05-W0-hyH"/>
+                        <segue destination="2iy-ZT-ViO" kind="show" identifier="showFamilyMembers" id="FM0-uh-cmb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KSd-Q3-Hsb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -396,6 +398,66 @@
             </objects>
             <point key="canvasLocation" x="4836" y="2958.6206896551726"/>
         </scene>
+        <!--Family chat-->
+        <scene sceneID="bwB-Uv-bqF">
+            <objects>
+                <collectionViewController title="Family chat" id="2iy-ZT-ViO" customClass="FamilyMembersController" customModule="Move_App" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" dataMode="prototypes" id="sXf-Sk-oYD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ahE-F7-EXT">
+                            <size key="itemSize" width="84" height="84"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellFamilyMember" id="1vV-DA-i48" customClass="FamilyMemberCell" customModule="Move_App" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="member_btn_contact_nor" translatesAutoresizingMaskIntoConstraints="NO" id="RVT-N1-IvQ">
+                                            <rect key="frame" x="18" y="12" width="48" height="48"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="48" id="KbS-1A-1p4"/>
+                                                <constraint firstAttribute="width" constant="48" id="pp9-V8-NbW"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="24"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gA1-ps-D6y">
+                                            <rect key="frame" x="23" y="64" width="38" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="gA1-ps-D6y" firstAttribute="centerX" secondItem="1vV-DA-i48" secondAttribute="centerX" id="AE0-ly-7yP"/>
+                                    <constraint firstItem="RVT-N1-IvQ" firstAttribute="centerX" secondItem="1vV-DA-i48" secondAttribute="centerX" id="Khi-tf-yrw"/>
+                                    <constraint firstAttribute="bottom" secondItem="gA1-ps-D6y" secondAttribute="bottom" constant="2" id="Qim-w5-jK5"/>
+                                    <constraint firstItem="RVT-N1-IvQ" firstAttribute="centerY" secondItem="1vV-DA-i48" secondAttribute="centerY" constant="-6" id="l5t-hR-J8U"/>
+                                </constraints>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="2iy-ZT-ViO" id="EZf-m0-9gA"/>
+                            <outlet property="delegate" destination="2iy-ZT-ViO" id="2sg-Jj-LjH"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2yS-39-ISI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5832.8000000000002" y="2958.170914542729"/>
+        </scene>
         <!--SuperVC-->
         <scene sceneID="ezh-eB-BgU">
             <objects>
@@ -456,6 +518,7 @@
     </scenes>
     <resources>
         <image name="backArrow1" width="12" height="21"/>
+        <image name="member_btn_contact_nor" width="21" height="21"/>
         <image name="nav_call_nor" width="18" height="18"/>
         <image name="nav_call_pre" width="18" height="18"/>
         <image name="relationship_ic_other" width="36" height="36"/>
