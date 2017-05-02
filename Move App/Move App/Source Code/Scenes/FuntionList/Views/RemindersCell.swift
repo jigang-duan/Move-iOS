@@ -57,7 +57,7 @@ class RemindersCell: UITableViewCell {
 
     func timeToType(weeks : [Bool]) -> String {
         // 7 tian , every day ,schooltime
-        let week : [String] = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Every day","School time"]
+        let week : [String] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Every day","School time"]
         var s : String = ""
         for index in 0 ... 6{
             if weeks[index]{
@@ -69,7 +69,7 @@ class RemindersCell: UITableViewCell {
         {
             s = "School time"
         }
-        if s == "Mon Tue Wed Thu Fri Sat Sun "
+        if s == "Sun Mon Tue Wed Thu Fri Sat "
         {
             s = "Every day"
         }

@@ -78,7 +78,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         self.currentRadius = Double(slider.value)
         self.drawOverlay(radius: self.currentRadius)
-         RadiusL.text = String.init(format: "Radius:"+"%.fm", safeZoneSlider.value)
+        RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
     }
     
     func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
@@ -107,7 +107,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
             self.mainMapView.setRegion(region, animated: true)
             safeZoneSlider.value = Float((self.editFenceDataSounrce?.radius)!)
-            self.currentRadius = (self.editFenceDataSounrce?.radius)!
+//            self.currentRadius = (self.editFenceDataSounrce?.radius)!
+            RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
             let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
             self.mainMapView.addAnnotation(annotion)

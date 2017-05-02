@@ -9,13 +9,14 @@
 import Foundation
 
 enum WeekType: Int {
-    case mon = 801
-    case tue = 802
-    case wed = 803
-    case thu = 804
-    case fir = 805
-    case sat = 806
-    case sun = 807
+    case sun = 801
+    case mon = 802
+    case tue = 803
+    case wed = 804
+    case thu = 805
+    case fir = 806
+    case sat = 807
+    
 }
 
 class WeekView: UIView {
@@ -84,13 +85,13 @@ class WeekView: UIView {
         satButton?.setTitle(R.string.localizable.saturday_short(), for: .normal)
         sunButton?.setTitle(R.string.localizable.sunday_short(), for: .normal)
         
+        buttons.append(sunButton!)
         buttons.append(monButton!)
         buttons.append(tueButton!)
         buttons.append(wedButton!)
         buttons.append(thuButton!)
         buttons.append(firButton!)
         buttons.append(satButton!)
-        buttons.append(sunButton!)
         
         monButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
         tueButton?.addTarget(self, action: #selector(weekAction(_:)), for: .touchUpInside)
