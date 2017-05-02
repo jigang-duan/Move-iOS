@@ -14,78 +14,36 @@ class OfficialNumberController: UIViewController {
     
     @IBOutlet weak var search: UISearchBar!
     
+    var visibleModels: [SectionModel] = []
+    var loadedModels: [SectionModel] = []
     
-    var visibleDatas: [Group] = []
-    var cellDatas: [Group] = []
-    
-    var indexLetters:[String]? {
-        get{
-            return visibleDatas.map({$0.indexLetter})
+    var sectionIndexTitles: [String]? {
+        get {
+            return visibleModels.map {$0.title}
         }
     }
-    
-    struct Group {
-        var officialNumbers: [OfficialNumber]
-        var indexLetter: String
-    }
-    
-    struct OfficialNumber {
-        var country: String
-        var number: String
-        var abbreviation: String
-    }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableview.delegate = self
         
-        
-        
-        let path = Bundle.main.path(forResource: "countryphone.plist", ofType: nil)
-        if let arr = NSArray(contentsOf: URL(fileURLWithPath: path ?? "")) as? [[NSArray]]{
-            
-            for group in arr {
-                var gp = Group(officialNumbers: [], indexLetter: "")
-                
-                for a in group {
-                    let number = OfficialNumber(country: a[0] as! String, number: a[1] as! String, abbreviation: a[2] as! String)
-                    gp.officialNumbers.append(number)
-                    if let letter = a[0] as? String, let c = letter.characters.first {
-                        gp.indexLetter = String(c)
-                    }
-                }
-            
-                cellDatas.append(gp)
-            }
+        if let arr = NSArray(contentsOf: R.file.countryphonePlist()!) as? [[NSArray]] {
+            loadedModels = arr.map{ SectionModel(section: $0) }
         }
-        visibleDatas = cellDatas
-        
+        visibleModels = loadedModels
     }
     
 }
 extension OfficialNumberController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        visibleDatas = []
-        
         if searchText.characters.count > 0 {
-            for gp in cellDatas {
-                
-                var g = Group(officialNumbers: [], indexLetter: gp.indexLetter)
-                for on in gp.officialNumbers {
-                    if on.country.lowercased().contains(searchText.lowercased()) {
-                        g.officialNumbers.append(on)
-                    }
-                }
-                
-                if g.officialNumbers.count > 0 {
-                    visibleDatas.append(g)
-                }
+            visibleModels = loadedModels.flatMap { (section) in
+                SectionModel(numbers: section.officialNumbers.filter { $0.country.lowercased().contains(searchText.lowercased()) }, title: section.title)
             }
-        }else{
-            visibleDatas = cellDatas
+        } else {
+            visibleModels = loadedModels
         }
         
         tableview.reloadData()
@@ -93,55 +51,75 @@ extension OfficialNumberController: UISearchBarDelegate {
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        visibleDatas = cellDatas
+        visibleModels = loadedModels
         tableview.reloadData()
     }
     
 }
 
 
-
 extension OfficialNumberController: UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return visibleDatas.count
+        return visibleModels.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return visibleDatas[section].officialNumbers.count
+        return visibleModels[section].officialNumbers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableview.dequeueReusableCell(withIdentifier: "cell")
+        var cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellOfficialNumber.identifier)
         if cell == nil {
-            cell = UITableViewCell.init(style: .value1, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: R.reuseIdentifier.cellOfficialNumber.identifier)
         }
-        
-        cell?.textLabel?.text = visibleDatas[indexPath.section].officialNumbers[indexPath.row].country
-        cell?.detailTextLabel?.text = visibleDatas[indexPath.section].officialNumbers[indexPath.row].number
-        
+        cell?.textLabel?.text = visibleModels[indexPath.section].officialNumbers[indexPath.row].country
+        cell?.detailTextLabel?.text = visibleModels[indexPath.section].officialNumbers[indexPath.row].number
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let number = visibleDatas[indexPath.section].officialNumbers[indexPath.row].number
-        if let url = URL(string: "tel://\(number)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.openURL(url)
-            }
-        }
+        let number = visibleModels[indexPath.section].officialNumbers[indexPath.row].number
+        DefaultWireframe.sharedInstance.open(url: URL(string: "tel://\(number)")!)
     }
-    
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return indexLetters?[section]
+        return sectionIndexTitles?[section]
     }
     
-    
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return indexLetters
+        return sectionIndexTitles
     }
 
 }
 
+struct SectionModel {
+    var officialNumbers: [OfficialNumber]
+    var title: String
+    
+    init(section: [NSArray]) {
+        self.officialNumbers = section.map{ OfficialNumber(array: $0) }
+        self.title = officialNumbers[0].country.characters.first.flatMap{ String($0) } ?? ""
+    }
+    
+    init?(numbers: [OfficialNumber], title: String) {
+        guard numbers.count > 0 else {
+            return nil
+        }
+        self.officialNumbers = numbers
+        self.title = title
+    }
+}
+
+struct OfficialNumber {
+    var country: String
+    var number: String
+    var abbreviation: String
+    
+    init(array : NSArray) {
+        self.country = (array[0] as? String) ?? ""
+        self.number = (array[1] as? String) ?? ""
+        self.abbreviation = (array[2] as? String) ?? ""
+    }
+}
