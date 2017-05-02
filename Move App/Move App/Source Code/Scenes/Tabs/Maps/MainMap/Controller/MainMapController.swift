@@ -41,7 +41,8 @@ class MainMapController: UIViewController {
 
     @IBOutlet weak var remindLocationOutlet: UIButton!
     
-    @IBOutlet weak var WarmingView: UIView!
+    @IBOutlet weak var warmingView: UIView!
+    
     let enterSubject = BehaviorSubject<Bool>(value: false)
     
     var isAtThisPage = Variable(false)
@@ -61,6 +62,7 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        warmingView.isHidden = false
         
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
@@ -163,17 +165,10 @@ class MainMapController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        remindLocationOutlet.rx.tap.asDriver().drive(onNext: {
-           
-           
-            
-        }).addDisposableTo(disposeBag)
+        Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "(\($0)) \($1)" }
+            .bindTo(addressOutlet.rx.text)
+            .addDisposableTo(disposeBag)
         
-        viewModel.kidAddress.bindTo(addressOutlet.rx.text).addDisposableTo(disposeBag)
-//订阅，把流转普通
-        viewModel.kidType.map({String($0)}).subscribe(onNext: { str in
-            self.addressOutlet.text = self.typeChange(type: str) + self.addressOutlet.text!
-        }).addDisposableTo(disposeBag)
         viewModel.locationTime
             .map({ $0.stringYearMonthDayHourMinuteSecond })
             .bindTo(timeOutlet.rx.text)
@@ -192,6 +187,10 @@ class MainMapController: UIViewController {
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 self.mapView.addAnnotation(annotion)
             })
+            .addDisposableTo(disposeBag)
+        
+        viewModel.remindSuccess.debug()
+            .bindTo(warmingView.rx.isHidden)
             .addDisposableTo(disposeBag)
         
         let realm = try! Realm()
@@ -226,25 +225,6 @@ class MainMapController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func typeChange(type: String) -> String {
-        switch type {
-        case "1":
-            return ""
-        case "16":
-            return "(LBS)"
-        case "256":
-            return "(WIFI)"
-        case "17":
-            return "GPS+LBS"
-        case "257":
-            return "GPS+WIFI"
-        case "272":
-            return "(LBS+WIFI)"
-        default:
-            return ""
-        }
     }
     
 }

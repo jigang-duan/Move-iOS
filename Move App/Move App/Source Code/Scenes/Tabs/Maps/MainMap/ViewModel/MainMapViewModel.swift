@@ -20,7 +20,7 @@ class MainMapViewModel {
     
     let kidLocation: Observable<CLLocationCoordinate2D>
     let kidAddress: Observable<String>
-    let kidType: Observable<Int>
+    let kidType: Observable<KidSate.LocationType>
     let locationTime: Observable<Date>
     
     let kidAnnotion: Observable<BaseAnnotation>
@@ -36,6 +36,8 @@ class MainMapViewModel {
     let currentProperty: Observable<DeviceProperty>
     
     let fetchDevices: Driver<[DeviceInfo]>
+    
+    let remindSuccess: Observable<Bool>
     
     init(
         input: (
@@ -78,13 +80,14 @@ class MainMapViewModel {
             .map({ _ in Void() })
             .shareReplay(1)
         
-        let remindLocation = input.remindLocation
+        remindSuccess = input.remindLocation
+            .throttle(1.0, scheduler: MainScheduler.instance).debug()
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .flatMapLatest({
-                deviceManager.remindLocation(deviceId: $0)
+                deviceManager.remindLocation(deviceId: $0).catchErrorJustReturn(false)
             })
-            .catchErrorJustReturn(false)
-            .map({ _ in Void() })
+        
+        let remindLocation = remindSuccess.map({ _ in Void() })
         
         let currentLocation = Observable.merge(period, remindLocation)
             .flatMapLatest ({

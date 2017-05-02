@@ -95,7 +95,7 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
 }
 
 
-fileprivate extension KidSate.LocationInfo {
+extension KidSate.LocationInfo {
     init(location: MoveApi.LocationInfo) {
         self.init()
         if let lat = location.lat, let lng = location.lng {
@@ -104,7 +104,7 @@ fileprivate extension KidSate.LocationInfo {
         self.address = location.addr
         self.accuracy = location.accuracy
         self.time = location.time
-        self.type = location.type
+        self.type = KidSate.LocationType(rawValue: location.type ?? 0)
     }
 
 }
@@ -141,14 +141,10 @@ fileprivate func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFence
 }
 
 fileprivate func transformLocation(_ new: MoveApi.LocationOfDevice) -> Observable<KidSate.LocationInfo> {
-    guard let location = new.location, let lat = location.lat, let lng = location.lng else {
+    guard let location = new.location, let _ = location.lat, let _ = location.lng else {
         return Observable.empty()
     }
-    return  Observable.just(KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
-                                                 address: location.addr,
-                                                 accuracy: location.accuracy,
-                                                 time: location.time,
-                                                 type: location.type))
+    return  Observable.just(KidSate.LocationInfo(location: location))
 }
 
 fileprivate func transformHistoryLocation(_ history: MoveApi.LocationHistory) -> Observable<[KidSate.LocationInfo]> {
@@ -159,12 +155,8 @@ fileprivate func transformHistoryLocation(_ history: MoveApi.LocationHistory) ->
 }
 
 fileprivate func transform(_ location: MoveApi.LocationInfo) -> KidSate.LocationInfo? {
-    guard let lat = location.lat, let lng = location.lng else {
+    guard let _ = location.lat, let _ = location.lng else {
         return nil
     }
-    return KidSate.LocationInfo(location: CLLocationCoordinate2DMake(lat, lng),
-                                address: location.addr,
-                                accuracy: location.accuracy,
-                                time: location.time,
-                                type: location.type)
+    return KidSate.LocationInfo(location: location)
 }

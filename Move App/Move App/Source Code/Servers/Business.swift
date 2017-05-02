@@ -44,12 +44,21 @@ struct KidProfile {
 
 class KidSate {
     
+    enum LocationType: Int {
+        case gps = 1
+        case lbs = 16
+        case wifi = 17
+        case gps_lbs = 256
+        case gps_wifi = 257
+        case lbs_wifi = 272
+    }
+    
     struct LocationInfo {
         var location: CLLocationCoordinate2D?
         var address: String?
         var accuracy: CLLocationDistance?
         var time: Date?
-        var type: Int?
+        var type: LocationType?
     }
     
     struct ElectronicFencea {
@@ -91,6 +100,25 @@ class KidSate {
         var wifi: [WiFi]?
     }
     
+}
+
+extension KidSate.LocationType: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .gps:
+            return "GPS"
+        case .lbs:
+            return "LBS"
+        case .wifi:
+            return "Wifi"
+        case .gps_lbs:
+            return "GPS+LBS"
+        case .gps_wifi:
+            return "GPS+WiFi"
+        case .lbs_wifi:
+            return "LBS+WiFi"
+        }
+    }
 }
 
 class KidLocationManager {
