@@ -74,7 +74,6 @@ class FamilyMembersController: UICollectionViewController {
             let member = members[indexPath.row]
             cell.textLabel.text = member.identity?.description
             
-            
             let placeImg = CDFInitialsAvatar(
                 rect: CGRect(x: 0, y: 0, width: cell.imageView.frame.width, height: cell.imageView.frame.height),
                 fullName: member.identity?.description ?? "")

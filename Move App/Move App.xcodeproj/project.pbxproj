@@ -63,6 +63,7 @@
 		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
 		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
 		1162A5091EAE185500DA6164 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5081EAE185500DA6164 /* HomeController.swift */; };
+		116860BE1EB8624700C3426A /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116860BD1EB8624700C3426A /* HelpController.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
@@ -291,7 +292,7 @@
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 		FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */; };
-		FF2F1B6E1E9F9131007F6B30 /* ContactUsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */; };
+		FF2F1B6E1E9F9131007F6B30 /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2F1B6D1E9F9131007F6B30 /* ContactUsController.swift */; };
 		FF3D7A761E7D2B5900239DFE /* ImageUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */; };
 		FF3F06801EA0BFD400B00939 /* CustomRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F067F1EA0BFD400B00939 /* CustomRuler.swift */; };
 		FF3F06821EA0C7B100B00939 /* RulerScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F06811EA0C7B100B00939 /* RulerScrollView.swift */; };
@@ -416,6 +417,7 @@
 		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
 		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
 		1162A5081EAE185500DA6164 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		116860BD1EB8624700C3426A /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
@@ -666,7 +668,7 @@
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberVC.swift; sourceTree = "<group>"; };
-		FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsTableVC.swift; sourceTree = "<group>"; };
+		FF2F1B6D1E9F9131007F6B30 /* ContactUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsController.swift; sourceTree = "<group>"; };
 		FF3D7A751E7D2B5900239DFE /* ImageUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageUtility.swift; path = Shared/Common/Utils/ImageUtility.swift; sourceTree = "<group>"; };
 		FF3F067F1EA0BFD400B00939 /* CustomRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRuler.swift; sourceTree = "<group>"; };
 		FF3F06811EA0C7B100B00939 /* RulerScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulerScrollView.swift; sourceTree = "<group>"; };
@@ -1696,10 +1698,11 @@
 				FFB543B01E7175DD00E11F5A /* MeSettingController.swift */,
 				FF0859091E72371A00EB81D9 /* MeSetNameVC.swift */,
 				FF08590B1E72372B00EB81D9 /* MeSetPasswordVC.swift */,
-				FF2F1B6D1E9F9131007F6B30 /* ContactUsTableVC.swift */,
+				FF2F1B6D1E9F9131007F6B30 /* ContactUsController.swift */,
 				E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */,
 				E9EA91DB1EA0BB3A000216AA /* OtherSettingsTableViewController.swift */,
 				FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */,
+				116860BD1EB8624700C3426A /* HelpController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2595,6 +2598,7 @@
 				11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */,
 				A53513571E790E8E0093445F /* Chat.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
+				116860BE1EB8624700C3426A /* HelpController.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
 				118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */,
@@ -2627,7 +2631,7 @@
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */,
-				FF2F1B6E1E9F9131007F6B30 /* ContactUsTableVC.swift in Sources */,
+				FF2F1B6E1E9F9131007F6B30 /* ContactUsController.swift in Sources */,
 				FFB543B11E7175DD00E11F5A /* MeSettingController.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
