@@ -110,7 +110,7 @@ class AccountKidsRulesuserController: UITableViewController {
                 
                 var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
                 if let fv = property.firmware_version, fv.characters.count > 6 {
-                    checkInfo.fv = fv.substring(with:  Range<String.Index>(uncheckedBounds: (lower: fv.index(fv.startIndex, offsetBy: 4), upper: fv.index(fv.endIndex, offsetBy: -2))))
+                    checkInfo.fv = fv.replacingCharacters(in:  Range(uncheckedBounds: (lower: fv.index(fv.startIndex, offsetBy: 4), upper: fv.index(fv.endIndex, offsetBy: -2))), with: "")
                 }
                 
                 return DeviceManager.shared.checkVersion(checkInfo: checkInfo)

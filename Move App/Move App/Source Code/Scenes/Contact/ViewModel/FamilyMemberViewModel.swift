@@ -50,6 +50,11 @@ class FamilyMemberViewModel {
                     return Driver.just(res)
                 }
                 if flag {
+                    //最多设置4个紧急联系人
+                    if cons.map({self.transformIsHeartOn(flag: $0.contactInfo?.flag ?? 0)}).filter({$0 == true}).count >= 4 {
+                        let res = Driver.just(ValidationResult.empty)
+                        return Driver.just(res)
+                    }
                     con.flag = self.setEmergency(flag: con.flag!)
                 }else{
                     con.flag = self.clearEmergency(flag: con.flag!)

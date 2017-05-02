@@ -44,13 +44,12 @@ class FamilyMemberDetailController: UIViewController {
     private var contactInfo = Variable(ImContact())
     
     private var photoPicker: ImageUtility?
-    
+    private let addressbookHelper = AddressbookUtility()
     
     private var viewModel: FamilyMemberDetailViewModel!
     private let disposeBag = DisposeBag()
     
-    
-    private let addressbookHelper = AddressbookUtility()
+    var masterInfo: ImContact?//管理员信息,用于转让管理员时取消自己紧急联系人身份
     
     
     struct ContactDetailInfo {
@@ -83,13 +82,43 @@ class FamilyMemberDetailController: UIViewController {
         let numberText = numberTf.rx.observe(String.self, "text").filterNil()
         let combineNumber = Driver.of(numberText.asDriver(onErrorJustReturn: ""), number).merge()
         
+        
+        let masterTap = Variable(false)
+        masterBun.rx.tap.asObservable()
+            .bindNext {
+                let vc = UIAlertController(title: nil, message: "Sure to set this contact as master? you will be removed from favorited member.", preferredStyle: .alert)
+                let action1 = UIAlertAction(title: "Yes", style: .default){ _ in
+                    masterTap.value = true
+                }
+                let action2 = UIAlertAction(title: "Cancle", style: .default)
+                vc.addAction(action1)
+                vc.addAction(action2)
+                self.present(vc, animated: true)
+            }
+            .addDisposableTo(disposeBag)
+        
+        let deleteTap = Variable(false)
+        deleteBun.rx.tap.asObservable()
+            .bindNext {
+                let vc = UIAlertController(title: nil, message: "Sure to detele this contact?", preferredStyle: .alert)
+                let action1 = UIAlertAction(title: "Yes", style: .default){ _ in
+                    deleteTap.value = true
+                }
+                let action2 = UIAlertAction(title: "Cancle", style: .default)
+                vc.addAction(action1)
+                vc.addAction(action2)
+                self.present(vc, animated: true)
+            }
+            .addDisposableTo(disposeBag)
+        
+        
         viewModel = FamilyMemberDetailViewModel(input:
             (
              photo: photoVariable,
              name: combineName,
              number: combineNumber,
-             masterTaps: masterBun.rx.tap.asDriver(),
-             deleteTaps: deleteBun.rx.tap.asDriver(),
+             masterTaps: masterTap.asDriver(),
+             deleteTaps: deleteTap.asDriver(),
              saveTaps: saveBun.rx.tap.asDriver()
             ),
              dependency:
@@ -102,7 +131,7 @@ class FamilyMemberDetailController: UIViewController {
         
         viewModel.contactInfo = contactInfo
         
-        
+        viewModel.masterInfo = masterInfo
         
         
         viewModel.saveEnabled?
@@ -125,7 +154,7 @@ class FamilyMemberDetailController: UIViewController {
                 case .failed(let message):
                     self.showMessage(message)
                 case .ok:
-                    _ = self.navigationController?.popViewController(animated: true)
+                    _ = self.navigationController?.popToRootViewController(animated: true)
                 default:
                     break
                 }

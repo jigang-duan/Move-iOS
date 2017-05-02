@@ -28,7 +28,7 @@ class AccountAndChoseDeviceController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backImageView.image(gradientColors: [R.color.appColor.darkPrimary()], locations: [0.0,1.0])
+        backImageView.image(gradientColors: [R.color.appColor.darkPrimary().withAlphaComponent(0.4),R.color.appColor.darkPrimary()], locations: [0.0,1.0])
         
         let viewModel = AccountAndChoseDeviceViewModel(
             input: (

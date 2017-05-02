@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxOptional
 
 
 class FamilyMemberDetailViewModel {
@@ -25,13 +26,15 @@ class FamilyMemberDetailViewModel {
     
     var contactInfo: Variable<ImContact>?
     
+    var masterInfo: ImContact?
+    
     init(
         input:(
         photo: Variable<UIImage?>,
         name: Driver<String>,
         number: Driver<String>,
-        masterTaps: Driver<Void>,
-        deleteTaps: Driver<Void>,
+        masterTaps: Driver<Bool>,
+        deleteTaps: Driver<Bool>,
         saveTaps: Driver<Void>
         ),
         dependency: (
@@ -65,15 +68,37 @@ class FamilyMemberDetailViewModel {
             }
             .distinctUntilChanged()
         
-        masterResult = input.masterTaps
-            .flatMapLatest({ _ in
-                let info = self.contactInfo?.value
-                return deviceManager.settingAdmin(uid: (info?.uid)!).map({ _ in
+        masterResult = input.masterTaps.filter({$0 == true})
+            .flatMapLatest({ _ -> Driver<ImContact?> in
+                if var mf = self.masterInfo {
+                    mf.flag = self.clearEmergency(flag: mf.flag ?? 0)
+                    return Driver.just(mf)
+                }else{
+                    return Driver.just(nil)
+                }
+            })
+            .filterNil()
+            .flatMapLatest({result -> Driver<Bool>  in
+                return deviceManager.settingContactInfo(contactInfo: result).asDriver(onErrorJustReturn: false)
+            })
+            .flatMapLatest({_ -> Driver<String?> in
+                var info = self.contactInfo?.value
+                info?.flag = self.setEmergency(flag: info?.flag ?? 0)
+                return deviceManager.settingContactInfo(contactInfo: info!).map({_ in
+                    return info?.uid
+                })
+                .asDriver(onErrorJustReturn: nil)
+            })
+            .filterNil()
+            .flatMapLatest({result in
+                return deviceManager.settingAdmin(uid: result).map({ _ in
                     return ValidationResult.ok(message: "Set Success.")
-                }).asDriver(onErrorRecover: commonErrorRecover)
+                })
+                .asDriver(onErrorRecover: commonErrorRecover)
             })
         
-        deleteResult = input.deleteTaps
+        
+        deleteResult = input.deleteTaps.filter({$0 == true})
             .flatMapLatest({ _ in
                 return deviceManager.deleteContact(uid: (self.contactInfo?.value.uid)!).map({ _ in
                     return ValidationResult.ok(message: "Delete Success.")
@@ -99,6 +124,16 @@ class FamilyMemberDetailViewModel {
                 }
             })
         
+    }
+    
+    
+    
+    func setEmergency(flag: Int) -> Int {
+        return flag | 0x0100
+    }
+    
+    func clearEmergency(flag: Int) -> Int {
+        return Int(UInt(flag) & ~UInt(0x0100))
     }
     
 }

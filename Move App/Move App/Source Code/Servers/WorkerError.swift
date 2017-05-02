@@ -150,6 +150,13 @@ extension WorkerError {
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
+            case 14:
+                switch msg ?? "" {
+                case "Excess error":
+                    errorMessage = "Watch can add most 10 members"
+                default:
+                    errorMessage = "\(field ?? "") \(msg ?? "")"
+                }
             default:
                 break
             }
