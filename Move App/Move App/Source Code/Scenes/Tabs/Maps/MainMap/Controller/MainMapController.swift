@@ -269,7 +269,16 @@ extension MainMapController {
             .imageRepresentation()!
         
         let imgUrl = deviceInfo.user?.profile?.fsImageUrl.url
-        self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+        //self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+        self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg) { (image, _, _, _) in
+            if
+                let image = image,
+                let online = deviceInfo.user?.online, !online {
+                let effectImage = image.grayImage()
+                self.headPortraitOutlet.setBackgroundImage(effectImage, for: .normal)
+            }
+        }
+        
     }
 }
 
@@ -324,7 +333,6 @@ fileprivate extension DeviceInfo {
     }
 }
 
-
 extension String {
     var url: URL? {
         return URL(string: self)
@@ -339,4 +347,32 @@ extension URL {
         let phone = "telprompt://\(number)".replacingOccurrences(of: " ", with: "")
         self.init(string: phone)
     }
+}
+
+extension UIImage {
+    
+    func grayImage() -> UIImage {
+//        let bitmapinfo = CGImageAlphaInfo.none
+//        let width = self.size.width
+//        let height = self.size.height
+//        
+//        let colorSpaceRefColorSpace = CGColorSpaceCreateDeviceGray()
+//        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpaceRefColorSpace, bitmapInfo: bitmapinfo.rawValue)
+//        
+//    
+//        CGContextDrawImage(context, CGRect(x: 0, y: 0, width: width, height: height), <#T##image: CGImage?##CGImage?#>)
+        let imageRef:CGImage = self.cgImage!
+        let width:Int = imageRef.width
+        let height:Int = imageRef.height
+        let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceGray()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
+        let context:CGContext = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+        let rect:CGRect = CGRect.init(x: 0, y: 0, width: width, height: height)
+        context.draw(imageRef, in: rect)
+        let outPutImage:CGImage = context.makeImage()!
+        let newImage:UIImage = UIImage.init(cgImage: outPutImage, scale: self.scale, orientation: self.imageOrientation)
+        return newImage
+        
+    }
+    
 }

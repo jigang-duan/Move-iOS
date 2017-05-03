@@ -147,22 +147,10 @@ class SchoolTimeController: UIViewController {
         
         viewModel.saveFinish
             .drive(onNext: { [weak self] finish in
-                if (self?.openSchoolSwitch.isOn)! {
-                    if  (self?.amStartTime)! > (self?.amEndTime)! {
-                        let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
-                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alertController.addAction(okActiojn)
-                        self?.present(alertController, animated: true)
-                    }else if (self?.pmStartTime)! > (self?.pmEndTime)! {
-                        let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
-                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alertController.addAction(okActiojn)
-                        self?.present(alertController, animated: true)
-                    }else  if finish {
+                if finish {
                         _ = self?.navigationController?.popViewController(animated: true)
                     }
-                
-                }
+              
                 
             })
             .addDisposableTo(disposeBag)
@@ -207,7 +195,8 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectAmStartTime() {
-        
+        self.datepicke.minimumDate = self.amMin
+        self.datepicke.maximumDate = self.amMax
         self.amStartTimeOutlet.isSelected = true
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = false
@@ -217,7 +206,8 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectAmEndTime() {
-        
+        self.datepicke.minimumDate = self.amMin
+        self.datepicke.maximumDate = self.amMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = true
         self.pmStartTimeOutlet.isSelected = false
@@ -227,7 +217,8 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectPmStartTime() {
-        
+        self.datepicke.minimumDate = self.pmMin
+        self.datepicke.maximumDate = self.pmMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = true
@@ -237,7 +228,8 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectPmEndTime() {
-        
+        self.datepicke.minimumDate = self.pmMin
+        self.datepicke.maximumDate = self.pmMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = false
@@ -278,23 +270,107 @@ class SchoolTimeController: UIViewController {
          datePickView.isHidden = true
  
      }
+    //                if (self?.openSchoolSwitch.isOn)! {
+    //                    if  (self?.amStartTime)! > (self?.amEndTime)! {
+    //                        let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+    //                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                        alertController.addAction(okActiojn)
+    //                        self?.present(alertController, animated: true)
+    //                    }else if (self?.pmStartTime)! > (self?.pmEndTime)! {
+    //                        let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+    //                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                        alertController.addAction(okActiojn)
+    //                        self?.present(alertController, animated: true)
+    //                    }else
+    //                }
     
     private func comfirmDatepicker() {
         if amStartTimeOutlet.isSelected {
-            viewModel.amStartDateVariable.value = datepicke.date
-            amStartTimeOutlet.isSelected = false
+            if self.amStartTime == Date(timeIntervalSince1970: 0){
+                viewModel.amStartDateVariable.value = datepicke.date
+                amStartTimeOutlet.isSelected = false
+            }
+            else
+            {
+            if datepicke.date > self.amEndTime{
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+                                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        alertController.addAction(okActiojn)
+                                        self.present(alertController, animated: true)
+                amStartTimeOutlet.isSelected = false
+            }else
+            {
+                viewModel.amStartDateVariable.value = datepicke.date
+                amStartTimeOutlet.isSelected = false
+            }
+            }
         }
         if amEndTimeOutlet.isSelected {
-            viewModel.amEndDateVariable.value = datepicke.date
-            amEndTimeOutlet.isSelected = false
+                if self.amEndTime == Date(timeIntervalSince1970: 0)
+                {
+                    viewModel.amEndDateVariable.value = datepicke.date
+                    amEndTimeOutlet.isSelected = false
+                }
+                else
+                {
+              if datepicke.date < self.amStartTime{
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okActiojn)
+                self.present(alertController, animated: true)
+                amEndTimeOutlet.isSelected = false
+            }
+            else
+            {
+                viewModel.amEndDateVariable.value = datepicke.date
+                amEndTimeOutlet.isSelected = false
+            }
+            }
         }
         if pmStartTimeOutlet.isSelected {
-            viewModel.pmStartDateVariable.value = datepicke.date
-            pmStartTimeOutlet.isSelected = false
+            if self.pmEndTime == Date(timeIntervalSince1970: 0)
+            {
+                viewModel.pmStartDateVariable.value = datepicke.date
+                pmStartTimeOutlet.isSelected = false
+            }
+            else
+            {
+            if datepicke.date > self.pmEndTime{
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+                                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        alertController.addAction(okActiojn)
+                                        self.present(alertController, animated: true)
+
+                pmStartTimeOutlet.isSelected = false
+            }else
+            {
+                viewModel.pmStartDateVariable.value = datepicke.date
+                pmStartTimeOutlet.isSelected = false
+                }
+            }
+            
         }
         if pmEndTimeOutlet.isSelected {
-            viewModel.pmEndDateVariable.value = datepicke.date
-            pmEndTimeOutlet.isSelected = false
+            if self.pmStartTime == Date(timeIntervalSince1970: 0)
+            {
+                viewModel.pmEndDateVariable.value = datepicke.date
+                pmEndTimeOutlet.isSelected = false
+            }
+            else
+            {
+            if datepicke.date < self.pmStartTime{
+                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+                                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        alertController.addAction(okActiojn)
+                                        self.present(alertController, animated: true)
+
+                pmEndTimeOutlet.isSelected = false
+            }else
+            {
+                viewModel.pmEndDateVariable.value = datepicke.date
+                pmEndTimeOutlet.isSelected = false
+            }
+            }
         }
         
         datePickView.isHidden = true

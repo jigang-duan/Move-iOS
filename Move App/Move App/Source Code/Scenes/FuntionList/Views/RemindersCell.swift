@@ -73,6 +73,10 @@ class RemindersCell: UITableViewCell {
         {
             s = "Every day"
         }
+        if s == "Sun Sat "
+        {
+            s = "Weekend"
+        }
         if s == ""
         {
             s = "No repeat"
