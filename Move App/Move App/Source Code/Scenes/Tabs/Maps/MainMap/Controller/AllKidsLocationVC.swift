@@ -169,11 +169,19 @@ class AllKidsLocationVC: UIViewController ,CLLocationManagerDelegate , MKMapView
             var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
             let subannotation = annotation as! TagAnnotation
             if selectAnnotation == subannotation {
-                annoView = BigContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                (annoView as! BigContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
+//                annoView = BigContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+//                (annoView as! BigContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
+                let headAnnoView = HeadPortraitAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                headAnnoView.type = .big
+                headAnnoView.setHeadPortrait(name: subannotation.name ?? "", url: subannotation.profile ?? "")
+                annoView = headAnnoView
             }else{
-                annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
+//                annoView = ContactAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+//                (annoView as! ContactAnnotationView).setAvatarImage(nikename: subannotation.name ?? "", profile: subannotation.profile ?? "")
+                let headAnnoView = HeadPortraitAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                headAnnoView.type = .medium
+                headAnnoView.setHeadPortrait(name: subannotation.name ?? "", url: subannotation.profile ?? "")
+                annoView = headAnnoView
             }
             annoView?.annotation = annotation
             annoView?.canShowCallout = false
