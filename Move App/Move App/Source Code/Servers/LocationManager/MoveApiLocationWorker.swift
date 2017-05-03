@@ -46,6 +46,18 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
             .catchError(errorHandle)
     }
     
+    func fetchLocations(deviceIDs: [String]) -> Observable<[KidSate.LocationInfo]> {
+        guard deviceIDs.count > 0 else {
+            return Observable.just([])
+        }
+        
+        let ids = deviceIDs.map{ MoveApi.LocationDeviceId(device_id: $0) }
+        return MoveApi.Location.getMultiLocations(with: MoveApi.LocationMultiReq(locations: ids))
+            .map { $0.locations }
+            .filterNil()
+            .map { $0.flatMap(transformLocationOfDevice) }
+    }
+    
     
     func fetchLbsLocation(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS> {
         guard let deviceId = lbs.imei else {
@@ -138,6 +150,13 @@ fileprivate func transform(fences: [MoveApi.FenceInfo]?) -> [KidSate.ElectronicF
 fileprivate func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFencea {
     let locatio = KidSate.locatio(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), address: fence.location?.addr)
     return KidSate.ElectronicFencea(ids: fence.id, name: fence.name, radius: fence.radius, active: fence.active, location: locatio)
+}
+
+fileprivate func transformLocationOfDevice(_ new: MoveApi.LocationOfDevice) -> KidSate.LocationInfo? {
+    guard let location = new.location, let _ = location.lat, let _ = location.lng else {
+        return nil
+    }
+    return  KidSate.LocationInfo(location: location)
 }
 
 fileprivate func transformLocation(_ new: MoveApi.LocationOfDevice) -> Observable<KidSate.LocationInfo> {

@@ -19,6 +19,8 @@ protocol LocationWorkerProtocl {
     func updateSafeZone(deviceId: String, fence: KidSate.ElectronicFencea) -> Observable<Bool>
     
     func fetchLbsLocation(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS>
+    
+    func fetchLocations(deviceIDs: [String]) -> Observable<[KidSate.LocationInfo]>
 }
 
 class LocationManager  {
@@ -39,6 +41,10 @@ class LocationManager  {
     
     func location(deviceId: String) -> Observable<KidSate.LocationInfo> {
         return self.worker.getCurrentLocation(id: deviceId)
+    }
+    
+    func locations(deviceIDs: [String]) -> Observable<[KidSate.LocationInfo]> {
+        return self.worker.fetchLocations(deviceIDs: deviceIDs)
     }
     
     func getHistoryLocation(start: Date, end: Date) ->  Observable<[KidSate.LocationInfo]>{

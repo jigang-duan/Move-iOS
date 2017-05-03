@@ -18,4 +18,12 @@ class MapUtility {
         mapItem.name = name
         mapItem.openInMaps(launchOptions: options)
     }
+    
+    class func navigation(originLocation: CLLocationCoordinate2D ,toLocation: CLLocationCoordinate2D) {
+        let options = [ MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking ]
+        let originItem = MKMapItem(placemark: MKPlacemark(coordinate: originLocation, addressDictionary: nil))
+        let toItem = MKMapItem(placemark: MKPlacemark(coordinate: toLocation, addressDictionary: nil))
+        originItem.name = "My Location"
+        MKMapItem.openMaps(with: [originItem, toItem], launchOptions: options)
+    }
 }

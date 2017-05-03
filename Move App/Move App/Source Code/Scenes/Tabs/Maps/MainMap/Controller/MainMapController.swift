@@ -87,7 +87,7 @@ class MainMapController: UIViewController {
         
         viewModel.allAction
             .bindNext({ [weak self] devices in
-                self?.showAllKidsLocationController(data: devices)
+                self?.showAllKidsLocationController()
             })
             .addDisposableTo(disposeBag)
         
@@ -247,11 +247,8 @@ extension MainMapController {
         self.present(sheetView, animated: true, completion: nil)
     }
     
-    fileprivate func showAllKidsLocationController(data: [DeviceInfo]) {
-        if let toVC = R.storyboard.major.allKidsLocationVC() {
-            toVC.dataArr = data
-            self.navigationController?.show(toVC, sender: nil)
-        }
+    fileprivate func showAllKidsLocationController() {
+        self.performSegue(withIdentifier: R.segue.mainMapController.showAllKidsLocation, sender: nil)
     }
     
     fileprivate func showVoltameterOutlet(deviceInfo: DeviceInfo) {
@@ -269,7 +266,6 @@ extension MainMapController {
             .imageRepresentation()!
         
         let imgUrl = deviceInfo.user?.profile?.fsImageUrl.url
-        //self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
         self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg) { (image, _, _, _) in
             if
                 let image = image,
@@ -352,27 +348,17 @@ extension URL {
 extension UIImage {
     
     func grayImage() -> UIImage {
-//        let bitmapinfo = CGImageAlphaInfo.none
-//        let width = self.size.width
-//        let height = self.size.height
-//        
-//        let colorSpaceRefColorSpace = CGColorSpaceCreateDeviceGray()
-//        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpaceRefColorSpace, bitmapInfo: bitmapinfo.rawValue)
-//        
-//    
-//        CGContextDrawImage(context, CGRect(x: 0, y: 0, width: width, height: height), <#T##image: CGImage?##CGImage?#>)
-        let imageRef:CGImage = self.cgImage!
-        let width:Int = imageRef.width
-        let height:Int = imageRef.height
-        let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceGray()
+        let imageRef = self.cgImage!
+        let width = imageRef.width
+        let height = imageRef.height
+        let colorSpace = CGColorSpaceCreateDeviceGray()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
-        let context:CGContext = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
-        let rect:CGRect = CGRect.init(x: 0, y: 0, width: width, height: height)
+        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+        let rect = CGRect(x: 0, y: 0, width: width, height: height)
         context.draw(imageRef, in: rect)
-        let outPutImage:CGImage = context.makeImage()!
-        let newImage:UIImage = UIImage.init(cgImage: outPutImage, scale: self.scale, orientation: self.imageOrientation)
+        let outPutImage = context.makeImage()!
+        let newImage = UIImage(cgImage: outPutImage, scale: self.scale, orientation: self.imageOrientation)
         return newImage
-        
     }
     
 }

@@ -243,7 +243,7 @@
 		E9C7B95E1E51B6AF00DD6542 /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */; };
 		E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */; };
 		E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */; };
-		E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */; };
+		E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationController.swift */; };
 		E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */; };
 		E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */; };
 		E9DD0F941E5A981300752863 /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */; };
@@ -613,7 +613,7 @@
 		E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSafeZoneVC.swift; sourceTree = "<group>"; };
 		E9CF8A691E7136FE00E8D8E7 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E9CF8A6B1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApiLocationWorker.swift; sourceTree = "<group>"; };
-		E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllKidsLocationVC.swift; sourceTree = "<group>"; };
+		E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllKidsLocationController.swift; sourceTree = "<group>"; };
 		E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneTabViewCell.swift; sourceTree = "<group>"; };
 		E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafeZoneTabViewCell.xib; sourceTree = "<group>"; };
 		E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
@@ -1396,7 +1396,7 @@
 			isa = PBXGroup;
 			children = (
 				E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */,
-				E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationVC.swift */,
+				E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationController.swift */,
 				E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */,
 				E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */,
 				E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */,
@@ -2634,7 +2634,7 @@
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
 				E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */,
-				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationVC.swift in Sources */,
+				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationController.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				FF499E471EAE077800EF16F8 /* CantPairToApnVC.swift in Sources */,
