@@ -103,7 +103,7 @@ extension WorkerError {
             case 5:
                 switch field ?? "" {
                 case "password":
-                    errorMessage = "password Invalid"
+                    errorMessage = "Password do not match"
                 case "vcode":
                     errorMessage = "This code has expired"
                 default:
@@ -112,14 +112,14 @@ extension WorkerError {
             case 6:
                 switch field ?? "" {
                 case "account":
-                    errorMessage = "account Not Found"
+                    errorMessage = "Account doesn’t exist."
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
             case 7:
                 switch field ?? "" {
                 case "identity":
-                    errorMessage = "identity Exist"
+                    errorMessage = "Identity existed"
                 case "username":
                     errorMessage = "Account already exists"
                 default:

@@ -139,12 +139,33 @@ class FamilyMemberAddController: UIViewController {
     }
     
     
-    @IBAction func selectPhoto(_ sender: Any) {
+    @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
-        photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
-            self.photoImgV.image = image
-            self.photoVariable.value = image
-        })
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "Take a photo", style: .default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
+                self.photoImgV.image = image
+                self.photoVariable.value = image
+            })
+        }
+        let action2 = UIAlertAction(title: "Select from album", style: .default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { (image) in
+                self.photoImgV.image = image
+                self.photoVariable.value = image
+            })
+        }
+        let action3 = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        vc.addAction(action1)
+        vc.addAction(action2)
+        vc.addAction(action3)
+        
+        if let popover = vc.popoverPresentationController {
+            popover.sourceView = sender.superview
+            popover.sourceRect = sender.frame
+        }
+        
+        self.present(vc, animated: true, completion: nil)
     }
     
     
@@ -174,7 +195,7 @@ class FamilyMemberAddController: UIViewController {
     
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)

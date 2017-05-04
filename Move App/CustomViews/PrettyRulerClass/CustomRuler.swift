@@ -40,8 +40,9 @@ public class CustomRuler: UIView {
         
         scroll.contentSize = CGSize(width: self.frame.size.width + CGFloat(interval*maxCount), height: 140)
         
+        let value = currentValue > maxCount ? maxCount:currentValue
         UIView.animate(withDuration: 0.3) {
-            scroll.setContentOffset(CGPoint(x: Int(currentValue*interval), y: 0), animated: true)
+            scroll.setContentOffset(CGPoint(x: Int(value*interval), y: 0), animated: true)
         }
         
         
@@ -57,7 +58,7 @@ extension CustomRuler:UIScrollViewDelegate {
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate == false {
-            let offset = scrollView.contentOffset.x
+            let offset = scrollView.contentOffset.x <= 0 ? 0:scrollView.contentOffset.x
             let value  = UInt(offset/CGFloat(interval))
             scrollView.setContentOffset(CGPoint(x: Int(value*interval), y: 0), animated: true)
             if  let sel = self.selectValue {
@@ -67,7 +68,7 @@ extension CustomRuler:UIScrollViewDelegate {
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.x
+        let offset = scrollView.contentOffset.x <= 0 ? 0:scrollView.contentOffset.x
         let value  = UInt(offset/CGFloat(interval))
         scrollView.setContentOffset(CGPoint(x: Int(value*interval), y: 0), animated: true)
         if  let sel = self.selectValue {
@@ -76,7 +77,7 @@ extension CustomRuler:UIScrollViewDelegate {
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.x
+        let offset = scrollView.contentOffset.x <= 0 ? 0:scrollView.contentOffset.x
         let value  = UInt(offset/CGFloat(interval))
         scrollView.setContentOffset(CGPoint(x: Int(value*interval), y: 0), animated: true)
         if let sel = self.selectValue {

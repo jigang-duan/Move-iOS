@@ -112,7 +112,13 @@ class KidInformationController: UIViewController {
         cameraBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: cameraBun.currentBackgroundImage!)
         
         
-        genderLab.text = info.gender ?? "Gender"
+        
+        if let gender = info.gender {
+            genderLab.text = (gender == "0" ? "male":"female")
+        }else{
+            genderLab.text = "Gender"
+        }
+        
         if let height = info.height {
              heightLab.text =  "\(height) " + ((info.heightUnit == UnitType.metric) ? "cm":"inch")
         }else{
@@ -261,7 +267,7 @@ class KidInformationController: UIViewController {
     
 
     func showMessage(_ text: String) {
-        let vc = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)
@@ -289,7 +295,7 @@ class KidInformationController: UIViewController {
         if let sg = R.segue.kidInformationController.setGenderVC(segue: segue) {
             sg.destination.genderBlock = { (gender) in
                 self.addInfoVariable.value.gender = gender
-                self.genderLab.text = gender
+                self.genderLab.text = (gender == "0" ? "male":"female")
             }
         }
         if let sg = R.segue.kidInformationController.setBirthdayVC(segue: segue) {

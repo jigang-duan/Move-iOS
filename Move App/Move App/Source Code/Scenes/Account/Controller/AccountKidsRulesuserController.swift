@@ -204,7 +204,7 @@ extension AccountKidsRulesuserController {
     }
     
     fileprivate func showAlert(message text: String) {
-        let alert = UIAlertController(title: "提示", message: text, preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: text, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)
         alert.addAction(action)
         self.present(alert, animated: true)

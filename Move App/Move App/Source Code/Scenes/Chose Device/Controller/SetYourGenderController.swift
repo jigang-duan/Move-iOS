@@ -41,9 +41,9 @@ class SetYourGenderController: UIViewController {
     @IBAction func saveAction(_ sender: UIButton) {
         if self.genderBlock != nil {
             if self.girlBtn.isSelected {
-                self.genderBlock!("female")
+                self.genderBlock!("1")
             }else{
-                self.genderBlock!("male")
+                self.genderBlock!("0")
             }
             self.BackAction(nil)
         }

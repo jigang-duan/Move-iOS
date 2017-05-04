@@ -53,6 +53,15 @@ class AccountAndChoseDeviceController: UIViewController {
                 cell.imageView?.image = device.deviceType?.image
             }
             .addDisposableTo(disposeBag)
+        
+        
+        RxStore.shared.deviceInfosObservable
+            .subscribe(onNext: { deviceInfos in
+                if deviceInfos.count >= 5 {
+                    self.tableView.tableFooterView?.isHidden = true
+                }
+            })
+            .addDisposableTo(disposeBag)
 
         tableView.rx.modelSelected(DeviceInfo.self).asObservable()
             .map{ $0.deviceId }

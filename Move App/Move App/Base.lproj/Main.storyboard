@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -114,9 +114,6 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="hHf-WS-pVL" kind="show" id="hoB-mA-wEZ"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -189,7 +186,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="74M-v1-oio" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1946" y="23"/>
+            <point key="canvasLocation" x="1945" y="23"/>
         </scene>
         <!--Help for paird-->
         <scene sceneID="z7z-15-7k8">
@@ -326,20 +323,20 @@
         <!--Pair with watch-->
         <scene sceneID="IRY-Rq-ifL">
             <objects>
-                <viewController id="hHf-WS-pVL" customClass="PairWatchController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="hHf-WS-pVL" customClass="PairWatchController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XFY-FT-eYp"/>
                         <viewControllerLayoutGuide type="bottom" id="gKO-zL-MiT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="k49-4x-RL6">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="EMp-aW-3Of">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="443"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="487"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqI-8r-iKc" userLabel="ButtonsView">
-                                <rect key="frame" x="0.0" y="443" width="375" height="160"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqI-8r-iKc">
+                                <rect key="frame" x="0.0" y="507" width="375" height="160"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neS-qy-HbG">
                                         <rect key="frame" x="15" y="45" width="345" height="40"/>
@@ -393,12 +390,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="AqI-8r-iKc" secondAttribute="bottom" id="5wL-ON-tvQ"/>
                             <constraint firstItem="AqI-8r-iKc" firstAttribute="top" secondItem="EMp-aW-3Of" secondAttribute="bottom" id="DGs-2a-6am"/>
                             <constraint firstItem="AqI-8r-iKc" firstAttribute="leading" secondItem="k49-4x-RL6" secondAttribute="leading" id="GNp-Ym-TfP"/>
                             <constraint firstAttribute="trailing" secondItem="EMp-aW-3Of" secondAttribute="trailing" id="UG7-7y-UVd"/>
                             <constraint firstItem="EMp-aW-3Of" firstAttribute="top" secondItem="XFY-FT-eYp" secondAttribute="bottom" id="WJo-mQ-6YO"/>
                             <constraint firstItem="EMp-aW-3Of" firstAttribute="leading" secondItem="k49-4x-RL6" secondAttribute="leading" id="lQ3-s5-4qY"/>
-                            <constraint firstItem="gKO-zL-MiT" firstAttribute="top" secondItem="AqI-8r-iKc" secondAttribute="bottom" id="tvs-gu-2ZJ"/>
                             <constraint firstAttribute="trailing" secondItem="AqI-8r-iKc" secondAttribute="trailing" id="wL2-Yk-UEW"/>
                         </constraints>
                     </view>
@@ -1678,7 +1675,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itz-IW-kIG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TKs-rI-fIF" userLabel="headImage">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TKs-rI-fIF">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="relationship_ic_other" translatesAutoresizingMaskIntoConstraints="NO" id="8YO-Bu-9o3" userLabel="headImage">
@@ -1770,7 +1767,7 @@
                                         <constraint firstItem="pLF-qL-l3a" firstAttribute="centerY" secondItem="SCr-Iq-Cty" secondAttribute="centerY" id="phz-3D-uCx"/>
                                     </constraints>
                                 </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="mqA-CJ-6SU">
+                                <view key="tableFooterView" contentMode="scaleToFill" id="mqA-CJ-6SU" userLabel="addDevice">
                                     <rect key="frame" x="0.0" y="127" width="375" height="55"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -1783,24 +1780,17 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmI-PW-NBv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
-                                            <connections>
-                                                <segue destination="a0j-e4-V0x" kind="show" id="XCW-zZ-mRc"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="tmI-PW-NBv" firstAttribute="top" secondItem="mqA-CJ-6SU" secondAttribute="top" id="288-zP-3EB"/>
-                                        <constraint firstAttribute="bottom" secondItem="tmI-PW-NBv" secondAttribute="bottom" id="8pg-Wb-V9w"/>
-                                        <constraint firstItem="tmI-PW-NBv" firstAttribute="leading" secondItem="mqA-CJ-6SU" secondAttribute="leading" id="DxE-4n-eix"/>
                                         <constraint firstItem="Jkb-GS-60G" firstAttribute="centerY" secondItem="mqA-CJ-6SU" secondAttribute="centerY" id="NeZ-ZJ-O3M"/>
                                         <constraint firstItem="lE5-cz-iih" firstAttribute="centerY" secondItem="mqA-CJ-6SU" secondAttribute="centerY" id="V8p-rT-vX5"/>
-                                        <constraint firstAttribute="trailing" secondItem="tmI-PW-NBv" secondAttribute="trailing" id="iPk-i3-xUy"/>
                                         <constraint firstItem="Jkb-GS-60G" firstAttribute="leading" secondItem="lE5-cz-iih" secondAttribute="trailing" constant="16" id="jLJ-ke-eUc"/>
                                         <constraint firstItem="lE5-cz-iih" firstAttribute="leading" secondItem="mqA-CJ-6SU" secondAttribute="leading" constant="15" id="t8J-JS-yRN"/>
                                     </constraints>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="fxZ-yr-x9Z" appends="YES" id="nqn-sf-ct5"/>
+                                    </connections>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellDevice" textLabel="MBI-MG-sud" detailTextLabel="KaY-YP-s5g" imageView="XFc-qN-yEd" style="IBUITableViewCellStyleSubtitle" id="6Te-By-ihE">
@@ -1862,6 +1852,11 @@
                 <tapGestureRecognizer id="gOS-Qk-dbU">
                     <connections>
                         <segue destination="b5A-LV-Bcq" kind="show" id="6IC-dH-sJD"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="fxZ-yr-x9Z">
+                    <connections>
+                        <segue destination="hHf-WS-pVL" kind="show" id="AEM-9t-Smh"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -2858,6 +2853,6 @@
         <image name="wakeup" width="77" height="65"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xwI-n2-fsr"/>
+        <segue reference="epR-GB-8Hj"/>
     </inferredMetricsTieBreakers>
 </document>

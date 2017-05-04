@@ -218,7 +218,7 @@ class DefaultValidation {
         }
         
         if password != rePasswd {
-            return .failed(message: "Password do not match")
+            return .failed(message: "Two passwords are inconsistent")
         }
         
         let setRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9]+$")

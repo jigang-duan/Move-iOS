@@ -74,10 +74,30 @@ class MeSettingController: UITableViewController {
         birthday = info?.birthday
         
         emailLab.text = info?.email
-        genderLab.text = info?.gender
-        heightLab.text = "\(info?.height ?? 0) " + ((info?.heightUnit == UnitType.metric) ? "cm":"inch")
-        weightLab.text = "\(info?.weight ?? 0) " + ((info?.weightUnit == UnitType.metric) ? "kg":"lb")
-        birthdayLab.text = info?.birthday?.stringYearMonthDay
+        
+        if let gender = info?.gender {
+            genderLab.text = (gender == "0" ? "male":"female")
+        }else{
+            genderLab.text = "Not specified"
+        }
+        
+        if let height = info?.height {
+            heightLab.text = "\(height) " + ((info?.heightUnit == UnitType.metric) ? "cm":"inch")
+        }else{
+            heightLab.text = "Not specified"
+        }
+        
+        if let weight = info?.weight {
+            weightLab.text = "\(weight) " + ((info?.weightUnit == UnitType.metric) ? "kg":"lb")
+        }else{
+            weightLab.text = "Not specified"
+        }
+        
+        if let birthday = info?.birthday, birthday != Date(timeIntervalSince1970: 0) {
+            birthdayLab.text = birthday.stringYearMonthDay
+        }else{
+            birthdayLab.text = "Not specified"
+        }
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
         
