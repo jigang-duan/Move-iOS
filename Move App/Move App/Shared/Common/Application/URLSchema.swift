@@ -42,7 +42,7 @@ extension AppDelegate {
         
         guard
             let scheme = url.scheme, scheme.uppercased() == "TCLMOVE",
-            let host = url.host, host == "www.alcatel-move.com",
+            let host = url.host, host.contains("alcatel-move.com"),
             //url.path == "/latam/lbs/v1.0",
             let sos = KidSate.SOSLbsModel(aURL: url) else {
             return
