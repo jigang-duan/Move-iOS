@@ -196,6 +196,7 @@ class UUMessageCell: UITableViewCell {
             default:
                 break
             }
+            
         }
     }
     
@@ -360,7 +361,10 @@ extension UUMessageCell {
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return action == #selector(handleDeleteMenu(_:)) || action == #selector(handleMoreMenu(_:)) || action == #selector(handleSpeakerMenu(_:))
+        if self.messageFrame.message.type == .voice {
+            return action == #selector(handleDeleteMenu(_:)) || action == #selector(handleMoreMenu(_:)) || action == #selector(handleSpeakerMenu(_:))
+        }
+        return action == #selector(handleDeleteMenu(_:)) || action == #selector(handleMoreMenu(_:))
     }
     
     @objc fileprivate func handleSpeakerMenu(_ sender: UIMenuController) {

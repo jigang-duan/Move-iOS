@@ -27,6 +27,8 @@ class NotificationController: UIViewController {
     
     var group: GroupEntity?
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
+    
+    let deleteMessageSubject = PublishSubject<Int>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +67,9 @@ class NotificationController: UIViewController {
             
             tableView.rx.setDelegate(self).addDisposableTo(bag)
             
-            let itemDeleted = tableView.rx.itemDeleted.asObservable()
-            itemDeleted.map({ $0.row })
+            //let itemDeleted = tableView.rx.itemDeleted.asObservable().map({ $0.row })
+            let itemDeleted = deleteMessageSubject
+            itemDeleted
                 .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
                 .filterEmpty()
                 .map({ id in
@@ -149,7 +152,8 @@ extension NotificationController: UUMessageCellMenuDelegate {
     }
     
     private func delete(index: Int) {
-        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: index, section: 0))
+        //tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: index, section: 0))
+        deleteMessageSubject.onNext(index)
     }
     
     private func more() {

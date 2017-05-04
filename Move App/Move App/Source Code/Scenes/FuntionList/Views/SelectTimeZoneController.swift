@@ -112,8 +112,6 @@ extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
 }
 
 
-
-//--------------------------------------------------------------------------
 extension Reactive where Base: SelectTimeZoneController {
     
     /// Reactive wrapper for `delegate`.

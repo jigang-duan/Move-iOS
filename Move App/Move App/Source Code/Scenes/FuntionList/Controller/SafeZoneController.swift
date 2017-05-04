@@ -64,9 +64,7 @@ class SafeZoneController: UIViewController {
     func showAddSafeZoneVC() {
         if self.fences.count >= 5 {
             let alertController = UIAlertController(title: nil, message: "not more than 5 safezone", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
-                (action : UIAlertAction!) -> Void in
-            })
+            let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
         }else{
@@ -78,9 +76,7 @@ class SafeZoneController: UIViewController {
     
     func errorshow(message : String) {
         let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-        })
+        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }

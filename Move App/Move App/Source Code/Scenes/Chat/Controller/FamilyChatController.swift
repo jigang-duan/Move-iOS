@@ -27,6 +27,7 @@ class FamilyChatController: UIViewController {
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
     let markReadSubject = PublishSubject<String>()
+    let deleteMessageSubject = PublishSubject<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,8 +156,9 @@ class FamilyChatController: UIViewController {
         
         // MARK: 删除
         
-        let itemDeleted = tableView.rx.itemDeleted.asObservable()
-        itemDeleted.map({ $0.row })
+        //let itemDeleted = tableView.rx.itemDeleted.asObservable().map({ $0.row })
+        let itemDeleted = deleteMessageSubject
+        itemDeleted
             .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
             .flatMapLatest { IMManager.shared.delete(message: $0).catchErrorJustReturn("") }
             .filterEmpty()
@@ -166,10 +168,11 @@ class FamilyChatController: UIViewController {
             .addDisposableTo(bag)
         
         let deleteMessages = moreView.rx.delete.asObservable()
-            .withLatestFrom(messageFramesVariable.asObservable()) { (indexs, messages) in  indexs.map({  messages[$0].message.msgId }) }
+            .filterEmpty()
+            .withLatestFrom(messageFramesVariable.asObservable()) { (indexs, messages) in indexs.map({ messages[$0].message.msgId }) }
         
         let clearMessages = moreView.rx.clearAll.asObservable()
-            .withLatestFrom(messageFramesVariable.asObservable()) {  $0.1.map({$0.message.msgId}) }
+            .withLatestFrom(messageFramesVariable.asObservable()) { $0.1.map({$0.message.msgId}) }
             
         Observable.merge(deleteMessages, clearMessages)
             .flatMapLatest { IMManager.shared.delete(messages: $0).catchErrorJustReturn($0) }
@@ -239,7 +242,8 @@ extension FamilyChatController: UUMessageCellMenuDelegate {
     }
     
     private func delete(index: Int) {
-        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: index, section: 0))
+        //tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: index, section: 0))
+        deleteMessageSubject.onNext(index)
     }
     
     private func more() {

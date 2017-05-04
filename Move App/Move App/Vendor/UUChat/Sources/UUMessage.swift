@@ -115,6 +115,11 @@ struct UUMessage {
         var period: String = ""
         var hour: String = ""
         
+        guard ShowDateMode_isCompare else {
+            dateStr = lastDate.stringYearMonthDay
+            return String(format: "%@ %02d:%02d", dateStr, lastDate.hour, lastDate.minute)
+        }
+        
         if lastDate.year == nowDate.year {
             let days = Date.daysOffBetween(startDate: lastDate, endDate: nowDate)
             var str: String? = nil
@@ -147,6 +152,8 @@ struct UUMessage {
         return String(format: "%@ %@ %@:%02d", dateStr, period, hour, lastDate.minute)
     }
 }
+
+fileprivate let ShowDateMode_isCompare = false
 
 extension UUMessage {
     

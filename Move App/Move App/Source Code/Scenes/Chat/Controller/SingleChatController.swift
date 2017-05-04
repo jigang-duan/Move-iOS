@@ -27,6 +27,7 @@ class SingleChatController: UIViewController {
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
     let markReadSubject = PublishSubject<String>()
+    let deleteMessageSubject = PublishSubject<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,8 +136,9 @@ class SingleChatController: UIViewController {
         
         // MARK: 删除
         
-        let itemDeleted = tableView.rx.itemDeleted.asObservable()
-        itemDeleted.map { $0.row }
+        //let itemDeleted = tableView.rx.itemDeleted.asObservable().map({ $0.row })
+        let itemDeleted = deleteMessageSubject
+        itemDeleted
             .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
             .flatMapLatest { IMManager.shared.delete(message: $0).catchErrorJustReturn("") }
             .filterEmpty()
@@ -217,7 +219,8 @@ extension SingleChatController: UUMessageCellMenuDelegate {
     }
     
     private func delete(index: Int) {
-        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: index, section: 0))
+        //tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: index, section: 0))
+        deleteMessageSubject.onNext(index)
     }
     
     private func more() {
