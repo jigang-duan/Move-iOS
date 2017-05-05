@@ -281,7 +281,7 @@ extension MainMapController {
                 self.headPortraitOutlet.setBackgroundImage(effectImage, for: .normal)
             }
         }
-        
+        self.dotDot(online: deviceInfo.user?.online ?? true)
     }
 }
 
@@ -314,6 +314,10 @@ extension MainMapController: MKMapViewDelegate {
             return
         }
         self.mainAnnotationView?.radius = convert(self.mapView, radius: annotation.accuracy).width
+    }
+    
+    func dotDot(online: Bool) {
+        self.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
     }
 }
 

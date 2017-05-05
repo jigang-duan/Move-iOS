@@ -76,7 +76,8 @@ class MessageServer {
             
             messageObservable
                 .filter { $0.from != uid }
-                .bindNext({ (_) in AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) })
+                //.bindNext({ (_) in AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) })
+                .bindNext({ (_) in AudioServicesPlaySystemSound(1007) })
                 .addDisposableTo(disposeBag)
 
             

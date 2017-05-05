@@ -196,7 +196,7 @@ extension NoticeType {
         case .instantPosition:
             return .default
         case .intoFence:
-            return .default
+            return .navigate
         case .outFence:
             return .navigate
         case .lowBattery:
