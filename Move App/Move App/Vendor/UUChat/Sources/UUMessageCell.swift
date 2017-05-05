@@ -149,8 +149,10 @@ class UUMessageCell: UITableViewCell {
             //背景气泡图
             var normal: UIImage
             if message.from == .me {
-                normal = UIImage(named: "chatto_bg_normal")!
-                normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 10, 10, 22))
+//                normal = UIImage(named: "chatto_bg_normal")!
+//                normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 10, 10, 22))
+                normal = UIImage(named: "message_talk_bg_right")!
+                normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(15, 10, 10, 12))
             } else {
                 normal = UIImage(named: "chatfrom_bg_normal")!
                 normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 22, 10, 10))

@@ -174,6 +174,9 @@ class SingleChatController: UIViewController {
             .subscribe(onNext: { markRead(realm: realm, messages: $0) })
             .addDisposableTo(bag)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesturedDid(_:)))
+        self.tableView.addGestureRecognizer(tapGesture)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -271,6 +274,11 @@ extension SingleChatController: DZNEmptyDataSetSource {
 }
 
 extension SingleChatController {
+    
+    func tapGesturedDid(_ sender: UITapGestureRecognizer) {
+        ifView.shrinkEmoji()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         ifView.shrinkEmoji()

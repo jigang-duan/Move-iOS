@@ -39,11 +39,11 @@ class UUMessageContentButton: UIButton {
     
     lazy var voice: UIImageView = {
         let $ = UIImageView(frame: CGRect(x: 85, y: 5, width: 20, height: 20))
-        $.image = UIImage(named: "chat_animation_white3")
+        $.image = UIImage(named: "chat_animation3")
         $.animationImages = [
-            UIImage(named: "chat_animation_white1")!,
-            UIImage(named: "chat_animation_white2")!,
-            UIImage(named: "chat_animation_white3")!
+            UIImage(named: "chat_animation1")!,
+            UIImage(named: "chat_animation2")!,
+            UIImage(named: "chat_animation3")!
         ]
         $.animationDuration = 1
         $.animationRepeatCount = 0
@@ -64,7 +64,7 @@ class UUMessageContentButton: UIButton {
             if isMyMessage {
                 self.backImageView.frame = CGRect(x: 5, y: 5, width: 220, height: 220)
                 self.voiceBackView.frame = CGRect(x: 15, y: 10, width: 130, height: 35)
-                self.second.textColor = UIColor.white
+                self.second.textColor = UIColor.gray
             } else {
                 self.backImageView.frame = CGRect(x: 15, y: 5, width: 220, height: 220)
                 self.voiceBackView.frame = CGRect(x: 25, y: 10, width: 130, height: 35)

@@ -56,11 +56,8 @@ class AccountAndChoseDeviceController: UIViewController {
         
         
         RxStore.shared.deviceInfosObservable
-            .subscribe(onNext: { deviceInfos in
-                if deviceInfos.count >= 5 {
-                    self.tableView.tableFooterView?.isHidden = true
-                }
-            })
+            .map{ $0.count >= 5 }
+            .bindTo(tableView.tableFooterView!.rx.isHidden)
             .addDisposableTo(disposeBag)
 
         tableView.rx.modelSelected(DeviceInfo.self).asObservable()
