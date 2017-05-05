@@ -94,6 +94,7 @@ class LocationHistoryVC: UIViewController {
         super.viewDidLoad()
         calendar.select(calendar.today)
         
+        
         timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         let img = R.image.general_slider_dot()
         timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
@@ -193,6 +194,7 @@ class LocationHistoryVC: UIViewController {
     func TimePointSelect(index : Int){
         if self.annotationArr.count > 0 {
             let annotation = annotationArr[index]
+            
             let datestr = String.init(format: "(%d/%d)%@", annotation.tag + 1 , annotationArr.count , (annotation.info?.time?.stringYearMonthDayHourMinuteSecond)!)
             timeZoneL.text = datestr
             addressDetailL.text = annotation.info?.address
@@ -359,11 +361,16 @@ extension LocationHistoryVC : MKMapViewDelegate {
                 let identifier = "LocationAnnotation"
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 if annotationView == nil {
-                    annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    //动态的
+//                    annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    
                 }
+                    annotationView?.image = R.image.positioning_ic_1()
+                    annotationView?.canShowCallout = false
 //                annotationView?.image = R.image.history_dot_pre()
 //                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: Snikename, profile: Sprofile)
-                annotationView?.canShowCallout = false
+                
                 return annotationView
 //                annoView?.image = UIImage(named : "history_dot_pre")
             }else{
@@ -374,6 +381,7 @@ extension LocationHistoryVC : MKMapViewDelegate {
                 }
 
                 annoView?.image = R.image.history_dot_nor()
+                
                 annoView?.canShowCallout = false
                 return annoView
             }
@@ -392,6 +400,7 @@ extension LocationHistoryVC : MKMapViewDelegate {
             self.locationMap.removeAnnotations(self.locationMap.annotations)
             if annotationArr.count > 0 {
                 self.locationMap.addAnnotations(annotationArr)
+                
                 self.TimePointSelect(index: index)
                 self.timeZoneSlider.value = Float(index)
             }
