@@ -13,7 +13,7 @@ import RxCocoa
 class AlarmViewModel {
     // outputs {
 
-    let saveFinish: Driver<Bool>
+    var saveFinish: Driver<Bool>?
     let activityIn: Driver<Bool>
     
     // }
@@ -36,7 +36,9 @@ class AlarmViewModel {
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-        let newAlarm = Driver.combineLatest(input.week, input.alarmDate,input.active) { KidSetting.Reminder.Alarm(alarmAt: $1, day: $0, active: $2) }
+ 
+        
+        let newAlarm = Driver.combineLatest(input.week, input.alarmDate,input.active) { KidSetting.Reminder.Alarm(alarmAt: $1, day: self.sortWeek($0), active: $2) }
         self.saveFinish = input.save.withLatestFrom(newAlarm).asObservable()
             .flatMapLatest({ alarm -> Observable<Bool> in
                 return
@@ -46,5 +48,14 @@ class AlarmViewModel {
             })
             .asDriver(onErrorJustReturn: false)
         
+    }
+    
+    
+    func sortWeek(_ flags: [Bool]) -> [Bool] {
+        var fs = flags
+        let flag = fs.first!
+        _ = fs.remove(at: 0)
+        _ = fs.append(flag)
+        return fs
     }
 }

@@ -16,7 +16,6 @@ enum WeekType: Int {
     case thu = 805
     case fir = 806
     case sat = 807
-    
 }
 
 class WeekView: UIView {
@@ -109,6 +108,7 @@ class WeekView: UIView {
         }
         let index = number(tag: WeekType(rawValue: sender.tag)!)
         weekSelected[index] = !sender.isSelected
+
         delegate?.weekViewDidSelected?(self, selecteds: weekSelected)
     }
     

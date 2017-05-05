@@ -47,11 +47,14 @@ class AlarmController: UIViewController {
         back.isHidden = false
         if alarms != nil {
             self.datePickerOulet.date = (alarms?["alarms"] as? Date ?? nil)!
-            self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
-//           back.isHidden = true
+            var a = alarms?["dayFromWeek"] as? [Bool]
+            a?.insert((a?.last)!, at: 0)
+            
+//            self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
+            self.weekOutlet.weekSelected = (a ?? nil)!
+
         }
        
-        back.addTarget(self, action: "back", for: .touchUpInside)
         
         self.datePickerOulet.timeZone = TimeZone(secondsFromGMT: 0)
         
@@ -75,7 +78,7 @@ class AlarmController: UIViewController {
 //                }
 //            })
 //            .addDisposableTo(disposeBag)
-        viewModel.saveFinish
+        viewModel.saveFinish?
             .drive(onNext: back)
             .addDisposableTo(disposeBag)
         

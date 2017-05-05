@@ -22,7 +22,7 @@ class SchoolTimeViewModel {
     
     let dayFromWeekVariable = Variable([false, false, false, false, false, false, false])
     
-    let saveFinish: Driver<Bool>
+    var saveFinish: Driver<Bool>?
     
     let activityIn: Driver<Bool>
     
@@ -103,7 +103,7 @@ class SchoolTimeViewModel {
                 amEndPeriod: $1,
                 pmStartPeriod: $2,
                 pmEndPeriod: $3,
-                days: $4,
+                days: self.sortschooltime($4),
                 active: $5)
         }
         
@@ -116,4 +116,12 @@ class SchoolTimeViewModel {
             }
     }
     
+   fileprivate func sortschooltime(_ flags: [Bool]) -> [Bool] {
+        var fs = flags
+        let flag = fs.first!
+        _ = fs.remove(at: 0)
+        _ = fs.append(flag)
+        return fs
+    }
+
 }

@@ -145,7 +145,7 @@ class SchoolTimeController: UIViewController {
         viewModel.pmEndDateVariable.asDriver().drive(onNext: { date in self.pmEndTime = date }).addDisposableTo(disposeBag)
         
         
-        viewModel.saveFinish
+        viewModel.saveFinish?
             .drive(onNext: { [weak self] finish in
                 if finish {
                         _ = self?.navigationController?.popViewController(animated: true)
