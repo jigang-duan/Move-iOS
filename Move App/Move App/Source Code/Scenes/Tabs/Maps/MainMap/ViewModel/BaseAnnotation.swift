@@ -21,6 +21,26 @@ class BaseAnnotation: NSObject, MKAnnotation {
     }
 }
 
+class AccuracyAnnotation: BaseAnnotation {
+    var accuracy: CLLocationDistance = 0.0
+    
+    init(_ coordinate: CLLocationCoordinate2D, accuracy: CLLocationDistance) {
+        super.init(coordinate)
+        self.accuracy = accuracy
+    }
+    
+    init(_ latitude: CLLocationDegrees, _ longitude: CLLocationDegrees, accuracy: CLLocationDistance) {
+        super.init(latitude, longitude)
+        self.accuracy = accuracy
+    }
+}
+
+func ==(lhs: AccuracyAnnotation, rhs: AccuracyAnnotation) -> Bool {
+    return lhs.coordinate.latitude == rhs.coordinate.latitude
+        && lhs.coordinate.longitude == rhs.coordinate.longitude
+        && lhs.accuracy == rhs.accuracy
+}
+
 class LocationAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     

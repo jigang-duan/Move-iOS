@@ -23,7 +23,7 @@ class MainMapViewModel {
     let kidType: Observable<KidSate.LocationType>
     let locationTime: Observable<Date>
     
-    let kidAnnotion: Observable<BaseAnnotation>
+    let kidAnnotion: Observable<AccuracyAnnotation>
     
     let singleAction: Observable<DeviceInfo>
     let allAction: Observable<[DeviceInfo]>
@@ -111,7 +111,8 @@ class MainMapViewModel {
         kidType = currentLocation.map{ $0.type }.filterNil()
         locationTime = currentLocation.map{ $0.time }.filterNil()
         
-        kidAnnotion = kidLocation.map { BaseAnnotation($0) }
+        let accuracy = currentLocation.map { $0.accuracy }.filterNil()
+        kidAnnotion = Observable.combineLatest(kidLocation, accuracy) { AccuracyAnnotation($0, accuracy: $1) }
         
         let kidInfos = input.avatarTap
             .withLatestFrom(devicesVariable.asDriver())

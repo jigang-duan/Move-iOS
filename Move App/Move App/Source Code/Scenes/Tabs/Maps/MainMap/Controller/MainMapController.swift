@@ -165,7 +165,7 @@ class MainMapController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "(\($0)) \($1)" }
+        Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }
             .bindTo(addressOutlet.rx.text)
             .addDisposableTo(disposeBag)
         
@@ -175,6 +175,7 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.kidLocation
+            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
             .bindNext({ [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
                 self.mapView.setRegion(region, animated: true)
@@ -187,6 +188,12 @@ class MainMapController: UIViewController {
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 self.mapView.addAnnotation(annotion)
             })
+            .addDisposableTo(disposeBag)
+        
+        mapView.rx.regionDidChangeAnimated.asObservable()
+            .bindNext { [unowned self] (_) in
+                self.redrawRadius()
+            }
             .addDisposableTo(disposeBag)
         
         viewModel.remindSuccess.debug()
@@ -282,20 +289,34 @@ extension MainMapController {
 extension MainMapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is BaseAnnotation {
-            let identifier = "LocationAnnotation"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        if let annotation = annotation as? AccuracyAnnotation {
+            let identifier = "mainMapAccuracyAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? PulsingAnnotationView
             if annotationView == nil {
-                annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView = PulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.radius = convert(mapView, radius: annotation.accuracy).width
             }
             annotationView?.canShowCallout = false
             return annotationView
         }
-        
         return nil
     }
     
+    fileprivate var mainAnnotationView: PulsingAnnotationView? {
+        guard let annotation = self.mapView.annotations.first else {
+            return nil
+        }
+        return self.mapView.view(for: annotation) as? PulsingAnnotationView
+    }
+    
+    fileprivate func redrawRadius() {
+        guard let annotation = self.mapView.annotations.first as? AccuracyAnnotation else {
+            return
+        }
+        self.mainAnnotationView?.radius = convert(self.mapView, radius: annotation.accuracy).width
+    }
 }
+
 
 extension MainMapController: MFMessageComposeViewControllerDelegate {
     
@@ -311,6 +332,13 @@ extension MainMapController: MFMessageComposeViewControllerDelegate {
         }
     }
 }
+
+
+fileprivate func convert(_ mapView: MKMapView, radius: CLLocationDistance) -> CGRect {
+    let region = MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, radius, radius)
+    return mapView.convertRegion(region, toRectTo: mapView)
+}
+
 
 fileprivate func transform(info: DeviceInfo, infos: [DeviceInfo]) -> [DeviceInfo] {
     var devices = infos
