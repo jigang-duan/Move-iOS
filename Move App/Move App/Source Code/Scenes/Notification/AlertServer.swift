@@ -27,6 +27,7 @@ class AlertServer {
             .share()
             
         let alertResult = notices
+            .map { $0.filter { ($0.createDate?.isWithin2Hour)! } }
             .map { $0.filter({$0.readStatus == NoticeEntity.ReadStatus.unread.rawValue}).first }
             .filterNil()
             .flatMapLatest { (notice) -> Observable<AlertResult> in
@@ -105,10 +106,7 @@ class AlertServer {
             .filter { NoticeType(rawValue: $0.type) == .numberChanged }
             .map { $0.from }
             .filterNil()
-            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
-            .filterNil()
-            .map{ $0.deviceId }
-            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceIdObservable)
             .share()
         
         let goToSeeFriendList = confirmNotice
@@ -122,7 +120,7 @@ class AlertServer {
             .filterNil()
             .share()
         
-        Observable.merge(goToSeeKidInformation, goToSeeFamilyMember, goToSeeFriendList).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
+        Observable.merge(goToSeeKidInformation, goToSeeFriendList).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
         goToSeeKidInformation.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
         goToSeeFamilyMember.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
         goToSeeFriendList.bindNext { _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)

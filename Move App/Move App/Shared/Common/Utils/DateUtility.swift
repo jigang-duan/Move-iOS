@@ -160,3 +160,14 @@ class DateUtility {
     
 }
 
+extension Date {
+    
+    var isWithin2Hour: Bool {
+        return Date(timeInterval: intervalOfHour * 2, since: self).compare(Date()) == .orderedDescending
+    }
+    
+    var intervalOfHour: TimeInterval {
+        return 3600.0
+    }
+    
+}
