@@ -62,8 +62,8 @@ class MainMapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        warmingView.isHidden = false
-        
+        timeOutlet.adjustsFontSizeToFitWidth = true
+//        addressOutlet.adjustsFontSizeToFitWidth = true
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         let geolocationService = GeolocationService.instance

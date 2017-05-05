@@ -21,16 +21,38 @@ class SafeZoneController: UIViewController {
     var dataISexit: Bool = true
     var disposeBag = DisposeBag()
     
-    //var fenceArray: [NSDictionary]?
     var fences: [KidSate.ElectronicFencea] = []
+    
+//    //缓冲
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        if !self.fences.isEmpty
+//        {
+//            let model:NSData = NSKeyedArchiver.archivedData(withRootObject: self.fences) as NSData
+//            let cachePath2 = NSHomeDirectory() + "/Library/Caches" + "/safezoneDate.data"
+//            model.write(toFile: cachePath2, atomically: true)
+//        }
+//        
+//        
+//    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.reloadData()
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
+     
+//        let cachePath2 = NSHomeDirectory() + "/Library/Caches" + "/safezoneDate1.data"
+//        let a = NSKeyedUnarchiver.unarchiveObject(withFile: cachePath2) as! [KidSate.ElectronicFencea]
+//        if a.count>0
+//        {
+//            self.fences = a
+//        }
         
         safezoneQutlet.rx.tap
             .asDriver()
@@ -40,12 +62,7 @@ class SafeZoneController: UIViewController {
        tableview.delegate = self
        tableview.dataSource = self
 //------------------------------------------------------------------------------------------------------------
-        
-       
-        //缺省
-        self.dataISexit = !self.fences.isEmpty
-        self.tableview.isHidden = !dataISexit
-        
+    
         tableview.register(R.nib.safezoneCell(), forCellReuseIdentifier: R.reuseIdentifier.safezonecell.identifier)
     }
     
@@ -69,6 +86,7 @@ class SafeZoneController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }else{
             if let vc = R.storyboard.major.addSafeZoneVC() {
+                vc.fences = self.fences
                 self.navigationController?.show(vc, sender: nil)
             }
         }
@@ -122,10 +140,10 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         
         if editingStyle == .delete {
             //删除
-            LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids!).bindNext {
+            LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids ?? "").bindNext {
                 print($0)
                 self.fences.remove(at: indexPath.row)
-                self.tableview.deleteRows(at: [indexPath], with: .top)
+//                self.tableview.deleteRows(at: [indexPath], with: .top)
                 self.tableview.reloadData()
                 }.addDisposableTo(disposeBag)
             

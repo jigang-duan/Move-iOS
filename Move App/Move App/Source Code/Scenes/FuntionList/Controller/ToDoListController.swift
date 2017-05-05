@@ -72,7 +72,7 @@ class ToDoListController: UITableViewController {
             endTimeVariabel.value = (todo?["end"] as? Date)!
          
             repeatStateVariable.value = repeatcountInt(Intt: (todo?["repeat"] as? Int)!)
-            back.isHidden = true
+//            back.isHidden = true
         }
         
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
@@ -242,7 +242,24 @@ class ToDoListController: UITableViewController {
     }
 
     @IBAction func backAction(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
+        if todo != nil{
+           
+            let _ = KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String ?? "", content: todo?["content"] as? String ?? "", start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!)))).subscribe(onNext:
+                {
+                    print($0)
+                    if $0 {
+                        let _ = self.navigationController?.popViewController(animated: true)
+                    }else{
+                        print("网络错误重新")
+                    }
+            }).addDisposableTo(self.disposeBag)
+
+        }
+        let time: TimeInterval = 0.7
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+            //code
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -270,6 +287,7 @@ class ToDoListController: UITableViewController {
 
     private func selectBeginTime() {
         self.datePicker.datePickerMode = .dateAndTime
+        self.datePicker.minimumDate = Date.today().startDate
         self.beginTimeQutle.isSelected = true
         self.endTimeQutle.isSelected = false
         self.datePicker.date = beginTime
@@ -278,6 +296,8 @@ class ToDoListController: UITableViewController {
     
     private func selectEndTime() {
         self.datePicker.datePickerMode = .time
+        self.datePicker.date = beginTime
+        self.datePicker.minimumDate = beginTime
         self.endTimeQutle.isSelected = true
         self.beginTimeQutle.isSelected = false
         self.datePicker.date = endTime

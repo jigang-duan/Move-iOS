@@ -48,10 +48,10 @@ class AlarmController: UIViewController {
         if alarms != nil {
             self.datePickerOulet.date = (alarms?["alarms"] as? Date ?? nil)!
             self.weekOutlet.weekSelected = (alarms?["dayFromWeek"] as? [Bool] ?? nil)!
-           back.isHidden = true
+//           back.isHidden = true
         }
        
-        
+        back.addTarget(self, action: "back", for: .touchUpInside)
         
         self.datePickerOulet.timeZone = TimeZone(secondsFromGMT: 0)
         
@@ -86,12 +86,31 @@ class AlarmController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: Any) {
-         _ = self.navigationController?.popViewController(animated: true)
+        if alarms != nil{
+           
+            let _ = KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: (alarms?["alarms"] as? Date ?? nil)!, day: (alarms?["dayFromWeek"] as? [Bool] ?? nil)!, active: true)).subscribe(onNext:
+                {
+                    print($0)
+                    if $0 {
+                        
+                    }else{
+                        
+                    }
+            }).addDisposableTo(self.disposeBag)
+            
+        }
+        let time: TimeInterval = 0.7
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+            //code
+             _ = self.navigationController?.popViewController(animated: true)
+        }
+        
+        
     }
     
     func back(_ $: Bool) {
         if $ {
-            _ = self.navigationController?.popViewController(animated: true)
+              _ = self.navigationController?.popViewController(animated: true)
         }
     }
 

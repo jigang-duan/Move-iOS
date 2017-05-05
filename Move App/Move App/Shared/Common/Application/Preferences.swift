@@ -43,19 +43,19 @@ class Preferences {
         }
     }
 
-    var mkAPNFirst: Bool {
+    var mksafezoneFrist: Bool {
         get {
-            let result = UserDefaults.standard.value(forKey: mkAPNFirst_K) as? Bool
+            let result = UserDefaults.standard.value(forKey: mksafezone_K) as? Bool
             return result ?? true
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: mkAPNFirst_K)
+            UserDefaults.standard.set(newValue, forKey: mksafezone_K)
         }
     }
 
     private let mkChatFirst_K = "mark:ChatFirst"
     private let mkSchoolTimeFirst_K = "mark:SchoolTimeFirst"
     private let mkAlarmFirst_K = "mark:AlarmFrist"
-    private let mkAPNFirst_K = "mark:mkAPNFirst"
+    private let mksafezone_K = "mark:safezoneFrist"
     
 }

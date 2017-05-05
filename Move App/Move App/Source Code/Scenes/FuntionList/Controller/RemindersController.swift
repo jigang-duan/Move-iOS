@@ -68,7 +68,7 @@ class RemindersController: UIViewController {
         timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
 
-        
+            
     }
     func loadData() {
         viewModel = RemindersViewModel(
@@ -113,8 +113,7 @@ class RemindersController: UIViewController {
         self.tableViw.delegate = self
         self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
         calendar.select(calendar.today)
-        
-        timeSelectBtn.setTitle("Today", for: .normal)
+        timeSelectBtn.setTitle(DateUtility.todayy(), for: .normal)
     }
     
     func calenderIsOpen() {
@@ -145,16 +144,18 @@ class RemindersController: UIViewController {
     }
     
     func changeBtnType(time : Int , date : Date){
-        if time == 1 {
-            timeSelectBtn.setTitle("Tomorrow", for: .normal)
-        }else if time == -1 {
-            timeSelectBtn.setTitle("Yesterday", for: .normal)
-        }else if time == 0{
-            timeSelectBtn.setTitle("Today", for: .normal)
-        }else{
+//        if time == 1 {
+//            timeSelectBtn.setTitle("Tomorrow", for: .normal)
+//        }else if time == -1 {
+//            timeSelectBtn.setTitle("Yesterday", for: .normal)
+////        }else if time == 0{
+////            timeSelectBtn.setTitle("Today", for: .normal)
+//        }else{
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: .normal)
-        }
+//        }
+       self.tableViw.reloadData()
+       
     }
 
     func calenderConversion(from : Date , to : Date) -> Int {
@@ -190,8 +191,16 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.alarms?.count ?? 0) + (self.todos?.count ?? 0)
+//        var index = 0
+//        for i in 0 ..< (self.todos?.count ?? 0)
+//        {
+//            if timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
+//                //记住此 i
+//                index += 1
+//            }
+//        }
         
+        return (self.alarms?.count ?? 0) + (self.todos?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -208,10 +217,16 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
 //            _cell.accviewBtn.isOn = self.alarms?[indexPath.row]["active"] as! Bool
         }
         else {
-            _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
-            _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("--")\(DateUtility.dateTostringMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
-            _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
-            _cell.accviewBtn.isHidden = true
+//            if timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))
+//            {
+
+                _cell.titleLabel?.text = self.todos?[indexPath.row-(self.alarms?.count)!]["topic"] as? String
+                _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["start"] as! Date)))\("--")\(DateUtility.dateTostringMMdd(date: (self.todos?[indexPath.row-(self.alarms?.count)!]["end"] as! Date)))"
+                _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
+                _cell.accviewBtn.isHidden = true
+//            }
+            
+            
         }
         
         return _cell
@@ -267,9 +282,14 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                             self.deleteTap.value += 1
                         }
                     })
+                if let popoverController = alertController.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
+                }
                     alertController.addAction(cancelAction)
                     alertController.addAction(deletThis)
                     alertController.addAction(deletall)
+//
                     self.present(alertController, animated: true, completion: nil)
             }
             else
@@ -289,9 +309,15 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                             self.deleteTap.value += 1
                         }
                     })
+                    if let popoverController = alertController.popoverPresentationController {
+                        popoverController.sourceView = self.view
+                        popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
+                    }
+
                     alertController.addAction(cancelAction)
                     alertController.addAction(deletThis)
                     alertController.addAction(deletall)
+                   
                     self.present(alertController, animated: true, completion: nil)
                 }else
                 {

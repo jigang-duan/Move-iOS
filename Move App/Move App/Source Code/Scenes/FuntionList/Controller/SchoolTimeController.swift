@@ -206,7 +206,7 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectAmEndTime() {
-        self.datepicke.minimumDate = self.amMin
+        self.datepicke.minimumDate = amStartTime + 60
         self.datepicke.maximumDate = self.amMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = true
@@ -228,7 +228,7 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectPmEndTime() {
-        self.datepicke.minimumDate = self.pmMin
+        self.datepicke.minimumDate = pmStartTime + 60
         self.datepicke.maximumDate = self.pmMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
@@ -270,20 +270,7 @@ class SchoolTimeController: UIViewController {
          datePickView.isHidden = true
  
      }
-    //                if (self?.openSchoolSwitch.isOn)! {
-    //                    if  (self?.amStartTime)! > (self?.amEndTime)! {
-    //                        let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
-    //                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                        alertController.addAction(okActiojn)
-    //                        self?.present(alertController, animated: true)
-    //                    }else if (self?.pmStartTime)! > (self?.pmEndTime)! {
-    //                        let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
-    //                        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                        alertController.addAction(okActiojn)
-    //                        self?.present(alertController, animated: true)
-    //                    }else
-    //                }
-    
+
     private func comfirmDatepicker() {
         if amStartTimeOutlet.isSelected {
             if self.amStartTime == Date(timeIntervalSince1970: 0){

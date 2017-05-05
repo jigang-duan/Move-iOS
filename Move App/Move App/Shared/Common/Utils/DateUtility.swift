@@ -34,6 +34,15 @@ class DateUtility {
        return dformatter.date(from: todayString)!
     }
     
+    static func todayy() -> String {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "yyyy-MM-dd"
+        let todayString: String = dformatter.string(from: Date.today().startDate)
+        
+        return todayString
+    }
+    
     static func today18half() -> Date {
         
         let dformatter = DateFormatter()
@@ -44,7 +53,7 @@ class DateUtility {
         
         return dformatter.date(from: todayString)!
     }
-
+    
     
     static func dateTostringHHmm(date: Date?) -> String {
         
@@ -58,6 +67,13 @@ class DateUtility {
         
         let dformatter = DateFormatter()
         dformatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
+        
+    }
+    static func dateTostringyyMMddd(date: Date?) -> String {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "yyyy-MM-dd"
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         
     }

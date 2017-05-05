@@ -110,6 +110,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
 //            self.currentRadius = (self.editFenceDataSounrce?.radius)!
             RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
+            self.currentRadius = Double(safeZoneSlider.value)
+            self.drawOverlay(radius: self.currentRadius)
             let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
             self.mainMapView.addAnnotation(annotion)
             if self.circleOverlay == nil
@@ -382,10 +384,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             (action : UIAlertAction!) -> Void in
         })
         
-//        alertController.addTextField { (textField : UITextField!) -> Void in
-//            self.nameTextField = textField
-//            self.nameTextField.placeholder = "Enter Name"
-//        }
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
@@ -399,27 +397,43 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
             if self.kidnameTF.text != "" {
-                var fenceloc : MoveApi.Fencelocation? = nil
-                var fenceinfo : MoveApi.FenceInfo? = nil
-                var fencereq : MoveApi.FenceReq? = nil
-                if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
-                    fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.address)
-                }else{
-                    fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+                var asSame = false
+                for i in 0..<self.fences.count {
+                        if self.fences[i].name == self.kidnameTF.text {
+                            asSame = true
+                        
+                    }
+                }
+                if asSame {
+                    self.errorshow(message: "Enter a new, previously unused name.")
+                }else
+                {
+                    var fenceloc : MoveApi.Fencelocation? = nil
+                    var fenceinfo : MoveApi.FenceInfo? = nil
+                    var fencereq : MoveApi.FenceReq? = nil
+                    if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
+                        fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.address)
+                    }else{
+                        fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+                    }
+                    
+                    fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
+                    fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                    
+                    MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
+                        print($0)
+                        if $0.msg != "ok" {
+                            self.errorshow(message: $0.field!)
+                        }else{
+                            let _ = self.navigationController?.popViewController(animated: true)
+                        }
+                        }.addDisposableTo(self.disposeBag)
+                }
+
                 }
                 
-                fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
-                fencereq = MoveApi.FenceReq(fence : fenceinfo)
-                
-                MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
-                    print($0)
-                    if $0.msg != "ok" {
-                        self.errorshow(message: $0.field!)
-                    }else{
-                      let _ = self.navigationController?.popViewController(animated: true)
-                    }
-                    }.addDisposableTo(self.disposeBag)
-            }
+            
+            //截断else
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
