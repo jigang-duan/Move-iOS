@@ -316,6 +316,7 @@
 		FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */; };
 		FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */; };
 		FFF5BD701E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */; };
+		FFFF62921EBC77FF00EC22F3 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFF62911EBC77FF00EC22F3 /* ProgressHUD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -687,6 +688,7 @@
 		FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsListController.swift; sourceTree = "<group>"; };
 		FFF5BD6D1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberTableViewCell.swift; sourceTree = "<group>"; };
 		FFF5BD6E1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FamilyMemberTableViewCell.xib; sourceTree = "<group>"; };
+		FFFF62911EBC77FF00EC22F3 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1254,6 +1256,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				FFFF62901EBC77FF00EC22F3 /* ProgressHUD */,
 				118BA86A1E7D2AB9003C3C13 /* AFImageHelper */,
 				11EAC2FE1E6D796F002906F1 /* UUChat */,
 				E03B1C541E53E8C4006EDB7B /* Popover */,
@@ -2045,6 +2048,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		FFFF62901EBC77FF00EC22F3 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				FFFF62911EBC77FF00EC22F3 /* ProgressHUD.swift */,
+			);
+			name = ProgressHUD;
+			path = Vendor/ProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2622,6 +2634,7 @@
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,
 				D2E5E8551E5D69280024D20C /* (null) in Sources */,
 				E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */,
+				FFFF62921EBC77FF00EC22F3 /* ProgressHUD.swift in Sources */,
 				FF2F1B6E1E9F9131007F6B30 /* ContactUsController.swift in Sources */,
 				FFB543B11E7175DD00E11F5A /* MeSettingController.swift in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,

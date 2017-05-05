@@ -144,7 +144,7 @@ class UserInfo {
         var phone: String?
         
         var iconUrl: String?
-        var gender: String?
+        var gender: String?//"0":男  "1":女
         var height: Int?
         var weight: Int?
         var heightUnit: UnitType?

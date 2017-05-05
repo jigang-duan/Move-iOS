@@ -266,7 +266,27 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
             return
         }
         
-        //绑定普通用户
+        //绑定普通用户,先检查手表是否已存在
+        DeviceManager.shared.getContacts(deviceId: info.deviceId!)
+            .subscribe(onNext: { cons in
+                let flag = cons.map({$0.uid}).contains(where: { uid -> Bool in
+                    return uid == UserInfo.shared.id
+                })
+                if flag == true {
+                    self.showMessage("This watch is existed")
+                }else{
+                    self.goPairWithGeneral(with: info)
+                }
+            }, onError: { error in
+                self.goPairWithGeneral(with: info)
+            })
+            .addDisposableTo(disposeBag)
+       
+    }
+    
+    
+    //去绑定普通用户
+    func goPairWithGeneral(with info: DeviceBindInfo) {
         let vc = R.storyboard.main.phoneNumberController()!
         vc.deviceAddInfo = info
         
@@ -278,7 +298,6 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
             vc.isForCheckNumber = true
         }
         self.navigationController?.show(vc, sender: nil)
-
     }
  
     
