@@ -192,9 +192,42 @@ class RemindersController: UIViewController {
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: .normal)
 //        }
+        //获取周 0 - 6 == 1 - 日
+        print(DateUtility.getDateWeekDay(date: date as NSDate))
+        //获取日  every month3 ,every week2, every day1 ,never0
+        print(DateUtility.getDay(date: date as NSDate))
+        
         self.fifleremeder?.removeAll()
         for i in 0 ..< (self.todos?.count ?? 0)!
         {
+            if self.timeSelectBtn.titleLabel?.text != (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
+            switch self.todos?[i]["repeat"] as! Int {
+            case 0:
+               print(self.todos?[i]["repeat"] as! Int)
+                break
+            case 1:
+                    self.fifleremeder?.append((self.todos?[i])!)
+                break
+            case 2:
+                
+                    if (DateUtility.getDateWeekDay(date: date as NSDate) + 1) == DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate))
+                        {
+                            self.fifleremeder?.append((self.todos?[i])!)
+                    }
+                
+                break
+            case 3:
+                if DateUtility.getDay(date: date as NSDate) == DateUtility.getDay(date: (self.todos?[i]["start"] as! NSDate))
+                {
+                    self.fifleremeder?.append((self.todos?[i])!)
+                }
+                
+                break
+            default:
+                break
+                }
+            }
+            //加当天
             if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
                 self.fifleremeder?.append((self.todos?[i])!)
             }
@@ -282,9 +315,18 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         }
         else
         {
+            var fifleretodo = self.fifleremeder
+            for i in 0 ..< (self.fifleremeder?.count)!
+            {
+                if self.fifleremeder?[i] == self.fifleremeder?[indexPath.row]
+                {
+                    fifleretodo?.remove(at: i)
+                }
+            }
+            
             if let vc = R.storyboard.account.addTodo() {
                 vc.todo = self.fifleremeder?[indexPath.row]
-                vc.todos = (self.fifleremeder ?? nil)!
+                vc.todos = (fifleretodo ?? nil)!
                 self.navigationController?.show(vc, sender: nil)
             }
             
@@ -328,7 +370,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
             }
             else
             {
-                if (self.todos?[indexPath.row]["repeat"] as? Int)! != 0
+                if (self.fifleremeder?[indexPath.row]["repeat"] as? Int)! != 0
                 {
                     let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: .actionSheet)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

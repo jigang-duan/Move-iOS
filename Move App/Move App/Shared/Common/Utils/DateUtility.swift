@@ -155,6 +155,35 @@ class DateUtility {
         
         return date as Date
     }
+    //日期处理
+    //星期获取
+    static func getDateWeekDay(date: NSDate) ->Int {
+        
+        let dateFmt         = DateFormatter()
+        
+        dateFmt.dateFormat  = "yyyy-MM-dd HH:mm:ss"
+        
+        let interval        = Int(date.timeIntervalSince1970)
+        
+        let days            = Int(interval/86400)
+        
+        let weekday         = ((days + 4)%7+7)%7
+        
+        return weekday
+        
+    }
+    //日 获取
+    static func getDay(date: NSDate) ->Int {
+        
+        let calendar = NSCalendar.current
+        
+        //这里注意 swift要用[,]这样方式写
+        
+        let dateComponents = calendar.dateComponents([.year,.month,.day, .weekday, .hour, .minute,.second], from: date as Date)
+        
+        return dateComponents.day!
+        
+    }
     
     
     
