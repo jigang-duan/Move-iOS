@@ -76,10 +76,11 @@ class MessageServer {
             
             messageObservable
                 .filter { $0.from != uid }
-                //.bindNext({ (_) in AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) })
-                .bindNext({ (_) in AudioServicesPlaySystemSound(1007) })
+                .bindNext({ (_) in
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                    AudioServicesPlaySystemSound(1007)
+                })
                 .addDisposableTo(disposeBag)
-
             
             let reNotice = syncData.map { $0.notices }
                 .filterNil()

@@ -16,7 +16,6 @@ import RealmSwift
 import MessageUI
 import CustomViews
 
-
 class MainMapController: UIViewController {
     
     var disposeBag = DisposeBag()
@@ -53,6 +52,12 @@ class MainMapController: UIViewController {
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.showFeatureGudieView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -238,6 +243,27 @@ class MainMapController: UIViewController {
 
 
 extension MainMapController {
+    
+    fileprivate func showFeatureGudieView() {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            let headItem = EAFeatureItem(focus: headPortraitOutlet,
+                                         focusCornerRadius: headPortraitOutlet.frame.width/2 ,
+                                         focus: UIEdgeInsets.zero)
+            headItem?.actionTitle = "I Know"
+            headItem?.introduce = "Tap here to change watch"
+            headItem?.action = { _ in
+                let navItem = EAFeatureItem(focus: self.addressOutlet,
+                                            focusCornerRadius: 6 ,
+                                            focus: UIEdgeInsets.zero)
+                navItem?.actionTitle = "I Know"
+                navItem?.introduce = "Tap here to navigate"
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+                    self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
+                })
+            }
+            self.view.show(with: [headItem!], saveKeyName: "mark:main_map:head", inVersion: version)
+        }
+    }
     
     fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
         
