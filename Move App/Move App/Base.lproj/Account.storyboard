@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -768,7 +767,7 @@
                                             <constraint firstAttribute="height" constant="45" id="HSM-Tp-fGx"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1325,55 +1324,36 @@
                                     <outlet property="delegate" destination="Y1x-Oo-cZ5" id="Hiy-3s-vMe"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMk-Mw-gH3" userLabel="quesheng">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="school_time_ic" translatesAutoresizingMaskIntoConstraints="NO" id="1gd-zn-pbg">
-                                        <rect key="frame" x="82" y="139" width="210" height="210"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="210" id="LvU-XL-JD0"/>
-                                            <constraint firstAttribute="height" constant="210" id="ONu-9P-MH7"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reminder here,tap&quot;+&quot;to add a alarm or todo." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ET-Qe-7jW">
-                                        <rect key="frame" x="82" y="349" width="210" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="210" id="fuk-bV-p50"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="8ET-Qe-7jW" firstAttribute="centerX" secondItem="KMk-Mw-gH3" secondAttribute="centerX" id="KoM-pS-pw8"/>
-                                    <constraint firstItem="1gd-zn-pbg" firstAttribute="centerX" secondItem="KMk-Mw-gH3" secondAttribute="centerX" id="k36-89-QWX"/>
-                                    <constraint firstItem="1gd-zn-pbg" firstAttribute="centerY" secondItem="KMk-Mw-gH3" secondAttribute="centerY" constant="-57.5" id="pDp-nZ-DAy"/>
-                                    <constraint firstItem="8ET-Qe-7jW" firstAttribute="top" secondItem="1gd-zn-pbg" secondAttribute="bottom" id="vQR-yN-eQA"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0Gs-xm-bSJ" secondAttribute="trailing" id="1IA-bE-PAS"/>
                             <constraint firstItem="vTV-gS-blv" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="1pk-Pg-mnB"/>
-                            <constraint firstAttribute="trailing" secondItem="KMk-Mw-gH3" secondAttribute="trailing" id="5aS-uS-yOy"/>
                             <constraint firstItem="0Gs-xm-bSJ" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="8Db-PR-zP1"/>
-                            <constraint firstItem="e6v-Tn-N1g" firstAttribute="top" secondItem="KMk-Mw-gH3" secondAttribute="bottom" id="Piu-m4-uT5"/>
                             <constraint firstItem="e6v-Tn-N1g" firstAttribute="top" secondItem="0Gs-xm-bSJ" secondAttribute="bottom" id="S1t-8r-a3R"/>
-                            <constraint firstItem="KMk-Mw-gH3" firstAttribute="top" secondItem="jUE-lf-gSd" secondAttribute="top" id="Unc-Md-q41"/>
                             <constraint firstAttribute="trailing" secondItem="W4Q-sD-BuR" secondAttribute="trailing" id="YJP-VC-UZ1"/>
                             <constraint firstAttribute="trailing" secondItem="vTV-gS-blv" secondAttribute="trailing" id="YvA-gv-p9D"/>
                             <constraint firstItem="0Gs-xm-bSJ" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" constant="10" id="fxe-Vw-YaX"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="jZq-6O-1Td"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" id="kQF-oZ-xi3"/>
                             <constraint firstItem="vTV-gS-blv" firstAttribute="top" secondItem="Jt5-EY-98r" secondAttribute="bottom" id="r75-LV-E2w"/>
-                            <constraint firstItem="KMk-Mw-gH3" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="xmW-aY-YIB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Reminder" id="0xG-rs-fIC">
-                        <barButtonItem key="backBarButtonItem" title=" " id="Z23-wM-tur"/>
+                    <navigationItem key="navigationItem" id="0xG-rs-fIC">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="inP-0C-WGb">
+                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Alarm"/>
+                                <segment title="To do list"/>
+                            </segments>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="bkw-f6-RTn">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZzH-qo-NoQ" userLabel="add">
                                 <rect key="frame" x="341" y="11" width="18" height="22"/>
@@ -1386,12 +1366,13 @@
                     <connections>
                         <outlet property="addOutlet" destination="ZzH-qo-NoQ" id="Z5R-Xb-INc"/>
                         <outlet property="calendar" destination="W4Q-sD-BuR" id="UuB-MR-jVG"/>
-                        <outlet property="queshengView" destination="KMk-Mw-gH3" id="M9V-ZT-swo"/>
-                        <outlet property="reminderTitleItem" destination="0xG-rs-fIC" id="gQF-Pr-rdX"/>
+                        <outlet property="dateView" destination="vTV-gS-blv" id="vSp-dm-MKn"/>
                         <outlet property="tableViw" destination="0Gs-xm-bSJ" id="6E7-6o-KQ2"/>
+                        <outlet property="tableviewtopConstraint" destination="fxe-Vw-YaX" id="346-cL-CvL"/>
                         <outlet property="timeBackBtn" destination="X98-vf-cBC" id="e2s-in-PQq"/>
                         <outlet property="timeNextBtn" destination="ig8-eO-M8o" id="ybG-qE-ea3"/>
                         <outlet property="timeSelectBtn" destination="pyJ-Ql-0q7" id="5Mt-pd-LA0"/>
+                        <outlet property="titleSegment" destination="inP-0C-WGb" id="xVm-tR-fNi"/>
                         <segue destination="dFl-6N-J8V" kind="show" identifier="showAlarm" id="mS0-Ea-I4R"/>
                         <segue destination="SCd-7s-CnS" kind="show" identifier="showTodolist" id="SeZ-Dj-7Jf"/>
                     </connections>
@@ -2269,7 +2250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6NI-uf-pQE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3476" y="3933"/>
+            <point key="canvasLocation" x="3294" y="3903"/>
         </scene>
         <!--Update-->
         <scene sceneID="gQD-cU-O4o">
@@ -2390,7 +2371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9vD-8c-s3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4536.8000000000002" y="3926.9865067466271"/>
+            <point key="canvasLocation" x="4628" y="3912"/>
         </scene>
         <!--School time-->
         <scene sceneID="a8T-ne-vuv">
@@ -2778,6 +2759,14 @@
                                     <constraint firstAttribute="height" constant="64" id="ygF-WB-JcA"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ux8-aY-qbM">
+                                <rect key="frame" x="164.5" y="234" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="TtW-s7-sTi"/>
+                                    <constraint firstAttribute="height" constant="30" id="h0d-IG-nab"/>
+                                </constraints>
+                                <state key="normal" title="Help"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -2786,7 +2775,9 @@
                             <constraint firstItem="RUh-hR-ucg" firstAttribute="leading" secondItem="iiq-7d-hKL" secondAttribute="leading" id="JfW-sf-BOi"/>
                             <constraint firstItem="Xeo-Hp-YkO" firstAttribute="top" secondItem="NgA-kS-hhx" secondAttribute="bottom" id="M4e-VB-yHD"/>
                             <constraint firstItem="Xeo-Hp-YkO" firstAttribute="leading" secondItem="iiq-7d-hKL" secondAttribute="leading" id="TGP-K2-1HX"/>
+                            <constraint firstItem="ux8-aY-qbM" firstAttribute="centerX" secondItem="iiq-7d-hKL" secondAttribute="centerX" id="XPH-f2-Lcv"/>
                             <constraint firstItem="VW0-Wr-5db" firstAttribute="centerX" secondItem="iiq-7d-hKL" secondAttribute="centerX" id="aZw-IY-DnI"/>
+                            <constraint firstItem="ux8-aY-qbM" firstAttribute="top" secondItem="RUh-hR-ucg" secondAttribute="bottom" constant="20" id="d7g-JS-20P"/>
                             <constraint firstAttribute="trailing" secondItem="RUh-hR-ucg" secondAttribute="trailing" id="k6B-0p-hdH"/>
                             <constraint firstItem="RUh-hR-ucg" firstAttribute="top" secondItem="Xeo-Hp-YkO" secondAttribute="bottom" id="kYB-KK-4JC"/>
                             <constraint firstAttribute="trailing" secondItem="VW0-Wr-5db" secondAttribute="trailing" id="nDc-Ek-uqW"/>
@@ -2795,27 +2786,17 @@
                     </view>
                     <navigationItem key="navigationItem" title="School time" id="p9l-sD-KKe">
                         <barButtonItem key="backBarButtonItem" title=" " id="aUv-SC-CaJ"/>
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="G60-48-tF7">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GCz-ZA-SbJ">
-                                    <rect key="frame" x="319" y="7" width="40" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="save"/>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="zen-cZ-Khw">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zJP-de-Kow" userLabel="help">
-                                    <rect key="frame" x="285" y="11" width="26" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="nav_help_nor"/>
-                                    <state key="highlighted" image="nav_help_pre"/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="G60-48-tF7">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GCz-ZA-SbJ">
+                                <rect key="frame" x="319" y="7" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="save"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="NullQutlet" destination="DI4-P7-idi" id="5Ng-yN-eNv"/>
+                        <outlet property="NullQutlet" destination="DI4-P7-idi" id="11T-Cp-JJE"/>
                         <outlet property="amEndTimeOutlet" destination="GQY-Ma-XhY" id="w2G-3d-78u"/>
                         <outlet property="amOutlet" destination="OV5-VC-7GA" id="uOj-H2-YJ4"/>
                         <outlet property="amStartTimeOutlet" destination="q2I-sz-T33" id="YNo-rv-j6c"/>
@@ -2824,7 +2805,7 @@
                         <outlet property="confirmOutlet" destination="pjW-TN-Wp5" id="dEA-19-tRW"/>
                         <outlet property="datePickView" destination="VW0-Wr-5db" id="aLu-fV-2e0"/>
                         <outlet property="datepicke" destination="92a-ud-nY8" id="Fgc-pG-DsU"/>
-                        <outlet property="helpBtnQutlet" destination="zJP-de-Kow" id="d5e-mX-MYb"/>
+                        <outlet property="helpBtnQutlet" destination="ux8-aY-qbM" id="SEw-sD-9J7"/>
                         <outlet property="openSchoolSwitch" destination="MoX-h8-kRO" id="HA9-ZD-Zdr"/>
                         <outlet property="openschooltimeLabel" destination="V9D-qA-VHF" id="RpS-0K-8HZ"/>
                         <outlet property="pmEndTimeOutlet" destination="vDL-nF-JZK" id="8Kd-cB-jw2"/>
@@ -2879,8 +2860,6 @@
         <image name="nav_add_pre" width="18" height="18"/>
         <image name="nav_back_nor" width="18" height="18"/>
         <image name="nav_back_pre" width="18" height="18"/>
-        <image name="nav_help_nor" width="18" height="18"/>
-        <image name="nav_help_pre" width="18" height="18"/>
         <image name="relationship_ic_sister" width="36" height="36"/>
         <image name="school_time_ic" width="210" height="210"/>
     </resources>

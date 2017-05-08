@@ -43,14 +43,20 @@ class RemindersCell: UITableViewCell {
             if let model = self.model {
                 
                 //把vomdel 的所有信息导，和isOn
-                var vmodel = model
+                let vmodel = model
                 print(isOn)
                 print(vmodel)
                 self.delegate?.switchDid(cell: self, model: vmodel)
-                
-                
-                
-                
+                let _ = KidSettingsManager.shared.updateAlarm(KidSetting.Reminder.Alarm(alarmAt: (vmodel["alarms"] as? Date ?? nil)!, day: (vmodel["dayFromWeek"] as? [Bool])!, active: vmodel["active"] as? Bool), new: KidSetting.Reminder.Alarm(alarmAt: (vmodel["alarms"] as? Date ?? nil)!, day: (vmodel["dayFromWeek"] as? [Bool])!, active: isOn))
+                    .subscribe(onNext:
+                        {
+                            print($0)
+                            if $0 {
+                                
+                            }else{
+                                
+                            }
+                    }).addDisposableTo(self.disposeBag)
             }
         }
     }

@@ -51,27 +51,32 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .catchError(errorHandle)
     }
     
-//    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
-//    {
-//        return MoveApi.Device
-//            .getSetting(deviceId: deviceId)
-//            .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
-//                var _setting = settings
-//                let oldTodo = self.unwrappingTodo(old)
-//                let newTodo = self.unwrappingTodo(new)
-//                if let todos = _setting.reminder?.todo {
-//                    for (index, todo) in todos.enumerated() {
-//                        if todo == oldTodo {
-//                            _setting.reminder?.todo?.remove(at: index)
-//                            _setting.reminder?.todo?.insert(newTodo, at: index)
-//                            break
-//                        }
-//                    }
-//                }
-//                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
-//            })
-//            .map({ $0.id == 0 })
-//    }
+    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
+    {
+        return MoveApi.Device
+            .getSetting(deviceId: deviceId)
+            .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
+                var _setting = settings
+                let oldTodo = self.unwrapping(todo: old)
+                let newTodo = self.unwrapping(todo: new)
+                if let todos = _setting.reminder?.todo {
+                    for (index, todo) in todos.enumerated() {
+                        if oldTodo.content == todo.content {
+                            if oldTodo.topic == todo.topic{
+                            _setting.reminder?.todo?.remove(at: index)
+                            _setting.reminder?.todo?.insert(newTodo, at: index)
+                            break
+                            }
+                        }
+                    }
+                }
+                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
+            })
+            .map(errorTransform)
+            .catchError(errorHandle)
+        
+        
+    }
 
     
     func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
@@ -288,7 +293,8 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
                 _setting.dst = summertime
                 _setting.auto_time = autotime
                 _setting.hour24 = hourformat
-                _setting.timezone = Timezone
+                
+                _setting.timezone = Date(timeIntervalSince1970: TimeInterval(2))
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })
             .map(errorTransform)
@@ -304,12 +310,7 @@ extension MoveApiKidSettingsWorker {
     func unwrapping(todo: KidSetting.Reminder.ToDo) -> MoveApi.Todo {
         return MoveApi.Todo(topic: todo.topic, content: todo.content, start: todo.start, end: todo.end, repeatCount: todo.repeatCount)
     }
-
-    
-    func unwrappingTodo(_ todo: KidSetting.Reminder.ToDo) -> MoveApi.Todo {
-        
-        return MoveApi.Todo(topic: todo.topic, content: todo.content, start: todo.start, end: todo.end, repeatCount: todo.repeatCount)
-    }
+//验证到此
     
     func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
         var days: [Int] = []

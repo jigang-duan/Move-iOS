@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import DZNEmptyDataSet
 
 class SafeZoneController: UIViewController {
     
@@ -46,7 +47,8 @@ class SafeZoneController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
-     
+        tableview.emptyDataSetSource = self
+        
 //        let cachePath2 = NSHomeDirectory() + "/Library/Caches" + "/safezoneDate1.data"
 //        let a = NSKeyedUnarchiver.unarchiveObject(withFile: cachePath2) as! [KidSate.ElectronicFencea]
 //        if a.count>0
@@ -72,8 +74,8 @@ class SafeZoneController: UIViewController {
             .bindNext {
                 self.fences = $0
                 self.tableview.reloadData()
-                self.dataISexit = !self.fences.isEmpty
-                self.tableview.isHidden = !self.dataISexit
+//                self.dataISexit = !self.fences.isEmpty
+//                self.tableview.isHidden = !self.dataISexit
             }
             .addDisposableTo(disposeBag)
     }
@@ -152,5 +154,14 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
 }
 
-
+extension SafeZoneController: DZNEmptyDataSetSource {
+    
+    func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
+        return R.image.school_time_ic()
+    }
+    
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+        return R.color.appColor.background()
+    }
+}
 

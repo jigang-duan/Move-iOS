@@ -45,7 +45,7 @@ class RemindersViewModel {
             .asDriver(onErrorJustReturn: KidSetting.Reminder())
         
         let delectReminder = input.delect
-            .withLatestFrom(reminderVariable.asDriver()).debug()
+            .withLatestFrom(reminderVariable.asDriver())
             .flatMapLatest({
                 manager.updateReminder($0)
                     .trackActivity(activitying)

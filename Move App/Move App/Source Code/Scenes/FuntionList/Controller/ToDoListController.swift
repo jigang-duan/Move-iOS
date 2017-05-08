@@ -31,7 +31,6 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var comfirmQutle: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var DatePickerView: UIView!
-    
 
     @IBOutlet weak var back: UIButton!
     
@@ -41,7 +40,8 @@ class ToDoListController: UITableViewController {
     
     var todo: NSDictionary?
     var todos: [NSDictionary?] = []
-     var isSame : Bool?
+    var isSame : Bool?
+    var isOldTodo: Bool?
     
     var disposeBag = DisposeBag()
     
@@ -63,7 +63,9 @@ class ToDoListController: UITableViewController {
         super.viewDidLoad()
        
         self.internationalization()
+        self.isOldTodo = false
         back.isHidden = false
+        
         if todo != nil{
             titleTextFieldQutle.text = todo?["topic"] as? String
             remarkTextFieldQutlet.text = todo?["content"] as? String
@@ -72,7 +74,7 @@ class ToDoListController: UITableViewController {
             endTimeVariabel.value = (todo?["end"] as? Date)!
          
             repeatStateVariable.value = repeatcountInt(Intt: (todo?["repeat"] as? Int)!)
-//            back.isHidden = true
+            self.isOldTodo = true
         }
         
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
@@ -175,6 +177,8 @@ class ToDoListController: UITableViewController {
     }
     
     func saveAction() {
+       
+        
         if self.beginTime == self.endTime{
             let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -217,15 +221,25 @@ class ToDoListController: UITableViewController {
                     alertController.addAction(okActiojn)
                     self.present(alertController, animated: true)
                     
-                }else
-                {
-                    self.isSame = false
-                   
                 }
             }
            
             
             if !self.isSame!{
+                
+             if self.isOldTodo!{
+                    
+                    let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String ?? "", content: todo?["content"] as? String ?? "", start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
+                        {
+                            print($0)
+                            if $0 {
+                                let _ = self.navigationController?.popViewController(animated: true)
+                            }else{
+                                print("网络错误重新")
+                            }
+                    }).addDisposableTo(self.disposeBag)
+             }else{
+     
             let _ = KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
                             {
                                 print($0)
@@ -236,30 +250,17 @@ class ToDoListController: UITableViewController {
                                 }
                         }).addDisposableTo(self.disposeBag)
             }
-        
+                
+            }
+//        -------
         }
-    
+        
     }
 
     @IBAction func backAction(_ sender: Any) {
-        if todo != nil{
-           
-            let _ = KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String ?? "", content: todo?["content"] as? String ?? "", start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!)))).subscribe(onNext:
-                {
-                    print($0)
-                    if $0 {
-                        let _ = self.navigationController?.popViewController(animated: true)
-                    }else{
-                        print("网络错误重新")
-                    }
-            }).addDisposableTo(self.disposeBag)
-
-        }
-        let time: TimeInterval = 0.7
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
-            //code
+        
             _ = self.navigationController?.popViewController(animated: true)
-        }
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
