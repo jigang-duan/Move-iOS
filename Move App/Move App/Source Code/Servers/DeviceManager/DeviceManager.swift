@@ -120,6 +120,13 @@ extension DeviceManager {
     func fetchTimezones(lng: String? = nil, lat: String? = nil) -> Observable<[TimezoneInfo]>  {
         return worker.fetchTimezones(lng: lng, lat: lat)
     }
+    
+    var power: Observable<Int> {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable.empty()
+        }
+        return worker.fetchPower(deviceId: deviceId)
+    }
 }
 
 
@@ -156,6 +163,8 @@ protocol DeviceWorkerProtocl {
     
     func addNoRegisterMember(deviceId: String, phone: String, profile: String?, identity: Relation) -> Observable<Bool>
     func fetchTimezones(lng: String?, lat: String?) -> Observable<[TimezoneInfo]>
+    
+    func fetchPower(deviceId: String) -> Observable<Int>
 }
 
 

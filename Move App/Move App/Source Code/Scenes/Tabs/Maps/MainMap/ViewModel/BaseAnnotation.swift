@@ -75,6 +75,7 @@ class TargetAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     
     var selected: Bool = false
+    var targetId: String?
     
     var name: String?
     var address: String?
@@ -100,6 +101,7 @@ class TargetAnnotation: NSObject, MKAnnotation {
         self.address = other.address
         self.url = other.url
         self.selected = other.selected
+        self.targetId = other.targetId
     }
 }
 
@@ -109,6 +111,7 @@ func ==(lhs: TargetAnnotation, rhs: TargetAnnotation) -> Bool {
         && lhs.name == rhs.name
         && lhs.address == rhs.address
         && lhs.url == rhs.url
+        && lhs.targetId == rhs.targetId
 }
 
 extension TargetAnnotation {

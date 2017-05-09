@@ -21,6 +21,8 @@ class AllKidsLocationController: UIViewController {
     @IBOutlet weak var navOutlet: UIButton!
     @IBOutlet weak var barItemOutlet: UIBarButtonItem!
     
+    var targetId = Variable("")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,16 +32,38 @@ class AllKidsLocationController: UIViewController {
             .map { (devices) in devices.flatMap { $0.deviceId } }
             .flatMapLatest { LocationManager.share.locations(deviceIDs: $0) }
         
-        let fetchAnnotations = Observable.combineLatest(RxStore.shared.deviceIdObservable, RxStore.shared.deviceInfosObservable, locations, resultSelector: transform)
+        RxStore.shared.deviceIdObservable
+            .bindTo(targetId)
+            .addDisposableTo(disposeBag)
         
-        let tap = barItemOutlet.rx.tap.asObservable()
+        let fetchAnnotations = Observable.combineLatest(targetId.asObservable().filterEmpty().debug(),
+                                                        RxStore.shared.deviceInfosObservable,
+                                                        locations,
+                                                        resultSelector: transform)
+        
+        let period = Observable<Int>.timer(1, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance).debug()
             .withLatestFrom(fetchAnnotations)
-        
-        let annotations = Observable.merge(fetchAnnotations, tap)
             .filterEmpty()
             .share()
         
-        annotations
+        let tap = barItemOutlet.rx.tap.asObservable()
+            .withLatestFrom(fetchAnnotations)
+            .filterEmpty()
+            .share()
+        
+        let annotations = Observable.merge(period, tap)
+            .filterEmpty()
+            .share().debug()
+        
+        period.single()
+            .map{ calculateCentreDistance($0) }
+            .bindNext({ [unowned self] in
+                let region = MKCoordinateRegionMakeWithDistance($0.0, $0.1, $0.1)
+                self.mapView.setRegion(region, animated: true)
+            })
+            .addDisposableTo(disposeBag)
+        
+        tap
             .map{ calculateCentreDistance($0) }
             .bindNext({ [unowned self] in
                 let region = MKCoordinateRegionMakeWithDistance($0.0, $0.1, $0.1)
@@ -71,6 +95,10 @@ class AllKidsLocationController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
+        didSelect.map { $0.targetId }.filterNil()
+            .bindTo(targetId)
+            .addDisposableTo(disposeBag)
+        
         let current = Observable.merge(selected, didSelect)
         
         current.map { $0.name }
@@ -86,9 +114,7 @@ class AllKidsLocationController: UIViewController {
         
         navOutlet.rx.tap.asObservable()
             .withLatestFrom(navlocations)
-            .bindNext {
-                MapUtility.navigation(originLocation: $1, toLocation: $0)
-            }
+            .bindNext { MapUtility.navigation(originLocation: $1, toLocation: $0) }
             .addDisposableTo(disposeBag)
     }
     
@@ -137,7 +163,8 @@ fileprivate func transform(currId: String, devices: [DeviceInfo], locations: [Ki
     for i in 0 ..< count {
         if let coordinate = locations[i].location {
             let anno = TargetAnnotation(coordinate, name: devices[i].user?.nickname, address: locations[i].address, url: devices[i].user?.profile)
-            anno.selected = devices[i].deviceId == currId
+            anno.targetId = devices[i].deviceId
+            anno.selected = anno.targetId == currId
             annotations.append(anno)
         }
     }

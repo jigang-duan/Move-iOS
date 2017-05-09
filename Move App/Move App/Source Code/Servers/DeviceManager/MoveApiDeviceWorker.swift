@@ -216,7 +216,9 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
             })
     }
     
-    
+    func fetchPower(deviceId: String) -> Observable<Int> {
+        return MoveApi.Device.getPower(deviceId: deviceId).map{ $0.power }.filterNil()
+    }
 }
 
 

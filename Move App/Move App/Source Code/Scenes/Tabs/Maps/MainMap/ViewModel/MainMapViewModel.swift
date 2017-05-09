@@ -84,18 +84,21 @@ class MainMapViewModel {
             .shareReplay(1)
         
         
-        let remindActivitying = ActivityIndicator()
-        self.remindActivityIn = activitying.asDriver()
+//        let remindActivitying = ActivityIndicator()
+//        self.remindActivityIn = remindActivitying.asDriver()
+        let remindActivitying = PublishSubject<Bool>()
+        self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         
         let errorSubject = PublishSubject<Error>()
         errorObservable = errorSubject.asObserver()
         
         remindSuccess = input.remindLocation
-            .throttle(1.0, scheduler: MainScheduler.instance).debug()
+            .throttle(1.0, scheduler: MainScheduler.instance)
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
+            .do(onNext: { _ in remindActivitying.onNext(true) })
             .flatMapLatest({
                 deviceManager.remindLocation(deviceId: $0)
-                    .trackActivity(remindActivitying)
+                    .delay(6.0, scheduler: MainScheduler.instance)
                     .do(onError: { errorSubject.onNext($0) })
                     .catchErrorJustReturn(false)
             })
@@ -106,15 +109,16 @@ class MainMapViewModel {
             .flatMapLatest ({
                 locationManager.currentLocation
                     .trackActivity(activitying)
-                    .trackActivity(remindActivitying)
+                    .do(onNext: { _ in remindActivitying.onNext(false) })
                     .catchErrorJustReturn(KidSate.LocationInfo())
             })
             .shareReplay(1)
         
-        currentProperty = period.withLatestFrom(currentDeviceId.asObservable())
+        currentProperty = period
+            .withLatestFrom(currentDeviceId.asObservable()).debug()
             .filterNil()
             .flatMapLatest ({
-                deviceManager.getProperty(deviceId: $0)
+                deviceManager.getProperty(deviceId: $0).debug()
                     .trackActivity(activitying)
                     .catchErrorJustReturn(DeviceProperty())
             })

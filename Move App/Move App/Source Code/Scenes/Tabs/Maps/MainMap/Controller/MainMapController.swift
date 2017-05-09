@@ -278,7 +278,7 @@ extension MainMapController {
                                             focus: UIEdgeInsets.zero)
                 navItem?.actionTitle = "I Know"
                 navItem?.introduce = "Tap here to navigate"
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
                     self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
                 })
             }
