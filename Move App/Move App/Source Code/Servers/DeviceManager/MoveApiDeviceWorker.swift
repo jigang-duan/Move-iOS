@@ -197,6 +197,26 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
             .map({ $0.id == 0 })
     }
     
+    //        获取时区信息
+    func fetchTimezones(lng: String?, lat: String?) -> Observable<[TimezoneInfo]> {
+        return MoveApi.Device.fetchTimezones(lng: lng, lat: lat)
+            .map({infos in
+                var tms: [TimezoneInfo] = []
+                for info in infos {
+                    var tm = TimezoneInfo()
+                    tm.id = info.id
+                    tm.lat = info.lat
+                    tm.lng = info.lng
+                    tm.gmtoffset = info.gmtoffset
+                    tm.countryname = info.countryname
+                    tm.timezoneId = info.timezoneId
+                    tms.append(tm)
+                }
+                return tms
+            })
+    }
+    
+    
 }
 
 

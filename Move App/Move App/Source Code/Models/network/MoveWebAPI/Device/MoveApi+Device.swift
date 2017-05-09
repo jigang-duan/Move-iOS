@@ -132,6 +132,11 @@ extension MoveApi {
             return MoveApi.Device.request(.checkVersion(checkInfo: checkInfo)).map(transformXml)
         }
         
+//        获取时区信息
+        final class func fetchTimezones(lng: String?, lat: String?) -> Observable<[Timezone]> {
+            return request(.fetchTimezones(lng: lng, lat: lat)).mapArray(Timezone.self)
+        }
+        
         enum API {
             case checkBind(deviceId: String)
             case add(deviceId: String, addInfo: DeviceAdd)
@@ -155,6 +160,7 @@ extension MoveApi {
             case addPower(deviceId: String, power: DevicePower)
             case getPower(deviceId: String)
             case checkVersion(checkInfo: DeviceVersionCheck)
+            case fetchTimezones(lng: String?, lat: String?)
         }
         
         
@@ -422,6 +428,8 @@ extension MoveApi.Device.API: TargetType {
             return "/v1.0/device/\(deviceId)/power"
         case .checkVersion:
             return "check.php"
+        case .fetchTimezones:
+            return "/v1.0/timezones"
         }
     }
     
@@ -430,7 +438,7 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add, .joinDeviceGroup, .sendNotify, .addNoRegisterMember:
             return .post
-        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .checkVersion:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .checkVersion, .fetchTimezones:
             return .get
         case .update, .setting, .settingContactInfo, .settingProperty, .addPower, .settingAdmin:
             return .put
@@ -466,12 +474,16 @@ extension MoveApi.Device.API: TargetType {
             return power.toJSON()
         case .checkVersion(let checkInfo):
             return checkInfo.toJSON()
+        case .fetchTimezones(let lng, let lat):
+            return ["lng":lng ?? "","lat":lat ?? ""]
         }
     }
     
     /// The method used for parameter encoding.
     var parameterEncoding: ParameterEncoding {
         if case MoveApi.Device.API.checkVersion = self {
+            return URLEncoding.queryString
+        }else if case MoveApi.Device.API.fetchTimezones = self {
             return URLEncoding.queryString
         }else{
             return JSONEncoding.default

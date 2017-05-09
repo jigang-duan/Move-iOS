@@ -121,7 +121,7 @@ extension MoveApi {
         var mute: Bool?
         var mute_time: [Any]?
         var ring: String?
-        var timezone: Date?
+        var timezone: Int?
         var roaming: Bool?
         var auto_answer: Bool?
         var save_power: Bool?
@@ -230,6 +230,16 @@ extension MoveApi {
         var checkSum: String?
         var fileVersion: String?
         var index: String?
+    }
+    
+    
+    struct Timezone {
+        var id: String?
+        var lng: Double?
+        var lat: Double?
+        var gmtoffset: Int?
+        var countryname: String?
+        var timezoneId: String?
     }
     
 }
@@ -507,7 +517,7 @@ extension MoveApi.DeviceSetting: Mappable {
          mute <- map["mute"]
          mute_time <- map["mute_time"]
          ring <- map["ring"]
-         timezone <- (map["timezone"], DateTransform())
+         timezone <- map["timezone"]
          roaming <- map["roaming"]
          auto_answer <- map["auto_answer"]
          save_power <- map["save_power"]
@@ -558,6 +568,20 @@ extension MoveApi.DeviceVersionCheck: Mappable {
         cltp <- map["cltp"]
         type <- map["type"]
         fv <- map["fv"]
+    }
+}
+
+extension MoveApi.Timezone: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        id <- map["_id"]
+        lng <- map["lng"]
+        lat <- map["lat"]
+        gmtoffset <- map["gmtoffset"]
+        countryname <- map["countryname"]
+        timezoneId <- map["TimeZoneId"]
     }
 }
 

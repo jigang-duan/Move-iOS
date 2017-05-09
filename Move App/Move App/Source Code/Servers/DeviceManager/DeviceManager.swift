@@ -117,6 +117,9 @@ extension DeviceManager {
     func addNoRegisterMember(deviceId: String, phone: String, profile: String?, identity: Relation) -> Observable<Bool>  {
         return worker.addNoRegisterMember(deviceId: deviceId, phone: phone, profile: profile, identity: identity)
     }
+    func fetchTimezones(lng: String? = nil, lat: String? = nil) -> Observable<[TimezoneInfo]>  {
+        return worker.fetchTimezones(lng: lng, lat: lat)
+    }
 }
 
 
@@ -152,6 +155,7 @@ protocol DeviceWorkerProtocl {
     func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool>
     
     func addNoRegisterMember(deviceId: String, phone: String, profile: String?, identity: Relation) -> Observable<Bool>
+    func fetchTimezones(lng: String?, lat: String?) -> Observable<[TimezoneInfo]>
 }
 
 
@@ -353,7 +357,14 @@ enum DeviceNotify: Int{
 
 
 
-
+struct TimezoneInfo {
+    var id: String?
+    var lng: Double?
+    var lat: Double?
+    var gmtoffset: Int?
+    var countryname: String?
+    var timezoneId: String?
+}
 
 
 

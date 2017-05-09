@@ -8,8 +8,10 @@
 
 import UIKit
 import CustomViews
+import RxSwift
+import RxCocoa
 
-class MeSettingController: UITableViewController {
+class MeSettingController: UIViewController {
     
     var settingSaveBlock: ((String?, Int?, UnitType?, Int?, UnitType?, Date?, UIImage?) -> Void)?
     
@@ -21,30 +23,20 @@ class MeSettingController: UITableViewController {
     var heightUnit:UnitType?
     var weightUnit:UnitType?
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headBun: UIButton!
-    
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var emailLab: UILabel!
-    
-    @IBOutlet weak var genderLab: UILabel!
-    @IBOutlet weak var heightLab: UILabel!
-    @IBOutlet weak var weightLab: UILabel! 
-    @IBOutlet weak var birthdayLab: UILabel!
-    
-    
-    
-    @IBOutlet var settingCells: [UITableViewCell]!
-    
+    @IBOutlet weak var logoutBun: UIButton!
     
     var photoPicker: ImageUtility?
     var changedImage: UIImage?
     
     
+    var disposeBag = DisposeBag()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let info = UserInfo.shared.profile
-        name.text = info?.nickname
+        self.tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,44 +58,71 @@ class MeSettingController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.delegate = self
+        
         let info = UserInfo.shared.profile
       
         gender = info?.gender
         height = info?.height
         weight = info?.weight
         birthday = info?.birthday
+        heightUnit = info?.heightUnit
+        weightUnit = info?.weightUnit
         
-        emailLab.text = info?.email
-        
-        if let gender = info?.gender {
-            genderLab.text = (gender == "0" ? "male":"female")
-        }else{
-            genderLab.text = "Not specified"
-        }
-        
-        if let height = info?.height {
-            heightLab.text = "\(height) " + ((info?.heightUnit == UnitType.metric) ? "cm":"inch")
-        }else{
-            heightLab.text = "Not specified"
-        }
-        
-        if let weight = info?.weight {
-            weightLab.text = "\(weight) " + ((info?.weightUnit == UnitType.metric) ? "kg":"lb")
-        }else{
-            weightLab.text = "Not specified"
-        }
-        
-        if let birthday = info?.birthday, birthday != Date(timeIntervalSince1970: 0) {
-            birthdayLab.text = birthday.stringYearMonthDay
-        }else{
-            birthdayLab.text = "Not specified"
-        }
+    
         
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
         
         let imgUrl = URL(string: FSManager.imageUrl(with: info?.iconUrl ?? ""))
         headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+        
+        
+    
+        
+        let viewModel = MeLogoutViewModel(
+            input: logoutBun.rx.tap.asDriver(),
+            dependency: (
+                userManager: UserManager.shared,
+                wireframe: DefaultWireframe.sharedInstance
+        ))
+        
+        viewModel.logoutEnabled
+            .drive(onNext: { [unowned self] valid in
+                self.logoutBun.isEnabled = valid
+                self.logoutBun.backgroundColor?.withAlphaComponent(valid ? 1.0 : 0.5)
+            })
+            .addDisposableTo(disposeBag)
+        
+        
+        
+        viewModel.logoutResult
+            .drive(onNext: { [unowned self] result in
+                switch result {
+                case .failed(let message):
+                    self.showMessage(message)
+                case .ok:
+                    UserInfo.shared.invalidate()
+                    UserInfo.shared.profile = nil
+                    Distribution.shared.popToLoginScreen()
+                default:
+                    break
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
+        
+        
     }
+    
+    
+    func showMessage(_ text: String) {
+        let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
+        vc.addAction(action)
+        self.present(vc, animated: true)
+    }
+    
+    
     
     @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
@@ -135,18 +154,101 @@ class MeSettingController: UITableViewController {
     }
     
     
+}
+
+
+extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 3
+        }else {
+            return 4
+        }
+    }
     
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        if let index = settingCells.index(of: cell!) {
-            switch index {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        if cell == nil {
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+            cell?.accessoryType = .disclosureIndicator
+        }
+        
+        
+        let info = UserInfo.shared.profile
+        
+        switch indexPath {
+        case IndexPath(row: 0, section: 0):
+            cell?.textLabel?.text = "Name"
+            cell?.detailTextLabel?.text = info?.nickname
+        case IndexPath(row: 1, section: 0):
+            cell?.textLabel?.text = "Email"
+            cell?.detailTextLabel?.text = info?.email
+        case IndexPath(row: 2, section: 0):
+            cell?.textLabel?.text = "Change password"
+            cell?.detailTextLabel?.text = "●●●●●●"
+        case IndexPath(row: 0, section: 1):
+            cell?.textLabel?.text = "Gender"
+            if let gender = gender {
+                cell?.detailTextLabel?.text = (gender == "0" ? "male":"female")
+            }else{
+                cell?.detailTextLabel?.text = "Not specified"
+            }
+        case IndexPath(row: 1, section: 1):
+            cell?.textLabel?.text = "Height"
+            if let height = height {
+                cell?.detailTextLabel?.text = "\(height) " + ((heightUnit == UnitType.metric) ? "cm":"inch")
+            }else{
+                cell?.detailTextLabel?.text = "Not specified"
+            }
+        case IndexPath(row: 2, section: 1):
+            cell?.textLabel?.text = "Weight"
+            if let weight = weight {
+                cell?.detailTextLabel?.text = "\(weight) " + ((weightUnit == UnitType.metric) ? "kg":"lb")
+            }else{
+                cell?.detailTextLabel?.text = "Not specified"
+            }
+        case IndexPath(row: 3, section: 1):
+            cell?.textLabel?.text = "Birthday"
+            if let birthday = birthday, birthday != Date(timeIntervalSince1970: 0) {
+                cell?.detailTextLabel?.text = birthday.stringYearMonthDay
+            }else{
+                cell?.detailTextLabel?.text = "Not specified"
+            }
+        default:
+            break
+        }
+        
+        
+        return cell!
+    }
+
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                self.performSegue(withIdentifier: R.segue.meSettingController.showChangeName, sender: nil)
+            }
+            if indexPath.row == 2 {
+                self.performSegue(withIdentifier: R.segue.meSettingController.showChangePswd, sender: nil)
+            }
+        }
+        
+        if indexPath.section == 1{
+            switch indexPath.row {
             case 0:
                 let vc = R.storyboard.kidInformation.setYourGenderController()!
                 vc.genderBlock = { gender in
                     self.gender = gender
-                    self.genderLab.text = gender
+                    self.tableView.reloadData()
                 }
                 self.present(vc, animated: true)
             case 1:
@@ -156,7 +258,7 @@ class MeSettingController: UITableViewController {
                 vc.heightBlock = { height, unit in
                     self.height = height
                     self.heightUnit = unit
-                    self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
+                    self.tableView.reloadData()
                 }
                 self.present(vc, animated: true);
             case 2:
@@ -166,14 +268,14 @@ class MeSettingController: UITableViewController {
                 vc.weightBlock = {weight, unit in
                     self.weight = weight
                     self.weightUnit = unit
-                    self.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
+                    self.tableView.reloadData()
                 }
                 self.present(vc, animated: true)
             case 3:
                 let vc = R.storyboard.kidInformation.setYourBirthdayController()!
                 vc.birthdayBlock = {birthday in
                     self.birthday = birthday
-                    self.birthdayLab.text = birthday.stringYearMonthDay
+                    self.tableView.reloadData()
                 }
                 self.present(vc, animated: true)
             default:
@@ -181,7 +283,21 @@ class MeSettingController: UITableViewController {
             }
         }
     }
-    
-    
-    
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

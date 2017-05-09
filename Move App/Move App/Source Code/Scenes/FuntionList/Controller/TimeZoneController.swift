@@ -31,7 +31,7 @@ class TimeZoneController: UITableViewController {
     @IBOutlet weak var backQutlet: UIBarButtonItem!
     //var selectTimeZoneController: SelectTimeZoneController?
     
-    var selectedTimeZone = Variable(TimeZone.current)
+    var selectedTimeZone = Variable(0)
     
     var disposeBag = DisposeBag()
     
@@ -49,7 +49,7 @@ class TimeZoneController: UITableViewController {
         self.internationalization()
         
         selectedTimeZone.asDriver()
-            .map({ $0.abbreviation() })
+            .map({ "GMT \($0)" })
             .drive(timezoneCityQutlet.rx.text)
             .addDisposableTo(disposeBag)
         
@@ -73,7 +73,7 @@ class TimeZoneController: UITableViewController {
 
         viewModel.hourformEnable.drive(hourFormatQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on).addDisposableTo(disposeBag)
-        viewModel.fetchtimezoneDate.map({ $0.timeZone() }).filterNil().drive(selectedTimeZone).addDisposableTo(disposeBag)
+        viewModel.fetchtimezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
         viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
         
         viewModel.activityIn
@@ -94,19 +94,14 @@ class TimeZoneController: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let showSlectTimeZoneSegue = R.segue.timeZoneController.showSelectTimeZone(segue: segue) {
-            showSlectTimeZoneSegue.destination.rx.selected
-                .asDriver()
-                .drive(selectedTimeZone)
-                .addDisposableTo(disposeBag)
+        if let vc = R.segue.timeZoneController.showSelectTimeZone(segue: segue)?.destination {
+            vc.selectedTimezone = { index in
+                self.selectedTimeZone.value = index
+            }
         }
     }
 
 
 }
 
-fileprivate extension Date {
-    func timeZone() -> TimeZone? {
-        return TimeZone(secondsFromGMT: Int(self.timeIntervalSince1970))
-    }
-}
+

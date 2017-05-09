@@ -100,6 +100,57 @@ class AccountAndChoseDeviceController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let sg = R.segue.accountAndChoseDeviceController.shwoMeSettings(segue: segue) {
+            sg.destination.settingSaveBlock = { gender, height, heightUnit, weight, weightUnit, birthday, changedImage in
+                
+                var info = UserInfo.Profile()
+                info.gender = gender
+                info.weight = weight
+                info.height = height
+                info.birthday = birthday
+                info.heightUnit = heightUnit
+                info.weightUnit = weightUnit
+                
+                
+                var result: Observable<ValidationResult>?
+                if changedImage != nil {
+                    result = FSManager.shared.uploadPngImage(with: changedImage!).map{$0.fid}.filterNil().takeLast(1).flatMap({fid ->Observable<ValidationResult> in
+                        info.iconUrl = fid
+                        return self.settingUserInfo(with: info)
+                    })
+                }else {
+                    result = self.settingUserInfo(with: info)
+                }
+                
+                result?.filter({$0.isValid == true}).subscribe(onNext: { _ in
+                    UserInfo.shared.profile?.gender = info.gender
+                    UserInfo.shared.profile?.height = info.height
+                    UserInfo.shared.profile?.weight = info.weight
+                    UserInfo.shared.profile?.birthday = info.birthday
+                    UserInfo.shared.profile?.heightUnit = info.heightUnit
+                    UserInfo.shared.profile?.weightUnit = info.weightUnit
+                    if changedImage != nil {
+                        UserInfo.shared.profile?.iconUrl = info.iconUrl
+                        self.show(head: UserInfo.shared.profile!)
+                    }
+                }).addDisposableTo(self.disposeBag)
+            }
+        }
+    }
+    
+    func settingUserInfo(with info: UserInfo.Profile) -> Observable<ValidationResult>{
+        return UserManager.shared.setUserInfo(userInfo: info).map{ flag -> ValidationResult in
+            if flag {
+                return ValidationResult.ok(message: "OK")
+            }else{
+                return ValidationResult.failed(message: "failed")
+            }
+        }
+    }
+    
 }
 
 extension AccountAndChoseDeviceController {

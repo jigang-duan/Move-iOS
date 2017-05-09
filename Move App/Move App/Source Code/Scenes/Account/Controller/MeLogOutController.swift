@@ -60,7 +60,7 @@ class MeLogoutController: UIViewController {
         viewModel.logoutEnabled
             .drive(onNext: { [unowned self] valid in
                 self.logoutBun.isEnabled = valid
-                self.logoutBun.tintColor?.withAlphaComponent(valid ? 1.0 : 0.5)
+                self.logoutBun.backgroundColor?.withAlphaComponent(valid ? 1.0 : 0.5)
             })
             .addDisposableTo(disposeBag)
         
@@ -100,55 +100,55 @@ class MeLogoutController: UIViewController {
     }
     
     
-    @IBAction func headClick(_ sender: Any) {
-        self.performSegue(withIdentifier: R.segue.meLogoutController.shwoMeSettings, sender: nil)
-    }
+//    @IBAction func headClick(_ sender: Any) {
+//        self.performSegue(withIdentifier: R.segue.meLogoutController.shwoMeSettings, sender: nil)
+//    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let sg = R.segue.meLogoutController.shwoMeSettings(segue: segue) {
-            sg.destination.settingSaveBlock = { gender, height, heightUnit, weight, weightUnit, birthday, changedImage in
-                
-                var info = UserInfo.Profile()
-                info.gender = gender
-                info.weight = weight
-                info.height = height
-                info.birthday = birthday
-                info.heightUnit = heightUnit
-                info.weightUnit = weightUnit
-                
-                
-                var result: Observable<ValidationResult>?
-                if changedImage != nil {
-                    result = FSManager.shared.uploadPngImage(with: changedImage!).map{$0.fid}.filterNil().takeLast(1).flatMap({fid ->Observable<ValidationResult> in
-                        info.iconUrl = fid
-                        return self.settingUserInfo(with: info)
-                    })
-                }else {
-                    result = self.settingUserInfo(with: info)
-                }
-                
-                result?.subscribe({ event in
-                    switch event{
-                    case .next(let value):
-                        print(value)
-                    case .completed:
-                        UserInfo.shared.profile?.gender = info.gender
-                        UserInfo.shared.profile?.height = info.height
-                        UserInfo.shared.profile?.weight = info.weight
-                        UserInfo.shared.profile?.birthday = info.birthday
-                        UserInfo.shared.profile?.heightUnit = info.heightUnit
-                        UserInfo.shared.profile?.weightUnit = info.weightUnit
-                        if changedImage != nil {
-                            UserInfo.shared.profile?.iconUrl = info.iconUrl
-                            self.updateAvatar(with: info.iconUrl ?? "")
-                        }
-                    case .error(let error):
-                        print(error)
-                    }
-                }).addDisposableTo(self.disposeBag)
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let sg = R.segue.meLogoutController.shwoMeSettings(segue: segue) {
+//            sg.destination.settingSaveBlock = { gender, height, heightUnit, weight, weightUnit, birthday, changedImage in
+//                
+//                var info = UserInfo.Profile()
+//                info.gender = gender
+//                info.weight = weight
+//                info.height = height
+//                info.birthday = birthday
+//                info.heightUnit = heightUnit
+//                info.weightUnit = weightUnit
+//                
+//                
+//                var result: Observable<ValidationResult>?
+//                if changedImage != nil {
+//                    result = FSManager.shared.uploadPngImage(with: changedImage!).map{$0.fid}.filterNil().takeLast(1).flatMap({fid ->Observable<ValidationResult> in
+//                        info.iconUrl = fid
+//                        return self.settingUserInfo(with: info)
+//                    })
+//                }else {
+//                    result = self.settingUserInfo(with: info)
+//                }
+//                
+//                result?.subscribe({ event in
+//                    switch event{
+//                    case .next(let value):
+//                        print(value)
+//                    case .completed:
+//                        UserInfo.shared.profile?.gender = info.gender
+//                        UserInfo.shared.profile?.height = info.height
+//                        UserInfo.shared.profile?.weight = info.weight
+//                        UserInfo.shared.profile?.birthday = info.birthday
+//                        UserInfo.shared.profile?.heightUnit = info.heightUnit
+//                        UserInfo.shared.profile?.weightUnit = info.weightUnit
+//                        if changedImage != nil {
+//                            UserInfo.shared.profile?.iconUrl = info.iconUrl
+//                            self.updateAvatar(with: info.iconUrl ?? "")
+//                        }
+//                    case .error(let error):
+//                        print(error)
+//                    }
+//                }).addDisposableTo(self.disposeBag)
+//            }
+//        }
+//    }
     
     
     

@@ -9,50 +9,63 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxOptional
 
-@objc
-protocol SelectTimeZoneDelegate {
-    @objc optional func selectedTimeZone(_ timeZone: TimeZone)
-}
 
 class SelectTimeZoneController: UIViewController {
-    //internationalization
+    
+    var selectedTimezone: ((Int) -> ())?
+    
+    
     @IBOutlet weak var selecttimezoneTitleItem: UINavigationItem!
     
     
-    @IBOutlet weak var tableviewQulet: UITableView!
-    @IBOutlet weak var delegate: SelectTimeZoneDelegate?
+    @IBOutlet weak var tableview: UITableView!
     
     var searchController: UISearchController?
-    var visibleResultsIdentifiers: [String]!
-    var visibleResultsIndexs: [[String]]!
     
-    fileprivate var IndexLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".characters.map({String($0)})
     
-    var ableTimeZoneIdentifiers: [String]!
+    var visibleResults: [[TimezoneInfo]] = []
+    
+    var ableTimezones: [[TimezoneInfo]] = []
+    
+    
+    var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let showTimezone = TimeZone.knownTimeZoneIdentifiers
-            .map({ TimeZone(identifier: $0) })
-            .filter({ $0 != nil })
-            .map({$0!})
-            //.filter({ ($0.abbreviation()?.contains("GMT"))! })
-        
-        ableTimeZoneIdentifiers = showTimezone.map({$0.identifier})
-        visibleResultsIdentifiers = ableTimeZoneIdentifiers
-        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
-        
-        tableviewQulet.delegate = self
+        tableview.delegate = self
         
         searchController = UISearchController(searchResultsController: nil)
         self.searchController?.searchResultsUpdater = self
         self.searchController?.dimsBackgroundDuringPresentation = false
         self.searchController?.delegate = self
         self.searchController?.searchBar .sizeToFit()
-        self.tableviewQulet.tableHeaderView = self.searchController?.searchBar
+        self.tableview.tableHeaderView = self.searchController?.searchBar
         self.definesPresentationContext = true
+        
+        
+        DeviceManager.shared.fetchTimezones()
+            .subscribe(onNext: {[weak self] tms in
+                
+                let letters = tms
+                    .map({$0.timezoneId!.components(separatedBy: "/").first!})
+                let results = Array(Set(letters))
+                
+                for i in 0..<results.count {
+                    var tempTms:[TimezoneInfo] = []
+                    for tm in tms {
+                        if results[i] == tm.timezoneId?.components(separatedBy: "/").first {
+                            tempTms.append(tm)
+                        }
+                    }
+                    self?.ableTimezones.append(tempTms)
+                }
+                self?.visibleResults = (self?.ableTimezones)!
+                self?.tableview.reloadData()
+            })
+            .addDisposableTo(disposeBag)
         
     }
 }
@@ -61,21 +74,24 @@ class SelectTimeZoneController: UIViewController {
 extension SelectTimeZoneController: UISearchResultsUpdating,UISearchControllerDelegate {
     
     func willDismissSearchController(_ searchController: UISearchController) {
-        visibleResultsIdentifiers = ableTimeZoneIdentifiers
-        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
-        self.tableviewQulet.reloadData()
+        visibleResults = ableTimezones
+        self.tableview.reloadData()
     }
     
     
     func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text,
-            let count = searchController.searchBar.text?.characters.count, count > 0 {
-            visibleResultsIdentifiers = ableTimeZoneIdentifiers.filter({ $0.contains(text) })
+        if let text = searchController.searchBar.text,text.characters.count > 0 {
+            visibleResults = []
+            for tms in ableTimezones {
+                let t = tms.filter({ $0.timezoneId?.lowercased().contains(text.lowercased()) == true })
+                if t.count > 0 {
+                    visibleResults.append(t)
+                }
+            }
         } else {
-            visibleResultsIdentifiers = ableTimeZoneIdentifiers
+            visibleResults = ableTimezones
         }
-        visibleResultsIndexs = IndexLetter.map({ c in visibleResultsIdentifiers.filter({ $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) == c }) })
-        self.tableviewQulet.reloadData()
+        self.tableview.reloadData()
     }
     
     
@@ -85,72 +101,53 @@ extension SelectTimeZoneController: UISearchResultsUpdating,UISearchControllerDe
 extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return IndexLetter.count
+        return visibleResults.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.visibleResultsIndexs[section].count
+        return self.visibleResults[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellTimeZone.identifier, for: indexPath)
-        cell.textLabel?.text = visibleResultsIndexs[indexPath.section][indexPath.row]
-        cell.detailTextLabel?.text = TimeZone(identifier: visibleResultsIndexs[indexPath.section][indexPath.row])?.abbreviation()
+        
+        let tm = visibleResults[indexPath.section][indexPath.row]
+        
+        cell.textLabel?.text = tm.timezoneId
+        if let offset = tm.gmtoffset {
+            if offset > 0 {
+                cell.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT +\(offset)"
+            }else if offset == 0{
+                cell.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT"
+            }else{
+                cell.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT \(offset)"
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let timeZone = TimeZone(identifier: visibleResultsIndexs[indexPath.section][indexPath.row]) {
-            self.delegate?.selectedTimeZone?(timeZone)
+        if self.selectedTimezone != nil {
+            let tm = visibleResults[indexPath.section][indexPath.row]
+            self.selectedTimezone!(tm.gmtoffset!)
         }
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return IndexLetter
-    }
-}
-
-
-extension Reactive where Base: SelectTimeZoneController {
-    
-    /// Reactive wrapper for `delegate`.
-    /// For more information take a look at `DelegateProxyType` protocol documentation.
-    var delegate: DelegateProxy {
-        return RxSelectTimeZoneDelegateProxy.proxyForObject(base)
+        let strs = visibleResults.map({$0[0].timezoneId!.components(separatedBy: "/").first!})
+        return strs.map{$0.substring(to: ($0.index($0.startIndex, offsetBy: 2)))}
     }
     
-    var selected: ControlEvent<TimeZone> {
-        let source = delegate
-            .methodInvoked(#selector(SelectTimeZoneDelegate.selectedTimeZone(_:)))
-            .map {
-                return try castOrThrow(TimeZone.self, $0[0])
-        }
-        return ControlEvent(events: source)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return visibleResults[section][0].timezoneId?.components(separatedBy: "/").first
     }
+    
 }
 
-class RxSelectTimeZoneDelegateProxy
-        : DelegateProxy
-        , DelegateProxyType
-    , SelectTimeZoneDelegate {
-        
-        /// For more information take a look at `DelegateProxyType`.
-        class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
-            let vc: SelectTimeZoneController = castOrFatalError(object)
-            vc.delegate = castOptionalOrFatalError(delegate)
-        }
-        
-        /// For more information take a look at `DelegateProxyType`.
-        class func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
-            let vc: SelectTimeZoneController = castOrFatalError(object)
-            return vc.delegate
-        }
-}
 
-fileprivate func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
-    guard let returnValue = object as? T else {
-        throw RxCocoaError.castingError(object: object, targetType: resultType)
-    }
-    return returnValue
-}
+
+
+
+
+

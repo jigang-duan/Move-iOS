@@ -219,14 +219,12 @@ class KidInformationController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self?.showMessage(message)
-                case .ok(_):
-                    for vc in (self?.navigationController?.viewControllers)! {
-                        if vc.isKind(of: ChoseDeviceController.self) {
-                            _ = self?.navigationController?.popToRootViewController(animated: true)
-                            return
-                        }
+                case .ok:
+                    if self?.isForSetting == true {
+                        _ = self?.navigationController?.popViewController(animated: true)
+                    }else{
+                        _ = self?.navigationController?.popToRootViewController(animated: true)
                     }
-                    _ = self?.navigationController?.popViewController(animated: true)
                 default:
                     break
                 }

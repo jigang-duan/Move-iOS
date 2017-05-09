@@ -276,9 +276,9 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             .map({ $0.auto_time ?? false })
     }
     
-    func fetchTimezone(id:String) -> Observable<Date> {
+    func fetchTimezone(id:String) -> Observable<Int> {
         return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.timezone ?? DateUtility.zone7hour() })
+            .map({ $0.timezone ?? 0 })
     }
     
     func fetchSummerTime(id: String) -> Observable<Bool> {
@@ -286,7 +286,7 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             .map({ $0.dst ?? false })
     }
     
-    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,Timezone: Date, summertime: Bool) -> Observable<Bool> {
+    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,Timezone: Int, summertime: Bool) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
             .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
                 var _setting = setting

@@ -995,12 +995,12 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KyR-Oe-0Hy">
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="KyR-Oe-0Hy">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTimeZone" textLabel="laJ-cS-1zm" detailTextLabel="OHX-GE-IJb" style="IBUITableViewCellStyleSubtitle" id="SFq-jy-WVt">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SFq-jy-WVt" id="WH2-42-0pl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -1043,7 +1043,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="selecttimezoneTitleItem" destination="gW4-Ws-05c" id="f0k-f0-PQJ"/>
-                        <outlet property="tableviewQulet" destination="KyR-Oe-0Hy" id="q6b-bT-y0h"/>
+                        <outlet property="tableview" destination="KyR-Oe-0Hy" id="FsZ-jV-7WA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odF-K7-p7u" userLabel="First Responder" sceneMemberID="firstResponder"/>

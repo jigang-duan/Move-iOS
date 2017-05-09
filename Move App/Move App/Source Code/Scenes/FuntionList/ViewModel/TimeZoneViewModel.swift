@@ -16,7 +16,7 @@ class TimeZoneViewModel {
     let hourformEnable: Driver<Bool>
     let autotimeEnable: Driver<Bool>
     let summertimeEnable: Driver<Bool>
-    let fetchtimezoneDate: Driver<Date>
+    let fetchtimezoneDate: Driver<Int>
     
     let saveFinish: Driver<Bool>
     
@@ -27,7 +27,7 @@ class TimeZoneViewModel {
         input: (
         hourform: Driver<Bool>,
         autotime: Driver<Bool>,
-        timezone: Driver<TimeZone>,
+        timezone: Driver<Int>,
         summertime: Driver<Bool>
         ),
         dependency: (
@@ -54,16 +54,15 @@ class TimeZoneViewModel {
         
         fetchtimezoneDate = manager.fetchTimezone()
             .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: Date(timeIntervalSince1970: TimeInterval(TimeZone.current.secondsFromGMT())) )
+            .asDriver(onErrorJustReturn: 0 )
 
         let fetchsummertime = manager.fetchSummerTime()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
         self.summertimeEnable = Driver.of(fetchsummertime, input.summertime).merge()
         
-        let timezoneTamp = input.timezone.asDriver().map({ Date(timeIntervalSince1970: TimeInterval($0.secondsFromGMT()))  })
         
-        let down = Driver.combineLatest(hourformEnable , autotimeEnable, timezoneTamp, summertimeEnable) { ($0, $1, $2, $3) }
+        let down = Driver.combineLatest(hourformEnable , autotimeEnable, input.timezone, summertimeEnable) { ($0, $1, $2, $3) }
 
         
         self.saveFinish = down
