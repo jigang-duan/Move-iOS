@@ -55,6 +55,14 @@ extension WorkerError {
         return nil
     }
     
+    static func errorTransform(from error: Swift.Error) -> String {
+        if let apiError = error as? WorkerError {
+            return apiErrorTransform(from: apiError)
+        }
+        
+        return error.localizedDescription
+    }
+    
     
     /**  ------error_id------
      0      Success: 成功，没有错误

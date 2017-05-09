@@ -42,7 +42,7 @@ class MainMapController: UIViewController {
 
     @IBOutlet weak var remindLocationOutlet: UIButton!
     
-    @IBOutlet weak var warmingView: UIView!
+    @IBOutlet weak var remindActivityOutlet: UIActivityIndicatorView!
     
     let enterSubject = BehaviorSubject<Bool>(value: false)
     
@@ -212,8 +212,13 @@ class MainMapController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
-        viewModel.remindSuccess.debug()
-            .bindTo(warmingView.rx.isHidden)
+        viewModel.remindActivityIn.drive(remindActivityOutlet.rx.isAnimating).addDisposableTo(disposeBag)
+        viewModel.remindActivityIn.map{ !$0 }.drive(remindActivityOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.remindActivityIn.drive(remindLocationOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        
+        viewModel.errorObservable
+            .map { WorkerError.errorTransform(from: $0) }
+            .bindNext { ProgressHUD.show(status: $0) }
             .addDisposableTo(disposeBag)
         
         let realm = try! Realm()

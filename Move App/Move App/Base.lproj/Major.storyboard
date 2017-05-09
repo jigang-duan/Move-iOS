@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -227,33 +228,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edu-4d-HAK">
-                                <rect key="frame" x="329" y="92" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="TjZ-Z7-hjK"/>
-                                    <constraint firstAttribute="height" constant="30" id="sZx-3k-S3O"/>
-                                </constraints>
-                                <state key="normal" image="home_btn_positioning_nor"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vNr-iq-d0W">
-                                <rect key="frame" x="329" y="143" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="NVk-Ee-CMb"/>
-                                    <constraint firstAttribute="height" constant="30" id="eie-13-Zeh"/>
-                                </constraints>
-                                <state key="normal" image="home_btn_locatio_nor"/>
-                                <connections>
-                                    <segue destination="VGt-kf-yJX" kind="push" identifier="LocationHistory" id="67f-ca-zri"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2n-Cm-dk9">
-                                <rect key="frame" x="329" y="194" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="bwg-r0-y23"/>
-                                    <constraint firstAttribute="height" constant="30" id="xni-zE-0of"/>
-                                </constraints>
-                                <state key="normal" image="home_btn_steps_nor"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hpy-90-pyP">
                                 <rect key="frame" x="20" y="504" width="157" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -296,53 +270,74 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTz-BE-8U4" userLabel="blackView">
-                                <rect key="frame" x="10" y="60" width="355" height="36"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6WT-8y-Svn">
+                                <rect key="frame" x="311" y="104" width="48" height="165"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Newwork disconnected,please check the WiFi or Mobile data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vt5-KZ-AgA">
-                                        <rect key="frame" x="59" y="0.0" width="256" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edu-4d-HAK">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="IgN-Sb-fnp"/>
+                                            <constraint firstAttribute="width" constant="48" id="elB-jh-bzL"/>
+                                        </constraints>
+                                        <state key="normal" image="home_btn_positioning_nor"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vNr-iq-d0W">
+                                        <rect key="frame" x="0.0" y="56" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="Z4P-EE-8k2"/>
+                                            <constraint firstAttribute="width" constant="48" id="bC6-JU-UV9"/>
+                                        </constraints>
+                                        <state key="normal" image="home_btn_locatio_nor"/>
+                                        <connections>
+                                            <segue destination="VGt-kf-yJX" kind="push" identifier="LocationHistory" id="67f-ca-zri"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2n-Cm-dk9">
+                                        <rect key="frame" x="0.0" y="112" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="Ceh-Fl-GLl"/>
+                                            <constraint firstAttribute="height" constant="48" id="xJS-3d-Eaz"/>
+                                        </constraints>
+                                        <state key="normal" image="home_btn_steps_nor"/>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="abm-Dw-vdb">
+                                        <rect key="frame" x="14" y="14" width="20" height="20"/>
+                                        <color key="color" red="0.0" green="0.57254904510000004" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="k8Q-7a-cyk"/>
+                                    <constraint firstItem="vNr-iq-d0W" firstAttribute="top" secondItem="Edu-4d-HAK" secondAttribute="bottom" constant="8" id="0YM-xO-UZt"/>
+                                    <constraint firstAttribute="trailing" secondItem="d2n-Cm-dk9" secondAttribute="trailing" id="GyC-OH-e7e"/>
+                                    <constraint firstItem="abm-Dw-vdb" firstAttribute="centerY" secondItem="Edu-4d-HAK" secondAttribute="centerY" id="Mwj-6w-AGj"/>
+                                    <constraint firstAttribute="height" constant="165" id="d0i-Hz-Shu"/>
+                                    <constraint firstItem="abm-Dw-vdb" firstAttribute="centerX" secondItem="Edu-4d-HAK" secondAttribute="centerX" id="dpy-S6-dkx"/>
+                                    <constraint firstAttribute="width" constant="48" id="jYr-WA-ydW"/>
+                                    <constraint firstItem="Edu-4d-HAK" firstAttribute="top" secondItem="6WT-8y-Svn" secondAttribute="top" id="qK2-Ah-f1r"/>
+                                    <constraint firstAttribute="trailing" secondItem="vNr-iq-d0W" secondAttribute="trailing" id="wAl-Bh-yuT"/>
+                                    <constraint firstItem="d2n-Cm-dk9" firstAttribute="top" secondItem="vNr-iq-d0W" secondAttribute="bottom" constant="8" id="xAl-wa-a4f"/>
+                                    <constraint firstAttribute="trailing" secondItem="Edu-4d-HAK" secondAttribute="trailing" id="xWa-aZ-6uw"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EZI-JX-nJk" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" id="2YS-Tw-FuJ"/>
-                            <constraint firstItem="d2n-Cm-dk9" firstAttribute="top" secondItem="vNr-iq-d0W" secondAttribute="bottom" constant="21" id="6bh-gS-RFn"/>
                             <constraint firstItem="mZQ-sj-e6I" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" id="AGb-Sf-6ST"/>
                             <constraint firstAttribute="trailing" secondItem="EZI-JX-nJk" secondAttribute="trailing" id="I7C-CG-h3o"/>
                             <constraint firstItem="EZI-JX-nJk" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" id="Jdr-6m-WGD"/>
                             <constraint firstItem="C76-YW-V2X" firstAttribute="leading" secondItem="Hpy-90-pyP" secondAttribute="trailing" id="KtZ-Vs-W7A"/>
-                            <constraint firstItem="vNr-iq-d0W" firstAttribute="top" secondItem="Edu-4d-HAK" secondAttribute="bottom" constant="21" id="MIV-9Q-7nh"/>
                             <constraint firstItem="Hpy-90-pyP" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" constant="20" id="MKE-j3-lQG"/>
-                            <constraint firstAttribute="trailing" secondItem="Edu-4d-HAK" secondAttribute="trailing" constant="16" id="NlI-c8-r5K"/>
-                            <constraint firstItem="Edu-4d-HAK" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" constant="92" id="XFj-tQ-4eu"/>
-                            <constraint firstItem="bTz-BE-8U4" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" constant="10" id="cJW-M6-siz"/>
-                            <constraint firstAttribute="trailing" secondItem="d2n-Cm-dk9" secondAttribute="trailing" constant="16" id="fTd-P2-2c1"/>
+                            <constraint firstItem="6WT-8y-Svn" firstAttribute="trailing" secondItem="q7P-JH-3Oz" secondAttribute="trailingMargin" id="dWW-mO-8Aj"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="BJv-uG-4Cf" secondAttribute="bottom" constant="20" id="fUq-d5-PS9"/>
                             <constraint firstItem="C76-YW-V2X" firstAttribute="centerX" secondItem="EZI-JX-nJk" secondAttribute="centerX" id="fgY-A6-ziz"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="Hpy-90-pyP" secondAttribute="bottom" constant="20" id="gOM-RF-tQL"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="C76-YW-V2X" secondAttribute="bottom" constant="20" id="h80-b4-eki"/>
                             <constraint firstAttribute="trailing" secondItem="mZQ-sj-e6I" secondAttribute="trailing" id="hSE-gG-UMQ"/>
-                            <constraint firstAttribute="trailing" secondItem="bTz-BE-8U4" secondAttribute="trailing" constant="10" id="k2G-QF-ll5"/>
                             <constraint firstItem="nsS-Ls-5Dh" firstAttribute="top" secondItem="EZI-JX-nJk" secondAttribute="bottom" id="kco-MP-EBq"/>
-                            <constraint firstItem="bTz-BE-8U4" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="bottom" id="lJL-N3-TP4"/>
                             <constraint firstItem="mZQ-sj-e6I" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" id="nQa-ps-gcj"/>
                             <constraint firstItem="BJv-uG-4Cf" firstAttribute="leading" secondItem="Hpy-90-pyP" secondAttribute="trailing" constant="20" id="pKM-iB-rvE"/>
-                            <constraint firstAttribute="trailing" secondItem="vNr-iq-d0W" secondAttribute="trailing" constant="16" id="vMh-A0-Syh"/>
+                            <constraint firstItem="6WT-8y-Svn" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="bottom" constant="44" id="swX-Ne-zAV"/>
                             <constraint firstAttribute="trailing" secondItem="BJv-uG-4Cf" secondAttribute="trailing" constant="20" id="y3v-Ed-nnz"/>
                         </constraints>
                     </view>
@@ -357,12 +352,12 @@
                         <outlet property="nameOutle" destination="fzE-4h-zm9" id="uZ9-9c-EM3"/>
                         <outlet property="noGeolocationView" destination="qq8-s0-eFv" id="AQV-eU-Bf7"/>
                         <outlet property="openPreferencesBtn" destination="nZf-no-x56" id="fAq-2c-ibZ"/>
+                        <outlet property="remindActivityOutlet" destination="abm-Dw-vdb" id="dZL-4i-6SW"/>
                         <outlet property="remindLocationOutlet" destination="Edu-4d-HAK" id="MzW-bS-WKN"/>
                         <outlet property="statesOutlet" destination="jCk-Qg-6qK" id="upn-8y-ixp"/>
                         <outlet property="timeOutlet" destination="5vP-5M-IIQ" id="A0r-lR-u12"/>
                         <outlet property="voltameterImageOutlet" destination="819-oq-ciP" id="ObD-LL-Dsn"/>
                         <outlet property="voltameterOutlet" destination="qVH-Ns-GUh" id="B8g-H8-ajw"/>
-                        <outlet property="warmingView" destination="bTz-BE-8U4" id="ffQ-30-48P"/>
                         <segue destination="06j-ga-eoj" kind="show" identifier="showAllKidsLocation" id="FIc-Qy-oXz"/>
                     </connections>
                 </viewController>
@@ -1016,7 +1011,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jcn-7i-TmB" id="hxE-dU-j0I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XgJ-ba-0Aj">

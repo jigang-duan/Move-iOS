@@ -294,7 +294,7 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
                 _setting.auto_time = autotime
                 _setting.hour24 = hourformat
                 
-                _setting.timezone = Date(timeIntervalSince1970: TimeInterval(2))
+                _setting.timezone = Timezone
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })
             .map(errorTransform)

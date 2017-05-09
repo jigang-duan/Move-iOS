@@ -38,6 +38,9 @@ class MainMapViewModel {
     let fetchDevices: Driver<[DeviceInfo]>
     
     let remindSuccess: Observable<Bool>
+    let remindActivityIn: Driver<Bool>
+    
+    let errorObservable: Observable<Error>
     
     init(
         input: (
@@ -80,11 +83,21 @@ class MainMapViewModel {
             .map({ _ in Void() })
             .shareReplay(1)
         
+        
+        let remindActivitying = ActivityIndicator()
+        self.remindActivityIn = activitying.asDriver()
+        
+        let errorSubject = PublishSubject<Error>()
+        errorObservable = errorSubject.asObserver()
+        
         remindSuccess = input.remindLocation
             .throttle(1.0, scheduler: MainScheduler.instance).debug()
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .flatMapLatest({
-                deviceManager.remindLocation(deviceId: $0).catchErrorJustReturn(false)
+                deviceManager.remindLocation(deviceId: $0)
+                    .trackActivity(remindActivitying)
+                    .do(onError: { errorSubject.onNext($0) })
+                    .catchErrorJustReturn(false)
             })
         
         let remindLocation = remindSuccess.map({ _ in Void() })
@@ -93,6 +106,7 @@ class MainMapViewModel {
             .flatMapLatest ({
                 locationManager.currentLocation
                     .trackActivity(activitying)
+                    .trackActivity(remindActivitying)
                     .catchErrorJustReturn(KidSate.LocationInfo())
             })
             .shareReplay(1)
