@@ -37,8 +37,8 @@ class AlarmController: UIViewController {
         
     }
     func internationalization() {
-        alarmTitleItem.title = R.string.localizable.alarm()
-        saveOutlet.setTitle(R.string.localizable.save(), for: .normal)
+        alarmTitleItem.title = R.string.localizable.id_alarm()
+        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
         
     }
     func sortWeek(_ flags: [Bool]) -> [Bool] {

@@ -26,11 +26,11 @@ class RepeatViewController: UITableViewController {
     var repeatBlock: ((String) -> Void)?
     
     func internationalization() {
-        self.navigationItem.title = R.string.localizable.repeat()
-        NeverLabel.text = R.string.localizable.never()
-        everydayLabel.text = R.string.localizable.everyday()
-        everyweekhLabel.text = R.string.localizable.everyweek()
-        everymonthLabel.text = R.string.localizable.everymonth()
+        self.navigationItem.title = R.string.localizable.id_repeat()
+        NeverLabel.text = R.string.localizable.id_never()
+        everydayLabel.text = R.string.localizable.id_Everyday()
+        everyweekhLabel.text = R.string.localizable.id_Everyweek()
+        everymonthLabel.text = R.string.localizable.id_Everymonth()
         
     }
     

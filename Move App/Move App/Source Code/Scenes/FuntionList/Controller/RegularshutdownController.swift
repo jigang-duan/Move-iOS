@@ -43,13 +43,13 @@ class RegularshutdownController: UIViewController {
     var touchesBeganEnable = Variable(false)
     
     func internationalization() {
-        regularshutdownTitleItem.title = R.string.localizable.regular_shutdown()
-        automaticOnOffLabel.text =  R.string.localizable.automatic_power_on_off()
-        booTimeLabel.text = R.string.localizable.boot_time()
-        shutdownLabel.text = R.string.localizable.shutdown_time()
-        saveBtnQutlet.setTitle(R.string.localizable.save(), for: .normal)
-        comfirmQutlet.setTitle(R.string.localizable.confirm(), for: .normal)
-        cancelQutlet.setTitle(R.string.localizable.cancel(), for: .normal)
+        regularshutdownTitleItem.title = R.string.localizable.id_regular_shutdown()
+        automaticOnOffLabel.text =  R.string.localizable.id_automatic_power_on_off()
+        booTimeLabel.text = R.string.localizable.id_boot_time()
+        shutdownLabel.text = R.string.localizable.id_shutdown_time()
+        saveBtnQutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+        comfirmQutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
+        cancelQutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
     }
     
     override func viewDidLoad() {
@@ -176,7 +176,7 @@ class RegularshutdownController: UIViewController {
             let currTime = Double(shutdownTimeVariable.value.timeIntervalSince1970)
             let result = selectTime - currTime
             if (datePicker.date == shutdownTimeVariable.value) ||  (fabsf(Float(result)) <= 600) {
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)
@@ -194,7 +194,7 @@ class RegularshutdownController: UIViewController {
             let currTime = Double(bootTimeVariable.value.timeIntervalSince1970)
             let result = selectTime - currTime
             if (datePicker.date == bootTimeVariable.value) || (fabsf(Float(result)) <= 600) {
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)

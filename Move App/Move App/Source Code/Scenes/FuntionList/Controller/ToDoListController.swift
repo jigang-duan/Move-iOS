@@ -49,13 +49,13 @@ class ToDoListController: UITableViewController {
     var repeatStateVariable = Variable("Never")
     
     func internationalization()  {
-            todolistTitleItem.title = R.string.localizable.todolist()
-            saveQutlet.setTitle(R.string.localizable.save(), for: .normal)
-            titleTextFieldQutle.placeholder = R.string.localizable.title()
-            remarkTextFieldQutlet.placeholder = R.string.localizable.remarks()
-            beginLabel.text = R.string.localizable.begin()
-            endLabel.text = R.string.localizable.end()
-            repeatLabel.text = R.string.localizable.repeat()
+            todolistTitleItem.title = R.string.localizable.id_todolist()
+            saveQutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+            titleTextFieldQutle.placeholder = R.string.localizable.id_title()
+            remarkTextFieldQutlet.placeholder = R.string.localizable.id_remarks()
+            beginLabel.text = R.string.localizable.id_begin()
+            endLabel.text = R.string.localizable.id_end()
+            repeatLabel.text = R.string.localizable.id_repeat()
         
     }
     
@@ -180,29 +180,29 @@ class ToDoListController: UITableViewController {
        
         
         if self.beginTime == self.endTime{
-            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "begin time not the same as end time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
             
         } else if (self.beginTime) < Date()
         {
-            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "begin time later than the system time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
         }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
-            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
         }else if self.titleTextFieldQutle.text == "" || self.remarkTextFieldQutlet.text == ""{
-            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title and remark can't Null", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
         }else if (self.beginTime) > (self.endTime) {
-            let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Start time later than the end of time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
@@ -216,7 +216,7 @@ class ToDoListController: UITableViewController {
                 if tod?["topic"] as? String == self.titleTextFieldQutle.text
                 {
                     self.isSame = true
-                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The existing of the same title to do list", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The existing of the same title to do list", preferredStyle: .alert)
                     let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okActiojn)
                     self.present(alertController, animated: true)
@@ -277,13 +277,13 @@ class ToDoListController: UITableViewController {
     
     func repeatcount(name: String) -> Int {
     
-        return [R.string.localizable.never():0, R.string.localizable.everyday():1, R.string.localizable.everyweek() : 2, R.string.localizable.everymonth():3][name] ?? 0
+        return [R.string.localizable.id_never():0, R.string.localizable.id_Everyday():1, R.string.localizable.id_Everyweek() : 2, R.string.localizable.id_Everymonth():3][name] ?? 0
         
     }
     func repeatcountInt(Intt: Int) -> String {
         
         let InttString = String(Intt)
-        return ["0": R.string.localizable.never(),"1": R.string.localizable.everyday(),"2": R.string.localizable.everyweek(),"3": R.string.localizable.everymonth() ][InttString]!
+        return ["0": R.string.localizable.id_never(),"1": R.string.localizable.id_Everyday(),"2": R.string.localizable.id_Everyweek(),"3": R.string.localizable.id_Everymonth() ][InttString]!
     }
 
     private func selectBeginTime() {

@@ -247,11 +247,11 @@ class RemindersController: UIViewController {
         let popover = RxPopover.shared
         popover.style = .dark
         let action1 = BasePopoverAction(placeholderImage: R.image.member_ic_qr(),
-                                        title: R.string.localizable.alarm(),
+                                        title: R.string.localizable.id_alarm(),
                                         isSelected: false)
         
         let action2 = BasePopoverAction(placeholderImage: R.image.member_ic_input(),
-                                        title: R.string.localizable.todolist(),
+                                        title: R.string.localizable.id_todolist(),
                                         isSelected: false)
         addOutlet.rx.tap.asObservable()
             .flatMapLatest {
@@ -440,19 +440,19 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
 extension RemindersController {
 
     func showSubController(action: BasePopoverAction) {
-        if action.title == R.string.localizable.alarm() {
+        if action.title == R.string.localizable.id_alarm() {
             if (self.alarms?.count)! <= 9{
                 self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
             }
             else
             {
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "You have add 10 alarm,please delete some to add new.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 alarm,please delete some to add new.", preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)
             }
             
-        } else if action.title == R.string.localizable.todolist() {
+        } else if action.title == R.string.localizable.id_todolist() {
             //应该是当前日的todo不能超过10
             if (self.todos?.count)! <= 9{
                 
@@ -463,7 +463,7 @@ extension RemindersController {
             }
             else
             {
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "You have add 10 to do list,please delete some to add new.", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 to do list,please delete some to add new.", preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)

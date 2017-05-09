@@ -109,13 +109,13 @@ extension NoticeType {
         case .instantPosition:
             return nil
         case .intoFence:
-            return R.string.localizable.warming()
+            return R.string.localizable.id_warming()
         case .outFence:
-            return R.string.localizable.warming()
+            return R.string.localizable.id_warming()
         case .lowBattery:
-            return R.string.localizable.warming()
+            return R.string.localizable.id_warming()
         case .sos:
-            return R.string.localizable.warming()
+            return R.string.localizable.id_warming()
         case .unbound:
             return nil
         case .numberChanged:
@@ -167,9 +167,9 @@ extension NoticeAlertStyle : CustomStringConvertible {
         case .navigate:
             return "Navigate"
         case .unpired:
-            return R.string.localizable.ok()
+            return R.string.localizable.id_ok()
         case .goToSee:
-            return R.string.localizable.system_notice_go_to_see()
+            return R.string.localizable.id_system_notice_go_to_see()
         }
     }
 }

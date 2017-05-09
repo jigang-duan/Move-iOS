@@ -32,11 +32,11 @@ class UsepermissionController: UITableViewController {
     var disposeBag = DisposeBag()
     
     func internationalization() {
-        usepermissonTitleItem.title = R.string.localizable.use_permission()
-        myfriendLabel.text = R.string.localizable.my_friends()
-        groupchatLabel.text = R.string.localizable.group_chat()
-        voicechangeLabel.text = R.string.localizable.voice_changer()
-        playingHamsteLabel.text = R.string.localizable.playing_hamster()
+        usepermissonTitleItem.title = R.string.localizable.id_use_permission()
+        myfriendLabel.text = R.string.localizable.id_my_friends()
+        groupchatLabel.text = R.string.localizable.id_group_chat()
+        voicechangeLabel.text = R.string.localizable.id_voice_changer()
+        playingHamsteLabel.text = R.string.localizable.id_playing_hamster()
         
         
     }

@@ -222,21 +222,20 @@ extension AccountKidsRulesuserController {
         //判断用户，没有多语言字串
         //kidswatchTitleItem.title =
         
-        watchContactLabel.text = R.string.localizable.watch_contact()
-        safeZoneLabel.text = R.string.localizable.safe_zone()
-        schoolTimeLabel.text = R.string.localizable.school_time()
-        reminderLabel.text = R.string.localizable.reminder()
-        regularShutdownLabel.text = R.string.localizable.reminder()
-        regularShutdownLabel.text = R.string.localizable.regular_shutdown()
-        unpairedwithWatchLabel.text = R.string.localizable.auto_answer_call()
-        unpairedwithwatchIntroduceLabel.text = R.string.localizable.auto_answer_call_describe()
-        savepowerLabel.text = R.string.localizable.save_power()
-        savepowerIntroduceLabel.text = R.string.localizable.save_power_describe()
-        timeZoneLabel.text = R.string.localizable.time_zone()
-        languageforthiswatchLabel.text = R.string.localizable.language_for_watch()
-        apnLabel.text = R.string.localizable.apn()
-        updateLabel.text = R.string.localizable.update()
-        unpairedWithLabel.text = R.string.localizable.unpaired_with_watch()
+        watchContactLabel.text = R.string.localizable.id_watch_contact()
+        safeZoneLabel.text = R.string.localizable.id_safe_zone()
+        schoolTimeLabel.text = R.string.localizable.id_school_time()
+        reminderLabel.text = R.string.localizable.id_reminder()
+        regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
+        unpairedwithWatchLabel.text = R.string.localizable.id_auto_answer_call()
+        unpairedwithwatchIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
+        savepowerLabel.text = R.string.localizable.id_save_power()
+        savepowerIntroduceLabel.text = R.string.localizable.id_save_power_describe()
+        timeZoneLabel.text = R.string.localizable.id_time_zone()
+        languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
+        apnLabel.text = R.string.localizable.id_apn()
+        updateLabel.text = R.string.localizable.id_update()
+        unpairedWithLabel.text = R.string.localizable.id_unpaired_with_watch()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -272,10 +271,10 @@ extension AccountKidsRulesuserController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            return R.string.localizable.function()
+            return R.string.localizable.id_function()
         }
         if section == 2 {
-            return R.string.localizable.action_settings()
+            return R.string.localizable.id_action_settings()
         }
         return nil
     }

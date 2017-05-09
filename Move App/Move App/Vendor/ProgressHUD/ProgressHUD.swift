@@ -21,7 +21,7 @@ public class ProgressHUD: UIView{
         if once == 0 {
             once = 1
             
-            shareView.frame = CGRect(x: 10, y: 64 + 5, width: UIScreen.main.bounds.width - 20, height: 44)
+            shareView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20, height: 44)
             shareView.layer.cornerRadius = 5
             shareView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             
@@ -53,6 +53,7 @@ public class ProgressHUD: UIView{
             let hudFrame = hud.frame
             hud.frame.size.height = height
             hud.frame = hudFrame
+            hud.center = (self.frontWindow()?.center)!
             
             let labFrame =  hud.textLab?.frame
             hud.textLab?.frame.size.height = height

@@ -28,7 +28,7 @@ struct AddDeviceCellData: CellDataType {
     let title: String
     
     init () {
-        self.title = R.string.localizable.add_device()
+        self.title = R.string.localizable.id_add_device()
     }
 }
 

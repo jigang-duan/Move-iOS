@@ -126,11 +126,11 @@ extension AlertResult : CustomStringConvertible {
     var description: String {
         switch self {
         case .ok:
-            return R.string.localizable.ok()
+            return R.string.localizable.id_ok()
         case .cancel:
-            return R.string.localizable.cancel()
+            return R.string.localizable.id_cancel()
         case .confirm:
-            return R.string.localizable.confirm()
+            return R.string.localizable.id_confirm()
         case .empty:
             return "Empty"
         }

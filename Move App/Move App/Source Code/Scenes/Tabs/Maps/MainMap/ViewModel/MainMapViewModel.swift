@@ -166,7 +166,7 @@ extension BasePopoverAction {
     convenience init(infos: [DeviceInfo]) {
         self.init(imageUrl: nil,
                   placeholderImage: R.image.home_pop_all(),
-                  title: R.string.localizable.all(),
+                  title: R.string.localizable.id_all(),
                   isSelected: true,
                   handler: nil)
         self.data = infos

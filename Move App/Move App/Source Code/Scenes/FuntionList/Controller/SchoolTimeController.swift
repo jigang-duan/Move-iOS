@@ -49,12 +49,12 @@ class SchoolTimeController: UIViewController {
     var viewModel: SchoolTimeViewModel!
     
     func internationalization() {
-        schooltimeTitleItem.title = R.string.localizable.school_time()
-        saveOutlet.setTitle(R.string.localizable.save(), for: .normal)
-        anLabel.text = R.string.localizable.date_am()
-        pmLabel.text = R.string.localizable.date_pm()
-        confirmOutlet.setTitle(R.string.localizable.confirm(), for: .normal)
-        cancelDatePickeOutlet.setTitle(R.string.localizable.cancel(), for: .normal)
+        schooltimeTitleItem.title = R.string.localizable.id_school_time()
+        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+        anLabel.text = R.string.localizable.id_date_am()
+        pmLabel.text = R.string.localizable.id_date_pm()
+        confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
+        cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         
         
     }
@@ -280,7 +280,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date > self.amEndTime{
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
@@ -301,7 +301,7 @@ class SchoolTimeController: UIViewController {
                 else
                 {
               if datepicke.date < self.amStartTime{
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)
@@ -323,7 +323,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date > self.pmEndTime{
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
@@ -346,7 +346,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date < self.pmStartTime{
-                let alertController = UIAlertController(title: R.string.localizable.warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
