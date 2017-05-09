@@ -238,6 +238,7 @@
 		E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97B4F391E6E63CC00DC1326 /* SelectTimeZoneController.swift */; };
 		E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */; };
 		E993C5DD1E6FA3DD0057DECA /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */; };
+		E99C8FEE1EC156A6000F3F30 /* ScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E99C8FED1EC156A6000F3F30 /* ScrollLabelView.m */; };
 		E9B449AF1EB03AB100571043 /* BigContactAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B449AE1EB03AB100571043 /* BigContactAnnotationView.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
@@ -614,6 +615,8 @@
 		E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeZoneController.swift; sourceTree = "<group>"; };
 		E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeZoneViewModel.swift; sourceTree = "<group>"; };
 		E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
+		E99C8FEC1EC156A6000F3F30 /* ScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollLabelView.h; sourceTree = "<group>"; };
+		E99C8FED1EC156A6000F3F30 /* ScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollLabelView.m; sourceTree = "<group>"; };
 		E9B449AE1EB03AB100571043 /* BigContactAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigContactAnnotationView.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
@@ -1427,6 +1430,7 @@
 		E03B1BD21E4C67CD006EDB7B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E99C8FEB1EC156A6000F3F30 /* ScrollLabelView */,
 				E03B1BD51E4C68CA006EDB7B /* MainMapController.swift */,
 				E9CF8A6D1E715F0300E8D8E7 /* AllKidsLocationController.swift */,
 				E9C7B95B1E5024A700DD6542 /* LocationHistoryVC.swift */,
@@ -1950,6 +1954,15 @@
 				E956E7F31E752B3500E4298D /* reminder.plist */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E99C8FEB1EC156A6000F3F30 /* ScrollLabelView */ = {
+			isa = PBXGroup;
+			children = (
+				E99C8FEC1EC156A6000F3F30 /* ScrollLabelView.h */,
+				E99C8FED1EC156A6000F3F30 /* ScrollLabelView.m */,
+			);
+			path = ScrollLabelView;
 			sourceTree = "<group>";
 		};
 		E9B7FA5E1E54331400F46D09 /* NoEeventView */ = {
@@ -2678,6 +2691,7 @@
 				E0A8BFFE1E5698D500D410B5 /* Router.swift in Sources */,
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
 				E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */,
+				E99C8FEE1EC156A6000F3F30 /* ScrollLabelView.m in Sources */,
 				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationController.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,

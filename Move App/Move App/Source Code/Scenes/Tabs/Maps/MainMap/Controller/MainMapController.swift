@@ -31,6 +31,8 @@ class MainMapController: UIViewController {
     
     @IBOutlet weak var nameOutle: UILabel!
     @IBOutlet weak var addressOutlet: UILabel!
+    @IBOutlet weak var addressScrollLabel: ScrollLabelView!
+    
     @IBOutlet weak var timeOutlet: UILabel!
     @IBOutlet weak var headPortraitOutlet: UIButton!
     
@@ -52,6 +54,10 @@ class MainMapController: UIViewController {
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
+        if (UserDefaults.standard.value(forKey: "address") != nil){
+            self.addressScrollLabel.text = UserDefaults.standard.value(forKey: "address") as! String
+            self.addressScrollLabel.scrollLabelIfNeed()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,10 +71,11 @@ class MainMapController: UIViewController {
         self.isAtThisPage.value = false
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         timeOutlet.adjustsFontSizeToFitWidth = true
-//        addressOutlet.adjustsFontSizeToFitWidth = true
+        
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
         let geolocationService = GeolocationService.instance
@@ -171,8 +178,12 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }
-            .bindTo(addressOutlet.rx.text)
+            .subscribe(onNext: { textI in
+                self.autoRolling(a: textI)
+            })
             .addDisposableTo(disposeBag)
+        
+        
         
         viewModel.locationTime
             .map({ $0.stringYearMonthDayHourMinuteSecond })
@@ -239,6 +250,11 @@ class MainMapController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func autoRolling(a: String = "Loading") {
+        self.addressScrollLabel.addObaserverNotification()
+        self.addressScrollLabel.text = a
+        UserDefaults.standard.set(a, forKey: "address")
+    }
 }
 
 
