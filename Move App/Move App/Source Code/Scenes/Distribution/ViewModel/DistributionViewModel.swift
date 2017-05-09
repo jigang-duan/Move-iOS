@@ -36,19 +36,15 @@ class DistributionViewModel {
         let userManager = dependency.userManager
         let deviceManger = dependency.deviceManager
         
-        let delay = Observable.just(1).delay(5, scheduler: MainScheduler.instance).share()
+        let delay = Observable.just(1).delay(3, scheduler: MainScheduler.instance).share()
         
         self.enterLogin =  delay
-            .flatMap { _ in
-                userManager.isValid().map { !$0 }
-            }
+            .flatMap { _ in userManager.isValid().map { !$0 } }
             .asDriver(onErrorJustReturn: true)
         
         self.fetchDevices = enterLogin
             .filter({ !$0 })
-            .flatMapLatest({ _ in
-                deviceManger.fetchDevices().asDriver(onErrorJustReturn: [])
-            })
+            .flatMapLatest { _ in deviceManger.fetchDevices().asDriver(onErrorJustReturn: []) }
         
         self.deviceId = fetchDevices.map({ $0.first?.deviceId }).filterNil()
     }

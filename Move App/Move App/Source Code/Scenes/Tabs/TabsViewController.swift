@@ -36,8 +36,8 @@ class TabsViewController: UITabBarController {
             })
             .addDisposableTo(bag)
         
-        let nonOrOneDevice = RxStore.shared.deviceInfosState.asObservable().filter({ $0.count <= 1 }).map({ $0.first?.deviceId })
-        nonOrOneDevice.distinctUntilChanged().bindTo(RxStore.shared.currentDeviceId).addDisposableTo(bag)
+//        let nonOrOneDevice = RxStore.shared.deviceInfosState.asObservable().filter({ $0.count <= 1 }).map({ $0.first?.deviceId })
+//        nonOrOneDevice.distinctUntilChanged().bindTo(RxStore.shared.currentDeviceId).addDisposableTo(bag)
         
         enterSubject.asObservable()
             .filter({$0})
@@ -58,6 +58,17 @@ class TabsViewController: UITabBarController {
             .bindNext({ [weak self] in
                 self?.showSOSViewController(sos: $0)
             })
+            .addDisposableTo(bag)
+        
+        RxStore.shared.deviceInfosState.asObservable()
+            .withLatestFrom(RxStore.shared.currentDeviceId.asObservable()) { (devices, id) in
+                devices.filter({ $0.deviceId == id }).first?.deviceId
+            }
+            .filter { $0 == nil }
+            .flatMapLatest { (_) in
+                DeviceManager.shared.fetchDevices().map({ $0.first?.deviceId }).catchErrorJustReturn(nil).filterNil()
+            }
+            .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(bag)
     }
     

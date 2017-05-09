@@ -115,10 +115,10 @@ class MainMapViewModel {
             .shareReplay(1)
         
         currentProperty = period
-            .withLatestFrom(currentDeviceId.asObservable()).debug()
+            .withLatestFrom(currentDeviceId.asObservable())
             .filterNil()
             .flatMapLatest ({
-                deviceManager.getProperty(deviceId: $0).debug()
+                deviceManager.getProperty(deviceId: $0)
                     .trackActivity(activitying)
                     .catchErrorJustReturn(DeviceProperty())
             })
