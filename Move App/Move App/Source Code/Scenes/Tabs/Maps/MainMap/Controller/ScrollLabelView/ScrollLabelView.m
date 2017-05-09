@@ -62,9 +62,9 @@ static void each_object(NSArray *objects, void (^block)(id object))
     self.textFont = [UIFont systemFontOfSize:15];
     self.textColor = [UIColor blackColor];
     
-    self.velocity = 25.0;
+    self.velocity = 16.0;
     self.space = 25;
-    self.pauseTimeIntervalBeforeScroll = 3;
+    self.pauseTimeIntervalBeforeScroll = 2.5;
     
 }
 
@@ -182,7 +182,7 @@ static void each_object(NSArray *objects, void (^block)(id object))
         for(int i=0; i<2; i++)
         {
             UILabel *label = [[UILabel alloc] init];
-            label.textAlignment = NSTextAlignmentCenter;
+            label.textAlignment = NSTextAlignmentLeft;
             label.backgroundColor = [UIColor clearColor];
             [self.labels addObject:label];
             [self.scrollView addSubview:label];

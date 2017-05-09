@@ -23,8 +23,10 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var schoolTimeLabel: UILabel!
     @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var regularShutdownLabel: UILabel!
-    @IBOutlet weak var unpairedwithWatchLabel: UILabel!
-    @IBOutlet weak var unpairedwithwatchIntroduceLabel: UILabel!
+    @IBOutlet weak var autoposiitiorLabel: UILabel!
+    @IBOutlet weak var autopositiorIntroduceLabel: UILabel!
+    @IBOutlet weak var autoanswerLabel: UILabel!
+    @IBOutlet weak var autoansweIntroduceLabel: UILabel!
     @IBOutlet weak var savepowerLabel: UILabel!
     @IBOutlet weak var savepowerIntroduceLabel: UILabel!
     @IBOutlet weak var usePermissiorLabel: UILabel!
@@ -39,6 +41,7 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
     
+    @IBOutlet weak var autopositiQutel: SwitchButton!
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     @IBOutlet weak var savePowerQutel: SwitchButton!
     
@@ -227,8 +230,8 @@ extension AccountKidsRulesuserController {
         schoolTimeLabel.text = R.string.localizable.id_school_time()
         reminderLabel.text = R.string.localizable.id_reminder()
         regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
-        unpairedwithWatchLabel.text = R.string.localizable.id_auto_answer_call()
-        unpairedwithwatchIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
+        autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
+        autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
         savepowerLabel.text = R.string.localizable.id_save_power()
         savepowerIntroduceLabel.text = R.string.localizable.id_save_power_describe()
         timeZoneLabel.text = R.string.localizable.id_time_zone()
@@ -263,8 +266,8 @@ extension AccountKidsRulesuserController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 44, 44, 44, 44, 44, 44]]
-        let heightNotAdmin = [[55], [44, 44, 44, 44,  0], [ 0,  0,  0,  0,  0,  0,  0, 44]]
+        let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 95, 44, 44, 44, 44, 44, 44]]
+        let heightNotAdmin = [[55], [44, 44, 44, 44,  0], [0,  0,  0,  0,  0,  0,  0,  0, 44]]
         let height = isAdmin ? heightAtAdmin : heightNotAdmin
         return CGFloat(height[indexPath.section][indexPath.row])
     }
