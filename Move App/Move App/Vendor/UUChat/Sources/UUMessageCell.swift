@@ -391,10 +391,10 @@ extension UUMessageCell {
     // 处理监听触发事件
     func sensorStateChange(notification: NotificationCenter) {
         if UIDevice.current.proximityState == true {
-            print("Device is close to user")
+            print("切换为听筒模式")
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
         } else {
-            print("Device is not close to user")
+            print("切换为扬声器模式")
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
         }
     }
@@ -408,8 +408,15 @@ extension UUMessageCell: UUAVAudioPlayerDelegate {
     }
     
     func UUAVAudioPlayerBeiginPlay() {
-        // 开启红外线感应
-        UIDevice.current.isProximityMonitoringEnabled = true
+        let on = isTurnOnSpeeker
+        UIDevice.current.isProximityMonitoringEnabled = on
+        if on {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } else {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+        }
+//        // 开启红外线感应
+//        UIDevice.current.isProximityMonitoringEnabled = true
         self.btnContent.didLaodVoice()
     }
     
@@ -445,6 +452,6 @@ extension UUMessageCell: UUAVAudioPlayerDelegate {
     }
     
     var speekerDescription: String {
-        return isTurnOnSpeeker ? "Turn On Speeker" : "Turn Off Speeker"
+        return !isTurnOnSpeeker ? "Turn On Speeker" : "Turn Off Speeker"
     }
 }

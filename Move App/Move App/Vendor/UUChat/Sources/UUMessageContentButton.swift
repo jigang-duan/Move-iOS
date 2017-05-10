@@ -53,7 +53,7 @@ class UUMessageContentButton: UIButton {
     }()
     
     lazy var indicator: UIActivityIndicatorView = {
-        let $ = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        let $ = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         $.center = CGPoint(x: 85, y: 15)
         $.isUserInteractionEnabled = false
         return $
