@@ -17,51 +17,25 @@ class FamilyMemberAddController: UIViewController {
     
     
     @IBOutlet weak var saveBun: UIBarButtonItem!
-    @IBOutlet weak var photoImgV: UIImageView!
     
-    @IBOutlet weak var nameTf: UITextField!
+    @IBOutlet weak var photoImgV: UIImageView!
+    @IBOutlet weak var identityLab: UILabel!
     @IBOutlet weak var numberTf: UITextField!
 
     @IBOutlet weak var validate: UILabel!
     
-    private var viewModel: FamilyMemberAddViewModel!
     private var disposeBag = DisposeBag()
 
     private var photoPicker: ImageUtility?
-    
     private let addressbookHelper = AddressbookUtility()
     
     private var photoVariable:Variable<UIImage?> = Variable(nil)
+    private var identityVariable:Variable<Relation?> = Variable(nil)
+    private var numberVariable:Variable<String?> = Variable(nil)
+    
     
     private var contactInfo: ImContact?
     
-    var exsitIdentities: [Relation] = []
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.nameInvalidte.drive(onNext: { result in
-            switch result{
-            case .failed(_):
-                self.nameTf.becomeFirstResponder()
-            default:
-                break
-            }
-        })
-        .addDisposableTo(disposeBag)
-        
-        viewModel.phoneInvalidte.drive(onNext: { result in
-            switch result{
-            case .failed(let message):
-                self.validate.text = message
-                self.validate.isHidden = false
-            default:
-                self.validate.isHidden = true
-            }
-        })
-        .addDisposableTo(disposeBag)
-        
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -72,19 +46,17 @@ class FamilyMemberAddController: UIViewController {
         super.viewDidLoad()
         
         validate.isHidden = true
+
         
-        let name = nameTf.rx.text.orEmpty.asDriver()
-        let nameText = nameTf.rx.observe(String.self, "text").filterNil()
-        let combineName = Driver.of(nameText.asDriver(onErrorJustReturn: ""), name).merge()
+        numberTf.rx.text.orEmpty
+            .bindTo(numberVariable)
+            .addDisposableTo(disposeBag)
         
-        let number = numberTf.rx.text.orEmpty.asDriver()
-        let numberText = numberTf.rx.observe(String.self, "text").filterNil()
-        let combineNumber = Driver.of(numberText.asDriver(onErrorJustReturn: ""), number).merge()
-        
-        viewModel = FamilyMemberAddViewModel(
+        let viewModel = FamilyMemberAddViewModel(
             input:(
-                name: combineName,
-                number: combineNumber,
+                photo: photoVariable,
+                identity: identityVariable,
+                number: numberVariable,
                 saveTaps: saveBun.rx.tap.asDriver()
             ),
             dependency: (
@@ -92,9 +64,6 @@ class FamilyMemberAddController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
-        
-        viewModel.photo = photoVariable
-        viewModel.exsitIdentities = exsitIdentities
         
         viewModel.saveEnabled
             .drive(onNext: { [weak self] valid in
@@ -110,32 +79,13 @@ class FamilyMemberAddController: UIViewController {
                 case .failed(let message):
                     self.showMessage(message)
                 case .ok:
-                    self.fetchContactInfo()
+                    _ = self.navigationController?.popViewController(animated: true)
                 default:
                     break
                 }
             })
             .addDisposableTo(disposeBag)
         
-    }
-    
-    
-    func fetchContactInfo() {
-        DeviceManager.shared.getContacts(deviceId: RxStore.shared.currentDeviceId.value!)
-            .subscribe(onNext: { cons in
-                for con in cons {
-                    if con.phone == self.numberTf.text {
-                        self.contactInfo = con
-                        let vc = R.storyboard.contact.familyMemberDetailController()!
-                        vc.info = FamilyMemberDetailController.ContactDetailInfo(contactInfo: self.contactInfo, isNowMaster: true, isMe: false)
-                        vc.exsitIdentities = self.exsitIdentities
-                        var vcs = self.navigationController?.viewControllers
-                        _ = vcs?.popLast()
-                        vcs?.append(vc)
-                        self.navigationController?.setViewControllers(vcs!, animated: true)
-                    }
-                }
-            }).addDisposableTo(disposeBag)
     }
     
     
@@ -172,7 +122,8 @@ class FamilyMemberAddController: UIViewController {
     @IBAction func selectRelation(_ sender: Any) {
         let vc = R.storyboard.main.relationshipTableController()!
         vc.relationBlock = {[weak self] (relation) in
-            self?.nameTf.text = relation.description
+            self?.identityLab.text = relation.description
+            self?.identityVariable.value = relation
         }
         self.navigationController?.show(vc, sender: nil)
     }
@@ -189,16 +140,15 @@ class FamilyMemberAddController: UIViewController {
                     }
                 }
                 self.numberTf.text = str
+                self.numberVariable.value = str
             }
         }
     }
     
     
     func showMessage(_ text: String) {
-        let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
-        vc.addAction(action)
-        self.present(vc, animated: true)
+        self.validate.text = text
+        self.validate.isHidden = false
     }
     
     

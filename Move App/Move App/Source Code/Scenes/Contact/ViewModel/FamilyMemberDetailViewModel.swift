@@ -28,11 +28,13 @@ class FamilyMemberDetailViewModel {
     
     var masterInfo: ImContact?
     
+    let sending: Driver<Bool>
+    
     init(
         input:(
         photo: Variable<UIImage?>,
-        name: Driver<String>,
-        number: Driver<String>,
+        name: Variable<Relation?>,
+        number: Variable<String?>,
         masterTaps: Driver<Bool>,
         deleteTaps: Driver<Bool>,
         saveTaps: Driver<Void>
@@ -49,24 +51,16 @@ class FamilyMemberDetailViewModel {
         _ = dependency.wireframe
         
         
-        nameInvalidte = input.name.map{name -> ValidationResult in
-            self.contactInfo?.value.identity = Relation(input: name )
-            if name.characters.count > 0{
-                return ValidationResult.ok(message: "name avaliable")
-            }
-            return ValidationResult.empty
-        }
+        let activity = ActivityIndicator()
+        sending = activity.asDriver()
         
-        phoneInvalidte = input.number.map{number -> ValidationResult in
-            self.contactInfo?.value.phone = number
-            return validation.validatePhone(number)
-        }
+        let identityInvalidte = input.name.asDriver().map({$0 != nil})
+        let numberInvalidte = input.number.asDriver().map({$0 != nil && $0 != ""})
         
         
-        self.saveEnabled = Driver.combineLatest( nameInvalidte!, phoneInvalidte!) { name, phone in
-            name.isValid && phone.isValid
-            }
+        saveEnabled = Driver.combineLatest(identityInvalidte, numberInvalidte, sending){$0 && $1 && !$2}
             .distinctUntilChanged()
+        
         
         masterResult = input.masterTaps.filter({$0 == true})
             .flatMapLatest({ _ -> Driver<ImContact?> in
@@ -107,20 +101,32 @@ class FamilyMemberDetailViewModel {
         
         saveResult = input.saveTaps
             .flatMapLatest({ _ in
+                if case ValidationResult.failed(message: _) = validation.validatePhone(input.number.value!) {
+                    return  Driver.just(validation.validatePhone(input.number.value!))
+                }
+                
                 var info = (self.contactInfo?.value)!
+                info.identity = input.name.value
+                info.phone = input.number.value
                 
                 if let photo = input.photo.value {
                     return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1)
+                        .trackActivity(activity)
                         .flatMapLatest({ fid -> Observable<ValidationResult> in
                             info.profile = fid
-                            return deviceManager.settingContactInfo(contactInfo: info).map({ _ in
-                                return ValidationResult.ok(message: "Set Success.")
-                            })
-                    }).asDriver(onErrorRecover: commonErrorRecover)
+                            return deviceManager.settingContactInfo(contactInfo: info)
+                                .map({ _ in
+                                    return ValidationResult.ok(message: "Set Success.")
+                                })
+                        })
+                        .asDriver(onErrorRecover: commonErrorRecover)
                 }else{
-                    return deviceManager.settingContactInfo(contactInfo: info).map({ _ in
-                        return ValidationResult.ok(message: "Set Success.")
-                    }).asDriver(onErrorRecover: commonErrorRecover)
+                    return deviceManager.settingContactInfo(contactInfo: info)
+                        .trackActivity(activity)
+                        .map({ _ in
+                            return ValidationResult.ok(message: "Set Success.")
+                        })
+                        .asDriver(onErrorRecover: commonErrorRecover)
                 }
             })
         

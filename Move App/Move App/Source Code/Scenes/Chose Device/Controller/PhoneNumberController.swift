@@ -26,8 +26,6 @@ class PhoneNumberController: UIViewController {
     
     var deviceAddInfo: DeviceBindInfo?
     
-    var isForCheckNumber = false
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,17 +35,14 @@ class PhoneNumberController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isForCheckNumber {
-            return
-        }
         viewModel.phoneInvalidte.drive(onNext: { result in
-            switch result{
-            case .failed(let message):
-                self.showValidateError(message)
-            default:
-                self.revertValidateError()
-            }
-        })
+                switch result{
+                case .failed(let message):
+                    self.showValidateError(message)
+                default:
+                    self.revertValidateError()
+                }
+            })
             .addDisposableTo(disposeBag)
         
     }
@@ -85,34 +80,18 @@ class PhoneNumberController: UIViewController {
         
         validate.isHidden = true
         
-        if isForCheckNumber {
-            var phone = (deviceAddInfo?.phone)!
-            phone = phone.substring(to: phone.index(phone.endIndex, offsetBy: -4))
-            phonePrefix.text = phone
-            
-            phoneTf.placeholder = "****"
-            
-            self.showValidateError("Please input the last 4 number to verify")
-        }else{
-//            phonePrefix.text = "+\(Locale.current.regionCode)"
-//            regionBun.setTitle(Locale.current.regionCode, for: .normal)
-        }
-        
         
         viewModel = PhoneNumberViewModel(
             input:(
-                forCheckNumber: isForCheckNumber,
                 phone: phoneTf.rx.text.orEmpty.asDriver(),
-                nextTaps: nextBun.rx.tap.asDriver()
+                nextTaps: nextBun.rx.tap.asDriver(),
+                info: deviceAddInfo!
             ),
             dependency: (
-                deviceManager: DeviceManager.shared,
                 validation: DefaultValidation.shared,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
-        
-        viewModel.info = deviceAddInfo
         
         
         viewModel.nextEnabled
@@ -130,10 +109,11 @@ class PhoneNumberController: UIViewController {
                 case .failed(let message):
                     self.showValidateError(message)
                 case .ok(let message):
-                    if self.isForCheckNumber {
+                    if message == "join" {
                         _ = self.navigationController?.popToRootViewController(animated: true)
-                    }else{
-                        self.gotoRelationVC(message)
+                    }
+                    if message == "next" {
+                        self.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
                     }
                 default:
                     self.revertValidateError()
@@ -147,10 +127,6 @@ class PhoneNumberController: UIViewController {
     @IBAction func selectCountryCode(_ sender: UIButton) {
         let vc = R.storyboard.kidInformation.countryCodeViewController()!
         self.navigationController?.show(vc, sender: nil)
-    }
-    
-    func gotoRelationVC(_ msg: String){
-        self.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

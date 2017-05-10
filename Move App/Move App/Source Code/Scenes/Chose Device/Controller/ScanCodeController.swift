@@ -289,14 +289,6 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
     func goPairWithGeneral(with info: DeviceBindInfo) {
         let vc = R.storyboard.main.phoneNumberController()!
         vc.deviceAddInfo = info
-        
-        if info.phone == nil
-            || info.phone?.characters.count  == 0
-            || info.identity == nil {
-            vc.isForCheckNumber = false
-        }else{
-            vc.isForCheckNumber = true
-        }
         self.navigationController?.show(vc, sender: nil)
     }
  

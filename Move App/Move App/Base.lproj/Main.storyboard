@@ -2021,8 +2021,8 @@
                                     <action selector="selectPhoto:" destination="M63-DK-OWI" eventType="touchUpInside" id="WeB-s0-3Yl"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="5Yn-nw-Edu">
-                                <rect key="frame" x="0.0" y="169" width="375" height="408"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="15" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="5Yn-nw-Edu">
+                                <rect key="frame" x="0.0" y="154" width="375" height="423"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lsJ-q0-MsF">
@@ -2060,9 +2060,9 @@
                             <constraint firstItem="JVD-BO-X78" firstAttribute="leading" secondItem="P4j-rV-wlI" secondAttribute="leading" constant="16" id="GkB-eF-fhd"/>
                             <constraint firstAttribute="bottom" secondItem="ifc-jG-V6e" secondAttribute="bottom" constant="30" id="RFF-5E-gdU"/>
                             <constraint firstItem="5Yn-nw-Edu" firstAttribute="leading" secondItem="P4j-rV-wlI" secondAttribute="leading" id="ZMp-ps-vQy"/>
-                            <constraint firstItem="5Yn-nw-Edu" firstAttribute="top" secondItem="JVD-BO-X78" secondAttribute="bottom" constant="15" id="cxK-Ea-bnm"/>
                             <constraint firstItem="JVD-BO-X78" firstAttribute="top" secondItem="Am9-Ld-uFA" secondAttribute="bottom" constant="20" id="lJy-xD-znA"/>
                             <constraint firstItem="ifc-jG-V6e" firstAttribute="leading" secondItem="P4j-rV-wlI" secondAttribute="leading" constant="15" id="qJZ-9O-2ze"/>
+                            <constraint firstItem="5Yn-nw-Edu" firstAttribute="top" secondItem="JVD-BO-X78" secondAttribute="bottom" id="vXP-b6-lzB"/>
                             <constraint firstAttribute="trailing" secondItem="5Yn-nw-Edu" secondAttribute="trailing" id="w8v-rV-kGw"/>
                         </constraints>
                     </view>

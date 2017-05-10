@@ -203,22 +203,22 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             }
         case IndexPath(row: 1, section: 1):
             cell?.textLabel?.text = "Height"
-            if let height = height {
-                cell?.detailTextLabel?.text = "\(height) " + ((heightUnit == UnitType.metric) ? "cm":"inch")
+            if let h = height, h > 0 {
+                cell?.detailTextLabel?.text = "\(h) " + ((heightUnit == UnitType.metric) ? "cm":"inch")
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }
         case IndexPath(row: 2, section: 1):
             cell?.textLabel?.text = "Weight"
-            if let weight = weight {
-                cell?.detailTextLabel?.text = "\(weight) " + ((weightUnit == UnitType.metric) ? "kg":"lb")
+            if let w = weight, w > 0 {
+                cell?.detailTextLabel?.text = "\(w) " + ((weightUnit == UnitType.metric) ? "kg":"lb")
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }
         case IndexPath(row: 3, section: 1):
             cell?.textLabel?.text = "Birthday"
-            if let birthday = birthday, birthday != Date(timeIntervalSince1970: 0) {
-                cell?.detailTextLabel?.text = birthday.stringYearMonthDay
+            if let b = birthday, b != Date(timeIntervalSince1970: -62135596800) {
+                cell?.detailTextLabel?.text = b.stringYearMonthDay
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }

@@ -148,14 +148,9 @@ class FamilyMemberController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = R.segue.familyMemberController.showAddMember(segue: segue)?.destination {
-            vc.exsitIdentities = self.viewModel.contacts!.map({($0.contactInfo?.identity)!})
-        }
-        
         if let vc = R.segue.familyMemberController.showFamilyMemberDetail(segue: segue)?.destination {
             vc.info = selectInfo
             vc.masterInfo = self.viewModel.contacts?.filter({$0.contactInfo?.admin == true})[0].contactInfo
-            vc.exsitIdentities = self.viewModel.contacts!.map({($0.contactInfo?.identity)!})
         }
         
         if let vc = R.segue.familyMemberController.showEmergency(segue: segue)?.destination {
