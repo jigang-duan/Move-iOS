@@ -46,6 +46,7 @@ class MessageServer {
             let messageObservable = syncData.map { $0.messages }
                 .filterNil()
                 .flatMap { Observable.from($0) }
+                .share()
             
             messageObservable
                 .subscribe(onNext: { (message) in

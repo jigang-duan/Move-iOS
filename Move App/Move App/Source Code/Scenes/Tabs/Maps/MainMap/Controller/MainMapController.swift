@@ -287,17 +287,16 @@ extension MainMapController {
     }
     
     fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
+        let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
+        let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: preferredStyle)
         
-        let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        sheetView.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        sheetView.addAction(UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil))
         
         if let name = locationInfo.address, let location = locationInfo.location {
             sheetView.addAction(UIAlertAction(title: "Navigation", style: .default) { _ in
                 MapUtility.openPlacemark(name: name, location: location)
             })
         }
-        
         self.present(sheetView, animated: true, completion: nil)
     }
     
