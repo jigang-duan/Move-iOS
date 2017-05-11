@@ -259,31 +259,100 @@ extension EmojiType {
             return R.file.emotion_26Png()
             
         case .aweat_d:
-            return R.file.emotion_01Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("aweat", isDirectory: true)
         case .bye_d:
-            return R.file.emotion_02Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("bye", isDirectory: true)
         case .dizzy_d:
-            return R.file.emotion_04Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("dizzy", isDirectory: true)
         case .loveu_d:
-            return R.file.emotion_06Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("loveu", isDirectory: true)
         case .cry_d:
-            return R.file.emotion_03Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("cry", isDirectory: true)
         case .laught_d:
-            return R.file.emotion_05Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("laugh", isDirectory: true)
         case .naughty_d:
-            return R.file.emotion_07Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("naughty", isDirectory: true)
         case .sad_d:
-            return R.file.emotion_08Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("sad", isDirectory: true)
         case .sick_d:
-            return R.file.emotion_09Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("sick", isDirectory: true)
         case .smile_d:
-            return R.file.emotion_10Gif()
+            return R.file.emotion_PNG_180()?.appendingPathComponent("smile", isDirectory: true)
+            
+//        case .aweat_d:
+//            return R.file.emotion_01Gif()
+//        case .bye_d:
+//            return R.file.emotion_02Gif()
+//        case .dizzy_d:
+//            return R.file.emotion_04Gif()
+//        case .loveu_d:
+//            return R.file.emotion_06Gif()
+//        case .cry_d:
+//            return R.file.emotion_03Gif()
+//        case .laught_d:
+//            return R.file.emotion_05Gif()
+//        case .naughty_d:
+//            return R.file.emotion_07Gif()
+//        case .sad_d:
+//            return R.file.emotion_08Gif()
+//        case .sick_d:
+//            return R.file.emotion_09Gif()
+//        case .smile_d:
+//            return R.file.emotion_10Gif()
+            
         case .warning:
             return nil
         }
     }
+    
+    var duration: TimeInterval {
+        switch self {
+        case .aweat:
+            return 0
+        case .bye:
+            return 0
+        case .dizzy:
+            return 0
+        case .heart:
+            return 0
+        case .lacrimation:
+            return 0
+        case .angry:
+            return 0
+        case .cry:
+            return 0
+        case .sad:
+            return 0
+        case .sick:
+            return 0
+        case .smile:
+            return 0
+        case .aweat_d:
+            return 4.0
+        case .bye_d:
+            return 1.0
+        case .dizzy_d:
+            return 2.0
+        case .loveu_d:
+            return 3.0
+        case .cry_d:
+            return 3.0
+        case .laught_d:
+            return 0.18
+        case .naughty_d:
+            return 2.0
+        case .sad_d:
+            return 4.0
+        case .sick_d:
+            return 4.0
+        case .smile_d:
+            return 2.0
+        case .warning:
+            return 0
+        }
+    }
 
-    var isGit: Bool {
+    var isDynamic: Bool {
         switch self {
         case .aweat:
             return false

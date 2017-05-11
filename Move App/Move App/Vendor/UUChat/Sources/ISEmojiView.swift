@@ -248,11 +248,7 @@ fileprivate class ISEmojiCell: UICollectionViewCell {
     }
     
     func setEmoji(_ emoji: EmojiType) {
-        if
-            let url = emoji.url,
-            let imageData = try? Data(contentsOf: url) {
-             self.emojiImage.image = emoji.isGit ? UIImage.gif(data: imageData) : UIImage(data: imageData)
-        }
+        self.emojiImage.load(emoji: emoji)
     }
 }
 
@@ -336,10 +332,35 @@ fileprivate class ISEmojiPopView: UIView {
     }
     
     func setEmoji(_ emoji: EmojiType) {
-        if
-            let url = emoji.url,
-            let imageData = try? Data(contentsOf: url) {
-            self.emojiImage.image = emoji.isGit ? UIImage.gif(data: imageData) : UIImage(data: imageData)
+        self.emojiImage.load(emoji: emoji)
+    }
+}
+
+extension UIImageView {
+    
+    func load(emoji: EmojiType) {
+        if let url = emoji.url {
+            if emoji.isDynamic {
+                self.loadAnimation(imageURL: url, duration: emoji.duration)
+            } else {
+                self.image = (try? Data(contentsOf: url)).flatMap{ UIImage(data: $0) }
+            }
         }
     }
+    
+    func loadAnimation(imageURL: URL, duration: TimeInterval) {
+        let manager = FileManager.default
+        self.stopAnimating()
+        if
+            let contentsOfURL = try? manager.contentsOfDirectory(at: imageURL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants),
+            let first = contentsOfURL.first {
+            self.image = (try? Data(contentsOf: first)).flatMap{ UIImage(data: $0) }
+            self.animationImages = contentsOfURL.flatMap{ try? Data(contentsOf: $0) }.flatMap{ UIImage(data: $0) }
+            self.animationDuration = duration
+            self.animationRepeatCount = 0
+            self.backgroundColor = UIColor.clear
+            self.startAnimating()
+        }
+    }
+    
 }

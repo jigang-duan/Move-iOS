@@ -83,9 +83,6 @@ class MainMapViewModel {
             .map({ _ in Void() })
             .shareReplay(1)
         
-        
-//        let remindActivitying = ActivityIndicator()
-//        self.remindActivityIn = remindActivitying.asDriver()
         let remindActivitying = PublishSubject<Bool>()
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         

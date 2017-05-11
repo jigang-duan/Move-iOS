@@ -181,6 +181,10 @@ extension NotificationController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return messageFramesVariable.value[indexPath.row].cellHeight
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.groupTableViewBackground
+    }
 }
 
 extension NotificationController: DZNEmptyDataSetSource {

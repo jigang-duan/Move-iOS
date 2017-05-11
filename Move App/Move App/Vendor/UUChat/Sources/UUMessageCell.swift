@@ -149,13 +149,11 @@ class UUMessageCell: UITableViewCell {
             //背景气泡图
             var normal: UIImage
             if message.from == .me {
-//                normal = UIImage(named: "chatto_bg_normal")!
-//                normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 10, 10, 22))
                 normal = UIImage(named: "message_talk_bg_right")!
                 normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(15, 10, 10, 12))
             } else {
-                normal = UIImage(named: "chatfrom_bg_normal")!
-                normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(35, 22, 10, 10))
+                normal = UIImage(named: "message_talk_bg")!
+                normal = normal.resizableImage(withCapInsets: UIEdgeInsetsMake(15, 22, 10, 10))
             }
             self.btnContent.setBackgroundImage(normal, for: .normal)
             self.btnContent.setBackgroundImage(normal, for: .highlighted)
@@ -183,13 +181,9 @@ class UUMessageCell: UITableViewCell {
                 }
                 
             case .emoji:
-                if
-                    let emoji = message.content.emoji,
-                    let url = emoji.url,
-                    let imageData = try? Data(contentsOf: url) {
-                    
+                if let emoji = message.content.emoji {
                     self.btnContent.backImageView.isHidden = false
-                    self.btnContent.backImageView.image = emoji.isGit ? UIImage.gif(data: imageData) : UIImage(data: imageData)
+                    self.btnContent.backImageView.load(emoji: emoji)
                 }
                 self.btnContent.backImageView.frame = CGRect(x: 0, y: 0,
                                                              width: self.btnContent.frame.size.width,

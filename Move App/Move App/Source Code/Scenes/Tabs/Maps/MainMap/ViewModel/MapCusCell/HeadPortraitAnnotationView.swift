@@ -1,5 +1,5 @@
 //
-//  BigContactAnnotationView.swift
+//  HeadPortraitAnnotationView.swift
 //  Move App
 //
 //  Created by lx on 17/4/26.

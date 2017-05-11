@@ -426,7 +426,7 @@ extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
         calendar.isHidden = true
         isCalendarOpen = false
         let time = self.calenderConversion(from: calendar.today!, to: date)
-        self .changeBtnType(time: time , date : date)
+        self.changeBtnType(time: time , date : date)
         print("did select date \(self.formatter.string(from: date))")
         selectedDate.value = date
         index = 0

@@ -310,6 +310,10 @@ extension FamilyChatController: UITableViewDelegate {
         return messageFramesVariable.value[indexPath.row].cellHeight
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.groupTableViewBackground
+    }
+    
     fileprivate func tableViewScrollToBottom() {
         guard messageFramesVariable.value.count > 0 else {
             return

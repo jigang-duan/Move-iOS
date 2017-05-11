@@ -75,6 +75,7 @@
 		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
 		11AEC1991EA7159F004F13A3 /* MapUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AEC1981EA7159F004F13A3 /* MapUtility.swift */; };
+		11CAEC801EC4584E000CD6AA /* Emotion_PNG_180 in Resources */ = {isa = PBXBuildFile; fileRef = 11CAEC7F1EC4584E000CD6AA /* Emotion_PNG_180 */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11DA65F51EC06B9500552578 /* EAFeatureItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DA65F21EC06B9500552578 /* EAFeatureItem.m */; };
 		11DA65F61EC06B9500552578 /* UIView+EAFeatureGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DA65F41EC06B9500552578 /* UIView+EAFeatureGuideView.m */; };
@@ -239,7 +240,7 @@
 		E98C32771E6D342E002EF0C8 /* TimeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */; };
 		E993C5DD1E6FA3DD0057DECA /* ToDoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */; };
 		E99C8FEE1EC156A6000F3F30 /* ScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E99C8FED1EC156A6000F3F30 /* ScrollLabelView.m */; };
-		E9B449AF1EB03AB100571043 /* BigContactAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B449AE1EB03AB100571043 /* BigContactAnnotationView.swift */; };
+		E9B449AF1EB03AB100571043 /* HeadPortraitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B449AE1EB03AB100571043 /* HeadPortraitAnnotationView.swift */; };
 		E9B7FA601E54336A00F46D09 /* NoEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */; };
 		E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */; };
 		E9C3E8161E7A281A00EFDC39 /* SafeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C3E8151E7A281A00EFDC39 /* SafeZoneViewModel.swift */; };
@@ -430,6 +431,7 @@
 		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		11AEC1981EA7159F004F13A3 /* MapUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapUtility.swift; path = Shared/Common/Utils/MapUtility.swift; sourceTree = "<group>"; };
+		11CAEC7F1EC4584E000CD6AA /* Emotion_PNG_180 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Emotion_PNG_180; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11DA65F11EC06B9500552578 /* EAFeatureItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAFeatureItem.h; path = Vendor/EAFeatureGuideView/EAFeatureItem.h; sourceTree = "<group>"; };
 		11DA65F21EC06B9500552578 /* EAFeatureItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAFeatureItem.m; path = Vendor/EAFeatureGuideView/EAFeatureItem.m; sourceTree = "<group>"; };
@@ -617,7 +619,7 @@
 		E993C5DC1E6FA3DD0057DECA /* ToDoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListController.swift; sourceTree = "<group>"; };
 		E99C8FEC1EC156A6000F3F30 /* ScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollLabelView.h; sourceTree = "<group>"; };
 		E99C8FED1EC156A6000F3F30 /* ScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollLabelView.m; sourceTree = "<group>"; };
-		E9B449AE1EB03AB100571043 /* BigContactAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigContactAnnotationView.swift; sourceTree = "<group>"; };
+		E9B449AE1EB03AB100571043 /* HeadPortraitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadPortraitAnnotationView.swift; sourceTree = "<group>"; };
 		E9B7FA5F1E54336A00F46D09 /* NoEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoEventView.swift; path = NoEeventView/NoEventView.swift; sourceTree = "<group>"; };
 		E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEntity.swift; sourceTree = "<group>"; };
 		E9C3E8151E7A281A00EFDC39 /* SafeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneViewModel.swift; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 		112D6E741E863D0C006135E3 /* Png */ = {
 			isa = PBXGroup;
 			children = (
+				11CAEC7F1EC4584E000CD6AA /* Emotion_PNG_180 */,
 				112D6E751E863D37006135E3 /* emotion_11.png */,
 				112D6E761E863D37006135E3 /* emotion_12.png */,
 				112D6E771E863D37006135E3 /* emotion_13.png */,
@@ -2004,7 +2007,7 @@
 			children = (
 				E9DA9C371E6FD960009A9189 /* SafeZoneTabViewCell.swift */,
 				E9DA9C381E6FD960009A9189 /* SafeZoneTabViewCell.xib */,
-				E9B449AE1EB03AB100571043 /* BigContactAnnotationView.swift */,
+				E9B449AE1EB03AB100571043 /* HeadPortraitAnnotationView.swift */,
 			);
 			path = MapCusCell;
 			sourceTree = "<group>";
@@ -2287,6 +2290,7 @@
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				112D6E9B1E863D37006135E3 /* emotion_29.png in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
+				11CAEC801EC4584E000CD6AA /* Emotion_PNG_180 in Resources */,
 				E9DD2A941EA89EF60057784F /* schoolTimeHelp.xib in Resources */,
 				112D6E911E863D37006135E3 /* emotion_19.png in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
@@ -2585,7 +2589,7 @@
 				F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */,
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
 				11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */,
-				E9B449AF1EB03AB100571043 /* BigContactAnnotationView.swift in Sources */,
+				E9B449AF1EB03AB100571043 /* HeadPortraitAnnotationView.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
 				112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */,
 				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
