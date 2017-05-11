@@ -41,7 +41,7 @@ class AllKidsLocationController: UIViewController {
                                                         locations,
                                                         resultSelector: transform)
         
-        let period = Observable<Int>.timer(1, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance).debug()
+        let period = Observable<Int>.timer(1, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
             .withLatestFrom(fetchAnnotations)
             .filterEmpty()
             .share()
@@ -53,7 +53,7 @@ class AllKidsLocationController: UIViewController {
         
         let annotations = Observable.merge(period, tap)
             .filterEmpty()
-            .share().debug()
+            .share()
         
         period.single()
             .map{ calculateCentreDistance($0) }

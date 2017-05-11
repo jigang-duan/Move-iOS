@@ -77,10 +77,10 @@ class AccountKidsRulesuserController: UITableViewController {
         viewModel.savePowerEnable.drive(savePowerQutel.rx.on).addDisposableTo(disposeBag)
         viewModel.autoAnswereEnable.drive(autoAnswerQutel.rx.on).addDisposableTo(disposeBag)
         
-        viewModel.activityIn
-            .map({ !$0 })
-            .drive(onNext: userInteractionEnabled)
-            .addDisposableTo(disposeBag)
+//        viewModel.activityIn
+//            .map({ !$0 })
+//            .drive(onNext: userInteractionEnabled)
+//            .addDisposableTo(disposeBag)
         
         // 判断当前是否是管理员
         RxStore.shared.deviceIdObservable
