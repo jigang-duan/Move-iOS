@@ -29,6 +29,8 @@ class FamilyChatController: UIViewController {
     let markReadSubject = PublishSubject<String>()
     let deleteMessageSubject = PublishSubject<Int>()
     
+    let enterSubject = PublishSubject<Bool>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(ifView)
@@ -65,7 +67,8 @@ class FamilyChatController: UIViewController {
         chatMessages.bindTo(messageFramesVariable).addDisposableTo(bag)
         
         let cellIdentifier = R.reuseIdentifier.cellFamilyChat.identifier
-        messageFramesVariable.asObservable()
+        let messageFramesObservable = messageFramesVariable.asObservable()
+        messageFramesObservable
             .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
                 cell.messageFrame = model
                 cell.delegate = self
@@ -74,9 +77,19 @@ class FamilyChatController: UIViewController {
             }
             .addDisposableTo(bag)
         
-        messageFramesVariable.asObservable()
+        messageFramesObservable
             .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
             .addDisposableTo(bag)
+        
+        enterSubject.asObservable()
+            .flatMapLatest { (_) in messageFramesObservable }
+            .filterEmpty()
+            .single()
+            .bindNext { [weak self] (_) in
+                self?.showFeatureGudieView()
+            }
+            .addDisposableTo(bag)
+        
         
         // MARK: 发送 Enoji 和 语音
         
@@ -198,13 +211,33 @@ class FamilyChatController: UIViewController {
         self.tableView.addGestureRecognizer(tapGesture)
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        enterSubject.onNext(true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+
+extension FamilyChatController {
+
+    fileprivate func showFeatureGudieView() {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            if let cell = tableView.visibleCells.first as? UUMessageCell {
+                let featureItem = EAFeatureItem(focus: cell.btnContent,
+                                                focusCornerRadius: 6 ,
+                                                focus: UIEdgeInsets.zero)
+                featureItem?.actionTitle = "I Know"
+                featureItem?.introduce = "Long press to delete"
+                self.view.show(with: [featureItem!], saveKeyName: "mark:familychat:cell:content", inVersion: version)
+            }
+        }
+    }
 }
 
 extension FamilyChatController: UUMessageCellDelegate {

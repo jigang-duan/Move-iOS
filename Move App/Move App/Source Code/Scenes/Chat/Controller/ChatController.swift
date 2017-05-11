@@ -29,7 +29,6 @@ class ChatController: UIViewController {
 
         // Do any additional setup after loading the view.
 
-        showGuide()
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
         
         (segmentedOutlet.rx.value <-> selectedIndexVariable).addDisposableTo(disposeBag)
@@ -69,8 +68,6 @@ class ChatController: UIViewController {
                 self?.performSegue(withIdentifier: R.segue.chatController.showFamilyMembers, sender: nil)
             })
             .addDisposableTo(disposeBag)
-        
-        
     }
  
     override func didReceiveMemoryWarning() {
@@ -81,23 +78,6 @@ class ChatController: UIViewController {
 }
 
 extension ChatController {
-        
-    fileprivate func showGuide() {
-        
-        if Preferences.shared.mkChatFirst {
-            //引导
-            guideimageView = UIImageView(image: R.image.message_friendsuser_guide())
-            guideimageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            let window = UIApplication.shared.keyWindow
-            window?.addSubview(guideimageView)
-            guideimageView.isUserInteractionEnabled = true
-            //手势
-            let tap = UITapGestureRecognizer(target: self, action: #selector(removeView))
-            guideimageView.addGestureRecognizer(tap)
-            
-            Preferences.shared.mkChatFirst = false
-        }
-    }
     
     @objc fileprivate func removeView() {
         guideimageView.removeFromSuperview()
