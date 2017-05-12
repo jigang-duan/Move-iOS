@@ -30,7 +30,6 @@ class MainMapController: UIViewController {
     @IBOutlet weak var guideOutlet: UIButton!
     
     @IBOutlet weak var nameOutle: UILabel!
-    @IBOutlet weak var addressOutlet: UILabel!
     @IBOutlet weak var addressScrollLabel: ScrollLabelView!
     
     @IBOutlet weak var timeOutlet: UILabel!
@@ -54,16 +53,15 @@ class MainMapController: UIViewController {
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
-       
-        self.addressScrollLabel.text = address
-        self.addressScrollLabel.scrollLabelIfNeed()
-        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.showFeatureGudieView()
+        self.addressScrollLabel.text = address
+        self.addressScrollLabel.scrollLabelIfNeed()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -258,6 +256,7 @@ class MainMapController: UIViewController {
         
         self.addressScrollLabel.text = text
         address = text
+        
         
     }
 }
