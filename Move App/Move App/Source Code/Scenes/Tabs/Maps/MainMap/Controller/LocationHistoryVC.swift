@@ -120,11 +120,7 @@ class LocationHistoryVC: UIViewController {
                 Logger.debug("地图Annotion个数: \($0.count)")
             })
             .addDisposableTo(disposeBag)
-        //测试
-//        self.routeLine = self.polyline()
-//        if self.routeLine != nil {
-//            locationMap.add(routeLine!)
-//        }
+
         
         let historyLocations = selectedDate.asDriver()
             .map({  $0.todayStartEnd  })
@@ -215,25 +211,6 @@ class LocationHistoryVC: UIViewController {
     private func openAppPreferences() {
         UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
     }
-    //测试
-//    func polyline() -> MKPolyline {
-//        var coords = [CLLocationCoordinate2D]()
-//        var locationarr = [TagAnnotation]()
-//        for  i in 0...10  {
-//            var location = CLLocationCoordinate2D()
-//            if i%2 != 0 {
-//                 location = CLLocationCoordinate2DMake(23.227465 + Double(i) * 0.002, 113.190765 + Double(i) * 0.002)
-//            }else{
-//                 location = CLLocationCoordinate2DMake(23.227465 - Double(i) * 0.002, 113.190765 - Double(i) * 0.002)
-//            }
-//            coords .append(location)
-//            let annotation = TagAnnotation(location)
-//            annotation.tag = i
-//            locationarr.append(annotation)
-//        }
-//        locationMap.addAnnotations(locationarr)
-//        return MKPolyline(coordinates : coords, count: coords.count)
-//    }
     
     @IBAction func CalenderOpenBtnClick(_ sender: UIButton) {
         if isCalendarOpen == false {
@@ -255,11 +232,7 @@ class LocationHistoryVC: UIViewController {
         self .changeBtnType(time: time , date : perivday)
         selectedDate.value = perivday
         index = 0
-        //测试
-//        self.routeLine = self.polyline()
-//        if self.routeLine != nil {
-//            locationMap.add(routeLine!)
-//        }
+
     }
     
     @IBAction func NextBtnClick(_ sender: UIButton) {
@@ -270,11 +243,7 @@ class LocationHistoryVC: UIViewController {
         self .changeBtnType(time: time , date : nextday)
         selectedDate.value = nextday
         index = 0
-        //测试
-//        self.routeLine = self.polyline()
-//        if self.routeLine != nil {
-//            locationMap.add(routeLine!)
-//        }
+
     }
     
     @IBAction func NextPointClick(_ sender: UIButton) {
@@ -289,11 +258,7 @@ class LocationHistoryVC: UIViewController {
             self.TimePointSelect(index: index)
             self.timeZoneSlider.value = Float(index)
         }
-        //测试
-//        self.routeLine = self.polyline()
-//        if self.routeLine != nil {
-//            locationMap.add(routeLine!)
-//        }
+        
     }
 
     @IBAction func LastPointClick(_ sender: UIButton) {
@@ -307,11 +272,7 @@ class LocationHistoryVC: UIViewController {
             self.TimePointSelect(index: index)
             self.timeZoneSlider.value = Float(index)
         }
-        //测试
-//        self.routeLine = self.polyline()
-//        if self.routeLine != nil {
-//            locationMap.add(routeLine!)
-//        }
+
     }
     
     
@@ -326,6 +287,7 @@ class LocationHistoryVC: UIViewController {
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: UIControlState.normal)
         }
+        locationMap.removeOverlays(locationMap.overlays)
         
     }
     
