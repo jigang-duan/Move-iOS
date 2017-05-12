@@ -17,13 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let launchTime = Date()
         
         // Configure SDKs
         ApplicationManager.sharedInstance.initAllSDKs()
         
         // Init Common things
         ApplicationManager.sharedInstance.initCommon()
-
+        
+        Logger.info(Date().timeIntervalSince(launchTime))
         
         return true
     }

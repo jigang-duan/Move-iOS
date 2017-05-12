@@ -56,7 +56,7 @@ class LocationManager  {
     
     func fetchSafeZone() -> Observable<[KidSate.ElectronicFencea]> {
         guard let deviceld = Me.shared.currDeviceID else {
-            return Observable<[KidSate.ElectronicFencea]>.empty()
+            return Observable.empty()
         }
         return self.worker.fetchSafeZone(deviceId: deviceld)
     }
