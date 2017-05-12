@@ -142,6 +142,7 @@ class LocationHistoryVC: UIViewController {
                         let annotation = TagAnnotation(location)
                         let info = KidSate.LocationInfo(location: location, address: $.address, accuracy: $.accuracy, time: $.time , type: $.type)
                         annotation.info = info
+            
                         return annotation
                     }
                     return nil
@@ -363,33 +364,36 @@ extension LocationHistoryVC : MKMapViewDelegate {
                 let identifier = "LocationAnnotation"
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 if annotationView == nil {
-                    //动态的
-//                    annotationView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+
                     annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                    
                 }
                     annotationView?.image = R.image.positioning_ic_1()
                     annotationView?.canShowCallout = false
-//                annotationView?.image = R.image.history_dot_pre()
-//                (annotationView as! ContactAnnotationView).setAvatarImage(nikename: Snikename, profile: Sprofile)
-                
                 return annotationView
-//                annoView?.image = UIImage(named : "history_dot_pre")
+
             }else{
+                if point.info?.type == KidSate.LocationType.sos{
+                    let reuseIdentifier = "targetAnnoteationReuseIdentifiersos"
+                    var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+                    if annoView == nil {
+                        annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                    }
+                    annoView?.image = R.image.history_dot_sos_pre()
+                    annoView?.canShowCallout = false
+                    return annoView
+                
+                }else{
                 let reuseIdentifier = "targetAnnoteationReuseIdentifier"
                 var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
                 if annoView == nil {
                     annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
                 }
-
                 annoView?.image = R.image.history_dot_nor()
-                
                 annoView?.canShowCallout = false
                 return annoView
             }
-            
-            //history_dot_pre选中
-            
+            }
+//         sos图   history_dot_sos_pre
         }
         
         return nil

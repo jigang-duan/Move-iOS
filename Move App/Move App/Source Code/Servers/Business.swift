@@ -51,6 +51,8 @@ class KidSate {
         case gps_lbs = 256
         case gps_wifi = 257
         case lbs_wifi = 272
+        case sos = 0x8000
+        
     }
     
     struct LocationInfo {
@@ -98,6 +100,7 @@ class KidSate {
         var location: LocationInfo?
         var bts: [BTS]?
         var wifi: [WiFi]?
+        
     }
     
 }
@@ -117,6 +120,8 @@ extension KidSate.LocationType: CustomStringConvertible {
             return "GPS+WiFi"
         case .lbs_wifi:
             return "LBS+WiFi"
+        case .sos:
+            return "SOS"
         }
     }
 }
