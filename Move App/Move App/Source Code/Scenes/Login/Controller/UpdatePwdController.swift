@@ -115,10 +115,20 @@ class UpdatePwdController: UIViewController {
         rePasswordValidation.isHidden = true
     }
     
-    
+    private func initializeI18N() {
+        self.title = "Update password"
+        vcodeTf.placeholder = R.string.localizable.id_verification_code()
+        sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
+        passwordTf.placeholder = R.string.localizable.id_new_password()
+        rePasswordTf.placeholder = R.string.localizable.id_re_enter_password()
+        
+        doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         self.initUI()
         // Do any additional setup after loading the view.
@@ -170,7 +180,7 @@ class UpdatePwdController: UIViewController {
                 self.sendBun.isEnabled = valid
                 self.sendBun.alpha = valid ? 1.0 : 0.5
                 if valid {
-                    self.sendBun.setTitle("Resend", for: UIControlState.normal)
+                    self.sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
                 }else{
                     self.timeCount = 90
                     self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
@@ -216,7 +226,7 @@ class UpdatePwdController: UIViewController {
         timeCount -= 1
         if timeCount <= -1 {
             self.timer?.invalidate()
-            self.sendBun.setTitle("Resend", for: UIControlState.normal)
+            self.sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
             self.sendBun.isEnabled = true
             self.sendBun.alpha = 1
         }else{
@@ -287,6 +297,22 @@ class UpdatePwdController: UIViewController {
 
    
 }
+
+
+extension UpdatePwdController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == vcodeTf {
+            passwordTf.becomeFirstResponder()
+        }
+        if textField == passwordTf {
+            rePasswordTf.becomeFirstResponder()
+        }
+    }
+    
+}
+
+
 extension UpdatePwdController {
     override var prefersStatusBarHidden: Bool {
         return true

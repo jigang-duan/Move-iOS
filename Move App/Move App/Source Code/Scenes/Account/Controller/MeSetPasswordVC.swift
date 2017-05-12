@@ -22,6 +22,8 @@ class MeSetPasswordViewController: UIViewController {
     @IBOutlet weak var newValid: UILabel!
     
     
+    @IBOutlet weak var oldLab: UILabel!
+    @IBOutlet weak var newLab: UILabel!
     
     var disposeBag = DisposeBag()
     var viewModel: MeSetPasswordViewModel!
@@ -99,11 +101,17 @@ class MeSetPasswordViewController: UIViewController {
         }
     }
     
-    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_change_password()
+        oldLab.text = R.string.localizable.id_old_password()
+        newLab.text = R.string.localizable.id_new_password()
+        saveBun.title = R.string.localizable.id_save()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.initializeI18N()
         
         oldValid.isHidden = true
         oldValidHeiCon.constant = 0

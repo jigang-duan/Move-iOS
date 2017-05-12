@@ -262,21 +262,21 @@ extension Relation: CustomStringConvertible {
     var description: String {
         switch self {
         case .mother:
-            return "Mother"
+            return  R.string.localizable.id_mother()
         case .father:
-            return "Father"
+            return R.string.localizable.id_father()
         case .grandpa:
-            return "Grandpa"
+            return R.string.localizable.id_grandpa()
         case .grandma:
-            return "Grandma"
+            return R.string.localizable.id_grandma()
         case .uncle:
-            return "Uncle"
+            return R.string.localizable.id_uncle()
         case .aunty:
-            return "Aunty"
+            return R.string.localizable.id_aunt()
         case .sister:
-            return "Sister"
+            return R.string.localizable.id_sister()
         case .brother:
-            return "Brother"
+            return R.string.localizable.id_brother()
         case .other(let value):
             return value
         }
@@ -301,32 +301,32 @@ extension Relation: CustomStringConvertible {
         case .sister:
             return "8"
         case .other(let value):
-            return otherIdentity(value)
-        }
-    }
-    
-    private func otherIdentity(_ value: String) -> String {
-        switch value {
-        case "Mother":
-            return "1"
-        case "Father":
-            return "2"
-        case "Grandpa":
-            return "3"
-        case "Grandma":
-            return "4"
-        case "Uncle":
-            return "5"
-        case "Aunty":
-            return "6"
-        case "Brother":
-            return "7"
-        case "Sister":
-            return "8"
-        default:
             return value
         }
     }
+    
+//    private func otherIdentity(_ value: String) -> String {
+//        switch value {
+//        case "Mother":
+//            return "1"
+//        case "Father":
+//            return "2"
+//        case "Grandpa":
+//            return "3"
+//        case "Grandma":
+//            return "4"
+//        case "Uncle":
+//            return "5"
+//        case "Aunty":
+//            return "6"
+//        case "Brother":
+//            return "7"
+//        case "Sister":
+//            return "8"
+//        default:
+//            return value
+//        }
+//    }
 }
 
 extension KidSate.SOSLbsModel {

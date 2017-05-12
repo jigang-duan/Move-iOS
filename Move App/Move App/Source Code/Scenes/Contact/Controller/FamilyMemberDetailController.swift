@@ -33,6 +33,12 @@ class FamilyMemberDetailController: UIViewController {
     
     @IBOutlet weak var saveBun: UIBarButtonItem!
     
+    //未注册用户
+    @IBOutlet weak var noRegisterTipLab: UILabel!
+    @IBOutlet weak var noRegisterTipLabHCons: NSLayoutConstraint!
+    
+    
+    
     private var photoVariable:Variable<UIImage?> = Variable(nil)
     private var identityVariable:Variable<Relation?> = Variable(nil)
     private var numberVariable:Variable<String?> = Variable(nil)
@@ -67,7 +73,7 @@ class FamilyMemberDetailController: UIViewController {
         super.viewDidLoad()
         
         
-        validateLab.isHidden = true
+        validateLab.text = nil
         
         self.setupUI()
         
@@ -188,6 +194,8 @@ class FamilyMemberDetailController: UIViewController {
     
     func setupUI() {
         if self.info?.isNowMaster == false {
+            noRegisterTipLab.isHidden = true
+            noRegisterTipLabHCons.constant = 0
             
             masterBun.isHidden = true
             deleteBun.isHidden = true
@@ -204,7 +212,10 @@ class FamilyMemberDetailController: UIViewController {
                 deleteBun.isHidden = true
             }
            
-            if info?.contactInfo?.type == 0 {
+            if info?.contactInfo?.type == 1 {
+                noRegisterTipLab.isHidden = true
+                noRegisterTipLabHCons.constant = 0
+            }else{
                 masterBun.isHidden = true
                 masterHCons.constant = 0
             }
@@ -277,8 +288,11 @@ class FamilyMemberDetailController: UIViewController {
     
     
     func showMessage(_ text: String) {
-        validateLab.isHidden = false
-        validateLab.text = text
+        UIView.animate(withDuration: 0.3) { 
+            self.validateLab.isHidden = false
+            self.validateLab.text = text
+            self.view.layoutIfNeeded()
+        }
     }
     
     

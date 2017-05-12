@@ -116,8 +116,22 @@ class SignUpViewController: UIViewController {
     
     var viewModel: SignUpViewModel!
     
+    
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_sign_up()
+        
+        emailTf.placeholder = R.string.localizable.id_email()
+        passwordTf.placeholder = R.string.localizable.id_password()
+        rePasswordTf.placeholder = R.string.localizable.id_re_enter_password()
+        signUpBtn.setTitle(R.string.localizable.id_sign_up(), for: .normal)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         self.initUI()
         // Do any additional setup after loading the view.
@@ -265,6 +279,21 @@ class SignUpViewController: UIViewController {
     }
     
 }
+
+
+extension SignUpViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == emailTf {
+            passwordTf.becomeFirstResponder()
+        }
+        if textField == passwordTf {
+            rePasswordTf.becomeFirstResponder()
+        }
+    }
+    
+}
+
 
 extension SignUpViewController {
     override var prefersStatusBarHidden: Bool {

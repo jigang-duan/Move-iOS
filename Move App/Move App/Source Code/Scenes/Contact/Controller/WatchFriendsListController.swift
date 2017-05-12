@@ -52,14 +52,15 @@ class WatchFriendsListController: UITableViewController {
             )
         )
         
+        tableView.register(R.nib.watchFriendsCell)
         
         viewModel.cellDatas?
-            .drive(tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)){ (row, element, cell) in
+            .drive(tableView.rx.items(cellIdentifier: R.reuseIdentifier.watchFriendCell.identifier, cellType: WatchFriendsCell.self)){ (row, element, cell) in
                 cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-                cell.textLabel?.text = element.nickname
+                cell.kidNameLab.text = element.nickname
                 
                 let imgUrl = URL(string: FSManager.imageUrl(with: element.profile ?? ""))
-                cell.imageView?.kf.setImage(with: imgUrl, placeholder: R.image.member_btn_contact_nor()!)
+                cell.headImgV?.kf.setImage(with: imgUrl, placeholder: R.image.member_btn_contact_nor()!)
             }
             .addDisposableTo(disposeBag)
         
@@ -80,11 +81,6 @@ class WatchFriendsListController: UITableViewController {
             vc.friendInfo = selectInfo
         }
         
-    }
-
-    
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .none
     }
 
     

@@ -303,8 +303,12 @@ class KidInformationController: UIViewController {
             }
         }
         if let vc = R.segue.kidInformationController.setWeightVC(segue: segue)?.destination {
-            vc.selectedWeight = self.addInfoVariable.value.weight ?? 70
-            vc.isUnitKg = (self.addInfoVariable.value.weightUnit == UnitType.metric) ? true:false
+            if let w = self.addInfoVariable.value.weight {
+                vc.selectedWeight = w
+            }
+            if let unit = self.addInfoVariable.value.weightUnit {
+                vc.isUnitKg = (unit == UnitType.metric) ? true:false
+            }
             vc.weightBlock = { (weight, unit) in
                 self.addInfoVariable.value.weight = weight
                 self.addInfoVariable.value.weightUnit = unit
@@ -312,8 +316,12 @@ class KidInformationController: UIViewController {
             }
         }
         if let vc = R.segue.kidInformationController.setHeightVC(segue: segue)?.destination {
-            vc.selectedHeight = self.addInfoVariable.value.height ?? 160
-            vc.isUnitCm = (self.addInfoVariable.value.heightUnit == UnitType.metric) ? true:false
+            if let h = self.addInfoVariable.value.height {
+                vc.selectedHeight = h
+            }
+            if let unit = self.addInfoVariable.value.heightUnit {
+                vc.isUnitCm = (unit == UnitType.metric) ? true:false
+            }
             vc.heightBlock = { (height, unit) in
                 self.addInfoVariable.value.height = height
                 self.addInfoVariable.value.heightUnit = unit

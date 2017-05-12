@@ -190,7 +190,7 @@ class DefaultValidation {
         }
         
         if numberOfCharacters < minPasswordCount || numberOfCharacters > maxPasswordCount {
-            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
         }
         
         let setRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9]+$")
@@ -200,12 +200,12 @@ class DefaultValidation {
         
         let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
         if letterRegex.evaluate(with: password) {
-            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
         }
         
         let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
         if lnumberRegex.evaluate(with: password) {
-            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
         }
         
         
@@ -228,12 +228,12 @@ class DefaultValidation {
         
         let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
         if letterRegex.evaluate(with: password) {
-            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
         }
         
         let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
         if lnumberRegex.evaluate(with: password) {
-            return .failed(message: "Password must be \(minPasswordCount)-\(maxPasswordCount) letters and numbers")
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
         }
         
         

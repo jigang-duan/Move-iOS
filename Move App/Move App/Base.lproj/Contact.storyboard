@@ -104,7 +104,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="eEX-xt-sr4" style="IBUITableViewCellStyleDefault" id="Y2K-UO-GSP">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="eEX-xt-sr4" style="IBUITableViewCellStyleDefault" id="Y2K-UO-GSP">
                                 <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2K-UO-GSP" id="9Sh-Y3-Kxy">
@@ -866,7 +866,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lmp-lD-jom">
-                                <rect key="frame" x="15" y="201" width="345" height="40"/>
+                                <rect key="frame" x="15" y="226" width="345" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="qXK-SK-pHZ"/>
@@ -880,7 +880,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXj-jQ-bPF">
-                                <rect key="frame" x="15" y="256" width="345" height="40"/>
+                                <rect key="frame" x="15" y="281" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="ac6-0d-6Fb"/>
@@ -896,26 +896,37 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone number invalid " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIT-1u-8R5">
-                                <rect key="frame" x="25" y="165" width="325" height="16"/>
+                                <rect key="frame" x="20" y="200" width="330" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This member does not use APP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTy-fG-oDy">
+                                <rect key="frame" x="20" y="165" width="215" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7A8-ic-Ast"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="SXj-jQ-bPF" firstAttribute="leading" secondItem="tY6-vl-qi6" secondAttribute="leading" constant="15" id="3eS-sz-rpO"/>
+                            <constraint firstItem="JTy-fG-oDy" firstAttribute="top" secondItem="OGg-op-smU" secondAttribute="bottom" constant="5" id="69q-s3-0TJ"/>
                             <constraint firstItem="OGg-op-smU" firstAttribute="top" secondItem="tY6-vl-qi6" secondAttribute="top" id="ADk-Fu-3eT"/>
                             <constraint firstAttribute="trailing" secondItem="hIT-1u-8R5" secondAttribute="trailing" constant="25" id="CDr-9a-loj"/>
+                            <constraint firstItem="hIT-1u-8R5" firstAttribute="top" secondItem="JTy-fG-oDy" secondAttribute="bottom" constant="5" id="GMe-Hi-ZyC"/>
                             <constraint firstItem="lmp-lD-jom" firstAttribute="leading" secondItem="tY6-vl-qi6" secondAttribute="leading" constant="15" id="J2n-Hs-iJj"/>
-                            <constraint firstItem="lmp-lD-jom" firstAttribute="top" secondItem="hIT-1u-8R5" secondAttribute="bottom" constant="20" id="NYe-2Q-JAS"/>
+                            <constraint firstItem="lmp-lD-jom" firstAttribute="top" secondItem="hIT-1u-8R5" secondAttribute="bottom" constant="10" id="NYe-2Q-JAS"/>
                             <constraint firstItem="OGg-op-smU" firstAttribute="leading" secondItem="tY6-vl-qi6" secondAttribute="leading" id="P3c-bQ-xMi"/>
-                            <constraint firstItem="hIT-1u-8R5" firstAttribute="top" secondItem="OGg-op-smU" secondAttribute="bottom" constant="5" id="S3r-2t-lqX"/>
                             <constraint firstAttribute="trailing" secondItem="OGg-op-smU" secondAttribute="trailing" id="T4i-Nd-gNz"/>
                             <constraint firstAttribute="trailing" secondItem="lmp-lD-jom" secondAttribute="trailing" constant="15" id="Wwl-u5-uXx"/>
-                            <constraint firstItem="hIT-1u-8R5" firstAttribute="leading" secondItem="tY6-vl-qi6" secondAttribute="leading" constant="25" id="es9-5E-tiE"/>
+                            <constraint firstItem="hIT-1u-8R5" firstAttribute="leading" secondItem="tY6-vl-qi6" secondAttribute="leading" constant="20" id="es9-5E-tiE"/>
                             <constraint firstAttribute="trailing" secondItem="SXj-jQ-bPF" secondAttribute="trailing" constant="15" id="vlk-JI-Iyp"/>
                             <constraint firstItem="SXj-jQ-bPF" firstAttribute="top" secondItem="lmp-lD-jom" secondAttribute="bottom" constant="15" id="zWD-ej-Bej"/>
+                            <constraint firstItem="JTy-fG-oDy" firstAttribute="leading" secondItem="tY6-vl-qi6" secondAttribute="leading" constant="20" id="zvk-n3-fNM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Family member" id="sZP-LI-HTI">
@@ -927,6 +938,8 @@
                         <outlet property="identityLab" destination="GPP-qc-tlw" id="LQ5-eX-Fm4"/>
                         <outlet property="masterBun" destination="lmp-lD-jom" id="rY7-cO-bMj"/>
                         <outlet property="masterHCons" destination="qXK-SK-pHZ" id="4UL-zD-rqr"/>
+                        <outlet property="noRegisterTipLab" destination="JTy-fG-oDy" id="Y9d-lI-Dt9"/>
+                        <outlet property="noRegisterTipLabHCons" destination="7A8-ic-Ast" id="QOg-Td-wwt"/>
                         <outlet property="numberTf" destination="C7C-E8-f0b" id="ON9-1P-lmf"/>
                         <outlet property="photoImgV" destination="l4e-5Z-2m2" id="KSG-ij-GvC"/>
                         <outlet property="saveBun" destination="X66-4i-75m" id="iqh-k0-3Sj"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -55,7 +55,10 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vjP-4m-D2c" id="dqx-67-8iQ"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llT-7X-wmS" userLabel="EmailLine">
                                         <rect key="frame" x="30" y="32" width="315" height="1"/>
@@ -88,7 +91,10 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vjP-4m-D2c" id="uTw-Zh-42y"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYB-Rw-d2n">
                                         <rect key="frame" x="315" y="62" width="30" height="30"/>
@@ -271,12 +277,15 @@
                         <outlet property="emailOutlet" destination="rTs-oE-jQb" id="V9Z-eF-dmB"/>
                         <outlet property="emailValidationOutlet" destination="OKw-XK-bB7" id="pQw-xA-qjP"/>
                         <outlet property="fecebookOutlet" destination="EIz-rr-t34" id="vES-3L-1st"/>
+                        <outlet property="forgotPswdBun" destination="5FU-hq-zOH" id="22h-N4-nte"/>
                         <outlet property="googleOutlet" destination="BRO-b5-xLr" id="pYd-hh-g5Y"/>
                         <outlet property="loginOutlet" destination="960-KP-Uz1" id="aku-Uy-ooR"/>
+                        <outlet property="orLab" destination="Czz-QO-uP3" id="bEc-3W-bkS"/>
                         <outlet property="passwordLine" destination="L0p-XS-oiU" id="Rwq-CN-Y0c"/>
                         <outlet property="passwordOutlet" destination="MBT-71-6t5" id="SjC-x4-z3S"/>
                         <outlet property="passwordValidationHCon" destination="6mR-Pr-vSF" id="YtX-fr-8eV"/>
                         <outlet property="passwordValidationOutlet" destination="Arv-CD-kyu" id="3p3-xr-LZc"/>
+                        <outlet property="signUpBun" destination="G6H-Vw-cBQ" id="cI5-gu-yyH"/>
                         <outlet property="twitterOutlet" destination="Iir-Oq-Pcf" id="dRD-7L-2tV"/>
                     </connections>
                 </viewController>
@@ -537,7 +546,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0SY-sh-nhh" id="bVf-Fd-7Qt"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-V0-ygb" userLabel="EmailLine">
                                 <rect key="frame" x="30" y="216" width="315" height="1"/>
@@ -562,7 +574,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0SY-sh-nhh" id="NF1-f1-lZX"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDC-7X-Iej" userLabel="EmailLine">
                                 <rect key="frame" x="30" y="280" width="315" height="1"/>
@@ -587,7 +602,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0SY-sh-nhh" id="yG6-L0-Bb2"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svc-SU-JhY" userLabel="EmailLine">
                                 <rect key="frame" x="30" y="344" width="315" height="1"/>
@@ -726,7 +744,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="3ma-bW-nPx" id="12r-46-JUX"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zll-P4-9Ic" userLabel="EmailLine">
                                 <rect key="frame" x="30" y="136" width="315" height="1"/>
@@ -758,7 +779,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="3ma-bW-nPx" id="zam-yO-kuD"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9A-2R-Br7" userLabel="EmailLine">
                                 <rect key="frame" x="30" y="200" width="315" height="1"/>
@@ -790,7 +814,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="3ma-bW-nPx" id="z8Y-xn-X9Q"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxm-UJ-B5B" userLabel="EmailLine">
                                 <rect key="frame" x="30" y="264" width="315" height="1"/>

@@ -19,6 +19,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordOutlet: UITextField!
     @IBOutlet weak var passwordValidationOutlet: UILabel!
     @IBOutlet weak var loginOutlet: UIButton!
+    @IBOutlet weak var signUpBun: UIButton!
+    @IBOutlet weak var forgotPswdBun: UIButton!
     @IBOutlet weak var emailLine: UIView!
     @IBOutlet weak var passwordLine: UIView!
     
@@ -31,10 +33,30 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
     @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
+    @IBOutlet weak var orLab: UILabel!
     var thirdLogin = Variable(MoveApiUserWorker.LoginType.none)
+    
+    fileprivate var emailSubject: PublishSubject<Void> = PublishSubject()
+    fileprivate var passwordSubject: PublishSubject<Void> = PublishSubject()
+    
+    
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_login_in()
+        forgotPswdBun.setTitle(R.string.localizable.id_forget_password(), for: .normal)
+        loginOutlet.setTitle(R.string.localizable.id_login_in(), for: .normal)
+        signUpBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
+        orLab.text = R.string.localizable.id_or()
+        
+        emailOutlet.placeholder = R.string.localizable.id_email()
+        passwordOutlet.placeholder = R.string.localizable.id_password()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
 
         // Do any additional setup after loading the view.
         
@@ -87,13 +109,15 @@ class LoginViewController: UIViewController {
             .drive(thirdLogin)
             .addDisposableTo(disposeBag)
         
-        viewModel.validatedEmail
+        emailSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedEmail)
             .drive(onNext: { [weak self] in
                 self?.showAccountValidation($0)
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.validatedPassword
+        passwordSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedPassword)
             .drive(onNext: { [weak self] in
                 self?.showPasswordValidation($0)
             })
@@ -113,6 +137,8 @@ class LoginViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+        
+        
     }
     
     @IBAction func eyeButtonClick(_ sender: UIButton) {
@@ -126,6 +152,32 @@ class LoginViewController: UIViewController {
     }
     
 }
+
+extension LoginViewController: UITextFieldDelegate {
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == emailOutlet {
+            passwordOutlet.becomeFirstResponder()
+            emailSubject.onNext(())
+        }
+        if textField == passwordOutlet {
+            passwordSubject.onNext(())
+        }
+    }
+    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == emailOutlet {
+            self.revertAccountError()
+        }
+        if textField == passwordOutlet {
+            self.revertPasswordError()
+        }
+    }
+    
+    
+}
+
 
 
 // MARK: -- Show
@@ -183,7 +235,7 @@ extension LoginViewController {
         }
     }
     
-    private func revertAccountError() {
+    fileprivate func revertAccountError() {
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
         emailValidationOutlet.alpha = 1.0
@@ -209,7 +261,7 @@ extension LoginViewController {
         }
     }
     
-    private func revertPasswordError() {
+    fileprivate func revertPasswordError() {
         passwordValidationHCon.constant = 0
         passwordValidationOutlet.isHidden = true
         passwordValidationOutlet.alpha = 1.0
@@ -223,5 +275,4 @@ extension LoginViewController {
     }
     
 }
-
 

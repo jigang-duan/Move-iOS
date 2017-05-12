@@ -111,7 +111,7 @@ extension WorkerError {
             case 5:
                 switch field ?? "" {
                 case "password":
-                    errorMessage = "Password do not match"
+                    errorMessage = R.string.localizable.id_password_not_same()
                 case "vcode":
                     errorMessage = "This code has expired"
                 default:

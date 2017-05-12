@@ -49,11 +49,16 @@ class PwdRecoveryController: UIViewController {
         }
     }
     
-    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_password_recovery()
+        emailTf.placeholder = R.string.localizable.id_email()
+        doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.initializeI18N()
         
         emailValidation.isHidden = true
         

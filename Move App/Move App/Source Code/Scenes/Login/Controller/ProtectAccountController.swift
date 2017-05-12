@@ -57,8 +57,19 @@ class ProtectAccountController: UIViewController {
         }
     }
     
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_protect_your_account()
+        
+        vcodeTf.placeholder = R.string.localizable.id_verification_code()
+        sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
+        doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
 
         HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email)."
         
@@ -84,7 +95,7 @@ class ProtectAccountController: UIViewController {
                 self.sendBun.isEnabled = valid
                 self.sendBun.alpha = valid ? 1.0 : 0.5
                 if valid {
-                    self.sendBun.setTitle("Resend", for: UIControlState.normal)
+                    self.sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
                 }else{
                     self.timeCount = 90
                     self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
@@ -133,7 +144,7 @@ class ProtectAccountController: UIViewController {
         timeCount -= 1
         if timeCount <= -1 {
             self.timer?.invalidate()
-            self.sendBun.setTitle("Resend", for: UIControlState.normal)
+            self.sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
             self.sendBun.isEnabled = true
             self.sendBun.alpha = 1
         }else{

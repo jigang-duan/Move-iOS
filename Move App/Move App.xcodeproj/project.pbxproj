@@ -318,6 +318,8 @@
 		FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D951E702464006B80AE /* UpgradeViewModel.swift */; };
 		FFF2E8EA1E824C640082FEB7 /* APNforWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */; };
 		FFF2E8EC1E8272020082FEB7 /* APNSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2E8EB1E8272020082FEB7 /* APNSettingVC.swift */; };
+		FFF4E3221EC4087600E9148F /* WatchFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF4E3201EC4087600E9148F /* WatchFriendsCell.swift */; };
+		FFF4E3231EC4087600E9148F /* WatchFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFF4E3211EC4087600E9148F /* WatchFriendsCell.xib */; };
 		FFF5BD5E1E6E82C70037AFFF /* FamilyMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */; };
 		FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */; };
 		FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD631E6E85960037AFFF /* WatchFriendsListController.swift */; };
@@ -709,6 +711,8 @@
 		FFF4E31A1EC18D6500E9148F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = "Move App/nl.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FFF4E31C1EC18F3D00E9148F /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "Move App/es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FFF4E31D1EC192E300E9148F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "Move App/pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFF4E3201EC4087600E9148F /* WatchFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsCell.swift; sourceTree = "<group>"; };
+		FFF4E3211EC4087600E9148F /* WatchFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WatchFriendsCell.xib; sourceTree = "<group>"; };
 		FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateIntTransform.swift; sourceTree = "<group>"; };
 		FFF5BD5D1E6E82C70037AFFF /* FamilyMemberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberController.swift; sourceTree = "<group>"; };
 		FFF5BD611E6E84FA0037AFFF /* WatchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendsController.swift; sourceTree = "<group>"; };
@@ -2079,6 +2083,8 @@
 				FF090E461E71344800FA7EC7 /* FamilyMemberAddViewModel.swift */,
 				FF1C4FAE1E73A554008248FE /* FamilyMemberDetailViewModel.swift */,
 				FF14AC1F1E77901500FBE899 /* WatchFriendsListViewModel.swift */,
+				FFF4E3201EC4087600E9148F /* WatchFriendsCell.swift */,
+				FFF4E3211EC4087600E9148F /* WatchFriendsCell.xib */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2325,6 +2331,7 @@
 				112D6E891E863D37006135E3 /* emotion_11.png in Resources */,
 				E0931F3D1E31A61800755B4A /* Login.storyboard in Resources */,
 				112D6E921E863D37006135E3 /* emotion_20.png in Resources */,
+				FFF4E3231EC4087600E9148F /* WatchFriendsCell.xib in Resources */,
 				FF4ABDBB1E66D9C00029C643 /* APN.storyboard in Resources */,
 				112D6E951E863D37006135E3 /* emotion_23.png in Resources */,
 				112D6E8D1E863D37006135E3 /* emotion_15.png in Resources */,
@@ -2642,6 +2649,7 @@
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				11393AED1EA877C800F571C8 /* Random.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
+				FFF4E3221EC4087600E9148F /* WatchFriendsCell.swift in Sources */,
 				FF08590C1E72372B00EB81D9 /* MeSetPasswordVC.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */,

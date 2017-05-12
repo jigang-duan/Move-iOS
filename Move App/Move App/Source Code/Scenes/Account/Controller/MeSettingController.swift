@@ -54,9 +54,15 @@ class MeSettingController: UIViewController {
         }
     }
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_me()
+        logoutBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         self.tableView.delegate = self
         
@@ -186,37 +192,37 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath {
         case IndexPath(row: 0, section: 0):
-            cell?.textLabel?.text = "Name"
+            cell?.textLabel?.text = R.string.localizable.id_name()
             cell?.detailTextLabel?.text = info?.nickname
         case IndexPath(row: 1, section: 0):
-            cell?.textLabel?.text = "Email"
+            cell?.textLabel?.text =  R.string.localizable.id_email()
             cell?.detailTextLabel?.text = info?.email
         case IndexPath(row: 2, section: 0):
-            cell?.textLabel?.text = "Change password"
+            cell?.textLabel?.text =  R.string.localizable.id_change_password()
             cell?.detailTextLabel?.text = "●●●●●●"
         case IndexPath(row: 0, section: 1):
-            cell?.textLabel?.text = "Gender"
-            if let gender = gender {
-                cell?.detailTextLabel?.text = (gender == "0" ? "male":"female")
+            cell?.textLabel?.text = R.string.localizable.id_gender()
+            if let g = gender, g.characters.count > 0 {
+                cell?.detailTextLabel?.text = (g == "0" ? "male":"female")
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }
         case IndexPath(row: 1, section: 1):
-            cell?.textLabel?.text = "Height"
+            cell?.textLabel?.text = R.string.localizable.id_height()
             if let h = height, h > 0 {
                 cell?.detailTextLabel?.text = "\(h) " + ((heightUnit == UnitType.metric) ? "cm":"inch")
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }
         case IndexPath(row: 2, section: 1):
-            cell?.textLabel?.text = "Weight"
+            cell?.textLabel?.text = R.string.localizable.id_weight()
             if let w = weight, w > 0 {
                 cell?.detailTextLabel?.text = "\(w) " + ((weightUnit == UnitType.metric) ? "kg":"lb")
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }
         case IndexPath(row: 3, section: 1):
-            cell?.textLabel?.text = "Birthday"
+            cell?.textLabel?.text = R.string.localizable.id_birthday()
             if let b = birthday, b != Date(timeIntervalSince1970: -62135596800) {
                 cell?.detailTextLabel?.text = b.stringYearMonthDay
             }else{

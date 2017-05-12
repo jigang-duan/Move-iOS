@@ -22,12 +22,27 @@ class AccountAndChoseDeviceController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var personalInformationLab: UILabel!
+    @IBOutlet weak var deviceLab: UILabel!
+    @IBOutlet weak var addDeviceLab: UILabel!
+    
+    
+    
     let disposeBag = DisposeBag()
     let enterSubject = PublishSubject<Bool>()
+    
+    
+    private func initializeI18N() {
+        personalInformationLab.text = R.string.localizable.id_account_inform() + " >"
+        deviceLab.text = R.string.localizable.id_device()
+        addDeviceLab.text = R.string.localizable.id_add_device()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.initializeI18N()
+        
         backImageView.image(gradientColors: [R.color.appColor.darkPrimary().withAlphaComponent(0.4),R.color.appColor.darkPrimary()], locations: [0.0,1.0])
         
         let viewModel = AccountAndChoseDeviceViewModel(
