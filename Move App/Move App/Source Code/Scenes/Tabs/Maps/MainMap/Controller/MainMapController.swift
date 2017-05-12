@@ -55,8 +55,8 @@ class MainMapController: UIViewController {
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
        
-            self.addressScrollLabel.text = address
-            self.addressScrollLabel.scrollLabelIfNeed()
+        self.addressScrollLabel.text = address
+        self.addressScrollLabel.scrollLabelIfNeed()
         
     }
     
@@ -145,12 +145,19 @@ class MainMapController: UIViewController {
         
         viewModel.fetchDevices.drive(viewModel.devicesVariable).addDisposableTo(disposeBag)
         
-        viewModel.currentDevice
-            .drive(onNext: { [weak self] in
-                self?.showHeadPortrait(deviceInfo: $0)
-                self?.showVoltameterOutlet(deviceInfo: $0)
-            })
+        let portrait = viewModel.currentDevice.map{ try? $0.user?.profile?.fsImageUrl.asURL() }.filterNil()
+        Driver.combineLatest(portrait, name) { ($0, $1) }
+            .drive(headPortraitOutlet.rx.initialsAvatar)
             .addDisposableTo(disposeBag)
+        
+        viewModel.currentDevice.map{ $0.user?.online }.filterNil()
+            .map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }
+            .drive(statesOutlet.rx.image)
+            .addDisposableTo(disposeBag)
+        
+        let power = viewModel.currentDevice.map{ $0.property?.power }.filterNil()
+        power.map{ "\($0)%" }.drive(voltameterOutlet.rx.text).addDisposableTo(disposeBag)
+        power.map{ UIImage(named: "home_ic_battery\($0/20)") }.drive(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
         
         viewModel.currentProperty
             .withLatestFrom(viewModel.currentDevice) { (property, info) in DeviceInfo(property: property, info: info) }
@@ -160,52 +167,40 @@ class MainMapController: UIViewController {
         
         mapView.rx.willStartLoadingMap
             .asDriver()
-            .drive(onNext: {
-                Logger.debug("地图开始加载!")
-            })
+            .drive(onNext: { Logger.debug("地图开始加载!") })
             .addDisposableTo(disposeBag)
         
         mapView.rx.didFinishLoadingMap
             .asDriver()
-            .drive(onNext: {
-                Logger.debug("地图结束加载!")
-            })
+            .drive(onNext: { Logger.debug("地图结束加载!") })
             .addDisposableTo(disposeBag)
         
         mapView.rx.didAddAnnotationViews
             .asDriver()
-            .drive(onNext: {
-                Logger.debug("地图Annotion个数: \($0.count)")
-            })
+            .drive(onNext: { Logger.debug("地图Annotion个数: \($0.count)")})
             .addDisposableTo(disposeBag)
         
-        Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }
+        Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }.debug()
             .subscribe(onNext: { [unowned self] textI in
                 self.autoRolling(textI)
             })
             .addDisposableTo(disposeBag)
         
         
-        
         viewModel.locationTime
-            .map({ $0.stringYearMonthDayHourMinuteSecond })
+            .map { $0.stringYearMonthDayHourMinuteSecond }
             .bindTo(timeOutlet.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.kidLocation
             .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
-            .bindNext({ [unowned self] in
-                let region = MKCoordinateRegionMakeWithDistance($0, 500, 500)
-                self.mapView.setRegion(region, animated: true)
-            })
+            .map{ MKCoordinateRegionMakeWithDistance($0, 500, 500) }
+            .bindTo(mapView.rx.region)
             .addDisposableTo(disposeBag)
         
         viewModel.kidAnnotion
             .distinctUntilChanged()
-            .bindNext({ [unowned self] annotion in
-                self.mapView.removeAnnotations(self.mapView.annotations)
-                self.mapView.addAnnotation(annotion)
-            })
+            .bindTo(mapView.rx.soleAccuracyAnnotation)
             .addDisposableTo(disposeBag)
         
         mapView.rx.regionDidChangeAnimated.asObservable()
@@ -256,6 +251,8 @@ class MainMapController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     private var address = "Loading"
     func autoRolling(_ text: String = "Loading") {
         
@@ -276,7 +273,7 @@ extension MainMapController {
             headItem?.actionTitle = "I Know"
             headItem?.introduce = "Tap here to change watch"
             headItem?.action = { _ in
-                let navItem = EAFeatureItem(focus: self.addressOutlet,
+                let navItem = EAFeatureItem(focus: self.addressScrollLabel,
                                             focusCornerRadius: 6 ,
                                             focus: UIEdgeInsets.zero)
                 navItem?.actionTitle = "I Know"
@@ -306,32 +303,7 @@ extension MainMapController {
     fileprivate func showAllKidsLocationController() {
         self.performSegue(withIdentifier: R.segue.mainMapController.showAllKidsLocation, sender: nil)
     }
-    
-    fileprivate func showVoltameterOutlet(deviceInfo: DeviceInfo) {
-        if let power = deviceInfo.property?.power {
-            voltameterOutlet.text = "\(power)%"
-            voltameterImageOutlet.image = UIImage(named: "home_ic_battery\(power/20)")
-        }
-    }
 
-    fileprivate func showHeadPortrait(deviceInfo: DeviceInfo) {
-        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0,
-                                                      width: headPortraitOutlet.frame.size.width,
-                                                      height: headPortraitOutlet.frame.size.height),
-                                         fullName: deviceInfo.user?.nickname ?? "" )
-            .imageRepresentation()!
-        
-        let imgUrl = deviceInfo.user?.profile?.fsImageUrl.url
-        self.headPortraitOutlet.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg) { (image, _, _, _) in
-            if
-                let image = image,
-                let online = deviceInfo.user?.online, !online {
-                let effectImage = image.grayImage()
-                self.headPortraitOutlet.setBackgroundImage(effectImage, for: .normal)
-            }
-        }
-        self.dotDot(online: deviceInfo.user?.online ?? true)
-    }
 }
 
 
@@ -387,11 +359,6 @@ extension MainMapController: MFMessageComposeViewControllerDelegate {
 }
 
 
-fileprivate func convert(_ mapView: MKMapView, radius: CLLocationDistance) -> CGRect {
-    let region = MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, radius, radius)
-    return mapView.convertRegion(region, toRectTo: mapView)
-}
-
 
 fileprivate func transform(info: DeviceInfo, infos: [DeviceInfo]) -> [DeviceInfo] {
     var devices = infos
@@ -410,12 +377,6 @@ fileprivate extension DeviceInfo {
     }
 }
 
-extension String {
-    var url: URL? {
-        return URL(string: self)
-    }
-}
-
 extension URL {
     init?(deviceInfo: DeviceInfo) {
         guard let number = deviceInfo.user?.number else {
@@ -426,20 +387,4 @@ extension URL {
     }
 }
 
-extension UIImage {
-    
-    func grayImage() -> UIImage {
-        let imageRef = self.cgImage!
-        let width = imageRef.width
-        let height = imageRef.height
-        let colorSpace = CGColorSpaceCreateDeviceGray()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
-        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
-        let rect = CGRect(x: 0, y: 0, width: width, height: height)
-        context.draw(imageRef, in: rect)
-        let outPutImage = context.makeImage()!
-        let newImage = UIImage(cgImage: outPutImage, scale: self.scale, orientation: self.imageOrientation)
-        return newImage
-    }
-    
-}
+

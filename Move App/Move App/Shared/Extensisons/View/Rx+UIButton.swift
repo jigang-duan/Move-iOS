@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CustomViews
+import Kingfisher
 
 extension Reactive where Base: UIButton {
     
@@ -18,4 +20,19 @@ extension Reactive where Base: UIButton {
             button.alpha = enabled ? 1.0 : 0.5
         }
     }
+    
+}
+
+extension Reactive where Base: UIButton {
+    
+    var initialsAvatar: UIBindingObserver<Base, (URL?, String)> {
+        return UIBindingObserver(UIElement: self.base) { (button, value) in
+            let imgURL = value.0
+            let name = value.1
+            let placeImg = CDFInitialsAvatar(rect: button.bounds, fullName: name ).imageRepresentation()!
+            let _button = button as UIButton
+            _button.kf.setBackgroundImage(with: imgURL, for: .normal, placeholder: placeImg)
+        }
+    }
+    
 }

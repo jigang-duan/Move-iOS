@@ -87,8 +87,9 @@ extension SOSController {
                                          fullName: deviceInfo.user?.nickname ?? "" )
             .imageRepresentation()!
         
-        let imgUrl = deviceInfo.user?.profile?.fsImageUrl.url
-        self.headPortrait.kf.setImage(with: imgUrl, placeholder: placeImg)
+        if let imgUrl = try? deviceInfo.user?.profile?.fsImageUrl.asURL() {
+            self.headPortrait.kf.setImage(with: imgUrl, placeholder: placeImg)
+        }
     }
     
 }

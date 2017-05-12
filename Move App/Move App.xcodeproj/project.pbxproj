@@ -76,6 +76,7 @@
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
 		11AEC1991EA7159F004F13A3 /* MapUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AEC1981EA7159F004F13A3 /* MapUtility.swift */; };
 		11CAEC801EC4584E000CD6AA /* Emotion_PNG_180 in Resources */ = {isa = PBXBuildFile; fileRef = 11CAEC7F1EC4584E000CD6AA /* Emotion_PNG_180 */; };
+		11CAEC831EC57FB7000CD6AA /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CAEC821EC57FB7000CD6AA /* MKMapView+Extensions.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
 		11DA65F51EC06B9500552578 /* EAFeatureItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DA65F21EC06B9500552578 /* EAFeatureItem.m */; };
 		11DA65F61EC06B9500552578 /* UIView+EAFeatureGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DA65F41EC06B9500552578 /* UIView+EAFeatureGuideView.m */; };
@@ -437,6 +438,7 @@
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		11AEC1981EA7159F004F13A3 /* MapUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapUtility.swift; path = Shared/Common/Utils/MapUtility.swift; sourceTree = "<group>"; };
 		11CAEC7F1EC4584E000CD6AA /* Emotion_PNG_180 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Emotion_PNG_180; sourceTree = "<group>"; };
+		11CAEC821EC57FB7000CD6AA /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MKMapView+Extensions.swift"; path = "Shared/Extensisons/View/MKMapView+Extensions.swift"; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		11DA65F11EC06B9500552578 /* EAFeatureItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAFeatureItem.h; path = Vendor/EAFeatureGuideView/EAFeatureItem.h; sourceTree = "<group>"; };
 		11DA65F21EC06B9500552578 /* EAFeatureItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAFeatureItem.m; path = Vendor/EAFeatureGuideView/EAFeatureItem.m; sourceTree = "<group>"; };
@@ -1676,6 +1678,7 @@
 				E03B1BC51E4B2E60006EDB7B /* HeaderSectionView.swift */,
 				117577D91E8B8D59007B2254 /* Rx+UIButton.swift */,
 				1162A5061EADFEE000DA6164 /* Rx+Badge.swift */,
+				11CAEC821EC57FB7000CD6AA /* MKMapView+Extensions.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2648,6 +2651,7 @@
 				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				11393AED1EA877C800F571C8 /* Random.swift in Sources */,
+				11CAEC831EC57FB7000CD6AA /* MKMapView+Extensions.swift in Sources */,
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				FFF4E3221EC4087600E9148F /* WatchFriendsCell.swift in Sources */,
 				FF08590C1E72372B00EB81D9 /* MeSetPasswordVC.swift in Sources */,
