@@ -22,7 +22,7 @@
 #import <FacebookConnector/FacebookConnector.h>
 #import <GooglePlusConnector/SSDKGooglePlusControllerStyle.h>
 #import "ScrollLabelView.h"
-
+#import "AuthenCryptor.h"
 #import <Bugly/Bugly.h>
 
 

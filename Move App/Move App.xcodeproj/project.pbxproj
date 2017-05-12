@@ -95,6 +95,9 @@
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
 		11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F71CF71EA9F0360066B9FC /* Preferences.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
+		93015C121EC43E76002D08C3 /* AuthenCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C0D1EC43E76002D08C3 /* AuthenCryptor.m */; };
+		93015C131EC43E76002D08C3 /* Encryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C0F1EC43E76002D08C3 /* Encryptor.m */; };
+		93015C141EC43E76002D08C3 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C111EC43E76002D08C3 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A53513571E790E8E0093445F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53513561E790E8E0093445F /* Chat.swift */; };
 		A5B3E1E71E7FF8A100F12E22 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B3E1E01E7FF8A100F12E22 /* amrFileCodec.mm */; };
 		A5B3E1E81E7FF8A100F12E22 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B3E1E31E7FF8A100F12E22 /* libopencore-amrnb.a */; };
@@ -460,6 +463,12 @@
 		39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.debug.xcconfig"; sourceTree = "<group>"; };
 		85B2640603391AC6872E01CD /* Pods-Move AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C4A2CD5C2A7BA27AE209FE9 /* Pods-Move AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		93015C0C1EC43E76002D08C3 /* AuthenCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenCryptor.h; path = Vendor/AuthenCryptor/AuthenCryptor.h; sourceTree = "<group>"; };
+		93015C0D1EC43E76002D08C3 /* AuthenCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenCryptor.m; path = Vendor/AuthenCryptor/AuthenCryptor.m; sourceTree = "<group>"; };
+		93015C0E1EC43E76002D08C3 /* Encryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Encryptor.h; path = Vendor/AuthenCryptor/Encryptor.h; sourceTree = "<group>"; };
+		93015C0F1EC43E76002D08C3 /* Encryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Encryptor.m; path = Vendor/AuthenCryptor/Encryptor.m; sourceTree = "<group>"; };
+		93015C101EC43E76002D08C3 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "Vendor/AuthenCryptor/NSData+Base64.h"; sourceTree = "<group>"; };
+		93015C111EC43E76002D08C3 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "Vendor/AuthenCryptor/NSData+Base64.m"; sourceTree = "<group>"; };
 		A53513561E790E8E0093445F /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		A5B3E1DF1E7FF8A100F12E22 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
 		A5B3E1E01E7FF8A100F12E22 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
@@ -1012,6 +1021,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		93015C0B1EC43E5B002D08C3 /* AuthenCryptor */ = {
+			isa = PBXGroup;
+			children = (
+				93015C0C1EC43E76002D08C3 /* AuthenCryptor.h */,
+				93015C0D1EC43E76002D08C3 /* AuthenCryptor.m */,
+				93015C0E1EC43E76002D08C3 /* Encryptor.h */,
+				93015C0F1EC43E76002D08C3 /* Encryptor.m */,
+				93015C101EC43E76002D08C3 /* NSData+Base64.h */,
+				93015C111EC43E76002D08C3 /* NSData+Base64.m */,
+			);
+			name = AuthenCryptor;
+			sourceTree = "<group>";
+		};
 		A56FF85B1E7D048C001E6148 /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1286,6 +1308,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				93015C0B1EC43E5B002D08C3 /* AuthenCryptor */,
 				11500FF81EC0699B008E7517 /* EAFeatureGuideView */,
 				FFFF62901EBC77FF00EC22F3 /* ProgressHUD */,
 				118BA86A1E7D2AB9003C3C13 /* AFImageHelper */,
@@ -2569,6 +2592,7 @@
 				FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */,
 				FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
+				93015C141EC43E76002D08C3 /* NSData+Base64.m in Sources */,
 				E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */,
 				FFF2E8EA1E824C640082FEB7 /* APNforWatchVC.swift in Sources */,
 				FF14AC201E77901500FBE899 /* WatchFriendsListViewModel.swift in Sources */,
@@ -2585,6 +2609,7 @@
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
 				E9EA91DC1EA0BB3A000216AA /* OtherSettingsTableViewController.swift in Sources */,
+				93015C121EC43E76002D08C3 /* AuthenCryptor.m in Sources */,
 				FF08590A1E72371A00EB81D9 /* MeSetNameVC.swift in Sources */,
 				F66990AC1E6ABE55005D893D /* KidInformationController.swift in Sources */,
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
@@ -2724,6 +2749,7 @@
 				E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */,
 				11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */,
 				118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */,
+				93015C131EC43E76002D08C3 /* Encryptor.m in Sources */,
 				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,
 				FF15DF2F1E5EDFC200692B5B /* PwdRecoveryViewModel.swift in Sources */,

@@ -19,7 +19,8 @@ struct MoveAccessTokenPlugin: PluginType {
     }
     
     private var authVal: String {
-        return "\(MoveApi.apiKey);token=\(token)"
+        let uidData = UserInfo.shared.id?.data(using: String.Encoding.utf8)
+        return "\(MoveApi.apiKey);token=\(token);\(AuthenCryptor.token(withUid: uidData))"
     }
     
     /**
@@ -37,7 +38,9 @@ struct MoveAccessTokenPlugin: PluginType {
         
         var request = request
         if let strAuth = request.allHTTPHeaderFields?["Authorization"] {
-            request.setValue("\(strAuth);token=\(token)", forHTTPHeaderField: "Authorization")
+            let uidData = UserInfo.shared.id?.data(using: String.Encoding.utf8)
+            request.setValue("\(strAuth);token=\(token);\(AuthenCryptor.token(withUid: uidData))", forHTTPHeaderField: "Authorization")
+            
         } else {
             request.setValue(authVal, forHTTPHeaderField: "Authorization")
         }
