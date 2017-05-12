@@ -175,7 +175,11 @@ class SingleChatController: UIViewController {
             .addDisposableTo(bag)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesturedDid(_:)))
-        self.tableView.addGestureRecognizer(tapGesture)
+        ifView.rx.unfold.asObservable()
+            .bindNext { [weak self] (unfold) in
+                unfold ? self?.tableView.addGestureRecognizer(tapGesture) : self?.tableView.removeGestureRecognizer(tapGesture)
+            }
+            .addDisposableTo(bag)
         
     }
 

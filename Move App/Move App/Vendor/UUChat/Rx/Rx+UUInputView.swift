@@ -36,6 +36,15 @@ extension Reactive where Base: UUInputView {
         }
         return ControlEvent(events: source)
     }
+    
+    var unfold: ControlEvent<Bool> {
+        let source = delegate
+            .methodInvoked(#selector(UUInputViewDelegate.UUInputView(_:isUnfold:)))
+            .map {
+                return try castOrThrow(Bool.self, $0[1])
+        }
+        return ControlEvent(events: source)
+    }
 }
 
 

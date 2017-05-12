@@ -12,6 +12,7 @@ import UIKit
 protocol UUInputViewDelegate {
     @objc optional func UUInputView(_ inputView: UUInputView, sendEmoji emoji: String)
     @objc optional func UUInputView(_ inputView: UUInputView, sendURLForVoice URLForVoice: URL, duration second: Int)
+    @objc optional func UUInputView(_ inputView: UUInputView, isUnfold: Bool)
 }
 
 class UUInputView: UIView {
@@ -202,6 +203,7 @@ extension UUInputView {
         UIView.animate(withDuration: 0.6, animations: {
             self.frame = self.isUnfoldEmoji ? unfoldFrame : defaultFrame
         })
+        self.delegate?.UUInputView?(self, isUnfold: isUnfoldEmoji)
     }
     
     @objc fileprivate func emojiRecord(_ sender: UIButton) {

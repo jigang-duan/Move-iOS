@@ -278,7 +278,19 @@ class UUMessageCell: UITableViewCell {
         let menu = UIMenuController.shared
         menu.menuItems = [itTurnOnSpeaker, itDelete, itMore]
         menu.update()
-        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPress(_:)))
+        btnContent.addGestureRecognizer(longPress)
+    }
+    
+    @objc private func longPress(_ recongnizer: UILongPressGestureRecognizer) {
+        if recongnizer.state == .began {
+            if let btnContent = recongnizer.view {
+                btnContent.becomeFirstResponder()
+                let menu = UIMenuController.shared
+                menu.setTargetRect(btnContent.frame, in: btnContent.superview!)
+                menu.setMenuVisible(true, animated: true)
+            }
+        }
     }
     
     // 头像点击
