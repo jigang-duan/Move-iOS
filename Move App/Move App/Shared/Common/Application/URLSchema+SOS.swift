@@ -42,8 +42,8 @@ extension AppDelegate {
         
         guard
             let scheme = url.scheme, scheme.uppercased() == "TCLMOVE",
-            let host = url.host, host.contains("alcatel-move.com"),
-            //url.path == "/latam/lbs/v1.0",
+            let host = url.host,
+            host.contains("alcatel-move.com") || host.contains("tclmove.com"),
             let sos = KidSate.SOSLbsModel(aURL: url) else {
             return
         }
@@ -51,4 +51,3 @@ extension AppDelegate {
     }
 
 }
-

@@ -50,7 +50,7 @@
 		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
 		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
 		11393AED1EA877C800F571C8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11393AEC1EA877C800F571C8 /* Random.swift */; };
-		113F2E401E9DC3E100B3628C /* URLSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E3F1E9DC3E100B3628C /* URLSchema.swift */; };
+		113F2E401E9DC3E100B3628C /* URLSchema+SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */; };
 		113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E411E9E06DC00B3628C /* URL+Parameters.swift */; };
 		113F2E461E9E12B400B3628C /* SOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E451E9E12B400B3628C /* SOSService.swift */; };
 		113F2E481E9E3D2C00B3628C /* SOSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E471E9E3D2C00B3628C /* SOSController.swift */; };
@@ -411,7 +411,7 @@
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
 		11393AEC1EA877C800F571C8 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Shared/Common/Utils/Random.swift; sourceTree = "<group>"; };
-		113F2E3F1E9DC3E100B3628C /* URLSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSchema.swift; path = Shared/Common/Application/URLSchema.swift; sourceTree = "<group>"; };
+		113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URLSchema+SOS.swift"; path = "Shared/Common/Application/URLSchema+SOS.swift"; sourceTree = "<group>"; };
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
 		113F2E451E9E12B400B3628C /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = SOS/SOSService.swift; sourceTree = "<group>"; };
 		113F2E471E9E3D2C00B3628C /* SOSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSController.swift; sourceTree = "<group>"; };
@@ -1642,7 +1642,7 @@
 			children = (
 				E0931F2C1E30C63500755B4A /* ApplicationManager.swift */,
 				116F818A1E6599D6003CEC39 /* Notification.swift */,
-				113F2E3F1E9DC3E100B3628C /* URLSchema.swift */,
+				113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */,
 				11F71CF71EA9F0360066B9FC /* Preferences.swift */,
 			);
 			name = Application;
@@ -2737,7 +2737,7 @@
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */,
-				113F2E401E9DC3E100B3628C /* URLSchema.swift in Sources */,
+				113F2E401E9DC3E100B3628C /* URLSchema+SOS.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
