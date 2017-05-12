@@ -140,6 +140,11 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
 
 class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     
+    func fetchautoPosistion(id: String) -> Observable<Bool> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .map({ $0.auto_positiion ?? false })
+    }
+
     func fetchAutoanswer(id: String) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.auto_answer ?? false })
@@ -150,12 +155,13 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             .map({ $0.save_power ?? false })
     }
     
-    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool) -> Observable<Bool> {
+    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
             .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
                 var _setting = setting
                 _setting.save_power = savepower
                 _setting.auto_answer = autoanswer
+                _setting.auto_positiion = autoPosistion
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })
             .map(errorTransform)

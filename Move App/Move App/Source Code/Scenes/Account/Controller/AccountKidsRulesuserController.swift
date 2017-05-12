@@ -61,7 +61,8 @@ class AccountKidsRulesuserController: UITableViewController {
         let viewModel = AccountKidsRulesuserViewModel(
             input: (
                 savePower: savePowerQutel.rx.value.asDriver(),
-                autoAnswer: autoAnswerQutel.rx.value.asDriver()
+                autoAnswer: autoAnswerQutel.rx.value.asDriver(),
+                autoPosistion: autopositiQutel.rx.value.asDriver()
             ),
             dependency: (
                 settingsManager: WatchSettingsManager.share,
@@ -76,6 +77,7 @@ class AccountKidsRulesuserController: UITableViewController {
         
         viewModel.savePowerEnable.drive(savePowerQutel.rx.on).addDisposableTo(disposeBag)
         viewModel.autoAnswereEnable.drive(autoAnswerQutel.rx.on).addDisposableTo(disposeBag)
+        viewModel.autoPosistionEnable.drive(autopositiQutel.rx.on).addDisposableTo(disposeBag)
         
 //        viewModel.activityIn
 //            .map({ !$0 })

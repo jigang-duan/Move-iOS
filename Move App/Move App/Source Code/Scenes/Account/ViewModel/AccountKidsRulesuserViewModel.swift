@@ -14,6 +14,7 @@ class AccountKidsRulesuserViewModel {
     // outputs {
     let savePowerEnable: Driver<Bool>
     let autoAnswereEnable: Driver<Bool>
+    let autoPosistionEnable: Driver<Bool>
     
     let saveFinish: Driver<Bool>
     let activityIn: Driver<Bool>
@@ -22,7 +23,8 @@ class AccountKidsRulesuserViewModel {
     init(
         input: (
         savePower: Driver<Bool>,
-        autoAnswer: Driver<Bool>
+        autoAnswer: Driver<Bool>,
+        autoPosistion: Driver<Bool>
         ),
         dependency: (
         settingsManager: WatchSettingsManager,
@@ -48,11 +50,16 @@ class AccountKidsRulesuserViewModel {
         
         self.autoAnswereEnable = Driver.of(fetchautoAnswer, input.autoAnswer).merge()
         
-        let down = Driver.combineLatest(savePowerEnable , autoAnswereEnable) { ($0, $1) }
+        let fetchautoPosistion = manager.fetchautoPosistion()
+            .trackActivity(activitying)
+            .asDriver(onErrorJustReturn: false)
+        self.autoPosistionEnable = Driver.of(fetchautoPosistion, input.autoPosistion).merge()
+        
+        let down = Driver.combineLatest(savePowerEnable , autoAnswereEnable , autoPosistionEnable) { ($0, $1, $2) }
         
         self.saveFinish = down
-            .flatMapLatest { (savepower, autoanswer) in
-                manager.updateSavepowerAndautoAnswer(autoanswer, savepower: savepower)
+            .flatMapLatest { (savepower, autoanswer, autoPosistion) in
+                manager.updateSavepowerAndautoAnswer(autoanswer, savepower: savepower, autoPosistion: autoPosistion)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
             }

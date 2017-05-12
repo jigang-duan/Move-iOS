@@ -198,6 +198,8 @@ class LocationHistoryVC: UIViewController {
             let datestr = String.init(format: "(%d/%d)%@", annotation.tag + 1 , annotationArr.count , (annotation.info?.time?.stringYearMonthDayHourMinuteSecond)!)
             timeZoneL.text = datestr
             addressDetailL.text = annotation.info?.address
+            locationMap.removeOverlays(locationMap.overlays)
+            locationMap.add(MKCircle(center: (annotation.info?.location)!, radius: (annotation.info?.accuracy ?? 0)!))
         }
     }
     
@@ -407,17 +409,12 @@ extension LocationHistoryVC : MKMapViewDelegate {
         }
     }
     
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        
-//        if overlay is MKPolyline {
-//            let polylineRenderer = MKPolylineRenderer(polyline : routeLine!)
-//            polylineRenderer.fillColor = UIColor.red
-//            polylineRenderer.strokeColor = R.color.appColor.primary()
-//            polylineRenderer.lineWidth = 4.0
-//            return polylineRenderer
-//        }
-//        return MKPolylineRenderer()
-//    }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRender = MKCircleRenderer(overlay: overlay)
+        circleRender.fillColor = UIColor.cyan.withAlphaComponent(0.2)
+        circleRender.lineWidth = 2
+        return circleRender
+    }
 }
 
 extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{

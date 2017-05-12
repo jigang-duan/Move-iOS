@@ -54,10 +54,10 @@ class MainMapController: UIViewController {
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
-        if (UserDefaults.standard.value(forKey: "address") != nil){
-            self.addressScrollLabel.text = UserDefaults.standard.value(forKey: "address") as! String
+       
+            self.addressScrollLabel.text = address
             self.addressScrollLabel.scrollLabelIfNeed()
-        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,6 +75,8 @@ class MainMapController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         timeOutlet.adjustsFontSizeToFitWidth = true
+        
+        self.addressScrollLabel.addObaserverNotification()
         
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)
@@ -178,8 +180,8 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }
-            .subscribe(onNext: { textI in
-                self.autoRolling(a: textI)
+            .subscribe(onNext: { [unowned self] textI in
+                self.autoRolling(textI)
             })
             .addDisposableTo(disposeBag)
         
@@ -254,11 +256,12 @@ class MainMapController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func autoRolling(a: String = "Loading") {
-        self.addressScrollLabel.addObaserverNotification()
-        self.addressScrollLabel.text = a
-        UserDefaults.standard.set(a, forKey: "address")
+    private var address = "Loading"
+    func autoRolling(_ text: String = "Loading") {
+        
+        self.addressScrollLabel.text = text
+        address = text
+        
     }
 }
 

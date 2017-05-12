@@ -123,6 +123,7 @@ extension MoveApi {
         var ring: String?
         var timezone: Int?
         var roaming: Bool?
+        var auto_positiion: Bool?
         var auto_answer: Bool?
         var save_power: Bool?
         var languages: [String]?
@@ -519,6 +520,7 @@ extension MoveApi.DeviceSetting: Mappable {
          ring <- map["ring"]
          timezone <- map["timezone"]
          roaming <- map["roaming"]
+         auto_positiion <- map["auto_position"]
          auto_answer <- map["auto_answer"]
          save_power <- map["save_power"]
          languages <- map["languages"]
