@@ -12,6 +12,7 @@ import UserNotifications
 import RxSwift
 import RxCocoa
 import Kingfisher
+import Alamofire
 
 
 /// Application Manager
@@ -21,7 +22,7 @@ class ApplicationManager {
     // MARK: - Variable
     var disposeBag = DisposeBag()
     
-    
+    var networkReachability: NetworkReachabilityManager?
     
     // singleton
     static let sharedInstance = ApplicationManager()
@@ -66,6 +67,9 @@ class ApplicationManager {
         self.initNotification()
         // image download
         self.initImageDownloader()
+        
+        // NetworkReachability
+        self.listenNetwor()
         
         Logger.verbose(NSHomeDirectory())
     }
@@ -157,3 +161,28 @@ extension ApplicationManager {
         Bugly.start(withAppId: "0e5a1986b2")
     }
 }
+
+
+// MARK: NetworkReachability
+extension ApplicationManager {
+
+    fileprivate func listenNetwor() {
+        networkReachability = NetworkReachabilityManager()
+        networkReachability?.listener = { status in
+            print("Network Status Changed: \(status)")
+            switch status {
+            case .notReachable:
+                ProgressHUD.show(status: "Can't connect to network")
+            default:
+                break
+            }
+        }
+        networkReachability?.startListening()
+    }
+
+}
+
+
+
+
+

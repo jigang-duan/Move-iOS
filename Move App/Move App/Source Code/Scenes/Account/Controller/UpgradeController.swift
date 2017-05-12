@@ -169,7 +169,8 @@ class UpgradeController: UIViewController {
         let deviceId = RxStore.shared.currentDeviceId.value!
         
         let propertyResult = DeviceManager.shared.getProperty(deviceId: deviceId).flatMapLatest { property -> Observable<ValidationResult> in
-            self.updateProperty(property)
+            RxStore.shared.bind(property: property)
+            
             self.batteryLevel.text = "\(property.power ?? 0)%"
             self.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
             
@@ -190,19 +191,6 @@ class UpgradeController: UIViewController {
                 break
             }
         }).addDisposableTo(disposeBag)
-    }
-    
-    func updateProperty(_ property: DeviceProperty) {
-        var arr: [DeviceInfo] = []
-        
-        for info in RxStore.shared.deviceInfosState.value {
-            var f = info
-            if f.deviceId == RxStore.shared.currentDeviceId.value {
-                f.property = property
-            }
-            arr.append(f)
-        }
-        RxStore.shared.deviceInfosState.value = arr
     }
     
     
