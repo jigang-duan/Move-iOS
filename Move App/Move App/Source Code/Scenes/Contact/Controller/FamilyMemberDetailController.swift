@@ -89,10 +89,10 @@ class FamilyMemberDetailController: UIViewController {
         masterBun.rx.tap.asObservable()
             .bindNext {
                 let vc = UIAlertController(title: nil, message: "Sure to set this contact as master? you will be removed from favorited member.", preferredStyle: .alert)
-                let action1 = UIAlertAction(title: "Yes", style: .default){ _ in
+                let action1 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     masterTap.value = true
                 }
-                let action2 = UIAlertAction(title: "Cancle", style: .default)
+                let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                 vc.addAction(action1)
                 vc.addAction(action2)
                 self.present(vc, animated: true)
@@ -103,10 +103,10 @@ class FamilyMemberDetailController: UIViewController {
         deleteBun.rx.tap.asObservable()
             .bindNext {
                 let vc = UIAlertController(title: nil, message: "Sure to detele this contact?", preferredStyle: .alert)
-                let action1 = UIAlertAction(title: "Yes", style: .default){ _ in
+                let action1 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     deleteTap.value = true
                 }
-                let action2 = UIAlertAction(title: "Cancle", style: .default)
+                let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                 vc.addAction(action1)
                 vc.addAction(action2)
                 self.present(vc, animated: true)

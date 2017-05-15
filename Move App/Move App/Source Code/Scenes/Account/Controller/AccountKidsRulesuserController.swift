@@ -123,15 +123,15 @@ class AccountKidsRulesuserController: UITableViewController {
             .map{ $0.newVersion == nil }
             .bindTo(updateNewLab.rx.isHidden)
             .addDisposableTo(disposeBag)
-        
-        KidSettingsManager.shared.fetchreminder()
-            .map { $0.alarms }
-            .filter { $0.count == 0 }
-            .flatMapLatest { (_) in
-                KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: Date(timeIntervalSince1970: 28800), day: [true,true,true,true,true,false,false], active: false))
-            }
-            .bindNext { Logger.debug($0) }
-            .addDisposableTo(disposeBag)
+      //默认闹钟
+//        KidSettingsManager.shared.fetchreminder()
+//            .map { $0.alarms }
+//            .filter { $0.count == 0 }
+//            .flatMapLatest { (_) in
+//                KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: Date(timeIntervalSince1970: 28800), day: [true,true,true,true,true,false,false], active: false))
+//            }
+//            .bindNext { Logger.debug($0) }
+//            .addDisposableTo(disposeBag)
         
     }
 

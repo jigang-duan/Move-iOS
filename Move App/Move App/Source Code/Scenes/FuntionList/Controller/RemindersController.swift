@@ -192,10 +192,10 @@ class RemindersController: UIViewController {
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: .normal)
 //        }
-        //获取周 0 - 6 == 1 - 日
-        print(DateUtility.getDateWeekDay(date: date as NSDate))
+        //获取周
+//        print(DateUtility.getDateWeekDay(date: date as NSDate))
         //获取日  every month3 ,every week2, every day1 ,never0
-        print(DateUtility.getDay(date: date as NSDate))
+//        print(DateUtility.getDay(date: date as NSDate))
         
         self.fifleremeder?.removeAll()
         for i in 0 ..< (self.todos?.count ?? 0)!
@@ -209,19 +209,18 @@ class RemindersController: UIViewController {
                     self.fifleremeder?.append((self.todos?[i])!)
                 break
             case 2:
-                
-                    if (DateUtility.getDateWeekDay(date: date as NSDate) + 1) == DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate))
+                //周日判断有毒
+                if ((DateUtility.getDateWeekDay(date: date as NSDate)) == (DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate)) - 1)) || ((DateUtility.getDateWeekDay(date: date as NSDate)) - (DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate)) - 1) == 7)
                         {
                             self.fifleremeder?.append((self.todos?[i])!)
                     }
-                
+                    
                 break
             case 3:
                 if DateUtility.getDay(date: date as NSDate) == DateUtility.getDay(date: (self.todos?[i]["start"] as! NSDate))
                 {
                     self.fifleremeder?.append((self.todos?[i])!)
                 }
-                
                 break
             default:
                 break
@@ -340,11 +339,12 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
+        //判断设备
+         let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
         if editingStyle == .delete {
             if self.titleSegment.selectedSegmentIndex == 0{
 
-                    let alertController = UIAlertController(title: "This is a repeating alram.", message: "", preferredStyle: .actionSheet)
+                    let alertController = UIAlertController(title: "This is a repeating alram.", message: "", preferredStyle: preferredStyle)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     let deletThis = UIAlertAction(title: "Delete This alarm only", style: .destructive, handler: { (UIAlertAction) in
                         self.viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
@@ -358,10 +358,10 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                             self.deleteTap.value += 1
                         }
                     })
-                if let popoverController = alertController.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
-                }
+//                if let popoverController = alertController.popoverPresentationController {
+//                    popoverController.sourceView = self.view
+//                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
+//                }
                     alertController.addAction(cancelAction)
                     alertController.addAction(deletThis)
                     alertController.addAction(deletall)
@@ -372,7 +372,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
             {
                 if (self.fifleremeder?[indexPath.row]["repeat"] as? Int)! != 0
                 {
-                    let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: .actionSheet)
+                    let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: preferredStyle)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     let deletThis = UIAlertAction(title: "Delete This To do List only", style: .destructive, handler: { (UIAlertAction) in
                         var inde: Int?
@@ -406,10 +406,10 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         }
                         
                     })
-                    if let popoverController = alertController.popoverPresentationController {
-                        popoverController.sourceView = self.view
-                        popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
-                    }
+//                    if let popoverController = alertController.popoverPresentationController {
+//                        popoverController.sourceView = self.view
+//                        popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
+//                    }
 
                     alertController.addAction(cancelAction)
                     alertController.addAction(deletThis)
@@ -441,33 +441,33 @@ extension RemindersController {
 
     func showSubController(action: BasePopoverAction) {
         if action.title == R.string.localizable.id_alarm() {
-            if (self.alarms?.count)! <= 9{
+//            if (self.alarms?.count)! <= 9{
                 self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
-            }
-            else
-            {
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 alarm,please delete some to add new.", preferredStyle: .alert)
-                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okActiojn)
-                self.present(alertController, animated: true)
-            }
+//            }
+//            else
+//            {
+//                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 alarm,please delete some to add new.", preferredStyle: .alert)
+//                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                alertController.addAction(okActiojn)
+//                self.present(alertController, animated: true)
+//            }
             
         } else if action.title == R.string.localizable.id_todolist() {
             //应该是当前日的todo不能超过10
-            if (self.todos?.count)! <= 9{
-                
+//            if (self.todos?.count)! <= 9{
+            
                 if let vc = R.storyboard.account.addTodo() {
                     vc.todos = (self.todos ?? nil)!
                     self.navigationController?.show(vc, sender: nil)
                 }
-            }
-            else
-            {
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 to do list,please delete some to add new.", preferredStyle: .alert)
-                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okActiojn)
-                self.present(alertController, animated: true)
-            }
+//            }
+//            else
+//            {
+//                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 to do list,please delete some to add new.", preferredStyle: .alert)
+//                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                alertController.addAction(okActiojn)
+//                self.present(alertController, animated: true)
+//            }
 
             
         }

@@ -267,18 +267,18 @@
                                 <rect key="frame" x="311" y="104" width="48" height="165"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Edu-4d-HAK">
-                                        <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                        <rect key="frame" x="0.0" y="56" width="48" height="48"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="IgN-Sb-fnp"/>
-                                            <constraint firstAttribute="width" constant="48" id="elB-jh-bzL"/>
+                                            <constraint firstAttribute="height" constant="48" id="ojJ-OD-sEY"/>
+                                            <constraint firstAttribute="width" constant="48" id="pTf-Fc-q2v"/>
                                         </constraints>
                                         <state key="normal" image="home_btn_positioning_nor"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vNr-iq-d0W">
-                                        <rect key="frame" x="0.0" y="56" width="48" height="48"/>
+                                        <rect key="frame" x="0.0" y="1" width="48" height="48"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="Z4P-EE-8k2"/>
-                                            <constraint firstAttribute="width" constant="48" id="bC6-JU-UV9"/>
+                                            <constraint firstAttribute="height" constant="48" id="2Lz-II-tLQ"/>
+                                            <constraint firstAttribute="width" constant="48" id="Za8-5G-dFx"/>
                                         </constraints>
                                         <state key="normal" image="home_btn_locatio_nor"/>
                                         <connections>
@@ -288,28 +288,27 @@
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2n-Cm-dk9">
                                         <rect key="frame" x="0.0" y="112" width="48" height="48"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="Ceh-Fl-GLl"/>
-                                            <constraint firstAttribute="height" constant="48" id="xJS-3d-Eaz"/>
+                                            <constraint firstAttribute="height" constant="48" id="Iye-ag-MTI"/>
+                                            <constraint firstAttribute="width" constant="48" id="SRR-fx-Vjv"/>
                                         </constraints>
                                         <state key="normal" image="home_btn_steps_nor"/>
                                     </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="abm-Dw-vdb">
-                                        <rect key="frame" x="14" y="14" width="20" height="20"/>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="abm-Dw-vdb">
+                                        <rect key="frame" x="14" y="70" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="color" red="0.0" green="0.57254904510000004" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="vNr-iq-d0W" firstAttribute="top" secondItem="Edu-4d-HAK" secondAttribute="bottom" constant="8" id="0YM-xO-UZt"/>
-                                    <constraint firstAttribute="trailing" secondItem="d2n-Cm-dk9" secondAttribute="trailing" id="GyC-OH-e7e"/>
-                                    <constraint firstItem="abm-Dw-vdb" firstAttribute="centerY" secondItem="Edu-4d-HAK" secondAttribute="centerY" id="Mwj-6w-AGj"/>
+                                    <constraint firstAttribute="trailing" secondItem="d2n-Cm-dk9" secondAttribute="trailing" id="270-PF-Sok"/>
+                                    <constraint firstAttribute="trailing" secondItem="vNr-iq-d0W" secondAttribute="trailing" id="CiW-NG-qSS"/>
+                                    <constraint firstAttribute="bottom" secondItem="d2n-Cm-dk9" secondAttribute="bottom" constant="5" id="UwO-RM-dNA"/>
+                                    <constraint firstItem="vNr-iq-d0W" firstAttribute="top" secondItem="6WT-8y-Svn" secondAttribute="top" constant="1" id="YNV-cB-1Lf"/>
                                     <constraint firstAttribute="height" constant="165" id="d0i-Hz-Shu"/>
-                                    <constraint firstItem="abm-Dw-vdb" firstAttribute="centerX" secondItem="Edu-4d-HAK" secondAttribute="centerX" id="dpy-S6-dkx"/>
+                                    <constraint firstItem="d2n-Cm-dk9" firstAttribute="top" secondItem="Edu-4d-HAK" secondAttribute="bottom" constant="8" id="ehc-uv-DxY"/>
                                     <constraint firstAttribute="width" constant="48" id="jYr-WA-ydW"/>
-                                    <constraint firstItem="Edu-4d-HAK" firstAttribute="top" secondItem="6WT-8y-Svn" secondAttribute="top" id="qK2-Ah-f1r"/>
-                                    <constraint firstAttribute="trailing" secondItem="vNr-iq-d0W" secondAttribute="trailing" id="wAl-Bh-yuT"/>
-                                    <constraint firstItem="d2n-Cm-dk9" firstAttribute="top" secondItem="vNr-iq-d0W" secondAttribute="bottom" constant="8" id="xAl-wa-a4f"/>
-                                    <constraint firstAttribute="trailing" secondItem="Edu-4d-HAK" secondAttribute="trailing" id="xWa-aZ-6uw"/>
+                                    <constraint firstAttribute="trailing" secondItem="Edu-4d-HAK" secondAttribute="trailing" id="jqY-Kd-kJY"/>
                                 </constraints>
                             </view>
                         </subviews>

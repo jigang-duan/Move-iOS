@@ -275,7 +275,7 @@ extension MainMapController {
             self.view.show(with: [headItem!], saveKeyName: "mark:main_map:head", inVersion: version)
         }
     }
-    
+//ipad 弹框
     fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
         let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
         let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: preferredStyle)

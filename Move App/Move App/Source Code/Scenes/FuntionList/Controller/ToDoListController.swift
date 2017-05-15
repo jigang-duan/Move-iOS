@@ -56,7 +56,6 @@ class ToDoListController: UITableViewController {
             beginLabel.text = R.string.localizable.id_begin()
             endLabel.text = R.string.localizable.id_end()
             repeatLabel.text = R.string.localizable.id_repeat()
-        
     }
     
     override func viewDidLoad() {
@@ -196,7 +195,7 @@ class ToDoListController: UITableViewController {
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
-        }else if self.titleTextFieldQutle.text == "" || self.remarkTextFieldQutlet.text == ""{
+        }else if self.titleTextFieldQutle.text == "" {
             let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title and remark can't Null", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
@@ -229,8 +228,8 @@ class ToDoListController: UITableViewController {
 //            if !self.isSame!{
             
              if self.isOldTodo!{
-                    
-                    let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String ?? "", content: todo?["content"] as? String ?? "", start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
+                
+                    let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
                         {
                             print($0)
                             if $0 {
@@ -319,6 +318,10 @@ class ToDoListController: UITableViewController {
         if beginTimeQutle.isSelected {
             beginTimeQutle.isSelected = false
             beginTimeVariable.value = datePicker.date
+            if DateUtility.getDay(date: beginTimeVariable.value as NSDate) != DateUtility.getDay(date: endTimeVariabel.value as NSDate){
+                endTimeVariabel.value = beginTimeVariable.value
+            }
+            
         }
         
         if endTimeQutle.isSelected {

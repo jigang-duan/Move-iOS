@@ -484,14 +484,14 @@ extension AddSafeZoneVC : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is BaseAnnotation {
-            let reuseIdentifier = "targetAnnoteationReuseIdentifier"
-            var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? SVPulsingAnnotationView
-            if annoView == nil {
-                annoView = SVPulsingAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                annoView?.annotationColor = R.color.appColor.primary()
+            let identifier = "targetAnnoteationReuseIdentifier"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil {               
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
-            annoView?.canShowCallout = false
-            return annoView
+            annotationView?.image = R.image.positioning_ic_1()
+            annotationView?.canShowCallout = false
+            return annotationView
         }
         
         return nil
