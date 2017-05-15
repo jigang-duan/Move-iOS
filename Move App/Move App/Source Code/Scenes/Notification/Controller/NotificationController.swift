@@ -49,7 +49,7 @@ class NotificationController: UIViewController {
                 .map({ list -> [UUMessage] in
                     list.map({ notice -> UUMessage in
                         var content = UUMessage.Content()
-                        content.text = String(format: notice.content ?? "", kids?.nickname ?? "")
+                        content.text = notice.content
                         return UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),

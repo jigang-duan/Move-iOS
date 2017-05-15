@@ -10,26 +10,30 @@ import Foundation
 import RxSwift
 
 
-protocol LocationWorkerProtocl {
+protocol LocationWorkerProtocl: SafeZoneWorkerProtocl {
     func getCurrentLocation(id: String) -> Observable<KidSate.LocationInfo>
     func getHistoryLocation(id: String, start: Date, end: Date) -> Observable<[KidSate.LocationInfo]>
-    
-    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]>
-    func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool>
-    func updateSafeZone(deviceId: String, fence: KidSate.ElectronicFencea) -> Observable<Bool>
     
     func fetchLbsLocation(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS>
     
     func fetchLocations(deviceIDs: [String]) -> Observable<[KidSate.LocationInfo]>
 }
 
+protocol SafeZoneWorkerProtocl {
+    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]>
+    func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool>
+    func updateSafeZone(deviceId: String, fence: KidSate.ElectronicFencea) -> Observable<Bool>
+}
+
 class LocationManager  {
     static let share = LocationManager()
     
     fileprivate var worker: LocationWorkerProtocl!
+    fileprivate var cache: IMCacheSafeZoneWorker!
     
     init() {
         worker = MoveApiLocationWorker()
+        cache = IMCacheLocationWorker()
     }
     
     var currentLocation: Observable<KidSate.LocationInfo> {
@@ -58,7 +62,9 @@ class LocationManager  {
         guard let deviceld = Me.shared.currDeviceID else {
             return Observable.empty()
         }
-        return self.worker.fetchSafeZone(deviceId: deviceld)
+        let api = self.worker.fetchSafeZone(deviceId: deviceld).catchingSafeZones(device: deviceld)
+        let cache = self.cache.fetchSafeZone(deviceId: deviceld)
+        return Observable.concat(cache, api)
     }
     
     func delectSafeZone(_ fenceId: String) -> Observable<Bool>{

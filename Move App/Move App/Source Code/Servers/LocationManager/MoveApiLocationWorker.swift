@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class MoveApiLocationWorker: LocationWorkerProtocl {
+class MoveApiLocationWorker: MoveApiSafeZoneWorker, LocationWorkerProtocl {
     
     func getCurrentLocation(id: String) -> Observable<KidSate.LocationInfo>{
         return MoveApi.Location.getNew(deviceId: id).flatMapLatest(transformLocation)
@@ -17,33 +17,6 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
     
     func getHistoryLocation(id: String, start: Date, end: Date) -> Observable<[KidSate.LocationInfo]> {
         return MoveApi.Location.getHistory(deviceId: id, locationReq: MoveApi.LocationReq(start: start, end: end)).flatMap(transformHistoryLocation)
-    }
-    
-    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]> {
-        return MoveApi.ElectronicFence.getFences(deviceId: deviceId).map({ transform(fences: $0.fences) })
-    }
-    
-    func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool> {
-        return MoveApi.ElectronicFence.deleteFence(fenceId: fenceId)
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-
-    func updateSafeZone(deviceId: String,  fence: KidSate.ElectronicFencea) -> Observable<Bool> {
-        guard
-            let fenceId = fence.ids,
-            let lat = fence.location?.location?.latitude,
-            let lng = fence.location?.location?.longitude else {
-            return Observable.empty()
-        }
-        let fenceInfo = MoveApi.FenceInfo(id: fenceId,
-                                          name: fence.name,
-                                          location: MoveApi.Fencelocation(lat: lat, lng: lng),
-                                          radius: fence.radius,
-                                          active: fence.active)
-        return MoveApi.ElectronicFence.settingFence(fenceId: fenceId, fenceReq: MoveApi.FenceReq(fence: fenceInfo))
-            .map(errorTransform)
-            .catchError(errorHandle)
     }
     
     func fetchLocations(deviceIDs: [String]) -> Observable<[KidSate.LocationInfo]> {
@@ -104,6 +77,36 @@ class MoveApiLocationWorker: LocationWorkerProtocl {
         return location.map { KidSateSOS.wifi(imei: deviceId, location: $0) }
     }
     
+}
+
+class MoveApiSafeZoneWorker: SafeZoneWorkerProtocl {
+    
+    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]> {
+        return MoveApi.ElectronicFence.getFences(deviceId: deviceId).map({ transform(fences: $0.fences) })
+    }
+    
+    func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool> {
+        return MoveApi.ElectronicFence.deleteFence(fenceId: fenceId)
+            .map(errorTransform)
+            .catchError(errorHandle)
+    }
+    
+    func updateSafeZone(deviceId: String,  fence: KidSate.ElectronicFencea) -> Observable<Bool> {
+        guard
+            let fenceId = fence.ids,
+            let lat = fence.location?.location?.latitude,
+            let lng = fence.location?.location?.longitude else {
+                return Observable.empty()
+        }
+        let fenceInfo = MoveApi.FenceInfo(id: fenceId,
+                                          name: fence.name,
+                                          location: MoveApi.Fencelocation(lat: lat, lng: lng),
+                                          radius: fence.radius,
+                                          active: fence.active)
+        return MoveApi.ElectronicFence.settingFence(fenceId: fenceId, fenceReq: MoveApi.FenceReq(fence: fenceInfo))
+            .map(errorTransform)
+            .catchError(errorHandle)
+    }
 }
 
 
