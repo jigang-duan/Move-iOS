@@ -216,17 +216,10 @@ class MainMapController: UIViewController {
             .bindNext { ProgressHUD.show(status: $0) }
             .addDisposableTo(disposeBag)
         
-        let realm = try! Realm()
         let userID = RxStore.shared.uidObservable
         let devUID = viewModel.currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
         Observable.combineLatest(userID, devUID) { ($0, $1) }
-            .flatMapLatest { (uid, devuid) -> Observable<Int> in
-                guard let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
-                    let group = groups.filter({ $0.members.contains(where: { $0.id == devuid }) }).first else {
-                    return Observable.empty()
-                }
-                return Observable.collection(from: group.messages).map{ $0.filter("readStatus == 0").count }
-            }
+            .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
             .bindTo(messageOutlet.rx.badgeCount)
             .addDisposableTo(disposeBag)
         
@@ -251,18 +244,16 @@ class MainMapController: UIViewController {
     }
     
     
-    private var address = "Loading"
-    func autoRolling(_ text: String = "Loading") {
-        
-        self.addressScrollLabel.text = text
-        address = text
-        
-        
-    }
+    fileprivate var address = "Loading"
 }
 
 
 extension MainMapController {
+    
+    fileprivate func autoRolling(_ text: String = "Loading") {
+        self.addressScrollLabel.text = text
+        address = text
+    }
     
     fileprivate func showFeatureGudieView() {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {

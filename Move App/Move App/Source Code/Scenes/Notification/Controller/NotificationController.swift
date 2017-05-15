@@ -108,6 +108,14 @@ class NotificationController: UIViewController {
                 .map({ ids in ids.flatMap { id in objects.filter({ $0.id == id }).first } })
                 .subscribe(Realm.rx.delete())
                 .addDisposableTo(bag)
+            
+            let realm = try! Realm()
+            Observable<Int>.timer(1.0, period: 6.0, scheduler: MainScheduler.instance)
+                .map { _ in objects  }
+                .map { list -> [NoticeEntity] in list.filter { $0.isUnRead } }
+                .filterEmpty()
+                .subscribe(onNext: { markRead(realm: realm, notices: $0) })
+                .addDisposableTo(bag)
         }
     }
     

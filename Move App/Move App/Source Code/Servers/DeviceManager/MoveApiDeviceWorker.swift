@@ -56,8 +56,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     }
     
     func getDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
-        return MoveApi.Device.getDeviceList()
-                .map({ $0.devices ?? [] })
+        return MoveApi.Device.getDeviceList().map({ $0.devices ?? [] })
     }
     
     
@@ -193,27 +192,13 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     
     //        发送提醒
     func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool> {
-        return MoveApi.Device.sendNotify(deviceId: deviceId, sendInfo: MoveApi.DeviceSendNotify(code: code.rawValue, value: nil))
-            .map({ $0.id == 0 })
+        return MoveApi.Device.sendNotify(deviceId: deviceId, sendInfo: MoveApi.DeviceSendNotify(code: code.rawValue, value: nil)).map { $0.id == 0 }
     }
     
     //        获取时区信息
     func fetchTimezones(lng: String?, lat: String?) -> Observable<[TimezoneInfo]> {
         return MoveApi.Device.fetchTimezones(lng: lng, lat: lat)
-            .map({infos in
-                var tms: [TimezoneInfo] = []
-                for info in infos {
-                    var tm = TimezoneInfo()
-                    tm.id = info.id
-                    tm.lat = info.lat
-                    tm.lng = info.lng
-                    tm.gmtoffset = info.gmtoffset
-                    tm.countryname = info.countryname
-                    tm.timezoneId = info.timezoneId
-                    tms.append(tm)
-                }
-                return tms
-            })
+            .map {infos in infos.map{ (info) in TimezoneInfo(id: info.id, lng: info.lng, lat: info.lat, gmtoffset: info.gmtoffset, countryname: info.countryname, timezoneId: info.timezoneId) } }
     }
     
     func fetchPower(deviceId: String) -> Observable<Int> {

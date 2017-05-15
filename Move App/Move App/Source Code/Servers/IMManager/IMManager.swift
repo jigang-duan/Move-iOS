@@ -18,6 +18,7 @@ class IMManager {
     static let shared = IMManager()
     
     fileprivate var worker: IMWorkerProtocl!
+    fileprivate var db: IMChatWorkerProtocl
     
     var synckeyData: SynckeyEntity? {
         let realm = try! Realm()
@@ -29,6 +30,7 @@ class IMManager {
     
     init() {
         worker = MoveApiIMWorker()
+        db = DBIMWorker()
     }
 }
 
@@ -98,6 +100,12 @@ extension IMManager {
     func mark(message id: String) -> Observable<String> {
         return worker.mark(message: id)
     }
+    
+    
+    func countUnreadMessages(uid: String, devUid: String) -> Observable<Int> {
+        return db.countUnreadMessages(uid: uid, devUid: devUid)
+    }
+    
 }
 
 
@@ -123,6 +131,10 @@ protocol IMWorkerProtocl {
     
     func mark(notification id: String) -> Observable<String>
     func mark(message id: String) -> Observable<String>
+}
+
+protocol IMChatWorkerProtocl {
+    func countUnreadMessages(uid: String, devUid: String) -> Observable<Int>
 }
 
 
@@ -537,4 +549,9 @@ fileprivate extension NoticeEntity {
     }
 }
 
-
+extension NoticeEntity {
+    
+    var isUnRead: Bool {
+        return readStatus == NoticeEntity.ReadStatus.unread.rawValue
+    }
+}

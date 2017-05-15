@@ -65,6 +65,8 @@
 		1162A5091EAE185500DA6164 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5081EAE185500DA6164 /* HomeController.swift */; };
 		116860BE1EB8624700C3426A /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116860BD1EB8624700C3426A /* HelpController.swift */; };
 		116BAE5D1EC945E2001577D3 /* IMCache+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5C1EC945E2001577D3 /* IMCache+Location.swift */; };
+		116BAE601EC9672A001577D3 /* IMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5F1EC9672A001577D3 /* IMDB.swift */; };
+		116BAE621EC96EC2001577D3 /* DBIMWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE611EC96EC2001577D3 /* DBIMWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
 		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
@@ -427,6 +429,8 @@
 		1162A5081EAE185500DA6164 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		116860BD1EB8624700C3426A /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		116BAE5C1EC945E2001577D3 /* IMCache+Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "IMCache+Location.swift"; path = "cache/InternalMemory/Location/IMCache+Location.swift"; sourceTree = "<group>"; };
+		116BAE5F1EC9672A001577D3 /* IMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDB.swift; path = IM/IMDB.swift; sourceTree = "<group>"; };
+		116BAE611EC96EC2001577D3 /* DBIMWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBIMWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
@@ -924,6 +928,14 @@
 				116BAE5C1EC945E2001577D3 /* IMCache+Location.swift */,
 			);
 			name = Location;
+			sourceTree = "<group>";
+		};
+		116BAE5E1EC957CC001577D3 /* IM */ = {
+			isa = PBXGroup;
+			children = (
+				116BAE5F1EC9672A001577D3 /* IMDB.swift */,
+			);
+			name = IM;
 			sourceTree = "<group>";
 		};
 		116F818E1E665C83003CEC39 /* Notification */ = {
@@ -2043,6 +2055,7 @@
 		E9BEF3941E5C598B00A36A13 /* database */ = {
 			isa = PBXGroup;
 			children = (
+				116BAE5E1EC957CC001577D3 /* IM */,
 				A53513561E790E8E0093445F /* Chat.swift */,
 				E9BEF3971E5C5A6000A36A13 /* AccountEntity.swift */,
 				110528ED1E7903C200FE97A8 /* Notice.swift */,
@@ -2133,6 +2146,7 @@
 			children = (
 				FF08591B1E72A93D00EB81D9 /* IMManager.swift */,
 				FF08591D1E72A96300EB81D9 /* MoveApiIMWorker.swift */,
+				116BAE611EC96EC2001577D3 /* DBIMWorker.swift */,
 			);
 			path = IMManager;
 			sourceTree = "<group>";
@@ -2645,6 +2659,7 @@
 				E03B1BBF1E4AA8C9006EDB7B /* MoveApi+Account+Mappable.swift in Sources */,
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
+				116BAE601EC9672A001577D3 /* IMDB.swift in Sources */,
 				E9EA91DC1EA0BB3A000216AA /* OtherSettingsTableViewController.swift in Sources */,
 				93015C121EC43E76002D08C3 /* AuthenCryptor.m in Sources */,
 				FF08590A1E72371A00EB81D9 /* MeSetNameVC.swift in Sources */,
@@ -2725,6 +2740,7 @@
 				E9C3E8161E7A281A00EFDC39 /* SafeZoneViewModel.swift in Sources */,
 				E03B1BBE1E4AA8C9006EDB7B /* MoveApi+Account.swift in Sources */,
 				E03B1BD91E4D4F51006EDB7B /* MainMapViewModel.swift in Sources */,
+				116BAE621EC96EC2001577D3 /* DBIMWorker.swift in Sources */,
 				E0C228FA1E35B29900BCF83D /* Wireframe.swift in Sources */,
 				FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */,
 				E0931F511E31D59200755B4A /* TabsViewController.swift in Sources */,

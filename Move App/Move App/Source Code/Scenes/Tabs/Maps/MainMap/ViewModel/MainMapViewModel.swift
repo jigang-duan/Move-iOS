@@ -68,7 +68,10 @@ class MainMapViewModel {
         let currentDeviceId = RxStore.shared.currentDeviceId.asDriver()
         devicesVariable = RxStore.shared.deviceInfosState
 
-        currentDevice = Driver.combineLatest(devicesVariable.asDriver(), currentDeviceId.filterNil()) { (devices, id) in devices.filter({$0.deviceId == id}).first }
+        currentDevice = Driver.combineLatest(
+            devicesVariable.asDriver(),
+            currentDeviceId.filterNil()
+        ) { (devices, id) in devices.filter({$0.deviceId == id}).first }
             .filterNil()
         
         let enter = input.enter.filter {$0}
@@ -77,7 +80,9 @@ class MainMapViewModel {
                 deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
             })
         
-        let period = Observable<Int>.timer(2, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
+        let period = Observable<Int>.timer(2,
+                                           period: Configure.App.LoadDataOfPeriod,
+                                           scheduler: MainScheduler.instance)
             .withLatestFrom(input.isAtThisPage.asObservable())
             .filter({ $0 })
             .map({ _ in Void() })
@@ -106,8 +111,8 @@ class MainMapViewModel {
             .flatMapLatest ({
                 locationManager.currentLocation
                     .trackActivity(activitying)
-                    .do(onNext: { _ in remindActivitying.onNext(false) })
                     .catchErrorJustReturn(KidSate.LocationInfo())
+                    .do(onNext: { _ in remindActivitying.onNext(false) })
             })
             .shareReplay(1)
         

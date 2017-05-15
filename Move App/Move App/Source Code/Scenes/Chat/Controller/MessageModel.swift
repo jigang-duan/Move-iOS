@@ -32,6 +32,14 @@ func markRead(realm: Realm, messages: [MessageEntity]) {
     }
 }
 
+func markRead(realm: Realm, notices: [NoticeEntity]) {
+    try? realm.write {
+        notices.forEach { (entity) in
+            entity.readStatus = NoticeEntity.ReadStatus.read.rawValue
+        }
+    }
+}
+
 extension UUMessage {
     
     init(imVoice: ImVoice, user: UserInfo) {
