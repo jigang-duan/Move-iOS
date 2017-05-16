@@ -35,7 +35,7 @@ extension RxStore {
     // MARK: - -Device-
     
     var deviceInfosObservable: Observable<[DeviceInfo]> {
-        return deviceInfosState.asObservable().filterEmpty()
+        return deviceInfosState.asObservable()
     }
     
     var deviceIdObservable: Observable<String> {

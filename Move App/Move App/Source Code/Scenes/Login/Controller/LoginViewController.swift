@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         self.title = R.string.localizable.id_login_in()
         forgotPswdBun.setTitle(R.string.localizable.id_forget_password(), for: .normal)
         loginOutlet.setTitle(R.string.localizable.id_login_in(), for: .normal)
-        signUpBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
+        signUpBun.setTitle(R.string.localizable.id_sign_up(), for: .normal)
         orLab.text = R.string.localizable.id_or()
         
         emailOutlet.placeholder = R.string.localizable.id_email()
