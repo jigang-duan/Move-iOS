@@ -41,7 +41,6 @@ class MainMapController: UIViewController {
 
     @IBOutlet weak var remindLocationOutlet: UIButton!
     
-//    @IBOutlet weak var remindActivityOutlet: UIActivityIndicatorView!
     @IBOutlet weak var remindActivityOutlet: ActivityImageView!
     
     let enterSubject = BehaviorSubject<Bool>(value: false)
@@ -179,9 +178,7 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }
-            .subscribe(onNext: { [unowned self] textI in
-                self.autoRolling(textI)
-            })
+            .bindTo(addressScrollLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         
@@ -241,31 +238,29 @@ class MainMapController: UIViewController {
 
 extension MainMapController {
     
-    fileprivate func autoRolling(_ text: String = "Loading") {
-        self.addressScrollLabel.text = text
-    }
-    
     fileprivate func showFeatureGudieView() {
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            let headItem = EAFeatureItem(focus: headPortraitOutlet,
-                                         focusCornerRadius: headPortraitOutlet.frame.width/2 ,
-                                         focus: UIEdgeInsets.zero)
-            headItem?.actionTitle = "I Know"
-            headItem?.introduce = "Tap here to change watch"
-            headItem?.action = { _ in
-                let navItem = EAFeatureItem(focus: self.addressScrollLabel,
-                                            focusCornerRadius: 6 ,
-                                            focus: UIEdgeInsets.zero)
-                navItem?.actionTitle = "I Know"
-                navItem?.introduce = "Tap here to navigate"
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                    self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
-                })
-            }
-            self.view.show(with: [headItem!], saveKeyName: "mark:main_map:head", inVersion: version)
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+            return
         }
+        let headItem = EAFeatureItem(focus: headPortraitOutlet,
+                                     focusCornerRadius: headPortraitOutlet.frame.width/2 ,
+                                     focus: UIEdgeInsets.zero)
+        headItem?.actionTitle = "I Know"
+        headItem?.introduce = "Tap here to change watch"
+        headItem?.action = { _ in
+            let navItem = EAFeatureItem(focus: self.addressScrollLabel,
+                                        focusCornerRadius: 6 ,
+                                        focus: UIEdgeInsets.zero)
+            navItem?.actionTitle = "I Know"
+            navItem?.introduce = "Tap here to navigate"
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
+            }
+        }
+        self.view.show(with: [headItem!], saveKeyName: "mark:main_map:head", inVersion: version)
+        
     }
-//ipad 弹框
+
     fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
         let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
         let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: preferredStyle)
@@ -286,6 +281,13 @@ extension MainMapController {
 
 }
 
+extension Reactive where Base: ScrollLabelView {
+    var text: UIBindingObserver<Base, String> {
+        return UIBindingObserver(UIElement: self.base) { label, str in
+            label.text = str
+        }
+    }
+}
 
 extension MainMapController: MKMapViewDelegate {
     
