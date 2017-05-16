@@ -41,4 +41,7 @@ extension UIImage {
         return newImage
     }
     
+    func resizingStretchImage() -> UIImage {
+        return self.resizableImage(withCapInsets: .zero, resizingMode: .stretch)
+    }
 }

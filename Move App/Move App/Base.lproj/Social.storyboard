@@ -187,7 +187,7 @@
                                     <constraint firstAttribute="height" constant="603" id="HND-Hi-dRu"/>
                                 </constraints>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HD7-6O-tUe">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HD7-6O-tUe">
                                 <rect key="frame" x="0.0" y="64" width="375" height="76"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSS-4n-LqP">
@@ -234,15 +234,15 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VpW-Ux-edq">
-                                <rect key="frame" x="0.0" y="557" width="375" height="110"/>
+                                <rect key="frame" x="0.0" y="595" width="375" height="72"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRe-qY-Lrg">
-                                        <rect key="frame" x="20" y="70" width="335" height="30"/>
-                                        <color key="backgroundColor" red="0.0" green="0.57254904510000004" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRe-qY-Lrg">
+                                        <rect key="frame" x="331" y="18" width="36" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="CXY-Y6-NQi"/>
+                                            <constraint firstAttribute="height" constant="36" id="Z0U-Zy-Me5"/>
+                                            <constraint firstAttribute="width" constant="36" id="fX5-as-Fbt"/>
                                         </constraints>
-                                        <state key="normal" title="Navigation">
+                                        <state key="normal" image="home_ic_navigation">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -257,8 +257,8 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="relationship_ic_other" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-U8-LkX">
                                         <rect key="frame" x="20" y="18" width="36" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="638-Pw-0lL"/>
-                                            <constraint firstAttribute="width" constant="36" id="ZRS-Wd-NT4"/>
+                                            <constraint firstAttribute="width" constant="36" id="bFE-HF-qZJ"/>
+                                            <constraint firstAttribute="height" constant="36" id="mkN-4B-sKi"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -267,13 +267,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkL-Gr-IX3">
-                                        <rect key="frame" x="66" y="39" width="62" height="21"/>
+                                        <rect key="frame" x="64" y="43" width="259" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name is making an SOS call" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vC0-sU-QJv">
-                                        <rect key="frame" x="66" y="10" width="211" height="21"/>
+                                        <rect key="frame" x="64" y="14" width="211" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.99215686319999996" green="0.058823529630000003" blue="0.058823529630000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -281,16 +281,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.29981806509999998" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="GRe-qY-Lrg" firstAttribute="leading" secondItem="VpW-Ux-edq" secondAttribute="leading" constant="20" id="56L-hI-oIA"/>
-                                    <constraint firstItem="GRe-qY-Lrg" firstAttribute="leading" secondItem="9VT-U8-LkX" secondAttribute="leading" id="61u-y9-P2A"/>
-                                    <constraint firstAttribute="trailing" secondItem="GRe-qY-Lrg" secondAttribute="trailing" constant="20" id="Gon-vh-UlW"/>
-                                    <constraint firstAttribute="height" constant="110" id="Jwt-t1-Cwd"/>
-                                    <constraint firstItem="FkL-Gr-IX3" firstAttribute="leading" secondItem="9VT-U8-LkX" secondAttribute="trailing" constant="10" id="MbC-FM-AjB"/>
-                                    <constraint firstItem="GRe-qY-Lrg" firstAttribute="top" secondItem="FkL-Gr-IX3" secondAttribute="bottom" constant="10" id="QPy-nA-RYl"/>
-                                    <constraint firstItem="FkL-Gr-IX3" firstAttribute="top" secondItem="vC0-sU-QJv" secondAttribute="bottom" constant="8" id="fWR-BG-lfq"/>
-                                    <constraint firstItem="FkL-Gr-IX3" firstAttribute="leading" secondItem="vC0-sU-QJv" secondAttribute="leading" id="jaT-Fy-9eT"/>
-                                    <constraint firstAttribute="bottom" secondItem="GRe-qY-Lrg" secondAttribute="bottom" constant="10" id="qrO-KM-af7"/>
-                                    <constraint firstItem="GRe-qY-Lrg" firstAttribute="top" secondItem="9VT-U8-LkX" secondAttribute="bottom" constant="16" id="zu0-sL-28n"/>
+                                    <constraint firstItem="FkL-Gr-IX3" firstAttribute="leading" secondItem="9VT-U8-LkX" secondAttribute="trailing" constant="8" id="8yx-Am-VtQ"/>
+                                    <constraint firstItem="GRe-qY-Lrg" firstAttribute="centerY" secondItem="VpW-Ux-edq" secondAttribute="centerY" id="D1L-js-KjW"/>
+                                    <constraint firstAttribute="height" constant="72" id="Jwt-t1-Cwd"/>
+                                    <constraint firstItem="9VT-U8-LkX" firstAttribute="leading" secondItem="VpW-Ux-edq" secondAttribute="leading" constant="20" id="Ycl-Vh-IsU"/>
+                                    <constraint firstItem="GRe-qY-Lrg" firstAttribute="leading" secondItem="FkL-Gr-IX3" secondAttribute="trailing" constant="8" id="cQA-IR-Trs"/>
+                                    <constraint firstAttribute="trailing" secondItem="GRe-qY-Lrg" secondAttribute="trailing" constant="8" id="eq1-4T-lTr"/>
+                                    <constraint firstItem="FkL-Gr-IX3" firstAttribute="top" secondItem="vC0-sU-QJv" secondAttribute="bottom" constant="8" id="fSU-xD-xjT"/>
+                                    <constraint firstItem="9VT-U8-LkX" firstAttribute="centerY" secondItem="VpW-Ux-edq" secondAttribute="centerY" id="jJl-cH-9vd"/>
+                                    <constraint firstItem="FkL-Gr-IX3" firstAttribute="leading" secondItem="vC0-sU-QJv" secondAttribute="leading" id="kOs-xF-Qgl"/>
+                                    <constraint firstAttribute="bottom" secondItem="FkL-Gr-IX3" secondAttribute="bottom" constant="8" id="z0e-tk-Plk"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -301,7 +301,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyc-1M-rwV">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="SOS" id="jJK-yL-TSC">
+                                    <navigationItem title="SOS Location" id="jJK-yL-TSC">
                                         <barButtonItem key="leftBarButtonItem" image="backArrow1" id="gBL-Im-084">
                                             <connections>
                                                 <action selector="backPressed:" destination="cps-06-kdy" id="oTP-dj-JIJ"/>
@@ -339,7 +339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qsl-76-PfX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4566" y="2205"/>
+            <point key="canvasLocation" x="4565.6000000000004" y="2204.3478260869565"/>
         </scene>
         <!--SuperVC-->
         <scene sceneID="4TU-xw-7Fh">
@@ -518,6 +518,7 @@
     </scenes>
     <resources>
         <image name="backArrow1" width="12" height="21"/>
+        <image name="home_ic_navigation" width="12" height="12"/>
         <image name="member_btn_contact_nor" width="21" height="21"/>
         <image name="nav_call_nor" width="18" height="18"/>
         <image name="nav_call_pre" width="18" height="18"/>

@@ -41,7 +41,7 @@ class AllKidsLocationController: UIViewController {
                                                         locations,
                                                         resultSelector: transform)
         
-        let period = Observable<Int>.timer(1, period: Configure.App.LoadDataOfPeriod, scheduler: MainScheduler.instance)
+        let period = Observable<Int>.timer(1, period: 30.0, scheduler: MainScheduler.instance)
             .withLatestFrom(fetchAnnotations)
             .filterEmpty()
             .share()

@@ -36,7 +36,8 @@ class SOSController: UIViewController {
         if let location = sos?.location?.location {
             navigationButton.isEnabled = true
             mapView.delegate = self
-            mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, 500, 500), animated: true)
+            let region = (sos?.location?.accuracy ?? 500) * 2
+            mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, region, region), animated: true)
             mapView.addAnnotation(BaseAnnotation(location))
             if let radius = sos?.location?.accuracy {
                 mapView.add(MKCircle(center: location, radius: radius))

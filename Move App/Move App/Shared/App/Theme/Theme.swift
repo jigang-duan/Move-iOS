@@ -40,9 +40,10 @@ enum Theme: Int {
     }
 
   var navigationBackgroundImage: UIImage? {
-    return self == .graphical ? R.image.navBackground() : UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
-                                                                  size: CGSize(width: 320, height: 44),
-                                                                  locations: [0.0, 1.0])
+    return R.image.nav_bg()?.resizingStretchImage()
+//    return self == .graphical ? R.image.navBackground() : UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
+//                                                                  size: CGSize(width: 320, height: 44),
+//                                                                  locations: [0.0, 1.0])
   }
 
   var tabBarBackgroundImage: UIImage? {
