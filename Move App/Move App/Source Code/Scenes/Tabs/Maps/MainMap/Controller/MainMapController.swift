@@ -41,7 +41,8 @@ class MainMapController: UIViewController {
 
     @IBOutlet weak var remindLocationOutlet: UIButton!
     
-    @IBOutlet weak var remindActivityOutlet: UIActivityIndicatorView!
+//    @IBOutlet weak var remindActivityOutlet: UIActivityIndicatorView!
+    @IBOutlet weak var remindActivityOutlet: ActivityImageView!
     
     let enterSubject = BehaviorSubject<Bool>(value: false)
     

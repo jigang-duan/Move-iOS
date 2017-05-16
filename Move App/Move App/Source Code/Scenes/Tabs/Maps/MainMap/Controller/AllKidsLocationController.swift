@@ -28,21 +28,21 @@ class AllKidsLocationController: UIViewController {
         
         self.mapView.delegate = self
         
-        let locations = RxStore.shared.deviceInfosObservable
+        let locations = Observable<Int>.timer(1, period: 30.0, scheduler: MainScheduler.instance)
+            .withLatestFrom(RxStore.shared.deviceInfosObservable)
             .map { (devices) in devices.flatMap { $0.deviceId } }
-            .flatMapLatest { LocationManager.share.locations(deviceIDs: $0) }
+            .flatMapLatest { LocationManager.share.locations(deviceIDs: $0).catchErrorJustReturn([]) }
         
         RxStore.shared.deviceIdObservable
             .bindTo(targetId)
             .addDisposableTo(disposeBag)
         
-        let fetchAnnotations = Observable.combineLatest(targetId.asObservable().filterEmpty().debug(),
+        let fetchAnnotations = Observable.combineLatest(targetId.asObservable().filterEmpty(),
                                                         RxStore.shared.deviceInfosObservable,
                                                         locations,
                                                         resultSelector: transform)
         
-        let period = Observable<Int>.timer(1, period: 30.0, scheduler: MainScheduler.instance)
-            .withLatestFrom(fetchAnnotations)
+        let period = fetchAnnotations
             .filterEmpty()
             .share()
         
@@ -57,18 +57,14 @@ class AllKidsLocationController: UIViewController {
         
         period.single()
             .map{ calculateCentreDistance($0) }
-            .bindNext({ [unowned self] in
-                let region = MKCoordinateRegionMakeWithDistance($0.0, $0.1, $0.1)
-                self.mapView.setRegion(region, animated: true)
-            })
+            .map{ MKCoordinateRegionMakeWithDistance($0.0, $0.1, $0.1) }
+            .bindTo(mapView.rx.region)
             .addDisposableTo(disposeBag)
         
         tap
             .map{ calculateCentreDistance($0) }
-            .bindNext({ [unowned self] in
-                let region = MKCoordinateRegionMakeWithDistance($0.0, $0.1, $0.1)
-                self.mapView.setRegion(region, animated: true)
-            })
+            .map{ MKCoordinateRegionMakeWithDistance($0.0, $0.1, $0.1) }
+            .bindTo(mapView.rx.region)
             .addDisposableTo(disposeBag)
         
         annotations

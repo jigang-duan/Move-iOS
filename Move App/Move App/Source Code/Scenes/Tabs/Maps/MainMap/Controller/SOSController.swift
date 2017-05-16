@@ -117,7 +117,8 @@ extension SOSController: MKMapViewDelegate {
         let circleRender = MKCircleRenderer(overlay: overlay)
         circleRender.fillColor = defaultCircleColor
         circleRender.strokeColor = R.color.appColor.wrong().withAlphaComponent(0.7)
-        circleRender.lineWidth = 2
+        circleRender.lineWidth = 1
+        circleRender.lineDashPattern = [8, 8]
         return circleRender
     }
 }

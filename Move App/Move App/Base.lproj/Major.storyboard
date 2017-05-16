@@ -303,11 +303,9 @@
                                         </constraints>
                                         <state key="normal" image="home_btn_steps_nor"/>
                                     </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="abm-Dw-vdb">
-                                        <rect key="frame" x="14" y="70" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" red="0.0" green="0.57254904510000004" blue="0.92156863209999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    </activityIndicatorView>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_btn_positioning_load" translatesAutoresizingMaskIntoConstraints="NO" id="4FX-yC-N2n" customClass="ActivityImageView" customModule="CustomViews">
+                                        <rect key="frame" x="6" y="62" width="36" height="36"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -317,8 +315,10 @@
                                     <constraint firstItem="vNr-iq-d0W" firstAttribute="top" secondItem="6WT-8y-Svn" secondAttribute="top" constant="1" id="YNV-cB-1Lf"/>
                                     <constraint firstAttribute="height" constant="165" id="d0i-Hz-Shu"/>
                                     <constraint firstItem="d2n-Cm-dk9" firstAttribute="top" secondItem="Edu-4d-HAK" secondAttribute="bottom" constant="8" id="ehc-uv-DxY"/>
+                                    <constraint firstItem="4FX-yC-N2n" firstAttribute="centerX" secondItem="Edu-4d-HAK" secondAttribute="centerX" id="gba-JV-KIj"/>
                                     <constraint firstAttribute="width" constant="48" id="jYr-WA-ydW"/>
                                     <constraint firstAttribute="trailing" secondItem="Edu-4d-HAK" secondAttribute="trailing" id="jqY-Kd-kJY"/>
+                                    <constraint firstItem="4FX-yC-N2n" firstAttribute="centerY" secondItem="Edu-4d-HAK" secondAttribute="centerY" id="n5R-qv-r3y"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -353,7 +353,7 @@
                         <outlet property="nameOutle" destination="fzE-4h-zm9" id="uZ9-9c-EM3"/>
                         <outlet property="noGeolocationView" destination="qq8-s0-eFv" id="AQV-eU-Bf7"/>
                         <outlet property="openPreferencesBtn" destination="nZf-no-x56" id="fAq-2c-ibZ"/>
-                        <outlet property="remindActivityOutlet" destination="abm-Dw-vdb" id="dZL-4i-6SW"/>
+                        <outlet property="remindActivityOutlet" destination="4FX-yC-N2n" id="qOl-ar-8kh"/>
                         <outlet property="remindLocationOutlet" destination="Edu-4d-HAK" id="MzW-bS-WKN"/>
                         <outlet property="statesOutlet" destination="jCk-Qg-6qK" id="upn-8y-ixp"/>
                         <outlet property="timeOutlet" destination="5vP-5M-IIQ" id="A0r-lR-u12"/>
@@ -1012,18 +1012,18 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jcn-7i-TmB" id="hxE-dU-j0I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XgJ-ba-0Aj">
-                                                    <rect key="frame" x="15" y="5" width="4.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="4" width="5" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dEc-0b-xbD">
-                                                    <rect key="frame" x="15" y="25.5" width="3.5" height="14.5"/>
+                                                    <rect key="frame" x="15" y="25" width="4" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -1133,6 +1133,7 @@
         <image name="home_btn_locatio_nor" width="36" height="36"/>
         <image name="home_btn_message" width="18" height="18"/>
         <image name="home_btn_munber" width="18" height="18"/>
+        <image name="home_btn_positioning_load" width="36" height="36"/>
         <image name="home_btn_positioning_nor" width="36" height="36"/>
         <image name="home_btn_steps_nor" width="36" height="36"/>
         <image name="home_ic_battery0" width="16" height="16"/>
