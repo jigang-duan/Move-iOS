@@ -42,6 +42,8 @@ class MainMapViewModel {
     
     let errorObservable: Observable<Error>
     
+    let badgeCount: Observable<Int>
+    
     init(
         input: (
             enter: Driver<Bool>,
@@ -146,6 +148,11 @@ class MainMapViewModel {
         
         allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
         singleAction = selecedAction.map({ $0.data as? DeviceInfo  }).filterNil()
+        
+        let userID = RxStore.shared.uidObservable
+        let devUID = currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
+        badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
+            .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
     }
 }
 

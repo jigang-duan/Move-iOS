@@ -60,7 +60,6 @@ class MainMapController: UIViewController {
         super.viewDidAppear(animated)
         
         self.showFeatureGudieView()
-        self.addressScrollLabel.text = address
         self.addressScrollLabel.scrollLabelIfNeed()
     }
     
@@ -205,10 +204,6 @@ class MainMapController: UIViewController {
             .map{ _ in Void() }
             .bindTo(mapView.rx.redrawRadius)
             .addDisposableTo(disposeBag)
-//            .bindNext { [unowned self] (_) in
-//                self.redrawRadius()
-//            }
-//            .addDisposableTo(disposeBag)
         
         viewModel.remindActivityIn.drive(remindActivityOutlet.rx.isAnimating).addDisposableTo(disposeBag)
         viewModel.remindActivityIn.map{ !$0 }.drive(remindActivityOutlet.rx.isHidden).addDisposableTo(disposeBag)
@@ -219,12 +214,7 @@ class MainMapController: UIViewController {
             .bindNext { ProgressHUD.show(status: $0) }
             .addDisposableTo(disposeBag)
         
-        let userID = RxStore.shared.uidObservable
-        let devUID = viewModel.currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
-        Observable.combineLatest(userID, devUID) { ($0, $1) }
-            .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
-            .bindTo(messageOutlet.rx.badgeCount)
-            .addDisposableTo(disposeBag)
+        viewModel.badgeCount.bindTo(messageOutlet.rx.badgeCount).addDisposableTo(disposeBag)
         
         AlertServer.share.navigateLocationSubject
             .bindNext { [weak self] in self?.showNavigationSheetView(locationInfo: $0) }
@@ -245,9 +235,6 @@ class MainMapController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    fileprivate var address = "Loading"
 }
 
 
@@ -255,7 +242,6 @@ extension MainMapController {
     
     fileprivate func autoRolling(_ text: String = "Loading") {
         self.addressScrollLabel.text = text
-        address = text
     }
     
     fileprivate func showFeatureGudieView() {
@@ -318,7 +304,6 @@ extension MainMapController: MKMapViewDelegate {
     
     func dotDot(online: Bool) {
         self.mapView.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
-        //self.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
     }
 }
 

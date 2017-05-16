@@ -36,7 +36,8 @@ class SOSController: UIViewController {
         if let location = sos?.location?.location {
             navigationButton.isEnabled = true
             mapView.delegate = self
-            let region = (sos?.location?.accuracy ?? 500) * 2
+            let accuracy = (sos?.location?.accuracy ?? minRegion) * 2
+            let region = accuracy > minRegion ? accuracy : minRegion
             mapView.setRegion(MKCoordinateRegionMakeWithDistance(location, region, region), animated: true)
             mapView.addAnnotation(BaseAnnotation(location))
             if let radius = sos?.location?.accuracy {
@@ -121,7 +122,8 @@ extension SOSController: MKMapViewDelegate {
     }
 }
 
-public let defaultCircleColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 0.2)
+fileprivate let minRegion: CLLocationDistance = 500.0
+fileprivate let defaultCircleColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 0.2)
 
 extension KidSateSOSType {
     

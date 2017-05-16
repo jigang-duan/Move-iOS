@@ -45,12 +45,6 @@ extension MKMapView {
     }
 }
 
-
-//func convert(_ mapView: MKMapView, radius: CLLocationDistance) -> CGRect {
-//    let region = MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, radius, radius)
-//    return mapView.convertRegion(region, toRectTo: mapView)
-//}
-
 extension MKMapView {
     
     var mainAnnotationView: PulsingAnnotationView? {

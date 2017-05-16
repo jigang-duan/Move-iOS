@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CustomViews
 
 extension UIImageView {
     
@@ -44,4 +45,19 @@ extension UIImage {
     func resizingStretchImage() -> UIImage {
         return self.resizableImage(withCapInsets: .zero, resizingMode: .stretch)
     }
+}
+
+extension Reactive where Base: ActivityImageView {
+    
+    /// Bindable sink for `startAnimating()`, `stopAnimating()` methods.
+    public var isAnimating: UIBindingObserver<Base, Bool> {
+        return UIBindingObserver(UIElement: self.base) { activityIndicator, active in
+            if active {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
 }

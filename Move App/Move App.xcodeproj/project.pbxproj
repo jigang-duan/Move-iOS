@@ -56,6 +56,7 @@
 		113F2E481E9E3D2C00B3628C /* SOSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E471E9E3D2C00B3628C /* SOSController.swift */; };
 		1140A0821EA4B8E200185200 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0811EA4B8E200185200 /* MoreView.swift */; };
 		1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */; };
+		114437BF1ECAD1E20095E648 /* ActivityImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114437BE1ECAD1E20095E648 /* ActivityImageView.swift */; };
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
 		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
 		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
@@ -420,6 +421,7 @@
 		113F2E471E9E3D2C00B3628C /* SOSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSController.swift; sourceTree = "<group>"; };
 		1140A0811EA4B8E200185200 /* MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreView.swift; path = Vendor/UUChat/Sources/MoreView.swift; sourceTree = "<group>"; };
 		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
+		114437BE1ECAD1E20095E648 /* ActivityImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityImageView.swift; path = Activity/ActivityImageView.swift; sourceTree = "<group>"; };
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
 		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
 		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
@@ -885,6 +887,14 @@
 				113F2E451E9E12B400B3628C /* SOSService.swift */,
 			);
 			name = SOS;
+			sourceTree = "<group>";
+		};
+		114437BD1ECAD1590095E648 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				114437BE1ECAD1E20095E648 /* ActivityImageView.swift */,
+			);
+			name = Activity;
 			sourceTree = "<group>";
 		};
 		11500FF81EC0699B008E7517 /* EAFeatureGuideView */ = {
@@ -1449,6 +1459,7 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				114437BD1ECAD1590095E648 /* Activity */,
 				1158D1E01EBC1D1D00525865 /* AnnotationView */,
 				110528E61E78DF0300FE97A8 /* Badge */,
 				1109C6441E5FCB01005B4AFD /* SwitchButton */,
@@ -2855,6 +2866,7 @@
 				1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */,
 				E01DF7401E308E6B00EA003D /* UIColor+argb.swift in Sources */,
 				E03B1BDF1E4DB922006EDB7B /* CDFInitialsAvatar.swift in Sources */,
+				114437BF1ECAD1E20095E648 /* ActivityImageView.swift in Sources */,
 				FF3F06821EA0C7B100B00939 /* RulerScrollView.swift in Sources */,
 				1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */,
 				FF3F06801EA0BFD400B00939 /* CustomRuler.swift in Sources */,
