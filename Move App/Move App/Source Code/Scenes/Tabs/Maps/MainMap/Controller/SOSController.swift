@@ -114,13 +114,14 @@ extension SOSController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let circleRender = MKCircleRenderer(overlay: overlay)
-        circleRender.fillColor = UIColor.cyan.withAlphaComponent(0.2)
+        circleRender.fillColor = defaultCircleColor
         circleRender.strokeColor = R.color.appColor.wrong().withAlphaComponent(0.7)
         circleRender.lineWidth = 2
         return circleRender
     }
 }
 
+public let defaultCircleColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 0.2)
 
 extension KidSateSOSType {
     

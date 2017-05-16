@@ -202,10 +202,13 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         mapView.rx.regionDidChangeAnimated.asObservable()
-            .bindNext { [unowned self] (_) in
-                self.redrawRadius()
-            }
+            .map{ _ in Void() }
+            .bindTo(mapView.rx.redrawRadius)
             .addDisposableTo(disposeBag)
+//            .bindNext { [unowned self] (_) in
+//                self.redrawRadius()
+//            }
+//            .addDisposableTo(disposeBag)
         
         viewModel.remindActivityIn.drive(remindActivityOutlet.rx.isAnimating).addDisposableTo(disposeBag)
         viewModel.remindActivityIn.map{ !$0 }.drive(remindActivityOutlet.rx.isHidden).addDisposableTo(disposeBag)
@@ -305,7 +308,7 @@ extension MainMapController: MKMapViewDelegate {
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? PulsingAnnotationView
             if annotationView == nil {
                 annotationView = PulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView?.radius = convert(mapView, radius: annotation.accuracy).width
+                annotationView?.radius = mapView.convertRect(radius: annotation.accuracy).width
             }
             annotationView?.canShowCallout = false
             return annotationView
@@ -313,22 +316,9 @@ extension MainMapController: MKMapViewDelegate {
         return nil
     }
     
-    fileprivate var mainAnnotationView: PulsingAnnotationView? {
-        guard let annotation = self.mapView.annotations.first else {
-            return nil
-        }
-        return self.mapView.view(for: annotation) as? PulsingAnnotationView
-    }
-    
-    fileprivate func redrawRadius() {
-        guard let annotation = self.mapView.annotations.first as? AccuracyAnnotation else {
-            return
-        }
-        self.mainAnnotationView?.radius = convert(self.mapView, radius: annotation.accuracy).width
-    }
-    
     func dotDot(online: Bool) {
-        self.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
+        self.mapView.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
+        //self.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
     }
 }
 

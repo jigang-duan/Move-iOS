@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import RxSwift
 import RxCocoa
+import CustomViews
 
 
 extension Reactive where Base : MKMapView {
@@ -36,7 +37,42 @@ extension Reactive where Base : MKMapView {
     
 }
 
-func convert(_ mapView: MKMapView, radius: CLLocationDistance) -> CGRect {
-    let region = MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, radius, radius)
-    return mapView.convertRegion(region, toRectTo: mapView)
+extension MKMapView {
+    
+    func convertRect(radius: CLLocationDistance) -> CGRect {
+        let region = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius, radius)
+        return self.convertRegion(region, toRectTo: self)
+    }
+}
+
+
+//func convert(_ mapView: MKMapView, radius: CLLocationDistance) -> CGRect {
+//    let region = MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, radius, radius)
+//    return mapView.convertRegion(region, toRectTo: mapView)
+//}
+
+extension MKMapView {
+    
+    var mainAnnotationView: PulsingAnnotationView? {
+        guard let annotation = self.annotations.first else {
+            return nil
+        }
+        return self.view(for: annotation) as? PulsingAnnotationView
+    }
+    
+    func redrawRadius() {
+        guard let annotation = self.annotations.first as? AccuracyAnnotation else {
+            return
+        }
+        self.mainAnnotationView?.radius = convertRect(radius: annotation.accuracy).width
+    }
+}
+
+extension Reactive where Base : MKMapView {
+    
+    var redrawRadius: UIBindingObserver<Base, Void> {
+        return UIBindingObserver(UIElement: self.base) { mapView, _ in
+            mapView.redrawRadius()
+        }
+    }
 }
