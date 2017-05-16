@@ -245,11 +245,11 @@ class RemindersController: UIViewController {
         // Do any additional setup after loading the view.
         let popover = RxPopover.shared
         popover.style = .dark
-        let action1 = BasePopoverAction(placeholderImage: R.image.member_ic_qr(),
+        let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
                                         title: R.string.localizable.id_alarm(),
                                         isSelected: false)
         
-        let action2 = BasePopoverAction(placeholderImage: R.image.member_ic_input(),
+        let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),
                                         title: R.string.localizable.id_todolist(),
                                         isSelected: false)
         addOutlet.rx.tap.asObservable()
@@ -354,7 +354,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                 {
                     let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: preferredStyle)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let deletThis = UIAlertAction(title: "Delete This To do List only", style: .destructive, handler: { (UIAlertAction) in
+                    let deletThis = UIAlertAction(title: "Delete This day To do list only", style: .destructive, handler: { (UIAlertAction) in
                         var inde: Int?
                         for i in 0 ..< (self.todos?.count)!
                         {
@@ -368,7 +368,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         
                         self.deleteTap.value += 1
                     })
-                    let deletall = UIAlertAction(title: "Delete All Future To do list", style: .destructive, handler: { (UIAlertAction) in
+                    let deletall = UIAlertAction(title: "Delete All this To do list", style: .destructive, handler: { (UIAlertAction) in
                         var index = self.fifleremeder?.count
                         while index! > 0{
                             var inde: Int?
@@ -464,8 +464,11 @@ extension RemindersController: FSCalendarDelegate,FSCalendarDelegateAppearance {
 }
 extension RemindersController: DZNEmptyDataSetSource {
     
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString.init(string: "No alarm this day,tap \"+\" to add a alarm")
+    }
     func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
-        return R.image.school_time_ic()
+        return R.image.reminder_empty()
     }
     
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {

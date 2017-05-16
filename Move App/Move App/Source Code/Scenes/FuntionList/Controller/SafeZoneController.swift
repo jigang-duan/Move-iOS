@@ -157,7 +157,10 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
 extension SafeZoneController: DZNEmptyDataSetSource {
     
     func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
-        return R.image.school_time_ic()
+        return R.image.safe_zone_empty()
+    }
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString.init(string: "No Safe zone here,tap \"+\" to add a safe zone")
     }
     
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {

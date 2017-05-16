@@ -822,21 +822,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SuR-OB-JQX">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When kid enter or leave the safe zone,warming will be send to you app." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bul-5X-Ymw">
-                                        <rect key="frame" x="5" y="8" width="365" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="HSM-Tp-fGx"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When kid enter or leave the safe zone,warming will be send to you app." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bul-5X-Ymw">
+                                        <rect key="frame" x="10" y="10" width="355" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="Bul-5X-Ymw" firstAttribute="top" secondItem="SuR-OB-JQX" secondAttribute="top" constant="8" id="ORY-t0-K3s"/>
-                                    <constraint firstItem="Bul-5X-Ymw" firstAttribute="leading" secondItem="SuR-OB-JQX" secondAttribute="leading" constant="5" id="cGp-nu-ZY2"/>
-                                    <constraint firstAttribute="trailing" secondItem="Bul-5X-Ymw" secondAttribute="trailing" constant="5" id="nyS-Up-Oc1"/>
+                                    <constraint firstItem="Bul-5X-Ymw" firstAttribute="leading" secondItem="SuR-OB-JQX" secondAttribute="leading" constant="10" id="AHX-6X-BrK"/>
+                                    <constraint firstItem="Bul-5X-Ymw" firstAttribute="top" secondItem="SuR-OB-JQX" secondAttribute="top" constant="10" id="Zue-qe-4Lo"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bul-5X-Ymw" secondAttribute="trailing" constant="10" id="chp-br-uOD"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bul-5X-Ymw" secondAttribute="bottom" constant="5" id="m25-uF-TMe"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EVX-hK-LrN">
