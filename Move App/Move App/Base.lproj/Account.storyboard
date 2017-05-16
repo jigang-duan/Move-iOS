@@ -912,7 +912,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="general_btn_off"/>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="general_btn_on"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
@@ -946,7 +946,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="general_btn_off"/>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="general_btn_on"/>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
@@ -1403,7 +1403,7 @@
                     <navigationItem key="navigationItem" id="0xG-rs-fIC">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="inP-0C-WGb">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Alarm"/>

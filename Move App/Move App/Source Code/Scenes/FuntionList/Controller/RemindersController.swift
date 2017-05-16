@@ -344,29 +344,9 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         if editingStyle == .delete {
             if self.titleSegment.selectedSegmentIndex == 0{
 
-                    let alertController = UIAlertController(title: "This is a repeating alram.", message: "", preferredStyle: preferredStyle)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let deletThis = UIAlertAction(title: "Delete This alarm only", style: .destructive, handler: { (UIAlertAction) in
                         self.viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
                         self.deleteTap.value += 1
-                    })
-                    let deletall = UIAlertAction(title: "Delete All Future alarms", style: .destructive, handler: { (UIAlertAction) in
-                        var index = self.viewModel.reminderVariable.value.alarms.count
-                        while index > 0{
-                            self.viewModel.reminderVariable.value.alarms.remove(at: 0)
-                            index = index - 1
-                            self.deleteTap.value += 1
-                        }
-                    })
-//                if let popoverController = alertController.popoverPresentationController {
-//                    popoverController.sourceView = self.view
-//                    popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
-//                }
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(deletThis)
-                    alertController.addAction(deletall)
-//
-                    self.present(alertController, animated: true, completion: nil)
+                
             }
             else
             {
@@ -383,7 +363,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                                 inde = i
                             }
                         }
-                        
+
                         self.viewModel.reminderVariable.value.todo.remove(at: inde!)
                         
                         self.deleteTap.value += 1

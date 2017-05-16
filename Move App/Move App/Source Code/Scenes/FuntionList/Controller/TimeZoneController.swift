@@ -42,11 +42,19 @@ class TimeZoneController: UITableViewController {
         timezoneLabel.text = R.string.localizable.id_time_zone()
         summerTimeLabel.text = R.string.localizable.id_summer_time()
     }
+    func enablecell(_ enable: Bool) {
+        timezoneCell.isUserInteractionEnabled = !enable
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.internationalization()
+        
+        //auto on timecell off ,off on 控制跳转
+        let openEnable = autoGetTimeQutlet.rx.switch.asDriver()
+        openEnable.drive(onNext: enablecell).addDisposableTo(disposeBag)
+        
         
         selectedTimeZone.asDriver()
             .map({ "GMT \($0)" })
@@ -92,7 +100,7 @@ class TimeZoneController: UITableViewController {
       //  timezoneCell.isUserInteractionEnabled = enable
     }
     
-    
+    //监听 get time auto 禁止跳转timezone页面
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.timeZoneController.showSelectTimeZone(segue: segue)?.destination {
             vc.selectedTimezone = { index in
