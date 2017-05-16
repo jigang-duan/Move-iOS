@@ -123,7 +123,7 @@ class UpgradeController: UIViewController {
             
             if progress >= 100{
                 self.updateDownloadButton(isEnable: false)
-                downloadBun.setTitle("Finished", for: .disabled)
+                downloadBun.setTitle("Download Finished", for: .disabled)
                 self.downloadProgress.value = 0
             }
         }

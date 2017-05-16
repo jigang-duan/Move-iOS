@@ -328,6 +328,17 @@ class KidInformationController: UIViewController {
                 self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
             }
         }
+        
+        if let vc = R.segue.kidInformationController.showCountryCode(segue: segue)?.destination {
+            vc.selectBlock = {model in
+                self.regionCodeBun.setTitle(model.abbr, for: .normal)
+                self.phonePrefix.text = model.code
+            }
+        }
+        
+        
+        
+        
     }
     
 }

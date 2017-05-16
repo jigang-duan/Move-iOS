@@ -312,6 +312,7 @@
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
 		FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
 		FF517A2A1EA498C80014E53F /* countryphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF517A291EA498C80014E53F /* countryphone.plist */; };
+		FF83B0711ECA956400E39C74 /* countryCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF83B0701ECA956400E39C74 /* countryCode.plist */; };
 		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
 		FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */; };
 		FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */; };
@@ -703,6 +704,7 @@
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FF517A291EA498C80014E53F /* countryphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = countryphone.plist; path = Resource/countryphone.plist; sourceTree = "<group>"; };
+		FF83B0701ECA956400E39C74 /* countryCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = countryCode.plist; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
 		FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailController.swift; sourceTree = "<group>"; };
 		FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddController.swift; sourceTree = "<group>"; };
@@ -1618,6 +1620,7 @@
 			isa = PBXGroup;
 			children = (
 				FF517A291EA498C80014E53F /* countryphone.plist */,
+				FF83B0701ECA956400E39C74 /* countryCode.plist */,
 				112D6E741E863D0C006135E3 /* Png */,
 				112D6E5F1E863C65006135E3 /* Gif */,
 			);
@@ -2401,6 +2404,7 @@
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
 				E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */,
 				112D6E8C1E863D37006135E3 /* emotion_14.png in Resources */,
+				FF83B0711ECA956400E39C74 /* countryCode.plist in Resources */,
 				112D6E711E863CE1006135E3 /* emotion_08.gif in Resources */,
 				112D6E9A1E863D37006135E3 /* emotion_28.png in Resources */,
 				112D6E901E863D37006135E3 /* emotion_18.png in Resources */,

@@ -22,7 +22,7 @@ class OtherSettingsViewController: UITableViewController {
                 _ = clearCache(path: NSTemporaryDirectory())
             }
             alert.addAction(action)
-            alert.addAction(UIAlertAction(title: "Cancle", style: .default))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default))
             present(alert, animated: true, completion: nil)
         }
     }

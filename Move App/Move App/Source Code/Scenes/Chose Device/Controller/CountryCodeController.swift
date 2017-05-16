@@ -7,12 +7,28 @@
 //
 
 import UIKit
+import CoreTelephony
 
 
 class CountryCodeViewController: UITableViewController {
     
+    @IBOutlet weak var nextBun: UIBarButtonItem!
     
-    var cellDatas:[String] = []
+    var selectBlock: ((CountryCode) -> ())?
+    
+    
+    fileprivate var cellDatas:[sectionModel] = []
+    
+    fileprivate struct sectionModel {
+        var models: [CountryCode]?
+        var title: String?
+    }
+    
+    struct CountryCode {
+        var name: String?
+        var abbr: String?
+        var code: String?
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -22,31 +38,39 @@ class CountryCodeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sss()
+        let path = Bundle.main.path(forResource: "countryCode", ofType: "plist")
+        let arr = NSArray(contentsOfFile: path!) as! [[String:String]]
+    
         
+        let sArr = arr.map({dic -> (model: CountryCodeViewController.CountryCode, title: String) in
+            let cd = CountryCode(name: dic["countryName"], abbr: dic["abbreviation"], code: dic["code"])
+            let title = String((cd.name?.characters.first)!)
+            return (model: cd, title: title)
+        })
+        let titleArr = Array(Set(sArr.map({$0.title}))).sorted()
         
-        let countryCodes = Locale.isoRegionCodes
+        for i in 0..<titleArr.count {
+            var models: [CountryCode] = []
+            for j in 0..<sArr.count {
+                let m = sArr[j]
+                if m.title == titleArr[i] {
+                    models.append(CountryCode(name: m.model.name, abbr: m.model.abbr, code: m.model.code))
+                }
+            }
+            
+            let sm = sectionModel(models: models, title: titleArr[i])
+            cellDatas.append(sm)
+        }
+    
         
-        var countries = [String]()
+        let localModel = CountryCode(name: "xxxxx", abbr: "", code: "000")
+        let first = sectionModel(models: [localModel], title: "Location")
         
-//        for countryCode in countryCodes {
-//            let identifier = Locale.identifier(fromComponents:
-//                [countryCode:NSLocale.Key.countryCode.rawValue])
-//            let country = NSLocale.cu
-//            countries.append(country!)
-//        }
+        cellDatas.insert(first, at: 0)
         
-        cellDatas = countryCodes
-        tableView.reloadData()
+        self.tableView.reloadData()
         
-        
-//        for (NSString *countryCode in countryCodes)
-//        {
-//            NSString *identifier = [NSLocale localeIdentifierFromComponents: [NSDictionary dictionaryWithObject: countryCode forKey: NSLocaleCountryCode]];
-//            NSString *country = [[NSLocale currentLocale] displayNameForKey: NSLocaleIdentifier value: identifier];
-//            [countries addObject: country];
-//        }
-//        
-//        NSDictionary *codeForCountryDictionary = [[NSDictionary alloc] initWithObjects:countryCodes forKeys:countries];
         
     }
     
@@ -57,22 +81,56 @@ class CountryCodeViewController: UITableViewController {
             cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentify")
         }
         
-        cell?.textLabel?.text = cellDatas[indexPath.row]
+        cell?.textLabel?.text = cellDatas[indexPath.section].models?[indexPath.row].name
+        cell?.detailTextLabel?.text = cellDatas[indexPath.section].models?[indexPath.row].code
         
         return cell!
     }
     
     
-    
-    
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = cellDatas[indexPath.section].models?[indexPath.row]
+        if selectBlock != nil {
+            selectBlock!(model!)
+        }
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return cellDatas.count
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cellDatas[section].models!.count
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return cellDatas[section].title
+    }
+    
+    
     
 }
+
+
+extension CountryCodeViewController {
+
+
+    func sss() {
+    
+        print(CTCarrier())
+        print(CTCarrier().mobileNetworkCode)
+    
+    }
+    
+
+
+}
+
+
+
+
+

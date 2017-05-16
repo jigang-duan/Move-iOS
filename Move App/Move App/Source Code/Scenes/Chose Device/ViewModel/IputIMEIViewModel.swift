@@ -43,16 +43,32 @@ class InputIMEIViewModel {
         
         self.confirmResult = input.confirmTaps.withLatestFrom(input.imei)
             .flatMapLatest({ imei in
-                return deviceManager.checkBind(deviceId: imei).map({ bind in
-                    if bind == false {
-                        return ValidationResult.ok(message: "check Success.")
-                    }else {
-                        return ValidationResult.failed(message: "The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                    }
-                }).asDriver(onErrorRecover: commonErrorRecover)
-
-                
-               
+                return deviceManager.getContacts(deviceId: imei).map({cons in
+                            let flag = cons.map({$0.uid}).contains(where: { uid -> Bool in
+                                return uid == UserInfo.shared.id
+                            })
+                            if flag == true {
+                                return ValidationResult.ok(message: "This watch is existed")
+                            }else{
+                                return ValidationResult.failed(message: "")
+                            }
+                        })
+                        .asDriver(onErrorRecover: commonErrorRecover)
+            })
+            .withLatestFrom(input.imei, resultSelector: {($0, $1)})
+            .flatMapLatest({result, imei in
+                if case ValidationResult.ok(let msg) = result {
+                    return Driver.just(ValidationResult.failed(message: msg))
+                }else{
+                    return deviceManager.checkBind(deviceId: imei).map({ bind in
+                                if bind == false {
+                                    return ValidationResult.ok(message: "check Success.")
+                                }else {
+                                    return ValidationResult.failed(message: "The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                                }
+                            })
+                            .asDriver(onErrorRecover: commonErrorRecover)
+                }
             })
         
     }
