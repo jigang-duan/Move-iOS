@@ -38,7 +38,7 @@ class CountryCodeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sss()
+      
         let path = Bundle.main.path(forResource: "countryCode", ofType: "plist")
         let arr = NSArray(contentsOfFile: path!) as! [[String:String]]
     
@@ -64,11 +64,11 @@ class CountryCodeViewController: UITableViewController {
         }
     
         
-        let localModel = CountryCode(name: "xxxxx", abbr: "", code: "000")
-        let first = sectionModel(models: [localModel], title: "Location")
-        
-        cellDatas.insert(first, at: 0)
-        
+        if let localModel = CountryCodeViewController.localCountryCode() {
+            let first = sectionModel(models: [localModel], title: "Location")
+            cellDatas.insert(first, at: 0)
+        }
+    
         self.tableView.reloadData()
         
         
@@ -117,17 +117,37 @@ class CountryCodeViewController: UITableViewController {
 
 
 extension CountryCodeViewController {
-
-
-    func sss() {
     
-        print(CTCarrier())
-        print(CTCarrier().mobileNetworkCode)
-    
+    class func localCountryCode() -> CountryCode? {
+        let info = CTTelephonyNetworkInfo()
+        if let carrier = info.subscriberCellularProvider {
+            let path = Bundle.main.path(forResource: "countryCode", ofType: "plist")
+            let arr = NSArray(contentsOfFile: path!) as! [[String:String]]
+            let ccs = arr.map({CountryCode(name: $0["countryName"], abbr: $0["abbreviation"], code: $0["code"])})
+                        .filter { $0.abbr?.lowercased() == carrier.isoCountryCode?.lowercased()}
+            
+            if ccs.count > 0 {
+                return ccs[0]
+            }else{
+                return nil
+            }
+        }else{
+            return nil
+        }
     }
     
-
-
+    class func fetchCountryCode(with code: String) -> CountryCode? {
+        let path = Bundle.main.path(forResource: "countryCode", ofType: "plist")
+        let arr = NSArray(contentsOfFile: path!) as! [[String:String]]
+        let ccs = arr.map({CountryCode(name: $0["countryName"], abbr: $0["abbreviation"], code: $0["code"])})
+            .filter { $0.code?.lowercased() == code.lowercased()}
+        if ccs.count > 0 {
+            return ccs[0]
+        }else{
+            return nil
+        }
+    }
+    
 }
 
 

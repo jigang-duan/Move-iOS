@@ -28,6 +28,7 @@ class KidInformationViewModel {
             addInfo: Variable<DeviceBindInfo>,
             photo: Variable<UIImage?>,
             name: Driver<String>,
+            phonePrefix: Driver<String>,
             phone: Driver<String>,
             nextTaps: Driver<Void>
         ),
@@ -60,14 +61,14 @@ class KidInformationViewModel {
             }
             .distinctUntilChanged()
         
-        let com = Driver.combineLatest(input.name, input.phone, input.addInfo.asDriver()){($0, $1, $2)}
+        let com = Driver.combineLatest(input.name, input.phonePrefix, input.phone, input.addInfo.asDriver()){($0, $1, $2, $3)}
         
         self.nextResult = input.nextTaps.withLatestFrom(com)
-            .flatMapLatest({ name, phone, addInfo in
+            .flatMapLatest({ name, phonePrefix, phone, addInfo in
                 
                 var f = addInfo
                 f.nickName = name
-                f.number = phone
+                f.number = "\(phonePrefix) \(phone)"
                 
                 if self.isForSetting == true {
                     if let photo = input.photo.value {

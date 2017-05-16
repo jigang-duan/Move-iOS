@@ -80,6 +80,11 @@ class PhoneNumberController: UIViewController {
         
         validate.isHidden = true
         
+        if let localModel = CountryCodeViewController.localCountryCode() {
+            self.regionBun.setTitle(localModel.abbr, for: .normal)
+            self.phonePrefix.text = localModel.code
+        }
+        
         
         viewModel = PhoneNumberViewModel(
             input:(
@@ -135,7 +140,7 @@ class PhoneNumberController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.phoneNumberController.showRelationship(segue: segue) {
-            self.deviceAddInfo?.phone = phoneTf.text
+            self.deviceAddInfo?.phone = "\(phonePrefix.text ?? "") \(phoneTf.text ?? "")"
             sg.destination.deviceAddInfo = self.deviceAddInfo
         }
     }

@@ -105,7 +105,16 @@ class KidInformationController: UIViewController {
             nameTf.text = info.nickName
         }
         
-        phoneTf.text = info.number
+        let numberArr = info.number?.components(separatedBy: " ")
+        if let arr = numberArr, arr.count > 1 {
+            if let model = CountryCodeViewController.fetchCountryCode(with: arr[0]) {
+                self.regionCodeBun.setTitle(model.abbr, for: .normal)
+            }
+            phonePrefix.text = arr[0]
+            phoneTf.text = arr[1]
+        }else{
+            phoneTf.text = info.number
+        }
         
         
         let imgUrl = URL(string: FSManager.imageUrl(with: info.profile ?? ""))
@@ -171,11 +180,15 @@ class KidInformationController: UIViewController {
             }
         }).addDisposableTo(disposeBag)
         
+        
+        let phonePrefix = self.phonePrefix.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
+        
         viewModel = KidInformationViewModel(
             input:(
                 addInfo: addInfoVariable,
                 photo: photoVariable,
                 name: combineName,
+                phonePrefix: phonePrefix,
                 phone: phoneTf.rx.text.orEmpty.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver()
             ),
