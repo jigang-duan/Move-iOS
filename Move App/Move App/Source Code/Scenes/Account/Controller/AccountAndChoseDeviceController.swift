@@ -16,7 +16,6 @@ import CustomViews
 
 class AccountAndChoseDeviceController: UIViewController {
 
-    @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var headOutlet: UIImageView!
     @IBOutlet weak var accountNameOutlet: UILabel!
     
@@ -33,7 +32,7 @@ class AccountAndChoseDeviceController: UIViewController {
     
     
     private func initializeI18N() {
-        personalInformationLab.text = R.string.localizable.id_account_inform() + " >"
+        personalInformationLab.text = R.string.localizable.id_account_inform()
         deviceLab.text = R.string.localizable.id_device()
         addDeviceLab.text = R.string.localizable.id_add_device()
     }
@@ -42,8 +41,6 @@ class AccountAndChoseDeviceController: UIViewController {
         super.viewDidLoad()
 
         self.initializeI18N()
-        
-        backImageView.image(gradientColors: [R.color.appColor.darkPrimary().withAlphaComponent(0.4),R.color.appColor.darkPrimary()], locations: [0.0,1.0])
         
         let viewModel = AccountAndChoseDeviceViewModel(
             input: (
@@ -92,23 +89,11 @@ class AccountAndChoseDeviceController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
         enterSubject.onNext(true)
         
         propelToTargetController()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isHidden = false
-        
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

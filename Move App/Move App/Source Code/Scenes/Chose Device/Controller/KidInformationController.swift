@@ -113,6 +113,10 @@ class KidInformationController: UIViewController {
             phonePrefix.text = arr[0]
             phoneTf.text = arr[1]
         }else{
+            if let localModel = CountryCodeViewController.localCountryCode() {
+                self.regionCodeBun.setTitle(localModel.abbr, for: .normal)
+                self.phonePrefix.text = localModel.code
+            }
             phoneTf.text = info.number
         }
         

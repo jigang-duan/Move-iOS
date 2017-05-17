@@ -137,7 +137,6 @@ class AccountKidsRulesuserController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
         enterSubject.onNext(true)
         propelToTargetController()
     }

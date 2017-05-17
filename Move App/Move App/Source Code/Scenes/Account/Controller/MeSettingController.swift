@@ -23,8 +23,9 @@ class MeSettingController: UIViewController {
     var heightUnit:UnitType?
     var weightUnit:UnitType?
     
+    @IBOutlet weak var photoLab: UILabel!
+    @IBOutlet weak var headImgV: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var headBun: UIButton!
     @IBOutlet weak var logoutBun: UIButton!
     
     var photoPicker: ImageUtility?
@@ -57,6 +58,7 @@ class MeSettingController: UIViewController {
     private func initializeI18N() {
         self.title = R.string.localizable.id_me()
         logoutBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
+        photoLab.text = R.string.localizable.id_photo()
     }
     
     override func viewDidLoad() {
@@ -77,10 +79,10 @@ class MeSettingController: UIViewController {
         
     
         
-        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headBun.frame.width, height: headBun.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headImgV.frame.width, height: headImgV.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
         
         let imgUrl = URL(string: FSManager.imageUrl(with: info?.iconUrl ?? ""))
-        headBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: placeImg)
+        headImgV.kf.setImage(with: imgUrl, placeholder: placeImg)
         
         
     
@@ -129,19 +131,18 @@ class MeSettingController: UIViewController {
     }
     
     
-    
-    @IBAction func selectPhoto(_ sender: UIButton) {
+    @IBAction func selectPhoto(_ sender: Any) {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
-                self.headBun.setBackgroundImage(image, for: .normal)
+                self.headImgV.image = image
                 self.changedImage = image
             })
         }
         let action2 = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { (image) in
-                self.headBun.setBackgroundImage(image, for: .normal)
+                self.headImgV.image = image
                 self.changedImage = image
             })
         }
@@ -152,8 +153,8 @@ class MeSettingController: UIViewController {
         vc.addAction(action3)
         
         if let popover = vc.popoverPresentationController {
-            popover.sourceView = sender.superview
-            popover.sourceRect = sender.frame
+            popover.sourceView = self.view
+            popover.sourceRect = headImgV.frame
         }
         
         self.present(vc, animated: true, completion: nil)
