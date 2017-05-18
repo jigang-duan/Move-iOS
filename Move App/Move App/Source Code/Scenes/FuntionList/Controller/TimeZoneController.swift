@@ -55,7 +55,6 @@ class TimeZoneController: UITableViewController {
         let openEnable = autoGetTimeQutlet.rx.switch.asDriver()
         openEnable.drive(onNext: enablecell).addDisposableTo(disposeBag)
         
-        
         selectedTimeZone.asDriver()
             .map({ "GMT \($0)" })
             .drive(timezoneCityQutlet.rx.text)
@@ -83,7 +82,7 @@ class TimeZoneController: UITableViewController {
         viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.fetchtimezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
         viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
-        
+        viewModel.autotimeEnable.drive(onNext: enablecell).addDisposableTo(disposeBag)
         viewModel.activityIn
             .map{ !$0 }
             .drive(onNext: userInteractionEnabled)
@@ -100,7 +99,7 @@ class TimeZoneController: UITableViewController {
       //  timezoneCell.isUserInteractionEnabled = enable
     }
     
-    //监听 get time auto 禁止跳转timezone页面
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.timeZoneController.showSelectTimeZone(segue: segue)?.destination {
             vc.selectedTimezone = { index in

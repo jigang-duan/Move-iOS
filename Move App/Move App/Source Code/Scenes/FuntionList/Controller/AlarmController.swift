@@ -50,6 +50,7 @@ class AlarmController: UIViewController {
     }
     
     func savealram() {
+        self.saveOutlet.isUserInteractionEnabled = false
         if isOldAlarm!
         {
             let _ = KidSettingsManager.shared.updateAlarm(KidSetting.Reminder.Alarm(alarmAt: (alarms?["alarms"] as? Date ?? nil)!, day: (alarms?["dayFromWeek"] as? [Bool])!, active: alarms?["active"] as? Bool), new: KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: self.sortWeek(weekOutlet.weekSelected), active: alarms?["active"] as? Bool))
@@ -59,7 +60,7 @@ class AlarmController: UIViewController {
                     if $0 {
                         _ = self.navigationController?.popViewController(animated: true)
                     }else{
-                        
+                        self.saveOutlet.isUserInteractionEnabled = true
                     }
             }).addDisposableTo(self.disposeBag)
             
@@ -71,7 +72,7 @@ class AlarmController: UIViewController {
                                 if $0 {
                                     _ = self.navigationController?.popViewController(animated: true)
                                 }else{
-            
+                                    self.saveOutlet.isUserInteractionEnabled = true
                                 }
                         }).addDisposableTo(self.disposeBag)
         }

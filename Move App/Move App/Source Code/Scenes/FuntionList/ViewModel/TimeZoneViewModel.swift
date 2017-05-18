@@ -44,12 +44,12 @@ class TimeZoneViewModel {
         
         let fetchHourform = manager.fetchHoursFormat()
             .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: false)
+            .asDriver(onErrorJustReturn: true)
         self.hourformEnable = Driver.of(fetchHourform, input.hourform).merge()
         
         let fetchAutotime = manager.fetchGetTimeAuto()
             .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: false)
+            .asDriver(onErrorJustReturn: true)
         self.autotimeEnable = Driver.of(fetchAutotime, input.autotime).merge()
         
         fetchtimezoneDate = manager.fetchTimezone()

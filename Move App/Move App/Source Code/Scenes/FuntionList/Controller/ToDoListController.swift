@@ -177,33 +177,38 @@ class ToDoListController: UITableViewController {
     
     func saveAction() {
        
-        
+        self.saveQutlet.isUserInteractionEnabled = false
         if self.beginTime == self.endTime{
             let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "begin time not the same as end time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
             self.present(alertController, animated: true)
-            
+            self.saveQutlet.isUserInteractionEnabled = true
         } else if (self.beginTime) < Date()
         {
             let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "begin time later than the system time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
+            self.saveQutlet.isUserInteractionEnabled = true
             self.present(alertController, animated: true)
+            
         }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
             let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
+            self.saveQutlet.isUserInteractionEnabled = true
             self.present(alertController, animated: true)
         }else if self.titleTextFieldQutle.text == "" {
             let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title and remark can't Null", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
+            self.saveQutlet.isUserInteractionEnabled = true
             self.present(alertController, animated: true)
         }else if (self.beginTime) > (self.endTime) {
             let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Start time later than the end of time", preferredStyle: .alert)
             let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okActiojn)
+            self.saveQutlet.isUserInteractionEnabled = true
             self.present(alertController, animated: true)
             
         }else
@@ -226,16 +231,16 @@ class ToDoListController: UITableViewController {
 //           
 //            
 //            if !self.isSame!{
-            
              if self.isOldTodo!{
                 
-                    let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
+                    let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String, content: todo?["content"] as? String, start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
                         {
                             print($0)
                             if $0 {
                                 let _ = self.navigationController?.popViewController(animated: true)
                             }else{
                                 print("网络错误重新")
+                                self.saveQutlet.isUserInteractionEnabled = true
                             }
                     }).addDisposableTo(self.disposeBag)
              }else{
@@ -247,6 +252,7 @@ class ToDoListController: UITableViewController {
                                 let _ = self.navigationController?.popViewController(animated: true)
                                 }else{
                             print("网络错误重新")
+                                    self.saveQutlet.isUserInteractionEnabled = true
                                 }
                         }).addDisposableTo(self.disposeBag)
             }

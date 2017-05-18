@@ -158,6 +158,11 @@ class AccountKidsRulesuserController: UITableViewController {
                 }
             }
         }
+        //safe zone
+        if let vc = R.segue.accountKidsRulesuserController.showSafezone(segue: segue)?.destination {
+            vc.autopositioningBool = autopositiQutel.isOn
+        }
+        
         //apn
         if let vc = R.segue.accountKidsRulesuserController.showApn(segue: segue)?.destination {
             vc.hasPairedWatch = true
@@ -182,6 +187,7 @@ class AccountKidsRulesuserController: UITableViewController {
             vc.addInfoVariable.value = info
         }
     }
+
     
 }
 

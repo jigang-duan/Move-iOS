@@ -274,17 +274,17 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     
     func fetchHoursFormat(id: String) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.hour24 ?? false })
+            .map({ $0.hour24 ?? true })
     }
     
     func fetchGetTimeAuto(id: String) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.auto_time ?? false })
+            .map({ $0.auto_time ?? true })
     }
     
     func fetchTimezone(id:String) -> Observable<Int> {
         return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.timezone ?? 0 })
+            .map({ $0.timezone ?? 12 })
     }
     
     func fetchSummerTime(id: String) -> Observable<Bool> {
@@ -299,7 +299,6 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
                 _setting.dst = summertime
                 _setting.auto_time = autotime
                 _setting.hour24 = hourformat
-                
                 _setting.timezone = Timezone
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })

@@ -343,10 +343,8 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
          let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
         if editingStyle == .delete {
             if self.titleSegment.selectedSegmentIndex == 0{
-
                         self.viewModel.reminderVariable.value.alarms.remove(at: indexPath.row)
                         self.deleteTap.value += 1
-                
             }
             else
             {

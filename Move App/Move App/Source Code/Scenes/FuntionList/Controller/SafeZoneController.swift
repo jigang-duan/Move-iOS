@@ -20,23 +20,10 @@ class SafeZoneController: UIViewController {
     @IBOutlet weak var safezoneQutlet: UIButton!
     @IBOutlet weak var tableview: UITableView!
     var dataISexit: Bool = true
+    var autopositioningBool: Bool?
     var disposeBag = DisposeBag()
     
     var fences: [KidSate.ElectronicFencea] = []
-    
-//    //缓冲
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        
-//        if !self.fences.isEmpty
-//        {
-//            let model:NSData = NSKeyedArchiver.archivedData(withRootObject: self.fences) as NSData
-//            let cachePath2 = NSHomeDirectory() + "/Library/Caches" + "/safezoneDate.data"
-//            model.write(toFile: cachePath2, atomically: true)
-//        }
-//        
-//        
-//    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,13 +35,6 @@ class SafeZoneController: UIViewController {
         super.viewDidLoad()
         self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
         tableview.emptyDataSetSource = self
-        
-//        let cachePath2 = NSHomeDirectory() + "/Library/Caches" + "/safezoneDate1.data"
-//        let a = NSKeyedUnarchiver.unarchiveObject(withFile: cachePath2) as! [KidSate.ElectronicFencea]
-//        if a.count>0
-//        {
-//            self.fences = a
-//        }
         
         safezoneQutlet.rx.tap
             .asDriver()
@@ -81,6 +61,7 @@ class SafeZoneController: UIViewController {
     }
     
     func showAddSafeZoneVC() {
+//        if autopositioningBool ?? false {
         if self.fences.count >= 5 {
             let alertController = UIAlertController(title: nil, message: "not more than 5 safezone", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -92,6 +73,18 @@ class SafeZoneController: UIViewController {
                 self.navigationController?.show(vc, sender: nil)
             }
         }
+//        }else
+//        {
+//            let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely,for more accurate location infotmation,please inform master to open Autopositioning", preferredStyle: .alert)
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//            let stillOpen = UIAlertAction(title: "Still open", style: .cancel, handler: { (UIAlertAction) in
+//                print("打开")
+//            })
+//            alertController.addAction(cancelAction)
+//            alertController.addAction(stillOpen)
+//            self.present(alertController, animated: true, completion: nil)
+//            
+//        }
     }
     
     func errorshow(message : String) {

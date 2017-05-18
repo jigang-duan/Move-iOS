@@ -108,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="3894" y="2441"/>
         </scene>
-        <!--Kids watch  ruluesUser-->
+        <!--Family watch-->
         <scene sceneID="JvX-fp-qZ7">
             <objects>
                 <tableViewController storyboardIdentifier="AccountKidsRulesuserController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="avg-XR-5s9" customClass="AccountKidsRulesuserController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -233,7 +233,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Ci2-Q3-baB" kind="show" id="9Cd-99-e02"/>
+                                            <segue destination="Ci2-Q3-baB" kind="show" identifier="showSafezone" id="9Cd-99-e02"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="vtJ-rc-Tgh">
@@ -755,7 +755,7 @@
                             <outlet property="delegate" destination="avg-XR-5s9" id="5h4-Ll-qt0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Kids watch  ruluesUser" id="Dup-9Z-mDF">
+                    <navigationItem key="navigationItem" title="Family watch" id="Dup-9Z-mDF">
                         <barButtonItem key="backBarButtonItem" title="   " id="emd-PS-r8q"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -1107,7 +1107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odF-K7-p7u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2273.913043478261" y="3210.326086956522"/>
+            <point key="canvasLocation" x="2332" y="3204"/>
         </scene>
         <!--Use permission-->
         <scene sceneID="5Jg-wq-9E2">
