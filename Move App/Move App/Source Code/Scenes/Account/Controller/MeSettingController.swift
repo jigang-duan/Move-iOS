@@ -106,8 +106,8 @@ class MeSettingController: UIViewController {
         viewModel.logoutResult
             .drive(onNext: { [unowned self] result in
                 switch result {
-                case .failed(let message):
-                    self.showMessage(message)
+                case .failed:
+                    self.showMessage("Log out faild")
                 case .ok:
                     UserInfo.shared.invalidate()
                     UserInfo.shared.profile = nil
