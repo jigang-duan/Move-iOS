@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SafariServices
 
 class SignUpViewController: UIViewController {
 
@@ -252,8 +253,18 @@ class SignUpViewController: UIViewController {
     }
     //使用条款
     @IBAction func UseTermsAction(_ sender: AnyObject) {
+        let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
         
+        let url = URL(string: "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/" + language)!
         
+        if #available(iOS 9.0, *) {
+            let sVC = SFSafariViewController(url: url)
+            self.present(sVC, animated: true, completion: nil)
+        } else {
+            let webVC = WebViewController()
+            webVC.targetURL = url
+            self.navigationController?.show(webVC, sender: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

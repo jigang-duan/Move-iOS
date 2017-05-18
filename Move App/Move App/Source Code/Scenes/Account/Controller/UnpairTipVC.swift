@@ -37,14 +37,14 @@ class UnpairTipVC: UIViewController {
             .subscribe(onNext: { flag in
                 self.dismiss(animated: true) {[weak self] _ in
                     if self?.unpairBlock != nil {
-                        self?.unpairBlock!(flag, flag ? "unpaired success":"设备解绑失败")
+                        self?.unpairBlock!(flag, flag ? "Unpaired watch success":"Unpaired watch faild")
                     }
                 }
             }, onError: { er in
                 print(er)
                 self.dismiss(animated: true) {[weak self] _ in
                     if self?.unpairBlock != nil {
-                        self?.unpairBlock!(false, "设备解绑失败")
+                        self?.unpairBlock!(false, "Unpaired watch faild")
                     }
                 }
             }).addDisposableTo(disposeBag)

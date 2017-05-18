@@ -131,7 +131,7 @@ class ScanCodeController: UIViewController {
             let features = detector?.features(in: ciImage)
             
             if features?.count == 0 {
-                self.showMessage("no QRCode")
+                self.showMessage("No QR code detected")
             }else{
                 let feature = features![0] as! CIQRCodeFeature
                 self.makeDeviceAdd(with: feature.messageString!)
@@ -173,7 +173,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                 self.sessionStop()
                 self.makeDeviceAdd(with: metadataObj.stringValue)
             }else{
-                self.showMessage("no QRCode")
+                self.showMessage("No QR code detected")
             }
         }
     }
@@ -240,7 +240,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         }
         
         if isValidQRcode == false {
-            self.showMessage("This code has invalid")
+            self.showMessage("Invalid QR code")
         }
         
     }
