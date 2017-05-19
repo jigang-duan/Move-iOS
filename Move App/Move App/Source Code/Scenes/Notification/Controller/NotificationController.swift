@@ -46,22 +46,23 @@ class NotificationController: UIViewController {
             let objects = _group.notices
             let notices = Observable.collection(from: objects)
                 .share()
-                .map({ list -> [UUMessage] in
-                    list.map({ notice -> UUMessage in
-                        var content = UUMessage.Content()
-                        content.text = notice.content
-                        return UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
+                .map { list -> [UUMessage] in
+                    list.filter { $0.imType.atNotiicationPage }
+                        .map { notice -> UUMessage in
+                            var content = UUMessage.Content()
+                            content.text = notice.content
+                            return UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),
                                                 name: _group.name ?? "",
                                                 content: content,
-                                                state: (notice.readStatus == NoticeEntity.ReadStatus.read.rawValue) ? .read : .unread,
+                                                state: !notice.isUnRead ? .read : .unread,
                                                 type: .text,
                                                 from: .other,
                                                 isFailure: false,
                                                 showDateLabel: true)
-                    })
-                })
+                    }
+                }
                 .map(transformMinuteOffSet)
             
             

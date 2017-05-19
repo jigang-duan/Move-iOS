@@ -76,11 +76,12 @@ class MainMapViewModel {
         ) { (devices, id) in devices.filter({$0.deviceId == id}).first }
             .filterNil()
         
-        let enter = input.enter.filter {$0}
+        let enter = input.enter.filter {$0}.map{ _ in Void() }
         
-        fetchDevices = enter.flatMapLatest({ _ in
+        fetchDevices = enter
+            .flatMapLatest {
                 deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
-            })
+            }
         
         let period = Observable<Int>.timer(2,
                                            period: Configure.App.LoadDataOfPeriod,
@@ -96,36 +97,37 @@ class MainMapViewModel {
         let errorSubject = PublishSubject<Error>()
         errorObservable = errorSubject.asObserver()
         
-        remindSuccess = input.remindLocation
+        let enterForeground = NotificationCenter.default.rx.notification(Notification.Name.UIApplicationWillEnterForeground).map{_ in Void() }
+        remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .throttle(1.0, scheduler: MainScheduler.instance)
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .do(onNext: { _ in remindActivitying.onNext(true) })
-            .flatMapLatest({
+            .flatMapLatest {
                 deviceManager.remindLocation(deviceId: $0)
                     .delay(6.0, scheduler: MainScheduler.instance)
                     .do(onError: { errorSubject.onNext($0) })
                     .catchErrorJustReturn(false)
-            })
+            }
         
-        let remindLocation = remindSuccess.map({ _ in Void() })
+        let remindLocation = remindSuccess.map{ _ in Void() }
         
         let currentLocation = Observable.merge(period, remindLocation)
-            .flatMapLatest ({
+            .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)
                     .catchErrorJustReturn(KidSate.LocationInfo())
                     .do(onNext: { _ in remindActivitying.onNext(false) })
-            })
+            }
             .shareReplay(1)
         
         currentProperty = period
             .withLatestFrom(currentDeviceId.asObservable())
             .filterNil()
-            .flatMapLatest ({
+            .flatMapLatest {
                 deviceManager.getProperty(deviceId: $0)
                     .trackActivity(activitying)
                     .catchErrorJustReturn(DeviceProperty())
-            })
+            }
             .shareReplay(1)
         
         kidLocation = currentLocation.map{ $0.location }.filterNil()
@@ -157,7 +159,7 @@ class MainMapViewModel {
 }
 
 fileprivate func transformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
-    return infos.map {BasePopoverAction(info: $0)}
+    return infos.map { BasePopoverAction(info: $0) }
 }
 
 fileprivate func allAndTransformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {

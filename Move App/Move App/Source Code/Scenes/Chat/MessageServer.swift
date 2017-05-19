@@ -22,6 +22,7 @@ class MessageServer {
     static let share = MessageServer()
     
     var progressDownload: Observable<NoticeEntity>?
+    var firmwareUpdate: Observable<FirmwareUpdateType>?
     
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
@@ -87,16 +88,35 @@ class MessageServer {
                 .filterNil()
                 .flatMap { Observable.from($0) }
                 
-            progressDownload = reNotice.filter { $0.type == NoticeType.progressDownload.rawValue }
+            progressDownload = reNotice.filter {  $0.imType == .progressDownload }
             
-            reNotice.filter { $0.type != NoticeType.progressDownload.rawValue }
+            firmwareUpdate = reNotice
+                .filter { $0.imType.isFirmwareUpdate }
+                .map{ FirmwareUpdateType(notice: $0) }
+                .filterNil()
+            
+            reNotice.filter { $0.imType != .progressDownload }
+                .filter { ($0.to == nil) || ($0.to == uid) }
                 .subscribe(onNext: { (notice) in
-                    guard let sync = syncObject.first else {
+                    guard
+                        let sync = syncObject.first,
+                        let form = notice.from else {
                         return
                     }
-                    sync.groups.forEach { (group: GroupEntity) in
-                        if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
-                            group.update(realm: realm, notice: notice)
+                    
+                    if let gid = notice.groupId, gid != "" {
+                        sync.groups.filter{ $0.id == gid }.first?.update(realm: realm, notice: notice)
+                    } else if form.contains("@") {
+                        if
+                            let _ = form.components(separatedBy: "@").first,
+                            let groupId = form.components(separatedBy: "@").last {
+                            sync.groups.filter{ $0.id == groupId }.first?.update(realm: realm, notice: notice)
+                        }
+                    } else {
+                        sync.groups.forEach { (group: GroupEntity) in
+                            if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
+                                group.update(realm: realm, notice: notice)
+                            }
                         }
                     }
                 })

@@ -37,7 +37,9 @@ class SystemNotificationController: UIViewController {
             let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.groups
             
             Observable.collection(from: objects)
-                .map({ (list) -> [GroupEntity] in list.filter{ $0.notices.count > 0 }.sorted(by: { ($0.notices.last?.createDate)! < ($1.notices.last?.createDate)! })})
+                .map({ (list) -> [GroupEntity] in
+                    list.filter{ $0.notices.count > 0 }.sorted(by: { ($0.notices.last?.createDate)! < ($1.notices.last?.createDate)! })
+                })
                 .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotificationClassify.identifier)) { [weak self] (row, element, cell) in
                     self?.cellConfig(cell: cell, row: row, group: element)
                 }

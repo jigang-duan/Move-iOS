@@ -15,6 +15,7 @@
 		1109C6461E5FCB1C005B4AFD /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */; };
 		1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6531E604BF6005B4AFD /* KidSettingManager.swift */; };
 		1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */; };
+		110B36D81ECC0D7B00C38892 /* ImNoticeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B36D71ECC0D7B00C38892 /* ImNoticeType.swift */; };
 		112D6E6A1E863CE1006135E3 /* emotion_01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 112D6E601E863CE1006135E3 /* emotion_01.gif */; };
 		112D6E6B1E863CE1006135E3 /* emotion_02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 112D6E611E863CE1006135E3 /* emotion_02.gif */; };
 		112D6E6C1E863CE1006135E3 /* emotion_03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 112D6E621E863CE1006135E3 /* emotion_03.gif */; };
@@ -380,6 +381,7 @@
 		1109C6451E5FCB1C005B4AFD /* SwitchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		1109C6531E604BF6005B4AFD /* KidSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KidSettingManager.swift; path = KidSettingManager/KidSettingManager.swift; sourceTree = "<group>"; };
 		1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiKidSettingsWorker.swift; path = KidSettingManager/MoveApiKidSettingsWorker.swift; sourceTree = "<group>"; };
+		110B36D71ECC0D7B00C38892 /* ImNoticeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImNoticeType.swift; sourceTree = "<group>"; };
 		112D6E601E863CE1006135E3 /* emotion_01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = emotion_01.gif; path = Resource/Gif/emotion_01.gif; sourceTree = "<group>"; };
 		112D6E611E863CE1006135E3 /* emotion_02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = emotion_02.gif; path = Resource/Gif/emotion_02.gif; sourceTree = "<group>"; };
 		112D6E621E863CE1006135E3 /* emotion_03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = emotion_03.gif; path = Resource/Gif/emotion_03.gif; sourceTree = "<group>"; };
@@ -2161,6 +2163,7 @@
 				FF08591B1E72A93D00EB81D9 /* IMManager.swift */,
 				FF08591D1E72A96300EB81D9 /* MoveApiIMWorker.swift */,
 				116BAE611EC96EC2001577D3 /* DBIMWorker.swift */,
+				110B36D71ECC0D7B00C38892 /* ImNoticeType.swift */,
 			);
 			path = IMManager;
 			sourceTree = "<group>";
@@ -2775,6 +2778,7 @@
 				E0C2290D1E35E5AE00BCF83D /* ImageService.swift in Sources */,
 				E9CF8A6C1E713A9E00E8D8E7 /* MoveApiLocationWorker.swift in Sources */,
 				F68238541E6C57E50056EBE5 /* CountryCodeController.swift in Sources */,
+				110B36D81ECC0D7B00C38892 /* ImNoticeType.swift in Sources */,
 				112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */,
 				FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */,
 				D24C4D4A1E4DD57F00F9E33A /* MoveApi+Device+Mappable.swift in Sources */,

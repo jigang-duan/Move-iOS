@@ -21,6 +21,7 @@ class AlertServer {
     let navigateLocationSubject = PublishSubject<KidSate.LocationInfo>()
     
     func subscribe(disposeBag: DisposeBag) {
+        
         let realm = try! Realm()
         let objects = realm.objects(NoticeEntity.self)
         let notices = Observable.collection(from: objects)
@@ -28,19 +29,20 @@ class AlertServer {
             
         let alertResult = notices
             .map { $0.filter { ($0.createDate?.isWithin2Hour)! } }
-            .map { $0.filter({$0.readStatus == NoticeEntity.ReadStatus.unread.rawValue}).first }
+            .map { $0.filter{ $0.isUnRead }.first }
             .filterNil()
+            .filter { $0.imType.isShowPopup }
             .flatMapLatest { (notice) -> Observable<AlertResult> in
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
-                guard let noticeType = NoticeType(rawValue: notice.type) else {
+                guard NoticeType(rawValue: notice.type) != nil else {
                     return Observable.empty()
                 }
-                let confirm = noticeType.style.hasConfirm ? AlertResult.confirm(parcel: notice) : nil
+                let confirm = notice.imType.style.hasConfirm ? AlertResult.confirm(parcel: notice) : nil
                 return AlertWireframe.shared.prompt(notice.content ?? "",
-                                                    title: noticeType.title,
+                                                    title: notice.imType.title,
                                                     iconURL: kids?.headPortrait?.fsImageUrl,
                                                     cancel: .ok(parcel: notice),
-                                                    confirm: confirm, confirmTitle: noticeType.style.description)
+                                                    confirm: confirm, confirmTitle: notice.imType.style.description)
             }
             .shareReplay(1)
         
@@ -69,7 +71,7 @@ class AlertServer {
             .share()
 
         let navigate = confirmNotice
-            .filter { NoticeType(rawValue: $0.type)?.style == .navigate }
+            .filter {  $0.imType.style == .navigate }
             .map { $0.from }
             .filterNil()
         
@@ -84,15 +86,15 @@ class AlertServer {
             .addDisposableTo(disposeBag)
         
         okNotice
-            .filter { NoticeType(rawValue: $0.type)?.style == .unpired }
+            .filter { $0.imType.style == .unpired }
             .map { $0.from }
             .filterNil()
             .bindNext { _ in Distribution.shared.backToTabAccount() }
             .addDisposableTo(disposeBag)
         
         let goToSeeKidInformation = confirmNotice
-            .filter { NoticeType(rawValue: $0.type)?.style == .goToSee }
-            .filter { NoticeType(rawValue: $0.type) == .deviceNumberChanged }
+            .filter { $0.imType.style == .goToSee }
+            .filter { $0.imType == .watchChangeSIMCard }
             .map { $0.from }
             .filterNil()
             .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
@@ -102,16 +104,16 @@ class AlertServer {
             .share()
         
         let goToSeeFamilyMember = confirmNotice
-            .filter { NoticeType(rawValue: $0.type)?.style == .goToSee }
-            .filter { NoticeType(rawValue: $0.type) == .numberChanged }
+            .filter { $0.imType.style == .goToSee }
+            .filter { $0.imType == .familyPhoneNumberChanged }
             .map { $0.from }
             .filterNil()
             .withLatestFrom(RxStore.shared.deviceIdObservable)
             .share()
         
         let goToSeeFriendList = confirmNotice
-            .filter { NoticeType(rawValue: $0.type)?.style == .goToSee }
-            .filter { NoticeType(rawValue: $0.type) == .newContact }
+            .filter { $0.imType.style == .goToSee }
+            .filter { $0.imType == .kidsAddANewFriend }
             .map { $0.from }
             .filterNil()
             .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }

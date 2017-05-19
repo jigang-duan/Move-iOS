@@ -100,6 +100,14 @@ extension UserManager {
         return UserInfo.shared.isValid()
     }
     
+    var isValidNativeToken: Observable<Bool> {
+        return UserInfo.shared.isValidNativeToken
+    }
+    
+    func cacheUserInfo() -> Observable<Bool> {
+        return UserInfo.shared.cacheUserInfo()
+    }
+    
 }
 
 
@@ -213,6 +221,25 @@ extension UserInfo {
             return Observable.just(false)
         }
         
+        return MoveApi.Account.getUserInfo(uid: uid)
+            .catchingUserProfile()
+            .map { $0.username != nil }
+            .catchErrorJustReturn(false)
+    }
+    
+    var isValidNativeToken: Observable<Bool> {
+        let _ = fetchUserInfo()
+        guard accessToken.isValidAndNotExpired else {
+            return Observable.just(false)
+        }
+        
+        return Observable.just(id != nil)
+    }
+    
+    func cacheUserInfo() -> Observable<Bool> {
+        guard let uid = id else {
+            return Observable.just(false)
+        }
         return MoveApi.Account.getUserInfo(uid: uid)
             .catchingUserProfile()
             .map { $0.username != nil }

@@ -23,17 +23,24 @@ import RealmSwift
  10 - 设备开机
  11 - 设备关机
  12 - 设备漫游
- 13 - 设备更新
+ 13 - 设备升级成功
  14 - 运动好友点赞
  15 - 游戏好友点赞
  16 - 群组邀请
- 17 - 固件下载
- 18 - 下载进度
+ 17 - 固件开始下载
+ 18 - 固件下载进度
  19 - 设备配置更新
  20 - 设备穿戴
  21 - 设备脱落
  22 - 设备更换号码
+ 23 - 设备升级失败
+ 24 - 设备开始升级
+ 25 - 固件下载失败，需重新下载
+ 26 - 手表check下载url失败
  */
+// MARK: - Notice Type
+/// -- 与 服务器接口类型 定义一致
+/// -- 区别于ImNoticeType与UI层类型一致
 enum NoticeType: Int {
     case newContact = 1
     case bindRandomCode = 2
@@ -47,20 +54,23 @@ enum NoticeType: Int {
     case powered = 10
     case shutdown = 11
     case roam = 12
-    case update = 13
+    case deviceUpdateSucceed = 13
     case thumbUpFromSportsFriend = 14
     case thumbUpFromGameFriend = 15
     case groupInvited = 16
-    case firmwareDownload = 17
+    case deviceDownloadStarted = 17
     case progressDownload = 18
-    case configurationUpdated = 19
-    case wear = 20
-    case loss = 21
+    case deviceConfigurationUpdated = 19
+    case deviceWear = 20
+    case deviceLoss = 21
     case deviceNumberChanged = 22
+    case deviceUpdateDefeated = 23
+    case deviceUpdateStarted = 24
+    case deviceDownloadDefeated = 25
+    case deviceCheckDefeated = 26
+
     case unknown = -1
 }
-
-
 
 
 class NoticeEntity: Object {
@@ -97,144 +107,3 @@ extension NoticeEntity {
     }
 }
 
-
-extension NoticeType {
-    
-    var title: String? {
-        switch self {
-        case .newContact:
-            return nil
-        case .bindRandomCode:
-            return nil
-        case .instantPosition:
-            return nil
-        case .intoFence:
-            return R.string.localizable.id_warming()
-        case .outFence:
-            return R.string.localizable.id_warming()
-        case .lowBattery:
-            return R.string.localizable.id_warming()
-        case .sos:
-            return R.string.localizable.id_warming()
-        case .unbound:
-            return nil
-        case .numberChanged:
-            return nil
-        case .powered:
-            return nil
-        case .shutdown:
-            return nil
-        case .roam:
-            return nil
-        case .update:
-            return nil
-        case .thumbUpFromSportsFriend:
-            return ""
-        case .thumbUpFromGameFriend:
-            return nil
-        case .groupInvited:
-            return nil
-        case .firmwareDownload:
-            return nil
-        case .progressDownload:
-            return nil
-        case .configurationUpdated:
-            return nil
-        case .wear:
-            return nil
-        case .loss:
-            return nil
-        case .deviceNumberChanged:
-            return nil
-        case .unknown:
-            return nil
-        }
-    }
-}
-
-enum NoticeAlertStyle {
-    case `default`
-    case navigate
-    case unpired
-    case goToSee
-}
-
-extension NoticeAlertStyle : CustomStringConvertible {
-    var description: String {
-        switch self {
-        case .default:
-            return ""
-        case .navigate:
-            return "Navigate"
-        case .unpired:
-            return R.string.localizable.id_ok()
-        case .goToSee:
-            return R.string.localizable.id_system_notice_go_to_see()
-        }
-    }
-}
-
-extension NoticeAlertStyle {
-    var hasConfirm: Bool {
-        switch self {
-        case .default, .unpired:
-            return false
-        case .navigate, .goToSee:
-            return true
-        }
-    }
-}
-
-extension NoticeType {
-    
-    var style: NoticeAlertStyle {
-        switch self {
-        case .newContact:
-            return .goToSee
-        case .bindRandomCode:
-            return .default
-        case .instantPosition:
-            return .default
-        case .intoFence:
-            return .navigate
-        case .outFence:
-            return .navigate
-        case .lowBattery:
-            return .default
-        case .sos:
-            return .navigate
-        case .unbound:
-            return .unpired
-        case .numberChanged:
-            return .goToSee
-        case .powered:
-            return .default
-        case .shutdown:
-            return .default
-        case .roam:
-            return .default
-        case .update:
-            return .default
-        case .thumbUpFromSportsFriend:
-            return .default
-        case .thumbUpFromGameFriend:
-            return .default
-        case .groupInvited:
-            return .default
-        case .firmwareDownload:
-            return .default
-        case .progressDownload:
-            return .default
-        case .configurationUpdated:
-            return .default
-        case .wear:
-            return .default
-        case .loss:
-            return .default
-        case .deviceNumberChanged:
-            return .goToSee
-        case .unknown:
-            return .default
-        }
-    }
-}

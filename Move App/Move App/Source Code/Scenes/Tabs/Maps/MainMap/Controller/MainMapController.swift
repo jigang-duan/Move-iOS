@@ -49,7 +49,7 @@ class MainMapController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "Location"
+        
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
         self.hidesBottomBarWhenPushed = true
@@ -72,6 +72,8 @@ class MainMapController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         timeOutlet.adjustsFontSizeToFitWidth = true
+        
+        self.title = "Location"
         
         self.addressScrollLabel.addObaserverNotification()
         
@@ -281,14 +283,6 @@ extension MainMapController {
 
 }
 
-extension Reactive where Base: ScrollLabelView {
-    var text: UIBindingObserver<Base, String> {
-        return UIBindingObserver(UIElement: self.base) { label, str in
-            label.text = str
-        }
-    }
-}
-
 extension MainMapController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -326,7 +320,13 @@ extension MainMapController: MFMessageComposeViewControllerDelegate {
     }
 }
 
-
+extension Reactive where Base: ScrollLabelView {
+    var text: UIBindingObserver<Base, String> {
+        return UIBindingObserver(UIElement: self.base) { label, str in
+            label.text = str
+        }
+    }
+}
 
 fileprivate func transform(info: DeviceInfo, infos: [DeviceInfo]) -> [DeviceInfo] {
     var devices = infos

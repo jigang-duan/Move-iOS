@@ -15,9 +15,7 @@ class DistributionViewModel {
     // outputs {
     
     //
-    let enterLogin: Driver<Bool>
-    //let enterMain: Driver<Bool>
-    //let enterChoose: Driver<Bool>
+    var enterLogin: Driver<Bool>
     
     let fetchDevices: Driver<[DeviceInfo]>
     let deviceId: Driver<String>
@@ -38,14 +36,23 @@ class DistributionViewModel {
         
         let delay = Observable.just(1).delay(3, scheduler: MainScheduler.instance).share()
         
-        self.enterLogin =  delay
-            .flatMap { _ in userManager.isValid().map { !$0 } }
+//        self.enterLogin =  delay
+//            .flatMap { _ in userManager.isValid().map { !$0 } }
+//            .asDriver(onErrorJustReturn: true)
+//        
+//        self.fetchDevices = enterLogin
+//            .filter { !$0 }
+//            .flatMapLatest { _ in deviceManger.fetchDevices().asDriver(onErrorJustReturn: []) }
+        
+        self.enterLogin = delay
+            .flatMapLatest{ _ in userManager.isValidNativeToken.map { !$0 } }
             .asDriver(onErrorJustReturn: true)
         
         self.fetchDevices = enterLogin
-            .filter({ !$0 })
+            .flatMapLatest { _ in userManager.cacheUserInfo().asDriver(onErrorJustReturn: false) }
+            .filter { !$0 }
             .flatMapLatest { _ in deviceManger.fetchDevices().asDriver(onErrorJustReturn: []) }
         
-        self.deviceId = fetchDevices.map({ $0.first?.deviceId }).filterNil()
+        self.deviceId = fetchDevices.map{ $0.first?.deviceId }.filterNil()
     }
 }
