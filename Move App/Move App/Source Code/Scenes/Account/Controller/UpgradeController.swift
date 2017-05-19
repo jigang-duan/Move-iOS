@@ -64,23 +64,28 @@ class UpgradeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
     
-        
+        let devidUID = RxStore.shared.currentDevice.map({ $0.user?.uid }).filterNil()
         MessageServer.share.firmwareUpdate?
+            .withLatestFrom(devidUID) { ($0, $1) }
+            .filter({ $0.deviceUID == $1 })
+            .map({ $0.0 })
             .subscribe(
                 onNext: { type in
                     switch type {
                     case .updateStarted:
                         break
                     case .updateSucceed:
-                        break
+                        self.showMessage("Upgrade success")
                     case .updateDefeated:
-                        break
+                        self.showMessage("Upgrade faild")
                     case .downloadStarted:
                         break
                     case .downloadDefeated:
-                        break
+                        self.showMessage("Download faild")
                     case .checkDefeated:
-                        break
+                        self.downloadProgress.value = 101
+                        self.makeDownloadBlur(progress: self.downloadProgress.value)
+                        self.tipLab.isHidden = false
                     case .progressDownload:
                         let progress = type.progress
                         print("下载进度===\(progress)")
