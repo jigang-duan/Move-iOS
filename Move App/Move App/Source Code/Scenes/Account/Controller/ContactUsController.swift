@@ -13,7 +13,7 @@ class ContactUsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
-            let url = URL(string: "http://www.alcatel-mobile.com")!
+            let url = URL(string: "http://www.tcl.com")!
             if #available(iOS 9.0, *) {
                 let sVC = SFSafariViewController(url: url)
                 self.present(sVC, animated: true, completion: nil)
