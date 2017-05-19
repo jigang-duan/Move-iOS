@@ -368,7 +368,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                 {
                     let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: preferredStyle)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let deletThis = UIAlertAction(title: "Delete This day To do list only", style: .destructive, handler: { (UIAlertAction) in
+                    let deletThis = UIAlertAction(title: "Delete this To do list only", style: .destructive, handler: { (UIAlertAction) in
                         var inde: Int?
                         for i in 0 ..< (self.todos?.count)!
                         {
@@ -382,7 +382,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         
                         self.deleteTap.value += 1
                     })
-                    let deletall = UIAlertAction(title: "Delete All this To do list", style: .destructive, handler: { (UIAlertAction) in
+                    let deletall = UIAlertAction(title: "Delete All To do list", style: .destructive, handler: { (UIAlertAction) in
                         var index = self.fifleremeder?.count
                         while index! > 0{
                             var inde: Int?
