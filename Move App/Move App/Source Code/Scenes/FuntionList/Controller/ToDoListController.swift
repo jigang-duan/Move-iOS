@@ -271,6 +271,8 @@ class ToDoListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
+        
         let cell = tableView.cellForRow(at: indexPath)
          let vc = R.storyboard.account.repeatViewController()!
         if cell == repeatCell {

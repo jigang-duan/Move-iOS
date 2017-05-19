@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import CustomViews
 import FSCalendar
-import DZNEmptyDataSet
+
 
 class RemindersController: UIViewController {
     //internationalization
@@ -25,6 +25,7 @@ class RemindersController: UIViewController {
     @IBOutlet weak var timeBackBtn: UIButton!
     @IBOutlet weak var timeNextBtn: UIButton!
     
+    @IBOutlet weak var emptyView: UIView!
     
     @IBOutlet weak var dateView: UIView!
     @IBOutlet weak var tableviewtopConstraint: NSLayoutConstraint!
@@ -59,7 +60,7 @@ class RemindersController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViw.emptyDataSetSource = self
+       
         self.internationalization()
         self.addFuntion()
         self.initView()
@@ -77,16 +78,24 @@ class RemindersController: UIViewController {
     }
     
     func changeShow() {
-
+        let imageempty = emptyView.subviews[0] as! UIImageView
+        let label = emptyView.subviews[1] as! UILabel
         if titleSegment.selectedSegmentIndex == 0
         {
             dateView.isHidden = true
             tableviewtopConstraint.constant = -60
+            calendar.isHidden = true
+        
+            imageempty.image = R.image.reminder_empty()
+            label.text = "No alarm this day,tap "+" to add a alarm."
         }else
         {
             self.changeBtnType(time: -1, date: Date.today().startDate)
             dateView.isHidden = false
             tableviewtopConstraint.constant = 0
+            calendar.isHidden = true
+            imageempty.image = R.image.todolist_empty()
+            label.text = "No reminder this day,tap "+" to add a to do list."
         }
         self.tableViw.reloadData()
     }
@@ -188,7 +197,7 @@ class RemindersController: UIViewController {
 //                self.fifletodos?.append((self.todos?[i])!)
 ////            }
 //        }
-
+            calendar.isHidden = true
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: .normal)
 //        }
@@ -231,7 +240,7 @@ class RemindersController: UIViewController {
                 self.fifleremeder?.append((self.todos?[i])!)
             }
         }
-
+        
             self.tableViw.reloadData()
     }
 
@@ -271,9 +280,16 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
 
         if titleSegment.selectedSegmentIndex == 0
         {
+            if self.alarms?.count == 0 {emptyView.isHidden = false}
+            else
+            {emptyView.isHidden = true}
+            
             return (self.alarms?.count ?? 0)!
         }else
         {
+            if self.fifleremeder?.count == 0 {emptyView.isHidden = false}
+            else
+            {emptyView.isHidden = true}
             return (self.fifleremeder?.count ?? 0)!
         }
         
@@ -460,17 +476,5 @@ extension RemindersController: FSCalendarDelegate,FSCalendarDelegateAppearance {
     }
     
 }
-extension RemindersController: DZNEmptyDataSetSource {
-    
-    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString.init(string: "No alarm this day,tap \"+\" to add a alarm")
-    }
-    func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
-        return R.image.reminder_empty()
-    }
-    
-    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return R.color.appColor.background()
-    }
-}
+
 

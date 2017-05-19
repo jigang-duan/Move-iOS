@@ -1382,19 +1382,53 @@
                                     <outlet property="delegate" destination="Y1x-Oo-cZ5" id="Hiy-3s-vMe"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3U-GZ-qUk" userLabel="emptyView">
+                                <rect key="frame" x="10" y="202" width="355" height="246"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reminder_empty" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-RL-szC">
+                                        <rect key="frame" x="82.5" y="0.0" width="190" height="190"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="190" id="4h4-HF-xEM"/>
+                                            <constraint firstAttribute="width" constant="190" id="dqi-sU-08S"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No alarm this day,tap &quot;+&quot; to add a alarm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRE-ZH-296">
+                                        <rect key="frame" x="10" y="200" width="335" height="46"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="jju-bj-HXD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.59993284940719604" green="0.60003870725631714" blue="0.5999261736869812" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hRE-ZH-296" secondAttribute="trailing" constant="10" id="4tk-a0-rVs"/>
+                                    <constraint firstItem="Jfu-RL-szC" firstAttribute="centerX" secondItem="f3U-GZ-qUk" secondAttribute="centerX" id="BlI-62-fdE"/>
+                                    <constraint firstItem="hRE-ZH-296" firstAttribute="top" secondItem="Jfu-RL-szC" secondAttribute="bottom" constant="10" id="GCK-tb-mvT"/>
+                                    <constraint firstItem="hRE-ZH-296" firstAttribute="leading" secondItem="f3U-GZ-qUk" secondAttribute="leading" constant="10" id="VyI-Q1-pcj"/>
+                                    <constraint firstAttribute="height" constant="246" id="mQF-av-sQt"/>
+                                    <constraint firstItem="Jfu-RL-szC" firstAttribute="top" secondItem="f3U-GZ-qUk" secondAttribute="top" id="q8L-86-5d7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0Gs-xm-bSJ" secondAttribute="trailing" id="1IA-bE-PAS"/>
                             <constraint firstItem="vTV-gS-blv" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="1pk-Pg-mnB"/>
                             <constraint firstItem="0Gs-xm-bSJ" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="8Db-PR-zP1"/>
+                            <constraint firstAttribute="trailing" secondItem="f3U-GZ-qUk" secondAttribute="trailing" constant="10" id="KzK-Ml-YYk"/>
                             <constraint firstItem="e6v-Tn-N1g" firstAttribute="top" secondItem="0Gs-xm-bSJ" secondAttribute="bottom" id="S1t-8r-a3R"/>
+                            <constraint firstItem="f3U-GZ-qUk" firstAttribute="centerY" secondItem="jUE-lf-gSd" secondAttribute="centerY" constant="23.5" id="TVM-v1-Jac"/>
                             <constraint firstAttribute="trailing" secondItem="W4Q-sD-BuR" secondAttribute="trailing" id="YJP-VC-UZ1"/>
                             <constraint firstAttribute="trailing" secondItem="vTV-gS-blv" secondAttribute="trailing" id="YvA-gv-p9D"/>
+                            <constraint firstItem="f3U-GZ-qUk" firstAttribute="centerX" secondItem="jUE-lf-gSd" secondAttribute="centerX" id="dMk-8w-c5b"/>
                             <constraint firstItem="0Gs-xm-bSJ" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" constant="10" id="fxe-Vw-YaX"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="jZq-6O-1Td"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" id="kQF-oZ-xi3"/>
                             <constraint firstItem="vTV-gS-blv" firstAttribute="top" secondItem="Jt5-EY-98r" secondAttribute="bottom" id="r75-LV-E2w"/>
+                            <constraint firstItem="f3U-GZ-qUk" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" constant="10" id="xwO-4S-njr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0xG-rs-fIC">
@@ -1425,6 +1459,7 @@
                         <outlet property="addOutlet" destination="ZzH-qo-NoQ" id="Z5R-Xb-INc"/>
                         <outlet property="calendar" destination="W4Q-sD-BuR" id="UuB-MR-jVG"/>
                         <outlet property="dateView" destination="vTV-gS-blv" id="vSp-dm-MKn"/>
+                        <outlet property="emptyView" destination="f3U-GZ-qUk" id="T3l-c5-vDE"/>
                         <outlet property="tableViw" destination="0Gs-xm-bSJ" id="6E7-6o-KQ2"/>
                         <outlet property="tableviewtopConstraint" destination="fxe-Vw-YaX" id="346-cL-CvL"/>
                         <outlet property="timeBackBtn" destination="X98-vf-cBC" id="e2s-in-PQq"/>
@@ -1437,7 +1472,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fR9-hC-TWr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4278" y="3215"/>
+            <point key="canvasLocation" x="4277.6000000000004" y="3214.5427286356826"/>
         </scene>
         <!--Alarm-->
         <scene sceneID="oFK-rq-TKN">
@@ -2920,6 +2955,7 @@
         <image name="nav_back_nor" width="18" height="18"/>
         <image name="nav_back_pre" width="18" height="18"/>
         <image name="relationship_ic_sister" width="36" height="36"/>
+        <image name="reminder_empty" width="190" height="190"/>
         <image name="school_time_ic" width="210" height="210"/>
     </resources>
 </document>
