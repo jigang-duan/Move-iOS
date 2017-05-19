@@ -44,6 +44,8 @@ class MainMapViewModel {
     
     let badgeCount: Observable<Int>
     
+    let lowBattery: Observable<Int>?
+    
     init(
         input: (
             enter: Driver<Bool>,
@@ -99,6 +101,7 @@ class MainMapViewModel {
         
         let enterForeground = NotificationCenter.default.rx.notification(Notification.Name.UIApplicationWillEnterForeground).map{_ in Void() }
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
+            .startWith(())
             .throttle(1.0, scheduler: MainScheduler.instance)
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .do(onNext: { _ in remindActivitying.onNext(true) })
@@ -155,6 +158,11 @@ class MainMapViewModel {
         let devUID = currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
         badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
             .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
+        
+        lowBattery = MessageServer.share.lowBattery?
+            .flatMapLatest{ deviceManager.power.catchErrorJustReturn(0) }
+        
+        
     }
 }
 
