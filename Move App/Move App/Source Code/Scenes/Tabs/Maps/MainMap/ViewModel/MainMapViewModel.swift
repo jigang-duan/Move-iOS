@@ -44,7 +44,7 @@ class MainMapViewModel {
     
     let badgeCount: Observable<Int>
     
-    let lowBattery: Observable<Int>?
+    let lowBattery: Observable<Int>
     
     init(
         input: (
@@ -99,7 +99,7 @@ class MainMapViewModel {
         let errorSubject = PublishSubject<Error>()
         errorObservable = errorSubject.asObserver()
         
-        let enterForeground = NotificationCenter.default.rx.notification(Notification.Name.UIApplicationWillEnterForeground).map{_ in Void() }
+        let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground).map{_ in Void() }
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
             .throttle(1.0, scheduler: MainScheduler.instance)
@@ -159,7 +159,7 @@ class MainMapViewModel {
         badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
             .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
         
-        lowBattery = MessageServer.share.lowBattery?
+        lowBattery = MessageServer.share.lowBattery
             .flatMapLatest{ deviceManager.power.catchErrorJustReturn(0) }
         
         

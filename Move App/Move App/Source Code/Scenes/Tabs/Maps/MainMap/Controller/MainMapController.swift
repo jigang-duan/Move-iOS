@@ -154,13 +154,12 @@ class MainMapController: UIViewController {
             .drive(statesOutlet.rx.image)
             .addDisposableTo(disposeBag)
         
-        let power = viewModel.currentDevice.map{ $0.property?.power }.filterNil()
+        let power = Driver.merge(
+            viewModel.currentDevice.map{ $0.property?.power }.filterNil(),
+            viewModel.lowBattery.asDriver(onErrorJustReturn: 0)
+        )
         power.map{ "\($0)%" }.drive(voltameterOutlet.rx.text).addDisposableTo(disposeBag)
         power.map{ UIImage(named: "home_ic_battery\($0/20)") }.drive(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
-        
-        viewModel.lowBattery?.map{ "\($0)%" }.bindTo(voltameterOutlet.rx.text).addDisposableTo(disposeBag)
-        viewModel.lowBattery?.map{ UIImage(named: "home_ic_battery\($0/20)") }.bindTo(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
-        
         
         viewModel.currentProperty
             .withLatestFrom(viewModel.currentDevice) { (property, info) in DeviceInfo(property: property, info: info) }

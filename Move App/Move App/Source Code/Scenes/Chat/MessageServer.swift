@@ -24,7 +24,7 @@ class MessageServer {
     var progressDownload: Observable<NoticeEntity>?
     var firmwareUpdate: Observable<FirmwareUpdateType>?
     
-    var lowBattery: Observable<Void>?
+    var lowBattery: Observable<Void>!
     
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
