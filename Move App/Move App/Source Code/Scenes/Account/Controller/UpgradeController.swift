@@ -63,18 +63,36 @@ class UpgradeController: UIViewController {
                 self.updateDownloadButton(isEnable: valid)
             })
             .addDisposableTo(disposeBag)
+    
         
-     
-        
-        MessageServer.share.progressDownload?
+        MessageServer.share.firmwareUpdate?
             .subscribe(
-                onNext: { info in
-                    print("下载进度===\(info.content ?? "")")
-                    self.downloadProgress.value = Int(info.content ?? "") ?? 0
-                    self.makeDownloadBlur(progress: self.downloadProgress.value)
-                    self.tipLab.isHidden = false
+                onNext: { type in
+                    switch type {
+                    case .updateStarted:
+                        break
+                    case .updateSucceed:
+                        break
+                    case .updateDefeated:
+                        break
+                    case .downloadStarted:
+                        break
+                    case .downloadDefeated:
+                        break
+                    case .checkDefeated:
+                        break
+                    case .progressDownload:
+                        let progress = type.progress
+                        print("下载进度===\(progress)")
+                        self.downloadProgress.value = progress
+                        self.makeDownloadBlur(progress: self.downloadProgress.value)
+                        self.tipLab.isHidden = false
+                    }
             })
             .addDisposableTo(disposeBag)
+        
+        
+        
         
         viewModel.downResult
             .drive(onNext: { [unowned self] result in

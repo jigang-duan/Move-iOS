@@ -54,6 +54,8 @@ class AccountKidsRulesuserController: UITableViewController {
         super.viewDidLoad()
         
         updateNewLab.isHidden = true
+        
+        isAdmin = DeviceManager.shared.currentDevice?.adminId == UserInfo.shared.id
 
         initializeI18N()
 
@@ -84,10 +86,12 @@ class AccountKidsRulesuserController: UITableViewController {
 //            .addDisposableTo(disposeBag)
         
         // 判断当前是否是管理员
-        RxStore.shared.deviceIdObservable
-            .flatMapLatest { DeviceManager.shared.getContacts(deviceId: $0).catchErrorJustReturn([]) }
-            .filterEmpty()
-            .map { contacts in contacts.filter { $0.admin == true }.first?.uid }
+        DeviceManager.shared.getContacts(deviceId: RxStore.shared.currentDeviceId.value!)
+            .map({ contacts -> String? in
+                let adminId = contacts.filter { $0.admin == true }.first?.uid
+                DeviceManager.shared.currentDevice?.adminId = adminId
+                return adminId
+            })
             .filterNil()
             .withLatestFrom(RxStore.shared.uidObservable) { $0 == $1 }
             .bindNext { [weak self] in

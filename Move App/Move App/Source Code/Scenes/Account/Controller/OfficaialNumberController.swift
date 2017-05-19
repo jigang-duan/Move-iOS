@@ -80,7 +80,11 @@ extension OfficialNumberController: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let number = visibleModels[indexPath.section].officialNumbers[indexPath.row].number
-        DefaultWireframe.sharedInstance.open(url: URL(string: "tel://\(number)")!)
+        let chs = number.characters.filter { ch -> Bool in
+            "0123456789".characters.contains(ch)
+        }
+        let newNumber = String(chs)
+        DefaultWireframe.sharedInstance.open(url: URL(string: "tel://\(newNumber)")!)
     }
     
     

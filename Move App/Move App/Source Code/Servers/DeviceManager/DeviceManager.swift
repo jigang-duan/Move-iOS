@@ -21,7 +21,14 @@ class DeviceManager {
         }
         set(newValue) {
             let id = newValue?.deviceId
-            if RxStore.shared.deviceInfosState.value.contains(where: { $0.deviceId == id}) {
+            var states = RxStore.shared.deviceInfosState.value
+            
+            if let index = states.index(where: { $0.deviceId == id }) {
+                states[index] = newValue!
+                RxStore.shared.deviceInfosState.value = states
+            }
+            
+            if states.contains(where: { $0.deviceId == id}) {
                 RxStore.shared.currentDeviceId.value = id
             }
         }
@@ -174,6 +181,7 @@ struct DeviceInfo {
     var deviceId: String?
     var user: DeviceUser?
     var property: DeviceProperty?
+    var adminId: String?
 }
 
 enum DeviceType {
