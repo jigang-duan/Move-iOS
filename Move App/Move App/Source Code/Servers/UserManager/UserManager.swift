@@ -178,6 +178,10 @@ extension UserInfo {
         
     }
     
+    func clean() {
+        self.profile = nil
+    }
+    
     fileprivate func fetchUserInfo() -> UserInfo {
         let realm = try! Realm()
         if let myAccount = realm.object(ofType: AccountEntity.self, forPrimaryKey: 0) {

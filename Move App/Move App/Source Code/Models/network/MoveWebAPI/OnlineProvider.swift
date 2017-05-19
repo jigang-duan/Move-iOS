@@ -47,6 +47,7 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
         guard let _ = UserInfo.shared.id,
             let _ = UserInfo.shared.accessToken.refreshToken else {
             UserInfo.shared.invalidate()
+            UserInfo.shared.clean()
             if MoveApi.canPopToLoginScreen {
                 Distribution.shared.popToLoginScreen()
             }
@@ -61,6 +62,7 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
             
                 if errorId == 11 {
                     UserInfo.shared.invalidate()
+                    UserInfo.shared.clean()
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen()
                     }
