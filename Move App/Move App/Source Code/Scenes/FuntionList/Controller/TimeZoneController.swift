@@ -31,7 +31,7 @@ class TimeZoneController: UITableViewController {
     @IBOutlet weak var backQutlet: UIBarButtonItem!
     //var selectTimeZoneController: SelectTimeZoneController?
     
-    var selectedTimeZone = Variable(0)
+    var selectedTimeZone = Variable("")
     
     var disposeBag = DisposeBag()
     
@@ -56,7 +56,7 @@ class TimeZoneController: UITableViewController {
         openEnable.drive(onNext: enablecell).addDisposableTo(disposeBag)
         
         selectedTimeZone.asDriver()
-            .map({ "GMT \($0)" })
+            .map({ " \($0)" })//不知道为什么赋不上值，非要转一下加点东西
             .drive(timezoneCityQutlet.rx.text)
             .addDisposableTo(disposeBag)
         

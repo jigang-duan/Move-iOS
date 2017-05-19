@@ -14,7 +14,7 @@ import RxOptional
 
 class SelectTimeZoneController: UIViewController {
     
-    var selectedTimezone: ((Int) -> ())?
+    var selectedTimezone: ((String) -> ())?
     
     
     @IBOutlet weak var selecttimezoneTitleItem: UINavigationItem!
@@ -129,7 +129,7 @@ extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.selectedTimezone != nil {
             let tm = visibleResults[indexPath.section][indexPath.row]
-            self.selectedTimezone!(tm.gmtoffset!)
+            self.selectedTimezone!(tm.timezoneId!)
         }
         _ = self.navigationController?.popViewController(animated: true)
     }

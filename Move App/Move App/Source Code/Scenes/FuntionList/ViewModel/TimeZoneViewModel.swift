@@ -16,7 +16,7 @@ class TimeZoneViewModel {
     let hourformEnable: Driver<Bool>
     let autotimeEnable: Driver<Bool>
     let summertimeEnable: Driver<Bool>
-    let fetchtimezoneDate: Driver<Int>
+    let fetchtimezoneDate: Driver<String>
     
     let saveFinish: Driver<Bool>
     
@@ -27,7 +27,7 @@ class TimeZoneViewModel {
         input: (
         hourform: Driver<Bool>,
         autotime: Driver<Bool>,
-        timezone: Driver<Int>,
+        timezone: Driver<String>,
         summertime: Driver<Bool>
         ),
         dependency: (
@@ -54,7 +54,7 @@ class TimeZoneViewModel {
         
         fetchtimezoneDate = manager.fetchTimezone()
             .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: 0 )
+            .asDriver(onErrorJustReturn: "" )
 
         let fetchsummertime = manager.fetchSummerTime()
             .trackActivity(activitying)
@@ -67,7 +67,7 @@ class TimeZoneViewModel {
         
         self.saveFinish = down
             .flatMapLatest { (hourform, autotime, timezone, summertime) in
-                manager.updateTimezones(hourform, autotime: autotime, Timezone: timezone, summertime: summertime)
+                manager.updateTimezones(hourform, autotime: autotime, timezone: timezone, summertime: summertime)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
         }

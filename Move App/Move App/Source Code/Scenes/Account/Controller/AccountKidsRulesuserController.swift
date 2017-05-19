@@ -17,7 +17,6 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var watchContactCell: UITableViewCell!
 
     //internationalization
-    @IBOutlet weak var kidswatchTitleItem: UINavigationItem!
     @IBOutlet weak var watchContactLabel: UILabel!
     @IBOutlet weak var safeZoneLabel: UILabel!
     @IBOutlet weak var schoolTimeLabel: UILabel!

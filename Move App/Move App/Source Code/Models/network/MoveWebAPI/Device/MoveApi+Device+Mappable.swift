@@ -121,7 +121,7 @@ extension MoveApi {
         var mute: Bool?
         var mute_time: [Any]?
         var ring: String?
-        var timezone: Int?
+        var timezone: String?
         var roaming: Bool?
         var auto_positiion: Bool?
         var auto_answer: Bool?

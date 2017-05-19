@@ -48,9 +48,9 @@ protocol WatchSettingWorkerProtocl {
     
     func fetchHoursFormat(id: String) -> Observable<Bool>
     func fetchGetTimeAuto(id: String) -> Observable<Bool>
-    func fetchTimezone(id:String) -> Observable<Int>
+    func fetchTimezone(id:String) -> Observable<String>
     func fetchSummerTime(id: String) -> Observable<Bool>
-    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,Timezone: Int, summertime: Bool) -> Observable<Bool>
+    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool>
     
     func fetchEmergencyNumbers(id: String) ->  Observable<[String]>
     func updateEmergencyNumbers(id: String, numbers: [String]) ->  Observable<Bool>
@@ -172,10 +172,10 @@ class WatchSettingsManager  {
         }
         return self.worker.fetchGetTimeAuto(id: deviceId)
     }
-    func fetchTimezone() -> Observable<Int> //发服务器为int
+    func fetchTimezone() -> Observable<String>
     {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
-            return Observable<Int>.empty()
+            return Observable<String>.empty()
         }
         return self.worker.fetchTimezone(id: deviceId)
     }
@@ -185,11 +185,11 @@ class WatchSettingsManager  {
         }
         return self.worker.fetchSummerTime(id: deviceId)
     }
-    func updateTimezones(_ hourformat: Bool, autotime: Bool,Timezone: Int, summertime: Bool) -> Observable<Bool>{
+    func updateTimezones(_ hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool>{
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
-        return self.worker.updateTimezones(id: deviceId, hourformat: hourformat, autotime: autotime, Timezone: Timezone, summertime: summertime)
+        return self.worker.updateTimezones(id: deviceId, hourformat: hourformat, autotime: autotime, timezone: timezone, summertime: summertime)
     }
     
     func fetchEmergencyNumbers() ->  Observable<[String]> {
