@@ -10,21 +10,21 @@ import Foundation
 
 
 enum FirmwareUpdateType {
-    case updateStarted
-    case updateSucceed
-    case updateDefeated
-    case downloadStarted
-    case downloadDefeated
-    case checkDefeated
+    case updateStarted(String)
+    case updateSucceed(String)
+    case updateDefeated(String)
+    case downloadStarted(String)
+    case downloadDefeated(String)
+    case checkDefeated(String)
     
-    case progressDownload(Int)
+    case progressDownload(String, Int)
 }
 
 extension FirmwareUpdateType {
     
     var progress: Int {
         switch self {
-        case .progressDownload(let val):
+        case .progressDownload( _, let val):
             return val
         case .updateStarted, .downloadStarted:
             return 0
@@ -35,7 +35,27 @@ extension FirmwareUpdateType {
         }
     }
     
+    var deviceUID: String {
+        switch self {
+        case .updateStarted(let devUId):
+            return devUId
+        case .updateSucceed(let devUId):
+            return devUId
+        case .updateDefeated(let devUId):
+            return devUId
+        case .downloadStarted(let devUId):
+            return devUId
+        case .downloadDefeated(let devUId):
+            return devUId
+        case .checkDefeated(let devUId):
+            return devUId
+        case .progressDownload(let devUId, _):
+            return devUId
+        }
+    }
 }
+
+
 
 extension FirmwareUpdateType {
     
@@ -44,22 +64,24 @@ extension FirmwareUpdateType {
             return nil
         }
         
+        let devUId = notice.from ?? ""
+        
         switch type {
         case .progressDownload:
             let val = Int(notice.content ?? "") ?? 0
-            self = .progressDownload(val)
+            self = .progressDownload(devUId, val)
         case .deviceUpdateStarted:
-            self = .updateStarted
+            self = .updateStarted(devUId)
         case .deviceUpdateSucceed:
-            self = .updateSucceed
+            self = .updateSucceed(devUId)
         case .deviceUpdateDefeated:
-            self = .updateDefeated
+            self = .updateDefeated(devUId)
         case .deviceDownloadStarted:
-            self = .downloadStarted
+            self = .downloadStarted(devUId)
         case .deviceDownloadDefeated:
-            self = .downloadDefeated
+            self = .downloadDefeated(devUId)
         case .deviceCheckDefeated:
-            self = .checkDefeated
+            self = .checkDefeated(devUId)
         default:
             return nil
         }
@@ -78,8 +100,7 @@ enum ImNoticeType {
     case sosWarning
     case kidsAddANewFriend
     case masterUnpairWatch
-    case generalUserUnpairWatch
-    case masterDeleteAGeneralUser
+    case generalUnpairWatch
     case familyPhoneNumberChanged
     case watchOnlineOffline
     case watchChangeSIMCard
@@ -140,17 +161,18 @@ extension ImNoticeType {
             return true
         }
     }
-}
-
-extension ImNoticeType {
     
     var isShowPopup: Bool {
         switch self {
-        case .unknown, .kidsAddANewFriend, .generalUserUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard:
+        case .unknown, .kidsAddANewFriend, .generalUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard:
             return false
         default:
             return true
         }
+    }
+    
+    var needSave: Bool {
+        return (self != .progressDownload)
     }
 }
 
@@ -206,9 +228,7 @@ extension ImNoticeType {
             return .goToSee
         case .masterUnpairWatch:
             return .unpired
-        case .generalUserUnpairWatch:
-            return .unpired
-        case .masterDeleteAGeneralUser:
+        case .generalUnpairWatch:
             return .unpired
         case .familyPhoneNumberChanged:
             return .goToSee
@@ -255,11 +275,7 @@ extension ImNoticeType {
             self = .sosWarning
             
         case .unbound:
-            if notice.groupId == nil || notice.groupId == ""  {
-                self = (notice.owners.first?.owner == notice.to) ? .generalUserUnpairWatch : .masterDeleteAGeneralUser
-            } else {
-                self = .masterUnpairWatch
-            }
+            self = (notice.owners.first?.owner == notice.from) ? .masterUnpairWatch : .generalUnpairWatch
             
         case .numberChanged:
             self = .familyPhoneNumberChanged

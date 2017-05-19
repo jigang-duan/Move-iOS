@@ -49,7 +49,7 @@ extension DeviceManager {
     }
     
     func fetchDevices() -> Observable<[DeviceInfo]> {
-        return worker.getDeviceList().map({ $0.map({ DeviceInfo(element: $0) }) })
+        return worker.getDeviceList().map { $0.map{ DeviceInfo(element: $0) } }
     }
     
     func fetchDevice(id: String) -> Observable<DeviceInfo> {

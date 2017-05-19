@@ -1,5 +1,5 @@
 //
-//  IMCache+Location.swift
+//  IMCache+Location+SafeZone.swift
 //  Move App
 //
 //  Created by jiang.duan on 2017/5/15.
@@ -18,15 +18,15 @@ class IMCacheSafeZoneWorker: SafeZoneWorkerProtocl {
         guard let fenceas = safeZones[deviceId] else {
             return Observable.empty()
         }
-        return Observable.just(fenceas)
+        return Observable.just(fenceas).catchErrorJustReturn([])
     }
     
     func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool> {
-        return Observable.empty()
+        fatalError("IMCacheSafeZoneWorker delectSafeZone(deviceId:fenceId:) can't be called")
     }
     
     func updateSafeZone(deviceId: String,  fence: KidSate.ElectronicFencea) -> Observable<Bool> {
-        return Observable.empty()
+        fatalError("IMCacheSafeZoneWorker updateSafeZone(deviceId:fence:) can't be called")
     }
 }
 
@@ -36,6 +36,15 @@ extension ObservableType where E == SafeZones {
             safeZones[id] = element
             return Observable.just(element)
         }
+    }
+}
+
+
+extension ObservableType where E == SafeZones {
+    
+    func catchErrorJustReturnSafeZones(id: String) -> Observable<SafeZones> {
+        let safeZone = safeZones[id] ?? []
+        return catchErrorJustReturn(safeZone)
     }
 }
 

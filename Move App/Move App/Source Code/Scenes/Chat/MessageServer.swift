@@ -24,6 +24,8 @@ class MessageServer {
     var progressDownload: Observable<NoticeEntity>?
     var firmwareUpdate: Observable<FirmwareUpdateType>?
     
+    var lowBattery: Observable<Void>?
+    
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
         if let uid = Me.shared.user.id {
@@ -89,29 +91,24 @@ class MessageServer {
                 .flatMap { Observable.from($0) }
                 
             progressDownload = reNotice.filter {  $0.imType == .progressDownload }
-            
             firmwareUpdate = reNotice
                 .filter { $0.imType.isFirmwareUpdate }
                 .map{ FirmwareUpdateType(notice: $0) }
                 .filterNil()
             
-            reNotice.filter { $0.imType != .progressDownload }
+            lowBattery = reNotice.filter{ $0.imType == .lowBatteryAlert }.map{_ in Void() }
+            
+            reNotice.filter { $0.imType.needSave }
                 .filter { ($0.to == nil) || ($0.to == uid) }
                 .subscribe(onNext: { (notice) in
                     guard
                         let sync = syncObject.first,
-                        let form = notice.from else {
+                        let _ = notice.from else {
                         return
                     }
                     
                     if let gid = notice.groupId, gid != "" {
                         sync.groups.filter{ $0.id == gid }.first?.update(realm: realm, notice: notice)
-                    } else if form.contains("@") {
-                        if
-                            let _ = form.components(separatedBy: "@").first,
-                            let groupId = form.components(separatedBy: "@").last {
-                            sync.groups.filter{ $0.id == groupId }.first?.update(realm: realm, notice: notice)
-                        }
                     } else {
                         sync.groups.forEach { (group: GroupEntity) in
                             if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
