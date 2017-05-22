@@ -64,7 +64,7 @@ static void each_object(NSArray *objects, void (^block)(id object))
     
     self.velocity = 16.0;
     self.space = 25;
-    self.pauseTimeIntervalBeforeScroll = 2.5;
+    self.pauseTimeIntervalBeforeScroll = 3.9;
     
 }
 
