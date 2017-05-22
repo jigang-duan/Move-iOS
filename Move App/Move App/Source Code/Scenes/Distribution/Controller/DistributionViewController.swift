@@ -28,7 +28,7 @@ class DistributionViewController: UIViewController {
             )
         )
         
-        viewModel.enterLogin.debug()
+        viewModel.enterLogin
             .drive(onNext: { [weak self] in
                 self?.enterLoginScreen(enter: $0)
             })

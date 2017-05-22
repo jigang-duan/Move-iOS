@@ -37,7 +37,7 @@ struct Configure {
         static let ApiKey = "vEWZapEpW5OezzEs5Su44xAbCiy9-arCJz7eoLJfjac2h1r4VF0"
         
         // Scenes
-        static let LoadDataOfPeriod = 15.0
+        static let LoadDataOfPeriod = 30.0
     }
     
     //

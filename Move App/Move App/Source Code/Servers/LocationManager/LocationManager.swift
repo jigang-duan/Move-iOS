@@ -37,7 +37,7 @@ class LocationManager  {
     }
     
     var currentLocation: Observable<KidSate.LocationInfo> {
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable<KidSate.LocationInfo>.empty()
         }
         return self.worker.getCurrentLocation(id: deviceId)
@@ -52,33 +52,33 @@ class LocationManager  {
     }
     
     func getHistoryLocation(start: Date, end: Date) ->  Observable<[KidSate.LocationInfo]>{
-        guard let deviceId = Me.shared.currDeviceID else {
+        guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable<[KidSate.LocationInfo]>.empty()
         }
         return self.worker.getHistoryLocation(id: deviceId, start: start, end: end)
     }
     
     func fetchSafeZone() -> Observable<[KidSate.ElectronicFencea]> {
-        guard let deviceld = Me.shared.currDeviceID else {
+        guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable.empty()
         }
-        let api = self.worker.fetchSafeZone(deviceId: deviceld).catchingSafeZones(device: deviceld)
-        let cache = self.cache.fetchSafeZone(deviceId: deviceld)
+        let api = self.worker.fetchSafeZone(deviceId: deviceId).catchingSafeZones(device: deviceId)
+        let cache = self.cache.fetchSafeZone(deviceId: deviceId)
         return Observable.concat(cache, api)
     }
     
     func delectSafeZone(_ fenceId: String) -> Observable<Bool>{
-        guard let deviceld = Me.shared.currDeviceID else {
+        guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable<Bool>.empty()
         }
-        return self.worker.delectSafeZone(deviceId: deviceld, fenceId: fenceId)
+        return self.worker.delectSafeZone(deviceId: deviceId, fenceId: fenceId)
     }
     
     func updateSafeZone(_ fence: KidSate.ElectronicFencea) -> Observable<Bool> {
-        guard let deviceld = Me.shared.currDeviceID else {
+        guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable<Bool>.empty()
         }
-        return self.worker.updateSafeZone(deviceId: deviceld, fence: fence)
+        return self.worker.updateSafeZone(deviceId: deviceId, fence: fence)
     }
  
     func fetch(lbs: KidSate.SOSLbsModel) -> Observable<KidSateSOS>  {

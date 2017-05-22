@@ -248,7 +248,7 @@ fileprivate class ISEmojiCell: UICollectionViewCell {
     }
     
     func setEmoji(_ emoji: EmojiType) {
-        self.emojiImage.load(emoji: emoji)
+        self.emojiImage.loadStatic(emoji: emoji)
     }
 }
 
@@ -348,6 +348,16 @@ extension UIImageView {
         }
     }
     
+    func loadStatic(emoji: EmojiType) {
+        if let url = emoji.url {
+            if emoji.isDynamic {
+                self.loadAnimation(imageURL: url, duration: 0)
+            } else {
+                self.image = (try? Data(contentsOf: url)).flatMap{ UIImage(data: $0) }
+            }
+        }
+    }
+    
     func loadAnimation(imageURL: URL, duration: TimeInterval) {
         let manager = FileManager.default
         self.stopAnimating()
@@ -355,6 +365,8 @@ extension UIImageView {
             let contentsOfURL = try? manager.contentsOfDirectory(at: imageURL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants),
             let first = contentsOfURL.first {
             self.image = (try? Data(contentsOf: first)).flatMap{ UIImage(data: $0) }
+            
+            guard duration != 0 else { return }
             self.animationImages = contentsOfURL.flatMap{ try? Data(contentsOf: $0) }.flatMap{ UIImage(data: $0) }
             self.animationDuration = duration
             self.animationRepeatCount = 0

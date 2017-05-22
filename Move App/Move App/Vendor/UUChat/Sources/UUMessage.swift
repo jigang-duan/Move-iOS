@@ -235,6 +235,11 @@ extension EmojiType {
         ]
     }
     
+    private var emotionDynamicURL: URL? {
+        return R.file.emotion_Dynamic_144()
+//        return R.file.emotion_PNG_180()
+    }
+    
     var url: URL? {
         switch self {
         case .aweat:
@@ -259,25 +264,25 @@ extension EmojiType {
             return R.file.emotion_26Png()
             
         case .aweat_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("aweat", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("aweat", isDirectory: true)
         case .bye_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("bye", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("bye", isDirectory: true)
         case .dizzy_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("dizzy", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("dizzy", isDirectory: true)
         case .loveu_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("loveu", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("loveu", isDirectory: true)
         case .cry_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("cry", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("cry", isDirectory: true)
         case .laught_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("laugh", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("laugh", isDirectory: true)
         case .naughty_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("naughty", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("naughty", isDirectory: true)
         case .sad_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("sad", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("sad", isDirectory: true)
         case .sick_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("sick", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("sick", isDirectory: true)
         case .smile_d:
-            return R.file.emotion_PNG_180()?.appendingPathComponent("smile", isDirectory: true)
+            return emotionDynamicURL?.appendingPathComponent("smile", isDirectory: true)
             
 //        case .aweat_d:
 //            return R.file.emotion_01Gif()
