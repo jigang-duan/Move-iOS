@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 
 class KidInformationViewModel {
@@ -74,6 +75,7 @@ class KidInformationViewModel {
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
+                            KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
                             return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil))
                                 .trackActivity(activity)
                                 .map({_ in
@@ -94,6 +96,7 @@ class KidInformationViewModel {
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
+                            KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
                             return deviceManager.addDevice(firstBindInfo: f)
                                 .trackActivity(activity)
                                 .map({_ in
@@ -128,17 +131,7 @@ class KidInformationViewModel {
         user?.weightUnit = addInfo.weightUnit
         user?.birthday = addInfo.birthday
         
-        var arr: [DeviceInfo] = []
-        
-        for info in RxStore.shared.deviceInfosState.value {
-            var f = info
-            if f.deviceId == RxStore.shared.currentDeviceId.value {
-                f.user = user
-            }
-            arr.append(f)
-        }
-        
-        RxStore.shared.deviceInfosState.value = arr
+        DeviceManager.shared.currentDevice?.user = user
     }
     
     

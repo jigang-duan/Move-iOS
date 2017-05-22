@@ -12,6 +12,7 @@ import RxCocoa
 import RxDataSources
 import RxOptional
 import CustomViews
+import Kingfisher
 
 
 class AccountAndChoseDeviceController: UIViewController {
@@ -132,8 +133,9 @@ class AccountAndChoseDeviceController: UIViewController {
                     UserInfo.shared.profile?.birthday = info.birthday
                     UserInfo.shared.profile?.heightUnit = info.heightUnit
                     UserInfo.shared.profile?.weightUnit = info.weightUnit
-                    if changedImage != nil {
+                    if let img = changedImage {
                         UserInfo.shared.profile?.iconUrl = info.iconUrl
+                        KingfisherManager.shared.cache.store(img, forKey: FSManager.imageUrl(with: info.iconUrl!))
                         self.show(head: UserInfo.shared.profile!)
                     }
                 }).addDisposableTo(self.disposeBag)

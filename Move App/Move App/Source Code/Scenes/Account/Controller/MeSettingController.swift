@@ -253,6 +253,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 let vc = R.storyboard.kidInformation.setYourGenderController()!
+                vc.selectedGender = self.gender
                 vc.genderBlock = { gender in
                     self.gender = gender
                     self.tableView.reloadData()
@@ -280,6 +281,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 self.present(vc, animated: true)
             case 3:
                 let vc = R.storyboard.kidInformation.setYourBirthdayController()!
+                vc.selectedDate = self.birthday
                 vc.birthdayBlock = {birthday in
                     self.birthday = birthday
                     self.tableView.reloadData()

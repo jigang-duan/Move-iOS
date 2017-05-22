@@ -12,16 +12,22 @@ class SetYourGenderController: UIViewController {
 
     
     var genderBlock: ((String) -> Void)?
-    
+    var selectedGender: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        girlBtn.isSelected = true
+        if selectedGender == "1" {
+            girlBtn.isSelected = true
+        }else{
+            boyBtn.isSelected = true
+        }
     }
     
     @IBOutlet weak var girlBtn: UIButton!
     @IBOutlet weak var boyBtn: UIButton!
+    
+    
     @IBAction func BackAction(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
     }

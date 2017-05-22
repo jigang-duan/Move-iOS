@@ -11,6 +11,7 @@ import UIKit
 class SetYourBirthdayController: UIViewController {
 
     @IBOutlet weak var datePicker: UIDatePicker!
+    var selectedDate: Date?
     
     var birthdayBlock: ((Date) -> Void)?
     
@@ -20,6 +21,9 @@ class SetYourBirthdayController: UIViewController {
 
         // Do any additional setup after loading the view.
         datePicker.maximumDate = Date()
+        if let d = selectedDate {
+            datePicker.date = d
+        }
         
     }
     

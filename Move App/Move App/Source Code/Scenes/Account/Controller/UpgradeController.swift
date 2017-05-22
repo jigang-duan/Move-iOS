@@ -37,7 +37,7 @@ class UpgradeController: UIViewController {
     var downloadBlur: UIView?
     var progressLab: UILabel?
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -69,34 +69,10 @@ class UpgradeController: UIViewController {
             .withLatestFrom(devidUID) { ($0, $1) }
             .filter({ $0.deviceUID == $1 })
             .map({ $0.0 })
-            .subscribe(
-                onNext: { type in
-                    switch type {
-                    case .updateStarted:
-                        break
-                    case .updateSucceed:
-                        self.showMessage("Upgrade success")
-                    case .updateDefeated:
-                        self.showMessage("Upgrade faild")
-                    case .downloadStarted:
-                        break
-                    case .downloadDefeated:
-                        self.showMessage("Download faild")
-                    case .checkDefeated:
-                        self.downloadProgress.value = 101
-                        self.makeDownloadBlur(progress: self.downloadProgress.value)
-                        self.tipLab.isHidden = false
-                    case .progressDownload:
-                        let progress = type.progress
-                        print("下载进度===\(progress)")
-                        self.downloadProgress.value = progress
-                        self.makeDownloadBlur(progress: self.downloadProgress.value)
-                        self.tipLab.isHidden = false
-                    }
+            .subscribe(onNext: { type in
+                self.updateDownloadStatus(with: type, isNotice: true)
             })
             .addDisposableTo(disposeBag)
-        
-        
         
         
         viewModel.downResult
@@ -112,6 +88,39 @@ class UpgradeController: UIViewController {
                 }
             })
             .addDisposableTo(disposeBag)
+    }
+    
+    
+    func updateDownloadStatus(with type: FirmwareUpdateType, isNotice: Bool) {
+        switch type {
+        case .updateStarted:
+            break
+        case .updateSucceed:
+            if isNotice {
+                self.showMessage("Upgrade success")
+            }
+            self.fetchProperty()
+        case .updateDefeated:
+            if isNotice {
+                self.showMessage("Upgrade faild")
+            }
+            self.fetchProperty()
+        case .downloadStarted:
+            break
+        case .downloadDefeated:
+            if isNotice {
+                self.showMessage("Download faild")
+            }
+            self.fetchProperty()
+        case .checkDefeated:
+            self.fetchProperty()
+        case .progressDownload:
+            let progress = type.progress
+            print("下载进度===\(progress)")
+            self.downloadProgress.value = progress
+            self.makeDownloadBlur(progress: self.downloadProgress.value)
+            self.tipLab.isHidden = false
+        }
     }
     
     
@@ -191,51 +200,93 @@ class UpgradeController: UIViewController {
     func fetchProperty() {
         let deviceId = RxStore.shared.currentDeviceId.value!
         
-        let propertyResult = DeviceManager.shared.getProperty(deviceId: deviceId).flatMapLatest { property -> Observable<ValidationResult> in
-            RxStore.shared.bind(property: property)
-            
-            self.batteryLevel.text = "\(property.power ?? 0)%"
-            self.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
-            
-            
-            var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
-            if let fv = property.firmware_version, fv.characters.count > 6 {
-                checkInfo.fv = fv.replacingCharacters(in:  Range(uncheckedBounds: (lower: fv.index(fv.startIndex, offsetBy: 4), upper: fv.index(fv.endIndex, offsetBy: -2))), with: "")
+        DeviceManager.shared.getProperty(deviceId: deviceId)
+            .map { property -> ValidationResult in
+                RxStore.shared.bind(property: property)
+                
+                self.batteryLevel.text = "\(property.power ?? 0)%"
+                self.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
+                
+                
+                var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
+                if let fv = property.firmware_version, fv.characters.count > 6 {
+                    checkInfo.fv = fv.replacingCharacters(in:  Range(uncheckedBounds: (lower: fv.index(fv.startIndex, offsetBy: 4), upper: fv.index(fv.endIndex, offsetBy: -2))), with: "")
+                }
+                
+                var type = FirmwareUpdateType.updateSucceed(deviceId)
+                if let status = Int(property.fota_sta ?? "") {
+                    if status >= 0 && status <= 100 {
+                        type = .progressDownload(deviceId, status)
+                    }else{
+                        switch status {
+                        case 101:
+                            type = .updateStarted(deviceId)
+                        case 102:
+                            type = .updateSucceed(deviceId)
+                        case 202:
+                            type = .updateDefeated(deviceId)
+                        case 200:
+                            type = .downloadStarted(deviceId)
+                        case 201:
+                            type = .downloadDefeated(deviceId)
+                        case 255:
+                            type = .checkDefeated(deviceId)
+                        default:
+                            break
+                        }
+                    }
+                }
+                
+                switch type {
+                case .updateStarted, .downloadStarted, .progressDownload:
+                    self.updateDownloadStatus(with: type, isNotice: false)
+                default:
+                    self.checkVersion(checkInfo: checkInfo)
+                }
+                
+                return ValidationResult.ok(message: "")
             }
-            
-            return self.checkVersion(checkInfo: checkInfo)
-        }
-        
-        propertyResult.subscribe(onNext: { result in
-            switch result {
-            case .failed(let message):
-                self.showMessage(message)
-            default:
-                break
-            }
-        }).addDisposableTo(disposeBag)
+            .subscribe(onNext: { result in
+                switch result {
+                case .failed(let message):
+                    self.showMessage(message)
+                default:
+                    break
+                }
+            })
+            .addDisposableTo(disposeBag)
     }
     
     
-    func checkVersion(checkInfo: DeviceVersionCheck) -> Observable<ValidationResult> {
-        return DeviceManager.shared.checkVersion(checkInfo: checkInfo).map{ info -> ValidationResult in
-            if let vs = info.newVersion, vs.characters.count > 2 {
-                self.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
-                self.versionInfo.isHidden = true
-                self.tipLab.isHidden = true
-                self.downloadBun.isHidden = false
-                self.updateDownloadButton(isEnable: true)
-            }else{
-                let version = DeviceManager.shared.currentDevice?.property?.firmware_version
-                self.versionLab.text = "Firmware Version " + (version ?? "")
-                self.versionInfo.isHidden = false
-                self.versionInfo.text = "This watch's firmware is up to date."
-                self.tipLab.isHidden = true
-                self.downloadBun.isHidden = true
+    func checkVersion(checkInfo: DeviceVersionCheck) {
+        DeviceManager.shared.checkVersion(checkInfo: checkInfo)
+            .map{ info -> ValidationResult in
+                if let vs = info.newVersion, vs.characters.count > 2 {
+                    self.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
+                    self.versionInfo.isHidden = true
+                    self.tipLab.isHidden = true
+                    self.downloadBun.isHidden = false
+                    self.updateDownloadButton(isEnable: true)
+                }else{
+                    let version = DeviceManager.shared.currentDevice?.property?.firmware_version
+                    self.versionLab.text = "Firmware Version " + (version ?? "")
+                    self.versionInfo.isHidden = false
+                    self.versionInfo.text = "This watch's firmware is up to date."
+                    self.tipLab.isHidden = true
+                    self.downloadBun.isHidden = true
+                }
+                self.activity.stopAnimating()
+                return ValidationResult.ok(message: "Download Begin")
             }
-            self.activity.stopAnimating()
-            return ValidationResult.ok(message: "Download Begin")
-        }
+            .subscribe(onNext: { result in
+                switch result {
+                case .failed(let message):
+                    self.showMessage(message)
+                default:
+                    break
+                }
+            })
+            .addDisposableTo(disposeBag)
     }
     
     
