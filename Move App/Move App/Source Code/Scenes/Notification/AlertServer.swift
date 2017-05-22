@@ -28,7 +28,7 @@ class AlertServer {
             .share()
             
         let alertResult = notices
-            .map { $0.filter { ($0.createDate?.isWithin2Hour)! } }
+            .map { $0.filter { ($0.createDate?.isWithin1Hour)! } }
             .map { $0.filter { $0.imType.isShowPopup } }
             .map { $0.filter{ $0.isUnRead }.first }
             .filterNil()

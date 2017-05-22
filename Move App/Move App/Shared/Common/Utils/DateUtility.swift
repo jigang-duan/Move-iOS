@@ -191,12 +191,27 @@ class DateUtility {
 
 extension Date {
     
+    var isWithin1Hour: Bool {
+        return self.isWithin(1.0.hour)
+    }
+    
     var isWithin2Hour: Bool {
-        return Date(timeInterval: intervalOfHour * 2, since: self).compare(Date()) == .orderedDescending
+        return self.isWithin(2.0.hour)
     }
     
-    var intervalOfHour: TimeInterval {
-        return 3600.0
+    private func isWithin(_ interval :TimeInterval) -> Bool {
+        return Date(timeInterval: interval, since: self).compare(Date()) == .orderedDescending
+    }
+}
+
+
+fileprivate extension TimeInterval {
+    
+    var minute: TimeInterval {
+        return 60.0 * self
     }
     
+    var hour: TimeInterval {
+        return 3600.0 * self
+    }
 }
