@@ -48,6 +48,7 @@ class NotificationController: UIViewController {
                 .share()
                 .map { list -> [UUMessage] in
                     list.filter { $0.imType.atNotiicationPage }
+                        .sorted(by: { $0.createDate! > $1.createDate! })
                         .map { notice -> UUMessage in
                             var content = UUMessage.Content()
                             content.text = notice.content

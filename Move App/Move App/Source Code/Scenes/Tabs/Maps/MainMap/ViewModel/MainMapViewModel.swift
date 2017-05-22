@@ -97,7 +97,6 @@ class MainMapViewModel {
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         
         let errorSubject = PublishSubject<Error>()
-        errorObservable = errorSubject.asObserver()
         
         let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground).map{_ in Void() }
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
@@ -107,19 +106,27 @@ class MainMapViewModel {
             .do(onNext: { _ in remindActivitying.onNext(true) })
             .flatMapLatest {
                 deviceManager.remindLocation(deviceId: $0)
-                    .delay(6.0, scheduler: MainScheduler.instance)
                     .do(onError: { errorSubject.onNext($0) })
                     .catchErrorJustReturn(false)
             }
+            .share()
         
-        let remindLocation = remindSuccess.map{ _ in Void() }
+        let remindLocation = remindSuccess
+            .flatMapLatest { _ in MessageServer.share.manuallyLocate }
+        
+        let remindTimeOut = remindSuccess.delay(60.0, scheduler: MainScheduler.instance)
+            .withLatestFrom(remindActivitying.asObserver())
+            .filter { $0 }
+            .map{ _ in WorkerError.LocationTimeout as Error }
+            .do(onNext: { _ in remindActivitying.onNext(false) })
+        
+        errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
         
         let currentLocation = Observable.merge(period, remindLocation)
             .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)
                     .catchErrorJustReturn(KidSate.LocationInfo())
-                    .do(onNext: { _ in remindActivitying.onNext(false) })
             }
             .shareReplay(1)
         
@@ -134,6 +141,9 @@ class MainMapViewModel {
             .shareReplay(1)
         
         kidLocation = currentLocation.map{ $0.location }.filterNil()
+            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
+            .do(onNext: { _ in remindActivitying.onNext(false) })
+        
         kidAddress = currentLocation.map{ $0.address }.filterNil()
         kidType = currentLocation.map{ $0.type }.filterNil()
         locationTime = currentLocation.map{ $0.time }.filterNil()

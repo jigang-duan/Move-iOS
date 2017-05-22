@@ -101,6 +101,7 @@ enum ImNoticeType {
     case kidsAddANewFriend
     case masterUnpairWatch
     case generalUnpairWatch
+    
     case familyPhoneNumberChanged
     case watchOnlineOffline
     case watchChangeSIMCard
@@ -110,6 +111,8 @@ enum ImNoticeType {
     case newFirmwareUpdate
     case firmwareUpdateInformation
     case progressDownload
+    
+    case manuallyLocate
  
     case unknown
 }
@@ -164,7 +167,7 @@ extension ImNoticeType {
     
     var isShowPopup: Bool {
         switch self {
-        case .unknown, .kidsAddANewFriend, .generalUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard:
+        case .unknown, .kidsAddANewFriend, .generalUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard, .manuallyLocate:
             return false
         default:
             return true
@@ -172,7 +175,7 @@ extension ImNoticeType {
     }
     
     var needSave: Bool {
-        return (self != .progressDownload)
+        return (self != .progressDownload) && (self != .manuallyLocate) && (self != .unknown)
     }
 }
 
@@ -244,6 +247,8 @@ extension ImNoticeType {
             return .default
         case .progressDownload:
             return .default
+        case .manuallyLocate:
+            return .default
         case .unknown:
             return .default
         }
@@ -303,6 +308,9 @@ extension ImNoticeType {
             self = .firmwareUpdateInformation
         case .deviceDownloadStarted:
             self = .firmwareUpdateInformation
+            
+        case .instantPosition:
+            self = .manuallyLocate
         
         case .deviceConfigurationUpdated:
             self = .unknown
@@ -319,8 +327,6 @@ extension ImNoticeType {
         case .roam:
             self = .unknown
         case .bindRandomCode:
-            self = .unknown
-        case .instantPosition:
             self = .unknown
         case .unknown:
             self = .unknown

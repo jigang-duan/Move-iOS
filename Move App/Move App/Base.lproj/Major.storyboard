@@ -81,32 +81,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Location" id="IOe-3w-obh">
                         <barButtonItem key="backBarButtonItem" title=" " id="mrO-4r-zYs"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="cqB-ko-sSh">
-                            <view key="customView" contentMode="scaleToFill" id="uzJ-e1-WSq">
-                                <rect key="frame" x="316" y="7" width="43" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adH-F4-k74">
-                                        <rect key="frame" x="0.0" y="0.0" width="43" height="30"/>
-                                        <state key="normal" image="nav_notice_nor"/>
-                                        <state key="highlighted" image="nav_notice_pre"/>
-                                        <connections>
-                                            <segue destination="I9w-bK-cLw" kind="show" id="4MS-jJ-xqt"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="adH-F4-k74" firstAttribute="top" secondItem="uzJ-e1-WSq" secondAttribute="top" id="Gto-sA-4FU"/>
-                                    <constraint firstAttribute="bottom" secondItem="adH-F4-k74" secondAttribute="bottom" id="Sni-c0-rCX"/>
-                                    <constraint firstAttribute="trailing" secondItem="adH-F4-k74" secondAttribute="trailing" id="fIZ-xX-Zht"/>
-                                    <constraint firstItem="adH-F4-k74" firstAttribute="leading" secondItem="uzJ-e1-WSq" secondAttribute="leading" id="fWi-LX-dOa"/>
-                                </constraints>
-                            </view>
+                        <barButtonItem key="rightBarButtonItem" image="nav_notice_nor" id="XCM-El-iLi">
+                            <connections>
+                                <segue destination="I9w-bK-cLw" kind="show" id="5ky-hv-SbB"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="noticeOutlet" destination="uzJ-e1-WSq" id="oPN-Fc-r0Z"/>
+                        <outlet property="noticeOutlet" destination="XCM-El-iLi" id="1RA-U2-cOR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wsb-kL-Tgo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1007,12 +989,17 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MB9-HB-b55">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.94117647410000005" green="0.94901961089999998" blue="0.96078431610000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="C25-Lz-RWK">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotificationClassify" textLabel="XgJ-ba-0Aj" detailTextLabel="dEc-0b-xbD" style="IBUITableViewCellStyleSubtitle" id="Jcn-7i-TmB">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jcn-7i-TmB" id="hxE-dU-j0I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XgJ-ba-0Aj">
@@ -1141,7 +1128,6 @@
         <image name="home_ic_wear" width="16" height="16"/>
         <image name="member_btn_contact_pre" width="21" height="21"/>
         <image name="nav_notice_nor" width="18" height="18"/>
-        <image name="nav_notice_pre" width="18" height="18"/>
         <image name="nav_refresh_nor" width="18" height="18"/>
         <image name="search" width="12" height="12"/>
         <image name="tab_home_nor" width="23" height="23"/>

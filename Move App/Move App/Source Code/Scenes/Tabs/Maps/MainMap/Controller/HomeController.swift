@@ -15,7 +15,8 @@ import CustomViews
 
 class HomeController: UIViewController {
     
-    @IBOutlet weak var noticeOutlet: UIView!
+//    @IBOutlet weak var noticeOutlet: UIView!
+    @IBOutlet weak var noticeOutlet: UIBarButtonItem!
     
     var disposeBag = DisposeBag()
     
@@ -24,13 +25,15 @@ class HomeController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        
         let realm = try! Realm()
         RxStore.shared.uidObservable
             .flatMapLatest { (uid) -> Observable<Bool> in
                 let notices = realm.objects(NoticeEntity.self).filter("to == %@", uid)
                 return Observable.collection(from: notices).map({ $0.filter("readStatus == 0").count > 0 })
             }
-            .bindTo(noticeOutlet.rx.isBadgeHidden)
+            .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal) : R.image.nav_notice_nor()! }
+            .bindTo(noticeOutlet.rx.image)
             .addDisposableTo(disposeBag)
     }
 

@@ -19,6 +19,8 @@ enum WorkerError: Swift.Error, Equatable {
     case deviceNo
     
     case messageNotFound
+    
+    case LocationTimeout
 }
 
 func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
@@ -31,7 +33,9 @@ func ==(lhs: WorkerError, rhs: WorkerError) -> Bool {
     case (.deviceNo, .deviceNo): return true
         
     case (.messageNotFound, .messageNotFound): return true
-        
+    
+    case (.LocationTimeout, .LocationTimeout): return true
+    
     default: return false
     }
 }
@@ -56,11 +60,15 @@ extension WorkerError {
     }
     
     static func errorTransform(from error: Swift.Error) -> String {
-        if let apiError = error as? WorkerError {
-            return apiErrorTransform(from: apiError)
+        guard let apiError = error as? WorkerError else {
+            return error.localizedDescription
         }
         
-        return error.localizedDescription
+        if apiError == .LocationTimeout {
+            return "Location Timeout"
+        }
+        
+        return apiErrorTransform(from: apiError)
     }
     
     

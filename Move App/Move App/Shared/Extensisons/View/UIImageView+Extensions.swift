@@ -61,3 +61,12 @@ extension Reactive where Base: ActivityImageView {
     }
     
 }
+
+extension Reactive where Base: UIBarButtonItem {
+
+    var image: UIBindingObserver<Base, UIImage> {
+        return UIBindingObserver(UIElement: self.base) { item, image in
+            item.image = image
+        }
+    }
+}
