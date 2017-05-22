@@ -307,14 +307,16 @@ class KidInformationController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let sg = R.segue.kidInformationController.setGenderVC(segue: segue) {
-            sg.destination.genderBlock = { (gender) in
+        if let vc = R.segue.kidInformationController.setGenderVC(segue: segue)?.destination  {
+            vc.selectedGender = self.addInfoVariable.value.gender
+            vc.genderBlock = { (gender) in
                 self.addInfoVariable.value.gender = gender
                 self.genderLab.text = (gender == "0" ? "male":"female")
             }
         }
-        if let sg = R.segue.kidInformationController.setBirthdayVC(segue: segue) {
-            sg.destination.birthdayBlock = { (birthday) in
+        if let vc = R.segue.kidInformationController.setBirthdayVC(segue: segue)?.destination  {
+            vc.selectedDate = self.addInfoVariable.value.birthday
+            vc.birthdayBlock = { (birthday) in
                 self.addInfoVariable.value.birthday = birthday
                 self.dateLab.text = birthday.stringYearMonthDay
             }

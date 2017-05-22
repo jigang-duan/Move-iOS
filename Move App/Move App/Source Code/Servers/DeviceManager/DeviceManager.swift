@@ -263,7 +263,8 @@ extension DeviceInfo {
 //                                       phone_number: element.property?.phone_number,
 //                                       languages: element.property?.languages,
 //                                       power: element.property?.power,
-//                                       maxgroups: element.property?.maxgroups)
+//                                       maxgroups: element.property?.maxgroups,
+//                                       fota_sta: element.property?.fota_sta)
     }
 }
 
@@ -294,6 +295,7 @@ struct DeviceProperty {
     var languages: [String]?
     var power :Int?
     var maxgroups: Int?
+    var fota_sta: String?
 }
 
 func ==(lhs: DeviceProperty, rhs: DeviceProperty) -> Bool {

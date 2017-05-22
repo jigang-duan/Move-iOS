@@ -111,6 +111,7 @@ extension MoveApi {
         var languages: [String]?
         var power :Int?
         var maxgroups: Int?
+        var fota_sta: String?
     }
     
     
@@ -504,6 +505,7 @@ extension MoveApi.DeviceProperty: Mappable {
         languages <- map["languages"]
         power <- map["power"]
         maxgroups <- map["maxgroups"]
+        fota_sta <- map["fota_sta"]
     }
 }
 

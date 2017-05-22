@@ -184,7 +184,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                            phone_number: $0.phone_number,
                            languages: $0.languages,
                            power: $0.power,
-                           maxgroups: $0.maxgroups)
+                           maxgroups: $0.maxgroups,
+                           fota_sta: $0.fota_sta)
         }
     }
     
