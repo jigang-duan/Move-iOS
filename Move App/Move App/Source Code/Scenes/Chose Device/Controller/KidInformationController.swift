@@ -80,6 +80,8 @@ class KidInformationController: UIViewController {
     
     
     func  setupUI() {
+        nextBun.setTitle(R.string.localizable.id_next(), for: .normal)
+        
         validateLab.isHidden = true
         
         if isForSetting == true && isMaster == false {
@@ -98,7 +100,7 @@ class KidInformationController: UIViewController {
         
         var info = addInfoVariable.value
         
-        if info.nickName == nil {
+        if info.nickName == nil || info.nickName == "" {
             info.nickName = "baby"
             nameTf.text = "baby"
         }else{
@@ -127,27 +129,27 @@ class KidInformationController: UIViewController {
         
         
         if let gender = info.gender {
-            genderLab.text = (gender == "0" ? "male":"female")
+            genderLab.text = (gender == "0" ? R.string.localizable.id_male():R.string.localizable.id_female())
         }else{
-            genderLab.text = "Gender"
+            genderLab.text = R.string.localizable.id_gender()
         }
         
         if let height = info.height {
              heightLab.text =  "\(height) " + ((info.heightUnit == UnitType.metric) ? "cm":"inch")
         }else{
-             heightLab.text = "Height"
+             heightLab.text = R.string.localizable.id_height()
         }
         
         if let weight = info.weight {
             weightLab.text =  "\(weight) " + ((info.weightUnit == UnitType.metric) ? "kg":"lb")
         }else{
-            weightLab.text = "Weight"
+            weightLab.text = R.string.localizable.id_weight()
         }
         
         if let birthday = info.birthday {
             dateLab.text =  birthday.stringYearMonthDay
         }else{
-            dateLab.text = "Birthday"
+            dateLab.text = R.string.localizable.id_birthday()
         }
         
     }
@@ -289,29 +291,12 @@ class KidInformationController: UIViewController {
     }
     
     
-    @IBAction func genderAction(_ sender: UIButton) {
-        self.performSegue(withIdentifier: R.segue.kidInformationController.setGenderVC, sender: nil)
-    }
-    
-    @IBAction func birthdayAction(_ sender: UIButton) {
-        self.performSegue(withIdentifier: R.segue.kidInformationController.setBirthdayVC, sender: nil)
-    }
-    
-    @IBAction func weightAction(_ sender: UIButton) {
-        self.performSegue(withIdentifier: R.segue.kidInformationController.setWeightVC, sender: nil)
-    }
-    
-    @IBAction func heightAction(_ sender: UIButton) {
-        self.performSegue(withIdentifier: R.segue.kidInformationController.setHeightVC, sender: nil)
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.kidInformationController.setGenderVC(segue: segue)?.destination  {
             vc.selectedGender = self.addInfoVariable.value.gender
             vc.genderBlock = { (gender) in
                 self.addInfoVariable.value.gender = gender
-                self.genderLab.text = (gender == "0" ? "male":"female")
+                self.genderLab.text = (gender == "0" ? R.string.localizable.id_male():R.string.localizable.id_female())
             }
         }
         if let vc = R.segue.kidInformationController.setBirthdayVC(segue: segue)?.destination  {

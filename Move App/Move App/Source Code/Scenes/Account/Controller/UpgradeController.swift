@@ -70,7 +70,7 @@ class UpgradeController: UIViewController {
             .filter({ $0.deviceUID == $1 })
             .map({ $0.0 })
             .subscribe(onNext: { type in
-                self.updateDownloadStatus(with: type, isNotice: true)
+                self.updateDownloadStatus(with: type)
             })
             .addDisposableTo(disposeBag)
         
@@ -91,26 +91,17 @@ class UpgradeController: UIViewController {
     }
     
     
-    func updateDownloadStatus(with type: FirmwareUpdateType, isNotice: Bool) {
+    func updateDownloadStatus(with type: FirmwareUpdateType) {
         switch type {
         case .updateStarted:
             break
         case .updateSucceed:
-            if isNotice {
-                self.showMessage("Upgrade success")
-            }
             self.fetchProperty()
         case .updateDefeated:
-            if isNotice {
-                self.showMessage("Upgrade faild")
-            }
             self.fetchProperty()
         case .downloadStarted:
             break
         case .downloadDefeated:
-            if isNotice {
-                self.showMessage("Download faild")
-            }
             self.fetchProperty()
         case .checkDefeated:
             self.fetchProperty()
@@ -201,7 +192,7 @@ class UpgradeController: UIViewController {
         let deviceId = RxStore.shared.currentDeviceId.value!
         
         DeviceManager.shared.getProperty(deviceId: deviceId)
-            .map { property -> ValidationResult in
+            .subscribe(onNext: { property in
                 RxStore.shared.bind(property: property)
                 
                 self.batteryLevel.text = "\(property.power ?? 0)%"
@@ -239,19 +230,9 @@ class UpgradeController: UIViewController {
                 
                 switch type {
                 case .updateStarted, .downloadStarted, .progressDownload:
-                    self.updateDownloadStatus(with: type, isNotice: false)
+                    self.updateDownloadStatus(with: type)
                 default:
                     self.checkVersion(checkInfo: checkInfo)
-                }
-                
-                return ValidationResult.ok(message: "")
-            }
-            .subscribe(onNext: { result in
-                switch result {
-                case .failed(let message):
-                    self.showMessage(message)
-                default:
-                    break
                 }
             })
             .addDisposableTo(disposeBag)
@@ -260,7 +241,7 @@ class UpgradeController: UIViewController {
     
     func checkVersion(checkInfo: DeviceVersionCheck) {
         DeviceManager.shared.checkVersion(checkInfo: checkInfo)
-            .map{ info -> ValidationResult in
+            .subscribe(onNext: { info in
                 if let vs = info.newVersion, vs.characters.count > 2 {
                     self.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
                     self.versionInfo.isHidden = true
@@ -276,15 +257,6 @@ class UpgradeController: UIViewController {
                     self.downloadBun.isHidden = true
                 }
                 self.activity.stopAnimating()
-                return ValidationResult.ok(message: "Download Begin")
-            }
-            .subscribe(onNext: { result in
-                switch result {
-                case .failed(let message):
-                    self.showMessage(message)
-                default:
-                    break
-                }
             })
             .addDisposableTo(disposeBag)
     }

@@ -250,18 +250,16 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         //绑定管理员
         if info.isMaster == true {
             DeviceManager.shared.checkBind(deviceId: info.deviceId!)
-            .subscribe(onNext: { flag in
-                if flag == false {
-                    let vc  = R.storyboard.main.verificationCodeController()!
-                    vc.imei = info.deviceId
-                    self.navigationController?.show(vc, sender: nil)
-                }else{
-                    self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-                }
-            }, onError: { error in
-                print(error)
-                self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
-            }).addDisposableTo(disposeBag)
+                .subscribe(onNext: { flag in
+                    if flag == false {
+                        let vc  = R.storyboard.main.verificationCodeController()!
+                        vc.imei = info.deviceId
+                        self.navigationController?.show(vc, sender: nil)
+                    }else{
+                        self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                    }
+                })
+                .addDisposableTo(disposeBag)
             
             return
         }

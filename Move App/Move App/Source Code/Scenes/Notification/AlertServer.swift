@@ -19,6 +19,7 @@ class AlertServer {
     static let share = AlertServer()
     
     let navigateLocationSubject = PublishSubject<KidSate.LocationInfo>()
+    let unpiredSubject = PublishSubject<Void>()
     
     func subscribe(disposeBag: DisposeBag) {
         
@@ -90,7 +91,12 @@ class AlertServer {
             .filter { $0.imType.style == .unpired }
             .map { $0.from }
             .filterNil()
-            .bindNext { _ in Distribution.shared.backToTabAccount() }
+            .map {_ in ()}
+            .bindTo(unpiredSubject)
+            .addDisposableTo(disposeBag)
+        
+        unpiredSubject.asObserver()
+            .bindNext { Distribution.shared.backToTabAccount() }
             .addDisposableTo(disposeBag)
         
         let goToSeeKidInformation = confirmNotice

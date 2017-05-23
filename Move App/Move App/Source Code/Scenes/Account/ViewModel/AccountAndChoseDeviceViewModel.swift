@@ -33,12 +33,13 @@ class AccountAndChoseDeviceViewModel {
         let deviceManager = dependency.deviceManager
         let _ = dependency.wireframe
         
-        let enter = input.enter.filter{ $0 }
+        let enter = input.enter.filter{ $0 }.map{_ in ()}
         
-        self.profile = enter.flatMapLatest { (_) in userManger.getProfile().asDriver(onErrorJustReturn: UserInfo.Profile()) }
+        self.profile = enter.flatMapLatest { userManger.getProfile().asDriver(onErrorJustReturn: UserInfo.Profile()) }
         self.accountName = profile.map { $0.nickname ?? "" }
         
-        self.fetchDevices = enter.flatMapLatest({ _ in deviceManager.fetchDevices().asDriver(onErrorJustReturn: []) })
+        self.fetchDevices = Driver.merge(enter, AlertServer.share.unpiredSubject.asDriver(onErrorJustReturn: ()))
+            .flatMapLatest({ deviceManager.fetchDevices().asDriver(onErrorJustReturn: []) })
         
     }
     

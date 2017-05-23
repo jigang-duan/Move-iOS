@@ -134,7 +134,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="information_gender_nor"/>
                                 <connections>
-                                    <action selector="genderAction:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="dID-pu-MI8"/>
+                                    <segue destination="f0O-Dy-3UW" kind="presentation" identifier="setGenderVC" id="nZj-Z5-UDG"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQI-ao-qF3">
@@ -151,7 +151,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="information_birthday_nor"/>
                                 <connections>
-                                    <action selector="birthdayAction:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="g98-GC-12g"/>
+                                    <segue destination="M0b-OA-Gky" kind="presentation" identifier="setBirthdayVC" id="UUE-J6-Eiy"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Jan 1991" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zkc-Re-dbX">
@@ -168,7 +168,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="information_weight_nor"/>
                                 <connections>
-                                    <action selector="weightAction:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="H7L-69-2iC"/>
+                                    <segue destination="Bbf-Ce-9Jh" kind="presentation" identifier="setWeightVC" id="AFZ-yW-WW7"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="51kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7A-jc-G0T">
@@ -185,7 +185,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="information_height_nor"/>
                                 <connections>
-                                    <action selector="heightAction:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="bnf-Da-6sw"/>
+                                    <segue destination="gyc-sv-BHv" kind="presentation" identifier="setHeightVC" id="GSz-1c-ENj"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="160cm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7L-nN-gd4">
@@ -260,10 +260,6 @@
                         <outlet property="validateLab" destination="rhK-sF-hdS" id="z9u-cS-Cqe"/>
                         <outlet property="weightBun" destination="xAu-WE-3aK" id="1TC-U0-l6L"/>
                         <outlet property="weightLab" destination="s7A-jc-G0T" id="E3x-pR-mKn"/>
-                        <segue destination="f0O-Dy-3UW" kind="presentation" identifier="setGenderVC" id="QTt-9v-JBX"/>
-                        <segue destination="M0b-OA-Gky" kind="presentation" identifier="setBirthdayVC" id="t1b-pl-DCl"/>
-                        <segue destination="Bbf-Ce-9Jh" kind="presentation" identifier="setWeightVC" id="nO3-g1-4Lr"/>
-                        <segue destination="gyc-sv-BHv" kind="presentation" identifier="setHeightVC" id="7C4-VE-jAG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDv-9w-bgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
