@@ -11,13 +11,17 @@ import SafariServices
 
 fileprivate let TermsConditionsURLString = "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/"
 fileprivate let PrivacyPolicyURLString = "http://www.tcl-move.com/help/#/mt30_privacy_policy/"
+fileprivate let UserManualURLString = "http://www.tcl-move.com/help/url.html#/mt30/um/generic/"
+
 
 class HelpController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
         
-        if indexPath.row == 1 {
+        if indexPath.row == 0 {
+            open(url: URL(string: UserManualURLString + language)!)
+        } else if indexPath.row == 1 {
             open(url: URL(string: TermsConditionsURLString + language)!)
         } else if indexPath.row == 2 {
             open(url: URL(string: PrivacyPolicyURLString + language)!)
