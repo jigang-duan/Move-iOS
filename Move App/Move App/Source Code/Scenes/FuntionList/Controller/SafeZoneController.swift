@@ -21,6 +21,9 @@ class SafeZoneController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     var dataISexit: Bool = true
     var autopositioningBool: Bool?
+    var adminBool: Bool?
+    var autoAnswer: Bool?
+    var savePower: Bool?
     var disposeBag = DisposeBag()
     
     var fences: [KidSate.ElectronicFencea] = []
@@ -35,7 +38,7 @@ class SafeZoneController: UIViewController {
         super.viewDidLoad()
         self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
         tableview.emptyDataSetSource = self
-        
+    
         safezoneQutlet.rx.tap
             .asDriver()
             .drive(onNext: showAddSafeZoneVC)
@@ -61,7 +64,8 @@ class SafeZoneController: UIViewController {
     }
     
     func showAddSafeZoneVC() {
-//        if autopositioningBool ?? false {
+        
+            
         if self.fences.count >= 5 {
             let alertController = UIAlertController(title: nil, message: "not more than 5 safezone", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -73,18 +77,7 @@ class SafeZoneController: UIViewController {
                 self.navigationController?.show(vc, sender: nil)
             }
         }
-//        }else
-//        {
-//            let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely,for more accurate location infotmation,please inform master to open Autopositioning", preferredStyle: .alert)
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//            let stillOpen = UIAlertAction(title: "Still open", style: .cancel, handler: { (UIAlertAction) in
-//                print("打开")
-//            })
-//            alertController.addAction(cancelAction)
-//            alertController.addAction(stillOpen)
-//            self.present(alertController, animated: true, completion: nil)
-//            
-//        }
+
     }
     
     func errorshow(message : String) {
@@ -106,11 +99,13 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: R.reuseIdentifier.safezonecell.identifier, for: indexPath) as! SafezoneCell
-        
-//        cell.nameLabel.text = self.fences[indexPath.row].name
-//        cell.addrLabel.text = self.fences[indexPath.row].location?.address
-//        cell.switchOnOffQutiet.isOn = self.fences[indexPath.row].active!
         cell.model = self.fences[indexPath.row]
+        cell.autopositioningBool = autopositioningBool
+        cell.adminBool = adminBool
+        cell.autoAnswer = autoAnswer
+        cell.savePower = savePower
+        cell.vc = self
+        
         return cell
     }
     
@@ -123,6 +118,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if let vc : AddSafeZoneVC = R.storyboard.major.addSafeZoneVC()  {
             vc.editFenceDataSounrce = self.fences[indexPath.row]
             vc.fences = self.fences

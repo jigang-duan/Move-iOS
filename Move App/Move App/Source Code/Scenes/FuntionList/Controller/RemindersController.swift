@@ -87,7 +87,7 @@ class RemindersController: UIViewController {
             calendar.isHidden = true
         
             imageempty.image = R.image.reminder_empty()
-            label.text = "No alarm this day,tap "+" to add a alarm."
+            label.text = "No alarm this day,tap \"+\" to add a alarm."
         }else
         {
             self.changeBtnType(time: -1, date: Date.today().startDate)
@@ -95,7 +95,7 @@ class RemindersController: UIViewController {
             tableviewtopConstraint.constant = 0
             calendar.isHidden = true
             imageempty.image = R.image.todolist_empty()
-            label.text = "No reminder this day,tap "+" to add a to do list."
+            label.text = "No reminder this day,tap \"+\" to add a to do list."
         }
         self.tableViw.reloadData()
     }

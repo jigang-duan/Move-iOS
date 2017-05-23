@@ -11,7 +11,7 @@ import CustomViews
 import RxSwift
 
 protocol SafezoneCellDelegate {
-    func switchDid(cell: SafezoneCell, model: KidSate.ElectronicFencea)
+    func switchDid(cell: SafezoneCell, model: KidSate.ElectronicFencea,autopositionBool: Bool,adminBool: Bool,vc: UIViewController,other1: Bool,other2: Bool)
 }
 
 class SafezoneCell: UITableViewCell {
@@ -21,6 +21,13 @@ class SafezoneCell: UITableViewCell {
     @IBOutlet weak var switchOnOffQutiet: SwitchButton!
     @IBOutlet weak var addrLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    var autopositioningBool: Bool? = false
+    var adminBool: Bool? = false
+    var autoAnswer: Bool?
+    var savePower: Bool?
+    var vc: UIViewController?
+    
     var disposeBag = DisposeBag()
     var model: KidSate.ElectronicFencea? = nil {
         didSet {
@@ -33,12 +40,65 @@ class SafezoneCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+       
         switchOnOffQutiet.closureSwitch = { [unowned self] isOn in
             if let model = self.model {
-                
                 var vmodel = model
+                let autopositionBool = self.autopositioningBool
+                let admindBool = self.adminBool
+                let vcc = self.vc
+                let other11 = self.autoAnswer
+                let other22 = self.savePower
                 vmodel.active = isOn
-                self.delegate?.switchDid(cell: self, model: vmodel)
+                self.delegate?.switchDid(cell: self, model: vmodel, autopositionBool: autopositionBool!, adminBool: admindBool!, vc: vcc!, other1: other11!, other2: other22!)
+                if isOn{
+                if admindBool! {
+                    if !autopositionBool! {
+                        let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please open Auto-positioning, it will consume more power", preferredStyle: .alert)
+                        let notOpen = UIAlertAction(title: "Not open", style: .cancel, handler: nil)
+                        let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
+                            //发起请求打开open auto-positioning按钮
+                           WatchSettingsManager.share.updateSavepowerAndautoAnswer(other11!, savepower: other22!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
+                            
+                            }).addDisposableTo(self.disposeBag)
+                            
+                        })
+                        alertController.addAction(notOpen)
+                        alertController.addAction(open)
+                        
+                        vcc?.present(alertController, animated: true, completion: nil)
+                    }
+                }else{
+                    if !autopositionBool! {
+                        let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please inform master to open Auto-positioning", preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+                            self.switchOnOffQutiet.isOn = false
+                            vmodel.active = false
+                            
+                            let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat: vmodel.location?.location?.latitude, lng: vmodel.location?.location?.longitude, addr: vmodel.location?.address)
+                            let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id: vmodel.ids, name: vmodel.name, location: fenceloc, radius: vmodel.radius, active: vmodel.active)
+                            let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                            
+                            MoveApi.ElectronicFence.settingFence(fenceId : (vmodel.ids)!, fenceReq: fencereq)
+                                .subscribe(onNext: {
+                                    print($0)
+                                    if $0.msg != "ok" {
+                                        
+                                    }else{
+                                        
+                                    }
+                                }).addDisposableTo(self.disposeBag)
+                            
+                        })
+                        let stillOpen = UIAlertAction(title: "Still open", style: .default, handler: nil)
+                        
+                        alertController.addAction(cancel)
+                        alertController.addAction(stillOpen)
+                        vcc?.present(alertController, animated: true, completion: nil)
+                    }
+                }
+                }
+
                  let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat: vmodel.location?.location?.latitude, lng: vmodel.location?.location?.longitude, addr: vmodel.location?.address)
                 let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id: vmodel.ids, name: vmodel.name, location: fenceloc, radius: vmodel.radius, active: vmodel.active)
                 let fencereq = MoveApi.FenceReq(fence : fenceinfo)
@@ -52,9 +112,6 @@ class SafezoneCell: UITableViewCell {
                             
                         }
                     }).addDisposableTo(self.disposeBag)
-
-               
-              
                 
             }
         }

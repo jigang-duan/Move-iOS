@@ -49,6 +49,8 @@ class AccountKidsRulesuserController: UITableViewController {
     let disposeBag = DisposeBag()
     
     let enterSubject = PublishSubject<Bool>()
+   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,10 +82,10 @@ class AccountKidsRulesuserController: UITableViewController {
         viewModel.autoAnswereEnable.drive(autoAnswerQutel.rx.on).addDisposableTo(disposeBag)
         viewModel.autoPosistionEnable.drive(autopositiQutel.rx.on).addDisposableTo(disposeBag)
         
-//        viewModel.activityIn
-//            .map({ !$0 })
-//            .drive(onNext: userInteractionEnabled)
-//            .addDisposableTo(disposeBag)
+        viewModel.activityIn
+            .map({ !$0 })
+            .drive(onNext: userInteractionEnabled)
+            .addDisposableTo(disposeBag)
         
         // 判断当前是否是管理员
         DeviceManager.shared.getContacts(deviceId: RxStore.shared.currentDeviceId.value!)
@@ -126,22 +128,16 @@ class AccountKidsRulesuserController: UITableViewController {
             .map{ $0.newVersion == nil }
             .bindTo(updateNewLab.rx.isHidden)
             .addDisposableTo(disposeBag)
-      //默认闹钟
-//        KidSettingsManager.shared.fetchreminder()
-//            .map { $0.alarms }
-//            .filter { $0.count == 0 }
-//            .flatMapLatest { (_) in
-//                KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: Date(timeIntervalSince1970: 28800), day: [true,true,true,true,true,false,false], active: false))
-//            }
-//            .bindNext { Logger.debug($0) }
-//            .addDisposableTo(disposeBag)
+
         
     }
-
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         enterSubject.onNext(true)
         propelToTargetController()
+        viewDidLoad()
     }
 
     
@@ -164,6 +160,9 @@ class AccountKidsRulesuserController: UITableViewController {
         //safe zone
         if let vc = R.segue.accountKidsRulesuserController.showSafezone(segue: segue)?.destination {
             vc.autopositioningBool = autopositiQutel.isOn
+            vc.adminBool = isAdmin
+           vc.autoAnswer = autoAnswerQutel.isOn
+           vc.savePower = savePowerQutel.isOn
         }
         
         //apn
