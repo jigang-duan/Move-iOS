@@ -55,12 +55,22 @@ class AccountKidsRulesuserController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+    }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        enterSubject.onNext(true)
+        propelToTargetController()
+        
         updateNewLab.isHidden = true
         
         isAdmin = DeviceManager.shared.currentDevice?.adminId == UserInfo.shared.id
-
+        
         initializeI18N()
-
+        
         let viewModel = AccountKidsRulesuserViewModel(
             input: (
                 savePower: savePowerQutel.rx.value.asDriver(),
@@ -109,7 +119,7 @@ class AccountKidsRulesuserController: UITableViewController {
         let property = RxStore.shared.deviceIdObservable
             .flatMapLatest { id -> Observable<DeviceProperty> in
                 DeviceManager.shared.getProperty(deviceId: id).catchErrorJustReturn(DeviceProperty()).filter({ $0.power != nil })
-            }
+        }
         property.bindNext { RxStore.shared.bind(property: $0) }.addDisposableTo(disposeBag)
         
         RxStore.shared.currentDevice
@@ -130,14 +140,6 @@ class AccountKidsRulesuserController: UITableViewController {
             .addDisposableTo(disposeBag)
 
         
-    }
-   
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        enterSubject.onNext(true)
-        propelToTargetController()
-        viewDidLoad()
     }
 
     
