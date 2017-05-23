@@ -80,6 +80,8 @@
 		118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */; };
 		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
+		11A66FF31ED3D1E700EAE093 /* AppUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A66FF21ED3D1E700EAE093 /* AppUpdate.swift */; };
+		11A66FF61ED3D5FD00EAE093 /* AppUpdate+Itunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A66FF51ED3D5FD00EAE093 /* AppUpdate+Itunes.swift */; };
 		11AEC1991EA7159F004F13A3 /* MapUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AEC1981EA7159F004F13A3 /* MapUtility.swift */; };
 		11CAEC831EC57FB7000CD6AA /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CAEC821EC57FB7000CD6AA /* MKMapView+Extensions.swift */; };
 		11D0BEC91E5E784F006F957E /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0BEC81E5E784F006F957E /* Business.swift */; };
@@ -448,6 +450,8 @@
 		118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
+		11A66FF21ED3D1E700EAE093 /* AppUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppUpdate.swift; path = AppUpdate/AppUpdate.swift; sourceTree = "<group>"; };
+		11A66FF51ED3D5FD00EAE093 /* AppUpdate+Itunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppUpdate+Itunes.swift"; path = "AppUpdate/AppUpdate+Itunes.swift"; sourceTree = "<group>"; };
 		11AEC1981EA7159F004F13A3 /* MapUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapUtility.swift; path = Shared/Common/Utils/MapUtility.swift; sourceTree = "<group>"; };
 		11CAEC821EC57FB7000CD6AA /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MKMapView+Extensions.swift"; path = "Shared/Extensisons/View/MKMapView+Extensions.swift"; sourceTree = "<group>"; };
 		11D0BEC81E5E784F006F957E /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
@@ -976,6 +980,22 @@
 				118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		11A66FF11ED3D1B700EAE093 /* AppUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				11A66FF21ED3D1E700EAE093 /* AppUpdate.swift */,
+			);
+			name = AppUpdate;
+			sourceTree = "<group>";
+		};
+		11A66FF41ED3D5B200EAE093 /* AppUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				11A66FF51ED3D5FD00EAE093 /* AppUpdate+Itunes.swift */,
+			);
+			name = AppUpdate;
 			sourceTree = "<group>";
 		};
 		11D0BECA1E5EBC09006F957E /* MeManager */ = {
@@ -1854,6 +1874,7 @@
 		E0C228E11E347D8700BCF83D /* network */ = {
 			isa = PBXGroup;
 			children = (
+				11A66FF41ED3D5B200EAE093 /* AppUpdate */,
 				E04621321E49739F007D3BD3 /* MoveWebAPI */,
 			);
 			path = network;
@@ -1967,6 +1988,7 @@
 		E0FA029B1E5C0544004A55BA /* Servers */ = {
 			isa = PBXGroup;
 			children = (
+				11A66FF11ED3D1B700EAE093 /* AppUpdate */,
 				113F2E441E9E128B00B3628C /* SOS */,
 				A56FF85B1E7D048C001E6148 /* FileManager */,
 				E9CF8A681E71369500E8D8E7 /* LocationManager */,
@@ -2619,6 +2641,7 @@
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
 				E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */,
 				FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */,
+				11A66FF31ED3D1E700EAE093 /* AppUpdate.swift in Sources */,
 				FFB543AF1E7175C400E11F5A /* MeLogoutController.swift in Sources */,
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,
 				FF02FBC71E6804EE008D0C84 /* DeviceManager.swift in Sources */,
@@ -2706,6 +2729,7 @@
 				E03B1BDB1E4D527D006EDB7B /* BaseAnnotation.swift in Sources */,
 				FF4925361E8B91470010CE84 /* Ble+Apn.swift in Sources */,
 				D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */,
+				11A66FF61ED3D5FD00EAE093 /* AppUpdate+Itunes.swift in Sources */,
 				11DA65FE1EC32DEC00552578 /* UIImageView+Extensions.swift in Sources */,
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
 				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,

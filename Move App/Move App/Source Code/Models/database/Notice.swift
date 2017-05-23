@@ -37,6 +37,8 @@ import RealmSwift
  24 - 设备开始升级
  25 - 固件下载失败，需重新下载
  26 - 手表check下载url失败
+ 
+ 400 - APP升级
  */
 // MARK: - Notice Type
 /// -- 与 服务器接口类型 定义一致
@@ -68,7 +70,9 @@ enum NoticeType: Int {
     case deviceUpdateStarted = 24
     case deviceDownloadDefeated = 25
     case deviceCheckDefeated = 26
-
+    
+    case appUpdate = 400
+    
     case unknown = -1
 }
 

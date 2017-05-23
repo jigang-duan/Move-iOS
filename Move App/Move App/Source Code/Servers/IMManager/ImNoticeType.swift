@@ -328,6 +328,8 @@ extension ImNoticeType {
             self = .unknown
         case .bindRandomCode:
             self = .unknown
+        case .appUpdate:
+            self = .unknown
         case .unknown:
             self = .unknown
         }
