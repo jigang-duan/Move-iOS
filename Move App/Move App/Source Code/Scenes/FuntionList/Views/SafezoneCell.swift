@@ -11,7 +11,7 @@ import CustomViews
 import RxSwift
 
 protocol SafezoneCellDelegate {
-    func switchDid(cell: SafezoneCell, model: KidSate.ElectronicFencea,autopositionBool: Bool,adminBool: Bool,vc: UIViewController,other1: Bool,other2: Bool)
+    func switchDid(cell: SafezoneCell, model: KidSate.ElectronicFencea,autopositionBool: Bool,adminBool: Bool,vc: UIViewController,other1: Bool,other2: Bool,btn: SwitchButton)
 }
 
 class SafezoneCell: UITableViewCell {
@@ -26,6 +26,7 @@ class SafezoneCell: UITableViewCell {
     var adminBool: Bool? = false
     var autoAnswer: Bool?
     var savePower: Bool?
+    var btn: SwitchButton?
     var vc: UIViewController?
     
     var disposeBag = DisposeBag()
@@ -49,8 +50,9 @@ class SafezoneCell: UITableViewCell {
                 let vcc = self.vc
                 let other11 = self.autoAnswer
                 let other22 = self.savePower
+                var btn = self.btn
                 vmodel.active = isOn
-                self.delegate?.switchDid(cell: self, model: vmodel, autopositionBool: autopositionBool!, adminBool: admindBool!, vc: vcc!, other1: other11!, other2: other22!)
+                self.delegate?.switchDid(cell: self, model: vmodel, autopositionBool: autopositionBool!, adminBool: admindBool!, vc: vcc!, other1: other11!, other2: other22!, btn: btn!)
                 if isOn{
                 if admindBool! {
                     if !autopositionBool! {
@@ -59,6 +61,8 @@ class SafezoneCell: UITableViewCell {
                         let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
                             //发起请求打开open auto-positioning按钮
                            WatchSettingsManager.share.updateSavepowerAndautoAnswer(other11!, savepower: other22!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
+    
+                                    btn?.isOn = true
                             
                             }).addDisposableTo(self.disposeBag)
                             

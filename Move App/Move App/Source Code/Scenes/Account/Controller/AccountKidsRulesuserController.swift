@@ -55,16 +55,6 @@ class AccountKidsRulesuserController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-    }
-   
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        enterSubject.onNext(true)
-        propelToTargetController()
-        
         updateNewLab.isHidden = true
         
         isAdmin = DeviceManager.shared.currentDevice?.adminId == UserInfo.shared.id
@@ -141,6 +131,16 @@ class AccountKidsRulesuserController: UITableViewController {
 
         
     }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        enterSubject.onNext(true)
+        propelToTargetController()
+        
+        
+        
+    }
 
     
     func userInteractionEnabled(enable: Bool) {
@@ -162,6 +162,7 @@ class AccountKidsRulesuserController: UITableViewController {
         //safe zone
         if let vc = R.segue.accountKidsRulesuserController.showSafezone(segue: segue)?.destination {
             vc.autopositioningBool = autopositiQutel.isOn
+            vc.autopositioningBtn = autopositiQutel
             vc.adminBool = isAdmin
            vc.autoAnswer = autoAnswerQutel.isOn
            vc.savePower = savePowerQutel.isOn

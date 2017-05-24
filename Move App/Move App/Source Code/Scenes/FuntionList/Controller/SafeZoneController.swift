@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import DZNEmptyDataSet
+import CustomViews
 
 class SafeZoneController: UIViewController {
     
@@ -24,6 +25,7 @@ class SafeZoneController: UIViewController {
     var adminBool: Bool?
     var autoAnswer: Bool?
     var savePower: Bool?
+    var autopositioningBtn: SwitchButton?
     var disposeBag = DisposeBag()
     
     var fences: [KidSate.ElectronicFencea] = []
@@ -104,6 +106,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         cell.adminBool = adminBool
         cell.autoAnswer = autoAnswer
         cell.savePower = savePower
+        cell.btn = autopositioningBtn
         cell.vc = self
         
         return cell
