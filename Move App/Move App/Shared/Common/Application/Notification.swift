@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import ObjectMapper
 
 // MARK: Notification
 extension ApplicationManager {
@@ -44,11 +45,13 @@ extension AppDelegate {
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         Logger.verbose("notification Receive: \(notification)")
     }
-    
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+
         Logger.verbose("notification Receive : \(userInfo)")
         NotificationService.shared.delegate?.didReceiveRemoteNotification?(userInfo)
     }
+    
     
     // Handle
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Void) {
@@ -69,3 +72,4 @@ extension AppDelegate {
     }
     
 }
+
