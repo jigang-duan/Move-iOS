@@ -118,9 +118,9 @@ class SchoolTimeViewModel {
     
    fileprivate func sortschooltime(_ flags: [Bool]) -> [Bool] {
         var fs = flags
-        let flag = fs.first!
-        _ = fs.remove(at: 0)
-        _ = fs.append(flag)
+//        let flag = fs.first!
+//        _ = fs.remove(at: 0)
+//        _ = fs.append(flag)
         return fs
     }
 

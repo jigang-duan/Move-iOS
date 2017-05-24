@@ -66,7 +66,7 @@ class RemindersCell: UITableViewCell {
         let week : [String] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Every day","School day"]
         var s : String = ""
         var weekss = weeks
-        weekss.insert(weeks.last!, at: 0)
+//        weekss.insert(weeks.last!, at: 0)
         for index in 0 ... 6{
             if weekss[index]{
                 s += week[index]

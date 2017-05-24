@@ -319,8 +319,8 @@ extension MoveApiKidSettingsWorker {
     
     func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
         var days: [Int] = []
-        for i in 1 ... 7 {
-            if alarm.day[i - 1] {
+        for i in 0 ... 6 {
+            if alarm.day[i] {
                 days.append(i)
             }
         }
@@ -333,8 +333,8 @@ extension MoveApiKidSettingsWorker {
         wrap.periods = [MoveApi.SchoolTimePeriod(start: schoolTime.amStartPeriod, end: schoolTime.amEndPeriod),
                         MoveApi.SchoolTimePeriod(start: schoolTime.pmStartPeriod, end: schoolTime.pmEndPeriod)]
         var days: [Int] = []
-        for i in 1 ... 7 {
-            if schoolTime.days[i - 1] {
+        for i in 0 ... 6 {
+            if schoolTime.days[i] {
                 days.append(i)
             }
         }
@@ -354,8 +354,8 @@ extension MoveApiKidSettingsWorker {
     
     private func days(every: [Bool]) -> [Int] {
         var days: [Int] = []
-        for i in 1 ... 7 {
-            if every[i - 1] {
+        for i in 0 ... 6 {
+            if every[i] {
                 days.append(i)
             }
         }
@@ -385,9 +385,9 @@ extension MoveApiKidSettingsWorker {
         }
         
         var days = [false, false, false, false, false, false, false]
-        for i in 1 ... 7 {
+        for i in 0 ... 6 {
             if let _days = time.days, _days.contains(i) {
-                days[i - 1] = true
+                days[i] = true
             }
         }
         return KidSetting.SchoolTime(
@@ -411,9 +411,9 @@ extension MoveApiKidSettingsWorker {
     
     private func daysToBool(timeDays: [Int]?) -> [Bool] {
         var days = [false, false, false, false, false, false, false]
-        for i in 1 ... 7 {
+        for i in 0 ... 6 {
             if let _days = timeDays, _days.contains(i) {
-                days[i - 1] = true
+                days[i] = true
             }
         }
         return days
