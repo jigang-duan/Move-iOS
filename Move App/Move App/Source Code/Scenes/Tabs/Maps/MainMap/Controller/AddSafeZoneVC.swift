@@ -25,6 +25,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     var circleOverlay:MKCircle?
     var blPinChBegin = false
     
+    var item: UIBarButtonItem?
 //    var nameTextField : UITextField!
     
     var disposeBag = DisposeBag()
@@ -42,13 +43,15 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var RadiusL: UILabel!
     @IBOutlet weak var safeZoneSlider: UISlider!
     
+    
+    
     var centerss : CLLocationCoordinate2D?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        let item=UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
-        self.navigationItem.rightBarButtonItem=item
+        item = UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
+        self.navigationItem.rightBarButtonItem = item
         
        
     }
@@ -322,6 +325,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     
     func SaveNewSafeZone() {
+        item?.isEnabled = false
         let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
@@ -333,6 +337,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         if ( self.editFenceDataSounrce?.ids != self.fences[i].ids ){
                             if self.fences[i].name == self.kidnameTF.text {
                                 self.errorshow(message: "Enter a new, previously unused name.")
+                                self.item?.isEnabled = true
                                 issame = true
                             }
                         }
@@ -357,6 +362,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     for i in 0..<self.fences.count {
                             if self.fences[i].name == self.kidnameTF.text {
                                 self.errorshow(message: "Enter a new, previously unused name.")
+                                self.item?.isEnabled = true
                                 issame = true
                             }
                     }
@@ -369,6 +375,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                                 print($0)
                                 if $0.msg != "ok" {
                                     self.errorshow(message: $0.field!)
+                                    self.item?.isEnabled = true
                                 }else{
                                     self.navigationController?.popViewController(animated: true)
                                 }
@@ -377,11 +384,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 }
             } else {
                 self.errorshow(message: "Enter a new, previously unused name.")
+                self.item?.isEnabled = true
             }
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
+            self.item?.isEnabled = true
         })
         
         
@@ -393,6 +402,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     
     func EditSafeZone() {
+       
         let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
@@ -406,6 +416,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 }
                 if asSame {
                     self.errorshow(message: "Enter a new, previously unused name.")
+                    
                 }else
                 {
                     var fenceloc : MoveApi.Fencelocation? = nil
@@ -424,10 +435,12 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         print($0)
                         if $0.msg != "ok" {
                             self.errorshow(message: $0.field!)
+                            
                         }else{
                             let _ = self.navigationController?.popViewController(animated: true)
                         }
                         }.addDisposableTo(self.disposeBag)
+                    
                 }
 
                 }
@@ -438,12 +451,14 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
+           
         })
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
+        
     }
 
     /*
