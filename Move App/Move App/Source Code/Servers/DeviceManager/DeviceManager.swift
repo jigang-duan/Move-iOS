@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 
 
+var DeviceAdmins = [String:String]()// [adminId:deviceId]
+
 class DeviceManager {
     
     static let shared = DeviceManager()
@@ -181,7 +183,6 @@ struct DeviceInfo {
     var deviceId: String?
     var user: DeviceUser?
     var property: DeviceProperty?
-    var adminId: String?
 }
 
 enum DeviceType {

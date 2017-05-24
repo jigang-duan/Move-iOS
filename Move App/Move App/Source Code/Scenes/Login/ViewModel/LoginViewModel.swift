@@ -51,7 +51,13 @@ class LoginViewModel {
             .map { validation.validateEmail($0) }
         
         validatedPassword = input.passwd
-            .map { validation.validatePassword($0) }
+            .map { pswd in
+                if pswd.characters.count > 0 {
+                    return ValidationResult.ok(message: "")
+                }else{
+                    return ValidationResult.empty
+                }
+            }
         
         let signingIn = ActivityIndicator()
         self.loggingIn = signingIn.asDriver()

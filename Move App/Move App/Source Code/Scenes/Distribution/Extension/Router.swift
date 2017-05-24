@@ -150,14 +150,11 @@ class Distribution {
     
     
     func popToLoginScreen() {
-        guard let current = self.currentViewCotroller else {
+        if let current = self.currentViewCotroller, current is LoginViewController {
             return
         }
-        if current is LoginViewController {
-            return
-        }
-        self.backToDistribution() {
-            current.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+        self.backToDistribution() { [weak self] in
+            self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
         }
     }
     
