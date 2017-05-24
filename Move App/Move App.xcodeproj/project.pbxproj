@@ -103,6 +103,7 @@
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
 		11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F71CF71EA9F0360066B9FC /* Preferences.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
+		7F62A0AB1ED5728E00ADDF9E /* MoveApns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */; };
 		93015C121EC43E76002D08C3 /* AuthenCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C0D1EC43E76002D08C3 /* AuthenCryptor.m */; };
 		93015C131EC43E76002D08C3 /* Encryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C0F1EC43E76002D08C3 /* Encryptor.m */; };
 		93015C141EC43E76002D08C3 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C111EC43E76002D08C3 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -480,6 +481,7 @@
 		30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E731807D2860715DF8F413 /* Pods_Move_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.debug.xcconfig"; sourceTree = "<group>"; };
+		7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApns.swift; sourceTree = "<group>"; };
 		85B2640603391AC6872E01CD /* Pods-Move AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C4A2CD5C2A7BA27AE209FE9 /* Pods-Move AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		93015C0C1EC43E76002D08C3 /* AuthenCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenCryptor.h; path = Vendor/AuthenCryptor/AuthenCryptor.h; sourceTree = "<group>"; };
@@ -1097,6 +1099,14 @@
 				BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7F62A0A91ED5728E00ADDF9E /* MoveApns */ = {
+			isa = PBXGroup;
+			children = (
+				7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */,
+			);
+			path = MoveApns;
 			sourceTree = "<group>";
 		};
 		93015C0B1EC43E5B002D08C3 /* AuthenCryptor */ = {
@@ -1874,6 +1884,7 @@
 		E0C228E11E347D8700BCF83D /* network */ = {
 			isa = PBXGroup;
 			children = (
+				7F62A0A91ED5728E00ADDF9E /* MoveApns */,
 				11A66FF41ED3D5B200EAE093 /* AppUpdate */,
 				E04621321E49739F007D3BD3 /* MoveWebAPI */,
 			);
@@ -2739,6 +2750,7 @@
 				E0931F381E30CACE00755B4A /* BaseViewController.swift in Sources */,
 				FFF4E3221EC4087600E9148F /* WatchFriendsCell.swift in Sources */,
 				FF08590C1E72372B00EB81D9 /* MeSetPasswordVC.swift in Sources */,
+				7F62A0AB1ED5728E00ADDF9E /* MoveApns.swift in Sources */,
 				E0C229001E35DCB300BCF83D /* Reachability.swift in Sources */,
 				A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */,
 				FF2144151EA6FF6C00BA7C7B /* AboutViewController.swift in Sources */,
