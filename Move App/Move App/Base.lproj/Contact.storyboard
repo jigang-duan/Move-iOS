@@ -713,7 +713,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Emergency number" id="fgA-FE-tVW">
                         <barButtonItem key="backBarButtonItem" title="   " id="oG9-cy-XDc"/>
-                        <barButtonItem key="rightBarButtonItem" title="save" id="VF7-T0-E2C"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="VF7-T0-E2C"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -931,7 +931,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Family member" id="sZP-LI-HTI">
                         <barButtonItem key="backBarButtonItem" title="   " id="d6c-FA-eMP"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="X66-4i-75m"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="X66-4i-75m"/>
                     </navigationItem>
                     <connections>
                         <outlet property="deleteBun" destination="SXj-jQ-bPF" id="X4p-CL-CYq"/>
@@ -1114,7 +1114,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Family member" id="WCe-Oo-Bf0">
                         <barButtonItem key="backBarButtonItem" title="   " id="p4m-42-VVJ"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="xTy-zT-lXf"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="xTy-zT-lXf"/>
                     </navigationItem>
                     <connections>
                         <outlet property="identityLab" destination="rdi-N3-LwR" id="2FB-cJ-aDF"/>

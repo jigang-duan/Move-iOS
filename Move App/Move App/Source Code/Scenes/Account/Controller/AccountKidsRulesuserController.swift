@@ -12,6 +12,7 @@ import RxCocoa
 import CustomViews
 
 
+
 class AccountKidsRulesuserController: UITableViewController {
     
     @IBOutlet weak var watchContactCell: UITableViewCell!
@@ -46,10 +47,7 @@ class AccountKidsRulesuserController: UITableViewController {
     
     var isAdmin = false
 
-    let disposeBag = DisposeBag()
-    
-    let enterSubject = PublishSubject<Bool>()
-   
+    private let disposeBag = DisposeBag()
     
     
     override func viewDidLoad() {
@@ -57,7 +55,9 @@ class AccountKidsRulesuserController: UITableViewController {
         
         updateNewLab.isHidden = true
         
-        isAdmin = DeviceManager.shared.currentDevice?.adminId == UserInfo.shared.id
+        let deviceId = (DeviceManager.shared.currentDevice?.deviceId)!
+        
+        self.isAdmin = UserInfo.shared.id == DeviceAdmins[deviceId]
         
         initializeI18N()
         
@@ -88,10 +88,10 @@ class AccountKidsRulesuserController: UITableViewController {
             .addDisposableTo(disposeBag)
         
         // 判断当前是否是管理员
-        DeviceManager.shared.getContacts(deviceId: RxStore.shared.currentDeviceId.value!)
+        DeviceManager.shared.getContacts(deviceId: deviceId)
             .map({ contacts -> String? in
                 let adminId = contacts.filter { $0.admin == true }.first?.uid
-                DeviceManager.shared.currentDevice?.adminId = adminId
+                DeviceAdmins.updateValue(adminId!, forKey: deviceId)
                 return adminId
             })
             .filterNil()
@@ -134,12 +134,7 @@ class AccountKidsRulesuserController: UITableViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        enterSubject.onNext(true)
         propelToTargetController()
-        
-        
-        
     }
 
     
