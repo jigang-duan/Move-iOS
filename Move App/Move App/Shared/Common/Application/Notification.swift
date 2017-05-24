@@ -8,7 +8,7 @@
 
 import UIKit
 import UserNotifications
-import ObjectMapper
+
 
 // MARK: Notification
 extension ApplicationManager {
@@ -49,6 +49,10 @@ extension AppDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
 
         Logger.verbose("notification Receive : \(userInfo)")
+        
+        if application.applicationState == UIApplicationState.active{
+            return //app在前台直接返回不进行任何跳转操作
+        }
         NotificationService.shared.delegate?.didReceiveRemoteNotification?(userInfo)
     }
     
