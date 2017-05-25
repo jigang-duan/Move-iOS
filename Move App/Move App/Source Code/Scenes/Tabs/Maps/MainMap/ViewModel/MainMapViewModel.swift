@@ -93,12 +93,16 @@ class MainMapViewModel {
             .map({ _ in Void() })
             .shareReplay(1)
         
-        let remindActivitying = PublishSubject<Bool>()
+        let remindActivitying = BehaviorSubject<Bool>(value: false)
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         
         let errorSubject = PublishSubject<Error>()
         
-        let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground).map{_ in Void() }
+        let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground)
+            .withLatestFrom(remindActivitying.asObservable())
+            .filter { !$0 }
+            .map{_ in Void() }
+        
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
             .throttle(1.0, scheduler: MainScheduler.instance)
