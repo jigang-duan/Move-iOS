@@ -328,7 +328,7 @@ extension ImNoticeType {
             self = .unknown
         case .bindRandomCode:
             self = .unknown
-        case .appUpdate:
+        case .appUpdateVersion, .deviceUpdateVersion:
             self = .unknown
         case .unknown:
             self = .unknown

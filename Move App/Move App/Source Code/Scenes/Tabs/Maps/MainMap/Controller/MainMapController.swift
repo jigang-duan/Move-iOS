@@ -182,7 +182,7 @@ class MainMapController: UIViewController {
             .drive(onNext: { Logger.debug("地图Annotion个数: \($0.count)")})
             .addDisposableTo(disposeBag)
         
-        Observable.combineLatest(viewModel.kidType.map({ $0.description }), viewModel.kidAddress) { "\($1)" }
+        viewModel.kidAddress
             .bindTo(addressScrollLabel.rx.text)
             .addDisposableTo(disposeBag)
         

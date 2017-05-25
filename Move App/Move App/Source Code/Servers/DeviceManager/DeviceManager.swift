@@ -136,6 +136,14 @@ extension DeviceManager {
         }
         return worker.fetchPower(deviceId: deviceId)
     }
+    
+    func newVersions(device id: String) -> Observable<String> {
+        return getProperty(deviceId: id)
+            .map { DeviceVersionCheck(deviceId: id, property: $0) }
+            .flatMapLatest { DeviceManager.shared.checkVersion(checkInfo: $0) }
+            .map { $0.newVersion }
+            .filterNil()
+    }
 }
 
 
@@ -387,6 +395,13 @@ struct TimezoneInfo {
 }
 
 
-
-
+fileprivate extension DeviceVersionCheck {
+    
+    init(deviceId: String, property: DeviceProperty) {
+        self.init(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
+        if let fv = property.firmware_version, fv.characters.count > 6 {
+            self.fv = fv.replacingCharacters(in: Range(uncheckedBounds: (lower: fv.index(fv.startIndex, offsetBy: 4), upper: fv.index(fv.endIndex, offsetBy: -2))), with: "")
+        }
+    }
+}
 

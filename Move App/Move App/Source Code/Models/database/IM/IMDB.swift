@@ -33,10 +33,24 @@ class ImDateBase {
     }
     
     func fetchUnreadMessageCount(uid: String, devUid: String) -> Observable<Int> {
-        guard let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
+        guard
+            let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
             let group = groups.filter({ $0.members.contains(where: { $0.id == devUid }) }).first else {
                 return Observable.empty()
         }
         return Observable.collection(from: group.messages).map{ $0.filter("readStatus == 0").count }
+    }
+    
+    var appVsersion: String? {
+        return realm.objects(NoticeEntity.self).filter("type == %d", NoticeType.appUpdateVersion.rawValue).last?.content
+    }
+    
+    func deviceVsersion(uid: String, devUID: String) -> String? {
+        guard
+            let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
+            let group = groups.filter({ $0.members.contains(where: { $0.id == devUID }) }).first else {
+                return nil
+        }
+        return group.notices.filter("type == %d", NoticeType.deviceUpdateVersion.rawValue).last?.content
     }
 }

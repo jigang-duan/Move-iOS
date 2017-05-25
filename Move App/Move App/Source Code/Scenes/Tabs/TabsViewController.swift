@@ -66,10 +66,20 @@ class TabsViewController: UITabBarController {
             }
             .filter { $0 == nil }
             .flatMapLatest { (_) in
-                DeviceManager.shared.fetchDevices().map({ $0.first?.deviceId }).catchErrorJustReturn(nil).filterNil()
+                DeviceManager.shared.fetchDevices().map{ $0.first?.deviceId }.catchErrorJustReturn(nil).filterNil()
             }
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(bag)
+        
+        
+        Observable.just(()).delay(5.0, scheduler: MainScheduler.instance).debug()
+            .flatMapLatest { RxStore.shared.deviceInfosObservable }
+            .take(1).debug()
+            .bindNext {_ in
+                Logger.debug("fdfdfdf")
+            }
+            .addDisposableTo(bag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
