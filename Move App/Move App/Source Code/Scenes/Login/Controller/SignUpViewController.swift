@@ -25,6 +25,7 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var signUpBtn: UIButton!
  
+    @IBOutlet weak var terms_privacy: UITextView!
     var disposeBag = DisposeBag()
     
     
@@ -126,6 +127,21 @@ class SignUpViewController: UIViewController {
         passwordTf.placeholder = R.string.localizable.id_password()
         rePasswordTf.placeholder = R.string.localizable.id_re_enter_password()
         signUpBtn.setTitle(R.string.localizable.id_sign_up(), for: .normal)
+        
+        
+        
+        let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
+        
+        let termsUrl = URL(string: "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/" + language)!
+        let privacyUrl = URL(string: "http://www.tcl-move.com/help/#/mt30_privacy_policy/" + language)!
+        
+        let terms = NSAttributedString(string: "Terms of use", attributes: [NSUnderlineStyleAttributeName: 1,NSLinkAttributeName: termsUrl,NSUnderlineColorAttributeName: UIColor.darkGray])
+        let privacy = NSAttributedString(string: "Privacy and Secunity", attributes: [NSUnderlineStyleAttributeName: 1,NSLinkAttributeName: privacyUrl,NSUnderlineColorAttributeName: UIColor.darkGray])
+        let link = NSMutableAttributedString(string: "I have read and agree with ", attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
+        link.append(terms)
+        link.append(NSAttributedString(string: " , "))
+        link.append(privacy)
+        terms_privacy.attributedText = link
     }
     
     
@@ -245,27 +261,6 @@ class SignUpViewController: UIViewController {
         rePasswordTf.isSecureTextEntry = !sender.isSelected
     }
 
-   
-    
-    //返回上一级页面
-    @IBAction func BackAction(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    //使用条款
-    @IBAction func UseTermsAction(_ sender: AnyObject) {
-        let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
-        
-        let url = URL(string: "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/" + language)!
-        
-        if #available(iOS 9.0, *) {
-            let sVC = SFSafariViewController(url: url)
-            self.present(sVC, animated: true, completion: nil)
-        } else {
-            let webVC = WebViewController()
-            webVC.targetURL = url
-            self.navigationController?.show(webVC, sender: nil)
-        }
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

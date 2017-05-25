@@ -63,17 +63,6 @@ class UpgradeController: UIViewController {
                 self.updateDownloadButton(isEnable: valid)
             })
             .addDisposableTo(disposeBag)
-    
-        let devidUID = RxStore.shared.currentDevice.map({ $0.user?.uid }).filterNil()
-        MessageServer.share.firmwareUpdate?
-            .withLatestFrom(devidUID) { ($0, $1) }
-            .filter({ $0.deviceUID == $1 })
-            .map({ $0.0 })
-            .subscribe(onNext: { type in
-                self.updateDownloadStatus(with: type)
-            })
-            .addDisposableTo(disposeBag)
-        
         
         viewModel.downResult
             .drive(onNext: { [unowned self] result in
@@ -89,6 +78,21 @@ class UpgradeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //放这里防止UI显示问题
+        let devidUID = RxStore.shared.currentDevice.map({ $0.user?.uid }).filterNil()
+        MessageServer.share.firmwareUpdate?
+            .withLatestFrom(devidUID) { ($0, $1) }
+            .filter({ $0.deviceUID == $1 })
+            .map({ $0.0 })
+            .subscribe(onNext: { type in
+                self.updateDownloadStatus(with: type)
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
     
     
     func updateDownloadStatus(with type: FirmwareUpdateType) {
@@ -106,6 +110,7 @@ class UpgradeController: UIViewController {
         case .checkDefeated:
             self.fetchProperty()
         case .progressDownload:
+            self.updateDownloadButton(isEnable: false)
             let progress = type.progress
             print("下载进度===\(progress)")
             self.downloadProgress.value = progress
