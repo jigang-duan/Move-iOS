@@ -94,7 +94,6 @@ class MessageServer {
                 .filter { $0.imType.isFirmwareUpdate }
                 .map{ FirmwareUpdateType(notice: $0) }
                 .filterNil()
-                .distinctUntilChanged(distinctUntil)
             
             
             lowBattery = reNotice.filter{ $0.imType == .lowBatteryAlert }.map{_ in Void() }

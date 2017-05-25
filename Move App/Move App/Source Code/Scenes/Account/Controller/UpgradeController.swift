@@ -37,6 +37,7 @@ class UpgradeController: UIViewController {
     var downloadBlur: UIView?
     var progressLab: UILabel?
     
+    private var lastProgress = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,12 +111,15 @@ class UpgradeController: UIViewController {
         case .checkDefeated:
             self.fetchProperty()
         case .progressDownload:
-            self.updateDownloadButton(isEnable: false)
             let progress = type.progress
-            print("下载进度===\(progress)")
-            self.downloadProgress.value = progress
-            self.makeDownloadBlur(progress: self.downloadProgress.value)
-            self.tipLab.isHidden = false
+            if lastProgress < progress {
+                lastProgress = progress
+                self.updateDownloadButton(isEnable: false)
+                print("下载进度===\(progress)")
+                self.downloadProgress.value = progress
+                self.makeDownloadBlur(progress: self.downloadProgress.value)
+                self.tipLab.isHidden = false
+            }
         }
     }
     
@@ -210,7 +214,7 @@ class UpgradeController: UIViewController {
                 }
                 
                 var type = FirmwareUpdateType.updateSucceed(deviceId)
-                if let status = Int(property.fota_sta ?? "") {
+                if let status = property.fota_sta {
                     if status >= 0 && status <= 100 {
                         type = .progressDownload(deviceId, status)
                     }else{

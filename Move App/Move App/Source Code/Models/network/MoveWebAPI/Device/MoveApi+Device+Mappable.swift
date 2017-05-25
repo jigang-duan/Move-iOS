@@ -111,7 +111,7 @@ extension MoveApi {
         var languages: [String]?
         var power :Int?
         var maxgroups: Int?
-        var fota_sta: String?
+        var fota_sta: Int?
     }
     
     
