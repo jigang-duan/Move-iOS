@@ -101,7 +101,7 @@ final class MoveApiAccountTokenPlugin: PluginType {
                 let error_field = err.field, error_field == "access_token" {
                     UserInfo.shared.invalidate()
                     if MoveApi.canPopToLoginScreen {
-                            Distribution.shared.popToLoginScreen()
+                        Distribution.shared.popToLoginScreen(true)
                     }
                 }
         }

@@ -36,7 +36,7 @@ class UpdateServer {
 fileprivate extension NoticeEntity {
     convenience init(itunesLookupItem: ItunesLookupItem) {
         self.init()
-        self.id = Date().stringYearMonthDayHourMinuteSecond
+        self.id = "\(Date().timeIntervalSince1970),itunes"
         self.content = itunesLookupItem.version
         self.readStatus = ReadStatus.unread.rawValue
         self.type = NoticeType.appUpdateVersion.rawValue
@@ -45,7 +45,7 @@ fileprivate extension NoticeEntity {
     
     convenience init(newVersions: String, uid: String, devUID: String) {
         self.init()
-        self.id = Date().stringYearMonthDayHourMinuteSecond
+        self.id = "\(Date().timeIntervalSince1970),\(devUID)"
         self.from = devUID
         self.to = uid
         self.content = newVersions

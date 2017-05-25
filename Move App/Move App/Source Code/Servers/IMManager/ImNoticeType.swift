@@ -20,6 +20,7 @@ enum FirmwareUpdateType {
     case progressDownload(String, Int)
 }
 
+
 extension FirmwareUpdateType {
     
     var progress: Int {
@@ -110,6 +111,7 @@ enum ImNoticeType {
     
     case newFirmwareUpdate
     case firmwareUpdateInformation
+    case firmwareUpdateState
     case progressDownload
     
     case manuallyLocate
@@ -121,7 +123,7 @@ extension ImNoticeType {
     
     var isFirmwareUpdate: Bool {
         switch self {
-        case .firmwareUpdateInformation, .progressDownload:
+        case .firmwareUpdateInformation, .progressDownload, .firmwareUpdateState:
             return true
         default:
             return false
@@ -158,7 +160,7 @@ extension ImNoticeType {
     
     var atNotiicationPage: Bool {
         switch self {
-        case .unknown, .newFirmwareUpdate:
+        case .unknown, .newFirmwareUpdate, .firmwareUpdateState:
             return false
         default:
             return true
@@ -167,7 +169,7 @@ extension ImNoticeType {
     
     var isShowPopup: Bool {
         switch self {
-        case .unknown, .kidsAddANewFriend, .generalUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard, .manuallyLocate:
+        case .unknown, .kidsAddANewFriend, .generalUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard, .manuallyLocate, .firmwareUpdateState:
             return false
         default:
             return true
@@ -177,6 +179,7 @@ extension ImNoticeType {
     var needSave: Bool {
         return (self != .progressDownload) && (self != .manuallyLocate) && (self != .unknown)
     }
+    
 }
 
 enum NoticeAlertStyle {
@@ -243,7 +246,7 @@ extension ImNoticeType {
             return .update
         case .newFirmwareUpdate:
             return .download
-        case .firmwareUpdateInformation:
+        case .firmwareUpdateInformation, .firmwareUpdateState:
             return .default
         case .progressDownload:
             return .default
@@ -301,16 +304,19 @@ extension ImNoticeType {
         case .deviceUpdateDefeated:
             self = .firmwareUpdateInformation
         case .deviceUpdateStarted:
-            self = .firmwareUpdateInformation
+            self = .firmwareUpdateState
         case .deviceDownloadDefeated:
             self = .firmwareUpdateInformation
         case .deviceCheckDefeated:
-            self = .firmwareUpdateInformation
+            self = .firmwareUpdateState
         case .deviceDownloadStarted:
-            self = .firmwareUpdateInformation
+            self = .firmwareUpdateState
             
         case .instantPosition:
             self = .manuallyLocate
+            
+        case .appUpdateVersion, .deviceUpdateVersion:
+            self = .appUpdate
         
         case .deviceConfigurationUpdated:
             self = .unknown
@@ -327,8 +333,6 @@ extension ImNoticeType {
         case .roam:
             self = .unknown
         case .bindRandomCode:
-            self = .unknown
-        case .appUpdateVersion, .deviceUpdateVersion:
             self = .unknown
         case .unknown:
             self = .unknown

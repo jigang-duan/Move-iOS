@@ -21,7 +21,6 @@ class MessageServer {
     
     static let share = MessageServer()
     
-    var progressDownload: Observable<NoticeEntity>?
     var firmwareUpdate: Observable<FirmwareUpdateType>?
     
     var lowBattery: Observable<Void>!
@@ -90,18 +89,30 @@ class MessageServer {
             let reNotice = syncData.map { $0.notices }
                 .filterNil()
                 .flatMap { Observable.from($0) }
-                
-            progressDownload = reNotice.filter {  $0.imType == .progressDownload }
+            
             firmwareUpdate = reNotice
                 .filter { $0.imType.isFirmwareUpdate }
                 .map{ FirmwareUpdateType(notice: $0) }
                 .filterNil()
+                .distinctUntilChanged(distinctUntil)
+            
             
             lowBattery = reNotice.filter{ $0.imType == .lowBatteryAlert }.map{_ in Void() }
             manuallyLocate = reNotice.filter{ $0.imType == .manuallyLocate }.map{ _ in Void() }
             
-            reNotice.filter { $0.imType.needSave }
-                .filter { ($0.to == nil) || ($0.to == uid) }
+            let netNotice = reNotice.filter { $0.imType.needSave }.filter { ($0.to == nil) || ($0.to == uid) }
+            
+            let singleDevs = Observable.just(()).delay(5.0, scheduler: MainScheduler.instance)
+                .flatMapLatest { RxStore.shared.deviceInfosObservable }
+                .take(1)
+                .flatMapLatest{ Observable.from($0) }
+                .share()
+            let deviceUpdateNotice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(),
+                                                    RxStore.shared.uidObservable,
+                                                    singleDevs.map{ $0.user?.uid }.filterNil()) { ($0, $1, $2) }
+                .flatMapLatest { UpdateServer.shared.deviceUpdateNoctice(device: $0, uid: $1, devUID: $2) }
+            
+            Observable.merge(netNotice, deviceUpdateNotice)
                 .subscribe(onNext: { (notice) in
                     guard
                         let sync = syncObject.first,
@@ -120,6 +131,7 @@ class MessageServer {
                     }
                 })
                 .addDisposableTo(disposeBag)
+            
             
             syncData.map { $0.synckey }
                 .filterNil()
@@ -190,6 +202,15 @@ class MessageServer {
     
 
 }
+
+
+fileprivate func distinctUntil(f0: FirmwareUpdateType, f1: FirmwareUpdateType) -> Bool {
+    switch (f0, f1) {
+    case (.progressDownload(let a), .progressDownload(let b)) where a < b: return true
+    default: return false
+    }
+}
+
 
 fileprivate func transform(synckey: SynckeyEntity, groups: [ImGroup]) -> (SynckeyEntity, [GroupEntity]) {
     return (synckey, groups.map(transform))
