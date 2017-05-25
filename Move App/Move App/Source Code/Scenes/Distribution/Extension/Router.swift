@@ -153,16 +153,14 @@ class Distribution {
         if let current = self.currentViewCotroller, current is LoginViewController {
             return
         }
-        
-        if hasWireframe {
-            AlertWireframe.presentAlert("Your account has been used to log in on another device or has timed out, login again.",
-                                        title: nil,
-                                        iconURL: nil,
-                                        cancel: "OK")
-        }
-        
         self.backToDistribution() { [weak self] in
             self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+//            if hasWireframe {
+//                AlertWireframe.presentAlert("Your account has been used to log in on another device or has timed out, login again.",
+//                                            title: nil,
+//                                            iconURL: nil,
+//                                            cancel: "OK")
+//            }
         }
     }
     

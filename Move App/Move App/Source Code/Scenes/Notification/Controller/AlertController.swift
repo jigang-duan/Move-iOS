@@ -42,7 +42,7 @@ class NoticeAlertControoler {
         let $ = UIView(frame: CGRect(x: 0, y: 0,
                                      width: Main_Screen_Width,
                                      height: Main_Screen_Height))
-        $.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        $.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         return $
     }()
     

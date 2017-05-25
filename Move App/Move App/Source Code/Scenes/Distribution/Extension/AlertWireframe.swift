@@ -36,7 +36,7 @@ class AlertWireframe {
         alertView.alertTitle = title
         alertView.iconURL = iconURL
         if let cancel = cancel {
-            alertView.cancelAction = NoticeAlertControoler.Action(title: cancel)
+            alertView.cancelAction = NoticeAlertControoler.Action(title: cancel) {}
         }
         alertView.show()
     }
