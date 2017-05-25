@@ -220,6 +220,11 @@ class FamilyChatController: UIViewController {
         super.viewDidAppear(animated)
         enterSubject.onNext(true)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.UUAVAudioPlayerForcedStopPlay()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -230,6 +235,12 @@ class FamilyChatController: UIViewController {
 
 
 extension FamilyChatController {
+    
+    fileprivate func UUAVAudioPlayerForcedStopPlay() {
+        // 关闭红外线感应
+        UIDevice.current.isProximityMonitoringEnabled = false
+        UUAVAudioPlayer.shared.stop()
+    }
 
     fileprivate func showFeatureGudieView() {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {

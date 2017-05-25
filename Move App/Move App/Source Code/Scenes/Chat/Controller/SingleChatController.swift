@@ -182,12 +182,26 @@ class SingleChatController: UIViewController {
             .addDisposableTo(bag)
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.UUAVAudioPlayerForcedStopPlay()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension SingleChatController {
+
+    fileprivate func UUAVAudioPlayerForcedStopPlay() {
+        // 关闭红外线感应
+        UIDevice.current.isProximityMonitoringEnabled = false
+        UUAVAudioPlayer.shared.stop()
+    }
 }
 
 extension SingleChatController: UUMessageCellDelegate {
