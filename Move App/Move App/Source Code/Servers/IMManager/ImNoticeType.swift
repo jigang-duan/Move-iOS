@@ -334,6 +334,8 @@ extension ImNoticeType {
             self = .unknown
         case .bindRandomCode:
             self = .unknown
+        case .chatMessage:
+            self = .unknown
         case .unknown:
             self = .unknown
         }

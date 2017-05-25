@@ -61,6 +61,8 @@ class MainMapController: UIViewController {
         
         self.showFeatureGudieView()
         self.addressScrollLabel.scrollLabelIfNeed()
+        
+        propelToTargetController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -127,9 +129,7 @@ class MainMapController: UIViewController {
         
         messageOutlet.rx.tap
             .bindNext { [unowned self] in
-                if let chatController = R.storyboard.social.chat() {
-                    self.navigationController?.show(chatController, sender: nil)
-                }
+               self.showChat()
             }
             .addDisposableTo(disposeBag)
         
@@ -240,6 +240,25 @@ class MainMapController: UIViewController {
     }
 }
 
+extension MainMapController {
+    
+    fileprivate func showChat() {
+        if let chatController = R.storyboard.social.chat() {
+            self.navigationController?.show(chatController, sender: nil)
+        }
+    }
+    
+    func propelToTargetController() {
+        if let target = Distribution.shared.target {
+            switch target {
+            case .chatMessage:
+                showChat()
+                Distribution.shared.target = nil
+            default: ()
+            }
+        }
+    }
+}
 
 extension MainMapController {
     

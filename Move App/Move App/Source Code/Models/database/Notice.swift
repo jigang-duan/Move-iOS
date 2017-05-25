@@ -37,6 +37,7 @@ import RealmSwift
  24 - 设备开始升级
  25 - 固件下载失败，需重新下载
  26 - 手表check下载url失败
+ 27 - 聊天消息
  
  400 - APP升级版本
  401 - 固件升级版本
@@ -71,10 +72,11 @@ enum NoticeType: Int {
     case deviceUpdateStarted = 24
     case deviceDownloadDefeated = 25
     case deviceCheckDefeated = 26
+    case chatMessage = 27
     
     case appUpdateVersion = 400
     case deviceUpdateVersion = 401
-    
+
     case unknown = -1
 }
 

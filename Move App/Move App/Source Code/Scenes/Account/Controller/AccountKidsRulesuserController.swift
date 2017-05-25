@@ -205,6 +205,10 @@ extension AccountKidsRulesuserController {
             case .friendList:
                 showFriendListController()
                 Distribution.shared.target = nil
+            case .updata:
+                showUpdataController()
+                Distribution.shared.target = nil
+            default: ()
             }
         }
     }
@@ -268,6 +272,12 @@ extension AccountKidsRulesuserController {
     
     fileprivate func showFriendListController() {
         if let toVC = R.storyboard.contact.watchFriends() {
+            self.navigationController?.show(toVC, sender: nil)
+        }
+    }
+    
+    fileprivate func showUpdataController() {
+        if let toVC = R.storyboard.account.upgrade() {
             self.navigationController?.show(toVC, sender: nil)
         }
     }

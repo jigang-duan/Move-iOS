@@ -9,16 +9,15 @@
 import Foundation
 import ObjectMapper
 
-class MoveApns{
-    
-    struct Apns {
-        var alert: String?
-        var badge: Int?
-        var sound: String?
-    }
+
+
+struct Aps {
+    var alert: String?
+    var badge: Int?
+    var sound: String?
 }
 
-extension MoveApns.Apns: Mappable {
+extension Aps: Mappable {
     init?(map: Map) {
     }
     
@@ -26,5 +25,27 @@ extension MoveApns.Apns: Mappable {
         alert <- map["alert"]
         badge <- map["badge"]
         sound <- map["sound"]
+    }
+}
+
+
+class MoveApns{
+
+    struct Apns{
+        var gid:String?
+        var aps :Aps?
+        var notice: NoticeType?
+    }
+
+}
+
+extension MoveApns.Apns: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        gid <- map["gid"]
+        aps <- map ["aps"]
+        notice <- map["notice"]
     }
 }

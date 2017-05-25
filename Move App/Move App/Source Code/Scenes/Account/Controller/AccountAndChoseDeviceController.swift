@@ -160,8 +160,9 @@ extension AccountAndChoseDeviceController {
     func propelToTargetController() {
         if let target = Distribution.shared.target {
             switch target {
-            case .kidInformation, .familyMember, .friendList :
+            case .kidInformation, .familyMember, .friendList,.updata :
                 showAccountKidsRulesuserController()
+            default: ()
             }
         }
     }

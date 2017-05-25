@@ -12,6 +12,7 @@ import RxCocoa
 import Realm
 import RealmSwift
 import RxRealm
+import ObjectMapper
 
 
 class AlertServer {
@@ -129,10 +130,112 @@ class AlertServer {
             .filterNil()
             .share()
         
-        Observable.merge(goToSeeKidInformation, goToSeeFriendList).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
+        //Apns推送通知
+        let apsNotice = NotificationService.shared.rx.userInfo
+            .map{ $0 as? [String: Any] }
+            .filterNil()
+            .map { Mapper<MoveApns.Apns>().map(JSON: $0) }
+            .filterNil()
+            .share()
+        
+        //跳转到聊天页面
+        let enterChatMessage = apsNotice
+            .filter { $0.notice == .chatMessage }
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+        
+        //跳转到朋友列表页面
+        let enterFriendList = apsNotice
+            .filter { $0.notice == .newContact }
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+        
+        //跳转到FamilyMember页面
+        let enterFamilyMenber = apsNotice
+            .filter { $0.notice == .numberChanged }
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+
+        
+        //跳转到小孩信息页面
+        let enterKidInfoPage = apsNotice
+            .filter { $0.notice == .deviceNumberChanged }
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+
+
+        //跳转到升级页面
+        let enterUpdataPage = apsNotice
+            .filter { $0.notice == .deviceUpdateDefeated || $0.notice == .deviceUpdateStarted || $0.notice == .deviceDownloadDefeated}
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+
+        
+        
+        //跳转到Home页面
+        let enterMainPage = apsNotice
+            .filter {
+                    $0.notice == .intoFence || $0.notice == .outFence||$0.notice == .lowBattery || $0.notice == .sos ||
+                    $0.notice == .powered || $0.notice == .shutdown}
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+        
+        //跳转到account页面
+        let enterAccountPage = apsNotice
+            .filter { $0.notice == .unbound }
+            .map { $0.gid }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
+        
+        
+        Observable.merge(goToSeeKidInformation, goToSeeFriendList, enterChatMessage,enterMainPage,enterFriendList,enterKidInfoPage,enterFamilyMenber,enterUpdataPage).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
+        
         goToSeeKidInformation.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
         goToSeeFamilyMember.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
         goToSeeFriendList.bindNext { _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)
+        
+        enterChatMessage.bindNext{ _ in Distribution.shared.propelToChat() }.addDisposableTo(disposeBag)
+        enterFriendList.bindNext{ _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)
+        enterKidInfoPage.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
+        enterFamilyMenber.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
+        enterUpdataPage.bindNext{_ in Distribution.shared.propelToUpdataPage()}.addDisposableTo(disposeBag)
+        enterMainPage.bindNext{_ in Distribution.shared.backToMainMap()}.addDisposableTo(disposeBag)
+        enterAccountPage.bindNext{_ in Distribution.shared.backToTabAccount()}.addDisposableTo(disposeBag)
+    
     }
 }
 
