@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="364" height="109"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="364" height="108"/>
+                <rect key="frame" x="0.0" y="0.0" width="364" height="108.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MO0-9J-2CG" customClass="SwitchButton" customModule="CustomViews">
@@ -40,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEk-5I-bFy">
-                        <rect key="frame" x="15" y="37" width="54" height="24"/>
+                        <rect key="frame" x="15" y="37" width="283" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="xlb-ak-FZD"/>
                         </constraints>
@@ -52,6 +52,7 @@
                 <constraints>
                     <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3GE-W4-wVa"/>
                     <constraint firstItem="I3J-pq-1OI" firstAttribute="leading" secondItem="FEk-5I-bFy" secondAttribute="leading" id="CqW-91-3jh"/>
+                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="FEk-5I-bFy" secondAttribute="trailing" constant="10" id="Lmj-Di-S88"/>
                     <constraint firstAttribute="trailing" secondItem="MO0-9J-2CG" secondAttribute="trailing" constant="10" id="dZi-9r-9Ch"/>
                     <constraint firstItem="FEk-5I-bFy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-5.25" id="ebr-d4-ggJ"/>
                     <constraint firstItem="I3J-pq-1OI" firstAttribute="top" secondItem="FEk-5I-bFy" secondAttribute="bottom" constant="-2" id="rqz-o9-COf"/>
@@ -64,7 +65,7 @@
                 <outlet property="nameLabel" destination="FEk-5I-bFy" id="T7L-2q-jRN"/>
                 <outlet property="switchOnOffQutiet" destination="MO0-9J-2CG" id="CDd-Ma-cF0"/>
             </connections>
-            <point key="canvasLocation" x="47" y="84.5"/>
+            <point key="canvasLocation" x="-87" y="67"/>
         </tableViewCell>
     </objects>
     <resources>
