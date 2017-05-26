@@ -117,7 +117,11 @@ extension TabsViewController {
 
     fileprivate func showSOSViewController(sos: KidSateSOS) {
         if let toVC = R.storyboard.social.showSOS() {
-            toVC.sos = sos
+            
+//            toVC.sos = sos
+            if let sosVC = toVC.viewControllers.first as? SOSController {
+                sosVC.sos = sos
+            }
             self.present(toVC, animated: true, completion: nil)
         }
     }

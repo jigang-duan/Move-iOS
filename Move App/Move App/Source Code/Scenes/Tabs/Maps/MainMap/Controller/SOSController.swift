@@ -65,11 +65,13 @@ class SOSController: UIViewController {
     }
     
     func applicationWillResignActive(_ notification: NSNotification) {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func backPressed(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func navigationPressed(_ sender: UIButton) {
