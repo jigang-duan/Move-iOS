@@ -56,25 +56,7 @@ class MessageServer {
                     guard let sync = syncObject.first else {
                         return
                     }
-                    
-                    if let gid = message.groupId, gid != "" {
-                        if let group = sync.groups.filter({ gid == $0.id }).first {
-                            let readStatus = (uid == message.from) ? MessageEntity.ReadStatus.finished: nil
-                            group.update(realm: realm, message: message, readStatus: readStatus)
-                        }
-                    } else if uid == message.to {
-                        sync.groups.forEach { group in
-                            if group.members.map({ $0.id }).contains(where: { message.from == $0 }) {
-                                group.update(realm: realm, message: message)
-                            }
-                        }
-                    } else if uid == message.from {
-                        sync.groups.forEach { group in
-                            if group.members.map({ $0.id }).contains(where: { message.to == $0 }) {
-                                group.update(realm: realm, message: message, readStatus: .finished)
-                            }
-                        }
-                    }
+                    saveMessage(realm: realm, sync: sync, uid: uid, message: message)
                 })
                 .addDisposableTo(disposeBag)
             
@@ -201,6 +183,28 @@ class MessageServer {
     
     
 
+}
+
+
+fileprivate func saveMessage(realm: Realm, sync: SynckeyEntity, uid: String, message: MessageEntity) {
+    if let gid = message.groupId, gid != "" {
+        if let group = sync.groups.filter({ gid == $0.id }).first {
+            let readStatus = (uid == message.from) ? MessageEntity.ReadStatus.finished: nil
+            group.update(realm: realm, message: message, readStatus: readStatus)
+        }
+    } else if uid == message.to {
+        sync.groups.forEach { group in
+            if group.members.map({ $0.id }).contains(where: { message.from == $0 }) {
+                group.update(realm: realm, message: message)
+            }
+        }
+    } else if uid == message.from {
+        sync.groups.forEach { group in
+            if group.members.map({ $0.id }).contains(where: { message.to == $0 }) {
+                group.update(realm: realm, message: message, readStatus: .finished)
+            }
+        }
+    }
 }
 
 
