@@ -48,25 +48,28 @@ class MessageServer {
             
             let messageObservable = syncData.map { $0.messages }
                 .filterNil()
-                .flatMap { Observable.from($0) }
+                //.flatMap { Observable.from($0) }
                 .share()
             
             messageObservable
-                .subscribe(onNext: { (message) in
+                .do(onNext: { vibration(messages: $0, uid: uid) })
+                .subscribe(onNext: { (messages) in
                     guard let sync = syncObject.first else {
                         return
                     }
-                    saveMessage(realm: realm, sync: sync, uid: uid, message: message)
+                    save(messages: messages, realm: realm, sync: sync, uid: uid)
                 })
                 .addDisposableTo(disposeBag)
             
-            messageObservable
-                .filter { $0.from != uid }
-                .bindNext({ (_) in
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                    AudioServicesPlaySystemSound(1007)
-                })
-                .addDisposableTo(disposeBag)
+//            messageObservable
+//                //.filter { $0.from != uid }
+//                .map{ $0.flatMap{$0.from}.filter{ $0 != uid }.first }
+//                .filterNil()
+//                .bindNext({ (_) in
+//                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+//                    AudioServicesPlaySystemSound(1007)
+//                })
+//                .addDisposableTo(disposeBag)
             
             let reNotice = syncData.map { $0.notices }
                 .filterNil()
@@ -185,8 +188,18 @@ class MessageServer {
 
 }
 
+func vibration(messages: [MessageEntity], uid: String) {
+    if let _ = messages.flatMap({$0.from}).filter({$0 != uid}).first {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        AudioServicesPlaySystemSound(1007)
+    }
+}
 
-fileprivate func saveMessage(realm: Realm, sync: SynckeyEntity, uid: String, message: MessageEntity) {
+fileprivate func save(messages: [MessageEntity], realm: Realm, sync: SynckeyEntity, uid: String) {
+    messages.forEach { save(message: $0, realm: realm, sync: sync, uid: uid) }
+}
+
+fileprivate func save(message: MessageEntity, realm: Realm, sync: SynckeyEntity, uid: String) {
     if let gid = message.groupId, gid != "" {
         if let group = sync.groups.filter({ gid == $0.id }).first {
             let readStatus = (uid == message.from) ? MessageEntity.ReadStatus.finished: nil
