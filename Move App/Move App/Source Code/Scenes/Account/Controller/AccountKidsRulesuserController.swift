@@ -45,6 +45,8 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
     @IBOutlet weak var savePowerQutel: SwitchButton!
     
+    @IBOutlet weak var unpairCell: UITableViewCell!
+    
     var isAdmin = false
 
     private let disposeBag = DisposeBag()
@@ -126,18 +128,10 @@ class AccountKidsRulesuserController: UITableViewController {
        
     }
     
+   
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //unpair
-        if let vc = R.segue.accountKidsRulesuserController.showUnpairTip(segue: segue)?.destination {
-            vc.isMaster = self.isAdmin
-            vc.unpairBlock = { flag, message in
-                if flag {
-                    _ = self.navigationController?.popToRootViewController(animated: true)
-                } else {
-                    self.showAlert(message: message)
-                }
-            }
-        }
         //safe zone
         if let vc = R.segue.accountKidsRulesuserController.showSafezone(segue: segue)?.destination {
             vc.autopositioningBool = autopositiQutel.isOn
@@ -172,6 +166,22 @@ class AccountKidsRulesuserController: UITableViewController {
         }
     }
 
+    
+    func unpairWatch() {
+        let manager = DeviceManager.shared
+        manager.deleteDevice(with: (manager.currentDevice?.deviceId)!)
+            .subscribe(onNext: { flag in
+                if flag == false{
+                    self.showAlert(message: "Unpaired watch faild")
+                }else{
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                }
+            }, onError: { er in
+                print(er)
+                self.showAlert(message: "Unpaired watch faild")
+            })
+            .addDisposableTo(disposeBag)
+    }
     
 }
 
@@ -237,7 +247,8 @@ extension AccountKidsRulesuserController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1, indexPath.row == 0 {
+        let cell = tableView.cellForRow(at: indexPath)
+        if cell == watchContactCell {
             if isAdmin {
                 if let toVC = R.storyboard.contact.instantiateInitialViewController() {
                     self.navigationController?.show(toVC, sender: nil)
@@ -246,7 +257,26 @@ extension AccountKidsRulesuserController {
                 showFamilyMemberController()
             }
         }
+        
+        if cell == unpairCell {
+            var tip = ""
+            if isAdmin {
+                tip = "As a master, unpaired with watch will factory reset the watch and all of the general user will also unpaired with watch"
+            }else{
+                tip = "You can't make a call with watch and can't receive notification or position from watch by unpaired with watch"
+            }
+            let alert = UIAlertController(title: R.string.localizable.id_warming(), message: tip, preferredStyle: .alert)
+            let action1 = UIAlertAction(title: R.string.localizable.id_still_unpaired(), style: .default, handler: { _ in
+                self.unpairWatch()
+            })
+            let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
+            alert.addAction(action1)
+            alert.addAction(action2)
+            self.present(alert, animated: true)
+        }
     }
+    
+   
     
     fileprivate func showFamilyMemberController() {
         if let toVC = R.storyboard.contact.familyMemberController() {

@@ -174,7 +174,15 @@ class MeSetPasswordViewController: UIViewController {
     
     
     
+    @IBAction func oldPasswordEyeClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        oldTf.isSecureTextEntry = !sender.isSelected
+    }
     
+    @IBAction func newPasswordEyeClick(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        newTf.isSecureTextEntry = !sender.isSelected
+    }
     
     
     
