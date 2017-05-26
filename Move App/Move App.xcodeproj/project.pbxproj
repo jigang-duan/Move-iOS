@@ -62,6 +62,16 @@
 		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
 		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
 		1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */; };
+		115F72EF1ED81BB700BAAF3D /* aweat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72E51ED81BB600BAAF3D /* aweat.gif */; };
+		115F72F01ED81BB700BAAF3D /* bye.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72E61ED81BB600BAAF3D /* bye.gif */; };
+		115F72F11ED81BB700BAAF3D /* cry.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72E71ED81BB600BAAF3D /* cry.gif */; };
+		115F72F21ED81BB700BAAF3D /* dizzy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72E81ED81BB600BAAF3D /* dizzy.gif */; };
+		115F72F31ED81BB700BAAF3D /* laugh.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72E91ED81BB600BAAF3D /* laugh.gif */; };
+		115F72F41ED81BB700BAAF3D /* loveu_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72EA1ED81BB600BAAF3D /* loveu_2.gif */; };
+		115F72F51ED81BB700BAAF3D /* naughty.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72EB1ED81BB600BAAF3D /* naughty.gif */; };
+		115F72F61ED81BB700BAAF3D /* sad.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72EC1ED81BB600BAAF3D /* sad.gif */; };
+		115F72F71ED81BB700BAAF3D /* sick.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72ED1ED81BB600BAAF3D /* sick.gif */; };
+		115F72F81ED81BB700BAAF3D /* smile.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72EE1ED81BB600BAAF3D /* smile.gif */; };
 		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
 		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
 		1162A5091EAE185500DA6164 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5081EAE185500DA6164 /* HomeController.swift */; };
@@ -432,6 +442,16 @@
 		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
 		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
 		1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PulsingAnnotationView.swift; path = AnnotationView/PulsingAnnotationView.swift; sourceTree = "<group>"; };
+		115F72E51ED81BB600BAAF3D /* aweat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = aweat.gif; sourceTree = "<group>"; };
+		115F72E61ED81BB600BAAF3D /* bye.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bye.gif; sourceTree = "<group>"; };
+		115F72E71ED81BB600BAAF3D /* cry.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cry.gif; sourceTree = "<group>"; };
+		115F72E81ED81BB600BAAF3D /* dizzy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dizzy.gif; sourceTree = "<group>"; };
+		115F72E91ED81BB600BAAF3D /* laugh.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = laugh.gif; sourceTree = "<group>"; };
+		115F72EA1ED81BB600BAAF3D /* loveu_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loveu_2.gif; sourceTree = "<group>"; };
+		115F72EB1ED81BB600BAAF3D /* naughty.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = naughty.gif; sourceTree = "<group>"; };
+		115F72EC1ED81BB600BAAF3D /* sad.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sad.gif; sourceTree = "<group>"; };
+		115F72ED1ED81BB600BAAF3D /* sick.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sick.gif; sourceTree = "<group>"; };
+		115F72EE1ED81BB600BAAF3D /* smile.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = smile.gif; sourceTree = "<group>"; };
 		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
 		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
 		1162A5081EAE185500DA6164 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -832,6 +852,16 @@
 		112D6E5F1E863C65006135E3 /* Gif */ = {
 			isa = PBXGroup;
 			children = (
+				115F72E51ED81BB600BAAF3D /* aweat.gif */,
+				115F72E61ED81BB600BAAF3D /* bye.gif */,
+				115F72E71ED81BB600BAAF3D /* cry.gif */,
+				115F72E81ED81BB600BAAF3D /* dizzy.gif */,
+				115F72E91ED81BB600BAAF3D /* laugh.gif */,
+				115F72EA1ED81BB600BAAF3D /* loveu_2.gif */,
+				115F72EB1ED81BB600BAAF3D /* naughty.gif */,
+				115F72EC1ED81BB600BAAF3D /* sad.gif */,
+				115F72ED1ED81BB600BAAF3D /* sick.gif */,
+				115F72EE1ED81BB600BAAF3D /* smile.gif */,
 				112D6E601E863CE1006135E3 /* emotion_01.gif */,
 				112D6E611E863CE1006135E3 /* emotion_02.gif */,
 				112D6E621E863CE1006135E3 /* emotion_03.gif */,
@@ -2401,8 +2431,11 @@
 				112D6E8A1E863D37006135E3 /* emotion_12.png in Resources */,
 				112D6E8E1E863D37006135E3 /* emotion_16.png in Resources */,
 				E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */,
+				115F72F21ED81BB700BAAF3D /* dizzy.gif in Resources */,
 				112D6E961E863D37006135E3 /* emotion_24.png in Resources */,
 				112D6E6A1E863CE1006135E3 /* emotion_01.gif in Resources */,
+				115F72F81ED81BB700BAAF3D /* smile.gif in Resources */,
+				115F72F11ED81BB700BAAF3D /* cry.gif in Resources */,
 				E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */,
 				112D6E9C1E863D37006135E3 /* emotion_30.png in Resources */,
 				112D6E731E863CE1006135E3 /* emotion_10.gif in Resources */,
@@ -2413,6 +2446,7 @@
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				112D6E9B1E863D37006135E3 /* emotion_29.png in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
+				115F72F61ED81BB700BAAF3D /* sad.gif in Resources */,
 				E9DD2A941EA89EF60057784F /* schoolTimeHelp.xib in Resources */,
 				112D6E911E863D37006135E3 /* emotion_19.png in Resources */,
 				E01DF6F01E3059A800EA003D /* LaunchScreen.storyboard in Resources */,
@@ -2435,14 +2469,20 @@
 				112D6E6D1E863CE1006135E3 /* emotion_04.gif in Resources */,
 				11795CB11ED283DF00A5F10E /* Emotion_Dynamic_144 in Resources */,
 				112D6E701E863CE1006135E3 /* emotion_07.gif in Resources */,
+				115F72F71ED81BB700BAAF3D /* sick.gif in Resources */,
 				E01DF7441E3093B300EA003D /* Assets.xcassets in Resources */,
 				112D6E6C1E863CE1006135E3 /* emotion_03.gif in Resources */,
+				115F72F41ED81BB700BAAF3D /* loveu_2.gif in Resources */,
+				115F72F01ED81BB700BAAF3D /* bye.gif in Resources */,
+				115F72F31ED81BB700BAAF3D /* laugh.gif in Resources */,
 				E01DF6EB1E3059A800EA003D /* Main.storyboard in Resources */,
 				E0931F4E1E31C72C00755B4A /* Account.storyboard in Resources */,
 				112D6E8C1E863D37006135E3 /* emotion_14.png in Resources */,
+				115F72F51ED81BB700BAAF3D /* naughty.gif in Resources */,
 				FF83B0711ECA956400E39C74 /* countryCode.plist in Resources */,
 				112D6E711E863CE1006135E3 /* emotion_08.gif in Resources */,
 				112D6E9A1E863D37006135E3 /* emotion_28.png in Resources */,
+				115F72EF1ED81BB700BAAF3D /* aweat.gif in Resources */,
 				112D6E901E863D37006135E3 /* emotion_18.png in Resources */,
 				112D6E931E863D37006135E3 /* emotion_21.png in Resources */,
 				112D6E991E863D37006135E3 /* emotion_27.png in Resources */,

@@ -38,7 +38,7 @@ class AccountAndChoseDeviceViewModel {
         self.profile = enter.flatMapLatest { userManger.getProfile().asDriver(onErrorJustReturn: UserInfo.Profile()) }
         self.accountName = profile.map { $0.nickname ?? "" }
         
-        self.fetchDevices = Driver.merge(enter, AlertServer.share.unpiredSubject.asDriver(onErrorJustReturn: ()))
+        self.fetchDevices = enter
             .flatMapLatest({ deviceManager.fetchDevices().asDriver(onErrorJustReturn: []) })
         
     }

@@ -71,6 +71,11 @@ class TabsViewController: UITabBarController {
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(bag)
         
+        AlertServer.share.unpiredSubject.asObservable()
+            .flatMapLatest { DeviceManager.shared.fetchDevices().catchErrorJustReturn([]) }
+            .bindTo(RxStore.shared.deviceInfosState)
+            .addDisposableTo(bag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
