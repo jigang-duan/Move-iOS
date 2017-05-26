@@ -69,14 +69,18 @@ class KidInformationViewModel {
                 
                 var f = addInfo
                 f.nickName = name
-                f.number = "\(phonePrefix) \(phone)"
+                if phonePrefix == "" {
+                    f.number = phone
+                }else{
+                    f.number = "\(phonePrefix) \(phone)"
+                }
                 
                 if self.isForSetting == true {
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
                             f.profile = pid
                             KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
-                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil))
+                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil, owner: nil))
                                 .trackActivity(activity)
                                 .map({_ in
                                     self.updateDeviceUser(addInfo: f)
@@ -84,7 +88,7 @@ class KidInformationViewModel {
                                 })
                             }).asDriver(onErrorRecover: commonErrorRecover)
                     }else{
-                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil))
+                        return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil, owner: nil))
                             .trackActivity(activity)
                             .map({_  in
                                 self.updateDeviceUser(addInfo: f)

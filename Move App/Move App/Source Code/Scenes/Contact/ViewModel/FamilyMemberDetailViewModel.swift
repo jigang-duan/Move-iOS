@@ -47,7 +47,7 @@ class FamilyMemberDetailViewModel {
         ) {
         
         let deviceManager = dependency.deviceManager
-        let validation = dependency.validation
+        _ = dependency.validation
         _ = dependency.wireframe
         
         
@@ -101,10 +101,6 @@ class FamilyMemberDetailViewModel {
         
         saveResult = input.saveTaps
             .flatMapLatest({ _ in
-                if case ValidationResult.failed(message: _) = validation.validatePhone(input.number.value!) {
-                    return  Driver.just(validation.validatePhone(input.number.value!))
-                }
-                
                 var info = (self.contactInfo?.value)!
                 info.identity = input.name.value
                 info.phone = input.number.value
