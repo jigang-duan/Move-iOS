@@ -359,20 +359,24 @@ extension UIImageView {
     }
     
     func loadAnimation(imageURL: URL, duration: TimeInterval) {
-        let manager = FileManager.default
-        self.stopAnimating()
-        if
-            let contentsOfURL = try? manager.contentsOfDirectory(at: imageURL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants),
-            let first = contentsOfURL.first {
-            self.image = (try? Data(contentsOf: first)).flatMap{ UIImage(data: $0) }
-            
-            guard duration != 0 else { return }
-            self.animationImages = contentsOfURL.flatMap{ try? Data(contentsOf: $0) }.flatMap{ UIImage(data: $0) }
-            self.animationDuration = duration
-            self.animationRepeatCount = 0
-            self.backgroundColor = UIColor.clear
-            self.startAnimating()
+        if let data = try? Data(contentsOf: imageURL) {
+            self.image = UIImage.gif(data: data)
         }
+        
+//        let manager = FileManager.default
+//        self.stopAnimating()
+//        if
+//            let contentsOfURL = try? manager.contentsOfDirectory(at: imageURL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants),
+//            let first = contentsOfURL.first {
+//            self.image = (try? Data(contentsOf: first)).flatMap{ UIImage(data: $0) }
+//            
+//            guard duration != 0 else { return }
+//            self.animationImages = contentsOfURL.flatMap{ try? Data(contentsOf: $0) }.flatMap{ UIImage(data: $0) }
+//            self.animationDuration = duration
+//            self.animationRepeatCount = 0
+//            self.backgroundColor = UIColor.clear
+//            self.startAnimating()
+//        }
     }
     
 }

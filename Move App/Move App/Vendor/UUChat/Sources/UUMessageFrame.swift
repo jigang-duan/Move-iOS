@@ -73,7 +73,15 @@ struct UUMessageFrame {
         self.iconF = CGRect(x: iconX, y: iconY, width: ChatIconWH, height: ChatIconWH)
         
         // 3、计算name位置
-        self.nameF = CGRect(x: iconX, y: iconY + ChatIconWH, width: ChatIconWH, height: 20)
+        //self.nameF = CGRect(x: iconX, y: iconY + ChatIconWH, width: ChatIconWH, height: 20)
+        self.nameF = CGRect.zero
+        let nameSize = NSString(string: self.message.name)
+            .boundingRect(with: CGSize(width: 48, height: 48),
+                          options: .usesLineFragmentOrigin,
+                          attributes: [NSFontAttributeName: ChatTimeFont],
+                          context: nil).size
+        self.nameF = CGRect(x: iconX, y: iconY + ChatIconWH, width: nameSize.width, height: nameSize.height)
+        
         
         // 4、计算内容位置
         var contentX = self.iconF.maxX + ChatMargin

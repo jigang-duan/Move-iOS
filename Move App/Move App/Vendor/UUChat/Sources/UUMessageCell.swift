@@ -42,6 +42,7 @@ class UUMessageCell: UITableViewCell {
         $.textColor = UIColor.gray
         $.textAlignment = .center
         $.font = ChatTimeFont
+        $.numberOfLines = 2
         return $
     }()
     
@@ -104,17 +105,17 @@ class UUMessageCell: UITableViewCell {
             // 3、设置下标
             self.labelNum.text = message.name
             if messageFrame.nameF.origin.x > 160 {
-                self.labelNum.frame = CGRect(x: messageFrame.nameF.origin.x - 50,
+                self.labelNum.frame = CGRect(x: messageFrame.nameF.origin.x - 0,
                                              y: messageFrame.nameF.origin.y + 3 ,
-                                             width: 100,
+                                             width: messageFrame.nameF.size.width,
                                              height: messageFrame.nameF.size.height)
-                self.labelNum.textAlignment = .right
+                self.labelNum.textAlignment = .center
             } else {
                 self.labelNum.frame = CGRect(x: messageFrame.nameF.origin.x,
                                              y: messageFrame.nameF.origin.y + 3 ,
-                                             width: 80,
+                                             width: messageFrame.nameF.size.width,
                                              height: messageFrame.nameF.size.height)
-                self.labelNum.textAlignment = .left
+                self.labelNum.textAlignment = .center
             }
             
             // 4、设置内容
@@ -247,7 +248,7 @@ class UUMessageCell: UITableViewCell {
         self.btnHeadImage.addTarget(self, action: #selector(btnHeadImageClick(_:)), for: .touchUpInside)
         
         // 3、创建头像下标
-        self.contentView.addSubview(labelTime)
+        self.contentView.addSubview(labelNum)
         
         // 4、创建内容
         self.contentView.addSubview(btnContent)

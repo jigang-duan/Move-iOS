@@ -263,47 +263,47 @@ extension EmojiType {
         case .smile:
             return R.file.emotion_26Png()
             
-        case .aweat_d:
-            return emotionDynamicURL?.appendingPathComponent("aweat", isDirectory: true)
-        case .bye_d:
-            return emotionDynamicURL?.appendingPathComponent("bye", isDirectory: true)
-        case .dizzy_d:
-            return emotionDynamicURL?.appendingPathComponent("dizzy", isDirectory: true)
-        case .loveu_d:
-            return emotionDynamicURL?.appendingPathComponent("loveu", isDirectory: true)
-        case .cry_d:
-            return emotionDynamicURL?.appendingPathComponent("cry", isDirectory: true)
-        case .laught_d:
-            return emotionDynamicURL?.appendingPathComponent("laugh", isDirectory: true)
-        case .naughty_d:
-            return emotionDynamicURL?.appendingPathComponent("naughty", isDirectory: true)
-        case .sad_d:
-            return emotionDynamicURL?.appendingPathComponent("sad", isDirectory: true)
-        case .sick_d:
-            return emotionDynamicURL?.appendingPathComponent("sick", isDirectory: true)
-        case .smile_d:
-            return emotionDynamicURL?.appendingPathComponent("smile", isDirectory: true)
-            
 //        case .aweat_d:
-//            return R.file.emotion_01Gif()
+//            return emotionDynamicURL?.appendingPathComponent("aweat", isDirectory: true)
 //        case .bye_d:
-//            return R.file.emotion_02Gif()
+//            return emotionDynamicURL?.appendingPathComponent("bye", isDirectory: true)
 //        case .dizzy_d:
-//            return R.file.emotion_04Gif()
+//            return emotionDynamicURL?.appendingPathComponent("dizzy", isDirectory: true)
 //        case .loveu_d:
-//            return R.file.emotion_06Gif()
+//            return emotionDynamicURL?.appendingPathComponent("loveu", isDirectory: true)
 //        case .cry_d:
-//            return R.file.emotion_03Gif()
+//            return emotionDynamicURL?.appendingPathComponent("cry", isDirectory: true)
 //        case .laught_d:
-//            return R.file.emotion_05Gif()
+//            return emotionDynamicURL?.appendingPathComponent("laugh", isDirectory: true)
 //        case .naughty_d:
-//            return R.file.emotion_07Gif()
+//            return emotionDynamicURL?.appendingPathComponent("naughty", isDirectory: true)
 //        case .sad_d:
-//            return R.file.emotion_08Gif()
+//            return emotionDynamicURL?.appendingPathComponent("sad", isDirectory: true)
 //        case .sick_d:
-//            return R.file.emotion_09Gif()
+//            return emotionDynamicURL?.appendingPathComponent("sick", isDirectory: true)
 //        case .smile_d:
-//            return R.file.emotion_10Gif()
+//            return emotionDynamicURL?.appendingPathComponent("smile", isDirectory: true)
+            
+        case .aweat_d:
+            return R.file.aweatGif()
+        case .bye_d:
+            return R.file.byeGif()
+        case .dizzy_d:
+            return R.file.dizzyGif()
+        case .loveu_d:
+            return R.file.loveu_2Gif()
+        case .cry_d:
+            return R.file.cryGif()
+        case .laught_d:
+            return R.file.laughGif()
+        case .naughty_d:
+            return R.file.naughtyGif()
+        case .sad_d:
+            return R.file.sadGif()
+        case .sick_d:
+            return R.file.sickGif()
+        case .smile_d:
+            return R.file.smileGif()
             
         case .warning:
             return nil

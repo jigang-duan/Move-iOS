@@ -71,9 +71,11 @@ class SingleChatController: UIViewController {
             }
             .addDisposableTo(bag)
         
-//        messageFramesVariable.asObservable()
-//            .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
-//            .addDisposableTo(bag)
+        messageFramesVariable.asObservable()
+            .filterEmpty()
+            .single()
+            .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
+            .addDisposableTo(bag)
         
         // MARK: 发送 Enoji 和 语音
         

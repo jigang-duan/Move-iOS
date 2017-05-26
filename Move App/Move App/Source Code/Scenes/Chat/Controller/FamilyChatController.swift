@@ -77,9 +77,11 @@ class FamilyChatController: UIViewController {
             }
             .addDisposableTo(bag)
         
-//        messageFramesObservable
-//            .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
-//            .addDisposableTo(bag)
+        messageFramesObservable
+            .filterEmpty()
+            .single()
+            .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
+            .addDisposableTo(bag)
         
         enterSubject.asObservable()
             .flatMapLatest { (_) in messageFramesObservable }
