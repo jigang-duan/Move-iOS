@@ -57,7 +57,7 @@ class MessageServer {
                     guard let sync = syncObject.first else {
                         return
                     }
-                    save(messages: messages, realm: realm, sync: sync, uid: uid)
+                    classifiedSave(messages: messages, realm: realm, sync: sync, uid: uid)
                 })
                 .addDisposableTo(disposeBag)
             
@@ -192,6 +192,55 @@ func vibration(messages: [MessageEntity], uid: String) {
     if let _ = messages.flatMap({$0.from}).filter({$0 != uid}).first {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         AudioServicesPlaySystemSound(1007)
+    }
+}
+
+
+fileprivate func classifiedSave(messages: [MessageEntity], realm: Realm, sync: SynckeyEntity, uid: String) {
+//    DispatchQueue(label: "realm").async {
+//        messages.forEach { it in
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+//                save(message: it, realm: realm, sync: sync, uid: uid)
+//            })
+//        }
+//    }
+    let my = messages.filter({ $0.from == uid })
+    save(messages: my, realm: realm, sync: sync, uid: uid)
+    
+    let others = messages.filter({ $0.from != uid })
+    let gOthers = others.filter({ ($0.groupId != nil) && ($0.groupId != "") })
+    let cgOthers = gOthers.reduce([:]) { (map, message) -> [String: [MessageEntity]] in
+        var result = map
+        if let gid = message.groupId {
+            if result[gid] == nil {
+                result[gid] = [MessageEntity]()
+            }
+            result[gid]?.append(message)
+        }
+        return result
+    }
+    cgOthers.forEach { (gid: String, values: [MessageEntity]) in
+        if let group = sync.groups.filter({ gid == $0.id }).first {
+            group.update(realm: realm, messages: values)
+        }
+    }
+    let sOthers = others.filter({ ($0.groupId == nil) || ($0.groupId == "") })
+    let fsOthers = sOthers.reduce([:]) { (map, message) -> [String: [MessageEntity]] in
+        var result = map
+        if let form = message.from {
+            if result[form] == nil {
+                result[form] = [MessageEntity]()
+            }
+            result[form]?.append(message)
+        }
+        return result
+    }
+    fsOthers.forEach { (from: String, values: [MessageEntity]) in
+        sync.groups.forEach { group in
+            if group.members.map({ $0.id }).contains(where: { from == $0 }) {
+                group.update(realm: realm, messages: values)
+            }
+        }
     }
 }
 

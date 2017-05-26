@@ -86,6 +86,16 @@ extension GroupEntity {
         
     }
     
+    func update(realm: Realm, messages: [MessageEntity]) {
+        let olds: [MessageEntity] = self.messages.filter({ it in
+            messages.contains(where: { $0.id == it.id })
+        })
+        try? realm.write {
+            realm.delete(olds)
+            self.messages.append(objectsIn: messages)
+        }
+    }
+    
     func update(realm: Realm, notice: NoticeEntity) {
         let sameIdEntity = self.notices.filter({ $0.id == notice.id }).first
         try? realm.write {
@@ -302,4 +312,13 @@ extension SynckeyEntity {
         }
     }
     
+}
+
+
+extension MessageEntity {
+    
+    func clone(readStatus: ReadStatus) -> MessageEntity {
+        self.readStatus = readStatus.rawValue
+        return self
+    }
 }
