@@ -10,8 +10,6 @@ import Foundation
 import RxSwift
 
 
-var DeviceAdmins = [String:String]()// [adminId:deviceId]
-
 class DeviceManager {
     
     static let shared = DeviceManager()
@@ -261,7 +259,8 @@ extension DeviceInfo {
                                weightUnit: UnitType(rawValue: element.user?.weightUnit ?? 0),
                                birthday: element.user?.birthday,
                                gid: element.user?.gid,
-                               online: element.user?.online)
+                               online: element.user?.online,
+                               owner: element.user?.owner)
 //        self.property = DeviceProperty(active: element.property?.active,
 //                                       bluetooth_address: element.property?.bluetooth_address,
 //                                       device_model: element.property?.device_model,
@@ -290,6 +289,7 @@ struct DeviceUser {
     var birthday: Date?
     var gid: String?
     var online: Bool?
+    var owner: String?
 }
 
 struct DeviceProperty {

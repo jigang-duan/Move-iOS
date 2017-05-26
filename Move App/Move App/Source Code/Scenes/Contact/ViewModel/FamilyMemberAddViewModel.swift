@@ -33,7 +33,7 @@ class FamilyMemberAddViewModel {
         )
         ) {
         
-        let validation = dependency.validation
+        _ = dependency.validation
         _ = dependency.wireframe
         
         
@@ -48,10 +48,6 @@ class FamilyMemberAddViewModel {
                             .distinctUntilChanged()
         
         saveResult = input.saveTaps.flatMapLatest({_ in
-            if case ValidationResult.failed(message: _) = validation.validatePhone(input.number.value!) {
-                return  Driver.just(validation.validatePhone(input.number.value!))
-            }
-            
             let deviceManager = DeviceManager.shared
             
             if let photo = input.photo.value {

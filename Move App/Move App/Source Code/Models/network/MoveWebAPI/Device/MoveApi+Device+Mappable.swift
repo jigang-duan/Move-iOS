@@ -97,6 +97,7 @@ extension MoveApi {
         var birthday: Date?
         var gid: String?
         var online: Bool?
+        var owner: String?
     }
     
     struct DeviceProperty {
@@ -486,6 +487,7 @@ extension MoveApi.DeviceUser: Mappable {
         birthday <- (map["birthday"], DateIntTransform())
         gid <- map["gid"]
         online <- map["online"]
+        owner <- map["owner"]
     }
 }
 
