@@ -55,7 +55,7 @@ extension UIView {
             return
         }
         
-        let frame = CGRect(x: self.frame.width - rightRange - 2*pointWidth, y: rightRange, width: pointWidth, height: pointWidth)
+        let frame = CGRect(x: self.frame.width - rightRange - 2*pointWidth, y: upRange, width: pointWidth, height: pointWidth)
         self.badgeView = UILabel(frame: frame)
         self.badgeView?.backgroundColor = UIColor.red
         self.badgeView?.layer.cornerRadius = pointWidth / 2
@@ -106,6 +106,7 @@ extension UIView {
 }
 
 fileprivate var badgeViewKey: Void?
-fileprivate let pointWidth: CGFloat = 6; //小红点的宽高
-fileprivate let rightRange: CGFloat = 2.0; //距离控件右边的距离
-fileprivate let badgeFont: CGFloat = 9; //字体的大小
+fileprivate let pointWidth: CGFloat = 6 //小红点的宽高
+fileprivate let rightRange: CGFloat = 8.0 //距离控件右边的距离
+fileprivate let upRange: CGFloat = 2.0
+fileprivate let badgeFont: CGFloat = 9 //字体的大小
