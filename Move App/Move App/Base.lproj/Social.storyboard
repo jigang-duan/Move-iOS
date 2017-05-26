@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c1K-a3-glK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c1K-a3-glK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -169,10 +169,26 @@
             </objects>
             <point key="canvasLocation" x="3052" y="2289.8050974512744"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hZu-Cp-dcS">
+            <objects>
+                <navigationController storyboardIdentifier="showSOS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dh8-Pa-TJb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sz1-Fy-y1B">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cps-06-kdy" kind="relationship" relationship="rootViewController" id="pw9-Jb-iBA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lzx-Xw-VLn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3825" y="2204"/>
+        </scene>
         <!--SOS-->
         <scene sceneID="pu4-q5-w3V">
             <objects>
-                <viewController storyboardIdentifier="showSOS" title="SOS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cps-06-kdy" customClass="SOSController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SOS" id="cps-06-kdy" customClass="SOSController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vqk-wE-RUF"/>
                         <viewControllerLayoutGuide type="bottom" id="n5D-h8-8DM"/>
@@ -298,18 +314,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyc-1M-rwV">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="SOS Location" id="jJK-yL-TSC">
-                                        <barButtonItem key="leftBarButtonItem" image="backArrow1" id="gBL-Im-084">
-                                            <connections>
-                                                <action selector="backPressed:" destination="cps-06-kdy" id="oTP-dj-JIJ"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -321,12 +325,16 @@
                             <constraint firstItem="VpW-Ux-edq" firstAttribute="leading" secondItem="HI0-aj-6d6" secondAttribute="leading" id="OaN-lF-UH1"/>
                             <constraint firstItem="n5D-h8-8DM" firstAttribute="top" secondItem="VpW-Ux-edq" secondAttribute="bottom" id="Otp-cf-8rn"/>
                             <constraint firstItem="6C1-Ne-aib" firstAttribute="top" secondItem="HD7-6O-tUe" secondAttribute="top" id="SaO-tu-Jcx"/>
-                            <constraint firstItem="6C1-Ne-aib" firstAttribute="top" secondItem="Tyc-1M-rwV" secondAttribute="bottom" id="acC-S3-a8f"/>
                             <constraint firstAttribute="trailing" secondItem="6C1-Ne-aib" secondAttribute="trailing" id="i4W-Pa-c8X"/>
-                            <constraint firstItem="6C1-Ne-aib" firstAttribute="leading" secondItem="Tyc-1M-rwV" secondAttribute="leading" id="oGu-5g-Lgm"/>
-                            <constraint firstItem="6C1-Ne-aib" firstAttribute="trailing" secondItem="Tyc-1M-rwV" secondAttribute="trailing" id="zdF-Ve-5Qd"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="SOS Location" id="y8k-NQ-6aS">
+                        <barButtonItem key="leftBarButtonItem" image="backArrow1" id="b6v-Ll-2tb">
+                            <connections>
+                                <action selector="backPressed:" destination="cps-06-kdy" id="JKt-05-arp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="accuracyLabel" destination="fgZ-V0-WGS" id="2aN-gr-Qbv"/>
                         <outlet property="addressLabel" destination="FkL-Gr-IX3" id="Nfx-sz-ssw"/>
