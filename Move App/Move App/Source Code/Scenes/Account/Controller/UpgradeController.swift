@@ -36,8 +36,6 @@ class UpgradeController: UIViewController {
     
     var downloadBlur: UIView?
     var progressLab: UILabel?
-    
-    private var lastProgress = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,14 +110,11 @@ class UpgradeController: UIViewController {
             self.fetchProperty()
         case .progressDownload:
             let progress = type.progress
-            if lastProgress < progress {
-                lastProgress = progress
-                self.updateDownloadButton(isEnable: false)
-                print("下载进度===\(progress)")
-                self.downloadProgress.value = progress
-                self.makeDownloadBlur(progress: self.downloadProgress.value)
-                self.tipLab.isHidden = false
-            }
+            self.updateDownloadButton(isEnable: false)
+            print("下载进度===\(progress)")
+            self.downloadProgress.value = progress
+            self.makeDownloadBlur(progress: self.downloadProgress.value)
+            self.tipLab.isHidden = false
         default: ()
         }
     }

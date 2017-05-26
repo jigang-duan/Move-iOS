@@ -51,9 +51,6 @@ target 'Move App' do
   # https://github.com/bahlo/SwiftGif
   pod 'SwiftGifOrigin', '~> 1.6.1'
   
-  # 避免键盘遮挡下方输入框
-  pod 'IQKeyboardManager'
-  
   # 空白页或者出错页封装
   pod 'DZNEmptyDataSet'
   

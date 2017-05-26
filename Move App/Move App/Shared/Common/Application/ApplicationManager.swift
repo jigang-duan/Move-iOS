@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import IQKeyboardManager
 import UserNotifications
 import RxSwift
 import RxCocoa
@@ -59,7 +58,6 @@ class ApplicationManager {
         // Global Appearance
         self.initGlobalAppearance()
         
-        IQKeyboardManager.shared().isEnabled = true
         UIApplication.shared.statusBarStyle = .lightContent
         
         
