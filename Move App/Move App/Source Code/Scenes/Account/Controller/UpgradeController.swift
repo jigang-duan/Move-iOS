@@ -120,6 +120,7 @@ class UpgradeController: UIViewController {
                 self.makeDownloadBlur(progress: self.downloadProgress.value)
                 self.tipLab.isHidden = false
             }
+        default: ()
         }
     }
     

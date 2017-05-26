@@ -18,6 +18,8 @@ enum FirmwareUpdateType {
     case checkDefeated(String)
     
     case progressDownload(String, Int)
+    
+    case empty
 }
 
 
@@ -33,6 +35,8 @@ extension FirmwareUpdateType {
             return 100
         case .checkDefeated, .updateDefeated, .downloadDefeated:
             return -1
+        case .empty:
+            return -100
         }
     }
     
@@ -52,6 +56,8 @@ extension FirmwareUpdateType {
             return devUId
         case .progressDownload(let devUId, _):
             return devUId
+        case .empty:
+            return ""
         }
     }
 }

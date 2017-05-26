@@ -94,6 +94,7 @@ class MessageServer {
                 .filter { $0.imType.isFirmwareUpdate }
                 .map{ FirmwareUpdateType(notice: $0) }
                 .filterNil()
+                .scan(FirmwareUpdateType.empty, accumulator: accumulator)
             
             
             lowBattery = reNotice.filter{ $0.imType == .lowBatteryAlert }.map{_ in Void() }
@@ -203,10 +204,11 @@ class MessageServer {
 }
 
 
-fileprivate func distinctUntil(f0: FirmwareUpdateType, f1: FirmwareUpdateType) -> Bool {
-    switch (f0, f1) {
-    case (.progressDownload(let a), .progressDownload(let b)) where a < b: return true
-    default: return false
+fileprivate func accumulator(a: FirmwareUpdateType, item: FirmwareUpdateType) -> FirmwareUpdateType {
+    switch (a, item) {
+    case (.progressDownload(let i1), .progressDownload(let i2)):
+        return i1 > i2 ? a : item
+    default: return item
     }
 }
 
