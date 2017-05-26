@@ -144,9 +144,11 @@ class MainMapViewModel {
             }
             .shareReplay(1)
         
-        kidLocation = currentLocation.map{ $0.location }.filterNil()
-//            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
-//            .do(onNext: { _ in remindActivitying.onNext(false) })
+        kidLocation = currentLocation
+            .map{ $0.location }
+            .filterNil()
+            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
+            .do(onNext: { _ in remindActivitying.onNext(false) })
         
         kidAddress = currentLocation.map{ $0.address }.filterNil()
         kidType = currentLocation.map{ $0.type }.filterNil()
