@@ -289,7 +289,7 @@ extension APNforWatchVC: CBCentralManagerDelegate {
             let watchName = "Family watch \(lastImei)"
             
             if watchName == peripheral.name {
-                print("找到目标设备")
+                print("找到目标设备:\(peripheral)")
                 manager?.stopScan()
                 targetPeripheral = peripheral
                 
@@ -317,6 +317,20 @@ extension APNforWatchVC: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("蓝牙设备解绑:\(peripheral)")
+        
+        if targetPeripheral != nil {  //清空外设
+            targetPeripheral?.delegate = nil
+            manager?.cancelPeripheralConnection(targetPeripheral!)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {//重新扫描外设并隐藏DeviceView
+                self.manager?.scanForPeripherals(withServices: [CBUUID(string: self.apnUUID)], options: nil)
+                self.deviceView.isHidden = true
+                self.deviceHCons.constant = 0
+                self.deviceNameLab.text = ""
+
+            }
+            
+        }
+
         self.sendApnNotification(.disconnect)
     }
 
