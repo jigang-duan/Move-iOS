@@ -56,7 +56,7 @@ class MeSettingController: UIViewController {
     }
     
     private func initializeI18N() {
-        self.title = R.string.localizable.id_me()
+        self.title = R.string.localizable.id_account()
         logoutBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
         photoLab.text = R.string.localizable.id_photo()
     }
