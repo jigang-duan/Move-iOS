@@ -54,7 +54,6 @@ class MainMapController: UIViewController {
         
         self.isAtThisPage.value = true
         enterSubject.onNext(true)
-        self.hidesBottomBarWhenPushed = true
 
     }
     
