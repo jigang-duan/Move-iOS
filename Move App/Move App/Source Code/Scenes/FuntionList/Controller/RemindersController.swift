@@ -331,13 +331,14 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         else
         {
             var fifleretodo = self.fifleremeder
-            for i in 0 ..< (self.fifleremeder?.count)!
-            {
-                if self.fifleremeder?[i] == self.fifleremeder?[indexPath.row]
-                {
-                    fifleretodo?.remove(at: i)
-                }
-            }
+//            for i in 0 ..< (self.fifleremeder?.count)!
+//            {
+//                if self.fifleremeder?[i] == self.fifleremeder?[indexPath.row]
+//                {
+//                    fifleretodo?.remove(at: i)
+//                }
+//            }
+            fifleretodo?.remove(at: indexPath.row)
             
             if let vc = R.storyboard.account.addTodo() {
                 vc.todo = self.fifleremeder?[indexPath.row]
