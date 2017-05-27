@@ -124,7 +124,9 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         
         if let vc : AddSafeZoneVC = R.storyboard.major.addSafeZoneVC()  {
             vc.editFenceDataSounrce = self.fences[indexPath.row]
-            vc.fences = self.fences
+            var fence = self.fences
+            fence.remove(at: indexPath.row)
+            vc.fences = fence
             self.navigationController?.show(vc, sender: nil)
         }
     }
