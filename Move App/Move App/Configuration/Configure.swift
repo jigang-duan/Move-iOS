@@ -44,7 +44,7 @@ struct Configure {
     // MARK: - Logger
     struct Logger {
         
-        static let toFile = false
+        static let toFile = true
         
         static let toSlack = false
         

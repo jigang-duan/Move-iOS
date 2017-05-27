@@ -26,17 +26,30 @@ class AboutViewController: UIViewController {
             print("Mail services are not available")
             return
         }
+        
+        let log = self.logFileURL.flatMap { try? Data(contentsOf: $0) }
+        guard let logData = log else { return }
+        
         let composeVC = MFMailComposeViewController()
         composeVC.mailComposeDelegate = self
         
         // Configure the fields of the interface.
         composeVC.setToRecipients(["jigang.duan@tcl.com"])
-        composeVC.setSubject("Hello!")
+        composeVC.setSubject("Log for MT30 Family Watch iOS app!")
         composeVC.setMessageBody("Hello from California!", isHTML: false)
+        composeVC.addAttachmentData(logData, mimeType: "text/plain", fileName: logFileName)
         
         // Present the view controller modally.
         self.present(composeVC, animated: true, completion: nil)
     }
+    
+    private var logFileURL: URL? {
+        let cachePaths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
+        return cachePaths.first.flatMap { URL(fileURLWithPath: $0).appendingPathComponent(logFileName) }
+    }
+    
+    private let logFileName = "swiftybeaver.log"
+        
 }
 
 // MARK: delegate

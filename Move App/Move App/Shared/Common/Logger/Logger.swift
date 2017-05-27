@@ -132,7 +132,9 @@ class Logger {
 extension Logger {
     static func reversedLog(seperator: String, terminator: String, items: Any...) {
         debugPrint("🌐")
-        debugPrint(items, separator: seperator, terminator: terminator)
+        for (index, item) in items.enumerated() {
+            Log.shareInstance.debug(item, "Web", "API", index)
+        }
     }
 }
 
