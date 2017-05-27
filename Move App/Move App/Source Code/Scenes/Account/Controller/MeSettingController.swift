@@ -23,14 +23,14 @@ class MeSettingController: UIViewController {
     var heightUnit:UnitType?
     var weightUnit:UnitType?
     
-    @IBOutlet weak var photoLab: UILabel!
-    @IBOutlet weak var headImgV: UIImageView!
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logoutBun: UIButton!
     
     var photoPicker: ImageUtility?
     var changedImage: UIImage?
     
+    var headImgV: UIImageView!
     
     var disposeBag = DisposeBag()
     
@@ -58,7 +58,6 @@ class MeSettingController: UIViewController {
     private func initializeI18N() {
         self.title = R.string.localizable.id_account()
         logoutBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
-        photoLab.text = R.string.localizable.id_photo()
     }
     
     override func viewDidLoad() {
@@ -76,16 +75,15 @@ class MeSettingController: UIViewController {
         birthday = info?.birthday
         heightUnit = info?.heightUnit
         weightUnit = info?.weightUnit
-        
     
         
+        headImgV = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        headImgV.layer.cornerRadius = 15
+        headImgV.layer.masksToBounds = true
         let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: headImgV.frame.width, height: headImgV.frame.height), fullName: info?.nickname ?? "").imageRepresentation()!
-        
         let imgUrl = URL(string: FSManager.imageUrl(with: info?.iconUrl ?? ""))
         headImgV.kf.setImage(with: imgUrl, placeholder: placeImg)
         
-        
-    
         
         let viewModel = MeLogoutViewModel(
             input: logoutBun.rx.tap.asDriver(),
@@ -131,7 +129,7 @@ class MeSettingController: UIViewController {
     }
     
     
-    @IBAction func selectPhoto(_ sender: Any) {
+    func selectPhoto() {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
@@ -173,7 +171,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 3
+            return 4
         }else {
             return 4
         }
@@ -193,12 +191,20 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath {
         case IndexPath(row: 0, section: 0):
+            cell?.textLabel?.text = R.string.localizable.id_photo()
+            var frame = headImgV.frame
+            frame.origin.x = UIScreen.main.bounds.width - 70
+            frame.origin.y = 9
+            headImgV.frame = frame
+            cell?.contentView.addSubview(headImgV)
+            cell?.selectionStyle = .none
+        case IndexPath(row: 1, section: 0):
             cell?.textLabel?.text = R.string.localizable.id_name()
             cell?.detailTextLabel?.text = info?.nickname
-        case IndexPath(row: 1, section: 0):
+        case IndexPath(row: 2, section: 0):
             cell?.textLabel?.text =  R.string.localizable.id_email()
             cell?.detailTextLabel?.text = info?.email
-        case IndexPath(row: 2, section: 0):
+        case IndexPath(row: 3, section: 0):
             cell?.textLabel?.text =  R.string.localizable.id_change_password()
             cell?.detailTextLabel?.text = "●●●●●●"
         case IndexPath(row: 0, section: 1):
@@ -223,7 +229,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 cell?.detailTextLabel?.text = "Not specified"
             }
         case IndexPath(row: 3, section: 1):
-            cell?.textLabel?.text = R.string.localizable.id_birthday()
+            cell?.textLabel?.text = R.string.localizable.id_set_your_birthday()
             if let b = birthday, b > Date(timeIntervalSince1970: -2209017600) {
                 cell?.detailTextLabel?.text = b.stringYearMonthDay
             }else{
@@ -241,11 +247,15 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.section == 0 {
-            if indexPath.row == 0 {
+            switch indexPath.row {
+            case 0:
+                self.selectPhoto()
+            case 1:
                 self.performSegue(withIdentifier: R.segue.meSettingController.showChangeName, sender: nil)
-            }
-            if indexPath.row == 2 {
+            case 3:
                 self.performSegue(withIdentifier: R.segue.meSettingController.showChangePswd, sender: nil)
+            default:
+                ()
             }
         }
         
