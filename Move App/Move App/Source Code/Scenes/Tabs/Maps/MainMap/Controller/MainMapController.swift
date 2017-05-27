@@ -43,6 +43,8 @@ class MainMapController: UIViewController {
     
     @IBOutlet weak var remindActivityOutlet: ActivityImageView!
     
+    @IBOutlet weak var noticeOutlet: UIBarButtonItem!
+    
     let enterSubject = BehaviorSubject<Bool>(value: false)
     
     var isAtThisPage = Variable(false)
@@ -221,6 +223,16 @@ class MainMapController: UIViewController {
         
         AlertServer.share.navigateLocationSubject
             .bindNext { [weak self] in self?.showNavigationSheetView(locationInfo: $0) }
+            .addDisposableTo(disposeBag)
+        
+        let realm = try! Realm()
+        RxStore.shared.uidObservable
+            .flatMapLatest { (uid) -> Observable<Bool> in
+                let notices = realm.objects(NoticeEntity.self).filter("to == %@", uid)
+                return Observable.collection(from: notices).map({ $0.filter("readStatus == 0").count > 0 })
+            }
+            .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal) : R.image.nav_notice_nor()! }
+            .bindTo(noticeOutlet.rx.image)
             .addDisposableTo(disposeBag)
     }
     
