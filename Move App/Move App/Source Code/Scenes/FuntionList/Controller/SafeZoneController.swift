@@ -74,11 +74,68 @@ class SafeZoneController: UIViewController {
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
         }else{
-            if let vc = R.storyboard.major.addSafeZoneVC() {
-                vc.fences = self.fences
-                self.navigationController?.show(vc, sender: nil)
+
+            if adminBool! {
+                if !autopositioningBool!{
+                    let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please open Auto-positioning, it will consume more power", preferredStyle: .alert)
+                    
+                    let notOpen = UIAlertAction(title: "Not open", style: .cancel, handler: { (UIAlertAction) in
+                        if let vc = R.storyboard.major.addSafeZoneVC() {
+                            vc.fences = self.fences
+                            self.navigationController?.show(vc, sender: nil)
+                        }
+                    })
+                    
+                    let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
+                        WatchSettingsManager.share.updateSavepowerAndautoAnswer(self.autoAnswer!, savepower: self.savePower!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
+                            
+                        }).addDisposableTo(self.disposeBag)
+                        self.autopositioningBtn?.isOn = true
+                        self.autopositioningBool = true
+
+                        if let vc = R.storyboard.major.addSafeZoneVC() {
+                            vc.fences = self.fences
+                            self.navigationController?.show(vc, sender: nil)
+                        }
+                    })
+                    alertController.addAction(notOpen)
+                    alertController.addAction(open)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                if let vc = R.storyboard.major.addSafeZoneVC() {
+                    vc.fences = self.fences
+                    self.navigationController?.show(vc, sender: nil)
+                }
+  
+            }else
+            {
+                if !autopositioningBool!{
+                     let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please inform master to open Auto-positioning", preferredStyle: .alert)
+                     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+                        
+                     })
+                     let stillCreate = UIAlertAction(title: "Still create", style: .default, handler: { (UIAlertAction) in
+                        if let vc = R.storyboard.major.addSafeZoneVC() {
+                            vc.fences = self.fences
+                            self.navigationController?.show(vc, sender: nil)
+                        }
+                     })
+                    alertController.addAction(cancel)
+                    alertController.addAction(stillCreate)
+                    self.present(alertController, animated: true, completion: nil)
+                }else
+                {
+                    if let vc = R.storyboard.major.addSafeZoneVC() {
+                        vc.fences = self.fences
+                        self.navigationController?.show(vc, sender: nil)
+                    }
+
+                }
+                
             }
+            
         }
+        
 
     }
     
