@@ -56,7 +56,7 @@ extension DeviceManager {
     }
     
     func fetchDevices() -> Observable<[DeviceInfo]> {
-        return worker.getDeviceList().map { $0.map{ DeviceInfo(element: $0) } }
+        return worker.getFamilyWatchDeviceList().map { $0.map{ DeviceInfo(element: $0) } }
     }
     
     func fetchDevice(id: String) -> Observable<DeviceInfo> {
@@ -153,7 +153,7 @@ protocol DeviceWorkerProtocl {
     
     func joinGroup(joinInfo: DeviceBindInfo) -> Observable<Bool>
     
-    func getDeviceList() -> Observable<[MoveApi.DeviceInfo]>
+    func getFamilyWatchDeviceList() -> Observable<[MoveApi.DeviceInfo]>
     
     func fetchDevice(deviceId: String) -> Observable<DeviceInfo>
     

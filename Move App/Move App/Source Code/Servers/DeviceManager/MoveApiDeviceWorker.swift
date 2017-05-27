@@ -55,8 +55,8 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         return MoveApi.Device.getDeviceInfo(deviceId: deviceId).map({ DeviceInfo(element: $0) })
     }
     
-    func getDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
-        return MoveApi.Device.getDeviceList().map({ $0.devices ?? [] })
+    func getFamilyWatchDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
+        return MoveApi.Device.getDeviceList(pid: DeviceType.familyWatch.pid).map({ $0.devices ?? [] })
     }
     
     
