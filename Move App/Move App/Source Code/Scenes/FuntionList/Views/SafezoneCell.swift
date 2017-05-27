@@ -57,7 +57,9 @@ class SafezoneCell: UITableViewCell {
                 if admindBool! {
                     if !autopositionBool! {
                         let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please open Auto-positioning, it will consume more power", preferredStyle: .alert)
+                        
                         let notOpen = UIAlertAction(title: "Not open", style: .cancel, handler: nil)
+                        
                         let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
                             //发起请求打开open auto-positioning按钮
                            WatchSettingsManager.share.updateSavepowerAndautoAnswer(other11!, savepower: other22!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
