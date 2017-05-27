@@ -130,6 +130,17 @@ class AlertServer {
             .filterNil()
             .share()
         
+        let goToDeviceUpdataPage = confirmNotice
+            .filter { $0.imType.style == .update }
+            .filter { $0.imType == .appUpdate }
+            .map { $0.from }
+            .filterNil()
+            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
+            .filterNil()
+            .map{ $0.deviceId }
+            .filterNil()
+            .share()
+        
         //Apns推送通知
         let apsNotice = NotificationService.shared.rx.userInfo
             .map{ $0 as? [String: Any] }
@@ -222,7 +233,10 @@ class AlertServer {
             .share()
         
         
-        Observable.merge(goToSeeKidInformation, goToSeeFriendList, enterChatMessage,enterMainPage,enterFriendList,enterKidInfoPage,enterFamilyMenber,enterUpdataPage).bindTo(RxStore.shared.currentDeviceId).addDisposableTo(disposeBag)
+        Observable.merge(goToSeeKidInformation, goToSeeFriendList, goToDeviceUpdataPage,
+                         enterChatMessage,enterMainPage, enterFriendList, enterKidInfoPage, enterFamilyMenber, enterUpdataPage)
+            .bindTo(RxStore.shared.currentDeviceId)
+            .addDisposableTo(disposeBag)
         
         goToSeeKidInformation.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
         goToSeeFamilyMember.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
@@ -232,7 +246,7 @@ class AlertServer {
         enterFriendList.bindNext{ _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)
         enterKidInfoPage.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
         enterFamilyMenber.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
-        enterUpdataPage.bindNext{_ in Distribution.shared.propelToUpdataPage()}.addDisposableTo(disposeBag)
+        Observable.merge(enterUpdataPage, goToDeviceUpdataPage).bindNext{_ in Distribution.shared.propelToUpdataPage()}.addDisposableTo(disposeBag)
         enterMainPage.bindNext{_ in Distribution.shared.backToMainMap()}.addDisposableTo(disposeBag)
         enterAccountPage.bindNext{_ in Distribution.shared.backToTabAccount()}.addDisposableTo(disposeBag)
     

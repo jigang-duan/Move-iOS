@@ -91,6 +91,7 @@ class MessageServer {
                 .flatMapLatest { RxStore.shared.deviceInfosObservable }
                 .take(1)
                 .flatMapLatest{ Observable.from($0) }
+                .filter { $0.user?.isAdmin ?? false }
                 .share()
             let deviceUpdateNotice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(),
                                                     RxStore.shared.uidObservable,
