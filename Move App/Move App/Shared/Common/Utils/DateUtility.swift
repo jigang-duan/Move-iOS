@@ -77,6 +77,15 @@ class DateUtility {
         return dformatter.string(from: date ?? Date(timeIntervalSince1970: 0))
         
     }
+    
+    //string To Date add by gaoweixin at 2017.05.31
+    static func stringToDateyyMMddd(dateString: String?) -> Date {
+        
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "yyyy-MM-dd"
+        return dformatter.date(from: dateString ?? "")!
+    }
+    
     static func dateTostringMMdd(date: Date?) -> String {
         
         let dformatter = DateFormatter()

@@ -53,7 +53,10 @@ class RemindersController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTap.value += 1
+//        self.changeBtnType(time: 0, date: DateUtility.stringToDateyyMMddd(dateString: timeSelectBtn.titleLabel?.text ?? ""))
+//        print(timeSelectBtn.titleLabel?.text)
     }
+    
     func internationalization() {
        
     }
@@ -384,22 +387,23 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         self.deleteTap.value += 1
                     })
                     let deletall = UIAlertAction(title: "Delete All To do list", style: .destructive, handler: { (UIAlertAction) in
-                        var index = self.fifleremeder?.count
-                        while index! > 0{
-                            var inde: Int?
-                            for i in 0 ..< (self.todos?.count)!
-                            {
-                                if self.fifleremeder?[0] == self.todos?[i]
-                                {
-                                    inde = i
-                                }
-                            }
-                            self.viewModel.reminderVariable.value.todo.remove(at: inde!)
-                            
-                            index = index! - 1
-                            self.deleteTap.value += 1
-                        }
-                        
+//                        var index = self.fifleremeder?.count
+//                        while index! > 0{
+//                            var inde: Int?
+//                            for i in 0 ..< (self.todos?.count)!
+//                            {
+//                                if self.fifleremeder?[0] == self.todos?[i]
+//                                {
+//                                    inde = i
+//                                }
+//                            }
+//                            self.viewModel.reminderVariable.value.todo.remove(at: inde!)
+//                            
+//                            index = index! - 1
+//                            self.deleteTap.value += 1
+//                        }
+                          self.viewModel.reminderVariable.value.todo.removeAll()
+                          self.deleteTap.value += 1
                     })
 //                    if let popoverController = alertController.popoverPresentationController {
 //                        popoverController.sourceView = self.view
