@@ -39,7 +39,9 @@ class LoginViewController: UIViewController {
     fileprivate var emailSubject: PublishSubject<Void> = PublishSubject()
     fileprivate var passwordSubject: PublishSubject<Void> = PublishSubject()
     
-    
+    //for适配
+    @IBOutlet weak var logoTopCons: NSLayoutConstraint!
+    @IBOutlet weak var loginTopCons: NSLayoutConstraint!
     
     private func initializeI18N() {
         self.title = R.string.localizable.id_login_in()
@@ -53,12 +55,24 @@ class LoginViewController: UIViewController {
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.initializeI18N()
-
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    
+    func setupUI() {
+        let screenH = UIScreen.main.bounds.height
+        if screenH < 500 {
+            logoTopCons.constant = 20
+            loginTopCons.constant = 10
+        }else if screenH > 500 && screenH < 600 {
+            logoTopCons.constant = 50
+            loginTopCons.constant = 20
+        }else{
+            logoTopCons.constant = 75
+            loginTopCons.constant = 50
+        }
         
         accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
@@ -68,7 +82,17 @@ class LoginViewController: UIViewController {
         if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
             emailOutlet.text = email
         }
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        self.initializeI18N()
+
+        // Do any additional setup after loading the view.
+        self.setupUI()
+      
         
         let passwdText = passwordOutlet.rx.observe(String.self, "text").filterNil()
         let passwdDrier = passwordOutlet.rx.text.orEmpty.asDriver()
@@ -149,6 +173,7 @@ class LoginViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         retractionKeyboard()
+        self.navigationController?.navigationBar.isHidden = false
     }
     
 }

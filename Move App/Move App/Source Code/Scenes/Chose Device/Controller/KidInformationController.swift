@@ -34,6 +34,10 @@ class KidInformationController: UIViewController {
     @IBOutlet weak var weightBun: UIButton!
     @IBOutlet weak var heightBun: UIButton!
     
+    //for 4/4s适配
+    @IBOutlet weak var cameraTopCons: NSLayoutConstraint!
+    @IBOutlet weak var nextBunTopCons: NSLayoutConstraint!
+    
     var isForSetting = false
     var isMaster = false//设置资料时，是否为管理员
     
@@ -80,6 +84,13 @@ class KidInformationController: UIViewController {
     
     
     func  setupUI() {
+        
+        if UIScreen.main.bounds.height < 500 {
+            cameraTopCons.constant = 20
+            nextBunTopCons.constant = 10
+        }
+        
+        
         nextBun.setTitle(R.string.localizable.id_next(), for: .normal)
         
         validateLab.isHidden = true

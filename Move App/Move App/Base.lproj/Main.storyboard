@@ -737,7 +737,7 @@
                                         <rect key="frame" x="15" y="0.0" width="345" height="48"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -880,7 +880,7 @@
                                         <rect key="frame" x="5" y="3" width="262" height="34"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dlp-eb-7qv" userLabel="line">
                                         <rect key="frame" x="277" y="5" width="1" height="30"/>
@@ -1111,7 +1111,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1849,8 +1849,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5Yn-nw-Edu" secondAttribute="bottom" id="JOf-Xf-2am"/>
                             <constraint firstItem="5Yn-nw-Edu" firstAttribute="leading" secondItem="P4j-rV-wlI" secondAttribute="leading" id="ZMp-ps-vQy"/>
-                            <constraint firstItem="CYL-56-KOH" firstAttribute="top" secondItem="5Yn-nw-Edu" secondAttribute="bottom" id="tY7-AM-p5s"/>
                             <constraint firstItem="5Yn-nw-Edu" firstAttribute="top" secondItem="Am9-Ld-uFA" secondAttribute="bottom" id="vFw-9T-c7I"/>
                             <constraint firstAttribute="trailing" secondItem="5Yn-nw-Edu" secondAttribute="trailing" id="w8v-rV-kGw"/>
                         </constraints>
@@ -1921,7 +1921,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ZZ-EP-B3i">
                                         <rect key="frame" x="330" y="5" width="30" height="30"/>
@@ -1955,7 +1955,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4h-a3-kFW">
                                         <rect key="frame" x="330" y="5" width="30" height="30"/>
@@ -2031,30 +2031,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVe-Q2-nmX">
+                                <rect key="frame" x="0.0" y="104" width="375" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vHb-av-u4g">
+                                        <rect key="frame" x="15" y="0.0" width="345" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vHb-av-u4g" secondAttribute="trailing" constant="15" id="3Q1-98-fNf"/>
+                                    <constraint firstAttribute="bottom" secondItem="vHb-av-u4g" secondAttribute="bottom" id="PoH-cI-yby"/>
+                                    <constraint firstItem="vHb-av-u4g" firstAttribute="top" secondItem="GVe-Q2-nmX" secondAttribute="top" id="Qte-J8-ObD"/>
+                                    <constraint firstItem="vHb-av-u4g" firstAttribute="leading" secondItem="GVe-Q2-nmX" secondAttribute="leading" constant="15" id="u3H-r8-O2R"/>
+                                    <constraint firstAttribute="height" constant="40" id="yqK-UE-aFq"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name invalid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cV2-BO-R5H">
-                                <rect key="frame" x="16" y="132" width="75.5" height="16"/>
+                                <rect key="frame" x="16" y="152" width="75.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vHb-av-u4g">
-                                <rect key="frame" x="0.0" y="84" width="375" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="JdO-62-ouz"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="cV2-BO-R5H" firstAttribute="top" secondItem="vHb-av-u4g" secondAttribute="bottom" constant="8" id="YYG-qG-iQ8"/>
-                            <constraint firstAttribute="trailing" secondItem="vHb-av-u4g" secondAttribute="trailing" id="abN-Sz-zRw"/>
+                            <constraint firstItem="GVe-Q2-nmX" firstAttribute="top" secondItem="7Xh-WI-NJV" secondAttribute="bottom" constant="40" id="4wn-tw-eSE"/>
+                            <constraint firstItem="GVe-Q2-nmX" firstAttribute="leading" secondItem="AWk-Nn-sOa" secondAttribute="leading" id="7bq-py-nrr"/>
+                            <constraint firstItem="cV2-BO-R5H" firstAttribute="top" secondItem="GVe-Q2-nmX" secondAttribute="bottom" constant="8" id="8OC-3H-sba"/>
                             <constraint firstItem="cV2-BO-R5H" firstAttribute="leading" secondItem="AWk-Nn-sOa" secondAttribute="leading" constant="16" id="bHH-7P-wIY"/>
-                            <constraint firstItem="vHb-av-u4g" firstAttribute="leading" secondItem="AWk-Nn-sOa" secondAttribute="leading" id="d27-tU-3vG"/>
-                            <constraint firstItem="vHb-av-u4g" firstAttribute="top" secondItem="7Xh-WI-NJV" secondAttribute="bottom" constant="20" id="fuN-vR-OUw"/>
+                            <constraint firstAttribute="trailing" secondItem="GVe-Q2-nmX" secondAttribute="trailing" id="osb-1r-Ghq"/>
                         </constraints>
                     </view>
                     <toolbarItems/>

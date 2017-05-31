@@ -128,6 +128,11 @@ class PhoneNumberController: UIViewController {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        phoneTf.resignFirstResponder()
+    }
+    
+    
 //    选择国家代号
     @IBAction func selectCountryCode(_ sender: UIButton) {
         let vc = R.storyboard.kidInformation.countryCodeViewController()!

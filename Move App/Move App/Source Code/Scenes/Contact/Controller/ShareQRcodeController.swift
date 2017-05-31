@@ -21,6 +21,10 @@ class ShareQRcodeController: UIViewController {
     
     @IBOutlet weak var screenShotView: UIView!
     
+    //for 4/4s 适配
+    @IBOutlet weak var QRImageViewHCons: NSLayoutConstraint!
+    
+    
     var relation: String?
     var profile: String?
     var memberPhone: String?
@@ -43,6 +47,10 @@ class ShareQRcodeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UIScreen.main.bounds.height < 500 {
+            QRImageViewHCons.constant = 120
+        }
         
         let startColor = UIColor.init(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
         let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
