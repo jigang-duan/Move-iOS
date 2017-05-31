@@ -128,6 +128,7 @@ class LocationHistoryVC: UIViewController {
                 LocationManager.share.getHistoryLocation(start: $0, end: $1)
                     .asDriver(onErrorJustReturn: [])
             })
+            .map({ items in items.sorted { $0.time!.compare($1.time!) == .orderedAscending }  })
         
         historyLocations.drive(LocationsVariable).addDisposableTo(disposeBag)
         
