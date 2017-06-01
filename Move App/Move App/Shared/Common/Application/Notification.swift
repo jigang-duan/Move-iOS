@@ -54,6 +54,7 @@ extension AppDelegate {
             return //app在前台直接返回不进行任何跳转操作
         }
         NotificationService.shared.delegate?.didReceiveRemoteNotification?(userInfo)
+        NotificationService.shared.userInfoSubject.onNext(userInfo)
     }
     
     

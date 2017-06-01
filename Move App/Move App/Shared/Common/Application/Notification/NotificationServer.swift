@@ -25,6 +25,8 @@ class NotificationService {
     
     @IBOutlet weak var delegate: NotificationServiceDelegate?
     
+    let userInfoSubject = BehaviorSubject<[AnyHashable : Any]>(value: [:])
+    
     func initNotification() {
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()

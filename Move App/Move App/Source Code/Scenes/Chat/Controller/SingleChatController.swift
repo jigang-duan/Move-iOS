@@ -77,6 +77,13 @@ class SingleChatController: UIViewController {
             .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
             .addDisposableTo(bag)
         
+        let messagesCount = messageFramesVariable.asObservable().map{ $0.count }.share()
+        messagesCount.scan((false, 0)) { ($0.0.1 < $0.1, $0.1) }
+            .map{ $0.0 }
+            .filter{$0}
+            .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
+            .addDisposableTo(bag)
+        
         // MARK: 发送 Enoji 和 语音
         
         let topEnoji = ifView.rx.sendEmoji.asObservable()
