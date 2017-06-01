@@ -63,6 +63,7 @@ class ApplicationManager {
         
         // Notification
         self.initNotification()
+        
         // image download
         self.initImageDownloader()
         
@@ -70,6 +71,12 @@ class ApplicationManager {
         self.listenNetwor()
         
         Logger.verbose(NSHomeDirectory())
+        
+        // UI Debug
+        let overlayClass = NSClassFromString("UIDebuggingInformationOverlay") as? UIWindow.Type
+        _ = overlayClass?.perform(NSSelectorFromString("prepareDebuggingOverlay"))
+        //        let overlay = overlayClass?.perform(NSSelectorFromString("overlay")).takeUnretainedValue() as? UIWindow
+        //        _ = overlay?.perform(NSSelectorFromString("toggleVisibility"))
     }
 }
 
