@@ -64,6 +64,7 @@ extension FSManager {
         let wavURL = URL(fileURLWithPath: wavPath)
         if let cache = try? Data(contentsOf: wavURL) {
             closure(cache)
+            return
         }
         
         data(fromURL: url) { data in

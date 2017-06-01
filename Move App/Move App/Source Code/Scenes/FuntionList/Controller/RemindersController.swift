@@ -136,18 +136,33 @@ class RemindersController: UIViewController {
             .map({  $0.todo })
             .drive(onNext: {
                 self.todos =  $0.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
-                self.fifleremeder?.removeAll()
-                for i in 0 ..< (self.todos?.count ?? 0)!
-                {
-                    if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
-                        self.fifleremeder?.append((self.todos?[i])!)
-                    }
-                }
+//                self.fifleremeder?.removeAll()
+//                for i in 0 ..< (self.todos?.count ?? 0)!
+//                {
+////                    if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
+////                        self.fifleremeder?.append((self.todos?[i])!)
+////                    }
+//                    
+//                    let tmepValue = self.todos?[i]["repeat"] as!Int
+//                    switch tmepValue  {
+//                    case 0:
+//                        self.fifleremeder?.append((self.todos?[i])!)
+//                        break
+//                    case 1,2,3:
+//                        self.fifleremeder?.append((self.todos?[i])!)
+//                        break
+//                    default:
+//                        break
+//                    }
+//                }
 
-                self.tableViw.reloadData()
+//                self.tableViw.reloadData()
+                
+                let date  = DateUtility.stringToDateyyMMddd(dateString: self.timeSelectBtn.titleLabel?.text ?? "")
+                self.changeBtnType(time: 0 , date : date)
+
             })
             .addDisposableTo(disposeBag)
-        
     }
     
     func initView() {

@@ -27,6 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Logger.info(Date().timeIntervalSince(launchTime))
         
+        if let userInfo = launchOptions?[.remoteNotification] as? [AnyHashable : Any] {
+            NotificationService.shared.userInfoSubject.onNext(userInfo)
+        }
+        
         return true
     }
 

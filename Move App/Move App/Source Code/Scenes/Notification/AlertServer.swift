@@ -142,7 +142,8 @@ class AlertServer {
             .share()
         
         //Apns推送通知
-        let apsNotice = NotificationService.shared.rx.userInfo
+        //let apsNotice = NotificationService.shared.rx.userInfo
+        let apsNotice = NotificationService.shared.userInfoSubject.asObservable()
             .map{ $0 as? [String: Any] }
             .filterNil()
             .map { Mapper<MoveApns.Apns>().map(JSON: $0) }
@@ -150,15 +151,26 @@ class AlertServer {
             .share()
         
         //跳转到聊天页面
-        let enterChatMessage = apsNotice
+//        let enterChatMessage = apsNotice
+//            .filter { $0.notice == .chatMessage }
+//            .map { $0.gid }
+//            .filterNil()
+//            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+//            .filterNil()
+//            .map { $0.deviceId }
+//            .filterNil()
+//            .share()
+        let deviceInfos = RxStore.shared.deviceInfosObservable.filterEmpty()
+        let chatNotice = apsNotice
             .filter { $0.notice == .chatMessage }
             .map { $0.gid }
             .filterNil()
-            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+        let enterChatMessage = Observable.zip(chatNotice, deviceInfos) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
             .filterNil()
             .map { $0.deviceId }
             .filterNil()
             .share()
+
         
         //跳转到朋友列表页面
         let enterFriendList = apsNotice

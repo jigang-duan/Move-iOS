@@ -100,6 +100,8 @@ class UUInputView: UIView {
 extension UUInputView {
     
     func beginrecordVoice(_ sender: UIButton?) {
+        
+        NotificationCenter.default.post(name: NSNotification.Name("VoicePlayHasInterrupt"), object: nil) // 停掉正在播放的语音
         Amr.startRecord()
         _playTime = 0
         playTimer = Timer.scheduledTimer(timeInterval: 1.0,
