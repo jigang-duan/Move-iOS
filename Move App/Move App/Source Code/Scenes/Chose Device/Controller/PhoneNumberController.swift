@@ -113,13 +113,8 @@ class PhoneNumberController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self.showValidateError(message)
-                case .ok(let message):
-                    if message == "join" {
-                        _ = self.navigationController?.popToRootViewController(animated: true)
-                    }
-                    if message == "next" {
-                        self.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
-                    }
+                case .ok:
+                    self.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
                 default:
                     self.revertValidateError()
                 }
@@ -145,7 +140,11 @@ class PhoneNumberController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.phoneNumberController.showRelationship(segue: segue) {
-            self.deviceAddInfo?.phone = "\(phonePrefix.text ?? "") \(phoneTf.text ?? "")"
+            if let pre = phonePrefix.text, pre.characters.count > 0 {
+                self.deviceAddInfo?.phone = "\(pre) \(phoneTf.text ?? "")"
+            }else{
+                self.deviceAddInfo?.phone = phoneTf.text
+            }
             sg.destination.deviceAddInfo = self.deviceAddInfo
         }
     }

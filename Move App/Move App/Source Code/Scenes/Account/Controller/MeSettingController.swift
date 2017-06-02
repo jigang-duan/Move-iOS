@@ -13,9 +13,9 @@ import RxCocoa
 
 class MeSettingController: UIViewController {
     
-    var settingSaveBlock: ((String?, Int?, UnitType?, Int?, UnitType?, Date?, UIImage?) -> Void)?
+    var settingSaveBlock: ((Gender?, Int?, UnitType?, Int?, UnitType?, Date?, UIImage?) -> Void)?
     
-    var gender: String?
+    var gender: Gender?
     var height: Int?
     var weight: Int?
     var birthday: Date?
@@ -209,8 +209,8 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             cell?.detailTextLabel?.text = "●●●●●●"
         case IndexPath(row: 0, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_gender()
-            if let g = gender, g.characters.count > 0 {
-                cell?.detailTextLabel?.text = (g == "0" ? "male":"female")
+            if let g = gender {
+                cell?.detailTextLabel?.text = (g == .male ? R.string.localizable.id_male():R.string.localizable.id_female())
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }

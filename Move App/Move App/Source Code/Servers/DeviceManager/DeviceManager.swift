@@ -252,7 +252,7 @@ extension DeviceInfo {
                                number: element.user?.number,
                                nickname: element.user?.nickname,
                                profile: element.user?.profile,
-                               gender: element.user?.gender,
+                               gender: element.user?.gender == "m" ? .male:.female,
                                height: element.user?.height,
                                weight: element.user?.weight,
                                heightUnit: UnitType(rawValue: element.user?.heightUnit ?? 0),
@@ -281,7 +281,7 @@ struct DeviceUser {
     var number: String?
     var nickname: String?
     var profile: String?
-    var gender: String?
+    var gender: Gender?
     var height: Int?
     var weight: Int?
     var heightUnit: UnitType?
@@ -331,7 +331,7 @@ struct DeviceBindInfo {
     var profile: String?
     var nickName: String?
     var number: String? //设备号码
-    var gender: String?
+    var gender: Gender?
     var height: Int?
     var weight: Int?
     var heightUnit: UnitType?

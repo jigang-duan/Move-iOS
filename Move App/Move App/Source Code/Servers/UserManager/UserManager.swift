@@ -152,7 +152,7 @@ class UserInfo {
         var phone: String?
         
         var iconUrl: String?
-        var gender: String?//"0":男  "1":女
+        var gender: Gender?
         var height: Int?
         var weight: Int?
         var heightUnit: UnitType?
@@ -307,7 +307,7 @@ extension ObservableType where E == MoveApi.UserInfoMap {
                                            email: $.email,
                                            phone: $.phone,
                                            iconUrl: $.profile,
-                                           gender: $.gender,
+                                           gender: $.gender == "m" ? Gender.male:Gender.female,
                                            height: $.height,
                                            weight: $.weight,
                                            heightUnit: UnitType(rawValue: $.heightUnit ?? 0),

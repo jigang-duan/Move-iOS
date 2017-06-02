@@ -69,6 +69,12 @@ class RelationshipTableController: UIViewController {
         }
     }
     
+    func showMessage(_ text: String) {
+        let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
+        vc.addAction(action)
+        self.present(vc, animated: true)
+    }
     
     @IBAction func otherClick(_ sender: Any) {
         otherTf.becomeFirstResponder()
@@ -96,12 +102,14 @@ class RelationshipTableController: UIViewController {
                 DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!)
                     .subscribe(onNext: {[weak self] flag in
                         _ = self?.navigationController?.popToRootViewController(animated: true)
+                    }, onError: { er in
+                        if let msg = errorRecover(er) {
+                            self.showMessage(msg)
+                        }
                     })
                     .addDisposableTo(disposeBag)
             }
 
-        }else{
-            showAlert("no relation selected")
         }
         
     }
@@ -181,6 +189,22 @@ extension RelationshipTableController: UITableViewDelegate, UITableViewDataSourc
 
 
 
+fileprivate func errorRecover(_ error: Error) -> String? {
+    guard let _error = error as?  WorkerError else {
+        return nil
+    }
+    
+    if WorkerError.webApi(id: 7, field: "uid", msg: "Exists") == _error {
+        return "This watch is existed"
+    }
+    
+    if WorkerError.webApi(id: 7, field: "phone", msg: "Exists") == _error {
+        return "This phone number has been paired by others!"
+    }
+    
+    let msg = WorkerError.apiErrorTransform(from: _error)
+    return msg
+}
 
 
 

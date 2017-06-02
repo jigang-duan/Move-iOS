@@ -27,7 +27,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         addInfo.profile = firstBindInfo.profile
         addInfo.nickName = firstBindInfo.nickName
         addInfo.number = firstBindInfo.number
-        addInfo.gender = firstBindInfo.gender
+        addInfo.gender = firstBindInfo.gender == .male ? "m":"f"
         addInfo.height = firstBindInfo.height
         addInfo.weight = firstBindInfo.weight
         addInfo.heightUnit = firstBindInfo.heightUnit?.rawValue
@@ -118,7 +118,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.device?.user?.nickname = updateInfo.nickname
         info.device?.user?.number = updateInfo.number
         info.device?.user?.profile = updateInfo.profile
-        info.device?.user?.gender = updateInfo.gender
+        info.device?.user?.gender = updateInfo.gender == .male ? "m":"f"
         info.device?.user?.height = updateInfo.height
         info.device?.user?.weight = updateInfo.weight
         info.device?.user?.heightUnit = updateInfo.heightUnit?.rawValue

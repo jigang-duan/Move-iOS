@@ -42,29 +42,8 @@ class PhoneNumberViewModel {
         nextEnabled = phoneInvalidte.map({$0.isValid})
         
         nextResult = input.nextTaps.withLatestFrom(input.phone)
-            .flatMapLatest({ phone -> Driver<Bool> in
-                
-                return DeviceManager.shared.getContacts(deviceId: input.info.deviceId!)
-                    .map({ cons in
-                        for con in cons {
-                            if con.phone == phone {
-                                return true
-                            }
-                        }
-                        return false
-                    })
-                    .asDriver(onErrorJustReturn: false)
-            })
-            .flatMap({ flag -> Driver<ValidationResult> in
-                if flag == true {
-                    return DeviceManager.shared.joinGroup(joinInfo: input.info)
-                        .map({ _ in
-                            return ValidationResult.ok(message: "join")
-                        })
-                        .asDriver(onErrorRecover: commonErrorRecover)
-                }else{
-                   return Driver.just(ValidationResult.ok(message: "next"))
-                }
+            .flatMapLatest({ phone in
+                return Driver.just(ValidationResult.ok(message: "OK"))
             })
 
     }

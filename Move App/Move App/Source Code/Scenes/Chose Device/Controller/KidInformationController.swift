@@ -140,7 +140,7 @@ class KidInformationController: UIViewController {
         
         
         if let gender = info.gender {
-            genderLab.text = (gender == "0" ? R.string.localizable.id_male():R.string.localizable.id_female())
+            genderLab.text = (gender == .male ? R.string.localizable.id_male():R.string.localizable.id_female())
         }else{
             genderLab.text = R.string.localizable.id_gender()
         }
@@ -307,7 +307,7 @@ class KidInformationController: UIViewController {
             vc.selectedGender = self.addInfoVariable.value.gender
             vc.genderBlock = { (gender) in
                 self.addInfoVariable.value.gender = gender
-                self.genderLab.text = (gender == "0" ? R.string.localizable.id_male():R.string.localizable.id_female())
+                self.genderLab.text = (gender == .male ? R.string.localizable.id_male():R.string.localizable.id_female())
             }
         }
         if let vc = R.segue.kidInformationController.setBirthdayVC(segue: segue)?.destination  {
