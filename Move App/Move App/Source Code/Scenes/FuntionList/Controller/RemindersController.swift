@@ -53,8 +53,6 @@ class RemindersController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTap.value += 1
-//        self.changeBtnType(time: 0, date: DateUtility.stringToDateyyMMddd(dateString: timeSelectBtn.titleLabel?.text ?? ""))
-//        print(timeSelectBtn.titleLabel?.text)
     }
     
     func internationalization() {
@@ -269,7 +267,7 @@ class RemindersController: UIViewController {
     }
     
     func addFuntion() {
-        // Do any additional setup after loading the view.
+        
         let popover = RxPopover.shared
         popover.style = .dark
         let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
@@ -349,13 +347,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         else
         {
             var fifleretodo = self.fifleremeder
-//            for i in 0 ..< (self.fifleremeder?.count)!
-//            {
-//                if self.fifleremeder?[i] == self.fifleremeder?[indexPath.row]
-//                {
-//                    fifleretodo?.remove(at: i)
-//                }
-//            }
+
             fifleretodo?.remove(at: indexPath.row)
             
             if let vc = R.storyboard.account.addTodo() {
@@ -402,28 +394,9 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         self.deleteTap.value += 1
                     })
                     let deletall = UIAlertAction(title: "Delete All To do list", style: .destructive, handler: { (UIAlertAction) in
-//                        var index = self.fifleremeder?.count
-//                        while index! > 0{
-//                            var inde: Int?
-//                            for i in 0 ..< (self.todos?.count)!
-//                            {
-//                                if self.fifleremeder?[0] == self.todos?[i]
-//                                {
-//                                    inde = i
-//                                }
-//                            }
-//                            self.viewModel.reminderVariable.value.todo.remove(at: inde!)
-//                            
-//                            index = index! - 1
-//                            self.deleteTap.value += 1
-//                        }
                           self.viewModel.reminderVariable.value.todo.removeAll()
                           self.deleteTap.value += 1
                     })
-//                    if let popoverController = alertController.popoverPresentationController {
-//                        popoverController.sourceView = self.view
-//                        popoverController.sourceRect = CGRect(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height, width: 1, height: 1)
-//                    }
 
                     alertController.addAction(cancelAction)
                     alertController.addAction(deletThis)
@@ -455,35 +428,13 @@ extension RemindersController {
 
     func showSubController(action: BasePopoverAction) {
         if action.title == R.string.localizable.id_alarm() {
-//            if (self.alarms?.count)! <= 9{
                 self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
-//            }
-//            else
-//            {
-//                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 alarm,please delete some to add new.", preferredStyle: .alert)
-//                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alertController.addAction(okActiojn)
-//                self.present(alertController, animated: true)
-//            }
-            
         } else if action.title == R.string.localizable.id_todolist() {
-            //应该是当前日的todo不能超过10
-//            if (self.todos?.count)! <= 9{
             
                 if let vc = R.storyboard.account.addTodo() {
                     vc.todos = (self.todos ?? nil)!
                     self.navigationController?.show(vc, sender: nil)
                 }
-//            }
-//            else
-//            {
-//                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "You have add 10 to do list,please delete some to add new.", preferredStyle: .alert)
-//                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alertController.addAction(okActiojn)
-//                self.present(alertController, animated: true)
-//            }
-
-            
         }
     }
 }

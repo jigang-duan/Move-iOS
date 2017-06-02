@@ -213,24 +213,6 @@ class ToDoListController: UITableViewController {
             
         }else
         {
-        //过滤重复的
-//          self.isSame = false
-//            //过滤
-//            for tod in self.todos
-//            {
-//                if tod?["topic"] as? String == self.titleTextFieldQutle.text
-//                {
-//                    self.isSame = true
-//                    let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The existing of the same title to do list", preferredStyle: .alert)
-//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(okActiojn)
-//                    self.present(alertController, animated: true)
-//                    
-//                }
-//            }
-//           
-//            
-//            if !self.isSame!{
              if self.isOldTodo!{
                 
                     let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String, content: todo?["content"] as? String, start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
@@ -257,9 +239,6 @@ class ToDoListController: UITableViewController {
                         }).addDisposableTo(self.disposeBag)
             }
                 
-            
-//            }
-//        -------
         }
         
     }

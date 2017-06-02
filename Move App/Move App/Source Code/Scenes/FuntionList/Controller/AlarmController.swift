@@ -42,7 +42,7 @@ class AlarmController: UIViewController {
         
     }
     func sortWeek(_ flags: [Bool]) -> [Bool] {
-        var fs = flags
+        let fs = flags
 //        let flag = fs.first!
 //        _ = fs.remove(at: 0)
 //        _ = fs.append(flag)
@@ -127,34 +127,9 @@ class AlarmController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: Any) {
-//        if alarms != nil{
-//           
 
-//            
-//        }
-//        let time: TimeInterval = 0.7
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
-            //code
              _ = self.navigationController?.popViewController(animated: true)
 
     }
-    
-//    func back(_ $: Bool) {
-//        if $ {
-//              _ = self.navigationController?.popViewController(animated: true)
-//        }
-//    }
 
 }
-
-//extension AlarmController {
-//
-//    fileprivate var minDate: Date {
-//        return DateUtility.zoneDay().startDate
-//    } 
-//    
-//    fileprivate var maxDate: Date {
-//        return DateUtility.zoneDay().endDate
-//    }
-//    
-//}

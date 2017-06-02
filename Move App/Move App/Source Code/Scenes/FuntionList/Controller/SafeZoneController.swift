@@ -9,7 +9,6 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import DZNEmptyDataSet
 import CustomViews
 
 class SafeZoneController: UIViewController {
@@ -20,9 +19,12 @@ class SafeZoneController: UIViewController {
     
     @IBOutlet weak var safezoneQutlet: UIButton!
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var introducelLabel: UILabel!
+    @IBOutlet weak var emptyViewQutlet: UIView!
+    
     var dataISexit: Bool = true
     var autopositioningBool: Bool?
-    var adminBool: Bool?
+    var adminBool: Bool? = false
     var autoAnswer: Bool?
     var savePower: Bool?
     var autopositioningBtn: SwitchButton?
@@ -35,12 +37,12 @@ class SafeZoneController: UIViewController {
         self.reloadData()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.permissionsFun(adminbooll: adminBool!)
+        
         self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
-        tableview.emptyDataSetSource = self
-    
+        
         safezoneQutlet.rx.tap
             .asDriver()
             .drive(onNext: showAddSafeZoneVC)
@@ -48,7 +50,6 @@ class SafeZoneController: UIViewController {
        
        tableview.delegate = self
        tableview.dataSource = self
-//------------------------------------------------------------------------------------------------------------
     
         tableview.register(R.nib.safezoneCell(), forCellReuseIdentifier: R.reuseIdentifier.safezonecell.identifier)
     }
@@ -59,8 +60,6 @@ class SafeZoneController: UIViewController {
             .bindNext {
                 self.fences = $0
                 self.tableview.reloadData()
-//                self.dataISexit = !self.fences.isEmpty
-//                self.tableview.isHidden = !self.dataISexit
             }
             .addDisposableTo(disposeBag)
     }
@@ -80,10 +79,8 @@ class SafeZoneController: UIViewController {
                     let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please open Auto-positioning, it will consume more power", preferredStyle: .alert)
                     
                     let notOpen = UIAlertAction(title: "Not open", style: .cancel, handler: { (UIAlertAction) in
-                        if let vc = R.storyboard.major.addSafeZoneVC() {
-                            vc.fences = self.fences
-                            self.navigationController?.show(vc, sender: nil)
-                        }
+                        
+                        self.showAddSafezoneV()
                     })
                     
                     let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
@@ -93,51 +90,42 @@ class SafeZoneController: UIViewController {
                         self.autopositioningBtn?.isOn = true
                         self.autopositioningBool = true
 
-                        if let vc = R.storyboard.major.addSafeZoneVC() {
-                            vc.fences = self.fences
-                            self.navigationController?.show(vc, sender: nil)
-                        }
+                        self.showAddSafezoneV()
+                        
                     })
                     alertController.addAction(notOpen)
                     alertController.addAction(open)
                     self.present(alertController, animated: true, completion: nil)
                 }
-                if let vc = R.storyboard.major.addSafeZoneVC() {
-                    vc.fences = self.fences
-                    self.navigationController?.show(vc, sender: nil)
-                }
+                self.showAddSafezoneV()
   
             }else
             {
-                if !autopositioningBool!{
-                     let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please inform master to open Auto-positioning", preferredStyle: .alert)
-                     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
-                        
-                     })
-                     let stillCreate = UIAlertAction(title: "Still create", style: .default, handler: { (UIAlertAction) in
-                        if let vc = R.storyboard.major.addSafeZoneVC() {
-                            vc.fences = self.fences
-                            self.navigationController?.show(vc, sender: nil)
-                        }
-                     })
-                    alertController.addAction(cancel)
-                    alertController.addAction(stillCreate)
-                    self.present(alertController, animated: true, completion: nil)
-                }else
-                {
-                    if let vc = R.storyboard.major.addSafeZoneVC() {
-                        vc.fences = self.fences
-                        self.navigationController?.show(vc, sender: nil)
-                    }
-
-                }
-                
+                self.showAddSafezoneV()
             }
             
         }
         
 
     }
+    
+    func showAddSafezoneV() {
+        if let vc = R.storyboard.major.addSafeZoneVC() {
+            vc.fences = self.fences
+            vc.adminBool = self.adminBool
+            self.navigationController?.show(vc, sender: nil)
+        }
+    }
+    
+    func permissionsFun(adminbooll: Bool) {
+        introducelLabel.text = "Only master can edith safe zone"
+        if adminbooll{
+            introducelLabel.text = "When kid enter or leave the safe zone,warming will be send to you app."
+        }
+        
+        safezoneQutlet.isHidden = !adminbooll
+    }
+
     
     func errorshow(message : String) {
         let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
@@ -154,6 +142,22 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.tableview.isHidden = false
+        if self.fences.count == 0
+        {
+            self.tableview.isHidden = true
+            let lable: UILabel = self.emptyViewQutlet.subviews[1] as! UILabel
+            if self.adminBool!{
+                
+                lable.text = "No Safe zone here,tap \"+\" to add a safe zone"
+                
+            }else
+            {
+                lable.text = "No Safe zone here"
+            }
+        }
+        
+        
         return self.fences.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,6 +168,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         cell.autoAnswer = autoAnswer
         cell.savePower = savePower
         cell.btn = autopositioningBtn
+        cell.switchOnOffQutiet.isEnabled = adminBool!
         cell.vc = self
         
         return cell
@@ -174,7 +179,13 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .delete
+        if self.adminBool!{
+            return .delete
+        }
+        else
+        {
+            return .none
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -184,6 +195,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
             var fence = self.fences
             fence.remove(at: indexPath.row)
             vc.fences = fence
+            vc.adminBool = self.adminBool
             self.navigationController?.show(vc, sender: nil)
         }
     }
@@ -198,24 +210,10 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
                 self.fences.remove(at: indexPath.row)
 //                self.tableview.deleteRows(at: [indexPath], with: .top)
                 self.tableview.reloadData()
-                }.addDisposableTo(disposeBag)
-            
+                }.addDisposableTo(disposeBag)        
         }
         
     }
 }
 
-extension SafeZoneController: DZNEmptyDataSetSource {
-    
-    func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
-        return R.image.safe_zone_empty()
-    }
-    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString.init(string: "No Safe zone here,tap \"+\" to add a safe zone")
-    }
-    
-    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return R.color.appColor.background()
-    }
-}
 

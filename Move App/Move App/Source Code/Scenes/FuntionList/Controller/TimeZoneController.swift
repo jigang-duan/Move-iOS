@@ -92,11 +92,7 @@ class TimeZoneController: UITableViewController {
     }
     
     func userInteractionEnabled(enable: Bool) {
-       // hourFormatQutlet.isEnabled = enable
-      //  autoGetTimeQutlet.isEnabled = enable
-      //  summerTimeQutlet.isEnabled = enable
-      //  backQutlet.isEnabled = enable
-      //  timezoneCell.isUserInteractionEnabled = enable
+      
     }
     
     

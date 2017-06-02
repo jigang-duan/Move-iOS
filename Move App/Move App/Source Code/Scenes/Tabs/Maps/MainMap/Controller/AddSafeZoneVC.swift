@@ -42,8 +42,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var RadiusL: UILabel!
     @IBOutlet weak var safeZoneSlider: UISlider!
+    @IBOutlet weak var informationView: UIView!
+    @IBOutlet weak var informationView1: UIView!
+    @IBOutlet weak var mapTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mapBottomContraint: NSLayoutConstraint!
     
-    
+    var adminBool: Bool? = false
+
     
     var centerss : CLLocationCoordinate2D?
     
@@ -51,16 +56,12 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         super.viewWillAppear(true)
         
         item = UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
-        self.navigationItem.rightBarButtonItem = item
+        if self.adminBool!{
+            self.navigationItem.rightBarButtonItem = item
+        }
         
-       
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //self.circleBorderView.setNeedsDisplay()
-        //self.circleBorderView.isHidden = true
-    }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
          if (self.editFenceDataSounrce != nil) {
@@ -98,8 +99,23 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         self.mainMapView.setNeedsDisplay()
     }
     
+    func permissionsView(_ adminBool: Bool){
+        self.informationView.isHidden = !adminBool
+        self.informationView1.isHidden = !adminBool
+
+        if adminBool{
+            mapTopConstraint.constant = 0
+            mapBottomContraint.constant = 0
+        }else
+        {
+            mapTopConstraint.constant = -90
+            mapBottomContraint.constant = -70
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.permissionsView(adminBool!)
         self.kidnameTF.placeholder = "Enter a name for this safezone"
         if (self.editFenceDataSounrce != nil) {
             //编辑
@@ -461,15 +477,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     func errorshow(message : String) {
         let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
@@ -492,7 +499,13 @@ class CPinchGuesture :UIPinchGestureRecognizer {
 }
 
 extension AddSafeZoneVC : UITextFieldDelegate {
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        view.endEditing(true)
+        
+        return true
+    }
+
 }
 
 extension AddSafeZoneVC : MKMapViewDelegate {

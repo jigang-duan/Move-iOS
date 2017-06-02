@@ -38,10 +38,10 @@ class SafezoneCell: UITableViewCell {
         }
     }
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-       
         switchOnOffQutiet.closureSwitch = { [unowned self] isOn in
             if let model = self.model {
                 var vmodel = model
@@ -53,6 +53,7 @@ class SafezoneCell: UITableViewCell {
                 var btn = self.btn
                 vmodel.active = isOn
                 self.delegate?.switchDid(cell: self, model: vmodel, autopositionBool: autopositionBool!, adminBool: admindBool!, vc: vcc!, other1: other11!, other2: other22!, btn: btn!)
+                
                 if isOn{
                 if admindBool! {
                     if !autopositionBool! {
@@ -72,34 +73,6 @@ class SafezoneCell: UITableViewCell {
                         alertController.addAction(notOpen)
                         alertController.addAction(open)
                         
-                        vcc?.present(alertController, animated: true, completion: nil)
-                    }
-                }else{
-                    if !autopositionBool! {
-                        let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please inform master to open Auto-positioning", preferredStyle: .alert)
-                        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
-                            self.switchOnOffQutiet.isOn = false
-                            vmodel.active = false
-                            
-                            let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat: vmodel.location?.location?.latitude, lng: vmodel.location?.location?.longitude, addr: vmodel.location?.address)
-                            let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id: vmodel.ids, name: vmodel.name, location: fenceloc, radius: vmodel.radius, active: vmodel.active)
-                            let fencereq = MoveApi.FenceReq(fence : fenceinfo)
-                            
-                            MoveApi.ElectronicFence.settingFence(fenceId : (vmodel.ids)!, fenceReq: fencereq)
-                                .subscribe(onNext: {
-                                    print($0)
-                                    if $0.msg != "ok" {
-                                        
-                                    }else{
-                                        
-                                    }
-                                }).addDisposableTo(self.disposeBag)
-                            
-                        })
-                        let stillOpen = UIAlertAction(title: "Still open", style: .default, handler: nil)
-                        
-                        alertController.addAction(cancel)
-                        alertController.addAction(stillOpen)
                         vcc?.present(alertController, animated: true, completion: nil)
                     }
                 }
@@ -122,4 +95,6 @@ class SafezoneCell: UITableViewCell {
             }
         }
     }
+    
+    
 }

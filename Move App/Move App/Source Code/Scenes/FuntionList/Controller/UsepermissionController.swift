@@ -69,12 +69,7 @@ class UsepermissionController: UITableViewController {
     }
     
     func userInteractionEnabled(enable: Bool) {
-//        myfriendQulet.isEnabled = enable
-//        calltofriendQulet.isEnabled = enable
-//        groupchatQulet.isEnabled = enable
-//        voicechagerQulet.isEnabled = enable
-//        playinghamsterQulet.isUserInteractionEnabled = enable
-//        saveQulet.isEnabled = enable
+
     }
 
     
