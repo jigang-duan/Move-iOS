@@ -26,7 +26,7 @@ static const BOOL LocationMandatoryCenter = YES;
 {
     if([UIView hasShowFeatureGuideWithKey:keyName version:version] || !self.window)
         return;
-//
+
     [self dismissFeatureGuideView];
 
     id observer = [self getRotationOberserver];
@@ -106,9 +106,9 @@ static const BOOL LocationMandatoryCenter = YES;
     
     CGRect frame = featureItem.focusView ? [featureItem.focusView convertRect:featureItem.focusView.bounds toView:[self getContainerView]] : featureItem.focusRect;
     
-    const NSInteger split = 16;
+    const NSInteger split = 4;
     
-    //将展示区域分割成16*16的区域
+    //将展示区域分割成split*split的区域
     CGFloat squareWidth = self.window.bounds.size.width / split;
     CGFloat squareHeight = self.window.bounds.size.height / split;
     

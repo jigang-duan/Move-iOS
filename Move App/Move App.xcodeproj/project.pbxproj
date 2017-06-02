@@ -40,6 +40,7 @@
 		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
 		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
 		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
+		113446191EE1307F009117D5 /* YHAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113446181EE1307F009117D5 /* YHAlertView.swift */; };
 		11393AED1EA877C800F571C8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11393AEC1EA877C800F571C8 /* Random.swift */; };
 		113F2E401E9DC3E100B3628C /* URLSchema+SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */; };
 		113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E411E9E06DC00B3628C /* URL+Parameters.swift */; };
@@ -409,6 +410,7 @@
 		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
+		113446181EE1307F009117D5 /* YHAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YHAlertView.swift; path = AlertView/YHAlertView.swift; sourceTree = "<group>"; };
 		11393AEC1EA877C800F571C8 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Shared/Common/Utils/Random.swift; sourceTree = "<group>"; };
 		113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URLSchema+SOS.swift"; path = "Shared/Common/Application/URLSchema+SOS.swift"; sourceTree = "<group>"; };
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
@@ -879,6 +881,14 @@
 				1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */,
 			);
 			name = Rx;
+			sourceTree = "<group>";
+		};
+		113446171EE13035009117D5 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				113446181EE1307F009117D5 /* YHAlertView.swift */,
+			);
+			name = AlertView;
 			sourceTree = "<group>";
 		};
 		113F2E431E9E070900B3628C /* URL */ = {
@@ -1491,6 +1501,7 @@
 		E01DF7311E308D7F00EA003D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				113446171EE13035009117D5 /* AlertView */,
 				114437BD1ECAD1590095E648 /* Activity */,
 				1158D1E01EBC1D1D00525865 /* AnnotationView */,
 				110528E61E78DF0300FE97A8 /* Badge */,
@@ -2909,6 +2920,7 @@
 				114437BF1ECAD1E20095E648 /* ActivityImageView.swift in Sources */,
 				FF3F06821EA0C7B100B00939 /* RulerScrollView.swift in Sources */,
 				1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */,
+				113446191EE1307F009117D5 /* YHAlertView.swift in Sources */,
 				FF3F06801EA0BFD400B00939 /* CustomRuler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

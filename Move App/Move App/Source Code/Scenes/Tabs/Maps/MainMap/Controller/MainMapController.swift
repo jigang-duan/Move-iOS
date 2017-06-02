@@ -150,10 +150,13 @@ class MainMapController: UIViewController {
             .drive(headPortraitOutlet.rx.initialsAvatar)
             .addDisposableTo(disposeBag)
         
-        viewModel.currentDevice.map{ $0.user?.online }.filterNil()
-            .map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }
+        let online = viewModel.currentDevice.map{ $0.user?.online }.filterNil()
+        online.map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }
             .drive(statesOutlet.rx.image)
             .addDisposableTo(disposeBag)
+        
+        online.map{ !$0 }.drive(voltameterOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        online.map{ !$0 }.drive(voltameterImageOutlet.rx.isHidden).addDisposableTo(disposeBag)
         
         let power = Driver.merge(
             viewModel.currentDevice.map{ $0.property?.power }.filterNil(),
@@ -228,7 +231,10 @@ class MainMapController: UIViewController {
         RxStore.shared.uidObservable
             .flatMapLatest { (uid) -> Observable<Bool> in
                 let notices = realm.objects(NoticeEntity.self).filter("to == %@", uid)
-                return Observable.collection(from: notices).map({ $0.filter("readStatus == 0").count > 0 })
+                return Observable.collection(from: notices)
+                    .map{ $0.filter("readStatus == 0") }
+                    .map{ $0.filter({ $0.imType.atNotiicationPage }) }
+                    .map{ $0.count > 0 }
             }
             .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal) : R.image.nav_notice_nor()! }
             .bindTo(noticeOutlet.rx.image)
@@ -298,7 +304,8 @@ extension MainMapController {
 
     fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
         let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
-        let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: preferredStyle)
+        let title =  "Navigate to kid\'s location"
+        let sheetView = UIAlertController(title: title, message: nil, preferredStyle: preferredStyle)
         
         sheetView.addAction(UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil))
         

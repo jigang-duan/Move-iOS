@@ -186,10 +186,10 @@ class UUMessageCell: UITableViewCell {
                     self.btnContent.backImageView.isHidden = false
                     self.btnContent.backImageView.load(emoji: emoji)
                 }
-                self.btnContent.backImageView.frame = CGRect(x: 0, y: 0,
-                                                             width: self.btnContent.frame.size.width,
+                self.btnContent.backImageView.frame = CGRect(x: 5, y: 0,
+                                                             width: self.btnContent.frame.size.width - 10,
                                                              height: self.btnContent.frame.size.height)
-                self.makeMaskView(self.btnContent.backImageView, with: normal)
+                //self.makeMaskView(self.btnContent.backImageView, with: normal)
             default:
                 break
             }

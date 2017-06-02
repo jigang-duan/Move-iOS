@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CustomViews
 
 enum AlertResult {
     case cancel(parcel: Any?)
@@ -30,14 +31,9 @@ class AlertWireframe {
         return Distribution.shared.currentViewCotroller
     }
     
-    static func presentAlert(_ message: String, title: String? = nil, iconURL: String? = nil, cancel: String? = nil) {
-        let alertView = NoticeAlertControoler()
-        alertView.content = message
-        alertView.alertTitle = title
-        alertView.iconURL = iconURL
-        if let cancel = cancel {
-            alertView.cancelAction = NoticeAlertControoler.Action(title: cancel) {}
-        }
+    static func presentAlert(_ message: String, title: String? = nil, cancel: String? = nil) {
+        let alertView = YHAlertView(title: title ?? "", message: message, delegate: nil, cancelButtonTitle: cancel, otherButtonTitles: ["OK"])
+        alertView.visual = false
         alertView.show()
     }
     

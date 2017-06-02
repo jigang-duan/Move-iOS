@@ -103,7 +103,7 @@ struct UUMessageFrame {
         case .voice:
             contenSize = CGSize(width: 96, height: 20)
         case .emoji:
-            contenSize = CGSize(width: 36, height: 36)
+            contenSize = CGSize(width: 28, height: 28)
         }
         if message.from == .me {
             contentX = iconX - contenSize.width - ChatContentLeft - ChatContentRight - ChatMargin

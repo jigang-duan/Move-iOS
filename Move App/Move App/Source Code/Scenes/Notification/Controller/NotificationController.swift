@@ -29,6 +29,7 @@ class NotificationController: UIViewController {
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
     
     let deleteMessageSubject = PublishSubject<Int>()
+    let enterSubject = PublishSubject<Void>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,8 @@ class NotificationController: UIViewController {
             notices.bindTo(messageFramesVariable).addDisposableTo(bag)
             
             let cellIdentifier = R.reuseIdentifier.cellNotification.identifier
-            messageFramesVariable.asObservable()
+            let messageFramesObservable = messageFramesVariable.asObservable()
+            messageFramesObservable
                 .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
                     cell.messageFrame = model
                     cell.menuDelegate = self
@@ -92,11 +94,20 @@ class NotificationController: UIViewController {
                 }
                 .addDisposableTo(bag)
             
-            messageFramesVariable.asObservable()
-                .bindNext({ [weak self] _ in
-                    self?.tableViewScrollToBottom()
-                })
+            enterSubject.asObservable()
+                .flatMapLatest { messageFramesObservable }
+                .filterEmpty()
+                .single()
+                .bindNext { [weak self] (_) in
+                    self?.showFeatureGudieView()
+                }
                 .addDisposableTo(bag)
+            
+//            messageFramesVariable.asObservable()
+//                .bindNext({ [weak self] _ in
+//                    self?.tableViewScrollToBottom()
+//                })
+//                .addDisposableTo(bag)
             
             moreView.delegate = self
             
@@ -121,12 +132,9 @@ class NotificationController: UIViewController {
         }
     }
     
-    private func tableViewScrollToBottom() {
-        guard messageFramesVariable.value.count > 0 else {
-            return
-        }
-        let indexPath = IndexPath(row: messageFramesVariable.value.count - 1, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        enterSubject.onNext(())
     }
     
     override func didReceiveMemoryWarning() {
@@ -135,6 +143,32 @@ class NotificationController: UIViewController {
     }
 
 }
+
+extension NotificationController {
+    
+    fileprivate func tableViewScrollToBottom() {
+        guard messageFramesVariable.value.count > 0 else {
+            return
+        }
+        let indexPath = IndexPath(row: messageFramesVariable.value.count - 1, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    
+    fileprivate func showFeatureGudieView() {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            if let cell = tableView.visibleCells.first as? UUMessageCell {
+                let featureItem = EAFeatureItem(focus: cell.btnContent,
+                                                focusCornerRadius: 6 ,
+                                                focus: UIEdgeInsets.zero)
+                featureItem?.actionTitle = "I Know"
+                featureItem?.introduce = "Long press to delete"
+                self.view.show(with: [featureItem!], saveKeyName: "mark:notification:cell:content", inVersion: version)
+            }
+        }
+    }
+    
+}
+
 
 extension NotificationController: MoreViewDelegate {
     
