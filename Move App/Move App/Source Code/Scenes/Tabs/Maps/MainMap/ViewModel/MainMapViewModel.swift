@@ -46,6 +46,8 @@ class MainMapViewModel {
     
     let lowBattery: Observable<Int>
     
+    let online: Driver<Bool>
+    
     init(
         input: (
             enter: Driver<Bool>,
@@ -101,7 +103,7 @@ class MainMapViewModel {
         let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground)
             .withLatestFrom(remindActivitying.asObservable())
             .filter { !$0 }
-            .map{_ in Void() }
+            .map{_ in () }
         
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
@@ -178,7 +180,8 @@ class MainMapViewModel {
         lowBattery = MessageServer.share.lowBattery
             .flatMapLatest{ deviceManager.power.catchErrorJustReturn(0) }
         
-        
+        online = period.delay(5.0, scheduler: MainScheduler.instance).asDriver(onErrorJustReturn: ())
+            .flatMapLatest { deviceManager.online.asDriver(onErrorJustReturn: false) }
     }
 }
 

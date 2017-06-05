@@ -142,6 +142,13 @@ extension DeviceManager {
             .map { $0.newVersion }
             .filterNil()
     }
+    
+    var online: Observable<Bool> {
+        guard let deviceId = Me.shared.currDeviceID else {
+            return Observable.empty()
+        }
+        return worker.fetchDevice(deviceId: deviceId).map { $0.user?.online }.filterNil()
+    }
 }
 
 

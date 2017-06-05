@@ -148,7 +148,7 @@ class MainMapController: UIViewController {
             .drive(headPortraitOutlet.rx.initialsAvatar)
             .addDisposableTo(disposeBag)
         
-        let online = viewModel.currentDevice.map{ $0.user?.online }.filterNil()
+        let online = Driver.merge(viewModel.currentDevice.map{ $0.user?.online }.filterNil(), viewModel.online)
         online.map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }
             .drive(statesOutlet.rx.image)
             .addDisposableTo(disposeBag)
