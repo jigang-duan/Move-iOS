@@ -48,7 +48,7 @@ class TimeZoneController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         self.internationalization()
         
         //auto on timecell off ,off on 控制跳转

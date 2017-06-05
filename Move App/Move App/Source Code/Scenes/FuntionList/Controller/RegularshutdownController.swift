@@ -58,8 +58,7 @@ class RegularshutdownController: UIViewController {
         self.internationalization()
         
         self.datePicker.timeZone = TimeZone(secondsFromGMT: 0)
-        
-       // openShutdown.rx.switch.asDriver().drive(openShutdownVariabel).addDisposableTo(disposeBag)
+
        (openShutdown.rx.value <-> openShutdownVariabel).addDisposableTo(disposeBag)
         let openEnable = openShutdownVariabel.asDriver()
         
@@ -140,7 +139,7 @@ class RegularshutdownController: UIViewController {
             .addDisposableTo(disposeBag)
         viewModel?.activityIn
             .map{ !$0 }
-            .drive(onNext: userInteractionEnabled)
+            .drive(onNext: nil)
             .addDisposableTo(disposeBag)
         
         
@@ -162,13 +161,46 @@ class RegularshutdownController: UIViewController {
         
     }
   
-    private func cancelDatepicker() {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if touchesBeganEnable.value {
+            datePickView.isHidden = true
+            shutdownTimeQutlet.isSelected = false
+            bootTimeOutlet.isSelected = false
+        }
+    }
+    
+}
+//按钮监听事件
+extension RegularshutdownController {
+    
+    func enableView(_ enable: Bool){
+        
+        self.bootTimeOutlet.isEnabled = enable
+        self.shutdownTimeQutlet.isEnabled = enable
+        self.datePickView.isHidden = enable ? self.datePickView.isHidden : true
+        self.booTimeLabel.isEnabled = enable
+        self.shutdownLabel.isEnabled = enable
+    }
+
+    
+    func cancelDatepicker() {
         datePickView.isHidden = true
         bootTimeOutlet.isSelected = false
         shutdownTimeQutlet.isSelected = false
     }
     
-    private func comfirmDatepicker() {
+    fileprivate func alertSeting(message: String,preferredStyle: UIAlertControllerStyle)
+    {
+        let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: message, preferredStyle: preferredStyle)
+        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okActiojn)
+        
+        self.present(alertController, animated: true)
+    }
+    
+     func comfirmDatepicker() {
         
         if bootTimeOutlet.isSelected {
             bootTimeOutlet.isSelected = false
@@ -176,15 +208,13 @@ class RegularshutdownController: UIViewController {
             let currTime = Double(shutdownTimeVariable.value.timeIntervalSince1970)
             let result = selectTime - currTime
             if (datePicker.date == shutdownTimeVariable.value) ||  (fabsf(Float(result)) <= 600) {
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
-                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okActiojn)
-                self.present(alertController, animated: true)
-
+                
+                self.alertSeting(message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                
             }else
             {
                 bootTimeVariable.value = datePicker.date
-               
+                
             }
         }
         
@@ -194,37 +224,32 @@ class RegularshutdownController: UIViewController {
             let currTime = Double(bootTimeVariable.value.timeIntervalSince1970)
             let result = selectTime - currTime
             if (datePicker.date == bootTimeVariable.value) || (fabsf(Float(result)) <= 600) {
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
-                let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okActiojn)
-                self.present(alertController, animated: true)
+                
+                self.alertSeting(message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
                 
             }else
             {
-                
                 shutdownTimeVariable.value = datePicker.date
                 
             }
-
+            
         }
         
         datePickView.isHidden = true
         openShutdown.isOn = true
-        
-        
     }
     
-    private func selectShutdownTime() {
+     func selectShutdownTime() {
         self.datePicker.minimumDate = self.amMin
         self.datePicker.maximumDate = self.pmMax
         self.shutdownTimeQutlet.isSelected = true
         self.bootTimeOutlet.isSelected = false
         self.datePicker.date = shutdownTime
         self.datePickView.isHidden = false
-    
+        
     }
     
-    private func selectBootTime() {
+     func selectBootTime() {
         self.datePicker.minimumDate = self.amMin
         self.datePicker.maximumDate = self.pmMax
         self.bootTimeOutlet.isSelected = true
@@ -232,28 +257,10 @@ class RegularshutdownController: UIViewController {
         self.datePicker.date = bootTime
         self.datePickView.isHidden = false
     }
-    
-    private func enableView(_ enable: Bool){
-        
-        self.bootTimeOutlet.isEnabled = enable
-        self.shutdownTimeQutlet.isEnabled = enable
-        self.datePickView.isHidden = enable ? self.datePickView.isHidden : true
-        self.booTimeLabel.isEnabled = enable
-        self.shutdownLabel.isEnabled = enable
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if touchesBeganEnable.value {
-            datePickView.isHidden = true
-            shutdownTimeQutlet.isSelected = false
-            bootTimeOutlet.isSelected = false
-            
-        }
-    }
-    
+
 }
 
+//时间转换
 extension RegularshutdownController {
     
     private func zoneDateString(form date: Date) -> String {

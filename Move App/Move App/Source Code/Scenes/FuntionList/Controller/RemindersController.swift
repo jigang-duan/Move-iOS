@@ -62,10 +62,10 @@ class RemindersController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        self.internationalization()
-        self.addFuntion()
-        self.initView()
-        self.loadData()
+        internationalization()
+        addFuntion()
+        initView()
+        loadData()
         
         timeSelectBtn.rx.tap.asDriver().drive(onNext: calenderIsOpen).addDisposableTo(disposeBag)
         timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
@@ -73,35 +73,12 @@ class RemindersController: UIViewController {
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
         
         titleSegment.selectedSegmentIndex = 0
-        self.changeShow()
+        changeShow()
         titleSegment.addTarget(self, action: #selector(RemindersController.changeShow), for: .valueChanged)
         
     }
-    
-    func changeShow() {
-        let imageempty = emptyView.subviews[0] as! UIImageView
-        let label = emptyView.subviews[1] as! UILabel
-        if titleSegment.selectedSegmentIndex == 0
-        {
-            dateView.isHidden = true
-            tableviewtopConstraint.constant = -60
-            calendar.isHidden = true
-        
-            imageempty.image = R.image.reminder_empty()
-            label.text = "No alarm this day,tap \"+\" to add a alarm."
-        }else
-        {
-            self.changeBtnType(time: -1, date: Date.today().startDate)
-            dateView.isHidden = false
-            tableviewtopConstraint.constant = 0
-            calendar.isHidden = true
-            imageempty.image = R.image.todolist_empty()
-            label.text = "No reminder this day,tap \"+\" to add a to do list."
-        }
-        self.tableViw.reloadData()
-    }
-    
-    func loadData() {
+
+    fileprivate func loadData() {
         viewModel = RemindersViewModel(
             input: (
                 update: updateTap.asDriver().filter({ $0 > 0 }).map({ _ in Void() }) ,
@@ -121,171 +98,31 @@ class RemindersController: UIViewController {
         let zoneDate = Date(timeIntervalSince1970: 0)
         
         viewModel.reminderVariable.asDriver()
-            .map({ $0.alarms  })
+            .map({ $0 })
             .drive(onNext: {
                 
-                self.alarms =  $0.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
-                self.tableViw.reloadData()
-            } )
-            .addDisposableTo(disposeBag)
-
-        
-        viewModel.reminderVariable.asDriver()
-            .map({  $0.todo })
-            .drive(onNext: {
-                self.todos =  $0.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
-//                self.fifleremeder?.removeAll()
-//                for i in 0 ..< (self.todos?.count ?? 0)!
-//                {
-////                    if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
-////                        self.fifleremeder?.append((self.todos?[i])!)
-////                    }
-//                    
-//                    let tmepValue = self.todos?[i]["repeat"] as!Int
-//                    switch tmepValue  {
-//                    case 0:
-//                        self.fifleremeder?.append((self.todos?[i])!)
-//                        break
-//                    case 1,2,3:
-//                        self.fifleremeder?.append((self.todos?[i])!)
-//                        break
-//                    default:
-//                        break
-//                    }
-//                }
-
-//                self.tableViw.reloadData()
+                self.alarms =  $0.alarms.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
+                
+                self.todos =  $0.todo.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
                 
                 let date  = DateUtility.stringToDateyyMMddd(dateString: self.timeSelectBtn.titleLabel?.text ?? "")
                 self.changeBtnType(time: 0 , date : date)
-
-            })
+                
+                self.tableViw.reloadData()
+            } )
             .addDisposableTo(disposeBag)
     }
     
-    func initView() {
+    fileprivate func initView() {
         self.tableViw.delegate = self
         self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
         calendar.select(calendar.today)
         timeSelectBtn.setTitle(DateUtility.todayy(), for: .normal)
     }
-    
-    func calenderIsOpen() {
-        
-        if isCalendarOpen == false {
-            calendar.isHidden = false
-            isCalendarOpen = true
-        }else{
-            calendar.isHidden = true
-            isCalendarOpen = false
-        }
-    }
-    
-    func lastDayClick() {
-        let curday = calendar.selectedDate
-        let perivday = calendar.date(bySubstractingDays: 1, from: curday!)
-        calendar.select(perivday)
-        let time = self.calenderConversion(from: calendar.today!, to: perivday)
-        self.changeBtnType(time: time, date: perivday)
-    }
-    
-    func nextDayClick() {
-        let curday = calendar.selectedDate
-        let nextday = calendar.date(byAddingDays: 1, to: curday!)
-        calendar.select(nextday)
-        let time = self.calenderConversion(from: calendar.today!, to: nextday)
-        self.changeBtnType(time: time, date: nextday)
-    }
-    
-    func changeBtnType(time : Int , date : Date){
-//        if time == 1 {
-//            timeSelectBtn.setTitle("Tomorrow", for: .normal)
-//        }else if time == -1 {
-//            timeSelectBtn.setTitle("Yesterday", for: .normal)
-////        }else if time == 0{
-////            timeSelectBtn.setTitle("Today", for: .normal)
-//        }else{
-        
-//        self.fifletodos?.removeAll()
-//        for i in 0 ..< (self.todos?.count ?? 0)
-//        {
-////            if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
-//                self.fifletodos?.append((self.todos?[i])!)
-////            }
-//        }
-            calendar.isHidden = true
-            let string = self.formatter.string(from: date)
-            timeSelectBtn.setTitle(string, for: .normal)
-//        }
-        //获取周
-//        print(DateUtility.getDateWeekDay(date: date as NSDate))
-        //获取日  every month3 ,every week2, every day1 ,never0
-//        print(DateUtility.getDay(date: date as NSDate))
-        
-        self.fifleremeder?.removeAll()
-        for i in 0 ..< (self.todos?.count ?? 0)!
-        {
-            if self.timeSelectBtn.titleLabel?.text != (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
-            switch self.todos?[i]["repeat"] as! Int {
-            case 0:
-               print(self.todos?[i]["repeat"] as! Int)
-                break
-            case 1:
-                    self.fifleremeder?.append((self.todos?[i])!)
-                break
-            case 2:
-                //周日判断有毒
-                if ((DateUtility.getDateWeekDay(date: date as NSDate)) == (DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate)) - 1)) || ((DateUtility.getDateWeekDay(date: date as NSDate)) - (DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate)) - 1) == 7)
-                        {
-                            self.fifleremeder?.append((self.todos?[i])!)
-                    }
-                    
-                break
-            case 3:
-                if DateUtility.getDay(date: date as NSDate) == DateUtility.getDay(date: (self.todos?[i]["start"] as! NSDate))
-                {
-                    self.fifleremeder?.append((self.todos?[i])!)
-                }
-                break
-            default:
-                break
-                }
-            }
-            //加当天
-            if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
-                self.fifleremeder?.append((self.todos?[i])!)
-            }
-        }
-        
-            self.tableViw.reloadData()
-    }
-
-    func calenderConversion(from : Date , to : Date) -> Int {
-        let gregorian = Calendar(identifier: Calendar.Identifier.chinese)
-        let result = gregorian.dateComponents([Calendar.Component.day], from: from, to: to)
-        return result.day!
-    }
-    
-    func addFuntion() {
-        
-        let popover = RxPopover.shared
-        popover.style = .dark
-        let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
-                                        title: R.string.localizable.id_alarm(),
-                                        isSelected: false)
-        
-        let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),
-                                        title: R.string.localizable.id_todolist(),
-                                        isSelected: false)
-        addOutlet.rx.tap.asObservable()
-            .flatMapLatest {
-                popover.promptFor(toView: self.addOutlet, actions: [action1, action2])
-            }
-            .bindNext(showSubController)
-            .addDisposableTo(disposeBag)
-    }
 
 }
+
+//tablview代理方法
 extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -424,13 +261,59 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         }
     }
 }
+//缺省页面
+extension RemindersController {
+    @objc fileprivate func changeShow() {
+        let imageempty = emptyView.subviews[0] as! UIImageView
+        let label = emptyView.subviews[1] as! UILabel
+        if titleSegment.selectedSegmentIndex == 0
+        {
+            dateView.isHidden = true
+            tableviewtopConstraint.constant = -60
+            calendar.isHidden = true
+            
+            imageempty.image = R.image.reminder_empty()
+            label.text = "No alarm this day,tap \"+\" to add a alarm."
+        }else
+        {
+            self.changeBtnType(time: -1, date: Date.today().startDate)
+            dateView.isHidden = false
+            tableviewtopConstraint.constant = 0
+            calendar.isHidden = true
+            imageempty.image = R.image.todolist_empty()
+            label.text = "No reminder this day,tap \"+\" to add a to do list."
+        }
+        
+        self.tableViw.reloadData()
+    }
+
+}
+// + 的方法
 extension RemindersController {
 
-    func showSubController(action: BasePopoverAction) {
+   fileprivate func addFuntion() {
+        
+        let popover = RxPopover.shared
+        popover.style = .dark
+        let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
+                                        title: R.string.localizable.id_alarm(),
+                                        isSelected: false)
+        
+        let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),
+                                        title: R.string.localizable.id_todolist(),
+                                        isSelected: false)
+        addOutlet.rx.tap.asObservable()
+            .flatMapLatest {
+                popover.promptFor(toView: self.addOutlet, actions: [action1, action2])
+            }
+            .bindNext(showSubController)
+            .addDisposableTo(disposeBag)
+    }
+    
+   fileprivate func showSubController(action: BasePopoverAction) {
         if action.title == R.string.localizable.id_alarm() {
                 self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
         } else if action.title == R.string.localizable.id_todolist() {
-            
                 if let vc = R.storyboard.account.addTodo() {
                     vc.todos = (self.todos ?? nil)!
                     self.navigationController?.show(vc, sender: nil)
@@ -438,6 +321,104 @@ extension RemindersController {
         }
     }
 }
+
+//日历按钮事件
+extension RemindersController {
+   fileprivate func calenderIsOpen() {
+        
+        if isCalendarOpen == false {
+            calendar.isHidden = false
+            isCalendarOpen = true
+        }else{
+            calendar.isHidden = true
+            isCalendarOpen = false
+        }
+    }
+    
+   fileprivate func lastDayClick() {
+        let curday = calendar.selectedDate
+        let perivday = calendar.date(bySubstractingDays: 1, from: curday!)
+        calendar.select(perivday)
+        let time = self.calenderConversion(from: calendar.today!, to: perivday)
+        self.changeBtnType(time: time, date: perivday)
+    }
+    
+   fileprivate func nextDayClick() {
+        let curday = calendar.selectedDate
+        let nextday = calendar.date(byAddingDays: 1, to: curday!)
+        calendar.select(nextday)
+        let time = self.calenderConversion(from: calendar.today!, to: nextday)
+        self.changeBtnType(time: time, date: nextday)
+    }
+    
+   fileprivate func changeBtnType(time : Int , date : Date){
+        //        if time == 1 {
+        //            timeSelectBtn.setTitle("Tomorrow", for: .normal)
+        //        }else if time == -1 {
+        //            timeSelectBtn.setTitle("Yesterday", for: .normal)
+        ////        }else if time == 0{
+        ////            timeSelectBtn.setTitle("Today", for: .normal)
+        //        }else{
+        
+        //        self.fifletodos?.removeAll()
+        //        for i in 0 ..< (self.todos?.count ?? 0)
+        //        {
+        ////            if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
+        //                self.fifletodos?.append((self.todos?[i])!)
+        ////            }
+        //        }
+        calendar.isHidden = true
+        let string = self.formatter.string(from: date)
+        timeSelectBtn.setTitle(string, for: .normal)
+        //        }
+        
+        self.fifleremeder?.removeAll()
+        for i in 0 ..< (self.todos?.count ?? 0)!
+        {
+            if self.timeSelectBtn.titleLabel?.text != (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
+                switch self.todos?[i]["repeat"] as! Int {
+                case 0:
+                    print(self.todos?[i]["repeat"] as! Int)
+                    break
+                case 1:
+                    self.fifleremeder?.append((self.todos?[i])!)
+                    break
+                case 2:
+                    //周日判断有毒
+                    if ((DateUtility.getDateWeekDay(date: date as NSDate)) == (DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate)) - 1)) || ((DateUtility.getDateWeekDay(date: date as NSDate)) - (DateUtility.getDateWeekDay(date: (self.todos?[i]["start"] as! NSDate)) - 1) == 7)
+                    {
+                        self.fifleremeder?.append((self.todos?[i])!)
+                    }
+                    
+                    break
+                case 3:
+                    if DateUtility.getDay(date: date as NSDate) == DateUtility.getDay(date: (self.todos?[i]["start"] as! NSDate))
+                    {
+                        self.fifleremeder?.append((self.todos?[i])!)
+                    }
+                    break
+                default:
+                    break
+                }
+            }
+            //加当天
+            if self.timeSelectBtn.titleLabel?.text == (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
+                self.fifleremeder?.append((self.todos?[i])!)
+            }
+        }
+        
+        self.tableViw.reloadData()
+    }
+    
+   fileprivate func calenderConversion(from : Date , to : Date) -> Int {
+        let gregorian = Calendar(identifier: Calendar.Identifier.chinese)
+        let result = gregorian.dateComponents([Calendar.Component.day], from: from, to: to)
+        return result.day!
+    }
+    
+}
+
+//日历控件代理方法
 extension RemindersController: FSCalendarDelegate,FSCalendarDelegateAppearance {
    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition)

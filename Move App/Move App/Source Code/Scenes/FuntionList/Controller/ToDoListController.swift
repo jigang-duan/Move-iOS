@@ -45,9 +45,9 @@ class ToDoListController: UITableViewController {
     
     var disposeBag = DisposeBag()
     
-    
     var repeatStateVariable = Variable("Never")
     
+    //国际化
     func internationalization()  {
             todolistTitleItem.title = R.string.localizable.id_todolist()
             saveQutlet.setTitle(R.string.localizable.id_save(), for: .normal)
@@ -64,6 +64,7 @@ class ToDoListController: UITableViewController {
         self.internationalization()
         self.isOldTodo = false
         back.isHidden = false
+        tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         
         if todo != nil{
             titleTextFieldQutle.text = todo?["topic"] as? String
@@ -76,9 +77,7 @@ class ToDoListController: UITableViewController {
             self.isOldTodo = true
         }
         
-        tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         repeatStateVariable.asDriver().drive(repeatStateQutlet.rx.text).addDisposableTo(disposeBag)
-        
         
         beginTimeVariable.asDriver()
             .drive(onNext: {date in
@@ -114,139 +113,12 @@ class ToDoListController: UITableViewController {
         
         self.saveQutlet.rx.tap.asDriver().drive(onNext: saveAction).addDisposableTo(disposeBag)
         
-//        let viewModel = ToDoListViewModel(
-//            input: (
-//                save: saveQutlet.rx.tap.asDriver(),
-//                topic: titleTextFieldQutle.rx.text.orEmpty.asDriver(),
-//                content: remarkTextFieldQutlet.rx.text.orEmpty.asDriver(),
-//                startime: beginTimeVariable.asDriver(),
-//                endtime: endTimeVariabel.asDriver(),
-//                repeatcount: repeatStateVariable.asDriver().map(repeatcount).debug()
-//            ),
-//            dependency: (
-//                kidSettingsManager: KidSettingsManager.shared,
-//                validation: DefaultValidation.shared,
-//                wireframe: DefaultWireframe.sharedInstance))
-//        
-//        viewModel.saveFinish
-//            .drive(onNext: {[weak self] finish in
-//               
-//                if self?.beginTime == self?.endTime{
-//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
-//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(okActiojn)
-//                    self?.present(alertController, animated: true)
-//                    
-//                } else if (self?.beginTime)! < Date()
-//                {
-//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
-//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(okActiojn)
-//                    self?.present(alertController, animated: true)
-//                }else if ((self?.titleTextFieldQutle.text?.characters.count)! > 20 || ((self?.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
-//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
-//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(okActiojn)
-//                    self?.present(alertController, animated: true)
-//                }else if self?.titleTextFieldQutle.text == "" || self?.remarkTextFieldQutlet.text == ""{
-//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
-//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(okActiojn)
-//                    self?.present(alertController, animated: true)
-//                }else if (self?.beginTime)! > (self?.endTime)! {
-//                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
-//                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(okActiojn)
-//                    self?.present(alertController, animated: true)
-//                
-//                }
-//                else if finish {
-//                    let _ = self?.navigationController?.popViewController(animated: true)
-//                }
-//
-//
-//            })
-//            .addDisposableTo(disposeBag)
-//      
-//        viewModel.activityIn
-//            .map({ !$0 })
-//            .drive(saveQutlet.rx.isEnabled)
-//            .addDisposableTo(disposeBag)
         
     }
     
-    func saveAction() {
-       
-        self.saveQutlet.isUserInteractionEnabled = false
-        if self.beginTime == self.endTime{
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "begin time not the same as end time", preferredStyle: .alert)
-            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okActiojn)
-            self.present(alertController, animated: true)
-            self.saveQutlet.isUserInteractionEnabled = true
-        } else if (self.beginTime) < Date()
-        {
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "begin time later than the system time", preferredStyle: .alert)
-            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okActiojn)
-            self.saveQutlet.isUserInteractionEnabled = true
-            self.present(alertController, animated: true)
-            
-        }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
-            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okActiojn)
-            self.saveQutlet.isUserInteractionEnabled = true
-            self.present(alertController, animated: true)
-        }else if self.titleTextFieldQutle.text == "" {
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "The title and remark can't Null", preferredStyle: .alert)
-            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okActiojn)
-            self.saveQutlet.isUserInteractionEnabled = true
-            self.present(alertController, animated: true)
-        }else if (self.beginTime) > (self.endTime) {
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Start time later than the end of time", preferredStyle: .alert)
-            let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okActiojn)
-            self.saveQutlet.isUserInteractionEnabled = true
-            self.present(alertController, animated: true)
-            
-        }else
-        {
-             if self.isOldTodo!{
-                
-                    let _  = KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String, content: todo?["content"] as? String, start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
-                        {
-                            print($0)
-                            if $0 {
-                                let _ = self.navigationController?.popViewController(animated: true)
-                            }else{
-                                print("网络错误重新")
-                                self.saveQutlet.isUserInteractionEnabled = true
-                            }
-                    }).addDisposableTo(self.disposeBag)
-             }else{
-     
-            let _ = KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
-                            {
-                                print($0)
-                                if $0 {
-                                let _ = self.navigationController?.popViewController(animated: true)
-                                }else{
-                            print("网络错误重新")
-                                    self.saveQutlet.isUserInteractionEnabled = true
-                                }
-                        }).addDisposableTo(self.disposeBag)
-            }
-                
-        }
-        
-    }
-
+    //xib连线
     @IBAction func backAction(_ sender: Any) {
-        
             _ = self.navigationController?.popViewController(animated: true)
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -263,18 +135,87 @@ class ToDoListController: UITableViewController {
         }
     }
     
-    func repeatcount(name: String) -> Int {
-    
-        return [R.string.localizable.id_never():0, R.string.localizable.id_Everyday():1, R.string.localizable.id_Everyweek() : 2, R.string.localizable.id_Everymonth():3][name] ?? 0
-        
-    }
-    func repeatcountInt(Intt: Int) -> String {
-        
-        let InttString = String(Intt)
-        return ["0": R.string.localizable.id_never(),"1": R.string.localizable.id_Everyday(),"2": R.string.localizable.id_Everyweek(),"3": R.string.localizable.id_Everymonth() ][InttString]!
-    }
+}
 
-    private func selectBeginTime() {
+//保存，网络请求todolist
+extension ToDoListController {
+    //alert
+    
+    fileprivate func alertSeting(message: String,preferredStyle: UIAlertControllerStyle)
+    {
+        let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: message, preferredStyle: preferredStyle)
+        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okActiojn)
+        self.saveQutlet.isUserInteractionEnabled = true
+        self.present(alertController, animated: true)
+    }
+    
+    //保存
+    fileprivate func saveAction() {
+        
+        self.saveQutlet.isUserInteractionEnabled = false
+        
+        if self.beginTime == self.endTime{
+            
+            self.alertSeting(message: "begin time not the same as end time", preferredStyle: .alert)
+            
+        } else if (self.beginTime) < Date()
+        {
+            
+            self.alertSeting(message: "begin time later than the system time", preferredStyle: .alert)
+            
+        }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
+            
+            self.alertSeting(message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+            
+        }else if self.titleTextFieldQutle.text == "" {
+            
+            self.alertSeting(message: "The title and remark can't Null", preferredStyle: .alert)
+            self.saveQutlet.isUserInteractionEnabled = true
+            
+        }else if (self.beginTime) > (self.endTime) {
+            
+            self.alertSeting(message: "Start time later than the end of time", preferredStyle: .alert)
+            self.saveQutlet.isUserInteractionEnabled = true
+            
+            
+        }else
+        {
+            
+            let _  = isOldTodo! ? KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String, content: todo?["content"] as? String, start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
+            {
+                print($0)
+                if $0 {
+                    let _ = self.navigationController?.popViewController(animated: true)
+                }else{
+                    print("网络错误重新")
+                    self.saveQutlet.isUserInteractionEnabled = true
+                }
+            }).addDisposableTo(self.disposeBag)
+                
+                
+                :
+                KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
+                    {
+                        print($0)
+                        if $0 {
+                            let _ = self.navigationController?.popViewController(animated: true)
+                        }else{
+                            print("网络错误重新")
+                            self.saveQutlet.isUserInteractionEnabled = true
+                        }
+                }).addDisposableTo(self.disposeBag)
+            
+            
+        }
+        
+    }
+}
+
+//按钮监听事件
+extension ToDoListController {
+    
+    fileprivate func selectBeginTime() {
         self.datePicker.datePickerMode = .dateAndTime
         self.datePicker.minimumDate = Date.today().startDate
         self.beginTimeQutle.isSelected = true
@@ -283,7 +224,7 @@ class ToDoListController: UITableViewController {
         self.DatePickerView.isHidden = false
     }
     
-    private func selectEndTime() {
+    fileprivate func selectEndTime() {
         self.datePicker.datePickerMode = .time
         self.datePicker.date = beginTime
         self.datePicker.minimumDate = beginTime
@@ -294,13 +235,13 @@ class ToDoListController: UITableViewController {
         
     }
     
-    private func cancelDatepicker() {
+    fileprivate func cancelDatepicker() {
         DatePickerView.isHidden = true
         beginTimeQutle.isSelected = false
         endTimeQutle.isSelected = false
     }
     
-    private func comfirmDatepicker() {
+    fileprivate func comfirmDatepicker() {
         
         if beginTimeQutle.isSelected {
             beginTimeQutle.isSelected = false
@@ -317,12 +258,30 @@ class ToDoListController: UITableViewController {
         }
         
         DatePickerView.isHidden = true
+    }
 
+
+}
+
+//repeat转换
+extension ToDoListController {
+    
+   fileprivate func repeatcount(name: String) -> Int {
         
+        return [R.string.localizable.id_never():0, R.string.localizable.id_Everyday():1, R.string.localizable.id_Everyweek() : 2, R.string.localizable.id_Everymonth():3][name] ?? 0
+        
+    }
+   fileprivate func repeatcountInt(Intt: Int) -> String {
+        
+        let InttString = String(Intt)
+        return ["0": R.string.localizable.id_never(),"1": R.string.localizable.id_Everyday(),"2": R.string.localizable.id_Everyweek(),"3": R.string.localizable.id_Everymonth() ][InttString]!
     }
 
     
 }
+
+
+//时间转换
 extension ToDoListController {
     
     fileprivate func stringchangeTime(dateString : String) -> Date{
@@ -332,7 +291,7 @@ extension ToDoListController {
         
     }
     
-    private func DateString(form date: Date) -> String {
+    fileprivate func DateString(form date: Date) -> String {
         let dformatter = DateFormatter()
         dformatter.dateFormat = "MM-dd-yyyy HH:mm"
         let dateStr = dformatter.string(from: date)
@@ -364,4 +323,68 @@ extension ToDoListController {
 
 }
 
-
+//rx
+extension ToDoListController {
+    
+    //        let viewModel = ToDoListViewModel(
+    //            input: (
+    //                save: saveQutlet.rx.tap.asDriver(),
+    //                topic: titleTextFieldQutle.rx.text.orEmpty.asDriver(),
+    //                content: remarkTextFieldQutlet.rx.text.orEmpty.asDriver(),
+    //                startime: beginTimeVariable.asDriver(),
+    //                endtime: endTimeVariabel.asDriver(),
+    //                repeatcount: repeatStateVariable.asDriver().map(repeatcount).debug()
+    //            ),
+    //            dependency: (
+    //                kidSettingsManager: KidSettingsManager.shared,
+    //                validation: DefaultValidation.shared,
+    //                wireframe: DefaultWireframe.sharedInstance))
+    //
+    //        viewModel.saveFinish
+    //            .drive(onNext: {[weak self] finish in
+    //
+    //                if self?.beginTime == self?.endTime{
+    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
+    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                    alertController.addAction(okActiojn)
+    //                    self?.present(alertController, animated: true)
+    //
+    //                } else if (self?.beginTime)! < Date()
+    //                {
+    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
+    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                    alertController.addAction(okActiojn)
+    //                    self?.present(alertController, animated: true)
+    //                }else if ((self?.titleTextFieldQutle.text?.characters.count)! > 20 || ((self?.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
+    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                    alertController.addAction(okActiojn)
+    //                    self?.present(alertController, animated: true)
+    //                }else if self?.titleTextFieldQutle.text == "" || self?.remarkTextFieldQutlet.text == ""{
+    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
+    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                    alertController.addAction(okActiojn)
+    //                    self?.present(alertController, animated: true)
+    //                }else if (self?.beginTime)! > (self?.endTime)! {
+    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
+    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+    //                    alertController.addAction(okActiojn)
+    //                    self?.present(alertController, animated: true)
+    //
+    //                }
+    //                else if finish {
+    //                    let _ = self?.navigationController?.popViewController(animated: true)
+    //                }
+    //
+    //
+    //            })
+    //            .addDisposableTo(disposeBag)
+    //
+    //        viewModel.activityIn
+    //            .map({ !$0 })
+    //            .drive(saveQutlet.rx.isEnabled)
+    //            .addDisposableTo(disposeBag)
+    
+    
+    
+}
