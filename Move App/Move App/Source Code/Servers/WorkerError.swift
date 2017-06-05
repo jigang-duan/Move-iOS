@@ -56,11 +56,14 @@ extension WorkerError {
         if let _error = error as? MoveApi.ApiError {
             return WorkerError.webApi(id: _error.id!, field: _error.field, msg: _error.msg)
         }
+        if let _error = error as? WorkerError {
+            return _error
+        }
         return nil
     }
     
     static func errorTransform(from error: Swift.Error) -> String {
-        guard let apiError = error as? WorkerError else {
+        guard let apiError = workerError(form: error) as? WorkerError else {
             return error.localizedDescription
         }
         
@@ -159,7 +162,7 @@ extension WorkerError {
             case 11:
                 switch field ?? "" {
                 default:
-                    errorMessage = "\(field ?? "") \(msg ?? "")"
+                    errorMessage = ""
                 }
             case 12:
                 switch field ?? "" {

@@ -76,8 +76,6 @@ class MainMapController: UIViewController {
         super.viewDidLoad()
         timeOutlet.adjustsFontSizeToFitWidth = true
         
-        self.title = "Location"
-        
         self.addressScrollLabel.addObaserverNotification()
         
         noGeolocationView.frame = view.bounds
@@ -218,6 +216,7 @@ class MainMapController: UIViewController {
         
         viewModel.errorObservable
             .map { WorkerError.errorTransform(from: $0) }
+            .filterEmpty()
             .bindNext { ProgressHUD.show(status: $0) }
             .addDisposableTo(disposeBag)
         
