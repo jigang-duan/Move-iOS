@@ -122,19 +122,19 @@ class ScanCodeController: UIViewController {
         photoPicker = ImageUtility()
         
         self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, callback: { (image) in
-            let ciImage:CIImage=CIImage(image: image)!
+            let ciImage = CIImage(image: image)!
             
-            let context = CIContext(options: nil)
+            let context = CIContext()
             let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: context,
                                       options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])
             
             let features = detector?.features(in: ciImage)
             
-            if features?.count == 0 {
-                self.showMessage("No QR code detected")
-            }else{
-                let feature = features![0] as! CIQRCodeFeature
+            if let fs = features, fs.count > 0 {
+                let feature = fs[0] as! CIQRCodeFeature
                 self.makeDeviceAdd(with: feature.messageString!)
+            }else{
+                self.showMessage("No QR code detected")
             }
         })
     }

@@ -97,16 +97,10 @@ class UpgradeController: UIViewController {
     func updateDownloadStatus(with type: FirmwareUpdateType) {
         switch type {
         case .updateStarted:
-            break
-        case .updateSucceed:
-            self.fetchProperty()
-        case .updateDefeated:
-            self.fetchProperty()
+            self.updateDownloadStatus(with: .progressDownload("", 100))
         case .downloadStarted:
-            break
-        case .downloadDefeated:
-            self.fetchProperty()
-        case .checkDefeated:
+            self.updateDownloadStatus(with: .progressDownload("", 1))
+        case .updateSucceed, .updateDefeated, .checkDefeated, .downloadDefeated:
             self.fetchProperty()
         case .progressDownload:
             let progress = type.progress
@@ -237,8 +231,9 @@ class UpgradeController: UIViewController {
                 case .updateStarted, .downloadStarted, .progressDownload:
                     self.updateDownloadStatus(with: type)
                 default:
-                    self.checkVersion(checkInfo: checkInfo)
+                    break
                 }
+                self.checkVersion(checkInfo: checkInfo)
             })
             .addDisposableTo(disposeBag)
     }

@@ -94,6 +94,7 @@ class AccountAndChoseDeviceController: UIViewController {
         enterSubject.onNext(true)
         
         propelToTargetController()
+        self.navigationController?.navigationBar.isHidden = false
     }
     
 
