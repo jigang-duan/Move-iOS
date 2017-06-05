@@ -91,6 +91,8 @@ class LoginViewController: UIViewController {
         self.initializeI18N()
 
         // Do any additional setup after loading the view.
+        ThemeManager.applyNavigationBar(theme: Theme.clean)
+        
         self.setupUI()
       
         

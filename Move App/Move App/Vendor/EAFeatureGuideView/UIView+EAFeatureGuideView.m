@@ -58,7 +58,7 @@ static const BOOL LocationMandatoryCenter = YES;
     UIView *containerView = [[UIView alloc] initWithFrame:self.window.bounds];
     containerView.backgroundColor = [UIColor clearColor];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchedEvent:)];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchedEvent:)];
     //[containerView addGestureRecognizer:tap];
     
     

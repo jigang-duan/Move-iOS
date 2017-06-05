@@ -13,11 +13,11 @@ import Rswift
 
 
 enum Theme: Int {
-  case `default`, dark, graphical
+  case `default`, dark, graphical, clean
 
   var mainColor: UIColor {
     switch self {
-    case .default:
+    case .default, .clean:
         return R.color.appColor.primary()
     case .dark:
         return UIColor(r: 242, g: 101, b: 34)
@@ -28,7 +28,7 @@ enum Theme: Int {
 
   var barStyle: UIBarStyle {
     switch self {
-    case .default, .graphical:
+    case .default, .graphical, .clean:
       return .default
     case .dark:
       return .black
@@ -40,7 +40,7 @@ enum Theme: Int {
     }
 
   var navigationBackgroundImage: UIImage? {
-    return R.image.nav_bg()?.resizingStretchImage()
+    return self == .clean ? UIImage() : R.image.nav_bg()?.resizingStretchImage()
 //    return self == .graphical ? R.image.navBackground() : UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
 //                                                                  size: CGSize(width: 320, height: 44),
 //                                                                  locations: [0.0, 1.0])
@@ -52,7 +52,7 @@ enum Theme: Int {
 
   var backgroundColor: UIColor {
     switch self {
-    case .default, .graphical:
+    case .default, .graphical, .clean:
       return UIColor(white: 0.9, alpha: 1.0)
     case .dark:
       return UIColor(white: 0.8, alpha: 1.0)
@@ -61,7 +61,7 @@ enum Theme: Int {
 
   var secondaryColor: UIColor {
     switch self {
-    case .default:
+    case .default, .clean:
         return R.color.appColor.accent()
     case .dark:
         return UIColor(r: 34, g: 128, b: 66)
@@ -69,6 +69,15 @@ enum Theme: Int {
         return UIColor(r: 140, g: 50, b: 48)
     }
   }
+    
+    var iconsColor: UIColor {
+        switch self {
+        case .clean:
+            return R.color.appColor.secondayText()
+        default:
+            return R.color.appColor.icons()
+        }
+    }
 }
 
 let SelectedThemeKey = "SelectedTheme"
@@ -92,14 +101,7 @@ struct ThemeManager {
         let sharedApplication = UIApplication.shared
         sharedApplication.delegate?.window??.tintColor = theme.mainColor
         
-        //UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barStyle = theme.barStyle
-        UINavigationBar.appearance().tintColor = R.color.appColor.icons()
-        UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)
-        UINavigationBar.appearance().backIndicatorImage = R.image.nav_back_nor()
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backArrowMaskFixed()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: R.color.appColor.icons()]
-        UINavigationBar.appearance().isTranslucent = false
+        applyNavigationBar(theme: theme)
         
         UIBarButtonItem.appearance().tintColor = R.color.appColor.icons()
 
@@ -138,4 +140,16 @@ struct ThemeManager {
         
         UITableView.appearance().backgroundColor = UIColor.groupTableViewBackground
   }
+    
+    
+    static func applyNavigationBar(theme: Theme) {
+        UINavigationBar.appearance().barStyle = theme.barStyle
+        UINavigationBar.appearance().tintColor = theme.iconsColor
+        UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)
+        UINavigationBar.appearance().backIndicatorImage = R.image.nav_back_nor()
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backArrowMaskFixed()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: theme.iconsColor]
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().shadowImage = UIImage()
+    }
 }

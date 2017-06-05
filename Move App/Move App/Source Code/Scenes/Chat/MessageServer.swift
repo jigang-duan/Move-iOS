@@ -74,6 +74,7 @@ class MessageServer {
             let reNotice = syncData.map { $0.notices }
                 .filterNil()
                 .flatMap { Observable.from($0) }
+                .share()
             
             firmwareUpdate = reNotice
                 .filter { $0.imType.isFirmwareUpdate }

@@ -105,7 +105,7 @@ extension ApplicationManager {
     /// initialize image downloader
     fileprivate func initImageDownloader() {
         let configuration = URLSessionConfiguration.default
-        let auth = "\(MoveApi.apiKey);token=\(UserInfo.shared.accessToken.token)"
+        let auth = "\(MoveApi.apiKey);token=\(UserInfo.shared.accessToken.token ?? "")"
         configuration.httpAdditionalHeaders = [
             "Authorization": auth
         ]

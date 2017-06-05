@@ -50,7 +50,7 @@ class SafezoneCell: UITableViewCell {
                 let vcc = self.vc
                 let other11 = self.autoAnswer
                 let other22 = self.savePower
-                var btn = self.btn
+                let btn = self.btn
                 vmodel.active = isOn
                 self.delegate?.switchDid(cell: self, model: vmodel, autopositionBool: autopositionBool!, adminBool: admindBool!, vc: vcc!, other1: other11!, other2: other22!, btn: btn!)
                 

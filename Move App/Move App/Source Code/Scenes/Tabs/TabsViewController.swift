@@ -22,6 +22,8 @@ class TabsViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        ThemeManager.applyNavigationBar(theme: ThemeManager.currentTheme())
+        
         viewControllers = [
             R.storyboard.major.navHomeController()!,
             R.storyboard.main.choseDevice()!
@@ -35,9 +37,6 @@ class TabsViewController: UITabBarController {
                 self?.viewControllers?[0].tabBarItem.isEnabled = $0
             })
             .addDisposableTo(bag)
-        
-//        let nonOrOneDevice = RxStore.shared.deviceInfosState.asObservable().filter({ $0.count <= 1 }).map({ $0.first?.deviceId })
-//        nonOrOneDevice.distinctUntilChanged().bindTo(RxStore.shared.currentDeviceId).addDisposableTo(bag)
         
         enterSubject.asObservable()
             .filter({$0})
@@ -117,8 +116,6 @@ extension TabsViewController {
 
     fileprivate func showSOSViewController(sos: KidSateSOS) {
         if let toVC = R.storyboard.social.showSOS() {
-            
-//            toVC.sos = sos
             if let sosVC = toVC.viewControllers.first as? SOSController {
                 sosVC.sos = sos
             }
