@@ -95,7 +95,7 @@ extension FSManager {
         // Fetch Data
         let session = URLSession(configuration: URLSessionConfiguration.default)
         var request = URLRequest(url: url)
-        let auth = "\(MoveApi.apiKey);token=\(UserInfo.shared.accessToken.token)"
+        let auth = "\(MoveApi.apiKey);token=\(UserInfo.shared.accessToken.token ?? "")"
         request.setValue(auth, forHTTPHeaderField: "Authorization")
         session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {

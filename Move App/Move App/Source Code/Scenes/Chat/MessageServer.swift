@@ -48,7 +48,6 @@ class MessageServer {
             
             let messageObservable = syncData.map { $0.messages }
                 .filterNil()
-                //.flatMap { Observable.from($0) }
                 .share()
             
             messageObservable
@@ -62,7 +61,6 @@ class MessageServer {
                 .addDisposableTo(disposeBag)
             
 //            messageObservable
-//                //.filter { $0.from != uid }
 //                .map{ $0.flatMap{$0.from}.filter{ $0 != uid }.first }
 //                .filterNil()
 //                .bindNext({ (_) in
@@ -92,7 +90,7 @@ class MessageServer {
                 .flatMapLatest { RxStore.shared.deviceInfosObservable }
                 .take(1)
                 .flatMapLatest{ Observable.from($0) }
-                .filter { $0.user?.isAdmin ?? false }
+                .filter { $0.user?.isAdmin(uid: uid) ?? false }
                 .share()
             let deviceUpdateNotice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(),
                                                     RxStore.shared.uidObservable,
@@ -199,13 +197,7 @@ func vibration(messages: [MessageEntity], uid: String) {
 
 
 fileprivate func classifiedSave(messages: [MessageEntity], realm: Realm, sync: SynckeyEntity, uid: String) {
-//    DispatchQueue(label: "realm").async {
-//        messages.forEach { it in
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
-//                save(message: it, realm: realm, sync: sync, uid: uid)
-//            })
-//        }
-//    }
+
     let my = messages.filter({ $0.from == uid })
     save(messages: my, realm: realm, sync: sync, uid: uid)
     

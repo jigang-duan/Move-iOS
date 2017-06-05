@@ -35,7 +35,7 @@ class NotificationService {
             options.insert(UNAuthorizationOptions.badge)
             options.insert(UNAuthorizationOptions.sound)
             center.requestAuthorization(options: options) { (granted, error) in
-                if let _error = error as? NSError {
+                if let _error = error as NSError? {
                     Logger.error(_error)
                 } else {
                     Logger.info("request authorization succeeded!")

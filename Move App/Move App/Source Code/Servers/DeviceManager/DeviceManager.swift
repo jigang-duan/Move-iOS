@@ -406,8 +406,9 @@ fileprivate extension DeviceVersionCheck {
 }
 
 extension DeviceUser {
-    var isAdmin: Bool {
-        return (self.uid != nil) && (self.uid == self.owner)
+    
+    func isAdmin(uid: String) -> Bool {
+        return uid == self.owner
     }
 }
 

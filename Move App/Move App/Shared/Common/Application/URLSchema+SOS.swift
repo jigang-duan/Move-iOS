@@ -37,7 +37,7 @@ extension AppDelegate {
     }
     
     private func handle(open url: URL, sourceApplication: String?) {
-        Logger.verbose("sourceApplication: \(sourceApplication)")
+        Logger.verbose("sourceApplication: \(String(describing: sourceApplication))")
         Logger.verbose(url)
         
         guard

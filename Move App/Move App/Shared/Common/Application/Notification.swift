@@ -60,19 +60,19 @@ extension AppDelegate {
     
     // Handle
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Void) {
-        Logger.verbose("notification Handle \(identifier): \(notification)")
+        Logger.verbose("notification Handle \(String(describing: identifier)): \(notification)")
     }
     
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, withResponseInfo responseInfo: [AnyHashable : Any], completionHandler: @escaping () -> Void) {
-        Logger.verbose("notification Handle \(identifier): \(notification)")
+        Logger.verbose("notification Handle \(String(describing: identifier)): \(notification)")
     }
     
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Void) {
-        Logger.verbose("notification Handle \(identifier): \(userInfo)")
+        Logger.verbose("notification Handle \(String(describing: identifier)): \(userInfo)")
     }
     
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable : Any], withResponseInfo responseInfo: [AnyHashable : Any], completionHandler: @escaping () -> Void) {
-        Logger.verbose("notification Handle \(identifier): \(userInfo)")
+        Logger.verbose("notification Handle \(String(describing: identifier)): \(userInfo)")
         
     }
     

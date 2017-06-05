@@ -34,7 +34,7 @@ extension MoveApi {
                 if $0.statusCode == 200 {
                     fileStorageInfo.name = $0.response?.suggestedFilename
                     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                    fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name)")
+                    fileStorageInfo.path = documentsURL.appendingPathComponent("DownloadFiles/\(fileStorageInfo.name ?? "")")
                     fileStorageInfo.mimeType = $0.response?.mimeType
                     fileStorageInfo.fid = fid
                 }
