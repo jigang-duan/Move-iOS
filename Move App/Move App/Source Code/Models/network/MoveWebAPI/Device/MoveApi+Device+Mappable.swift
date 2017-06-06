@@ -44,6 +44,10 @@ extension MoveApi {
         var profile: String?
     }
     
+    struct DevicePhoneType {
+        var type: Int?
+    }
+    
     struct DeviceAdmin {
         var uid: String?
     }
@@ -588,6 +592,15 @@ extension MoveApi.Timezone: Mappable {
         gmtoffset <- map["gmtoffset"]
         countryname <- map["countryname"]
         timezoneId <- map["TimeZoneId"]
+    }
+}
+
+extension MoveApi.DevicePhoneType: Mappable {
+    init?(map: Map) {
+    }
+    
+    mutating func mapping(map: Map) {
+        type <- map["type"]
     }
 }
 

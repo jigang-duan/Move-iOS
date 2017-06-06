@@ -85,7 +85,7 @@ class MoveApiUserWorker: UserWorkerProtocl {
                                                    email: profile.email,
                                                    phone: profile.phone,
                                                    iconUrl: profile.profile,
-                                                   gender: profile.gender == "m" ? Gender.male:Gender.female,
+                                                   gender: profile.gender == "f" ? Gender.female:Gender.male,
                                                    height: profile.height,
                                                    weight: profile.weight,
                                                    heightUnit: UnitType(rawValue: profile.heightUnit ?? 0),

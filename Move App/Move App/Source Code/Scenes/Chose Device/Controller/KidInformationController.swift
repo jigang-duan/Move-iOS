@@ -13,6 +13,8 @@ import AVFoundation
 
 class KidInformationController: UIViewController {
     
+    let defaultKidInfo = (gender: Gender.male, birthday: Date(timeIntervalSince1970: 1339689600), height: 110, weight: 20)
+    
     @IBOutlet weak var cameraBun: UIButton!
     
     @IBOutlet weak var nextBun: UIButton!
@@ -140,7 +142,7 @@ class KidInformationController: UIViewController {
         
         
         if let gender = info.gender {
-            genderLab.text = (gender == .male ? R.string.localizable.id_male():R.string.localizable.id_female())
+            genderLab.text = (gender == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
         }else{
             genderLab.text = R.string.localizable.id_gender()
         }
@@ -304,23 +306,24 @@ class KidInformationController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.kidInformationController.setGenderVC(segue: segue)?.destination  {
-            vc.selectedGender = self.addInfoVariable.value.gender
+            vc.selectedGender = self.addInfoVariable.value.gender ?? defaultKidInfo.gender
+            
             vc.genderBlock = { (gender) in
                 self.addInfoVariable.value.gender = gender
-                self.genderLab.text = (gender == .male ? R.string.localizable.id_male():R.string.localizable.id_female())
+                self.genderLab.text = (gender == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
             }
         }
         if let vc = R.segue.kidInformationController.setBirthdayVC(segue: segue)?.destination  {
-            vc.selectedDate = self.addInfoVariable.value.birthday
+            vc.selectedDate = self.addInfoVariable.value.birthday ?? defaultKidInfo.birthday
+            
             vc.birthdayBlock = { (birthday) in
                 self.addInfoVariable.value.birthday = birthday
                 self.dateLab.text = birthday.stringYearMonthDay
             }
         }
         if let vc = R.segue.kidInformationController.setWeightVC(segue: segue)?.destination {
-            if let w = self.addInfoVariable.value.weight {
-                vc.selectedWeight = w
-            }
+            vc.selectedWeight = self.addInfoVariable.value.weight ?? defaultKidInfo.weight
+           
             if let unit = self.addInfoVariable.value.weightUnit {
                 vc.isUnitKg = (unit == UnitType.metric) ? true:false
             }
@@ -331,9 +334,8 @@ class KidInformationController: UIViewController {
             }
         }
         if let vc = R.segue.kidInformationController.setHeightVC(segue: segue)?.destination {
-            if let h = self.addInfoVariable.value.height {
-                vc.selectedHeight = h
-            }
+            vc.selectedHeight = self.addInfoVariable.value.height ?? defaultKidInfo.height
+            
             if let unit = self.addInfoVariable.value.heightUnit {
                 vc.isUnitCm = (unit == UnitType.metric) ? true:false
             }

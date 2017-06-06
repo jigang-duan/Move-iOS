@@ -71,7 +71,7 @@ class ProtectAccountController: UIViewController {
         
         self.initializeI18N()
 
-        HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email)."
+        HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email ?? "")."
         
         vcodeValidation.isHidden = true
         

@@ -75,6 +75,10 @@ extension DeviceManager {
         return worker.getContacts(deviceId: deviceId)
     }
     
+    func checkBindPhone(deviceId: String, phone: String) -> Observable<Int> {
+        return worker.checkBindPhone(deviceId:deviceId, phone: phone)
+    }
+    
     func settingContactInfo(contactInfo: ImContact) -> Observable<Bool> {
         guard let deviceId = RxStore.shared.currentDeviceId.value  else {
             return Observable<Bool>.empty()
@@ -167,6 +171,8 @@ protocol DeviceWorkerProtocl {
     func deleteContact(deviceId: String, uid: String) -> Observable<Bool>
     
     func getContacts(deviceId: String) -> Observable<[ImContact]>
+    
+    func checkBindPhone(deviceId: String, phone: String) -> Observable<Int>
     
     func settingContactInfo(deviceId: String, contactInfo: ImContact) -> Observable<Bool>
     

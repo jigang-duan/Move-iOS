@@ -12,14 +12,12 @@ import RxCocoa
 
 class UpgradeViewModel {
     
-    let downEnabled: Driver<Bool>
     let downResult: Driver<ValidationResult>
     
     
     init(
         input: (
             enter: Driver<Int>,
-            downloadProgress: Driver<Int>,
             downloadTaps: Driver<Void>
         ),
         dependency: (
@@ -31,12 +29,6 @@ class UpgradeViewModel {
         
         let deviceManager = dependency.deviceManager
         _ = dependency.wireframe
-        
-        
-        downEnabled = input.downloadProgress.map({ p in
-            return p <= 0 || p >= 100
-        })
-        
         
         
         downResult = input.downloadTaps.flatMapLatest({ _ in

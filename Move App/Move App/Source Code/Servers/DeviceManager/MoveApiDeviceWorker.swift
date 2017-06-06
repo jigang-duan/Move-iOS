@@ -56,7 +56,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
     }
     
     func getFamilyWatchDeviceList() -> Observable<[MoveApi.DeviceInfo]> {
-        return MoveApi.Device.getDeviceList(pid: DeviceType.familyWatch.pid).map({ $0.devices ?? [] })
+        return MoveApi.Device.getDeviceList().map({ $0.devices?.filter({$0.pid == DeviceType.familyWatch.pid}) ?? [] })
     }
     
     
@@ -95,6 +95,12 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
                                                flag: $0.flag,
                                                admin: $0.admin) }) ?? []
             }
+    }
+    
+    //        获取设备绑定号码信息
+    func checkBindPhone(deviceId: String, phone: String) -> Observable<Int> {
+        return MoveApi.Device.checkBindPhone(deviceId: deviceId, phone: phone)
+            .map({$0.type ?? -1})
     }
     
     //        设置联系人信息:  由管理员或联系人自己调用

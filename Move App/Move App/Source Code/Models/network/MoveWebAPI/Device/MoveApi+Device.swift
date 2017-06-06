@@ -55,8 +55,8 @@ extension MoveApi {
             return request(.joinDeviceGroup(deviceId: deviceId, joinInfo: joinInfo)).mapMoveObject(ApiError.self)
         }
 //        获取设备列表
-        final class func getDeviceList(pid: Int = 0) -> Observable<DeviceGetListResp> {
-            return request(.getDeviceList(pid: pid)).mapMoveObject(DeviceGetListResp.self)
+        final class func getDeviceList() -> Observable<DeviceGetListResp> {
+            return request(.getDeviceList).mapMoveObject(DeviceGetListResp.self)
         }
 //        获取设备信息
         final class func getDeviceInfo(deviceId: String) -> Observable<DeviceInfo> {
@@ -81,6 +81,10 @@ extension MoveApi {
 //        获取设备联系人
         final class func getContacts(deviceId: String) -> Observable<DeviceContacts> {
             return request(.getContacts(deviceId: deviceId)).mapMoveObject(DeviceContacts.self)
+        }
+//        获取设备绑定号码信息
+        final class func checkBindPhone(deviceId: String, phone: String) -> Observable<DevicePhoneType> {
+            return request(.checkBindPhone(deviceId: deviceId, phone: phone)).mapMoveObject(DevicePhoneType.self)
         }
 //        设置联系人信息:  由管理员或联系人自己调用
         final class func settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String) -> Observable<ApiError> {
@@ -141,13 +145,14 @@ extension MoveApi {
             case checkBind(deviceId: String)
             case add(deviceId: String, addInfo: DeviceAdd)
             case joinDeviceGroup(deviceId: String, joinInfo: DeviceContactInfo)
-            case getDeviceList(pid: Int)
+            case getDeviceList
             case getDeviceInfo(deviceId: String)
             case update(deviceId: String, updateInfo: DeviceUpdateReq)
             case delete(deviceId: String)
             case addNoRegisterMember(deviceId: String, contactInfo:DeviceContactInfo)
             case deleteBindUser(deviceId: String, uid: String)
             case getContacts(deviceId: String)
+            case checkBindPhone(deviceId: String, phone: String)
             case settingContactInfo(deviceId: String, info: DeviceContactInfo, uid: String)
             case settingAdmin(deviceId: String, admin: DeviceAdmin)
             case getWatchFriends(deviceId: String)
@@ -404,6 +409,8 @@ extension MoveApi.Device.API: TargetType {
             return "/v1.0/device/\(deviceId)/contact/\(uid)"
         case .getContacts(let deviceId):
             return "/v1.0/device/\(deviceId)/contacts"
+        case .checkBindPhone(let deviceId, _):
+            return "/v1.0/device/\(deviceId)/contact/type"
         case .settingContactInfo(let deviceId, _, let uid):
             return "/v1.0/device/\(deviceId)/contact/\(uid)"
         case .settingAdmin(let deviceId, _):
@@ -438,7 +445,7 @@ extension MoveApi.Device.API: TargetType {
         switch self {
         case .add, .joinDeviceGroup, .sendNotify, .addNoRegisterMember:
             return .post
-        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .checkVersion, .fetchTimezones:
+        case .checkBind, .getDeviceList, .getDeviceInfo, .getContacts, .checkBindPhone, .getSetting, .getProperty, .getPower, .getWatchFriends, .checkVersion, .fetchTimezones:
             return .get
         case .update, .setting, .settingContactInfo, .settingProperty, .addPower, .settingAdmin:
             return .put
@@ -456,6 +463,8 @@ extension MoveApi.Device.API: TargetType {
             return joinInfo.toJSON()
         case .checkBind, .getDeviceList, .getDeviceInfo, .delete, .deleteBindUser, .getContacts, .getSetting, .getProperty, .getPower, .getWatchFriends, .deleteWatchFriend:
             return nil
+        case .checkBindPhone(_, let phone):
+            return ["phone": phone]
         case .addNoRegisterMember(_, let contactInfo):
             return contactInfo.toJSON()
         case .update(_, let updateInfo):
@@ -481,11 +490,10 @@ extension MoveApi.Device.API: TargetType {
     
     /// The method used for parameter encoding.
     var parameterEncoding: ParameterEncoding {
-        if case MoveApi.Device.API.checkVersion = self {
+        switch self {
+        case .checkVersion, .fetchTimezones, .checkBindPhone:
             return URLEncoding.queryString
-        }else if case MoveApi.Device.API.fetchTimezones = self {
-            return URLEncoding.queryString
-        }else{
+        default:
             return JSONEncoding.default
         }
     }
@@ -513,19 +521,10 @@ extension MoveApi.Device {
     
     final class func endpointMapping(for target: API) -> Endpoint<API> {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-        switch target {
-        case .getDeviceList(let pid):
-            return endpoint.adding(newHTTPHeaderFields: [
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Accept-Language": Locale.preferredLanguages[0],
-                "Authorization": "pid=\(pid);\(MoveApi.apiKey)"])
-        default:
-            return endpoint.adding(newHTTPHeaderFields: [
+        return endpoint.adding(newHTTPHeaderFields: [
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Accept-Language": Locale.preferredLanguages[0],
                 "Authorization": MoveApi.apiKey])
-        }
     }
 }

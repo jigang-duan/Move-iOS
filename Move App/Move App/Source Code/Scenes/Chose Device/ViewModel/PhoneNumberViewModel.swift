@@ -43,7 +43,16 @@ class PhoneNumberViewModel {
         
         nextResult = input.nextTaps.withLatestFrom(input.phone)
             .flatMapLatest({ phone in
-                return Driver.just(ValidationResult.ok(message: "OK"))
+                
+                return DeviceManager.shared.checkBindPhone(deviceId: (input.info.deviceId)!, phone: phone)
+                    .map({ type in
+                        if type == -1 {
+                            return ValidationResult.ok(message: "")
+                        }else{
+                            return ValidationResult.failed(message: "This phone number has been paired by others!")
+                        }
+                    })
+                    .asDriver(onErrorJustReturn: ValidationResult.ok(message: ""))
             })
 
     }

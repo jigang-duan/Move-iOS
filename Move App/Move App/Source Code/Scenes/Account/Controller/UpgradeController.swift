@@ -32,7 +32,7 @@ class UpgradeController: UIViewController {
     let disposeBag = DisposeBag()
     
     var enterCount = Variable(0)
-    var downloadProgress = Variable(0)
+    var downloadProgress = 0
     
     var downloadBlur: UIView?
     var progressLab: UILabel?
@@ -47,7 +47,6 @@ class UpgradeController: UIViewController {
         viewModel = UpgradeViewModel(
             input: (
                 enter: enterCount.asDriver(),
-                downloadProgress: downloadProgress.asDriver(),
                 downloadTaps: downloadBun.rx.tap.asDriver()
             ),
             dependency:(
@@ -56,12 +55,6 @@ class UpgradeController: UIViewController {
             )
         )
         
-        
-        viewModel.downEnabled
-            .drive(onNext: { [unowned self] valid in
-                self.updateDownloadButton(isEnable: valid)
-            })
-            .addDisposableTo(disposeBag)
         
         viewModel.downResult
             .drive(onNext: { [unowned self] result in
@@ -99,23 +92,23 @@ class UpgradeController: UIViewController {
         case .updateStarted:
             self.updateDownloadStatus(with: .progressDownload("", 100))
         case .downloadStarted:
-            self.updateDownloadStatus(with: .progressDownload("", 1))
+            self.updateDownloadStatus(with: .progressDownload("", 0))
         case .updateSucceed, .updateDefeated, .checkDefeated, .downloadDefeated:
+            downloadProgress = 0
             self.fetchProperty()
         case .progressDownload:
             let progress = type.progress
             self.updateDownloadButton(isEnable: false)
             print("下载进度===\(progress)")
-            self.downloadProgress.value = progress
-            self.makeDownloadBlur(progress: self.downloadProgress.value)
+            downloadProgress = progress
+            self.makeDownloadBlur(progress: progress)
             self.tipLab.isHidden = false
         default: ()
         }
     }
     
     
-    func makeDownloadBlur(progress: Int) {
-        
+    func addDownloadBlur() {
         if downloadBlur == nil{
             downloadBlur = UIView()
             downloadBlur?.backgroundColor = UIColor(rgb: 0x0092EB)
@@ -130,9 +123,13 @@ class UpgradeController: UIViewController {
             progressLab?.textColor = UIColor.white
             self.downloadBun.addSubview(progressLab!)
         }
-        
-        
+    }
+    
+    
+    func makeDownloadBlur(progress: Int) {
         if progress > 0 && progress < 100 {
+            self.addDownloadBlur()
+            
             let maxLength = downloadBun.frame.size.width
             downloadBlur?.frame = CGRect(x: 0, y: 0, width: CGFloat(progress)/100*maxLength, height: self.downloadBun.frame.size.height)
             progressLab?.text = "Download:\(progress)%"
@@ -146,7 +143,6 @@ class UpgradeController: UIViewController {
             if progress >= 100{
                 self.updateDownloadButton(isEnable: false)
                 downloadBun.setTitle("Download Finished", for: .disabled)
-                self.downloadProgress.value = 0
             }
         }
     }
@@ -245,9 +241,12 @@ class UpgradeController: UIViewController {
                 if let vs = info.newVersion, vs.characters.count > 2 {
                     self.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
                     self.versionInfo.isHidden = true
-                    self.tipLab.isHidden = true
                     self.downloadBun.isHidden = false
-                    self.updateDownloadButton(isEnable: true)
+                    if self.downloadProgress == 0 {
+                        self.tipLab.isHidden = true
+                        self.updateDownloadButton(isEnable: true)
+                        self.downloadBun.setTitle("Download", for: .normal)
+                    }
                 }else{
                     let version = DeviceManager.shared.currentDevice?.property?.firmware_version
                     self.versionLab.text = "Firmware Version " + (version ?? "")

@@ -13,6 +13,8 @@ import RxCocoa
 
 class MeSettingController: UIViewController {
     
+    let defaultProfile = (gender: Gender.male, birthday: Date(timeIntervalSince1970: 329846400), height: 170, weight: 70)
+    
     var settingSaveBlock: ((Gender?, Int?, UnitType?, Int?, UnitType?, Date?, UIImage?) -> Void)?
     
     var gender: Gender?
@@ -73,8 +75,8 @@ class MeSettingController: UIViewController {
         height = info?.height
         weight = info?.weight
         birthday = info?.birthday
-        heightUnit = info?.heightUnit
-        weightUnit = info?.weightUnit
+        heightUnit = (info?.heightUnit == .british) ? .british:.metric
+        weightUnit = (info?.weightUnit == .british) ? .british:.metric
     
         
         headImgV = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -210,7 +212,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
         case IndexPath(row: 0, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_gender()
             if let g = gender {
-                cell?.detailTextLabel?.text = (g == .male ? R.string.localizable.id_male():R.string.localizable.id_female())
+                cell?.detailTextLabel?.text = (g == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }
@@ -263,7 +265,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 let vc = R.storyboard.kidInformation.setYourGenderController()!
-                vc.selectedGender = self.gender
+                vc.selectedGender = self.gender ?? defaultProfile.gender
                 vc.genderBlock = { gender in
                     self.gender = gender
                     self.tableView.reloadData()
@@ -271,8 +273,12 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 self.present(vc, animated: true)
             case 1:
                 let vc = R.storyboard.kidInformation.setYourHeghtController()!
-                vc.selectedHeight = self.height ?? 160
-                vc.isUnitCm = (self.heightUnit == .metric) ? true:false
+                if let h = height, h > 0 {
+                    vc.selectedHeight = h
+                }else{
+                    vc.selectedHeight = defaultProfile.height
+                }
+                vc.isUnitCm = self.heightUnit == .metric
                 vc.heightBlock = { height, unit in
                     self.height = height
                     self.heightUnit = unit
@@ -281,8 +287,12 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 self.present(vc, animated: true);
             case 2:
                 let vc = R.storyboard.kidInformation.setYourWeightController()!
-                vc.selectedWeight = self.weight ?? 70
-                vc.isUnitKg = (self.weightUnit == .metric) ? true:false
+                if let w = weight, w > 0 {
+                    vc.selectedWeight = w
+                }else{
+                    vc.selectedWeight = defaultProfile.weight
+                }
+                vc.isUnitKg = self.weightUnit == .metric
                 vc.weightBlock = {weight, unit in
                     self.weight = weight
                     self.weightUnit = unit
@@ -291,7 +301,11 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 self.present(vc, animated: true)
             case 3:
                 let vc = R.storyboard.kidInformation.setYourBirthdayController()!
-                vc.selectedDate = self.birthday
+                if let b = birthday, b > Date(timeIntervalSince1970: -2209017600) {
+                    vc.selectedDate = b
+                }else{
+                    vc.selectedDate = defaultProfile.birthday
+                }
                 vc.birthdayBlock = {birthday in
                     self.birthday = birthday
                     self.tableView.reloadData()
