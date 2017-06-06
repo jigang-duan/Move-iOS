@@ -19,7 +19,9 @@ class UUInputView: UIView {
     
     lazy var btnSendEmoji: UIButton = {
         let $ = UIButton(type: .custom)
-        $.frame = CGRect(x: Main_Screen_Width-40, y: 5, width: 30, height: 30)
+        let Side_R: CGFloat = 26.0
+        let y = (Default_Height - Side_R) * 0.5
+        $.frame = CGRect(x: Main_Screen_Width - Edge_R - Side_R, y: y, width: Side_R, height: Side_R)
         $.setTitle("", for: .normal)
         $.setBackgroundImage(UIImage(named: "message_emotion"), for: .normal)
         $.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -28,7 +30,10 @@ class UUInputView: UIView {
     
     lazy var btnVoiceRecord: UIButton = {
         let $ = UIButton(type: .custom)
-        $.frame = CGRect(x: 20, y: 5, width: Main_Screen_Width-90, height: 30)
+        let Side_R: CGFloat = 35.0
+        let y = (Default_Height - Side_R) * 0.5
+        let width = Main_Screen_Width - (Edge_R * 3) - 26.0
+        $.frame = CGRect(x: Edge_R, y: y, width: width, height: Side_R)
         $.setBackgroundImage(UIImage(named: "chat_message_back"), for: .normal)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 1.0), for: .normal)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 0.5), for: UIControlState.highlighted)
@@ -214,8 +219,12 @@ extension UUInputView {
 }
 
 
-fileprivate let defaultFrame = CGRect(x: 0, y: Main_Screen_Height - 40 - 64, width: Main_Screen_Width, height: 40)
-fileprivate let unfoldFrame  = CGRect(x: 0, y: Main_Screen_Height - 168 - 64, width: Main_Screen_Width, height: 168)
+fileprivate let defaultFrame = CGRect(x: 0, y: Main_Screen_Height - Default_Height - Top_Nav_Height, width: Main_Screen_Width, height: Default_Height)
+fileprivate let unfoldFrame  = CGRect(x: 0, y: Main_Screen_Height - Unfold_Height - Top_Nav_Height, width: Main_Screen_Width, height: Unfold_Height)
 
+let Edge_R: CGFloat = 15.0
+fileprivate let Top_Nav_Height: CGFloat = 44.0 + 20.0
+fileprivate let Default_Height: CGFloat = 53.0
+fileprivate let Unfold_Height: CGFloat = Default_Height + 150.0
 fileprivate let Main_Screen_Height = UIScreen.main.bounds.size.height
 fileprivate let Main_Screen_Width = UIScreen.main.bounds.size.width

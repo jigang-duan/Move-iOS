@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c1K-a3-glK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c1K-a3-glK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -51,7 +51,7 @@
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="lsm-kx-d2O"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="r2l-Zi-dyA">
-                            <rect key="frame" x="89" y="7" width="198" height="30"/>
+                            <rect key="frame" x="88.5" y="7" width="198" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Family chat"/>
@@ -362,7 +362,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qat-C3-6yT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellFamilyChat" id="r0U-Ub-5kB" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
@@ -379,7 +379,7 @@
                         <constraints>
                             <constraint firstItem="qat-C3-6yT" firstAttribute="top" secondItem="mrp-ER-g6b" secondAttribute="top" id="3uQ-9A-6Da"/>
                             <constraint firstItem="qat-C3-6yT" firstAttribute="leading" secondItem="mrp-ER-g6b" secondAttribute="leading" id="HlG-qQ-4L1"/>
-                            <constraint firstAttribute="bottom" secondItem="qat-C3-6yT" secondAttribute="bottom" constant="40" id="cI9-w8-bUv"/>
+                            <constraint firstAttribute="bottom" secondItem="qat-C3-6yT" secondAttribute="bottom" constant="53" id="cI9-w8-bUv"/>
                             <constraint firstAttribute="trailing" secondItem="qat-C3-6yT" secondAttribute="trailing" id="ctC-Bs-Pri"/>
                         </constraints>
                     </view>
@@ -391,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezT-nv-UXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="srb-GD-rWH" customClass="UUInputView" customModule="Move_App" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="53"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -479,7 +479,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8bJ-GU-kRL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellSingleChat" id="U6S-kt-hng" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
@@ -494,7 +494,7 @@
                             </tableView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="hbs-S1-SMF" firstAttribute="top" secondItem="8bJ-GU-kRL" secondAttribute="bottom" constant="40" id="0sn-hu-ohe"/>
+                            <constraint firstItem="hbs-S1-SMF" firstAttribute="top" secondItem="8bJ-GU-kRL" secondAttribute="bottom" constant="53" id="0sn-hu-ohe"/>
                             <constraint firstAttribute="trailing" secondItem="8bJ-GU-kRL" secondAttribute="trailing" id="1iZ-5Q-3qx"/>
                             <constraint firstItem="8bJ-GU-kRL" firstAttribute="top" secondItem="QjO-c7-J8f" secondAttribute="bottom" id="Skj-ct-qhR"/>
                             <constraint firstItem="8bJ-GU-kRL" firstAttribute="leading" secondItem="6fX-Ch-ncz" secondAttribute="leading" id="VjQ-Wz-WGY"/>
@@ -508,7 +508,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69E-II-Dnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="xp3-VT-AMK" customClass="UUInputView" customModule="Move_App" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="53"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>

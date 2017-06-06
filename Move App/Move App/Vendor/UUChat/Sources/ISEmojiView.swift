@@ -26,12 +26,13 @@ protocol ISEmojiViewDelegate: class {
     func emojiViewDidPressDeleteButton(emojiView: ISEmojiView)
 }
 
-fileprivate let EmojiSize = CGSize(width: 45, height: 35)
+fileprivate let EmojiSize = CGSize(width: 48, height: 48)
 fileprivate let EmojiFontSize = CGFloat(30.0)
-fileprivate let collectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 38, right: 10)
-fileprivate let collectionMinimumLineSpacing = CGFloat(0)
+fileprivate let collectionInset = UIEdgeInsets(top: 10, left: 26, bottom: 38, right: 26)
+fileprivate let collectionMinimumLineSpacing = CGFloat(26)
 fileprivate let collectionMinimumInteritemSpacing = CGFloat(0)
-fileprivate let ISMainBackgroundColor = UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1)
+//fileprivate let ISMainBackgroundColor = UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1)
+fileprivate let ISMainBackgroundColor = UIColor.white
 
 /// A emoji keyboard view
 class ISEmojiView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -43,7 +44,7 @@ class ISEmojiView: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
     var isShowPopPreview = true
     
     private var defaultFrame: CGRect {
-        return CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 128)
+        return CGRect(x: 0, y: 53, width: UIScreen.main.bounds.width, height: 150)
     }
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -109,7 +110,7 @@ class ISEmojiView: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
         }
         
         // ScrollView
-        collectionView.frame = self.bounds
+        collectionView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150) //self.bounds
         collectionView.dataSource = self
         collectionView.delegate = self
         addSubview(collectionView)
@@ -118,7 +119,7 @@ class ISEmojiView: UIView, UICollectionViewDataSource, UICollectionViewDelegate 
         // PageControl
         pageControl.addTarget(self, action: #selector(pageControlTouched), for: .touchUpInside)
         pageControl.pageIndicatorTintColor = UIColor(red: 229/255.0, green: 229/255.0, blue: 229/255.0, alpha: 1)
-        pageControl.currentPageIndicatorTintColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1)
+        pageControl.currentPageIndicatorTintColor = UIColor(red: 0.0, green: 0.572549045085907, blue: 0.921568632125854, alpha: 1.0)
         pageControl.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
         addSubview(pageControl)
         
