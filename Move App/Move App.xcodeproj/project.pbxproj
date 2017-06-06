@@ -65,7 +65,6 @@
 		115F730C1ED824D700BAAF3D /* smile.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F73021ED824D700BAAF3D /* smile.gif */; };
 		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
 		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
-		1162A5091EAE185500DA6164 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5081EAE185500DA6164 /* HomeController.swift */; };
 		116860BE1EB8624700C3426A /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116860BD1EB8624700C3426A /* HelpController.swift */; };
 		116BAE5D1EC945E2001577D3 /* IMCache+Location+SafeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5C1EC945E2001577D3 /* IMCache+Location+SafeZone.swift */; };
 		116BAE601EC9672A001577D3 /* IMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5F1EC9672A001577D3 /* IMDB.swift */; };
@@ -435,7 +434,6 @@
 		115F73021ED824D700BAAF3D /* smile.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = smile.gif; path = Resource/Gif/smile.gif; sourceTree = "<group>"; };
 		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
 		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
-		1162A5081EAE185500DA6164 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		116860BD1EB8624700C3426A /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		116BAE5C1EC945E2001577D3 /* IMCache+Location+SafeZone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "IMCache+Location+SafeZone.swift"; path = "cache/InternalMemory/Location/IMCache+Location+SafeZone.swift"; sourceTree = "<group>"; };
 		116BAE5F1EC9672A001577D3 /* IMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDB.swift; path = IM/IMDB.swift; sourceTree = "<group>"; };
@@ -1568,7 +1566,6 @@
 				E9C7B95D1E51B6AF00DD6542 /* AddSafeZoneVC.swift */,
 				E9DD0F931E5A981300752863 /* SafeZoneAddressSearchVC.swift */,
 				113F2E471E9E3D2C00B3628C /* SOSController.swift */,
-				1162A5081EAE185500DA6164 /* HomeController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2860,7 +2857,6 @@
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */,
-				1162A5091EAE185500DA6164 /* HomeController.swift in Sources */,
 				E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */,
 				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
 				A5B3E1EC1E7FFBBB00F12E22 /* FileUtility.swift in Sources */,

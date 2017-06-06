@@ -36,9 +36,10 @@ class UUInputView: UIView {
         $.frame = CGRect(x: Edge_R, y: y, width: width, height: Side_R)
         $.setBackgroundImage(UIImage(named: "chat_message_back"), for: .normal)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 1.0), for: .normal)
-        $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 0.5), for: UIControlState.highlighted)
+        $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 0.5), for: .highlighted)
         $.setTitle("Hold to Talk", for: .normal)
         $.setTitle("Release to Send", for: .highlighted)
+        $.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         return $
     }()
     
