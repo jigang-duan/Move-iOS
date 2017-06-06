@@ -110,7 +110,7 @@ class Distribution {
         case kidInformation
         case familyMember
         case friendList
-        case chatMessage
+        case chatMessage(Int)
         case updata
     }
     
@@ -163,11 +163,11 @@ class Distribution {
     }
 
     
-    func propelToChat() {
+    func propelToChat(index: Int = 0) {
         guard let current = self.currentViewCotroller else {
             return
         }
-        target = .chatMessage
+        target = .chatMessage(index)
         if let current = current as? MainMapController {
             current.propelToTargetController()
             return

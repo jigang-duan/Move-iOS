@@ -142,35 +142,37 @@ class AlertServer {
             .share()
         
         //Apns推送通知
-        //let apsNotice = NotificationService.shared.rx.userInfo
         let apsNotice = NotificationService.shared.userInfoSubject.asObservable()
             .map{ $0 as? [String: Any] }
             .filterNil()
+            .filterEmpty()
             .map { Mapper<MoveApns.Apns>().map(JSON: $0) }
             .filterNil()
-            .share()
         
-        //跳转到聊天页面
-//        let enterChatMessage = apsNotice
-//            .filter { $0.notice == .chatMessage }
-//            .map { $0.gid }
-//            .filterNil()
-//            .withLatestFrom(RxStore.shared.deviceInfosObservable) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
-//            .filterNil()
-//            .map { $0.deviceId }
-//            .filterNil()
-//            .share()
         let deviceInfos = RxStore.shared.deviceInfosObservable.filterEmpty()
+        
         let chatNotice = apsNotice
             .filter { $0.notice == .chatMessage }
+        
+        let singeChatNotice = chatNotice
+            .filter{ ($0.gid == nil) || ($0.gid == "") }
+            .map { $0.from }.filterNil()
+        
+        let familyChatNotice = chatNotice
             .map { $0.gid }
-            .filterNil()
-        let enterChatMessage = Observable.zip(chatNotice, deviceInfos) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
+            .filterNil().filterEmpty()
+        
+        let enterChatMessage = Observable.zip(familyChatNotice, deviceInfos) { (gid, devs) in devs.filter{ $0.user?.gid == gid }.first }
             .filterNil()
             .map { $0.deviceId }
             .filterNil()
             .share()
-
+        
+        let enterSingeChatMessage = Observable.zip(singeChatNotice, deviceInfos) { (from, devs) in devs.filter{ $0.user?.uid == from }.first }
+            .filterNil()
+            .map { $0.deviceId }
+            .filterNil()
+            .share()
         
         //跳转到朋友列表页面
         let enterFriendList = apsNotice
@@ -246,7 +248,9 @@ class AlertServer {
         
         
         Observable.merge(goToSeeKidInformation, goToSeeFriendList, goToDeviceUpdataPage,
-                         enterChatMessage,enterMainPage, enterFriendList, enterKidInfoPage, enterFamilyMenber, enterUpdataPage)
+                         enterChatMessage,
+                         enterSingeChatMessage,
+                         enterMainPage, enterFriendList, enterKidInfoPage, enterFamilyMenber, enterUpdataPage)
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
         
@@ -254,7 +258,9 @@ class AlertServer {
         goToSeeFamilyMember.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)
         goToSeeFriendList.bindNext { _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)
         
-        enterChatMessage.bindNext{ _ in Distribution.shared.propelToChat() }.addDisposableTo(disposeBag)
+        enterSingeChatMessage.bindNext{ _ in Distribution.shared.propelToChat(index: 1) }.addDisposableTo(disposeBag)
+        enterChatMessage.bindNext{ _ in Distribution.shared.propelToChat(index: 0) }.addDisposableTo(disposeBag)
+        
         enterFriendList.bindNext{ _ in Distribution.shared.propelToFriendList() }.addDisposableTo(disposeBag)
         enterKidInfoPage.bindNext { _ in Distribution.shared.propelToKidInformation() }.addDisposableTo(disposeBag)
         enterFamilyMenber.bindNext { _ in Distribution.shared.propelToFamilyMember() }.addDisposableTo(disposeBag)

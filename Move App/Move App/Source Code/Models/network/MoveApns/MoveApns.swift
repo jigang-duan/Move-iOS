@@ -32,7 +32,8 @@ extension Aps: Mappable {
 class MoveApns{
 
     struct Apns{
-        var gid:String?
+        var gid: String?
+        var from: String?
         var aps :Aps?
         var notice: NoticeType?
     }
@@ -45,6 +46,7 @@ extension MoveApns.Apns: Mappable {
     
     mutating func mapping(map: Map) {
         gid <- map["gid"]
+        from <- map["from"]
         aps <- map ["aps"]
         notice <- map["notice"]
     }

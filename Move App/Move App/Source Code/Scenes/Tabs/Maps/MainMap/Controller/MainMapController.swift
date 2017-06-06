@@ -258,8 +258,9 @@ class MainMapController: UIViewController {
 
 extension MainMapController {
     
-    fileprivate func showChat() {
+    fileprivate func showChat(index: Int = 0) {
         if let chatController = R.storyboard.social.chat() {
+            chatController.selectedIndexVariable.value = index
             self.navigationController?.show(chatController, sender: nil)
         }
     }
@@ -267,8 +268,8 @@ extension MainMapController {
     func propelToTargetController() {
         if let target = Distribution.shared.target {
             switch target {
-            case .chatMessage:
-                showChat()
+            case .chatMessage(let index):
+                showChat(index: index)
                 Distribution.shared.target = nil
             default: ()
             }
