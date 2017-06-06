@@ -61,7 +61,8 @@ class RemindersController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
+        
         internationalization()
         addFuntion()
         initView()
@@ -114,6 +115,11 @@ class RemindersController: UIViewController {
     }
     
     fileprivate func initView() {
+        titleSegment.layer.cornerRadius = 6
+        titleSegment.clipsToBounds = true
+        titleSegment.borderWidth = 2
+        titleSegment.borderColor = UIColor.white
+        
         self.tableViw.delegate = self
         self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
         calendar.select(calendar.today)
