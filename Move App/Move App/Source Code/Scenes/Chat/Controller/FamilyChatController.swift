@@ -362,8 +362,15 @@ extension FamilyChatController {
 
 extension FamilyChatController: DZNEmptyDataSetSource {
     
-    func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return R.image.message_friends_empty()!
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No message here"
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
+                          NSForegroundColorAttributeName: UIColor.lightGray]
+        return NSAttributedString(string: text, attributes: attributes)
     }
     
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {

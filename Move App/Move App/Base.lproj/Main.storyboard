@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -333,16 +333,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pair_with_watch" translatesAutoresizingMaskIntoConstraints="NO" id="EMp-aW-3Of">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="443"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqI-8r-iKc">
-                                <rect key="frame" x="0.0" y="443" width="375" height="160"/>
+                                <rect key="frame" x="0.0" y="439" width="375" height="164"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neS-qy-HbG">
-                                        <rect key="frame" x="15" y="45" width="345" height="40"/>
+                                        <rect key="frame" x="30" y="45" width="315" height="44"/>
                                         <color key="backgroundColor" red="0.98039215803146362" green="0.69019609689712524" blue="0.039215687662363052" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="EQI-Bh-0UH"/>
+                                            <constraint firstAttribute="height" constant="44" id="EQI-Bh-0UH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Scan QR code">
@@ -358,7 +358,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2aF-in-JKv">
-                                        <rect key="frame" x="88" y="105" width="200" height="30"/>
+                                        <rect key="frame" x="88" y="109" width="200" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="hqH-Gl-72V"/>
                                             <constraint firstAttribute="height" constant="30" id="sy6-I6-RIe"/>
@@ -377,26 +377,26 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.12156862765550613" green="0.50196081399917603" blue="0.93725490570068359" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="neS-qy-HbG" secondAttribute="trailing" constant="15" id="54k-N9-Fvt"/>
+                                    <constraint firstAttribute="trailing" secondItem="neS-qy-HbG" secondAttribute="trailing" constant="30" id="54k-N9-Fvt"/>
                                     <constraint firstItem="2aF-in-JKv" firstAttribute="top" secondItem="neS-qy-HbG" secondAttribute="bottom" constant="20" id="9My-qk-9tw"/>
                                     <constraint firstAttribute="bottom" secondItem="2aF-in-JKv" secondAttribute="bottom" constant="25" id="qpm-Tx-LVa"/>
                                     <constraint firstItem="neS-qy-HbG" firstAttribute="top" secondItem="AqI-8r-iKc" secondAttribute="top" constant="45" id="shE-xH-Ysz"/>
                                     <constraint firstItem="2aF-in-JKv" firstAttribute="centerX" secondItem="AqI-8r-iKc" secondAttribute="centerX" id="wOx-5g-XGr"/>
-                                    <constraint firstItem="neS-qy-HbG" firstAttribute="leading" secondItem="AqI-8r-iKc" secondAttribute="leading" constant="15" id="zMr-HG-3zU"/>
+                                    <constraint firstItem="neS-qy-HbG" firstAttribute="leading" secondItem="AqI-8r-iKc" secondAttribute="leading" constant="30" id="zMr-HG-3zU"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="AqI-8r-iKc" secondAttribute="bottom" id="5wL-ON-tvQ"/>
-                            <constraint firstItem="AqI-8r-iKc" firstAttribute="top" secondItem="EMp-aW-3Of" secondAttribute="bottom" id="DGs-2a-6am"/>
+                            <constraint firstAttribute="bottom" secondItem="EMp-aW-3Of" secondAttribute="bottom" id="BRd-6R-e60"/>
                             <constraint firstItem="AqI-8r-iKc" firstAttribute="leading" secondItem="k49-4x-RL6" secondAttribute="leading" id="GNp-Ym-TfP"/>
                             <constraint firstAttribute="trailing" secondItem="EMp-aW-3Of" secondAttribute="trailing" id="UG7-7y-UVd"/>
+                            <constraint firstItem="EMp-aW-3Of" firstAttribute="top" secondItem="k49-4x-RL6" secondAttribute="top" id="eA8-dz-49k"/>
                             <constraint firstItem="EMp-aW-3Of" firstAttribute="leading" secondItem="k49-4x-RL6" secondAttribute="leading" id="lQ3-s5-4qY"/>
                             <constraint firstAttribute="trailing" secondItem="AqI-8r-iKc" secondAttribute="trailing" id="wL2-Yk-UEW"/>
-                            <constraint firstItem="EMp-aW-3Of" firstAttribute="top" secondItem="XFY-FT-eYp" secondAttribute="bottom" id="xbD-12-8Q9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pair with watch" id="dFn-BI-dSG">
@@ -1282,7 +1282,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hOg-SB-rmr" id="Wfx-qL-rhl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1290,7 +1290,7 @@
                                         <rect key="frame" x="0.0" y="83" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6b-1q-4RH" id="S1z-Co-AU6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1817,7 +1817,7 @@
                                 </button>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="RbY-7R-XoE" detailTextLabel="89I-5J-JcD" style="IBUITableViewCellStyleValue1" id="lsJ-q0-MsF">
-                                        <rect key="frame" x="0.0" y="56.5" width="375" height="48"/>
+                                        <rect key="frame" x="0.0" y="57" width="375" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lsJ-q0-MsF" id="tIl-dH-JvG">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="47.5"/>
@@ -2513,7 +2513,7 @@
     </scenes>
     <resources>
         <image name="Pair_Verification_Code" width="375" height="667"/>
-        <image name="Pair_with_watch" width="374" height="486"/>
+        <image name="Pair_with_watch" width="375" height="667"/>
         <image name="Phone_number" width="375" height="624"/>
         <image name="about_ic" width="100" height="100"/>
         <image name="account_add" width="18" height="18"/>
@@ -2542,6 +2542,6 @@
         <image name="wakeup" width="77" height="65"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xwI-n2-fsr"/>
+        <segue reference="epR-GB-8Hj"/>
     </inferredMetricsTieBreakers>
 </document>

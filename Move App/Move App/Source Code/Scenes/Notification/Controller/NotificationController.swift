@@ -233,8 +233,15 @@ extension NotificationController: UITableViewDelegate {
 
 extension NotificationController: DZNEmptyDataSetSource {
     
-    func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return R.image.system_notification_empty()!
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No notification here"
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
+                          NSForegroundColorAttributeName: UIColor.lightGray]
+        return NSAttributedString(string: text, attributes: attributes)
     }
     
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {

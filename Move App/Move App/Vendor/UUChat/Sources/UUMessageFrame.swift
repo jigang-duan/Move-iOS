@@ -10,20 +10,22 @@ import Foundation
 import UIKit
 
 let ChatMargin: CGFloat = 10       //间隔
-let ChatIconWH: CGFloat = 44       //头像宽高height、width
+let ChatIconWH: CGFloat = 36       //头像宽高height、width
 let ChatPicWH: CGFloat = 200       //图片宽高
 let ChatContentW: CGFloat = 180    //内容宽度
 
 let ChatTimeMarginW: CGFloat = 15  //时间文本与边框间隔宽度方向
 let ChatTimeMarginH: CGFloat = 10  //时间文本与边框间隔高度方向
 
-let ChatContentTop: CGFloat = 15   //文本内容与按钮上边缘间隔
-let ChatContentLeft: CGFloat = 25  //文本内容与按钮左边缘间隔
-let ChatContentBottom: CGFloat = 15 //文本内容与按钮下边缘间隔
+let ChatContentTop: CGFloat = 5   //文本内容与按钮上边缘间隔
+let ChatContentLeft: CGFloat = 15  //文本内容与按钮左边缘间隔
+let ChatContentBottom: CGFloat = 5 //文本内容与按钮下边缘间隔
 let ChatContentRight: CGFloat = 15 //文本内容与按钮右边缘间隔
 
 let ChatTimeFont = UIFont.systemFont(ofSize: 11)     //时间字体
 let ChatContentFont = UIFont.systemFont(ofSize: 14)  //内容字体
+
+let ChatEmojiWH: CGFloat = 33.3
 
 fileprivate extension CGFloat {
     static func _max(_ a: CGFloat, _ b: CGFloat) -> CGFloat {
@@ -101,9 +103,9 @@ struct UUMessageFrame {
         case .video:
             contenSize = CGSize(width: 120, height: 60)
         case .voice:
-            contenSize = CGSize(width: 96, height: 20)
+            contenSize = CGSize(width: 106, height: 36)
         case .emoji:
-            contenSize = CGSize(width: 28, height: 28)
+            contenSize = CGSize(width: ChatEmojiWH, height: ChatEmojiWH)
         }
         if message.from == .me {
             contentX = iconX - contenSize.width - ChatContentLeft - ChatContentRight - ChatMargin

@@ -48,7 +48,7 @@ class UUMessageCell: UITableViewCell {
     
     lazy var headImageBackView: UIView = {
         let $ = UIView()
-        $.layer.cornerRadius = 22
+        $.layer.cornerRadius = 18
         $.layer.masksToBounds = true
         $.backgroundColor = UIColor.gray.withAlphaComponent(0.4)
         return $
@@ -56,7 +56,7 @@ class UUMessageCell: UITableViewCell {
     
     lazy var btnHeadImage: UIButton = {
         let $ = UIButton(type: .custom)
-        $.layer.cornerRadius = 20
+        $.layer.cornerRadius = 16
         $.layer.masksToBounds = true
         return $
     }()
@@ -186,9 +186,9 @@ class UUMessageCell: UITableViewCell {
                     self.btnContent.backImageView.isHidden = false
                     self.btnContent.backImageView.load(emoji: emoji)
                 }
-                self.btnContent.backImageView.frame = CGRect(x: 5, y: 0,
-                                                             width: self.btnContent.frame.size.width - 10,
-                                                             height: self.btnContent.frame.size.height)
+                self.btnContent.backImageView.frame = CGRect(x: ChatContentLeft, y: ChatContentTop,
+                                                             width: ChatEmojiWH,
+                                                             height: ChatEmojiWH)
                 //self.makeMaskView(self.btnContent.backImageView, with: normal)
             default:
                 break
