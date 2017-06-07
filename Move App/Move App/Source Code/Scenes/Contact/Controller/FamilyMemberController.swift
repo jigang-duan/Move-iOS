@@ -135,7 +135,7 @@ class FamilyMemberController: UIViewController {
     
     @IBAction func showPopView(_ sender: Any) {
         UIView.animate(withDuration: 0.3) { [weak self] _ in
-            self?.popView.isHidden = !(self?.popView.isHidden)
+            self?.popView.isHidden = !(self?.popView.isHidden ?? false)
             self?.popView.layoutIfNeeded()
         }
     }
