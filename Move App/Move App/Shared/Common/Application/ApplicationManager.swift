@@ -73,10 +73,7 @@ class ApplicationManager {
         Logger.verbose(NSHomeDirectory())
         
         // UI Debug
-        let overlayClass = NSClassFromString("UIDebuggingInformationOverlay") as? UIWindow.Type
-        _ = overlayClass?.perform(NSSelectorFromString("prepareDebuggingOverlay"))
-//        let overlay = overlayClass?.perform(NSSelectorFromString("overlay")).takeUnretainedValue() as? UIWindow
-//        _ = overlay?.perform(NSSelectorFromString("toggleVisibility"))
+        self.initUIDebug()
     }
 }
 
@@ -187,7 +184,18 @@ extension ApplicationManager {
 
 }
 
-
-
-
+//
+// MARK: - Private
+extension ApplicationManager {
+    
+    // Appearance
+    fileprivate func initUIDebug() {
+        if Configure.App.isDebugUI {
+            let overlayClass = NSClassFromString("UIDebuggingInformationOverlay") as? UIWindow.Type
+            _ = overlayClass?.perform(NSSelectorFromString("prepareDebuggingOverlay"))
+//            let overlay = overlayClass?.perform(NSSelectorFromString("overlay")).takeUnretainedValue() as? UIWindow
+//            _ = overlay?.perform(NSSelectorFromString("toggleVisibility"))
+        }
+    }
+}
 

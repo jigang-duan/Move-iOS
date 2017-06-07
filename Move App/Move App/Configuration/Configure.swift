@@ -38,6 +38,9 @@ struct Configure {
         
         // Scenes
         static let LoadDataOfPeriod = 30.0
+        
+        //UI Debug
+        static let isDebugUI = true
     }
     
     //

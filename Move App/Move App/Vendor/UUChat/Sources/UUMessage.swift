@@ -105,7 +105,26 @@ struct UUMessage {
     }
     
     var strTime: String {
-        return self.showTheDate(time)
+        return self.showTheLocalDate(time)
+    }
+    
+    private func showTheLocalDate(_ lastDate: Date) -> String {
+        
+        let nowDate = Date()
+        var dateStr: String = ""
+        
+        let days = Date.daysOffBetween(startDate: lastDate, endDate: nowDate)
+        var str: String? = nil
+        if days <= 2 {
+            str = lastDate.stringYearMonthDayCompareToday?.rawValue
+        }
+        if str == nil {
+            dateStr = lastDate.stringDefaultYearMonthDay
+        } else {
+            dateStr = str!
+        }
+        
+        return String(format: "%@ %@", dateStr, lastDate.stringDefaultHourMinuteSecond)
     }
     
     private func showTheDate(_ lastDate: Date) -> String {
@@ -153,7 +172,7 @@ struct UUMessage {
     }
 }
 
-fileprivate let ShowDateMode_isCompare = false
+fileprivate let ShowDateMode_isCompare = true
 
 extension UUMessage {
     

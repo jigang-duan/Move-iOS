@@ -194,8 +194,49 @@ class DateUtility {
         
     }
     
+    // Default Date formatter
+    static var defaultDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+        return dateFormatter
+    }()
     
+    static var defaultYearMonthDayFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter
+    }()
     
+    static var defaultHourMinuteSecondFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .medium
+        return dateFormatter
+    }()
+}
+
+
+extension Date {
+    
+    var stringDefaultDescription: String {
+        return DateUtility.defaultDateFormatter.string(from: self)
+    }
+    
+    var stringDefaultYearMonthDay: String {
+        return DateUtility.defaultYearMonthDayFormatter.string(from: self)
+    }
+    
+    var stringDefaultHourMinuteSecond: String {
+        return DateUtility.defaultHourMinuteSecondFormatter.string(from: self)
+    }
 }
 
 extension Date {
