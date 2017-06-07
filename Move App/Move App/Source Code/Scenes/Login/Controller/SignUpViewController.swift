@@ -196,12 +196,12 @@ class SignUpViewController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.signUped
-            .drive(onNext: { signUped in
+            .drive(onNext: { [weak self] signUped in
                 switch signUped {
                 case .failed(let message):
-                    self.showAccountError(message)
+                    self?.showAccountError(message)
                 case .ok:
-                    self.gotoProtectVC()
+                    self?.gotoProtectVC()
                 default:
                     break
                 }
@@ -214,38 +214,38 @@ class SignUpViewController: UIViewController {
         super.viewDidAppear(animated)
         
         viewModel.validatedEmail
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showAccountError(message)
+                    self?.showAccountError(message)
                 case .empty:
-                    self.showAccountError("Please fill")
+                    self?.showAccountError("Please fill")
                 default:
-                    self.revertAccountError()
+                    self?.revertAccountError()
                 }
             })
             .addDisposableTo(disposeBag)
         
         viewModel.validatedPassword
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showPasswdError(message)
+                    self?.showPasswdError(message)
                 case .empty:
-                    self.showPasswdError("Secure your account")
+                    self?.showPasswdError("Secure your account")
                 default:
-                    self.revertPasswdError()
+                    self?.revertPasswdError()
                 }
             })
             .addDisposableTo(disposeBag)
         
         viewModel.validatedRePassword
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showRePswdError(message)
+                    self?.showRePswdError(message)
                 default:
-                    self.revertRePswdError()
+                    self?.revertRePswdError()
                 }
             })
             .addDisposableTo(disposeBag)

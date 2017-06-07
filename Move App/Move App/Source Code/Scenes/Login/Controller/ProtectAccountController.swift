@@ -112,28 +112,28 @@ class ProtectAccountController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.sendResult?
-            .drive(onNext: { sendResult in
+            .drive(onNext: { [weak self] sendResult in
                 switch sendResult {
                 case .failed(let message):
-                   self.showValidateError(message)
+                    self?.showValidateError(message)
                 case .ok:
                     print(sendResult)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
         
         
         viewModel.doneResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: { [weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 case .ok:
-                    _ = self.navigationController?.popToRootViewController(animated: true)
+                    _ = self?.navigationController?.popToRootViewController(animated: true)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -156,14 +156,15 @@ class ProtectAccountController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.vcodeInvalidte?.drive(onNext: { result in
-            switch result{
-            case .failed(let message):
-                self.showValidateError(message)
-            default:
-                self.revertValidateError()
-            }
-        })
+        viewModel.vcodeInvalidte?
+            .drive(onNext: { [weak self] result in
+                switch result{
+                case .failed(let message):
+                    self?.showValidateError(message)
+                default:
+                    self?.revertValidateError()
+                }
+            })
             .addDisposableTo(disposeBag)
    
     }

@@ -85,14 +85,14 @@ class PwdRecoveryController: UIViewController {
         
         
         viewModel.doneResult?
-            .drive(onNext: { doneResult in 
+            .drive(onNext: { [weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 case .ok(let message):
-                    self.gotoUpdatePswdVC(message)
+                    self?.gotoUpdatePswdVC(message)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -103,14 +103,15 @@ class PwdRecoveryController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.emailInvalidte.drive(onNext: { result in
-            switch result{
-            case .failed(let message):
-                self.showValidateError(message)
-            default:
-                self.revertValidateError()
-            }
-        })
+        viewModel.emailInvalidte
+            .drive(onNext: { [weak self] result in
+                switch result{
+                case .failed(let message):
+                    self?.showValidateError(message)
+                default:
+                    self?.revertValidateError()
+                }
+            })
             .addDisposableTo(disposeBag)
         
     }

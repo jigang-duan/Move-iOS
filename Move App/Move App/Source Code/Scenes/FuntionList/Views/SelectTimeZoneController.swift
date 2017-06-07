@@ -47,7 +47,14 @@ class SelectTimeZoneController: UIViewController {
         
         
         DeviceManager.shared.fetchTimezones()
-            .subscribe(onNext: {[weak self] tms in
+            .subscribe(onNext: {[weak self] res in
+                //地区去重
+                var tms = [TimezoneInfo]()
+                res.forEach({ tm in
+                    if !tms.contains(where: { $0.timezoneId == tm.timezoneId}) {
+                        tms.append(tm)
+                    }
+                })
                 
                 let letters = tms
                     .map({$0.timezoneId!.components(separatedBy: "/").first!})
