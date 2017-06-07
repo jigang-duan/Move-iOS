@@ -73,8 +73,8 @@ class RegularshutdownController: UIViewController {
       
         
         bootTimeVariable.asDriver()
-            .drive(onNext: {date in
-                self.bootTime = date
+            .drive(onNext: {[weak self] date in
+                self?.bootTime = date
             })
             .addDisposableTo(disposeBag)
         
@@ -84,8 +84,8 @@ class RegularshutdownController: UIViewController {
             .addDisposableTo(disposeBag)
         
         shutdownTimeVariable.asDriver()
-            .drive(onNext: { date in
-                self.shutdownTime = date
+            .drive(onNext: { [weak self] date in
+                self?.shutdownTime = date
             })
             .addDisposableTo(disposeBag)
         

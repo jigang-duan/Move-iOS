@@ -139,10 +139,10 @@ class SchoolTimeController: UIViewController {
                 )
         )
         
-        viewModel.amStartDateVariable.asDriver().drive(onNext: { date in self.amStartTime = date }).addDisposableTo(disposeBag)
-        viewModel.amEndDateVariable.asDriver() .drive(onNext: { date in self.amEndTime = date }).addDisposableTo(disposeBag)
-        viewModel.pmStartDateVariable.asDriver().drive(onNext: { date in self.pmStartTime = date }).addDisposableTo(disposeBag)
-        viewModel.pmEndDateVariable.asDriver().drive(onNext: { date in self.pmEndTime = date }).addDisposableTo(disposeBag)
+        viewModel.amStartDateVariable.asDriver().drive(onNext: {[weak self] date in self?.amStartTime = date }).addDisposableTo(disposeBag)
+        viewModel.amEndDateVariable.asDriver() .drive(onNext: {  [weak self] date in self?.amEndTime = date }).addDisposableTo(disposeBag)
+        viewModel.pmStartDateVariable.asDriver().drive(onNext: { [weak self] date in self?.pmStartTime = date }).addDisposableTo(disposeBag)
+        viewModel.pmEndDateVariable.asDriver().drive(onNext: { [weak self] date in self?.pmEndTime = date }).addDisposableTo(disposeBag)
         
         
         viewModel.saveFinish?

@@ -80,8 +80,8 @@ class ToDoListController: UITableViewController {
         repeatStateVariable.asDriver().drive(repeatStateQutlet.rx.text).addDisposableTo(disposeBag)
         
         beginTimeVariable.asDriver()
-            .drive(onNext: {date in
-                self.beginTime = date
+            .drive(onNext: {[weak self] date in
+                self?.beginTime = date
             })
             .addDisposableTo(disposeBag)
         
@@ -91,8 +91,8 @@ class ToDoListController: UITableViewController {
             .addDisposableTo(disposeBag)
         
         endTimeVariabel.asDriver()
-            .drive(onNext: {date in
-                self.endTime = date
+            .drive(onNext: {[weak self] date in
+                self?.endTime = date
             })
             .addDisposableTo(disposeBag)
 
@@ -212,6 +212,22 @@ extension ToDoListController {
     }
 }
 
+extension ToDoListController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      if textField == titleTextFieldQutle
+      {
+        remarkTextFieldQutlet.becomeFirstResponder()
+        }else
+      {
+        view.endEditing(true)
+        
+        }
+        
+        
+         return true
+    }
+}
+
 //按钮监听事件
 extension ToDoListController {
     
@@ -222,6 +238,9 @@ extension ToDoListController {
         self.endTimeQutle.isSelected = false
         self.datePicker.date = beginTime
         self.DatePickerView.isHidden = false
+        if UIScreen.main.bounds.height < self.DatePickerView.frame.maxY{
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)}
+        view.endEditing(true)
     }
     
     fileprivate func selectEndTime() {
@@ -232,6 +251,9 @@ extension ToDoListController {
         self.beginTimeQutle.isSelected = false
         self.datePicker.date = endTime
         self.DatePickerView.isHidden = false
+        if UIScreen.main.bounds.height < self.DatePickerView.frame.maxY{
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)}
+        view.endEditing(true)
         
     }
     
@@ -239,9 +261,13 @@ extension ToDoListController {
         DatePickerView.isHidden = true
         beginTimeQutle.isSelected = false
         endTimeQutle.isSelected = false
+        self.tableView.setContentOffset(CGPoint(x: 0, y: 32), animated: true)
+        
     }
     
     fileprivate func comfirmDatepicker() {
+        
+        self.tableView.setContentOffset(CGPoint(x: 0, y: 32), animated: true)
         
         if beginTimeQutle.isSelected {
             beginTimeQutle.isSelected = false

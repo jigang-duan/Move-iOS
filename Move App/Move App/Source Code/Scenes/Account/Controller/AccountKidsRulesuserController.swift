@@ -176,6 +176,7 @@ class AccountKidsRulesuserController: UITableViewController {
                 }else{
                     _ = self?.navigationController?.popToRootViewController(animated: true)
                 }
+                
             }, onError: { er in
                 print(er)
                 self.showAlert(message: "Unpaired watch faild")
@@ -266,8 +267,8 @@ extension AccountKidsRulesuserController {
                 tip = "You can't make a call with watch and can't receive notification or position from watch by unpaired with watch"
             }
             let alert = UIAlertController(title: R.string.localizable.id_warming(), message: tip, preferredStyle: .alert)
-            let action1 = UIAlertAction(title: R.string.localizable.id_still_unpaired(), style: .default, handler: { _ in
-                self.unpairWatch()
+            let action1 = UIAlertAction(title: R.string.localizable.id_still_unpaired(), style: .default, handler: { [weak self] _ in
+                self?.unpairWatch()
             })
             let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
             alert.addAction(action1)

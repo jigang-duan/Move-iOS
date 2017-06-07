@@ -180,15 +180,15 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()
-            .drive(onNext: { _ in
-                if let overflay = self.circleOverlay {
-                    self.mainMapView.remove(overflay)
+            .drive(onNext: { [weak self] _ in
+                if let overflay = self?.circleOverlay {
+                    self?.mainMapView.remove(overflay)
                 }
                 
-                self.circleBorderView.frame = self.mainMapView.bounds
-                self.mainMapView.addSubview(self.circleBorderView)
-                self.circleBorderView.radius = self.rectFromCoordinate.height
-                self.circleBorderView.setNeedsDisplay()
+                self?.circleBorderView.frame = (self?.mainMapView.bounds)!
+                self?.mainMapView.addSubview((self?.circleBorderView)!)
+                self?.circleBorderView.radius = (self?.rectFromCoordinate.height)!
+                self?.circleBorderView.setNeedsDisplay()
             }).addDisposableTo(disposeBag)
         
         mainMapView.rx.regionDidChangeAnimated
@@ -233,10 +233,10 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         viewModel.kidAnnotion.debug()
             .distinctUntilChanged()
-            .drive(onNext: {[unowned self] annotion in
+            .drive(onNext: {[weak self] annotion in
 //                self.mainMapView.removeAnnotations(self.mainMapView.annotations)
 //                self.mainMapView.addAnnotation(annotion)
-                if self.circleOverlay == nil
+                if self?.circleOverlay == nil
                 {
 //                    self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
 //                    self.mainMapView.add(self.circleOverlay!)
@@ -421,7 +421,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
        
         let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
-            alert -> Void in
+            alert ->  Void in
             if self.kidnameTF.text != "" {
                 var asSame = false
                 for i in 0..<self.fences.count {
