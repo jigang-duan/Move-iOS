@@ -35,12 +35,13 @@ class PhoneNumberController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.phoneInvalidte.drive(onNext: { result in
+        viewModel.phoneInvalidte
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -109,14 +110,14 @@ class PhoneNumberController: UIViewController {
         
         
         viewModel.nextResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: { [weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 case .ok:
-                    self.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
+                    self?.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -131,9 +132,9 @@ class PhoneNumberController: UIViewController {
 //    选择国家代号
     @IBAction func selectCountryCode(_ sender: UIButton) {
         let vc = R.storyboard.kidInformation.countryCodeViewController()!
-        vc.selectBlock = {model in
-            self.regionBun.setTitle(model.abbr, for: .normal)
-            self.phonePrefix.text = model.code
+        vc.selectBlock = { [weak self] model in
+            self?.regionBun.setTitle(model.abbr, for: .normal)
+            self?.phonePrefix.text = model.code
         }
         self.navigationController?.show(vc, sender: nil)
     }

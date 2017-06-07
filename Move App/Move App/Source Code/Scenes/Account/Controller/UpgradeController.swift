@@ -79,8 +79,8 @@ class UpgradeController: UIViewController {
             .withLatestFrom(devidUID) { ($0, $1) }
             .filter({ $0.deviceUID == $1 })
             .map({ $0.0 })
-            .subscribe(onNext: { type in
-                self.updateDownloadStatus(with: type)
+            .subscribe(onNext: { [weak self] type in
+                self?.updateDownloadStatus(with: type)
             })
             .addDisposableTo(disposeBag)
     }
@@ -187,11 +187,11 @@ class UpgradeController: UIViewController {
         let deviceId = RxStore.shared.currentDeviceId.value!
         
         DeviceManager.shared.getProperty(deviceId: deviceId)
-            .subscribe(onNext: { property in
+            .subscribe(onNext: { [weak self] property in
                 RxStore.shared.bind(property: property)
                 
-                self.batteryLevel.text = "\(property.power ?? 0)%"
-                self.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
+                self?.batteryLevel.text = "\(property.power ?? 0)%"
+                self?.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
                 
                 
                 var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
@@ -225,11 +225,11 @@ class UpgradeController: UIViewController {
                 
                 switch type {
                 case .updateStarted, .downloadStarted, .progressDownload:
-                    self.updateDownloadStatus(with: type)
+                    self?.updateDownloadStatus(with: type)
                 default:
                     break
                 }
-                self.checkVersion(checkInfo: checkInfo)
+                self?.checkVersion(checkInfo: checkInfo)
             })
             .addDisposableTo(disposeBag)
     }
@@ -237,25 +237,25 @@ class UpgradeController: UIViewController {
     
     func checkVersion(checkInfo: DeviceVersionCheck) {
         DeviceManager.shared.checkVersion(checkInfo: checkInfo)
-            .subscribe(onNext: { info in
+            .subscribe(onNext: { [weak self] info in
                 if let vs = info.newVersion, vs.characters.count > 2 {
-                    self.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
-                    self.versionInfo.isHidden = true
-                    self.downloadBun.isHidden = false
-                    if self.downloadProgress == 0 {
-                        self.tipLab.isHidden = true
-                        self.updateDownloadButton(isEnable: true)
-                        self.downloadBun.setTitle("Download", for: .normal)
+                    self?.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
+                    self?.versionInfo.isHidden = true
+                    self?.downloadBun.isHidden = false
+                    if self?.downloadProgress == 0 {
+                        self?.tipLab.isHidden = true
+                        self?.updateDownloadButton(isEnable: true)
+                        self?.downloadBun.setTitle("Download", for: .normal)
                     }
                 }else{
                     let version = DeviceManager.shared.currentDevice?.property?.firmware_version
-                    self.versionLab.text = "Firmware Version " + (version ?? "")
-                    self.versionInfo.isHidden = false
-                    self.versionInfo.text = "This watch's firmware is up to date."
-                    self.tipLab.isHidden = true
-                    self.downloadBun.isHidden = true
+                    self?.versionLab.text = "Firmware Version " + (version ?? "")
+                    self?.versionInfo.isHidden = false
+                    self?.versionInfo.text = "This watch's firmware is up to date."
+                    self?.tipLab.isHidden = true
+                    self?.downloadBun.isHidden = true
                 }
-                self.activity.stopAnimating()
+                self?.activity.stopAnimating()
             })
             .addDisposableTo(disposeBag)
     }

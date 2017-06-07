@@ -308,17 +308,17 @@ class KidInformationController: UIViewController {
         if let vc = R.segue.kidInformationController.setGenderVC(segue: segue)?.destination  {
             vc.selectedGender = self.addInfoVariable.value.gender ?? defaultKidInfo.gender
             
-            vc.genderBlock = { (gender) in
-                self.addInfoVariable.value.gender = gender
-                self.genderLab.text = (gender == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
+            vc.genderBlock = { [weak self] (gender) in
+                self?.addInfoVariable.value.gender = gender
+                self?.genderLab.text = (gender == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
             }
         }
         if let vc = R.segue.kidInformationController.setBirthdayVC(segue: segue)?.destination  {
             vc.selectedDate = self.addInfoVariable.value.birthday ?? defaultKidInfo.birthday
             
-            vc.birthdayBlock = { (birthday) in
-                self.addInfoVariable.value.birthday = birthday
-                self.dateLab.text = birthday.stringYearMonthDay
+            vc.birthdayBlock = { [weak self] (birthday) in
+                self?.addInfoVariable.value.birthday = birthday
+                self?.dateLab.text = birthday.stringYearMonthDay
             }
         }
         if let vc = R.segue.kidInformationController.setWeightVC(segue: segue)?.destination {
@@ -327,10 +327,10 @@ class KidInformationController: UIViewController {
             if let unit = self.addInfoVariable.value.weightUnit {
                 vc.isUnitKg = (unit == UnitType.metric) ? true:false
             }
-            vc.weightBlock = { (weight, unit) in
-                self.addInfoVariable.value.weight = weight
-                self.addInfoVariable.value.weightUnit = unit
-                self.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
+            vc.weightBlock = { [weak self] (weight, unit) in
+                self?.addInfoVariable.value.weight = weight
+                self?.addInfoVariable.value.weightUnit = unit
+                self?.weightLab.text = "\(weight) " + ((unit == UnitType.metric) ? "kg":"lb")
             }
         }
         if let vc = R.segue.kidInformationController.setHeightVC(segue: segue)?.destination {
@@ -339,17 +339,17 @@ class KidInformationController: UIViewController {
             if let unit = self.addInfoVariable.value.heightUnit {
                 vc.isUnitCm = (unit == UnitType.metric) ? true:false
             }
-            vc.heightBlock = { (height, unit) in
-                self.addInfoVariable.value.height = height
-                self.addInfoVariable.value.heightUnit = unit
-                self.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
+            vc.heightBlock = { [weak self] (height, unit) in
+                self?.addInfoVariable.value.height = height
+                self?.addInfoVariable.value.heightUnit = unit
+                self?.heightLab.text = "\(height) " + ((unit == UnitType.metric) ? "cm":"inch")
             }
         }
         
         if let vc = R.segue.kidInformationController.showCountryCode(segue: segue)?.destination {
-            vc.selectBlock = {model in
-                self.regionCodeBun.setTitle(model.abbr, for: .normal)
-                self.phonePrefix.text = model.code
+            vc.selectBlock = { [weak self] model in
+                self?.regionCodeBun.setTitle(model.abbr, for: .normal)
+                self?.phonePrefix.text = model.code
             }
         }
         

@@ -170,11 +170,11 @@ class AccountKidsRulesuserController: UITableViewController {
     func unpairWatch() {
         let manager = DeviceManager.shared
         manager.deleteDevice(with: (manager.currentDevice?.deviceId)!)
-            .subscribe(onNext: { flag in
+            .subscribe(onNext: { [weak self] flag in
                 if flag == false{
-                    self.showAlert(message: "Unpaired watch faild")
+                    self?.showAlert(message: "Unpaired watch faild")
                 }else{
-                    _ = self.navigationController?.popToRootViewController(animated: true)
+                    _ = self?.navigationController?.popToRootViewController(animated: true)
                 }
             }, onError: { er in
                 print(er)

@@ -74,12 +74,12 @@ class FamilyMemberAddController: UIViewController {
         
         
         viewModel.saveResult?
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result {
                 case .failed(let message):
-                    self.showMessage(message)
+                    self?.showMessage(message)
                 case .ok:
-                    _ = self.navigationController?.popViewController(animated: true)
+                    _ = self?.navigationController?.popViewController(animated: true)
                 default:
                     break
                 }
@@ -93,15 +93,15 @@ class FamilyMemberAddController: UIViewController {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "Take a photo", style: .default) { _ in
-            self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { (image) in
-                self.photoImgV.image = image
-                self.photoVariable.value = image
+            self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
+                self?.photoImgV.image = image
+                self?.photoVariable.value = image
             })
         }
         let action2 = UIAlertAction(title: "Select from album", style: .default) { _ in
-            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
-                self.photoImgV.image = image
-                self.photoVariable.value = image
+            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
+                self?.photoImgV.image = image
+                self?.photoVariable.value = image
             })
         }
         let action3 = UIAlertAction(title: "Cancel", style: .cancel)

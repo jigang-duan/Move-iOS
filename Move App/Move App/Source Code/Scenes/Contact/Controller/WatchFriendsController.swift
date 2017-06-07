@@ -52,28 +52,15 @@ class WatchFriendsController: UIViewController {
         })
         
     
-        result.drive(onNext: { rs in
-            if rs.isValid {
-                _ = self.navigationController?.popViewController(animated: true)
-            }else{
-                print("failed")
-            }
-        }).addDisposableTo(disposeBag)
-        
-        
-//        判断当前是否是管理员
-         DeviceManager.shared.getContacts(deviceId: (DeviceManager.shared.currentDevice?.deviceId)!)
-            .subscribe(onNext: { cons in
-                for con in cons {
-                    if con.admin == true {
-                        if UserInfo.shared.id == con.uid {
-                            self.deleteBun.isHidden = false
-                        }
-                    }
+        result
+            .drive(onNext: { [weak self] rs in
+                if rs.isValid {
+                    _ = self?.navigationController?.popViewController(animated: true)
+                }else{
+                    print("failed")
                 }
-            }, onError: { er in
-                print(er)
-            }).addDisposableTo(disposeBag)
+            })
+            .addDisposableTo(disposeBag)
         
     }
     

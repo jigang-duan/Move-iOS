@@ -98,25 +98,25 @@ class VerificationCodeController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.sendResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: { [weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
         
         viewModel.nextResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: { [weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 case .ok(let message):
-                    self.gotoPhoneNumberVC(message)
+                    self?.gotoPhoneNumberVC(message)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -138,14 +138,15 @@ class VerificationCodeController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.vcodeInvalidte.drive(onNext: { result in
-            switch result{
-            case .failed(let message):
-                self.showValidateError(message)
-            default:
-                self.revertValidateError()
-            }
-        })
+        viewModel.vcodeInvalidte
+            .drive(onNext: { [weak self] result in
+                switch result{
+                case .failed(let message):
+                    self?.showValidateError(message)
+                default:
+                    self?.revertValidateError()
+                }
+            })
             .addDisposableTo(disposeBag)
         
     }

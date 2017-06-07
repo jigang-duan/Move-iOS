@@ -80,10 +80,10 @@ class EmergencyNumberVC: UIViewController {
             .addDisposableTo(disposeBag)
         
         
-        viewModel.saveResult?.drive(onNext: { res in
+        viewModel.saveResult?.drive(onNext: { [weak self] res in
             switch res {
             case .ok(_):
-                _ = self.navigationController?.popViewController(animated: true)
+                _ = self?.navigationController?.popViewController(animated: true)
             case .failed(let message):
                 print(message)
             default:
@@ -93,12 +93,12 @@ class EmergencyNumberVC: UIViewController {
         
         
         
-        viewModel.phoneInvalidte.drive(onNext: { res in
+        viewModel.phoneInvalidte.drive(onNext: { [weak self] res in
             switch res {
             case .ok(_):
-                self.revertValidateError()
+                self?.revertValidateError()
             case .failed(let message):
-                self.showValidateError(message)
+                self?.showValidateError(message)
             default:
                 break
             }

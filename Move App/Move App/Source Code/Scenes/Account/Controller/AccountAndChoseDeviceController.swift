@@ -128,7 +128,7 @@ class AccountAndChoseDeviceController: UIViewController {
                     result = self.settingUserInfo(with: info)
                 }
                 
-                result?.filter({$0.isValid == true}).subscribe(onNext: { _ in
+                result?.filter({$0.isValid == true}).subscribe(onNext: { [weak self] _ in
                     UserInfo.shared.profile?.gender = info.gender
                     UserInfo.shared.profile?.height = info.height
                     UserInfo.shared.profile?.weight = info.weight
@@ -138,7 +138,7 @@ class AccountAndChoseDeviceController: UIViewController {
                     if let img = changedImage {
                         UserInfo.shared.profile?.iconUrl = info.iconUrl
                         KingfisherManager.shared.cache.store(img, forKey: FSManager.imageUrl(with: info.iconUrl!))
-                        self.show(head: UserInfo.shared.profile!)
+                        self?.show(head: UserInfo.shared.profile!)
                     }
                 }).addDisposableTo(self.disposeBag)
             }

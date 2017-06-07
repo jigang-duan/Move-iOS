@@ -38,9 +38,10 @@ class FamilyMemberController: UIViewController {
         
         if isMater == true {
             WatchSettingsManager.share.fetchEmergencyNumbers()
-                .subscribe(onNext: { numbers in
-                    self.emergencyLab.text = numbers.joined(separator: ",")
-                }).addDisposableTo(disposeBag)
+                .subscribe(onNext: { [weak self] numbers in
+                    self?.emergencyLab.text = numbers.joined(separator: ",")
+                })
+                .addDisposableTo(disposeBag)
         }
         
     }
@@ -84,14 +85,14 @@ class FamilyMemberController: UIViewController {
         viewModel.cellDatas?.bindTo(viewModel.cellDatasVariable).addDisposableTo(disposeBag)
         
         viewModel.cellDatasVariable.asObservable()
-            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ (row, element, cell) in
+            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ [weak self] (row, element, cell) in
                 cell.heartBun.setImage(element.isHeartOn ? R.image.member_heart_on() : R.image.member_heart_off(), for: .normal)
                 cell.isHeartOn = element.isHeartOn
                 
-                if self.isMater == true {
+                if self?.isMater == true {
                     cell.heartClick = {[weak cell] _ in
                         cell?.isHeartOn = !(cell?.isHeartOn)!
-                        self.cellHeart.value = (flag: (cell?.isHeartOn)!, row: row)
+                        self?.cellHeart.value = (flag: (cell?.isHeartOn)!, row: row)
                     }
                 }
                 
@@ -111,10 +112,10 @@ class FamilyMemberController: UIViewController {
             .addDisposableTo(disposeBag)
     
         viewModel.heartResult?.drive(onNext: { res in
-            res.drive(onNext: { r in
+            res.drive(onNext: { [weak self] r in
                 switch r {
                 case .failed(let message):
-                    self.showMessage(message)
+                    self?.showMessage(message)
                 default:
                     break
                 }
@@ -133,9 +134,9 @@ class FamilyMemberController: UIViewController {
     
     
     @IBAction func showPopView(_ sender: Any) {
-        UIView.animate(withDuration: 0.3) { 
-            self.popView.isHidden = !(self.popView.isHidden)
-            self.popView.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3) { [weak self] _ in
+            self?.popView.isHidden = !(self?.popView.isHidden)
+            self?.popView.layoutIfNeeded()
         }
     }
     

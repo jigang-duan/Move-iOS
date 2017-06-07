@@ -121,7 +121,7 @@ class ScanCodeController: UIViewController {
     @IBAction func openAbum(_ sender: AnyObject) {
         photoPicker = ImageUtility()
         
-        self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, callback: { (image) in
+        self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, callback: { [weak self] (image) in
             let ciImage = CIImage(image: image)!
             
             let context = CIContext()
@@ -132,9 +132,9 @@ class ScanCodeController: UIViewController {
             
             if let fs = features, fs.count > 0 {
                 let feature = fs[0] as! CIQRCodeFeature
-                self.makeDeviceAdd(with: feature.messageString!)
+                self?.makeDeviceAdd(with: feature.messageString!)
             }else{
-                self.showMessage("No QR code detected")
+                self?.showMessage("No QR code detected")
             }
         })
     }
@@ -250,13 +250,13 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         //绑定管理员
         if info.isMaster == true {
             DeviceManager.shared.checkBind(deviceId: info.deviceId!)
-                .subscribe(onNext: { flag in
+                .subscribe(onNext: { [weak self] flag in
                     if flag == false {
                         let vc  = R.storyboard.main.verificationCodeController()!
                         vc.imei = info.deviceId
-                        self.navigationController?.show(vc, sender: nil)
+                        self?.navigationController?.show(vc, sender: nil)
                     }else{
-                        self.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                        self?.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
                     }
                 })
                 .addDisposableTo(disposeBag)
@@ -266,17 +266,17 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         
         //绑定普通用户,先检查手表是否已存在
         DeviceManager.shared.getContacts(deviceId: info.deviceId!)
-            .subscribe(onNext: { cons in
+            .subscribe(onNext: { [weak self] cons in
                 let flag = cons.map({$0.uid}).contains(where: { uid -> Bool in
                     return uid == UserInfo.shared.id
                 })
                 if flag == true {
-                    self.showMessage("This watch is existed")
+                    self?.showMessage("This watch is existed")
                 }else{
-                    self.goPairWithGeneral(with: info)
+                    self?.goPairWithGeneral(with: info)
                 }
-            }, onError: { error in
-                self.goPairWithGeneral(with: info)
+            }, onError: { [weak self] error in
+                self?.goPairWithGeneral(with: info)
             })
             .addDisposableTo(disposeBag)
        

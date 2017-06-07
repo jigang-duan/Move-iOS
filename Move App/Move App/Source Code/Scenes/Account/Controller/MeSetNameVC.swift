@@ -24,12 +24,12 @@ class MeSetNameViewController: UIViewController {
         super.viewDidAppear(animated)
         
         viewModel.validatedName
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showNameError(message)
+                    self?.showNameError(message)
                 default:
-                    self.revertNameError()
+                    self?.revertNameError()
                 }
             })
             .addDisposableTo(disposeBag)

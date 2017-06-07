@@ -32,23 +32,23 @@ class MeSetPasswordViewController: UIViewController {
         super.viewDidAppear(animated)
         
         viewModel.validatedOld
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showOldError(message)
+                    self?.showOldError(message)
                 default:
-                    self.revertOldError()
+                    self?.revertOldError()
                 }
             })
             .addDisposableTo(disposeBag)
         
         viewModel.validatedNew
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
                 switch result{
                 case .failed(let message):
-                    self.showNewError(message)
+                    self?.showNewError(message)
                 default:
-                    self.revertNewError()
+                    self?.revertNewError()
                 }
             })
             .addDisposableTo(disposeBag)

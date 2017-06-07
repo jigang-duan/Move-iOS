@@ -266,9 +266,9 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 let vc = R.storyboard.kidInformation.setYourGenderController()!
                 vc.selectedGender = self.gender ?? defaultProfile.gender
-                vc.genderBlock = { gender in
-                    self.gender = gender
-                    self.tableView.reloadData()
+                vc.genderBlock = { [weak self] gender in
+                    self?.gender = gender
+                    self?.tableView.reloadData()
                 }
                 self.present(vc, animated: true)
             case 1:
@@ -279,10 +279,10 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                     vc.selectedHeight = defaultProfile.height
                 }
                 vc.isUnitCm = self.heightUnit == .metric
-                vc.heightBlock = { height, unit in
-                    self.height = height
-                    self.heightUnit = unit
-                    self.tableView.reloadData()
+                vc.heightBlock = { [weak self] height, unit in
+                    self?.height = height
+                    self?.heightUnit = unit
+                    self?.tableView.reloadData()
                 }
                 self.present(vc, animated: true);
             case 2:
@@ -293,10 +293,10 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                     vc.selectedWeight = defaultProfile.weight
                 }
                 vc.isUnitKg = self.weightUnit == .metric
-                vc.weightBlock = {weight, unit in
-                    self.weight = weight
-                    self.weightUnit = unit
-                    self.tableView.reloadData()
+                vc.weightBlock = { [weak self] weight, unit in
+                    self?.weight = weight
+                    self?.weightUnit = unit
+                    self?.tableView.reloadData()
                 }
                 self.present(vc, animated: true)
             case 3:
@@ -306,9 +306,9 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 }else{
                     vc.selectedDate = defaultProfile.birthday
                 }
-                vc.birthdayBlock = {birthday in
-                    self.birthday = birthday
-                    self.tableView.reloadData()
+                vc.birthdayBlock = { [weak self] birthday in
+                    self?.birthday = birthday
+                    self?.tableView.reloadData()
                 }
                 self.present(vc, animated: true)
             default:

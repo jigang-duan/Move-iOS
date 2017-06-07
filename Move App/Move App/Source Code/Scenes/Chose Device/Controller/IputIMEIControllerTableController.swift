@@ -76,14 +76,14 @@ class InputImeiVC: UIViewController {
         
         
         viewModel.confirmResult?
-            .drive(onNext: { doneResult in
+            .drive(onNext: { [weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self.showValidateError(message)
+                    self?.showValidateError(message)
                 case .ok:
-                    self.performSegue(withIdentifier: R.segue.inputImeiVC.showVerification, sender: nil)
+                    self?.performSegue(withIdentifier: R.segue.inputImeiVC.showVerification, sender: nil)
                 default:
-                    self.revertValidateError()
+                    self?.revertValidateError()
                 }
             })
             .addDisposableTo(disposeBag)
@@ -93,14 +93,14 @@ class InputImeiVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.imeiInvalidte.drive(onNext: { result in
+        viewModel.imeiInvalidte.drive(onNext: { [weak self] result in
             switch result{
             case .failed(let message):
-                self.showValidateError(message)
+                self?.showValidateError(message)
             case .empty:
-                self.showValidateError("Please input IMEI")
+                self?.showValidateError("Please input IMEI")
             default:
-                self.revertValidateError()
+                self?.revertValidateError()
             }
         })
             .addDisposableTo(disposeBag)
