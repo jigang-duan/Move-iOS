@@ -60,7 +60,7 @@ class ToDoListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         self.internationalization()
         self.isOldTodo = false
         back.isHidden = false
@@ -239,8 +239,14 @@ extension ToDoListController {
         self.datePicker.date = beginTime
         self.DatePickerView.isHidden = false
         if UIScreen.main.bounds.height < self.DatePickerView.frame.maxY{
-            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)}
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
+        }else
+        {
+           self.DatePickerView.frame.origin.y = 400
+            print(DatePickerView.frame.origin.y)
+        }
         view.endEditing(true)
+        
     }
     
     fileprivate func selectEndTime() {
@@ -253,6 +259,11 @@ extension ToDoListController {
         self.DatePickerView.isHidden = false
         if UIScreen.main.bounds.height < self.DatePickerView.frame.maxY{
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)}
+        else
+        {
+            self.DatePickerView.frame.origin.y = 400
+        }
+        
         view.endEditing(true)
         
     }

@@ -47,10 +47,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var mapTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mapBottomContraint: NSLayoutConstraint!
     
+    @IBOutlet weak var showaddressBtn: UIButton!
     var adminBool: Bool? = false
 
     
     var centerss : CLLocationCoordinate2D?
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -115,6 +118,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.permissionsView(adminBool!)
         self.kidnameTF.placeholder = "Enter a name for this safezone"
         if (self.editFenceDataSounrce != nil) {
