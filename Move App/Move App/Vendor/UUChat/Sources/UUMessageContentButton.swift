@@ -29,8 +29,8 @@ class UUMessageContentButton: UIButton {
     }()
     
     lazy var second: UILabel = {
-        let $ = UILabel(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
-        $.textAlignment = .center
+        let $ = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+        $.textAlignment = .left
         $.font = UIFont.systemFont(ofSize: 14)
         $.backgroundColor = UIColor.clear
         $.isUserInteractionEnabled = false
@@ -38,12 +38,12 @@ class UUMessageContentButton: UIButton {
     }()
     
     lazy var voice: UIImageView = {
-        let $ = UIImageView(frame: CGRect(x: 85, y: 5, width: 20, height: 20))
-        $.image = UIImage(named: "chat_animation3")
+        let $ = UIImageView(frame: CGRect(x: 55, y: 5, width: 20, height: 20))
+        $.image = UIImage(named: "message_listen_0")
         $.animationImages = [
-            UIImage(named: "chat_animation1")!,
-            UIImage(named: "chat_animation2")!,
-            UIImage(named: "chat_animation3")!
+            UIImage(named: "message_listen_1")!,
+            UIImage(named: "message_listen_2")!,
+            UIImage(named: "message_listen_3")!
         ]
         $.animationDuration = 1
         $.animationRepeatCount = 0
@@ -54,7 +54,7 @@ class UUMessageContentButton: UIButton {
     
     lazy var indicator: UIActivityIndicatorView = {
         let $ = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        $.center = CGPoint(x: 85, y: 15)
+        $.center = CGPoint(x: 60, y: 15)
         $.isUserInteractionEnabled = false
         return $
     }()

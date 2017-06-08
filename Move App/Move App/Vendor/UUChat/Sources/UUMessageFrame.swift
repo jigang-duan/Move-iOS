@@ -18,7 +18,7 @@ let ChatTimeMarginW: CGFloat = 15  //时间文本与边框间隔宽度方向
 let ChatTimeMarginH: CGFloat = 10  //时间文本与边框间隔高度方向
 
 let ChatContentTop: CGFloat = 5   //文本内容与按钮上边缘间隔
-let ChatContentLeft: CGFloat = 15  //文本内容与按钮左边缘间隔
+let ChatContentLeft: CGFloat = 10  //文本内容与按钮左边缘间隔
 let ChatContentBottom: CGFloat = 5 //文本内容与按钮下边缘间隔
 let ChatContentRight: CGFloat = 15 //文本内容与按钮右边缘间隔
 
@@ -103,7 +103,7 @@ struct UUMessageFrame {
         case .video:
             contenSize = CGSize(width: 120, height: 60)
         case .voice:
-            contenSize = CGSize(width: 106, height: 36)
+            contenSize = CGSize(width: 86, height: 36)
         case .emoji:
             contenSize = CGSize(width: ChatEmojiWH, height: ChatEmojiWH)
         }

@@ -256,31 +256,30 @@ extension EmojiType {
     
     private var emotionDynamicURL: URL? {
         return R.file.emotion_Dynamic_144()
-//        return R.file.emotion_PNG_180()
     }
     
     var url: URL? {
         switch self {
         case .aweat:
-            return R.file.emotion_21Png()
+            return R.file.aweat3xPng()
         case .bye:
-            return R.file.emotion_22Png()
+            return R.file.bye3xPng()
         case .dizzy:
-            return R.file.emotion_30Png()
+            return R.file.dizzy3xPng()
         case .heart:
-            return R.file.emotion_24Png()
+            return R.file.heart3xPng()
         case .lacrimation:
-            return R.file.emotion_25Png()
+            return R.file.lacrimation3xPng()
         case .angry:
-            return R.file.emotion_27Png()
+            return R.file.angry3xPng()
         case .cry:
-            return R.file.emotion_23Png()
+            return R.file.cry3xPng()
         case .sad:
-            return R.file.emotion_28Png()
+            return R.file.sad3xPng()
         case .sick:
-            return R.file.emotion_29Png()
+            return R.file.sick3xPng()
         case .smile:
-            return R.file.emotion_26Png()
+            return R.file.smile3xPng()
             
 //        case .aweat_d:
 //            return emotionDynamicURL?.appendingPathComponent("aweat", isDirectory: true)

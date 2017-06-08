@@ -29,7 +29,7 @@ protocol ISEmojiViewDelegate: class {
 fileprivate let EmojiSize = CGSize(width: 48, height: 48)
 fileprivate let EmojiFontSize = CGFloat(30.0)
 fileprivate let collectionInset = UIEdgeInsets(top: 10, left: 26, bottom: 38, right: 26)
-fileprivate let collectionMinimumLineSpacing = CGFloat(26)
+fileprivate let collectionMinimumLineSpacing = CGFloat(10)
 fileprivate let collectionMinimumInteritemSpacing = CGFloat(0)
 //fileprivate let ISMainBackgroundColor = UIColor(red: 249/255.0, green: 249/255.0, blue: 249/255.0, alpha: 1)
 fileprivate let ISMainBackgroundColor = UIColor.white
