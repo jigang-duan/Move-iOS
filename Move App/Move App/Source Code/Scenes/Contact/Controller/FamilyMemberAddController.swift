@@ -24,6 +24,9 @@ class FamilyMemberAddController: UIViewController {
 
     @IBOutlet weak var validate: UILabel!
     
+    @IBOutlet weak var countryCodeBun: UIButton!
+    @IBOutlet weak var phonePreLab: UILabel!
+    
     private var disposeBag = DisposeBag()
 
     private var photoPicker: ImageUtility?
@@ -47,9 +50,14 @@ class FamilyMemberAddController: UIViewController {
         
         validate.isHidden = true
 
+        countryCodeBun.setTitle("-", for: .normal)
+        phonePreLab.text = "-"
+        
         
         numberTf.rx.text.orEmpty
-            .bindTo(numberVariable)
+            .bindNext({ [weak self] _ in
+                self?.updateNumberVariable()
+            })
             .addDisposableTo(disposeBag)
         
         let viewModel = FamilyMemberAddViewModel(
@@ -86,6 +94,18 @@ class FamilyMemberAddController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+    }
+    
+    func updateNumberVariable() {
+        if let number = numberTf.text, number.characters.count > 0 {
+            if let pre = self.phonePreLab.text, pre != "-", pre.characters.count > 0 {
+                self.numberVariable.value = "\(pre)@\(number)"
+            }else{
+                self.numberVariable.value = number
+            }
+        }else{
+            self.numberVariable.value = ""
+        }
     }
     
     
@@ -145,6 +165,20 @@ class FamilyMemberAddController: UIViewController {
         }
     }
     
+    //    选择国家代号
+    @IBAction func selectCountryCode(_ sender: UIButton) {
+        let vc = R.storyboard.kidInformation.countryCodeViewController()!
+        vc.selectBlock = { [weak self] model in
+            self?.countryCodeBun.setTitle(model.abbr, for: .normal)
+            self?.phonePreLab.text = model.code
+            self?.updateNumberVariable()
+        }
+        self.navigationController?.show(vc, sender: nil)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        numberTf.resignFirstResponder()
+    }
     
     func showMessage(_ text: String) {
         self.validate.text = text

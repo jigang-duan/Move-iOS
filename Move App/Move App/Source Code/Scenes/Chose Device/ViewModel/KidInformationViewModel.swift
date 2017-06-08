@@ -69,10 +69,10 @@ class KidInformationViewModel {
                 
                 var f = addInfo
                 f.nickName = name
-                if phonePrefix == "" {
+                if phonePrefix == "" || phonePrefix == "-" {
                     f.number = phone
                 }else{
-                    f.number = "\(phonePrefix) \(phone)"
+                    f.number = "\(phonePrefix)@\(phone)"
                 }
                 
                 if self.isForSetting == true {

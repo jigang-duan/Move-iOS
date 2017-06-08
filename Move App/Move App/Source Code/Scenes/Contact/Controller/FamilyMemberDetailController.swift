@@ -38,6 +38,8 @@ class FamilyMemberDetailController: UIViewController {
     @IBOutlet weak var noRegisterTipLabHCons: NSLayoutConstraint!
     
     
+    @IBOutlet weak var countryCodeBun: UIButton!
+    @IBOutlet weak var phonePreLab: UILabel!
     
     private var photoVariable:Variable<UIImage?> = Variable(nil)
     private var identityVariable:Variable<Relation?> = Variable(nil)
@@ -81,7 +83,9 @@ class FamilyMemberDetailController: UIViewController {
         contactInfo.value = (info?.contactInfo)!
         
         numberTf.rx.text.orEmpty
-            .bindTo(numberVariable)
+            .bindNext({ [weak self] _ in
+                self?.updateNumberVariable()
+            })
             .addDisposableTo(disposeBag)
         
         
@@ -225,8 +229,33 @@ class FamilyMemberDetailController: UIViewController {
         photoImgV.kf.setImage(with: imgUrl, placeholder: R.image.relationship_ic_other()!)
         identityLab.text = info?.contactInfo?.identity?.description
         identityVariable.value = info?.contactInfo?.identity
-        numberTf.text = info?.contactInfo?.phone
-        numberVariable.value = info?.contactInfo?.phone
+        
+        let numberArr = info?.contactInfo?.phone?.components(separatedBy: "@")
+        if let arr = numberArr, arr.count > 1 {
+            if let model = CountryCodeViewController.fetchCountryCode(with: arr[0]) {
+                self.countryCodeBun.setTitle(model.abbr, for: .normal)
+            }
+            phonePreLab.text = arr[0]
+            numberTf.text = arr[1]
+        }else{
+            self.countryCodeBun.setTitle("-", for: .normal)
+            phonePreLab.text = "-"
+            numberTf.text = info?.contactInfo?.phone
+        }
+        
+        self.updateNumberVariable()
+    }
+    
+    func updateNumberVariable() {
+        if let number = numberTf.text, number.characters.count > 0 {
+            if let pre = self.phonePreLab.text, pre != "-", pre.characters.count > 0 {
+                self.numberVariable.value = "\(pre)@\(number)"
+            }else{
+                self.numberVariable.value = number
+            }
+        }else{
+            self.numberVariable.value = ""
+        }
     }
     
     
@@ -286,6 +315,20 @@ class FamilyMemberDetailController: UIViewController {
         }
     }
     
+    //    选择国家代号
+    @IBAction func selectCountryCode(_ sender: UIButton) {
+        let vc = R.storyboard.kidInformation.countryCodeViewController()!
+        vc.selectBlock = { [weak self] model in
+            self?.countryCodeBun.setTitle(model.abbr, for: .normal)
+            self?.phonePreLab.text = model.code
+            self?.updateNumberVariable()
+        }
+        self.navigationController?.show(vc, sender: nil)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        numberTf.resignFirstResponder()
+    }
     
     func showMessage(_ text: String) {
         UIView.animate(withDuration: 0.3) { 

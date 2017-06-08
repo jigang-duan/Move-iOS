@@ -141,8 +141,8 @@ class PhoneNumberController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.phoneNumberController.showRelationship(segue: segue) {
-            if let pre = phonePrefix.text, pre.characters.count > 0 {
-                self.deviceAddInfo?.phone = "\(pre) \(phoneTf.text ?? "")"
+            if let pre = phonePrefix.text, pre.characters.count > 0, pre != "-" {
+                self.deviceAddInfo?.phone = "\(pre)@\(phoneTf.text ?? "")"
             }else{
                 self.deviceAddInfo?.phone = phoneTf.text
             }

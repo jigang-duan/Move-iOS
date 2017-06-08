@@ -120,7 +120,7 @@ class KidInformationController: UIViewController {
             nameTf.text = info.nickName
         }
         
-        let numberArr = info.number?.components(separatedBy: " ")
+        let numberArr = info.number?.components(separatedBy: "@")
         if let arr = numberArr, arr.count > 1 {
             if let model = CountryCodeViewController.fetchCountryCode(with: arr[0]) {
                 self.regionCodeBun.setTitle(model.abbr, for: .normal)
@@ -128,10 +128,8 @@ class KidInformationController: UIViewController {
             phonePrefix.text = arr[0]
             phoneTf.text = arr[1]
         }else{
-            if let localModel = CountryCodeViewController.localCountryCode() {
-                self.regionCodeBun.setTitle(localModel.abbr, for: .normal)
-                self.phonePrefix.text = localModel.code
-            }
+            regionCodeBun.setTitle("-", for: .normal)
+            phonePrefix.text = "-"
             phoneTf.text = info.number
         }
         
