@@ -25,10 +25,10 @@ class UpdateServer {
             .map { NoticeEntity(itunesLookupItem: $0) }
     }
     
-    func deviceUpdateNoctice(device id: String, uid: String, devUID: String) -> Observable<NoticeEntity> {
+    func deviceUpdateNoctice(device id: String, uid: String, devUID: String, name: String) -> Observable<NoticeEntity> {
         return DeviceManager.shared.newVersions(device: id)
             .filter { versionCompare($0, ImDateBase.shared.deviceVsersion(uid: uid, devUID: devUID)) }
-            .map { NoticeEntity(newVersions: $0, uid: uid, devUID: devUID) }
+            .map { NoticeEntity(newVersions: $0, uid: uid, devUID: devUID, name: name) }
     }
 }
 
@@ -43,12 +43,12 @@ fileprivate extension NoticeEntity {
         self.createDate = Date()
     }
     
-    convenience init(newVersions: String, uid: String, devUID: String) {
+    convenience init(newVersions: String, uid: String, devUID: String, name: String) {
         self.init()
         self.id = "\(Date().timeIntervalSince1970),\(devUID)"
         self.from = devUID
         self.to = uid
-        self.content = newVersions
+        self.content = String(format: "%@‘s watch update successed", name)
         self.readStatus = ReadStatus.unread.rawValue
         self.type = NoticeType.deviceUpdateVersion.rawValue
         self.createDate = Date()

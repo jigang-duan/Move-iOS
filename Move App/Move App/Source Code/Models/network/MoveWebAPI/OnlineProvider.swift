@@ -23,7 +23,7 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
          trackInflights: Bool = false) {
         
         var _plugins = plugins
-        _plugins.append(MoveApiAccountTokenPlugin())
+//        _plugins.append(MoveApiAccountTokenPlugin())
         
         super.init(endpointClosure: endpointClosure,
                    requestClosure: requestClosure,
@@ -75,11 +75,82 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
         let actualRequest = super.request(token)
         
         return self.XAppTokenRequest().flatMap { _ in
-            actualRequest
-        }
+                actualRequest
+            }
+            .tokenError()
+            .catchError(catchTokenError)
+            .debug()
     }
 }
 
+func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
+    guard let apiError = error as? MoveApi.ApiError else { throw error }
+    guard apiError.id != nil else { throw error }
+    
+    guard
+        let _ = UserInfo.shared.id,
+        let _ = UserInfo.shared.accessToken.refreshToken else {
+            return Observable.error(NSError.userAuthorizationError())
+    }
+    
+    if apiError.isTokenExpired {
+        UserInfo.shared.invalidate()
+        UserInfo.shared.clean()
+        if MoveApi.canPopToLoginScreen {
+            Distribution.shared.popToLoginScreen(true)
+        }
+        throw error
+    }
+    
+    if apiError.isTokenForbidden {
+        if let username = apiError.msg {
+            return MoveApi.Account.loginLofo(username: username)
+                .map { (deviceName: $0.deviceName, loginDate: $0.date) }
+                .do(onNext: { (deviceName: String?, loginDate: Date?) in
+                    UserInfo.shared.invalidate()
+                    UserInfo.shared.clean()
+                    if MoveApi.canPopToLoginScreen {
+                        Distribution.shared.popToLoginScreen(true, name: deviceName, date: loginDate)
+                    }
+                })
+                .flatMapLatest({ (_) -> Observable<Response> in
+                    Observable.error(NSError.tokenForbiddenError())
+                })
+        }
+        UserInfo.shared.invalidate()
+        UserInfo.shared.clean()
+        if MoveApi.canPopToLoginScreen {
+            Distribution.shared.popToLoginScreen(true)
+        }
+        throw error
+    }
+    
+    throw error
+}
+
+fileprivate extension ObservableType where E == Response {
+    
+    func tokenError() -> Observable<Response> {
+        return self.flatMapLatest { (response) -> Observable<Response> in
+            guard response.statusCode == 403 else {
+                return Observable.just(response)
+            }
+            
+            do {
+                _ = try response.mapMoveObject(MoveApi.ApiError.self)
+            } catch {
+                if let err = error as? MoveApi.ApiError, err.isTokenForbidden {
+                    return Observable.error(err.tokenForbiddenError(username: UserInfo.shared.profile?.username))
+                }
+                if let err = error as? MoveApi.ApiError, err.isTokenExpired {
+                    return Observable.error(err)
+                }
+            }
+            
+            return Observable.just(response)
+        }
+    }
+}
 
 final class MoveApiAccountTokenPlugin: PluginType {
     // MARK: Plugin
@@ -99,7 +170,6 @@ final class MoveApiAccountTokenPlugin: PluginType {
                 let err = error as? MoveApi.ApiError,
                 let errorId = err.id, errorId == 11,
                 let error_field = err.field, error_field == "access_token" {
-                    let userName = UserInfo.shared.profile?.username
                     UserInfo.shared.invalidate()
                     UserInfo.shared.clean()
                     if MoveApi.canPopToLoginScreen {

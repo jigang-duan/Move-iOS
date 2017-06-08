@@ -60,15 +60,6 @@ class MessageServer {
                 })
                 .addDisposableTo(disposeBag)
             
-//            messageObservable
-//                .map{ $0.flatMap{$0.from}.filter{ $0 != uid }.first }
-//                .filterNil()
-//                .bindNext({ (_) in
-//                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-//                    AudioServicesPlaySystemSound(1007)
-//                })
-//                .addDisposableTo(disposeBag)
-            
             let reNotice = syncData.map { $0.notices }
                 .filterNil()
                 .flatMap { Observable.from($0) }
@@ -94,8 +85,9 @@ class MessageServer {
                 .share()
             let deviceUpdateNotice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(),
                                                     RxStore.shared.uidObservable,
-                                                    singleDevs.map{ $0.user?.uid }.filterNil()) { ($0, $1, $2) }
-                .flatMapLatest { UpdateServer.shared.deviceUpdateNoctice(device: $0, uid: $1, devUID: $2) }
+                                                    singleDevs.map{ $0.user?.uid }.filterNil(),
+                                                    singleDevs.map{ $0.user?.nickname }.filterNil() ) { ($0, $1, $2, $3) }
+                .flatMapLatest { UpdateServer.shared.deviceUpdateNoctice(device: $0, uid: $1, devUID: $2, name: $3) }
             
             Observable.merge(netNotice, deviceUpdateNotice)
                 .subscribe(onNext: { (notice) in

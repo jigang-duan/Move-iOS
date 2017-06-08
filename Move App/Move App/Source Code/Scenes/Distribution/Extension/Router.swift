@@ -176,12 +176,14 @@ class Distribution {
     }
     
     
-    func popToLoginScreen(_ hasWireframe: Bool = false) {
+    func popToLoginScreen(_ hasWireframe: Bool = false, name: String? = nil, date: Date? = nil) {
         if let current = self.currentViewCotroller, current is LoginViewController {
             return
         }
         if hasWireframe {
-            AlertWireframe.presentAlert("Your account has been used to log in on another device or has timed out, login again.")
+            let logoutTextTemplate = "Your account was logged in to on %@ at %@. If this login wasn’t authorized by you, we recommend changing your password immediately."
+            let logoutText = name.flatMap { String(format: logoutTextTemplate, $0, date?.stringDefaultHourMinuteSecond ?? "")  }
+            AlertWireframe.presentAlert(logoutText ?? "Your account has been used to log in on another device or has timed out, login again.")
         }
         self.backToDistribution() { [weak self] in
             self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
