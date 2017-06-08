@@ -74,6 +74,9 @@ extension MoveApi {
             return onlineProvider.request(.settingPushToken(pushTokenInfo: PushTokenInfo(type: "ios", deviceId: deviceId))).mapMoveObject(ApiError.self)
         }
         
+        final class func loginLofo(username: String) -> Observable<LoginInfo> {
+            return defaultProvider.request(.loginLofo(username: username)).mapMoveObject(LoginInfo.self)
+        }
         
         enum API {
             case getAccessToken(tokenReq: AccessTokenReq)
@@ -87,6 +90,7 @@ extension MoveApi {
             case settingUserInfo(uid: String, info: UserInfoSetting)
             case findPassword(info: UserFindInfo)
             case settingPushToken(pushTokenInfo: PushTokenInfo)
+            case loginLofo(username: String)
         }
         
     }
@@ -135,6 +139,8 @@ extension MoveApi.Account.API: TargetType {
             return "account/password"
         case .settingPushToken:
             return "account/push_token"
+        case .loginLofo:
+            return "account/logininfo"
         }
     }
     
@@ -169,6 +175,8 @@ extension MoveApi.Account.API: TargetType {
             return info.toJSON()
         case .settingPushToken(let info):
             return info.toJSON()
+        case .loginLofo(let username):
+            return ["username": username]
         default:
             return nil
         }

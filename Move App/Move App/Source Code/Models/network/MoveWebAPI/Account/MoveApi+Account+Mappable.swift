@@ -60,6 +60,8 @@ extension MoveApi {
     struct LoginInfo {
         var username: String?
         var password: String?
+        var deviceName: String?
+        var date: Date?
     }
     
     struct TpLoginInfo {
@@ -184,9 +186,18 @@ extension MoveApi.LoginInfo: Mappable{
     init?(map: Map) {
     }
     
+    init(username: String, password: String) {
+        self.username = username
+        self.password = password
+        self.deviceName = UIDevice.current.name
+        self.date = Date(timeIntervalSinceNow: 0)
+    }
+    
     mutating func mapping(map: Map) {
         username <- map["username"]
         password <- map["password"]
+        deviceName <- map["devicename"]
+        date <- map["devicetime"]
     }
 }
 
