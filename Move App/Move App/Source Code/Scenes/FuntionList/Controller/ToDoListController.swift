@@ -13,7 +13,8 @@ import RxSwift
 class ToDoListController: UITableViewController {
     //internationalization
     @IBOutlet weak var todolistTitleItem: UINavigationItem!
-    @IBOutlet weak var saveQutlet: UIButton!
+    @IBOutlet weak var saveItemQutlet: UIBarButtonItem!
+
     @IBOutlet weak var titleTextFieldQutle: UITextField!
     @IBOutlet weak var remarkTextFieldQutlet: UITextField!
     @IBOutlet weak var beginLabel: UILabel!
@@ -50,7 +51,8 @@ class ToDoListController: UITableViewController {
     //国际化
     func internationalization()  {
             todolistTitleItem.title = R.string.localizable.id_todolist()
-            saveQutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+        
+            saveItemQutlet.title = R.string.localizable.id_save()
             titleTextFieldQutle.placeholder = R.string.localizable.id_title()
             remarkTextFieldQutlet.placeholder = R.string.localizable.id_remarks()
             beginLabel.text = R.string.localizable.id_begin()
@@ -111,7 +113,7 @@ class ToDoListController: UITableViewController {
             .drive(onNext: cancelDatepicker)
             .addDisposableTo(disposeBag)
         
-        self.saveQutlet.rx.tap.asDriver().drive(onNext: saveAction).addDisposableTo(disposeBag)
+        self.saveItemQutlet.rx.tap.asDriver().drive(onNext: saveAction).addDisposableTo(disposeBag)
         
         
     }
@@ -146,14 +148,14 @@ extension ToDoListController {
         let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: message, preferredStyle: preferredStyle)
         let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okActiojn)
-        self.saveQutlet.isUserInteractionEnabled = true
+        self.saveItemQutlet.isEnabled = true
         self.present(alertController, animated: true)
     }
     
     //保存
     fileprivate func saveAction() {
         
-        self.saveQutlet.isUserInteractionEnabled = false
+        self.saveItemQutlet.isEnabled = false
         
         if self.beginTime == self.endTime{
             
@@ -171,12 +173,12 @@ extension ToDoListController {
         }else if self.titleTextFieldQutle.text == "" {
             
             self.alertSeting(message: "The title and remark can't Null", preferredStyle: .alert)
-            self.saveQutlet.isUserInteractionEnabled = true
+            self.saveItemQutlet.isEnabled = true
             
         }else if (self.beginTime) > (self.endTime) {
             
             self.alertSeting(message: "Start time later than the end of time", preferredStyle: .alert)
-            self.saveQutlet.isUserInteractionEnabled = true
+            self.saveItemQutlet.isEnabled = true
             
             
         }else
@@ -189,7 +191,7 @@ extension ToDoListController {
                     let _ = self.navigationController?.popViewController(animated: true)
                 }else{
                     print("网络错误重新")
-                    self.saveQutlet.isUserInteractionEnabled = true
+                    self.saveItemQutlet.isEnabled = true
                 }
             }).addDisposableTo(self.disposeBag)
                 
@@ -202,7 +204,7 @@ extension ToDoListController {
                             let _ = self.navigationController?.popViewController(animated: true)
                         }else{
                             print("网络错误重新")
-                            self.saveQutlet.isUserInteractionEnabled = true
+                            self.saveItemQutlet.isEnabled = true
                         }
                 }).addDisposableTo(self.disposeBag)
             

@@ -32,7 +32,8 @@ class RegularshutdownController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
   
     
-    @IBOutlet weak var saveBtnQutlet: UIButton!
+    
+    @IBOutlet weak var saveItemOutlet: UIBarButtonItem!
     var viewModel: RegularshutdownViewModel?
     
     var bootTimeVariable = Variable(DateUtility.zone7hour())
@@ -47,7 +48,7 @@ class RegularshutdownController: UIViewController {
         automaticOnOffLabel.text =  R.string.localizable.id_automatic_power_on_off()
         booTimeLabel.text = R.string.localizable.id_boot_time()
         shutdownLabel.text = R.string.localizable.id_shutdown_time()
-        saveBtnQutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+        saveItemOutlet.title = R.string.localizable.id_save()
         comfirmQutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cancelQutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
     }
@@ -110,7 +111,7 @@ class RegularshutdownController: UIViewController {
                 bootTime: bootTimeVariable.asDriver(),
                 shutdownTime: shutdownTimeVariable.asDriver(),
                 autoOnOff: openShutdownVariabel.asDriver(),
-                save: saveBtnQutlet.rx.tap.asDriver()
+                save: saveItemOutlet.rx.tap.asDriver()
                 ),
                 dependency: (
                     settingsManager: WatchSettingsManager.share,

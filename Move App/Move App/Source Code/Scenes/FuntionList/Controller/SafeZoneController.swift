@@ -118,9 +118,9 @@ class SafeZoneController: UIViewController {
     }
     
     func permissionsFun(adminbooll: Bool) {
-        introducelLabel.text = "Only master can edith safe zone"
+        introducelLabel.text = "Only master can edit safe zone"
         if adminbooll{
-            introducelLabel.text = "When kid enter or leave the safe zone,warming will be send to you app."
+            introducelLabel.text = "When kid enter or leave the safe zone,warming will be send to your app."
         }
         
         safezoneQutlet.isHidden = !adminbooll
@@ -168,7 +168,11 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         cell.autoAnswer = autoAnswer
         cell.savePower = savePower
         cell.btn = autopositioningBtn
-        cell.switchOnOffQutiet.isEnabled = adminBool!
+        cell.onOFFLabel.isHidden = adminBool!
+        cell.switchOnOffQutiet.isHidden = !adminBool!
+        if !adminBool!{
+            cell.accessoryType = .disclosureIndicator
+        }
         cell.vc = self
         
         return cell

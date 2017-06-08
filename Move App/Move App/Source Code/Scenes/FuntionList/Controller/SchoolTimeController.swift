@@ -15,7 +15,7 @@ import RxCocoa
 class SchoolTimeController: UIViewController {
     //internationalization
     @IBOutlet weak var schooltimeTitleItem: UINavigationItem!
-    @IBOutlet weak var saveOutlet: UIButton!
+    @IBOutlet weak var saveItemQutlet: UIBarButtonItem!
     @IBOutlet weak var openschooltimeLabel: UILabel!
     @IBOutlet weak var anLabel: UILabel!
     @IBOutlet weak var pmLabel: UILabel!
@@ -50,7 +50,7 @@ class SchoolTimeController: UIViewController {
     
     func internationalization() {
         schooltimeTitleItem.title = R.string.localizable.id_school_time()
-        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+        saveItemQutlet.title = R.string.localizable.id_save()
         anLabel.text = R.string.localizable.id_date_am()
         pmLabel.text = R.string.localizable.id_date_pm()
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
@@ -128,7 +128,7 @@ class SchoolTimeController: UIViewController {
         
         viewModel = SchoolTimeViewModel(
             input: (
-                save: saveOutlet.rx.tap.asDriver(),
+                save: saveItemQutlet.rx.tap.asDriver(),
                 empty: Void()
             ),
             dependency: (
@@ -168,7 +168,7 @@ class SchoolTimeController: UIViewController {
         
         viewModel.activityIn
             .map { !$0 }
-            .drive(saveOutlet.rx.isEnabled)
+            .drive(saveItemQutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
     }
     

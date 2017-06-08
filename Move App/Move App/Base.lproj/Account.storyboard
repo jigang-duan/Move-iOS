@@ -260,8 +260,8 @@
                                                         <constraint firstAttribute="height" constant="25" id="voT-Hx-Kaq"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-posiition" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ao-zz-KIk">
-                                                    <rect key="frame" x="50" y="15" width="114" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-positioning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ao-zz-KIk">
+                                                    <rect key="frame" x="50" y="15" width="134.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="y7l-gN-KRk"/>
                                                     </constraints>
@@ -269,7 +269,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turing on Auto-position will consume more power" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xW-M3-XTj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turing on Auto-positioning will consume more power" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xW-M3-XTj">
                                                     <rect key="frame" x="50" y="37" width="265" height="54"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="54" id="LbB-BZ-BL4"/>
@@ -1587,20 +1587,13 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="2Yy-tc-AWZ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="s0u-t9-7Rx">
-                                <rect key="frame" x="319" y="12" width="40" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Save"/>
-                            </button>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="s8u-Ya-0MQ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="alarmTitleItem" destination="Zgy-Qu-7x0" id="AGe-DU-8Tw"/>
                         <outlet property="back" destination="lk5-3f-AUD" id="oEj-X5-nHo"/>
                         <outlet property="datePickerOulet" destination="74e-l5-Rbo" id="6Lb-HE-JIk"/>
-                        <outlet property="saveOutlet" destination="s0u-t9-7Rx" id="CeK-Pu-lB9"/>
+                        <outlet property="saveItemOutlet" destination="s8u-Ya-0MQ" id="EEI-0L-Ons"/>
                         <outlet property="weekOutlet" destination="np9-Ci-r2W" id="6xh-Wy-1R1"/>
                     </connections>
                 </viewController>
@@ -1851,13 +1844,7 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Ip4-nP-ttB">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9TM-VY-ARc">
-                                <rect key="frame" x="319" y="7" width="40" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
-                            </button>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="azg-Bl-5mr"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -1874,7 +1861,7 @@
                         <outlet property="repeatCell" destination="PIs-4K-5cP" id="j57-K4-POh"/>
                         <outlet property="repeatLabel" destination="ZW9-Ms-gGh" id="aBf-3G-vbe"/>
                         <outlet property="repeatStateQutlet" destination="rrG-CO-C4M" id="LLk-bE-BfZ"/>
-                        <outlet property="saveQutlet" destination="9TM-VY-ARc" id="qg4-uo-r3e"/>
+                        <outlet property="saveItemQutlet" destination="azg-Bl-5mr" id="qId-jj-w3T"/>
                         <outlet property="titleTextFieldQutle" destination="UIr-w4-5I1" id="dGn-qe-sOk"/>
                         <outlet property="todolistTitleItem" destination="e9A-Mz-vqA" id="evn-OJ-dFp"/>
                     </connections>
@@ -2180,14 +2167,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Regular shutdown" id="9cA-Ty-755">
                         <barButtonItem key="backBarButtonItem" title="  " id="AbL-eR-TEr"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="7kw-OQ-rLj">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SdK-Tb-5DN">
-                                <rect key="frame" x="319" y="7" width="40" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Save"/>
-                            </button>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="3ez-nU-TKo"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -2200,7 +2180,7 @@
                         <outlet property="datePicker" destination="A5d-xI-zmx" id="ocd-nc-rYD"/>
                         <outlet property="openShutdown" destination="Kc0-1g-Fil" id="h2H-Gm-JmP"/>
                         <outlet property="regularshutdownTitleItem" destination="9cA-Ty-755" id="7m7-uG-KsT"/>
-                        <outlet property="saveBtnQutlet" destination="SdK-Tb-5DN" id="X5O-MH-uSF"/>
+                        <outlet property="saveItemOutlet" destination="3ez-nU-TKo" id="bQ5-Nh-xef"/>
                         <outlet property="shutdownLabel" destination="1S1-F7-lpr" id="b7c-f8-sfJ"/>
                         <outlet property="shutdownTimeQutlet" destination="qwG-PC-ugy" id="tho-9K-U7o"/>
                         <outlet property="timeView" destination="L6T-Lp-57R" id="Hfq-61-N3S"/>
@@ -2792,13 +2772,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="School time" id="p9l-sD-KKe">
                         <barButtonItem key="backBarButtonItem" title=" " id="aUv-SC-CaJ"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="G60-48-tF7">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GCz-ZA-SbJ">
-                                <rect key="frame" x="319" y="7" width="40" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="save"/>
-                            </button>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="ITem" id="FLA-jN-Ypo"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -2818,7 +2792,7 @@
                         <outlet property="pmLabel" destination="CTU-tM-APL" id="Uid-DJ-DuQ"/>
                         <outlet property="pmOutlet" destination="CTU-tM-APL" id="SVh-Ep-fvi"/>
                         <outlet property="pmStartTimeOutlet" destination="lcC-HY-lWX" id="Ny5-XM-J1H"/>
-                        <outlet property="saveOutlet" destination="GCz-ZA-SbJ" id="seq-sy-sqm"/>
+                        <outlet property="saveItemQutlet" destination="FLA-jN-Ypo" id="zxe-41-2Dc"/>
                         <outlet property="schooltimeTitleItem" destination="p9l-sD-KKe" id="Dvh-Mu-DNX"/>
                         <outlet property="weekOutlet" destination="RUh-hR-ucg" id="dmT-Xf-osj"/>
                     </connections>
