@@ -63,11 +63,16 @@ class CountryCodeViewController: UITableViewController {
             cellDatas.append(sm)
         }
     
+        let noneModel = CountryCode(name: "None", abbr: "-", code: "-")
         
         if let localModel = CountryCodeViewController.localCountryCode() {
-            let first = sectionModel(models: [localModel], title: "Location")
+            let first = sectionModel(models: [noneModel,localModel], title: "Location")
+            cellDatas.insert(first, at: 0)
+        }else{
+            let first = sectionModel(models: [noneModel], title: "Location")
             cellDatas.insert(first, at: 0)
         }
+        
     
         self.tableView.reloadData()
         
