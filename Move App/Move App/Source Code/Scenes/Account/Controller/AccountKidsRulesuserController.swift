@@ -238,8 +238,11 @@ extension AccountKidsRulesuserController {
         regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
         autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
         autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
+        autoansweIntroduceLabel.adjustsFontSizeToFitWidth = true
+        autopositiorIntroduceLabel.adjustsFontSizeToFitWidth = true
         savepowerLabel.text = R.string.localizable.id_save_power()
         savepowerIntroduceLabel.text = R.string.localizable.id_save_power_describe()
+        savepowerIntroduceLabel.adjustsFontSizeToFitWidth = true
         timeZoneLabel.text = R.string.localizable.id_time_zone()
         languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
         apnLabel.text = R.string.localizable.id_apn()

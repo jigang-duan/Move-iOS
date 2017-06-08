@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -48,6 +48,15 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ke-pW-zbn">
+                        <rect key="frame" x="338" y="44" width="26" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="dY2-yO-RuK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="0.78024488687515259" green="0.780070960521698" blue="0.80069750547409058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3GE-W4-wVa"/>
@@ -55,14 +64,17 @@
                     <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="FEk-5I-bFy" secondAttribute="trailing" constant="10" id="Lmj-Di-S88"/>
                     <constraint firstAttribute="trailing" secondItem="MO0-9J-2CG" secondAttribute="trailing" constant="10" id="dZi-9r-9Ch"/>
                     <constraint firstItem="FEk-5I-bFy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-5.25" id="ebr-d4-ggJ"/>
+                    <constraint firstItem="3ke-pW-zbn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="o5N-Gx-dHq"/>
                     <constraint firstItem="I3J-pq-1OI" firstAttribute="top" secondItem="FEk-5I-bFy" secondAttribute="bottom" constant="-2" id="rqz-o9-COf"/>
                     <constraint firstItem="MO0-9J-2CG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rwn-XC-K02"/>
                     <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="I3J-pq-1OI" secondAttribute="trailing" constant="20" id="sJe-hl-Tel"/>
+                    <constraint firstAttribute="trailing" secondItem="3ke-pW-zbn" secondAttribute="trailing" id="xm7-fR-79n"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addrLabel" destination="I3J-pq-1OI" id="Q7P-bR-DRp"/>
                 <outlet property="nameLabel" destination="FEk-5I-bFy" id="T7L-2q-jRN"/>
+                <outlet property="onOFFLabel" destination="3ke-pW-zbn" id="gP9-Yc-0hP"/>
                 <outlet property="switchOnOffQutiet" destination="MO0-9J-2CG" id="CDd-Ma-cF0"/>
             </connections>
             <point key="canvasLocation" x="-87" y="67"/>

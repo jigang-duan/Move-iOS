@@ -13,8 +13,8 @@ import RxSwift
 class AlarmController: UIViewController {
     //internationalization
     @IBOutlet weak var alarmTitleItem: UINavigationItem!
-    @IBOutlet weak var saveOutlet: UIButton!
     
+    @IBOutlet weak var saveItemOutlet: UIBarButtonItem!
     var alarms: NSDictionary?
     
     @IBOutlet weak var datePickerOulet: UIDatePicker!
@@ -38,8 +38,8 @@ class AlarmController: UIViewController {
     }
     func internationalization() {
         alarmTitleItem.title = R.string.localizable.id_alarm()
-        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
-        
+//        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
+        saveItemOutlet.title = R.string.localizable.id_save()
     }
     
     
@@ -55,7 +55,10 @@ class AlarmController: UIViewController {
             isOldAlarm = true
         }
         
-        self.saveOutlet.addTarget(self, action: #selector(AlarmController.saveAlarm), for: .touchUpInside)
+
+        self.saveItemOutlet.rx.tap.asDriver()
+            .drive(onNext: saveAlarm)
+            .addDisposableTo(disposeBag)
         
         self.datePickerOulet.timeZone = TimeZone(secondsFromGMT: 0)
         
@@ -105,7 +108,7 @@ class AlarmController: UIViewController {
     
     //保存
     func saveAlarm() {
-        self.saveOutlet.isUserInteractionEnabled = false
+        self.saveItemOutlet.isEnabled = false
         
         let _ = isOldAlarm! ? KidSettingsManager.shared.updateAlarm(KidSetting.Reminder.Alarm(alarmAt: (alarms?["alarms"] as? Date ?? nil)!, day: (alarms?["dayFromWeek"] as? [Bool])!, active: alarms?["active"] as? Bool), new: KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: weekOutlet.weekSelected, active: alarms?["active"] as? Bool))
             .subscribe(onNext:
@@ -114,7 +117,7 @@ class AlarmController: UIViewController {
                     if $0 {
                         _ = self.navigationController?.popViewController(animated: true)
                     }else{
-                        self.saveOutlet.isUserInteractionEnabled = true
+                        self.saveItemOutlet.isEnabled = true
                     }
             }).addDisposableTo(self.disposeBag) : KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: weekOutlet.weekSelected, active: true)).subscribe(onNext:
                 {
@@ -122,7 +125,7 @@ class AlarmController: UIViewController {
                     if $0 {
                         _ = self.navigationController?.popViewController(animated: true)
                     }else{
-                        self.saveOutlet.isUserInteractionEnabled = true
+                        self.saveItemOutlet.isEnabled = true
                     }
             }).addDisposableTo(self.disposeBag)
         

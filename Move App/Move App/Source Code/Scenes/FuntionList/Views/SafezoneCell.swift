@@ -21,7 +21,7 @@ class SafezoneCell: UITableViewCell {
     @IBOutlet weak var switchOnOffQutiet: SwitchButton!
     @IBOutlet weak var addrLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var onOFFLabel: UILabel!
     var autopositioningBool: Bool? = false
     var adminBool: Bool? = false
     var autoAnswer: Bool?
@@ -35,6 +35,12 @@ class SafezoneCell: UITableViewCell {
             nameLabel.text = model?.name
             addrLabel.text = model?.location?.address
             switchOnOffQutiet.isOn = model?.active ?? false
+            if (model?.active)!{
+                onOFFLabel.text = "On"
+            }else
+            {
+                onOFFLabel.text = "Off"
+            }
         }
     }
     
