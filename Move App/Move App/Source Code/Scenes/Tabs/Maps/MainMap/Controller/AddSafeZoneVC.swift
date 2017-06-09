@@ -182,6 +182,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             )
         )
         
+        mainMapView.showsUserLocation = true
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()
             .drive(onNext: { [weak self] _ in
@@ -196,7 +197,9 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             }).addDisposableTo(disposeBag)
         
         mainMapView.rx.regionDidChangeAnimated
-            .asDriver().drive(onNext: {
+            .asDriver()
+            .skip(1)
+            .drive(onNext: {
                 Logger.debug("地图 \($0)!")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
