@@ -27,7 +27,7 @@ class SafezoneCell: UITableViewCell {
     var autoAnswer: Bool?
     var savePower: Bool?
     var btn: SwitchButton?
-    var vc: UIViewController?
+    weak var vc: UIViewController?
     
     var disposeBag = DisposeBag()
     var model: KidSate.ElectronicFencea? = nil {

@@ -45,7 +45,9 @@ class SafeZoneController: UIViewController {
         
         safezoneQutlet.rx.tap
             .asDriver()
-            .drive(onNext: showAddSafeZoneVC)
+            .drive(onNext: { [weak self] in
+                self?.showAddSafeZoneVC()
+            })
             .addDisposableTo(disposeBag)
        
        tableview.delegate = self
@@ -57,9 +59,9 @@ class SafeZoneController: UIViewController {
     func reloadData(){
         //拉取数据
         LocationManager.share.fetchSafeZone()
-            .bindNext {
-                self.fences = $0
-                self.tableview.reloadData()
+            .bindNext { [weak self] in
+                self?.fences = $0
+                self?.tableview.reloadData()
             }
             .addDisposableTo(disposeBag)
     }
@@ -212,11 +214,12 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         
         if editingStyle == .delete {
             //删除
-            LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids ?? "").bindNext {
+            LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids ?? "")
+                .bindNext { [weak self] in
                 print($0)
-                self.fences.remove(at: indexPath.row)
+                self?.fences.remove(at: indexPath.row)
 //                self.tableview.deleteRows(at: [indexPath], with: .top)
-                self.tableview.reloadData()
+                self?.tableview.reloadData()
                 }.addDisposableTo(disposeBag)        
         }
      

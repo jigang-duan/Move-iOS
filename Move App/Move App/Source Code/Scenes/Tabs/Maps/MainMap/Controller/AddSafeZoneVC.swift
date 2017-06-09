@@ -58,7 +58,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        item = UIBarButtonItem(title : "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
+        item = UIBarButtonItem(title : R.string.localizable.id_save(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         if self.adminBool!{
             self.navigationItem.rightBarButtonItem = item
         }
@@ -91,7 +91,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
         var centerCoordinate = centerCoordinate
         centerCoordinate = centerCoordinate ?? self.mainMapView.centerCoordinate
-        
         guard let coordinate = centerCoordinate, CLLocationCoordinate2DIsValid(coordinate) else {
             return
         }
@@ -120,7 +119,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         super.viewDidLoad()
         
         self.permissionsView(adminBool!)
-        self.kidnameTF.placeholder = "Enter a name for this safezone"
+//        self.kidnameTF.placeholder = "Enter a name for this safezone"
+        self.kidnameTF.placeholder = R.string.localizable.id_is_enter_safe_zone()
         if (self.editFenceDataSounrce != nil) {
             //编辑
             self.title = self.editFenceDataSounrce?.name
@@ -148,9 +148,10 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             self.title = "Add Safe zone"
             let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
                 .map({
+                   
                     self.kidaddressTF.text = $0.location?.addr
                     self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
-                    let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
+                    let region = MKCoordinateRegionMakeWithDistance(self.fencelocation!, 1500, 1500)
                     self.mainMapView.setRegion(region, animated: true)
                     self.mainMapView.removeAnnotations(self.mainMapView.annotations)
                     let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
@@ -199,7 +200,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         mainMapView.rx.regionDidChangeAnimated
             .asDriver()
             .skip(1)
-            .drive(onNext: {
+            .drive(onNext: { [unowned self] in
                 Logger.debug("地图 \($0)!")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
@@ -286,7 +287,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     //print(p) //输出反编码信息
                     
                     var address : String? = ""
-                    if (p.name != nil) {
+                    if (p.name != nil ) {
                         address?.append(p.name!)
                         address = address! + " "
                     }
@@ -318,10 +319,11 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         return mainMapView.convertRegion(region, toRectTo: self.circleBorderView)
     }
 
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
     }
     
     func Searchback(item: MKMapItem) {
@@ -516,6 +518,7 @@ extension AddSafeZoneVC : UITextFieldDelegate {
 }
 
 extension AddSafeZoneVC : MKMapViewDelegate {
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is BaseAnnotation {
