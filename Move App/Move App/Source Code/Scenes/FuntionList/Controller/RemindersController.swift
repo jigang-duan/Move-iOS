@@ -207,6 +207,11 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         return .delete
     }
     
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return R.string.localizable.id_delete()
+    }
+
+    
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         //判断设备
@@ -266,6 +271,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
            
         }
     }
+    
 }
 //缺省页面
 extension RemindersController {

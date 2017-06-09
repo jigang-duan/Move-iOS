@@ -68,7 +68,7 @@ class SafeZoneController: UIViewController {
         
             
         if self.fences.count >= 5 {
-            let alertController = UIAlertController(title: nil, message: "not more than 5 safezone", preferredStyle: .alert)
+            let alertController = UIAlertController(title: nil, message: "not more than 5 safe zone", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
@@ -183,8 +183,11 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        
         if self.adminBool!{
+            
             return .delete
+            
         }
         else
         {
@@ -216,7 +219,12 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
                 self.tableview.reloadData()
                 }.addDisposableTo(disposeBag)        
         }
+     
         
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return R.string.localizable.id_delete()
     }
 }
 
