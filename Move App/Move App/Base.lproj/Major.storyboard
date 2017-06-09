@@ -213,7 +213,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
                                         <state key="normal" image="home_btn_locatio_nor"/>
                                         <connections>
-                                            <segue destination="VGt-kf-yJX" kind="push" identifier="LocationHistory" id="67f-ca-zri"/>
+                                            <segue destination="VGt-kf-yJX" kind="show" identifier="LocationHistory" id="67f-ca-zri"/>
                                         </connections>
                                     </button>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_btn_positioning_load" translatesAutoresizingMaskIntoConstraints="NO" id="4FX-yC-N2n" customClass="ActivityImageView" customModule="CustomViews">
