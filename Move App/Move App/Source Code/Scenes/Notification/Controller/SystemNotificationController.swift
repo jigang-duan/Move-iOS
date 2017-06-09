@@ -84,7 +84,7 @@ class SystemNotificationController: UIViewController {
             })
             
             cell.textLabel?.text = kids.nickname
-            cell.detailTextLabel?.text = String(format: group.notices.last?.content ?? "", kids.nickname ?? "")
+            cell.detailTextLabel?.text = group.notices.last?.content
         }
         
         if let numberLable = cell.accessoryView as? UILabel {
