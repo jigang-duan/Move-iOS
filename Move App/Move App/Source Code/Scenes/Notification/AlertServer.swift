@@ -44,7 +44,7 @@ class AlertServer {
                 return AlertWireframe.shared.prompt(notice.content ?? "",
                                                     title: notice.imType.title,
                                                     iconURL: kids?.headPortrait?.fsImageUrl,
-                                                    cancel: .ok(parcel: notice),
+                                                    cancel: .ok(parcel: notice), cancelActionTitle: notice.imType.style.okDescription,
                                                     confirm: confirm, confirmTitle: notice.imType.style.description)
             }
             .shareReplay(1)
@@ -131,8 +131,8 @@ class AlertServer {
             .share()
         
         let goToDeviceUpdataPage = confirmNotice
-            .filter { $0.imType.style == .update }
-            .filter { $0.imType == .appUpdate }
+            .filter { $0.imType.style == .download }
+            .filter { $0.imType == .firmwareUpdate }
             .map { $0.from }
             .filterNil()
             .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }

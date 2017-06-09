@@ -114,6 +114,7 @@ enum ImNoticeType {
     case watchChangeSIMCard
     
     case appUpdate
+    case firmwareUpdate
     
     case newFirmwareUpdate
     case firmwareUpdateInformation
@@ -150,7 +151,7 @@ extension ImNoticeType {
             return R.string.localizable.id_warming()
         case .masterUnpairWatch:
             return nil
-        case .appUpdate:
+        case .appUpdate, .firmwareUpdate:
             return nil
         case .newFirmwareUpdate:
             return nil
@@ -214,6 +215,15 @@ extension NoticeAlertStyle : CustomStringConvertible {
             return "Download"
         }
     }
+    
+    var okDescription: String {
+        switch self {
+        case .update, .download:
+            return "Not now"
+        default:
+            return R.string.localizable.id_ok()
+        }
+    }
 }
 
 extension NoticeAlertStyle {
@@ -250,7 +260,7 @@ extension ImNoticeType {
             return .goToSee
         case .appUpdate:
             return .update
-        case .newFirmwareUpdate:
+        case .newFirmwareUpdate, .firmwareUpdate:
             return .download
         case .firmwareUpdateInformation, .firmwareUpdateState:
             return .default
@@ -321,8 +331,10 @@ extension ImNoticeType {
         case .instantPosition:
             self = .manuallyLocate
             
-        case .appUpdateVersion, .deviceUpdateVersion:
+        case .appUpdateVersion:
             self = .appUpdate
+        case .deviceUpdateVersion:
+            self = .firmwareUpdate
         
         case .deviceConfigurationUpdated:
             self = .unknown

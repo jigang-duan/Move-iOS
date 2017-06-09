@@ -40,16 +40,18 @@ class AlertWireframe {
     func prompt(_ message: String,
                 title: String? = nil,
                 iconURL: String? = nil,
-                cancel: AlertResult,
+                cancel: AlertResult, cancelActionTitle: String? = nil,
                 confirm: AlertResult? = nil, confirmTitle: String? = nil) -> Observable<AlertResult> {
         
-        return self.promptFor(message, title: title, iconURL: iconURL, cancelAction: cancel, action: confirm, actionTitle: confirmTitle)
+        return self.promptFor(message, title: title, iconURL: iconURL,
+                              cancelAction: cancel, cancelActionTitle: cancelActionTitle ,
+                              action: confirm, actionTitle: confirmTitle)
     }
     
     func promptFor<Action : CustomStringConvertible>(_ message: String,
                    title: String? = nil,
                    iconURL: String? = nil,
-                   cancelAction: Action,
+                   cancelAction: Action, cancelActionTitle: String? = nil,
                    action: Action? = nil, actionTitle: String? = nil) -> Observable<Action> {
         
         let alertView = NoticeAlertControoler()
@@ -59,7 +61,7 @@ class AlertWireframe {
         
         return Observable.create { observer in
             
-            alertView.cancelAction = NoticeAlertControoler.Action(title: cancelAction.description) {
+            alertView.cancelAction = NoticeAlertControoler.Action(title: cancelActionTitle ?? cancelAction.description) {
                 observer.on(.next(cancelAction))
             }
             if let _action = action {

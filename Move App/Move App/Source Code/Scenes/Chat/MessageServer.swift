@@ -77,7 +77,8 @@ class MessageServer {
             
             let netNotice = reNotice.filter { $0.imType.needSave }.filter { ($0.to == nil) || ($0.to == uid) }
             
-            let singleDevs = Observable.just(()).delay(5.0, scheduler: MainScheduler.instance)
+            // 检查固件通知
+            let singleDevs = Observable.just(()).delay(30.0, scheduler: MainScheduler.instance)
                 .flatMapLatest { RxStore.shared.deviceInfosObservable }
                 .take(1)
                 .flatMapLatest{ Observable.from($0) }
