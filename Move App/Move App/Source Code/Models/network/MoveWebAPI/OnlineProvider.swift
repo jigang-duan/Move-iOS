@@ -22,7 +22,7 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
          plugins: [PluginType] = [],
          trackInflights: Bool = false) {
         
-        var _plugins = plugins
+        let _plugins = plugins
 //        _plugins.append(MoveApiAccountTokenPlugin())
         
         super.init(endpointClosure: endpointClosure,
@@ -103,7 +103,8 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
     }
     
     if apiError.isTokenForbidden {
-        if let username = apiError.msg {
+        let lastAccount = apiError.msg ?? (UserDefaults.standard.value(forKey: lastLoginAccount) as? String)
+        if let username = lastAccount {
             return MoveApi.Account.loginLofo(username: username)
                 .map { (deviceName: $0.deviceName, loginDate: $0.date) }
                 .do(onNext: { (deviceName: String?, loginDate: Date?) in
@@ -152,31 +153,3 @@ fileprivate extension ObservableType where E == Response {
     }
 }
 
-final class MoveApiAccountTokenPlugin: PluginType {
-    // MARK: Plugin
-    
-    /// Called by the provider as soon as a response arrives, even if the request is cancelled.
-    func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
-        guard
-            let response = result.value,
-            response.statusCode == 403 else {
-                return
-        }
-            
-        do {
-            _ = try response.mapMoveObject(MoveApi.ApiError.self)
-        } catch {
-            if
-                let err = error as? MoveApi.ApiError,
-                let errorId = err.id, errorId == 11,
-                let error_field = err.field, error_field == "access_token" {
-                    UserInfo.shared.invalidate()
-                    UserInfo.shared.clean()
-                    if MoveApi.canPopToLoginScreen {
-                        Distribution.shared.popToLoginScreen(true)
-                    }
-                }
-        }
-        
-    }
-}

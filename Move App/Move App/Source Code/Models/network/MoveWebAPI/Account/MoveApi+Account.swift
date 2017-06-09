@@ -51,7 +51,7 @@ extension MoveApi {
         }
         //        刷新Access Token
         final class func refreshToken() -> Observable<UserInfo> {
-            return onlineProvider.request(.refreshToken).mapMoveObject(AccessToken.self).catchingToken().pushToken()
+            return defaultProvider.request(.refreshToken).mapMoveObject(AccessToken.self).catchingToken().pushToken()
         }
         //        帐号注销
         final class func logout() -> Observable<ApiError> {

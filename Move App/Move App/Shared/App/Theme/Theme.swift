@@ -81,6 +81,7 @@ enum Theme: Int {
 }
 
 let SelectedThemeKey = "SelectedTheme"
+let hasSomeStyle = false
 
 struct ThemeManager {
 
@@ -107,10 +108,12 @@ struct ThemeManager {
 
         UITabBar.appearance().barStyle = theme.barStyle
         UITabBar.appearance().backgroundImage = theme.tabBarBackgroundImage
-
+        
+        if hasSomeStyle {
         let tabIndicator = R.image.tabBarSelectionIndicator()?.withRenderingMode(.alwaysTemplate)
         let tabResizableIndicator = tabIndicator?.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 2.0, bottom: 0, right: 2.0))
         UITabBar.appearance().selectionIndicatorImage = tabResizableIndicator
+        }
 
         let controlBackground = R.image.controlBackground()?
             .withRenderingMode(.alwaysTemplate)
@@ -128,12 +131,14 @@ struct ThemeManager {
         UIStepper.appearance().setDecrementImage(R.image.fewerPaws(), for: .normal)
         UIStepper.appearance().setIncrementImage(R.image.morePaws(), for: .normal)
 
-//        UISlider.appearance().setThumbImage(R.image.sliderThumb(), for: .normal)
-//        UISlider.appearance().setMaximumTrackImage(R.image.maximumTrack()?
-//            .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 6.0)), for: .normal)
-//        UISlider.appearance().setMinimumTrackImage(R.image.minimumTrack()?
-//            .withRenderingMode(.alwaysTemplate)
-//            .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 6.0, bottom: 0, right: 0)), for: .normal)
+        if hasSomeStyle {
+        UISlider.appearance().setThumbImage(R.image.sliderThumb(), for: .normal)
+        UISlider.appearance().setMaximumTrackImage(R.image.maximumTrack()?
+            .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 6.0)), for: .normal)
+        UISlider.appearance().setMinimumTrackImage(R.image.minimumTrack()?
+            .withRenderingMode(.alwaysTemplate)
+            .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 6.0, bottom: 0, right: 0)), for: .normal)
+        }
 
         UISwitch.appearance().onTintColor = theme.mainColor.withAlphaComponent(0.7)
         UISwitch.appearance().thumbTintColor = theme.mainColor

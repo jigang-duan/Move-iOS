@@ -182,8 +182,8 @@ class Distribution {
         }
         if hasWireframe {
             let logoutTextTemplate = "Your account was logged in to on %@ at %@. If this login wasn’t authorized by you, we recommend changing your password immediately."
-            let logoutText = name.flatMap { String(format: logoutTextTemplate, $0, date?.stringDefaultHourMinuteSecond ?? "")  }
-            AlertWireframe.presentAlert(logoutText ?? "Your account has been used to log in on another device or has timed out, login again.")
+            let logoutText = name.flatMap { String(format: logoutTextTemplate, $0, date?.stringDefaultDescription ?? "")  }
+            AlertWireframe.presentAlert(logoutText ?? "Your account has timed out, login again.")
         }
         self.backToDistribution() { [weak self] in
             self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)

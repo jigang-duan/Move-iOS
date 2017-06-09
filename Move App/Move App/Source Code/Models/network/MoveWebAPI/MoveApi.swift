@@ -78,7 +78,7 @@ extension NSError {
     }
     
     static func tokenForbiddenError() -> NSError {
-        let userInfo = [NSLocalizedDescriptionKey: "Forbidden: 操作被禁止!"]
+        let userInfo = [NSLocalizedFailureReasonErrorKey: "Forbidden: 操作被禁止!", NSLocalizedDescriptionKey: ""]
         return NSError(domain: "com.tclcom.moveApiError", code: 1889, userInfo: userInfo)
     }
     
