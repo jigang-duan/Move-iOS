@@ -39,6 +39,10 @@ class NotificationController: UIViewController {
         tableView.emptyDataSetSource = self
         moreView.isHidden = true
         
+        guard let uid = Me.shared.user.id else {
+            return
+        }
+        
         let kidsId = group?.notices.first?.from
         let kids = group?.members.filter({ $0.id == kidsId }).first
         navigationOutlet.title = kids?.nickname
@@ -48,7 +52,8 @@ class NotificationController: UIViewController {
             let notices = Observable.collection(from: objects)
                 .share()
                 .map { list -> [UUMessage] in
-                    list.filter { $0.imType.atNotiicationPage }
+                    list.filter { $0.to == uid }
+                        .filter { $0.imType.atNotiicationPage }
                         .sorted(by: { $0.createDate! > $1.createDate! })
                         .map { notice -> UUMessage in
                             var content = UUMessage.Content()

@@ -60,10 +60,7 @@ class SystemNotificationController: UIViewController {
     
     private func cellConfig(cell: UITableViewCell, row: Int, group: GroupEntity) {
         
-//        if
-//            let kidsId = group.notices.first?.from,
-//            let kids = group.members.filter({ $0.id == kidsId }).first {
-        
+        if let uid = Me.shared.user.id {
             var headURL: URL? = nil
             if let imageStr = group.headPortrait {
                 headURL = URL(string: FSManager.imageUrl(with: imageStr))
@@ -86,8 +83,8 @@ class SystemNotificationController: UIViewController {
             })
             
             cell.textLabel?.text = group.name
-            cell.detailTextLabel?.text = group.notices.last?.content
-//        }
+            cell.detailTextLabel?.text = group.notices.filter{ $0.to == uid }.last?.content
+        }
         
         if let numberLable = cell.accessoryView as? UILabel {
             let number = group.notices.filter({ $0.readStatus == 0 }).filter{ $0.imType.atNotiicationPage }.count
