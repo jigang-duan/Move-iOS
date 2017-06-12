@@ -53,7 +53,7 @@ class NotificationController: UIViewController {
                         .map { notice -> UUMessage in
                             var content = UUMessage.Content()
                             content.text = notice.content
-                            return UUMessage(icon: FSManager.imageUrl(with: kids?.headPortrait ?? ""),
+                            return UUMessage(icon: FSManager.imageUrl(with: _group.headPortrait ?? ""),
                                                 msgId: notice.id ?? "",
                                                 time: notice.createDate ?? Date(),
                                                 name: _group.name ?? "",
@@ -102,12 +102,6 @@ class NotificationController: UIViewController {
                     self?.showFeatureGudieView()
                 }
                 .addDisposableTo(bag)
-            
-//            messageFramesVariable.asObservable()
-//                .bindNext({ [weak self] _ in
-//                    self?.tableViewScrollToBottom()
-//                })
-//                .addDisposableTo(bag)
             
             moreView.delegate = self
             

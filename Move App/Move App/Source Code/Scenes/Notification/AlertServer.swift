@@ -35,7 +35,8 @@ class AlertServer {
             .map { $0.filter{ $0.isUnRead }.first }
             .filterNil()
             .filter { $0.imType.isShowPopup }
-            .flatMapLatest { (notice) -> Observable<AlertResult> in
+            .withLatestFrom(RxStore.shared.deviceInfosObservable, resultSelector: resultSelector)
+            .flatMapLatest { (notice, device) -> Observable<AlertResult> in
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
                 guard NoticeType(rawValue: notice.type) != nil else {
                     return Observable.empty()
@@ -43,7 +44,7 @@ class AlertServer {
                 let confirm = notice.imType.style.hasConfirm ? AlertResult.confirm(parcel: notice) : nil
                 return AlertWireframe.shared.prompt(notice.content ?? "",
                                                     title: notice.imType.title,
-                                                    iconURL: kids?.headPortrait?.fsImageUrl,
+                                                    iconURL: device?.user?.profile?.fsImageUrl ?? kids?.headPortrait?.fsImageUrl,
                                                     cancel: .ok(parcel: notice), cancelActionTitle: notice.imType.style.okDescription,
                                                     confirm: confirm, confirmTitle: notice.imType.style.description)
             }
@@ -276,4 +277,8 @@ fileprivate func transform(alertResult: AlertResult) -> NoticeEntity? {
         return notice
     }
     return nil
+}
+
+fileprivate func resultSelector(notice: NoticeEntity, devices: [DeviceInfo]) -> (NoticeEntity, DeviceInfo?) {
+    return (notice ,devices.filter{ $0.user?.uid == notice.from }.first)
 }

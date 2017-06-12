@@ -36,11 +36,13 @@ class SystemNotificationController: UIViewController {
         if let uid = Me.shared.user.id {
             let objects = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first!.groups
             
+            let cellIdentifier = R.reuseIdentifier.cellNotificationClassify.identifier
             Observable.collection(from: objects)
                 .map({ (list) -> [GroupEntity] in
                     list.filter{ $0.notices.count > 0 }.sorted(by: { ($0.notices.last?.createDate)! > ($1.notices.last?.createDate)! })
                 })
-                .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellNotificationClassify.identifier)) { [weak self] (row, element, cell) in
+                .withLatestFrom(RxStore.shared.deviceInfosObservable, resultSelector: resultSelector)
+                .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier)) { [weak self] (row, element, cell) in
                     self?.cellConfig(cell: cell, row: row, group: element)
                 }
                 .addDisposableTo(bag)
@@ -58,17 +60,17 @@ class SystemNotificationController: UIViewController {
     
     private func cellConfig(cell: UITableViewCell, row: Int, group: GroupEntity) {
         
-        if
-            let kidsId = group.notices.first?.from,
-            let kids = group.members.filter({ $0.id == kidsId }).first {
-            
+//        if
+//            let kidsId = group.notices.first?.from,
+//            let kids = group.members.filter({ $0.id == kidsId }).first {
+        
             var headURL: URL? = nil
-            if let imageStr = kids.headPortrait {
+            if let imageStr = group.headPortrait {
                 headURL = URL(string: FSManager.imageUrl(with: imageStr))
             }
             
             var placeholder = R.image.relationship_ic_other()!
-            if let name = kids.nickname {
+            if let name = group.name {
                 placeholder = CDFInitialsAvatar(rect: CGRect(origin: CGPoint.zero, size: placeholder.size) , fullName: name).imageRepresentation() ?? placeholder
                 placeholder = convert(image: placeholder, size: placeholder.size)
             }
@@ -83,9 +85,9 @@ class SystemNotificationController: UIViewController {
                                             cell.imageView?.image = self?.convert(image: image, size: placeholder.size)
             })
             
-            cell.textLabel?.text = kids.nickname
+            cell.textLabel?.text = group.name
             cell.detailTextLabel?.text = group.notices.last?.content
-        }
+//        }
         
         if let numberLable = cell.accessoryView as? UILabel {
             let number = group.notices.filter({ $0.readStatus == 0 }).filter{ $0.imType.atNotiicationPage }.count
@@ -136,6 +138,35 @@ extension SystemNotificationController: DZNEmptyDataSetSource {
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return R.color.appColor.background()
     }
+}
+
+fileprivate func resultSelector(groups: [GroupEntity], devices: [DeviceInfo]) throws -> [GroupEntity] {
+    return groups.map{ group in containDevices(form: group, devices) }
+}
+
+fileprivate func containDevices(form group: GroupEntity, _ devices: [DeviceInfo]) -> GroupEntity {
+    guard let device = devices.filter({ group.hasTheDevice($0) }).first else { return group }
+    
+    if group.headPortrait == nil {
+        return group
+    }
+    let realm = try! Realm()
+    try? realm.write {
+        group.headPortrait = device.user?.profile
+        group.name = device.user?.nickname
+    }
+    return group
+}
+
+fileprivate extension GroupEntity {
+    
+    func hasTheDevice(_ device: DeviceInfo) -> Bool {
+        guard let devUID = device.user?.uid else {
+            return false
+        }
+        return self.members.flatMap{ $0.id }.contains(devUID)
+    }
+    
 }
 
 
