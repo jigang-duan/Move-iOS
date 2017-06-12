@@ -184,7 +184,7 @@ class Package(object):
             return result
         print "\n 构建APP IPA文件成功 [%s]\n"%self.ipa_file
 
-        
+
     def clean_project(self):
         if self.is_workspace:
             return self.__clean_workspace_cmd()
@@ -244,10 +244,12 @@ class Package(object):
     def pack_project(self):
         return self.__pack_cmd()
 
-    def __pack_cmd(self): 
-        cmd_pack = "xcodebuild -exportArchive -exportFormat ipa -archivePath '%s' -exportPath '%s' -exportWithOriginalSigningIdentity"%(
+    def __pack_cmd(self):
+        plistpath = self.archive_file + '/Info.plist'
+        cmd_pack = "xcodebuild -exportArchive -archivePath '%s' -exportPath '%s' -exportOptionsPlist '%s'"%(
             self.archive_file,
-            self.ipa_file)
+            self.ipa_file,
+            plistpath)
         print "\n执行打包项目命令: " + cmd_pack
         return self.target_perform_cmd(cmd_pack, "pack")
 
