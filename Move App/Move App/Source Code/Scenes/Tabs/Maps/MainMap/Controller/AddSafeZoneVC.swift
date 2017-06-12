@@ -16,6 +16,8 @@ import CustomViews
 class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     var editFenceDataSounrce : KidSate.ElectronicFencea?
+    fileprivate var isEmptyFence = true
+    
     var fenceName : String? = ""
     var fencelocation : CLLocationCoordinate2D?
     var fenceActive: Bool?
@@ -142,7 +144,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
                 self.mainMapView.add(self.circleOverlay!)
             }
-
+            self.isEmptyFence = false
         }else{
             //新增
             self.title = "Add Safe zone"
@@ -183,7 +185,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             )
         )
         
-        mainMapView.showsUserLocation = true
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()
             .drive(onNext: { [weak self] _ in
@@ -199,13 +200,15 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
         mainMapView.rx.regionDidChangeAnimated
             .asDriver()
-            .skip(1)
             .drive(onNext: { [unowned self] in
+                if self.isEmptyFence == false {
                 Logger.debug("地图 \($0)!")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
                 self.circleBorderView.removeFromSuperview()
                 self.coordieToAddress()
+                }
+                self.isEmptyFence = false
             }).addDisposableTo(disposeBag)
         
         mainMapView.rx.willStartLoadingMap

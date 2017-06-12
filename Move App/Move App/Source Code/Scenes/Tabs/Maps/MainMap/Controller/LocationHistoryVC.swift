@@ -167,8 +167,8 @@ class LocationHistoryVC: UIViewController {
                     self.annotationArr = arr
                     self.timeZoneSlider.maximumValue = Float(self.annotationArr.count - 1)
                     self.timeZoneSlider.minimumValue = 0
-                    self.timeZoneSlider.value = 0
-                    self.TimePointSelect(index: self.index)
+                    self.timeZoneSlider.value = Float(self.annotationArr.count - 1)
+                    self.TimePointSelect(index: self.annotationArr.count - 1)
                 }
                 
             })

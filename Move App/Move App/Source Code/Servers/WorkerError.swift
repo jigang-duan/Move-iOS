@@ -74,6 +74,18 @@ extension WorkerError {
         return apiErrorTransform(from: apiError)
     }
     
+    static func timeoutAndApiErrorTransform(from error: Swift.Error) -> String {
+        guard let apiError = workerError(form: error) as? WorkerError else {
+            return ""
+        }
+        
+        if apiError == .LocationTimeout {
+            return "Location Timeout"
+        }
+        
+        return apiErrorTransform(from: apiError)
+    }
+    
     
     /**  ------error_id------
      0      Success: 成功，没有错误

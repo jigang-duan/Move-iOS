@@ -215,7 +215,7 @@ class MainMapController: UIViewController {
         viewModel.remindActivityIn.drive(remindLocationOutlet.rx.isHidden).addDisposableTo(disposeBag)
         
         viewModel.errorObservable
-            .map { WorkerError.errorTransform(from: $0) }
+            .map { WorkerError.timeoutAndApiErrorTransform(from: $0) }
             .filterEmpty()
             .bindNext { ProgressHUD.show(status: $0) }
             .addDisposableTo(disposeBag)
