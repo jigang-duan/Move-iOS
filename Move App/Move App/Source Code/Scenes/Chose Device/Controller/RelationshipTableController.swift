@@ -101,7 +101,7 @@ class RelationshipTableController: UIViewController {
             }else{
                 DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!)
                     .subscribe(onNext: {[weak self] flag in
-                        _ = self?.navigationController?.popToRootViewController(animated: true)
+                        _ = Distribution.shared.backToMainMap()//self?.navigationController?.popToRootViewController(animated: true)
                     }, onError: { er in
                         if let msg = errorRecover(er) {
                             self.showMessage(msg)
