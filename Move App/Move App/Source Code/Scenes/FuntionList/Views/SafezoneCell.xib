@@ -11,15 +11,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="safezonecell" rowHeight="109" id="KGk-i7-Jjw" customClass="SafezoneCell" customModule="Move_App" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="364" height="109"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="safezonecell" rowHeight="89" id="KGk-i7-Jjw" customClass="SafezoneCell" customModule="Move_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="372" height="89"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="364" height="108.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="372" height="88.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MO0-9J-2CG" customClass="SwitchButton" customModule="CustomViews">
-                        <rect key="frame" x="308" y="44" width="46" height="21"/>
+                        <rect key="frame" x="316" y="34" width="46" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="46" id="O0R-gf-WTM"/>
                             <constraint firstAttribute="height" constant="21" id="ghh-Hh-SpW"/>
@@ -30,26 +30,23 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shenzhen nanshan school" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3J-pq-1OI">
-                        <rect key="frame" x="15" y="59" width="273" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="WEP-o4-rF2"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shenzhen nanshan school" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3J-pq-1OI">
+                        <rect key="frame" x="5" y="34" width="296" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEk-5I-bFy">
-                        <rect key="frame" x="15" y="37" width="283" height="24"/>
+                        <rect key="frame" x="5" y="5" width="54" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="24" id="xlb-ak-FZD"/>
+                            <constraint firstAttribute="height" constant="24" id="fn5-EY-fN8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ke-pW-zbn">
-                        <rect key="frame" x="338" y="44" width="26" height="22"/>
+                        <rect key="frame" x="346" y="33.5" width="26" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="dY2-yO-RuK"/>
                         </constraints>
@@ -59,15 +56,15 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3GE-W4-wVa"/>
-                    <constraint firstItem="I3J-pq-1OI" firstAttribute="leading" secondItem="FEk-5I-bFy" secondAttribute="leading" id="CqW-91-3jh"/>
-                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="FEk-5I-bFy" secondAttribute="trailing" constant="10" id="Lmj-Di-S88"/>
+                    <constraint firstAttribute="bottom" secondItem="I3J-pq-1OI" secondAttribute="bottom" constant="5" id="DfK-AK-4dz"/>
+                    <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="JJY-rN-Xfz"/>
+                    <constraint firstItem="I3J-pq-1OI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="TX0-D6-ZQ3"/>
+                    <constraint firstItem="I3J-pq-1OI" firstAttribute="top" secondItem="FEk-5I-bFy" secondAttribute="bottom" constant="5" id="ac7-VT-IQD"/>
+                    <constraint firstItem="FEk-5I-bFy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bcl-Z8-7mK"/>
                     <constraint firstAttribute="trailing" secondItem="MO0-9J-2CG" secondAttribute="trailing" constant="10" id="dZi-9r-9Ch"/>
-                    <constraint firstItem="FEk-5I-bFy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-5.25" id="ebr-d4-ggJ"/>
+                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="I3J-pq-1OI" secondAttribute="trailing" constant="15" id="nCh-uo-9vM"/>
                     <constraint firstItem="3ke-pW-zbn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="o5N-Gx-dHq"/>
-                    <constraint firstItem="I3J-pq-1OI" firstAttribute="top" secondItem="FEk-5I-bFy" secondAttribute="bottom" constant="-2" id="rqz-o9-COf"/>
                     <constraint firstItem="MO0-9J-2CG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rwn-XC-K02"/>
-                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="I3J-pq-1OI" secondAttribute="trailing" constant="20" id="sJe-hl-Tel"/>
                     <constraint firstAttribute="trailing" secondItem="3ke-pW-zbn" secondAttribute="trailing" id="xm7-fR-79n"/>
                 </constraints>
             </tableViewCellContentView>
@@ -77,7 +74,7 @@
                 <outlet property="onOFFLabel" destination="3ke-pW-zbn" id="gP9-Yc-0hP"/>
                 <outlet property="switchOnOffQutiet" destination="MO0-9J-2CG" id="CDd-Ma-cF0"/>
             </connections>
-            <point key="canvasLocation" x="-87" y="67"/>
+            <point key="canvasLocation" x="-83" y="56.5"/>
         </tableViewCell>
     </objects>
     <resources>

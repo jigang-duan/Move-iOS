@@ -68,9 +68,15 @@ class RemindersController: UIViewController {
         initView()
         loadData()
         
-        timeSelectBtn.rx.tap.asDriver().drive(onNext: calenderIsOpen).addDisposableTo(disposeBag)
-        timeBackBtn.rx.tap.asDriver().drive(onNext: lastDayClick).addDisposableTo(disposeBag)
-        timeNextBtn.rx.tap.asDriver().drive(onNext: nextDayClick).addDisposableTo(disposeBag)
+        timeSelectBtn.rx.tap.asDriver().drive(onNext: {[weak self] in
+            self?.calenderIsOpen()
+        }).addDisposableTo(disposeBag)
+        timeBackBtn.rx.tap.asDriver().drive(onNext: {[weak self] in
+        self?.lastDayClick()
+        }).addDisposableTo(disposeBag)
+        timeNextBtn.rx.tap.asDriver().drive(onNext: {[weak self] in
+        self?.nextDayClick()
+        }).addDisposableTo(disposeBag)
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
         
         titleSegment.selectedSegmentIndex = 0
@@ -82,8 +88,12 @@ class RemindersController: UIViewController {
     fileprivate func loadData() {
         viewModel = RemindersViewModel(
             input: (
-                update: updateTap.asDriver().filter({ $0 > 0 }).map({ _ in Void() }) ,
-                delect: deleteTap.asDriver().filter({ $0 > 0 }).debug().map({ _ in Void() }) ,
+                update: updateTap.asDriver().filter({ $0 > 0 }).map({_ in
+                    Void()
+                }) ,
+                delect: deleteTap.asDriver ().filter({ $0 > 0 }).debug().map({_ in
+                    Void()
+                }) ,
                 empty: Void()
             ),
             dependency: (
@@ -101,15 +111,15 @@ class RemindersController: UIViewController {
         viewModel.reminderVariable.asDriver()
             .map({ $0 })
             .drive(onNext: {
+                [weak self] in
+                self?.alarms =  $0.alarms.map({ [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
                 
-                self.alarms =  $0.alarms.map({  [ "alarms": $0.alarmAt ?? zoneDate , "dayFromWeek": $0.day ,"active": $0.active ?? true]})
+                self?.todos =  $0.todo.map({ ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
                 
-                self.todos =  $0.todo.map({   ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
+                let date  = DateUtility.stringToDateyyMMddd(dateString: self?.timeSelectBtn.titleLabel?.text ?? "")
+                self?.changeBtnType(time: 0 , date : date)
                 
-                let date  = DateUtility.stringToDateyyMMddd(dateString: self.timeSelectBtn.titleLabel?.text ?? "")
-                self.changeBtnType(time: 0 , date : date)
-                
-                self.tableViw.reloadData()
+                self?.tableViw.reloadData()
             } )
             .addDisposableTo(disposeBag)
     }
@@ -241,9 +251,9 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         
                         self.deleteTap.value += 1
                     })
-                    let deletall = UIAlertAction(title: "Delete All To do list", style: .destructive, handler: { (UIAlertAction) in
-                          self.viewModel.reminderVariable.value.todo.removeAll()
-                          self.deleteTap.value += 1
+                    let deletall = UIAlertAction(title: "Delete All To do list", style: .destructive, handler: { [weak self] (UIAlertAction) in
+                          self?.viewModel.reminderVariable.value.todo.removeAll()
+                          self?.deleteTap.value += 1
                     })
 
                     alertController.addAction(cancelAction)
@@ -318,7 +328,9 @@ extension RemindersController {
             .flatMapLatest {
                 popover.promptFor(toView: self.addOutlet, actions: [action1, action2])
             }
-            .bindNext(showSubController)
+            .bindNext({[weak self] in
+                self?.showSubController(action: $0)
+            })
             .addDisposableTo(disposeBag)
     }
     

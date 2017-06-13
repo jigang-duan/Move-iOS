@@ -67,6 +67,11 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
     }
     
+//    fileprivate lazy var yellowDots: UIImageView = {
+//        let imageView = UIImageView.init(image: R.image.positioning_ic_1())
+//        
+//        return imageView
+//    }()
     
     func rightBarButtonClick (sender : UIBarButtonItem){
          if (self.editFenceDataSounrce != nil) {
@@ -121,7 +126,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         super.viewDidLoad()
         
         self.permissionsView(adminBool!)
-//        self.kidnameTF.placeholder = "Enter a name for this safezone"
         self.kidnameTF.placeholder = R.string.localizable.id_is_enter_safe_zone()
         if (self.editFenceDataSounrce != nil) {
             //编辑
@@ -185,6 +189,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             )
         )
         
+//        mainMapView.showsUserLocation = true
+        if adminBool! {
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()
             .drive(onNext: { [weak self] _ in
@@ -210,6 +216,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 }
                 self.isEmptyFence = false
             }).addDisposableTo(disposeBag)
+        }
         
         mainMapView.rx.willStartLoadingMap
             .asDriver()
@@ -235,7 +242,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         viewModel.kidLocation
             .asObservable()
             .take(1)
-            .bindNext {[unowned self] in
+            .bindNext {[weak self] in
                 let region = MKCoordinateRegionMakeWithDistance($0, 1500, 1500)
                 print("\(region)")
 //                self.mainMapView.setRegion(region, animated: true)
@@ -256,7 +263,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             .addDisposableTo(disposeBag)
         
 
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func PinchToChangeZoom(_ sender: UIPinchGestureRecognizer) {
@@ -522,7 +528,7 @@ extension AddSafeZoneVC : UITextFieldDelegate {
 
 extension AddSafeZoneVC : MKMapViewDelegate {
     
-    
+    //黄点
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is BaseAnnotation {
             let identifier = "targetAnnoteationReuseIdentifier"

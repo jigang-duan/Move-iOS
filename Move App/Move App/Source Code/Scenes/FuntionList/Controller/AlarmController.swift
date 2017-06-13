@@ -57,7 +57,9 @@ class AlarmController: UIViewController {
         
 
         self.saveItemOutlet.rx.tap.asDriver()
-            .drive(onNext: saveAlarm)
+            .drive(onNext: { [weak self] in
+                self?.saveAlarm()
+            })
             .addDisposableTo(disposeBag)
         
         self.datePickerOulet.timeZone = TimeZone(secondsFromGMT: 0)
@@ -112,20 +114,20 @@ class AlarmController: UIViewController {
         
         let _ = isOldAlarm! ? KidSettingsManager.shared.updateAlarm(KidSetting.Reminder.Alarm(alarmAt: (alarms?["alarms"] as? Date ?? nil)!, day: (alarms?["dayFromWeek"] as? [Bool])!, active: alarms?["active"] as? Bool), new: KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: weekOutlet.weekSelected, active: alarms?["active"] as? Bool))
             .subscribe(onNext:
-                {
+                { [weak self] in
                     print($0)
                     if $0 {
-                        _ = self.navigationController?.popViewController(animated: true)
+                        _ = self?.navigationController?.popViewController(animated: true)
                     }else{
-                        self.saveItemOutlet.isEnabled = true
+                        self?.saveItemOutlet.isEnabled = true
                     }
             }).addDisposableTo(self.disposeBag) : KidSettingsManager.shared.creadAlarm(KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: weekOutlet.weekSelected, active: true)).subscribe(onNext:
-                {
+                { [weak self] in
                     print($0)
                     if $0 {
-                        _ = self.navigationController?.popViewController(animated: true)
+                        _ = self?.navigationController?.popViewController(animated: true)
                     }else{
-                        self.saveItemOutlet.isEnabled = true
+                        self?.saveItemOutlet.isEnabled = true
                     }
             }).addDisposableTo(self.disposeBag)
         

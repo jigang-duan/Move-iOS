@@ -53,10 +53,12 @@ class TimeZoneController: UITableViewController {
         
         //auto on timecell off ,off on 控制跳转
         let openEnable = autoGetTimeQutlet.rx.switch.asDriver()
-        openEnable.drive(onNext: enablecell).addDisposableTo(disposeBag)
+        openEnable.drive(onNext: {[weak self] in
+            self?.enablecell($0)
+        }).addDisposableTo(disposeBag)
         
         selectedTimeZone.asDriver()
-            .map({ " \($0)" })//不知道为什么赋不上值，非要转一下加点东西
+            .map({ " \($0)" })
             .drive(timezoneCityQutlet.rx.text)
             .addDisposableTo(disposeBag)
         
@@ -82,24 +84,28 @@ class TimeZoneController: UITableViewController {
         viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.fetchtimezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
         viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
-        viewModel.autotimeEnable.drive(onNext: enablecell).addDisposableTo(disposeBag)
+        viewModel.autotimeEnable.drive(onNext: {[weak self] bool in
+            self?.enablecell(bool)
+        }).addDisposableTo(disposeBag)
         viewModel.activityIn
             .map{ !$0 }
-            .drive(onNext: userInteractionEnabled)
+            .drive(onNext: {[weak self] in
+                self?.userInteractionEnabled($0)
+            })
             .addDisposableTo(disposeBag)
 
 
     }
     
-    func userInteractionEnabled(enable: Bool) {
+    func userInteractionEnabled(_ enable: Bool) {
       
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.timeZoneController.showSelectTimeZone(segue: segue)?.destination {
-            vc.selectedTimezone = { index in
-                self.selectedTimeZone.value = index
+            vc.selectedTimezone = { [weak self] index in
+                self?.selectedTimeZone.value = index
             }
         }
     }

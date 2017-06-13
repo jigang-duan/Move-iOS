@@ -45,6 +45,7 @@ class UsepermissionController: UITableViewController {
         super.viewDidLoad()
         
         self.internationalization()
+        self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         
         let viewModel = UsepermissionViewModel(
             dependency: (
@@ -64,7 +65,9 @@ class UsepermissionController: UITableViewController {
       //网络请求的时候都不用点击
         viewModel.activityIn
             .map { !$0 }
-            .drive(onNext: userInteractionEnabled)
+            .drive(onNext: {[weak self] in
+                self?.userInteractionEnabled(enable: $0)
+            })
             .addDisposableTo(disposeBag)
     }
     

@@ -51,7 +51,6 @@ class ToDoListController: UITableViewController {
     //国际化
     func internationalization()  {
             todolistTitleItem.title = R.string.localizable.id_todolist()
-        
             saveItemQutlet.title = R.string.localizable.id_save()
             titleTextFieldQutle.placeholder = R.string.localizable.id_title()
             remarkTextFieldQutlet.placeholder = R.string.localizable.id_remarks()
@@ -89,7 +88,9 @@ class ToDoListController: UITableViewController {
         
         self.beginTimeQutle.rx.tap
             .asDriver()
-            .drive(onNext: selectBeginTime)
+            .drive(onNext: {[weak self] in
+                self?.selectBeginTime()
+            })
             .addDisposableTo(disposeBag)
         
         endTimeVariabel.asDriver()
@@ -100,20 +101,28 @@ class ToDoListController: UITableViewController {
 
         self.endTimeQutle.rx.tap
             .asDriver()
-            .drive(onNext: selectEndTime)
+            .drive(onNext: {[weak self] in
+                self?.selectEndTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.comfirmQutle.rx.tap
             .asDriver()
-            .drive(onNext: comfirmDatepicker)
+            .drive(onNext: {[weak self] in
+                self?.comfirmDatepicker()
+            })
             .addDisposableTo(disposeBag)
         
         self.cancelQutle.rx.tap
             .asDriver()
-            .drive(onNext: cancelDatepicker)
+            .drive(onNext: {[weak self] in
+                self?.cancelDatepicker()
+            })
             .addDisposableTo(disposeBag)
         
-        self.saveItemQutlet.rx.tap.asDriver().drive(onNext: saveAction).addDisposableTo(disposeBag)
+        self.saveItemQutlet.rx.tap.asDriver().drive(onNext: {[weak self] in
+            self?.saveAction()
+        }).addDisposableTo(disposeBag)
         
         
     }
@@ -185,26 +194,26 @@ extension ToDoListController {
         {
             
             let _  = isOldTodo! ? KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String, content: todo?["content"] as? String, start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
-            {
+            { [weak self] in
                 print($0)
                 if $0 {
-                    let _ = self.navigationController?.popViewController(animated: true)
+                    let _ = self?.navigationController?.popViewController(animated: true)
                 }else{
                     print("网络错误重新")
-                    self.saveItemQutlet.isEnabled = true
+                    self?.saveItemQutlet.isEnabled = true
                 }
             }).addDisposableTo(self.disposeBag)
                 
                 
                 :
                 KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
-                    {
+                    { [weak self] in
                         print($0)
                         if $0 {
-                            let _ = self.navigationController?.popViewController(animated: true)
+                            let _ = self?.navigationController?.popViewController(animated: true)
                         }else{
                             print("网络错误重新")
-                            self.saveItemQutlet.isEnabled = true
+                            self?.saveItemQutlet.isEnabled = true
                         }
                 }).addDisposableTo(self.disposeBag)
             

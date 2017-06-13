@@ -25,7 +25,8 @@ class LanguageViewController: UIViewController {
         self.tableview.contentInset = UIEdgeInsets(top: -32, left: 0, bottom: 0, right: 0)
         
         let selected = tableview.rx.itemSelected.asDriver()
-            .map({ self.tableview.cellForRow(at: $0)?.textLabel?.text })
+            .map({ [weak self] in
+                self?.tableview.cellForRow(at: $0)?.textLabel?.text })
             .filterNil()
         
         let viewModel = LanguageViewModel(
@@ -41,7 +42,10 @@ class LanguageViewController: UIViewController {
         )
         
         selected.drive(viewModel.languageVariable).addDisposableTo(disposeBag)
-        viewModel.saveFinish.drive(onNext: back).addDisposableTo(disposeBag)
+        viewModel.saveFinish.drive(onNext: {
+           [weak self] in
+            self?.back($0)
+        }).addDisposableTo(disposeBag)
         
         viewModel.lauguage.drive(viewModel.languageVariable).addDisposableTo(disposeBag)
         

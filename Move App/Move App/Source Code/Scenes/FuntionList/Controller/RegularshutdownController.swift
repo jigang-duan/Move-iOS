@@ -64,7 +64,9 @@ class RegularshutdownController: UIViewController {
         let openEnable = openShutdownVariabel.asDriver()
         
         openEnable
-            .drive(onNext: enableView)
+            .drive(onNext: {[weak self] in
+                self?.enableView($0)
+            })
             .addDisposableTo(disposeBag)
         
         openEnable
@@ -81,7 +83,9 @@ class RegularshutdownController: UIViewController {
         
         self.bootTimeOutlet.rx.tap
             .asDriver()
-            .drive(onNext: selectBootTime)
+            .drive(onNext:{[weak self] in
+                self?.selectBootTime()
+                })
             .addDisposableTo(disposeBag)
         
         shutdownTimeVariable.asDriver()
@@ -93,17 +97,23 @@ class RegularshutdownController: UIViewController {
         
         self.shutdownTimeQutlet.rx.tap
             .asDriver()
-            .drive(onNext: selectShutdownTime)
+            .drive(onNext: {[weak self] in
+                self?.selectShutdownTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.comfirmQutlet.rx.tap
             .asDriver()
-            .drive(onNext: comfirmDatepicker)
+            .drive(onNext: {[weak self] in
+                self?.comfirmDatepicker()
+            })
             .addDisposableTo(disposeBag)
         
         self.cancelQutlet.rx.tap
             .asDriver()
-            .drive(onNext: cancelDatepicker)
+            .drive(onNext: {[weak self] in
+                self?.cancelDatepicker()
+            })
             .addDisposableTo(disposeBag)
         
         viewModel = RegularshutdownViewModel(
@@ -133,19 +143,27 @@ class RegularshutdownController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel?.autoOnOffEnable
-            .drive(onNext: enableView)
+            .drive(onNext:{[weak self] in
+                self?.enableView($0)
+            })
             .addDisposableTo(disposeBag)
+        
         viewModel?.autoOnOffEnable
             .drive(touchesBeganEnable)
             .addDisposableTo(disposeBag)
+        
         viewModel?.activityIn
             .map{ !$0 }
-            .drive(onNext: nil)
+            .drive(onNext: {[weak self] in
+                
+            })
             .addDisposableTo(disposeBag)
         
         
         viewModel?.saveFinish
-            .drive(onNext: back
+            .drive(onNext: {[weak self] in
+                self?.back($0)
+                }
             ).addDisposableTo(disposeBag)
         
         

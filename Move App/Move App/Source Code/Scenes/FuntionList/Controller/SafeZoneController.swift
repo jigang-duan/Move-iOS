@@ -41,6 +41,7 @@ class SafeZoneController: UIViewController {
         super.viewDidLoad()
         self.permissionsFun(adminbooll: adminBool!)
         
+        self.tableview.estimatedRowHeight = 80.0
         self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
         
         safezoneQutlet.rx.tap
@@ -180,9 +181,6 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 43
-    }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         
@@ -223,8 +221,8 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
                 }.addDisposableTo(disposeBag)        
         }
      
-        
     }
+    
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return R.string.localizable.id_delete()

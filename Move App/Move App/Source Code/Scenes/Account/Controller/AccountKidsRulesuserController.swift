@@ -85,11 +85,15 @@ class AccountKidsRulesuserController: UITableViewController {
         
         viewModel.activityIn
             .map({ !$0 })
-            .drive(onNext: userInteractionEnabled)
+            .drive(onNext: {[weak self] in
+            self?.userInteractionEnabled(enable: $0)
+        })
             .addDisposableTo(disposeBag)
         
         RxStore.shared.currentDevice
-            .bindNext { [weak self] in self?.show(deviceInfo: $0) }
+            .bindNext { [weak self] in
+                self?.show(deviceInfo: $0)
+            }
             .addDisposableTo(disposeBag)
         
         let property = RxStore.shared.deviceIdObservable
@@ -177,9 +181,9 @@ class AccountKidsRulesuserController: UITableViewController {
                     _ = self?.navigationController?.popToRootViewController(animated: true)
                 }
                 
-            }, onError: { er in
-                print(er)
-                self.showAlert(message: "Unpaired watch faild")
+                }, onError: { er in
+                    print(er)
+                    self.showAlert(message: "Unpaired watch faild")
             })
             .addDisposableTo(disposeBag)
     }

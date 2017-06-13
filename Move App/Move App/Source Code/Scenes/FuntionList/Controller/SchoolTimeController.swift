@@ -71,7 +71,9 @@ class SchoolTimeController: UIViewController {
         }
         helpBtnQutlet.rx.tap
             .asDriver()
-            .drive(onNext: helpView)
+            .drive(onNext: {[weak self] in
+                self?.helpView()
+            })
             .addDisposableTo(disposeBag)
         
         
@@ -79,7 +81,9 @@ class SchoolTimeController: UIViewController {
         let openEnable = openSchoolSwitch.rx.switch.asDriver()
         
         openEnable
-            .drive(onNext: enableView)
+            .drive(onNext: {[weak self] in
+            self?.enableView($0)
+            })
             .addDisposableTo(disposeBag)
         
         openEnable
@@ -87,42 +91,59 @@ class SchoolTimeController: UIViewController {
             .addDisposableTo(disposeBag)
         
         self.NullQutlet.rx.tap.asDriver()
-            .drive(onNext: selectNullTime)
+            .drive(onNext: {[weak self] in
+                self?.selectNullTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.amStartTimeOutlet.rx.tap
             .asDriver()
-            .drive(onNext: selectAmStartTime)
+            .drive(onNext: {[weak self] in
+                self?.selectAmStartTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.amEndTimeOutlet.rx.tap
             .asDriver()
-            .drive(onNext: selectAmEndTime)
+            .drive(onNext: {[weak self] in
+                self?.selectAmEndTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.pmStartTimeOutlet.rx.tap
             .asDriver()
-            .drive(onNext: selectPmStartTime)
+            .drive(onNext: {[weak self] in
+                self?.selectPmStartTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.pmEndTimeOutlet.rx.tap
             .asDriver()
-            .drive(onNext: selectPmEndTime)
+            .drive(onNext: {[weak self] in
+                self?.selectPmEndTime()
+            })
             .addDisposableTo(disposeBag)
         
         self.confirmOutlet.rx.tap
             .asDriver()
-            .drive(onNext: comfirmDatepicker)
+            .drive(onNext: {[weak self] in
+                self?.comfirmDatepicker()
+            })
             .addDisposableTo(disposeBag)
         
         self.cancelDatePickeOutlet.rx.tap
             .asDriver()
-            .drive(onNext: cancelDatepicker)
+            .drive(onNext: {[weak self] in
+                self?.cancelDatepicker()
+            })
             .addDisposableTo(disposeBag)
         
         self.datepicke.rx.date
             .asDriver()
-            .map(dateOtherFromSelected)
+            .map({
+                [weak self] in
+                (self?.dateOtherFromSelected(date: $0))!
+            })
             .drive(confirmOutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
         
@@ -159,7 +180,9 @@ class SchoolTimeController: UIViewController {
         (openSchoolSwitch.rx.value <-> viewModel.openEnableVariable).addDisposableTo(disposeBag)
         
         viewModel.openEnableVariable.asDriver()
-            .drive(onNext: enableView)
+            .drive(onNext: {[weak self] in
+                self?.enableView($0)
+            })
             .addDisposableTo(disposeBag)
         
         viewModel.openEnableVariable.asDriver()
