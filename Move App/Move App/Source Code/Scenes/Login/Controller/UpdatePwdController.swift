@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class UpdatePwdController: UIViewController {
+class UpdatePwdController: TranslucentNavBarController {
 
     @IBOutlet weak var helpLabel: UILabel!
     @IBOutlet weak var vcodeTf: UITextField!

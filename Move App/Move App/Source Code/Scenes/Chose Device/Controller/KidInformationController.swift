@@ -92,8 +92,11 @@ class KidInformationController: UIViewController {
             nextBunTopCons.constant = 10
         }
         
-        
-        nextBun.setTitle(R.string.localizable.id_next(), for: .normal)
+        if isForSetting == true {
+            nextBun.setTitle(R.string.localizable.id_save(), for: .normal)
+        }else{
+            nextBun.setTitle(R.string.localizable.id_next(), for: .normal)
+        }
         
         validateLab.isHidden = true
         
