@@ -44,6 +44,7 @@ extension MoveApi {
         //        帐号登录
         final class func login(info: LoginInfo) -> Observable<UserInfo> {
             return defaultProvider.request(.login(info: info)).mapMoveObject(AccessToken.self).catchingToken().pushToken()
+                .flatMapLatest{ $0.cacheingUserInfo() }
         }
         //        第三方登录
         final class func tplogin(info: TpLoginInfo) -> Observable<UserInfo> {
@@ -198,6 +199,17 @@ extension MoveApi.Account.API: TargetType {
     /// The type of HTTP task to be performed.
     var task: Task { return .request }
     
+}
+
+extension MoveApi.Account.API: UseCache {
+    var useCache: Bool {
+        switch self {
+        case .getUserInfo:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension MoveApi.Account {

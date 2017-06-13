@@ -158,6 +158,12 @@ extension MoveApi.ActivityRecord.API: TargetType {
     
 }
 
+extension MoveApi.ActivityRecord.API: UseCache {
+    var useCache: Bool {
+        return false
+    }
+}
+
 extension MoveApi.ActivityRecord {
     
     final class func endpointMapping(for target: API) -> Endpoint<API> {

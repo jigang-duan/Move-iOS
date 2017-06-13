@@ -109,9 +109,8 @@ class MeSettingController: UIViewController {
                 case .failed:
                     self.showMessage("Logout failed")
                 case .ok:
-                    UserInfo.shared.invalidate()
-                    UserInfo.shared.profile = nil
                     Distribution.shared.popToLoginScreen()
+                    cleanWhenLogout()
                 default:
                     break
                 }

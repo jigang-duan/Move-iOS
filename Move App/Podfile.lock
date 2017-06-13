@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.4.0)
+  - AwesomeCache (5.0)
   - Bugly (2.4.7)
   - DZNEmptyDataSet (1.8.1)
   - FBSDKMessengerShareKit (1.3.2)
@@ -62,6 +63,7 @@ PODS:
   - SwiftyBeaver (1.1.3)
 
 DEPENDENCIES:
+  - AwesomeCache
   - Bugly
   - DZNEmptyDataSet
   - FBSDKMessengerShareKit
@@ -87,6 +89,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AwesomeCache: d8906955242173357caa0be0214d5e77dec32cc5
   Bugly: 2c256069145f550171907c5cb1c0f84ad291f6c1
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBSDKMessengerShareKit: 41c0b1a667d685c9433f993eb9611b3d5074e1cb
@@ -115,6 +118,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   SwiftyBeaver: 949aa1439b8fa3667f68555cfef65de46a70ccde
 
-PODFILE CHECKSUM: 8f5477af278eff653bbfb5f5ae93a3ae5bd05ce8
+PODFILE CHECKSUM: efc076772de91f651bf1ef05609fa3136ef37b02
 
 COCOAPODS: 1.2.0

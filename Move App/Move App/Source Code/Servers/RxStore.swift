@@ -27,6 +27,14 @@ class RxStore {
 }
 
 extension RxStore {
+    func clean() {
+        self.userId.value = nil
+        self.currentDeviceId.value = nil
+        self.deviceInfosState.value = []
+    }
+}
+
+extension RxStore {
     
     var uidObservable: Observable<String> {
         return userId.asObservable().filterNil()

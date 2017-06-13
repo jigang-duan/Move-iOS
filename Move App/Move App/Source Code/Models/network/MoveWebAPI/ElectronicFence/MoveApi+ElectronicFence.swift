@@ -124,6 +124,12 @@ extension MoveApi.ElectronicFence.API: TargetType {
     
 }
 
+extension MoveApi.ElectronicFence.API: UseCache {
+    var useCache: Bool {
+        return false
+    }
+}
+
 extension MoveApi.ElectronicFence {
     
     final class func endpointMapping(for target: API) -> Endpoint<API> {

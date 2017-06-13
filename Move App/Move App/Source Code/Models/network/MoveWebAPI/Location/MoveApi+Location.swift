@@ -147,6 +147,12 @@ extension MoveApi.Location.API: TargetType {
     
 }
 
+extension MoveApi.Location.API: UseCache {
+    var useCache: Bool {
+        return false
+    }
+}
+
 extension MoveApi.Location {
     
     final class func endpointMapping(for target: API) -> Endpoint<API> {

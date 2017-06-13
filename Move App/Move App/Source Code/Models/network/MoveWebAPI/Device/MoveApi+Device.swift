@@ -515,6 +515,20 @@ extension MoveApi.Device.API: TargetType {
     /// The type of HTTP task to be performed.
     var task: Task { return .request }
     
+    
+    
+}
+
+extension MoveApi.Device.API: UseCache {
+    
+    var useCache: Bool {
+        switch self {
+        case .getDeviceList:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension MoveApi.Device {

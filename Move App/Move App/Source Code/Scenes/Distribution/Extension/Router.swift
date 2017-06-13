@@ -186,7 +186,9 @@ class Distribution {
             AlertWireframe.presentAlert(logoutText ?? "Your account has timed out, login again.")
         }
         self.backToDistribution() { [weak self] in
-            self?.currentViewCotroller?.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+            if let current = self?.currentViewCotroller as? DistributionViewController {
+                current.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
+            }
         }
     }
     

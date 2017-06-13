@@ -12,7 +12,7 @@ import RxSwift
 import Result
 
 
-class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
+class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType, Target: UseCache {
     
     // First of all, we need to override designated initializer
     override init(endpointClosure: @escaping MoyaProvider<Target>.EndpointClosure = MoyaProvider.defaultEndpointMapping,
@@ -46,10 +46,9 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
         // Do not attempt to refresh a session if we don't have valid credentials
         guard let _ = UserInfo.shared.id,
             let _ = UserInfo.shared.accessToken.refreshToken else {
-            UserInfo.shared.invalidate()
-            UserInfo.shared.clean()
             if MoveApi.canPopToLoginScreen {
                 Distribution.shared.popToLoginScreen()
+                cleanWhenLogout()
             }
             return Observable.error(NSError.userAuthorizationError())
         }
@@ -61,25 +60,35 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType {
                 guard let errorId = error.id else { throw e }
             
                 if errorId == 11 {
-                    UserInfo.shared.invalidate()
-                    UserInfo.shared.clean()
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen()
+                        cleanWhenLogout()
                     }
                 }
                 throw error
         }
     }
     
+//    override func request(_ token: Target) -> Observable<Response> {
+//        let actualRequest = super.request(token)
+//        
+//        return self.XAppTokenRequest().flatMap { _ in
+//                actualRequest
+//            }
+//            .tokenError()
+//            .catchError(catchTokenError)
+//            .debug()
+//    }
+    
     override func request(_ token: Target) -> Observable<Response> {
-        let actualRequest = super.request(token)
+        let actualRequest = token.useCache ? super.tryUseOfflineCacheThenRequest(token: token) : super.request(token)
         
         return self.XAppTokenRequest().flatMap { _ in
                 actualRequest
             }
+            .distinctUntilChanged()
             .tokenError()
             .catchError(catchTokenError)
-            .debug()
     }
 }
 
@@ -94,10 +103,9 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
     }
     
     if apiError.isTokenExpired {
-        UserInfo.shared.invalidate()
-        UserInfo.shared.clean()
         if MoveApi.canPopToLoginScreen {
             Distribution.shared.popToLoginScreen(true)
+            cleanWhenLogout()
         }
         throw error
     }
@@ -108,10 +116,9 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
             return MoveApi.Account.loginLofo(username: username)
                 .map { (deviceName: $0.deviceName, loginDate: $0.date) }
                 .do(onNext: { (deviceName: String?, loginDate: Date?) in
-                    UserInfo.shared.invalidate()
-                    UserInfo.shared.clean()
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen(true, name: deviceName, date: loginDate)
+                        cleanWhenLogout()
                     }
                 })
                 .flatMapLatest({ (_) -> Observable<Response> in
@@ -127,6 +134,14 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
     }
     
     throw error
+}
+
+
+func cleanWhenLogout() {
+    UseOfflineCache.shared.clean()
+    UserInfo.shared.invalidate()
+    UserInfo.shared.clean()
+//    RxStore.shared.clean()
 }
 
 fileprivate extension ObservableType where E == Response {

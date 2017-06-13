@@ -96,8 +96,8 @@ protocol UserWorkerProtocl {
 
 extension UserManager {
     
-    func isValid() -> Observable<Bool> {
-        return UserInfo.shared.isValid()
+    func checkValid() -> Observable<Bool> {
+        return UserInfo.shared.checkValid()
     }
     
     var isValidNativeToken: Observable<Bool> {
@@ -215,7 +215,7 @@ extension UserInfo {
         }
     }
     
-    func isValid() -> Observable<Bool> {
+    func checkValid() -> Observable<Bool> {
         let _ = fetchUserInfo()
         guard accessToken.isValidAndNotExpired else {
             return Observable.just(false)
@@ -248,6 +248,16 @@ extension UserInfo {
             .catchingUserProfile()
             .map { $0.username != nil }
             .catchErrorJustReturn(false)
+    }
+    
+    func cacheingUserInfo() -> Observable<UserInfo> {
+        guard let uid = id else {
+            return Observable.empty()
+        }
+        let userInfo = self
+        return MoveApi.Account.getUserInfo(uid: uid)
+            .catchingUserProfile()
+            .map{_ in userInfo }
     }
     
 }

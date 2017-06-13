@@ -32,7 +32,8 @@
 		113C866E1EE94D4E001998DF /* sad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 113C86641EE94D4E001998DF /* sad@3x.png */; };
 		113C866F1EE94D4E001998DF /* sick@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 113C86651EE94D4E001998DF /* sick@3x.png */; };
 		113C86701EE94D4E001998DF /* smile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 113C86661EE94D4E001998DF /* smile@3x.png */; };
-		113F2E401E9DC3E100B3628C /* URLSchema+SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */; };
+		113E5CB41EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E5CB31EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift */; };
+		113F2E401E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E3F1E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift */; };
 		113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E411E9E06DC00B3628C /* URL+Parameters.swift */; };
 		113F2E461E9E12B400B3628C /* SOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E451E9E12B400B3628C /* SOSService.swift */; };
 		113F2E481E9E3D2C00B3628C /* SOSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F2E471E9E3D2C00B3628C /* SOSController.swift */; };
@@ -61,7 +62,7 @@
 		116BAE621EC96EC2001577D3 /* DBIMWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE611EC96EC2001577D3 /* DBIMWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
 		116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815F1E63E5E3003CEC39 /* DateUtility.swift */; };
-		116F818B1E6599D6003CEC39 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* Notification.swift */; };
+		116F818B1E6599D6003CEC39 /* AppDelegate+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818A1E6599D6003CEC39 /* AppDelegate+Notification.swift */; };
 		116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818C1E665C74003CEC39 /* NotificationServer.swift */; };
 		117577DA1E8B8D59007B2254 /* Rx+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117577D91E8B8D59007B2254 /* Rx+UIButton.swift */; };
 		11795CB11ED283DF00A5F10E /* Emotion_Dynamic_144 in Resources */ = {isa = PBXBuildFile; fileRef = 11795CB01ED283DF00A5F10E /* Emotion_Dynamic_144 */; };
@@ -392,7 +393,8 @@
 		113C86641EE94D4E001998DF /* sad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sad@3x.png"; sourceTree = "<group>"; };
 		113C86651EE94D4E001998DF /* sick@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sick@3x.png"; sourceTree = "<group>"; };
 		113C86661EE94D4E001998DF /* smile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smile@3x.png"; sourceTree = "<group>"; };
-		113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URLSchema+SOS.swift"; path = "Shared/Common/Application/URLSchema+SOS.swift"; sourceTree = "<group>"; };
+		113E5CB31EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxMoyaProvider+UserOfflineCache.swift"; sourceTree = "<group>"; };
+		113F2E3F1E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppDelegate+URLSchema+SOS.swift"; path = "Shared/Common/Application/AppDelegate+URLSchema+SOS.swift"; sourceTree = "<group>"; };
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
 		113F2E451E9E12B400B3628C /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = SOS/SOSService.swift; sourceTree = "<group>"; };
 		113F2E471E9E3D2C00B3628C /* SOSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOSController.swift; sourceTree = "<group>"; };
@@ -422,7 +424,7 @@
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
 		116F815F1E63E5E3003CEC39 /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtility.swift; path = Shared/Common/Utils/DateUtility.swift; sourceTree = "<group>"; };
 		116F81891E65408D003CEC39 /* Move App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Move App.entitlements"; sourceTree = "<group>"; };
-		116F818A1E6599D6003CEC39 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = Shared/Common/Application/Notification.swift; sourceTree = "<group>"; };
+		116F818A1E6599D6003CEC39 /* AppDelegate+Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppDelegate+Notification.swift"; path = "Shared/Common/Application/AppDelegate+Notification.swift"; sourceTree = "<group>"; };
 		116F818C1E665C74003CEC39 /* NotificationServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationServer.swift; path = Shared/Common/Application/Notification/NotificationServer.swift; sourceTree = "<group>"; };
 		117577D91E8B8D59007B2254 /* Rx+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+UIButton.swift"; path = "Shared/Extensisons/View/Rx+UIButton.swift"; sourceTree = "<group>"; };
 		11795CB01ED283DF00A5F10E /* Emotion_Dynamic_144 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Emotion_Dynamic_144; sourceTree = "<group>"; };
@@ -1606,6 +1608,7 @@
 				E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */,
 				E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */,
 				E01906E61E55A7E100F65852 /* OnlineProvider.swift */,
+				113E5CB31EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift */,
 				FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */,
 			);
 			path = MoveWebAPI;
@@ -1704,8 +1707,8 @@
 			isa = PBXGroup;
 			children = (
 				E0931F2C1E30C63500755B4A /* ApplicationManager.swift */,
-				116F818A1E6599D6003CEC39 /* Notification.swift */,
-				113F2E3F1E9DC3E100B3628C /* URLSchema+SOS.swift */,
+				116F818A1E6599D6003CEC39 /* AppDelegate+Notification.swift */,
+				113F2E3F1E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift */,
 				11F71CF71EA9F0360066B9FC /* Preferences.swift */,
 			);
 			name = Application;
@@ -2669,7 +2672,7 @@
 				FF14AC201E77901500FBE899 /* WatchFriendsListViewModel.swift in Sources */,
 				E97B4F3A1E6E63CC00DC1326 /* SelectTimeZoneController.swift in Sources */,
 				D24C4D4D1E4DD57F00F9E33A /* MoveApi+ElectronicFence.swift in Sources */,
-				116F818B1E6599D6003CEC39 /* Notification.swift in Sources */,
+				116F818B1E6599D6003CEC39 /* AppDelegate+Notification.swift in Sources */,
 				FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */,
 				116F815D1E60535F003CEC39 /* R.generated.swift in Sources */,
 				E0931F421E31AC3A00755B4A /* ChoseDeviceController.swift in Sources */,
@@ -2803,7 +2806,7 @@
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */,
-				113F2E401E9DC3E100B3628C /* URLSchema+SOS.swift in Sources */,
+				113F2E401E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
@@ -2827,6 +2830,7 @@
 				E9735EC21E69432000C0B944 /* LanguageViewController.swift in Sources */,
 				11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */,
 				118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */,
+				113E5CB41EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift in Sources */,
 				93015C131EC43E76002D08C3 /* Encryptor.m in Sources */,
 				FF02FBC91E68050C008D0C84 /* MoveApiDeviceWorker.swift in Sources */,
 				E0FA02A21E5C061D004A55BA /* WorkerError.swift in Sources */,

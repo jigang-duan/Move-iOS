@@ -179,6 +179,12 @@ extension MoveIM.ImApi.API: TargetType {
     
 }
 
+extension MoveIM.ImApi.API: UseCache {
+    var useCache: Bool {
+        return false
+    }
+}
+
 extension MoveIM.ImApi {
     
     final class func endpointMapping(for target: API) -> Endpoint<API> {

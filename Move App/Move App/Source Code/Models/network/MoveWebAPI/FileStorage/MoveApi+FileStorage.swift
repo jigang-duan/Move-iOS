@@ -147,6 +147,12 @@ extension MoveApi.FileStorage.API: TargetType {
     
 }
 
+extension MoveApi.FileStorage.API: UseCache {
+    var useCache: Bool {
+        return false
+    }
+}
+
 extension MoveApi.FileStorage {
     final class func endpointMapping(for target: API) -> Endpoint<API> {
         let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
