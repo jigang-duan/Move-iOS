@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 
-class ProtectAccountController: UIViewController {
+class ProtectAccountController: TranslucentNavBarController {
     
     @IBOutlet weak var HelpLabel: UILabel!
     @IBOutlet weak var vcodeTf: UITextField!

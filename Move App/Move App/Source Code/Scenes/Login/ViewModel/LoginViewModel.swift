@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Moya
 
 
 class LoginViewModel {
@@ -72,7 +73,7 @@ class LoginViewModel {
                         UserDefaults.standard.setValue(email, forKey: lastLoginAccount)
                         return ValidationResult.ok(message: "Login Success.")
                     }
-                    .asDriver(onErrorRecover: commonErrorRecover)
+                    .asDriver(onErrorRecover: errorRecover)
             })
         
         self.loginEnabled = Driver.combineLatest(
@@ -156,10 +157,8 @@ extension Reactive where Base: ShareSDK {
                 case .success:
                     observer.onNext(user!)
                     observer.onCompleted()
-                    print("授权成功,用户信息为\(user)\n ----- 授权凭证为\(user?.credential)")
                 case .fail:
                     observer.onError(error!)
-                    print("授权失败,错误描述:\(error)")
                 default:
                     observer.onCompleted()
                 }
@@ -169,4 +168,20 @@ extension Reactive where Base: ShareSDK {
             }
             .share()
     }
+}
+
+
+fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> {
+    if let merror = error as?  MoyaError {
+        if case MoyaError.underlying(_) = merror {
+            ProgressHUD.show(status: "Network Unavailable")
+        }
+    }
+    
+    guard let _error = error as?  WorkerError else {
+        return Driver.just(ValidationResult.empty)
+    }
+    
+    let msg = WorkerError.apiErrorTransform(from: _error)
+    return Driver.just(ValidationResult.failed(message: msg))
 }

@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class PwdRecoveryController: UIViewController {
+class PwdRecoveryController: TranslucentNavBarController {
 
     @IBOutlet weak var helpLabel: UILabel!
     @IBOutlet weak var emailTf: UITextField!

@@ -91,7 +91,6 @@ class LoginViewController: UIViewController {
         self.initializeI18N()
 
         // Do any additional setup after loading the view.
-        ThemeManager.applyNavigationBar(theme: Theme.clean)
         
         self.setupUI()
       
@@ -219,7 +218,11 @@ extension LoginViewController {
     fileprivate func loginOnValidation(_ result: ValidationResult) {
         switch result {
         case .failed(let message):
-            self.showAccountError(message)
+            if message == R.string.localizable.id_password_not_same() {
+                self.showPasswordError(message)
+            }else{
+                self.showAccountError(message)
+            }
         case .ok:
             retractionKeyboard()
             Distribution.shared.showMainScreen()

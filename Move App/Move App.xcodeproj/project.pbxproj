@@ -313,6 +313,7 @@
 		FFB543B11E7175DD00E11F5A /* MeSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB543B01E7175DD00E11F5A /* MeSettingController.swift */; };
 		FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */; };
 		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
+		FFD06D031EEFAF3B0073CD48 /* TranslucentNavBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD06D021EEFAF3B0073CD48 /* TranslucentNavBarController.swift */; };
 		FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D931E7021F2006B80AE /* UpgradeController.swift */; };
 		FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D951E702464006B80AE /* UpgradeViewModel.swift */; };
 		FFF2E8EA1E824C640082FEB7 /* APNforWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */; };
@@ -698,6 +699,7 @@
 		FFB543B01E7175DD00E11F5A /* MeSettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeSettingController.swift; sourceTree = "<group>"; };
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
+		FFD06D021EEFAF3B0073CD48 /* TranslucentNavBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslucentNavBarController.swift; path = Shared/App/Theme/TranslucentNavBarController.swift; sourceTree = "<group>"; };
 		FFE84D931E7021F2006B80AE /* UpgradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeController.swift; sourceTree = "<group>"; };
 		FFE84D951E702464006B80AE /* UpgradeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
 		FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APNforWatchVC.swift; sourceTree = "<group>"; };
@@ -1928,6 +1930,7 @@
 			isa = PBXGroup;
 			children = (
 				E0C228F61E35B01300BCF83D /* Theme.swift */,
+				FFD06D021EEFAF3B0073CD48 /* TranslucentNavBarController.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -2810,6 +2813,7 @@
 				D298B3AD1E5C115900613F94 /* AccountAndChoseDeviceController.swift in Sources */,
 				E9E30CC91E6AA06200B66979 /* UsepermissionViewModel.swift in Sources */,
 				E99C8FEE1EC156A6000F3F30 /* ScrollLabelView.m in Sources */,
+				FFD06D031EEFAF3B0073CD48 /* TranslucentNavBarController.swift in Sources */,
 				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationController.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,

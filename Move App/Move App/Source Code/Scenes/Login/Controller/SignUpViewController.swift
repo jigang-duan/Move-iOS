@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import SafariServices
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: TranslucentNavBarController {
 
     @IBOutlet weak var emailTf: UITextField!
     @IBOutlet weak var emailValidation: UILabel!

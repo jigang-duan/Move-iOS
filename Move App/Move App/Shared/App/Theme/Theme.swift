@@ -13,11 +13,11 @@ import Rswift
 
 
 enum Theme: Int {
-  case `default`, dark, graphical, clean
+  case `default`, dark, graphical
 
   var mainColor: UIColor {
     switch self {
-    case .default, .clean:
+    case .default:
         return R.color.appColor.primary()
     case .dark:
         return UIColor(r: 242, g: 101, b: 34)
@@ -28,7 +28,7 @@ enum Theme: Int {
 
   var barStyle: UIBarStyle {
     switch self {
-    case .default, .graphical, .clean:
+    case .default, .graphical:
       return .default
     case .dark:
       return .black
@@ -40,7 +40,7 @@ enum Theme: Int {
     }
 
   var navigationBackgroundImage: UIImage? {
-    return self == .clean ? UIImage() : R.image.nav_bg()?.resizingStretchImage()
+    return R.image.nav_bg()?.resizingStretchImage()
 //    return self == .graphical ? R.image.navBackground() : UIImage(gradientColors: [darkPrimaryColor.withAlphaComponent(0.4), darkPrimaryColor],
 //                                                                  size: CGSize(width: 320, height: 44),
 //                                                                  locations: [0.0, 1.0])
@@ -52,7 +52,7 @@ enum Theme: Int {
 
   var backgroundColor: UIColor {
     switch self {
-    case .default, .graphical, .clean:
+    case .default, .graphical:
       return UIColor(white: 0.9, alpha: 1.0)
     case .dark:
       return UIColor(white: 0.8, alpha: 1.0)
@@ -61,7 +61,7 @@ enum Theme: Int {
 
   var secondaryColor: UIColor {
     switch self {
-    case .default, .clean:
+    case .default:
         return R.color.appColor.accent()
     case .dark:
         return UIColor(r: 34, g: 128, b: 66)
@@ -71,12 +71,7 @@ enum Theme: Int {
   }
     
     var iconsColor: UIColor {
-        switch self {
-        case .clean:
-            return R.color.appColor.secondayText()
-        default:
-            return R.color.appColor.icons()
-        }
+        return R.color.appColor.icons()
     }
 }
 
