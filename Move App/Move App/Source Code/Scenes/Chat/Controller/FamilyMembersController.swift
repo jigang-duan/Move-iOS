@@ -80,7 +80,7 @@ class FamilyMembersController: UICollectionViewController {
                 .imageRepresentation()!
             
             let imgUrl = URL(string: member.profile?.fsImageUrl ?? "")
-            cell.imageView.kf.setImage(with: imgUrl, placeholder: placeImg)
+            cell.imageView.kf.setImage(with: imgUrl, placeholder: member.identity?.image ?? placeImg)
         }
     
         return cell

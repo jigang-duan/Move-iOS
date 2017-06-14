@@ -97,7 +97,7 @@ class UUMessageCell: UITableViewCell {
             self.btnHeadImage.frame = CGRect(x: 2, y: 2, width: ChatIconWH-4, height: ChatIconWH-4)
             _ = self.btnHeadImage.kf.setBackgroundImage(with: URL(string: message.icon),
                                                     for: .normal,
-                                                    placeholder: UIImage(named: "headImage.jpeg"),
+                                                    placeholder: UIImage(named: message.icon),
                                                     options: [.transition(ImageTransition.fade(1))],
                                                     progressBlock: nil,
                                                     completionHandler: nil)

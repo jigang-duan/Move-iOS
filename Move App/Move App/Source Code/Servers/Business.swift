@@ -134,12 +134,6 @@ extension KidSate.LocationType: CustomStringConvertible {
             return "LBS"
         case .wifi:
             return "Wifi"
-//        case .gps_lbs:
-//            return "GPS+LBS"
-//        case .gps_wifi:
-//            return "GPS+WiFi"
-//        case .lbs_wifi:
-//            return "LBS+WiFi"
         case .sos:
             return "SOS"
         }
@@ -331,28 +325,51 @@ extension Relation: CustomStringConvertible {
         }
     }
     
-//    private func otherIdentity(_ value: String) -> String {
-//        switch value {
-//        case "Mother":
-//            return "1"
-//        case "Father":
-//            return "2"
-//        case "Grandpa":
-//            return "3"
-//        case "Grandma":
-//            return "4"
-//        case "Uncle":
-//            return "5"
-//        case "Aunty":
-//            return "6"
-//        case "Brother":
-//            return "7"
-//        case "Sister":
-//            return "8"
-//        default:
-//            return value
-//        }
-//    }
+    var image: UIImage? {
+        switch self {
+        case .mother:
+            return R.image.relationship_ic_mun()
+        case .father:
+            return R.image.relationship_ic_dad()
+        case .grandpa:
+            return R.image.relationship_ic_grandpa()
+        case .grandma:
+            return R.image.relationship_ic_grandma()
+        case .uncle:
+            return R.image.relationship_ic_uncle()
+        case .aunty:
+            return R.image.relationship_ic_aunt()
+        case .brother:
+            return R.image.relationship_ic_brother()
+        case .sister:
+            return R.image.relationship_ic_sister()
+        case .other:
+            return R.image.relationship_ic_other()
+        }
+    }
+    
+    var imageName: String {
+        switch self {
+        case .mother:
+            return "relationship_ic_mun"
+        case .father:
+            return "relationship_ic_dad"
+        case .grandpa:
+            return "relationship_ic_grandpa"
+        case .grandma:
+            return "relationship_ic_grandma"
+        case .uncle:
+            return "relationship_ic_uncle"
+        case .aunty:
+            return "relationship_ic_aunt"
+        case .brother:
+            return "relationship_ic_brother"
+        case .sister:
+            return "relationship_ic_sister"
+        case .other:
+            return "relationship_ic_other"
+        }
+    }
 }
 
 extension KidSate.SOSLbsModel {
