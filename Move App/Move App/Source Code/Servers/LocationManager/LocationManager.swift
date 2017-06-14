@@ -29,11 +29,9 @@ class LocationManager  {
     static let share = LocationManager()
     
     fileprivate var worker: LocationWorkerProtocl!
-    fileprivate var cache: IMCacheSafeZoneWorker!
     
     init() {
         worker = MoveApiLocationWorker()
-        cache = IMCacheLocationWorker()
     }
     
     var currentLocation: Observable<KidSate.LocationInfo> {
@@ -62,9 +60,7 @@ class LocationManager  {
         guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable.empty()
         }
-        let api = self.worker.fetchSafeZone(deviceId: deviceId).catchingSafeZones(device: deviceId)
-        let cache = self.cache.fetchSafeZone(deviceId: deviceId)
-        return Observable.concat(cache, api)
+        return self.worker.fetchSafeZone(deviceId: deviceId).catchErrorEmpty()
     }
     
     func delectSafeZone(_ fenceId: String) -> Observable<Bool>{

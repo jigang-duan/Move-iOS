@@ -22,14 +22,11 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType, T
          plugins: [PluginType] = [],
          trackInflights: Bool = false) {
         
-        let _plugins = plugins
-//        _plugins.append(MoveApiAccountTokenPlugin())
-        
         super.init(endpointClosure: endpointClosure,
                    requestClosure: requestClosure,
                    stubClosure: stubClosure,
                    manager: manager,
-                   plugins: _plugins,
+                   plugins: plugins,
                    trackInflights: trackInflights)
     }
     
@@ -48,7 +45,6 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType, T
             let _ = UserInfo.shared.accessToken.refreshToken else {
             if MoveApi.canPopToLoginScreen {
                 Distribution.shared.popToLoginScreen()
-                cleanWhenLogout()
             }
             return Observable.error(NSError.userAuthorizationError())
         }
@@ -62,23 +58,11 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType, T
                 if errorId == 11 {
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen()
-                        cleanWhenLogout()
                     }
                 }
                 throw error
         }
     }
-    
-//    override func request(_ token: Target) -> Observable<Response> {
-//        let actualRequest = super.request(token)
-//        
-//        return self.XAppTokenRequest().flatMap { _ in
-//                actualRequest
-//            }
-//            .tokenError()
-//            .catchError(catchTokenError)
-//            .debug()
-//    }
     
     override func request(_ token: Target) -> Observable<Response> {
         let actualRequest = token.useCache ? super.tryUseOfflineCacheThenRequest(token: token) : super.request(token)
@@ -105,7 +89,6 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
     if apiError.isTokenExpired {
         if MoveApi.canPopToLoginScreen {
             Distribution.shared.popToLoginScreen(true)
-            cleanWhenLogout()
         }
         throw error
     }
@@ -118,7 +101,6 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
                 .do(onNext: { (deviceName: String?, loginDate: Date?) in
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen(true, name: deviceName, date: loginDate)
-                        cleanWhenLogout()
                     }
                 })
                 .flatMapLatest({ (_) -> Observable<Response> in

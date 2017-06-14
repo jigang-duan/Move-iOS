@@ -57,7 +57,6 @@
 		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
 		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
 		116860BE1EB8624700C3426A /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116860BD1EB8624700C3426A /* HelpController.swift */; };
-		116BAE5D1EC945E2001577D3 /* IMCache+Location+SafeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5C1EC945E2001577D3 /* IMCache+Location+SafeZone.swift */; };
 		116BAE601EC9672A001577D3 /* IMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5F1EC9672A001577D3 /* IMDB.swift */; };
 		116BAE621EC96EC2001577D3 /* DBIMWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE611EC96EC2001577D3 /* DBIMWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
@@ -418,7 +417,6 @@
 		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
 		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
 		116860BD1EB8624700C3426A /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
-		116BAE5C1EC945E2001577D3 /* IMCache+Location+SafeZone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "IMCache+Location+SafeZone.swift"; path = "cache/InternalMemory/Location/IMCache+Location+SafeZone.swift"; sourceTree = "<group>"; };
 		116BAE5F1EC9672A001577D3 /* IMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDB.swift; path = IM/IMDB.swift; sourceTree = "<group>"; };
 		116BAE611EC96EC2001577D3 /* DBIMWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBIMWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
@@ -925,7 +923,6 @@
 		116BAE5B1EC94526001577D3 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				116BAE5C1EC945E2001577D3 /* IMCache+Location+SafeZone.swift */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -2850,7 +2847,6 @@
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
 				E9E2B8AC1E712DCF00149257 /* ToDoListViewModel.swift in Sources */,
 				E03B1C5B1E53E9C8006EDB7B /* PopoverViewCell.swift in Sources */,
-				116BAE5D1EC945E2001577D3 /* IMCache+Location+SafeZone.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

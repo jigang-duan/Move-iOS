@@ -97,13 +97,13 @@ class MoveApiUserWorker: UserWorkerProtocl {
     }
     
     func fetchProfile() -> Observable<UserInfo.Profile> {
-        if let profile = UserInfo.shared.profile {
-            return Observable.just(profile)
-        }
+//        if let profile = UserInfo.shared.profile {
+//            return Observable.just(profile)
+//        }
         guard let userId = UserInfo.shared.id else {
             return Observable.empty()
         }
-        return MoveApi.Account.getUserInfo(uid: userId)
+        return MoveApi.Account.getUserInfo(uid: userId).catchErrorEmpty()
             .map(wrapProfile)
     }
     

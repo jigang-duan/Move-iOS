@@ -126,7 +126,12 @@ extension MoveApi.ElectronicFence.API: TargetType {
 
 extension MoveApi.ElectronicFence.API: UseCache {
     var useCache: Bool {
-        return false
+        switch self {
+        case .getFences:
+            return true
+        default:
+            return false
+        }
     }
 }
 

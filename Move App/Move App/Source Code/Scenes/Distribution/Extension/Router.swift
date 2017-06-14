@@ -187,6 +187,7 @@ class Distribution {
         }
         self.backToDistribution() { [weak self] in
             if let current = self?.currentViewCotroller as? DistributionViewController {
+                cleanWhenLogout()
                 current.performSegue(withIdentifier: R.segue.distributionViewController.showLogin.identifier, sender: nil)
             }
         }

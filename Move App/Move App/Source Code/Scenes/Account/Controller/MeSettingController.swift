@@ -110,7 +110,6 @@ class MeSettingController: UIViewController {
                     self.showMessage("Logout failed")
                 case .ok:
                     Distribution.shared.popToLoginScreen()
-                    cleanWhenLogout()
                 default:
                     break
                 }
