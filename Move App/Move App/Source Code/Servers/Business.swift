@@ -45,22 +45,42 @@ struct KidProfile {
 class KidSate {
     
     enum LocationType: Int {
-        case gps = 1
-        case lbs = 16
-        case wifi = 17
-        case gps_lbs = 256
-        case gps_wifi = 257
-        case lbs_wifi = 272
+        case gps = 0x001
+        case lbs = 0x010
+        case wifi = 0x100
         case sos = 0x8000
-        
     }
+    
+    struct LocationTypeSet {
+        let set: Set<KidSate.LocationType>
+        let rawValue: Int
+        
+        init(rawValue: Int) {
+            var typeSet = Set<KidSate.LocationType>()
+            self.rawValue = rawValue
+            if (rawValue & KidSate.LocationType.gps.rawValue) != 0 {
+                typeSet.insert(.gps)
+            }
+            if (rawValue & KidSate.LocationType.lbs.rawValue) != 0 {
+                typeSet.insert(.lbs)
+            }
+            if (rawValue & KidSate.LocationType.wifi.rawValue) != 0 {
+                typeSet.insert(.wifi)
+            }
+            if (rawValue & KidSate.LocationType.sos.rawValue) != 0 {
+                typeSet.insert(.sos)
+            }
+            self.set = typeSet
+        }
+    }
+    
     
     struct LocationInfo {
         var location: CLLocationCoordinate2D?
         var address: String?
         var accuracy: CLLocationDistance?
         var time: Date?
-        var type: LocationType?
+        var type: LocationTypeSet?
     }
     
     struct ElectronicFencea {
@@ -114,17 +134,18 @@ extension KidSate.LocationType: CustomStringConvertible {
             return "LBS"
         case .wifi:
             return "Wifi"
-        case .gps_lbs:
-            return "GPS+LBS"
-        case .gps_wifi:
-            return "GPS+WiFi"
-        case .lbs_wifi:
-            return "LBS+WiFi"
+//        case .gps_lbs:
+//            return "GPS+LBS"
+//        case .gps_wifi:
+//            return "GPS+WiFi"
+//        case .lbs_wifi:
+//            return "LBS+WiFi"
         case .sos:
             return "SOS"
         }
     }
 }
+
 
 class KidLocationManager {
 }

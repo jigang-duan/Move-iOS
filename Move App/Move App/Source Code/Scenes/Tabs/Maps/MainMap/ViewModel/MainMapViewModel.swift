@@ -20,7 +20,7 @@ class MainMapViewModel {
     
     let kidLocation: Observable<CLLocationCoordinate2D>
     let kidAddress: Observable<String>
-    let kidType: Observable<KidSate.LocationType>
+    let kidType: Observable<KidSate.LocationTypeSet>
     let locationTime: Observable<Date>
     
     let kidAnnotion: Observable<AccuracyAnnotation>

@@ -142,19 +142,30 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             self.currentRadius = Double(safeZoneSlider.value)
             self.drawOverlay(radius: self.currentRadius)
             let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
-            self.mainMapView.addAnnotation(annotion)
+//            self.mainMapView.addAnnotation(annotion)
             if self.circleOverlay == nil
             {
                 self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
                 self.mainMapView.add(self.circleOverlay!)
             }
+            //得到最新的点
+            let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
+                .map({
+                    let newDots = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
+                    let annotion = BaseAnnotation((newDots.latitude), (newDots.longitude))
+                    self.mainMapView.addAnnotation(annotion)
+                })
+            getaddressdata.subscribe(onNext: {
+                print($0)
+            }).addDisposableTo(disposeBag)
+            
+            
             self.isEmptyFence = false
         }else{
             //新增
             self.title = "Add Safe zone"
             let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
                 .map({
-                   
                     self.kidaddressTF.text = $0.location?.addr
                     self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
                     let region = MKCoordinateRegionMakeWithDistance(self.fencelocation!, 1500, 1500)
@@ -197,7 +208,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 if let overflay = self?.circleOverlay {
                     self?.mainMapView.remove(overflay)
                 }
-                
                 self?.circleBorderView.frame = (self?.mainMapView.bounds)!
                 self?.mainMapView.addSubview((self?.circleBorderView)!)
                 self?.circleBorderView.radius = (self?.rectFromCoordinate.height)!
@@ -526,6 +536,7 @@ extension AddSafeZoneVC : UITextFieldDelegate {
 
 }
 
+//地图代理方法
 extension AddSafeZoneVC : MKMapViewDelegate {
     
     //黄点

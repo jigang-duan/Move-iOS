@@ -119,7 +119,7 @@ extension KidSate.LocationInfo {
         self.address = location.addr
         self.accuracy = location.accuracy
         self.time = location.time
-        self.type = KidSate.LocationType(rawValue: location.type ?? 0)
+        self.type = KidSate.LocationTypeSet(rawValue: location.type ?? 0)
     }
 
 }

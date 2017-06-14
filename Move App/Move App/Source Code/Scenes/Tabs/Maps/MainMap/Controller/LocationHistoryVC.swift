@@ -336,7 +336,10 @@ extension LocationHistoryVC : MKMapViewDelegate {
                 return annotationView
 
             }else{
-                if point.info?.type == KidSate.LocationType.sos{
+                if
+                    let type = point.info?.type,
+                    type.set.contains(.sos) {
+                    
                     let reuseIdentifier = "targetAnnoteationReuseIdentifiersos"
                     var annoView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
                     if annoView == nil {
