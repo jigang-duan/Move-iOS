@@ -144,10 +144,13 @@ fileprivate func resultSelector(groups: [GroupEntity], devices: [DeviceInfo]) th
 fileprivate func containDevices(form group: GroupEntity, _ devices: [DeviceInfo]) -> GroupEntity {
     guard let device = devices.filter({ group.hasTheDevice($0) }).first else { return group }
     
-    if group.headPortrait == nil {
+    if group.headPortrait == device.user?.profile {
         return group
     }
     let realm = try! Realm()
+    if realm.isInWriteTransaction {
+        return group
+    }
     try? realm.write {
         group.headPortrait = device.user?.profile
         group.name = device.user?.nickname
