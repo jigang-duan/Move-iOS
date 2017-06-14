@@ -13,6 +13,8 @@ class RxStore {
     
     static let shared = RxStore()
     
+    let cleanSubject = PublishSubject<Void>()
+    
     // MARK: - State
     
     var userId: Variable<String?> = Variable(nil)
@@ -28,9 +30,7 @@ class RxStore {
 
 extension RxStore {
     func clean() {
-        self.userId.value = nil
-        self.currentDeviceId.value = nil
-        self.deviceInfosState.value = []
+        cleanSubject.onNext(())
     }
 }
 

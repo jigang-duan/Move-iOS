@@ -123,7 +123,7 @@ func cleanWhenLogout() {
     UseOfflineCache.shared.clean()
     UserInfo.shared.invalidate()
     UserInfo.shared.clean()
-//    RxStore.shared.clean()
+    RxStore.shared.clean()
 }
 
 fileprivate extension ObservableType where E == Response {

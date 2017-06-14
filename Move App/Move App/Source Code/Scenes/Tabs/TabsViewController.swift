@@ -14,7 +14,7 @@ import RxCocoa
 
 class TabsViewController: UITabBarController {
     
-    let enterSubject = BehaviorSubject<Bool>(value: false)
+    let enterSubject = PublishSubject<Void>()
     
     let bag = DisposeBag()
     
@@ -38,13 +38,18 @@ class TabsViewController: UITabBarController {
             })
             .addDisposableTo(bag)
         
-        enterSubject.asObservable()
-            .filter({$0})
-            .withLatestFrom(hasDevice)
-            .filter({ !$0 })
-            .bindNext({ [weak self] _ in
+//        enterSubject.asObservable()
+//            .withLatestFrom(hasDevice)
+//            .filter({ !$0 })
+//            .bindNext { [weak self] _ in
+//                self?.selectedIndex = 1
+//            }
+//            .addDisposableTo(bag)
+
+        hasDevice.filter { !$0 }
+            .bindNext { [weak self] _ in
                 self?.selectedIndex = 1
-            })
+            }
             .addDisposableTo(bag)
         
         MessageServer.share.syncDataInitalization(disposeBag: bag)
@@ -71,7 +76,7 @@ class TabsViewController: UITabBarController {
             .addDisposableTo(bag)
         
         AlertServer.share.unpiredSubject.asObservable()
-            .flatMapLatest { DeviceManager.shared.fetchDevices().catchErrorJustReturn([]) }
+            .flatMapLatest { DeviceManager.shared.fetchDevices() }
             .bindTo(RxStore.shared.deviceInfosState)
             .addDisposableTo(bag)
         
@@ -79,7 +84,7 @@ class TabsViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        enterSubject.onNext(true)
+        enterSubject.onNext(())
     }
 
     override func didReceiveMemoryWarning() {

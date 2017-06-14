@@ -42,6 +42,11 @@ class DistributionViewController: UIViewController {
             .drive(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
         
+        RxStore.shared.cleanSubject.asObservable()
+            .map{ [] }
+            .bindTo(RxStore.shared.deviceInfosState)
+            .addDisposableTo(disposeBag)
+        
     }
 
     override func didReceiveMemoryWarning() {
