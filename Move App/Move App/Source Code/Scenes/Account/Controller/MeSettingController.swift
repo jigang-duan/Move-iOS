@@ -170,11 +170,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 4
-        }else {
-            return 4
-        }
+        return 4
     }
     
     

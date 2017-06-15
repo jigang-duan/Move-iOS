@@ -29,12 +29,6 @@ class SignUpViewController: TranslucentNavBarController {
     var disposeBag = DisposeBag()
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-    
-    }
-    
     func showAccountError(_ text: String) {
         emailValidHConstrain.constant = 16
         emailValidation.isHidden = false
@@ -301,8 +295,3 @@ extension SignUpViewController: UITextFieldDelegate {
 }
 
 
-extension SignUpViewController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-}

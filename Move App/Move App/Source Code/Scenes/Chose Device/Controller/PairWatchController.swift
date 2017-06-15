@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PairWatchController: UIViewController {
+class PairWatchController: TranslucentNavBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,19 @@ class PairWatchController: UIViewController {
 
     
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = true
+    }
     
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        self.navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    
 }
 

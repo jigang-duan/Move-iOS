@@ -143,9 +143,12 @@ class KidInformationController: UIViewController {
         
         
         if let gender = info.gender {
-            genderLab.text = (gender == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
+            genderLab.text = (gender == .female ? "Girl":"Boy")
+            let img = (gender == .female ? R.image.information_gender_female():R.image.information_gender_male())
+            self.genderBun.setBackgroundImage(img, for: .normal)
         }else{
             genderLab.text = R.string.localizable.id_gender()
+            self.genderBun.setBackgroundImage(R.image.information_gender(), for: .normal)
         }
         
         if let height = info.height {
@@ -311,7 +314,9 @@ class KidInformationController: UIViewController {
             
             vc.genderBlock = { [weak self] (gender) in
                 self?.addInfoVariable.value.gender = gender
-                self?.genderLab.text = (gender == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
+                self?.genderLab.text = (gender == .female ? "Girl":"Boy")
+                let img = (gender == .female ? R.image.information_gender_female():R.image.information_gender_male())
+                self?.genderBun.setBackgroundImage(img, for: .normal)
             }
         }
         if let vc = R.segue.kidInformationController.setBirthdayVC(segue: segue)?.destination  {

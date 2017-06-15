@@ -290,11 +290,6 @@ class UpdatePwdController: TranslucentNavBarController {
         rePasswordTf.isSecureTextEntry = !sender.isSelected
     }
     
-    
-    @IBAction func backAction(_ sender: AnyObject?) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-
    
 }
 
@@ -313,8 +308,3 @@ extension UpdatePwdController: UITextFieldDelegate {
 }
 
 
-extension UpdatePwdController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-}

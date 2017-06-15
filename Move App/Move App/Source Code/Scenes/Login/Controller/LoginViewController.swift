@@ -12,7 +12,7 @@ import RxCocoa
 
 let lastLoginAccount = "lastLoginAccount"
 
-class LoginViewController: UIViewController {
+class LoginViewController: TranslucentNavBarController {
     
     @IBOutlet weak var emailOutlet: UITextField!
     @IBOutlet weak var emailValidationOutlet: UILabel!
@@ -55,12 +55,6 @@ class LoginViewController: UIViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    
     func setupUI() {
         let screenH = UIScreen.main.bounds.height
         if screenH < 500 {
@@ -84,6 +78,14 @@ class LoginViewController: UIViewController {
         }
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.tintColor = R.color.appColor.primaryText()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: R.color.appColor.primaryText()]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,7 +176,6 @@ class LoginViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         retractionKeyboard()
-        self.navigationController?.navigationBar.isHidden = false
     }
     
 }

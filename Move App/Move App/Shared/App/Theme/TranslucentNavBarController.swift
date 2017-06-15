@@ -10,16 +10,21 @@ import UIKit
 
 class TranslucentNavBarController: UIViewController {
     
+    private var naviBackImage: UIImage?
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        naviBackImage = self.navigationController?.navigationBar.backgroundImage(for: .default)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.tintColor = R.color.appColor.secondayText()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: R.color.appColor.primaryText()]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.setBackgroundImage(naviBackImage, for: .default)
+        
     }
     
 

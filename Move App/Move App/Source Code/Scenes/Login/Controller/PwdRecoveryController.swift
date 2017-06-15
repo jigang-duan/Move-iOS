@@ -21,11 +21,6 @@ class PwdRecoveryController: TranslucentNavBarController {
     var viewModel: PwdRecoveryViewModel!
     var disposeBag = DisposeBag()
 
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
 
     func showValidateError(_ text: String) {
         emailValidation.isHidden = false
@@ -89,8 +84,8 @@ class PwdRecoveryController: TranslucentNavBarController {
                 switch doneResult {
                 case .failed(let message):
                     self?.showValidateError(message)
-                case .ok(let message):
-                    self?.gotoUpdatePswdVC(message)
+                case .ok:
+                    self?.performSegue(withIdentifier: R.segue.pwdRecoveryController.showUpdatePassword, sender: nil)
                 default:
                     self?.revertValidateError()
                 }
@@ -122,27 +117,13 @@ class PwdRecoveryController: TranslucentNavBarController {
     }
     
     
-    @IBAction func backAction(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-
-    func gotoUpdatePswdVC(_ sid: String){
-        self.performSegue(withIdentifier: R.segue.pwdRecoveryController.showUpdatePassword, sender: nil)
-    }
-
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let sg = R.segue.pwdRecoveryController.showUpdatePassword(segue: segue) {
-            sg.destination.sid = viewModel.sid
-            sg.destination.email = emailTf.text
+        if let vc = R.segue.pwdRecoveryController.showUpdatePassword(segue: segue)?.destination {
+            vc.sid = viewModel.sid
+            vc.email = emailTf.text
         }
     }
     
 }
-extension PwdRecoveryController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-}
+
 

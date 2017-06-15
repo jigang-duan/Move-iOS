@@ -170,17 +170,5 @@ class ProtectAccountController: TranslucentNavBarController {
     }
     
     
-    
-    
-    @IBAction func BackAction(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    
 }
 
-extension ProtectAccountController {
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-}

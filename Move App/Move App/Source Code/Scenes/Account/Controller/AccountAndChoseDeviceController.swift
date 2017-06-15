@@ -27,6 +27,7 @@ class AccountAndChoseDeviceController: UIViewController {
     @IBOutlet weak var addDeviceLab: UILabel!
     
     
+    @IBOutlet weak var separateLine: UIView!
     
     let disposeBag = DisposeBag()
     let enterSubject = PublishSubject<Bool>()
@@ -68,6 +69,10 @@ class AccountAndChoseDeviceController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
+        RxStore.shared.deviceInfosObservable
+            .map{ $0.count == 0 }
+            .bindTo(separateLine.rx.isHidden)
+            .addDisposableTo(disposeBag)
         
         RxStore.shared.deviceInfosObservable
             .map{ $0.count >= 5 }

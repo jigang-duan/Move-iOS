@@ -93,16 +93,17 @@ class InputImeiVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.imeiInvalidte.drive(onNext: { [weak self] result in
-            switch result{
-            case .failed(let message):
-                self?.showValidateError(message)
-            case .empty:
-                self?.showValidateError("Please input IMEI")
-            default:
-                self?.revertValidateError()
-            }
-        })
+        viewModel.imeiInvalidte
+            .drive(onNext: { [weak self] result in
+                switch result{
+                case .failed(let message):
+                    self?.showValidateError(message)
+                case .empty:
+                    self?.showValidateError("Please input IMEI")
+                default:
+                    self?.revertValidateError()
+                }
+            })
             .addDisposableTo(disposeBag)
         
     }
