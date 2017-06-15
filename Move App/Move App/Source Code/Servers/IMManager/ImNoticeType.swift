@@ -167,7 +167,7 @@ extension ImNoticeType {
     
     var atNotiicationPage: Bool {
         switch self {
-        case .unknown, .newFirmwareUpdate, .firmwareUpdateState:
+        case .unknown, .newFirmwareUpdate, .firmwareUpdateState, .firmwareUpdate, .appUpdate:
             return false
         default:
             return true
@@ -176,7 +176,10 @@ extension ImNoticeType {
     
     var isShowPopup: Bool {
         switch self {
-        case .unknown, .kidsAddANewFriend, .generalUnpairWatch, .familyPhoneNumberChanged, .watchOnlineOffline, .watchChangeSIMCard, .manuallyLocate, .firmwareUpdateState:
+        case .unknown, .kidsAddANewFriend,
+             .generalUnpairWatch, .familyPhoneNumberChanged,
+             .watchOnlineOffline, .watchChangeSIMCard,
+             .manuallyLocate, .firmwareUpdateState:
             return false
         default:
             return true

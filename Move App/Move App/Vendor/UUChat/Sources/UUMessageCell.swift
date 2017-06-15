@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Kingfisher
 import SwiftGifOrigin
+import CustomViews
 
 @objc
 protocol UUMessageCellDelegate {
@@ -95,9 +96,13 @@ class UUMessageCell: UITableViewCell {
             // 2、设置头像
             headImageBackView.frame = messageFrame.iconF
             self.btnHeadImage.frame = CGRect(x: 2, y: 2, width: ChatIconWH-4, height: ChatIconWH-4)
+            let placeImg = CDFInitialsAvatar(
+                rect: CGRect(x: 0, y: 0, width: btnHeadImage.frame.width, height: btnHeadImage.frame.height),
+                fullName: message.name)
+                .imageRepresentation()!
             _ = self.btnHeadImage.kf.setBackgroundImage(with: URL(string: message.icon),
                                                     for: .normal,
-                                                    placeholder: UIImage(named: message.icon),
+                                                    placeholder: UIImage(named: message.icon) ?? placeImg,
                                                     options: [.transition(ImageTransition.fade(1))],
                                                     progressBlock: nil,
                                                     completionHandler: nil)
@@ -460,6 +465,6 @@ extension UUMessageCell: UUAVAudioPlayerDelegate {
     }
     
     var speekerDescription: String {
-        return !isTurnOnSpeeker ? "Turn On Speeker" : "Turn Off Speeker"
+        return !isTurnOnSpeeker ? R.string.localizable.id_turn_on_speaker() : "Turn Off Speeker"
     }
 }
