@@ -62,12 +62,16 @@ extension MoveApi {
         var password: String?
         var deviceName: String?
         var date: Date?
+        var dateString: String?
     }
     
     struct TpLoginInfo {
         var platform: String?
         var openid: String?
         var secret: String?
+        var deviceName: String?
+        var date: Date?
+        var dateString: String?
     }
     
     struct  UserInfoSetting {
@@ -191,6 +195,7 @@ extension MoveApi.LoginInfo: Mappable{
         self.password = password
         self.deviceName = UIDevice.current.name
         self.date = Date(timeIntervalSinceNow: 0)
+        self.dateString = date?.stringDefaultDescription
     }
     
     mutating func mapping(map: Map) {
@@ -198,6 +203,7 @@ extension MoveApi.LoginInfo: Mappable{
         password <- map["password"]
         deviceName <- map["devicename"]
         date <- map["devicetime"]
+        dateString <- map["devicetimes"]
     }
 }
 
@@ -205,10 +211,22 @@ extension MoveApi.TpLoginInfo: Mappable{
     init?(map: Map) {
     }
     
+    init(platform: String, openid: String, secret: String) {
+        self.platform = platform
+        self.openid = openid
+        self.secret = secret
+        self.deviceName = UIDevice.current.name
+        self.date = Date(timeIntervalSinceNow: 0)
+        self.dateString = date?.stringDefaultDescription
+    }
+    
     mutating func mapping(map: Map) {
         platform <- map["platform"]
         openid <- map["openid"]
         secret <- map["secret"]
+        deviceName <- map["devicename"]
+        date <- map["devicetime"]
+        dateString <- map["devicetimes"]
     }
 }
 
