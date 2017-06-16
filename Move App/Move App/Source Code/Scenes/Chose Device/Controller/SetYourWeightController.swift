@@ -31,7 +31,7 @@ class SetYourWeightController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self .drawRule()
+        self.drawRule()
         
         kgBtn.isEnabled = !isUnitKg
         lbBtn.isEnabled = isUnitKg
@@ -40,7 +40,7 @@ class SetYourWeightController: UIViewController {
     
     
     func drawRule() -> () {
-        ruler = CustomRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
+        ruler = CustomRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
         ruler.showRuler(with: isUnitKg ? maxKg:maxLb, currentValue: UInt(selectedWeight))
         ruler.selectValue = { value in
             self.selectedWeight = Int(value)

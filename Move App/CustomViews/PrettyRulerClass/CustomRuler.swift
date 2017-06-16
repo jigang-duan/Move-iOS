@@ -33,12 +33,12 @@ public class CustomRuler: UIView {
             }
         }
         
-        let scroll = RulerScroll(frame: CGRect(x: 0, y: 37, width: self.frame.size.width, height: self.frame.size.height))
+        let scroll = RulerScroll(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         scroll.delegate = self
         scroll.showsHorizontalScrollIndicator = false
         scroll.maxValue = maxCount
         
-        scroll.contentSize = CGSize(width: self.frame.size.width + CGFloat(interval*maxCount), height: 140)
+        scroll.contentSize = CGSize(width: self.frame.size.width + CGFloat(interval*maxCount), height: 100)
         
         let value = currentValue > maxCount ? maxCount:currentValue
         UIView.animate(withDuration: 0.3) {

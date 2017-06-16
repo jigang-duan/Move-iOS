@@ -40,7 +40,7 @@ class SetYourHeghtController: UIViewController {
     }
     
     func drawRule() -> () {
-        ruler = CustomRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 140))
+        ruler = CustomRuler(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100))
         ruler.showRuler(with: isUnitCm ? maxCm:maxInch, currentValue: UInt(selectedHeight))
         ruler.selectValue = { value in
             self.selectedHeight = Int(value)
