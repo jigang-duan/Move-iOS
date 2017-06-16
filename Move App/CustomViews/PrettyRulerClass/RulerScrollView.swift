@@ -36,14 +36,14 @@ class RulerScroll: UIScrollView {
                 lab.text = "\(i)"
                 self.addSubview(lab)
                 
-                path.move(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: 0))
+                path.move(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight))
                 path.addLine(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*3))
             }else if i%5 == 0 {
-                path.move(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*0.5))
-                path.addLine(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*2.5))
+                path.move(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*1.5))
+                path.addLine(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*3))
             }else{
-                path.move(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight))
-                path.addLine(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*2))
+                path.move(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*2))
+                path.addLine(to: CGPoint(x: self.frame.size.width/2 + CGFloat(i*interval), y: lineHeight*3))
             }
             
         }
