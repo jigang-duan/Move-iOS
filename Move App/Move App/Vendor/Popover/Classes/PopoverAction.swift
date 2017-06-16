@@ -19,6 +19,8 @@ protocol PopoverAction {
     var canAvatar: Bool {get}                        ///< 是否文字头像
     var isSelected: Bool {get set}                     ///< 是选中的？
     
+    var hasBadge: Bool { get set }
+    
     init(imageUrl: String?,
         placeholderImage: UIImage?,
         title: String?,
@@ -38,6 +40,8 @@ class BasePopoverAction: PopoverAction {
     
     var canAvatar: Bool = false
     var isSelected: Bool = false
+    
+    var hasBadge: Bool = false
     
     var data: Any?
     

@@ -49,13 +49,17 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType, T
             return Observable.error(NSError.userAuthorizationError())
         }
         
+        if UserInfo.shared.accessToken.refreshing {
+            return Observable.error(NSError.tokenRefreshingError())
+        }
+        
         return MoveApi.Account.refreshToken()
             .map { $0.accessToken.token }
             .catchError { e -> Observable<String?> in
                 guard let error = e as? MoveApi.ApiError else { throw e }
-                guard let errorId = error.id else { throw e }
-            
-                if errorId == 11 {
+                guard let _ = error.id else { throw e }
+                
+                if error.isTokenForbidden {
                     if MoveApi.canPopToLoginScreen {
                         Distribution.shared.popToLoginScreen()
                     }
@@ -87,10 +91,29 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
     }
     
     if apiError.isTokenExpired {
-        if MoveApi.canPopToLoginScreen {
-            Distribution.shared.popToLoginScreen(true)
-        }
-        throw error
+//        if MoveApi.canPopToLoginScreen {
+//            Distribution.shared.popToLoginScreen(true)
+//        }
+//        throw error
+        UserInfo.shared.accessToken.refreshing = true
+        return MoveApi.Account.refreshToken()
+            .map { $0.accessToken.token }
+            .catchError { e -> Observable<String?> in
+                guard let error = e as? MoveApi.ApiError else { throw e }
+                guard let _ = error.id else { throw e }
+                
+                if error.isTokenForbidden {
+                    if MoveApi.canPopToLoginScreen {
+                        Distribution.shared.popToLoginScreen(true)
+                    }
+                }
+                UserInfo.shared.accessToken.refreshing = false
+                throw error
+            }
+            .flatMapLatest { (_) -> Observable<Response> in
+                UserInfo.shared.accessToken.refreshing = false
+                return Observable.error(NSError.tokenRefreshingError())
+            }
     }
     
     if apiError.isTokenForbidden {
@@ -103,9 +126,9 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
                         Distribution.shared.popToLoginScreen(true, name: deviceName, date: loginDate)
                     }
                 })
-                .flatMapLatest({ (_) -> Observable<Response> in
+                .flatMapLatest { (_) -> Observable<Response> in
                     Observable.error(NSError.tokenForbiddenError())
-                })
+                }
         }
         UserInfo.shared.invalidate()
         UserInfo.shared.clean()

@@ -83,12 +83,13 @@ extension UUMessage {
         
         let group = messageEntity.owners.first
         let from = group?.members.filter({ $0.id == messageEntity.from }).first
-        let relation = from?.identity.flatMap{ Relation(input: $0) }
-        var headURL: String
+        
+        var headURL = ""
         if let headPortrait = from?.headPortrait, headPortrait.isNotEmpty {
-            headURL = headPortrait
-        } else {
-            headURL = relation?.imageName ?? Relation.other(value: "").imageName
+            headURL = headPortrait.fsImageUrl
+        } else if let indentiy = from?.identity, indentiy.isNotEmpty {
+            let relation = Relation(input: indentiy)
+            headURL = relation?.imageName ?? ""
         }
         
         var type = MessageType.text

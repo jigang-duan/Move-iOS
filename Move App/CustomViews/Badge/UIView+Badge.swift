@@ -28,7 +28,7 @@ extension Badge {
             return self.view.isBadgeHidden
         }
         set {
-            newValue ? self.view.showBadge() : self.view.hidenBadge()
+            !newValue ? self.view.showBadge() : self.view.hidenBadge()
         }
     }
     
@@ -45,17 +45,21 @@ extension Badge {
         }
     }
     
+    public func show(at point: CGPoint? = nil) {
+        self.view.showBadge(at: point)
+    }
 }
 
 
 extension UIView {
     
-    func showBadge() {
+    func showBadge(at point: CGPoint? = nil) {
         guard self.badgeView == nil else {
             return
         }
         
-        let frame = CGRect(x: self.frame.width - rightRange - 2*pointWidth, y: upRange, width: pointWidth, height: pointWidth)
+        let frame = CGRect(origin: point ?? CGPoint(x: self.frame.width - rightRange - 2*pointWidth, y: upRange),
+                           size: CGSize(width: pointWidth, height: pointWidth))
         self.badgeView = UILabel(frame: frame)
         self.badgeView?.backgroundColor = UIColor.red
         self.badgeView?.layer.cornerRadius = pointWidth / 2

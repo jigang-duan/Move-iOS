@@ -302,7 +302,11 @@ extension ImNoticeType {
             self = .sosWarning
             
         case .unbound:
-            self = (notice.owners.first?.owner == notice.from) ? .masterUnpairWatch : .generalUnpairWatch
+            if let group = notice.owners.first {
+                self = (group.owner == notice.from) ? .masterUnpairWatch : .generalUnpairWatch
+            } else {
+                self = .masterUnpairWatch
+            }
             
         case .numberChanged:
             self = .familyPhoneNumberChanged

@@ -227,12 +227,14 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         let realm = try! Realm()
+        let gidsObservable = RxStore.shared.deviceInfosObservable.filterEmpty().map{ $0.flatMap{ $0.user?.gid } }
         RxStore.shared.uidObservable
             .flatMapLatest { (uid) -> Observable<Bool> in
                 let notices = realm.objects(NoticeEntity.self).filter("to == %@", uid)
                 return Observable.collection(from: notices)
                     .map{ $0.filter("readStatus == 0") }
-                    .map{ $0.filter({ $0.imType.atNotiicationPage }) }
+                    .map{ $0.filter{ $0.imType.atNotiicationPage } }
+                    .withLatestFrom(gidsObservable, resultSelector: resultSelector)
                     .map{ $0.count > 0 }
             }
             .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal) : R.image.nav_notice_nor()! }
@@ -374,6 +376,10 @@ fileprivate func transform(info: DeviceInfo, infos: [DeviceInfo]) -> [DeviceInfo
         devices[index] = info
     }
     return devices
+}
+
+fileprivate func resultSelector(notices: [NoticeEntity], gids: [String]) throws -> [NoticeEntity] {
+    return notices.filter{  gids.contains($0.groupId ?? "") }
 }
 
 fileprivate extension DeviceInfo {

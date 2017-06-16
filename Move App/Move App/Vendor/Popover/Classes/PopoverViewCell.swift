@@ -43,6 +43,8 @@ class PopoverViewCell: UITableViewCell {
         }
     }
     
+    var hasBadge: Bool = false
+    
     var style: PopoverViewStyle = .default {
         didSet {
             bottomLine.backgroundColor = PopoverViewCell.bottomLineColor(style: style)
@@ -105,6 +107,7 @@ class PopoverViewCell: UITableViewCell {
             }
         }
         self.button.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
+        self.hasBadge = action.hasBadge
     }
     
     private func convert(image: UIImage?, size: CGSize) -> UIImage? {
@@ -193,6 +196,16 @@ class PopoverViewCell: UITableViewCell {
             metrics: ["lineHeight": 1 / (UIScreen.main.scale)],
             views: ["bottomLine": bottomLine]))
     }
+    
+
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if self.hasBadge {
+            self.button.badge.show(at: CGPoint(x: 24, y: 5))
+        }
+    }
+    
 }
 
 fileprivate extension UIImage {

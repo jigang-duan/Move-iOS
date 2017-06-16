@@ -42,6 +42,7 @@ class RxPopover {
                     })
                     item.canAvatar = action.canAvatar
                     item.data = action.data
+                    item.hasBadge = action.hasBadge
                     popoverActions.append(item)
                 }
                 

@@ -99,7 +99,14 @@ class MessageServer {
                     }
                     
                     if let gid = notice.groupId, gid != "" {
-                        sync.groups.filter{ $0.id == gid }.first?.update(realm: realm, notice: notice)
+                        let _group = sync.groups.filter{ $0.id == gid }.first
+                        if let group = _group {
+                            group.update(realm: realm, notice: notice)
+                        } else {
+                            try? realm.write {
+                                realm.add(notice, update: true)
+                            }
+                        }
                     } else {
                         sync.groups.forEach { (group: GroupEntity) in
                             if group.members.map({$0.id}).contains(where: {notice.from == $0}) {
@@ -144,7 +151,7 @@ class MessageServer {
                 .map { $0.id }
                 .filterNil()
                 .flatMapLatest { IMManager.shared.getGroupInfo(gid: $0).catchError(catchImGroupEmptyError) }
-                .map(transform)
+                .map{ transform(group: $0, uid: uid)  }
                 .subscribe(realm.rx.add(update: true))
                 .addDisposableTo(disposeBag)
             
@@ -267,14 +274,14 @@ fileprivate func accumulator(a: FirmwareUpdateType, item: FirmwareUpdateType) ->
 
 
 fileprivate func transform(synckey: SynckeyEntity, groups: [ImGroup]) -> (SynckeyEntity, [GroupEntity]) {
-    return (synckey, groups.map(transform))
+    return (synckey, groups.map{ transform(group: $0, uid: synckey.uid) })
 }
 
-fileprivate func transform(groups: [ImGroup]) -> [GroupEntity] {
-    return groups.map(transform)
+fileprivate func transform(groups: [ImGroup], uid: String) -> [GroupEntity] {
+    return groups.map{ transform(group: $0, uid: uid)  }
 }
 
-fileprivate func transform(group: ImGroup) -> GroupEntity {
+fileprivate func transform(group: ImGroup, uid: String? = nil) -> GroupEntity {
     let entity = GroupEntity()
     entity.id = group.gid
     entity.name = group.topic
@@ -297,9 +304,9 @@ fileprivate func transform(group: ImGroup) -> GroupEntity {
         member.flag = $0.flag ??  MemberEntity.Flag.unknown.rawValue
         entity.members.append(member)
     }
+    let realm = try! Realm()
     if
         let gid = group.gid,
-        let realm = try? Realm(),
         let oldgroup = realm.object(ofType: GroupEntity.self, forPrimaryKey: gid) {
         entity.messages.append(objectsIn: oldgroup.messages)
         entity.notices.append(objectsIn: oldgroup.notices)

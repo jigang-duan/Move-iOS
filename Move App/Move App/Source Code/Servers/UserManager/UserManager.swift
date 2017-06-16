@@ -140,6 +140,7 @@ class UserInfo {
         var token: String?
         var refreshToken: String?
         var expiryAt: Date?
+        var refreshing: Bool = false
     }
     
     struct Profile {

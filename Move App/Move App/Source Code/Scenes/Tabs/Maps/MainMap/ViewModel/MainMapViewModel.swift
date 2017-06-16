@@ -72,6 +72,7 @@ class MainMapViewModel {
         self.activityIn = activitying.asDriver()
         
         let currentDeviceId = RxStore.shared.currentDeviceId.asDriver()
+        let currentDeviceIdObservable = currentDeviceId.asObservable().filterNil()
         devicesVariable = RxStore.shared.deviceInfosState
 
         currentDevice = Driver.combineLatest(
@@ -128,7 +129,7 @@ class MainMapViewModel {
         
         errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
         
-        let currentLocation = Observable.merge(period, remindLocation)
+        let currentLocation = Observable.merge(period, remindLocation, currentDeviceIdObservable.map{ Int($0) ?? 0 })
             .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)
@@ -162,17 +163,20 @@ class MainMapViewModel {
         let kidInfos = input.avatarTap
             .withLatestFrom(devicesVariable.asDriver())
         
+        let userID = RxStore.shared.uidObservable
+        
         let popoer = RxPopover.shared
         popoer.style = .dark
         let selecedAction = kidInfos.asObservable()
             .map(allAndTransformAction)
+            .withLatestFrom(userID, resultSelector: allAndTransformActions)
             .flatMapLatest({ actions in popoer.promptFor(toView: input.avatarView, actions: actions) })
             .shareReplay(1)
         
         allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
         singleAction = selecedAction.map({ $0.data as? DeviceInfo  }).filterNil()
         
-        let userID = RxStore.shared.uidObservable
+        
         let devUID = currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
         badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
             .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
@@ -191,6 +195,23 @@ fileprivate func transformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
 
 fileprivate func allAndTransformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {
     return [BasePopoverAction(infos: infos)] + transformAction(infos: infos)
+}
+
+fileprivate func allAndTransformActions(_ actions: [BasePopoverAction], userID: String) -> [BasePopoverAction] {
+    return actions.map{ transformAction(action: $0, userID: userID) }
+}
+
+fileprivate func transformAction(action: BasePopoverAction, userID: String) -> BasePopoverAction {
+    guard
+        let device = action.data as? DeviceInfo,
+        let devUid = device.user?.uid else {
+        return action
+    }
+    
+    let cNotices = ImDateBase.shared.countUnreadNoticeAtPage(uid: userID, devUid: devUid)
+    let cMessages = ImDateBase.shared.countUnreadMessage(uid: userID, devUid: devUid)
+    action.hasBadge = (cNotices + cMessages) > 0
+    return action
 }
 
 extension BasePopoverAction {
