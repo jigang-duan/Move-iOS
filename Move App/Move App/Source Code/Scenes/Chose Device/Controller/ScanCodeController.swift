@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import RxSwift
 
-class ScanCodeController: TranslucentNavBarController {
+class ScanCodeController: UIViewController {
     
     var disposeBag = DisposeBag()
     
@@ -57,12 +57,16 @@ class ScanCodeController: TranslucentNavBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.isHidden = true
+        
         self.sessionRun()
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = false
         
         qrCodeFrameView.frame = CGRect()
         self.sessionStop()
@@ -131,7 +135,9 @@ class ScanCodeController: TranslucentNavBarController {
         })
     }
     
-    
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
    
 }
 

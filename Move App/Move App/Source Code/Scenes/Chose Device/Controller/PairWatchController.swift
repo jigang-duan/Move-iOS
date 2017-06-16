@@ -8,27 +8,37 @@
 
 import UIKit
 
-class PairWatchController: TranslucentNavBarController {
+class PairWatchController: UIViewController {
 
+    @IBOutlet weak var tipBottomCons: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let screenH = UIScreen.main.bounds.height
+        if screenH < 500 {
+            tipBottomCons.constant = 10
+        }else if screenH > 500 && screenH < 600 {
+            tipBottomCons.constant = 20
+        }else{
+            tipBottomCons.constant = 43
+        }
     }
 
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.isHidden = true
     }
     
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-//        self.navigationController?.navigationBar.isTranslucent = false
+    
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     

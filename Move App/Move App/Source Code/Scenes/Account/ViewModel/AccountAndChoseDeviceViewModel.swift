@@ -36,8 +36,15 @@ class AccountAndChoseDeviceViewModel {
         let enter = input.enter.filter{ $0 }.map{_ in ()}
         
         self.profile = enter.flatMapLatest { userManger.getProfile().asDriver(onErrorJustReturn: UserInfo.Profile()) }
-        self.accountName = profile.map { $0.nickname ?? ($0.username ?? "")! }
-        
+        self.accountName = profile.map({ profile in
+            if let name = profile.nickname {
+                return name
+            }
+            if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
+                return email
+            }
+            return ""
+        })
         self.fetchDevices = enter
             .flatMapLatest({ deviceManager.fetchDevices().asDriver(onErrorJustReturn: []) })
         

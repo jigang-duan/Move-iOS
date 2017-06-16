@@ -97,20 +97,20 @@ class DefaultValidation {
     //电话号码
     func validatePhone(_ phone: String) -> ValidationResult {
         let numberOfCharacters = phone.characters.count
-        if phone.characters.count == 0 {
+        if numberOfCharacters == 0 {
             return .empty
         }
         
-        if numberOfCharacters < 4 {
-            return .failed(message: "Phone must be at least 4 characters")
-        }
+//        if numberOfCharacters < 4 {
+//            return .failed(message: "Phone must be at least 4 characters")
+//        }
         
-        let setString = "0123456789"
-        for character in phone.characters {
-            if setString.characters.index(of: character) == nil {
-                return .failed(message: "Phone input incorrect")
-            }
-        }
+//        let setString = "0123456789"
+//        for character in phone.characters {
+//            if setString.characters.index(of: character) == nil {
+//                return .failed(message: "Phone input incorrect")
+//            }
+//        }
         
         return .ok(message: "Phone available")
     }
