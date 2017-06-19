@@ -38,9 +38,10 @@ class SystemNotificationController: UIViewController {
             
             let cellIdentifier = R.reuseIdentifier.cellNotificationClassify.identifier
             Observable.collection(from: objects)
-                .map({ (list) -> [GroupEntity] in
-                    list.filter{ $0.notices.count > 0 }.sorted(by: { ($0.notices.last?.createDate)! > ($1.notices.last?.createDate)! })
-                })
+                .map { (list) -> [GroupEntity] in
+                    list.filter{ $0.notices.filter{ $0.imType.atNotiicationPage }.count > 0 }
+                        .sorted(by: { ($0.notices.last?.createDate)! > ($1.notices.last?.createDate)! })
+                }
                 .withLatestFrom(RxStore.shared.deviceInfosObservable, resultSelector: resultSelector)
                 .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier)) { [weak self] (row, element, cell) in
                     self?.cellConfig(cell: cell, row: row, group: element)
@@ -83,11 +84,11 @@ class SystemNotificationController: UIViewController {
             })
             
             cell.textLabel?.text = group.name
-            cell.detailTextLabel?.text = group.notices.filter{ $0.to == uid }.last?.content
+            cell.detailTextLabel?.text = group.notices.filter{ $0.to == uid }.filter{ $0.imType.atNotiicationPage }.last?.content
         }
         
         if let numberLable = cell.accessoryView as? UILabel {
-            let number = group.notices.filter({ $0.readStatus == 0 }).filter{ $0.imType.atNotiicationPage }.count
+            let number = group.notices.filter{ $0.readStatus == 0 }.filter{ $0.imType.atNotiicationPage }.count
             numberLable.text = number > 99 ? "99+" : "\(number)"
             if let n = numberLable.text?.characters.count, n > 1 {
                 numberLable.sizeToFit()
