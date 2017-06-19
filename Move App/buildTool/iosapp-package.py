@@ -216,7 +216,7 @@ class Package(object):
             project_name = self.target_name
         archive_dir = os.path.abspath("%s/%s"%(g_current_path, self.archive_path))
         self.archive_file = archive_dir + "/%s.xcarchive"%(project_name)
-        self.ipa_file = archive_dir + "/%s_%s.ipa"%(project_name, build_time_version())
+        self.ipa_file = archive_dir + "/%s_%s"%(project_name, build_time_version())
 
     def __clean_builded_file(self):
         archive_dir = os.path.abspath("%s/%s"%(g_current_path, self.archive_path))

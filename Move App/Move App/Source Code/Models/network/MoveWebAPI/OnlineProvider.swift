@@ -55,17 +55,12 @@ class OnlineProvider<Target>: RxMoyaProvider<Target> where Target: TargetType, T
         
         return MoveApi.Account.refreshToken()
             .map { $0.accessToken.token }
-            .catchError { e -> Observable<String?> in
-                guard let error = e as? MoveApi.ApiError else { throw e }
-                guard let _ = error.id else { throw e }
-                
-                if error.isTokenForbidden {
-                    if MoveApi.canPopToLoginScreen {
-                        Distribution.shared.popToLoginScreen()
-                    }
+            .catchError { error -> Observable<String?> in
+                if MoveApi.canPopToLoginScreen {
+                    Distribution.shared.popToLoginScreen()
                 }
                 throw error
-        }
+            }
     }
     
     override func request(_ token: Target) -> Observable<Response> {
@@ -99,13 +94,8 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
         return MoveApi.Account.refreshToken()
             .map { $0.accessToken.token }
             .catchError { e -> Observable<String?> in
-                guard let error = e as? MoveApi.ApiError else { throw e }
-                guard let _ = error.id else { throw e }
-                
-                if error.isTokenForbidden {
-                    if MoveApi.canPopToLoginScreen {
-                        Distribution.shared.popToLoginScreen(true)
-                    }
+                if MoveApi.canPopToLoginScreen {
+                    Distribution.shared.popToLoginScreen(true)
                 }
                 UserInfo.shared.accessToken.refreshing = false
                 throw error
