@@ -18,9 +18,7 @@ class OfficialNumberController: UIViewController {
     var loadedModels: [SectionModel] = []
     
     var sectionIndexTitles: [String]? {
-        get {
-            return visibleModels.map {$0.title}
-        }
+        return visibleModels.map {$0.title}
     }
 
     override func viewDidLoad() {
