@@ -44,7 +44,6 @@ class LoginViewController: TranslucentNavBarController {
     @IBOutlet weak var loginTopCons: NSLayoutConstraint!
     
     private func initializeI18N() {
-        self.title = R.string.localizable.id_login_in()
         forgotPswdBun.setTitle(R.string.localizable.id_forget_password(), for: .normal)
         loginOutlet.setTitle(R.string.localizable.id_login_in(), for: .normal)
         signUpBun.setTitle(R.string.localizable.id_sign_up(), for: .normal)
