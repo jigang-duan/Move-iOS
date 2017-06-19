@@ -94,9 +94,9 @@ class UseOfflineCache {
     }
     
     func clean(containKeys key: String) {
-        cacheURLResponse.removeObject(forKey: key)
-        cacheStatusCode.removeObject(forKey: key)
-        cacheData.removeObject(forKey: key)
+        cacheURLResponse.removeObjects(containKey: key)
+        cacheStatusCode.removeObjects(containKey: key)
+        cacheData.removeObjects(containKey: key)
     }
 }
 
