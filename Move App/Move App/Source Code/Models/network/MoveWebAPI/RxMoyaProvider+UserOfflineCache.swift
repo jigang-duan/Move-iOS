@@ -92,14 +92,34 @@ class UseOfflineCache {
         cacheStatusCode.removeAllObjects()
         cacheData.removeAllObjects()
     }
+    
+    func clean(containKeys key: String) {
+        cacheURLResponse.removeObject(forKey: key)
+        cacheStatusCode.removeObject(forKey: key)
+        cacheData.removeObject(forKey: key)
+    }
 }
 
 
 extension ObservableType {
-    
    func catchErrorEmpty()
         -> Observable<E> {
             return self.catchError{ _ in Observable.empty() }
+    }
+}
+
+
+fileprivate extension Cache {
+    
+    private func cacheKey(contain path: String) -> [String] {
+        let urls = try? FileManager().contentsOfDirectory(at: self.cacheDirectory, includingPropertiesForKeys: nil, options: [])
+        return urls?.flatMap { $0.deletingPathExtension().lastPathComponent }.filter { $0.contains(path) } ?? []
+    }
+    
+    func removeObjects(containKey key: String) {
+        self.cacheKey(contain: key).forEach { [unowned self] (key) in
+            self.removeObject(forKey: key)
+        }
     }
     
 }
