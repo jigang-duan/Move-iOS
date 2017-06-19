@@ -204,6 +204,15 @@ class DateUtility {
         return dateFormatter
     }()
     
+    static var shortDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }()
+    
     static var defaultYearMonthDayFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone.current
@@ -228,6 +237,14 @@ extension Date {
     
     var stringDefaultDescription: String {
         return DateUtility.defaultDateFormatter.string(from: self)
+    }
+    
+    var stringScreenDescription: String {
+        if UIScreen.main.isIPhone5OrLess {
+            return DateUtility.shortDateFormatter.string(from: self)
+        } else {
+            return DateUtility.defaultDateFormatter.string(from: self)
+        }
     }
     
     var stringDefaultYearMonthDay: String {

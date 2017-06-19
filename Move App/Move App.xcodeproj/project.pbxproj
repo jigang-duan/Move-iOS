@@ -26,6 +26,7 @@
 		112154C11EF7A5B600EBCE25 /* sad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 112154B71EF7A5B600EBCE25 /* sad@3x.png */; };
 		112154C21EF7A5B600EBCE25 /* sick@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 112154B81EF7A5B600EBCE25 /* sick@3x.png */; };
 		112154C31EF7A5B600EBCE25 /* smile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 112154B91EF7A5B600EBCE25 /* smile@3x.png */; };
+		112154C51EF7BF4800EBCE25 /* UIScreen+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112154C41EF7BF4800EBCE25 /* UIScreen+Device.swift */; };
 		112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6E9D1E865C02006135E3 /* UUInputView.swift */; };
 		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
 		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
@@ -385,6 +386,7 @@
 		112154B71EF7A5B600EBCE25 /* sad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sad@3x.png"; path = "Resource/Png/sad@3x.png"; sourceTree = "<group>"; };
 		112154B81EF7A5B600EBCE25 /* sick@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sick@3x.png"; path = "Resource/Png/sick@3x.png"; sourceTree = "<group>"; };
 		112154B91EF7A5B600EBCE25 /* smile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smile@3x.png"; path = "Resource/Png/smile@3x.png"; sourceTree = "<group>"; };
+		112154C41EF7BF4800EBCE25 /* UIScreen+Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIScreen+Device.swift"; path = "Shared/Extensisons/Screen/UIScreen+Device.swift"; sourceTree = "<group>"; };
 		112D6E9D1E865C02006135E3 /* UUInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUInputView.swift; path = Vendor/UUChat/Sources/UUInputView.swift; sourceTree = "<group>"; };
 		112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+UUInputView.swift"; path = "Vendor/UUChat/Rx/Rx+UUInputView.swift"; sourceTree = "<group>"; };
 		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 		112154AF1EF7A49A00EBCE25 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				112154C41EF7BF4800EBCE25 /* UIScreen+Device.swift */,
 			);
 			name = Screen;
 			sourceTree = "<group>";
@@ -2719,6 +2722,7 @@
 				11A66FF61ED3D5FD00EAE093 /* AppUpdate+Itunes.swift in Sources */,
 				11DA65FE1EC32DEC00552578 /* UIImageView+Extensions.swift in Sources */,
 				FF0859101E7238E300EB81D9 /* MeSetPasswordViewModel.swift in Sources */,
+				112154C51EF7BF4800EBCE25 /* UIScreen+Device.swift in Sources */,
 				A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */,
 				D2D661211E4F139900E46F41 /* LoginViewController.swift in Sources */,
 				11393AED1EA877C800F571C8 /* Random.swift in Sources */,

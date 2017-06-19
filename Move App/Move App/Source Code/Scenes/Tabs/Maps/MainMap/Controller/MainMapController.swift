@@ -190,7 +190,7 @@ class MainMapController: UIViewController {
         
         
         viewModel.locationTime
-            .map { $0.stringDefaultDescription }
+            .map { $0.stringScreenDescription }
             .bindTo(timeOutlet.rx.text)
             .addDisposableTo(disposeBag)
         
