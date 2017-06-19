@@ -265,7 +265,7 @@ extension DeviceInfo {
                                number: element.user?.number,
                                nickname: element.user?.nickname,
                                profile: element.user?.profile,
-                               gender: element.user?.gender == "m" ? .male:.female,
+                               gender: (element.user?.gender == nil) ? nil:(element.user?.gender == "m" ? .male:.female),
                                height: element.user?.height,
                                weight: element.user?.weight,
                                heightUnit: UnitType(rawValue: element.user?.heightUnit ?? 0),
