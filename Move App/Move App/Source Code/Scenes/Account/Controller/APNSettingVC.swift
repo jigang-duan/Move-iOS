@@ -160,7 +160,7 @@ class APNSettingVC: UITableViewController {
                 case .sending:
                     print("APN 发送数据中...")
                 case .disconnect:
-                    let vc = UIAlertController(title: nil, message: "Watch disconnected", preferredStyle: .alert)
+                    let vc = UIAlertController(title: nil, message: "Bluetooth disconnected", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
                         _ = self.navigationController?.popViewController(animated: true)
                     })
@@ -173,20 +173,7 @@ class APNSettingVC: UITableViewController {
     
     
     func showApnMessage(_ text: String) {
-        let tip = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: 20))
-        tip.backgroundColor = UIColor.lightGray
-        tip.textAlignment = .center
-        tip.text = text
-        
-        UIView.animate(withDuration: 0.3) { 
-            self.tableView.tableHeaderView = tip
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            UIView.animate(withDuration: 0.3) {
-                self.tableView.tableHeaderView = UIView()
-            }
-        }
+        ProgressHUD.show(status: text)
     }
     
     
