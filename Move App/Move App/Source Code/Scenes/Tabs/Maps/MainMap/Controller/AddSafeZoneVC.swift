@@ -16,7 +16,6 @@ import CustomViews
 class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     var editFenceDataSounrce : KidSate.ElectronicFencea?
-    fileprivate var isEmptyFence = true
     
     var fenceName : String? = ""
     var fencelocation : CLLocationCoordinate2D?
@@ -161,7 +160,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 self.mainMapView.add(self.circleOverlay!)
             }
             
-            self.isEmptyFence = false
+//            self.isEmptyFence = false
         }else{
             //新增
             self.title = "Add Safe zone"
@@ -201,7 +200,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             )
         )
         
-//        mainMapView.showsUserLocation = true
         if adminBool! {
         mainMapView.rx.regionWillChangeAnimated
             .asDriver()
@@ -215,18 +213,15 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 self?.circleBorderView.setNeedsDisplay()
             }).addDisposableTo(disposeBag)
         
-        mainMapView.rx.regionDidChangeAnimated
-            .asDriver()
+        mainMapView.rx.regionDidChangeAnimated.asDriver()
             .drive(onNext: { [unowned self] in
-                if self.isEmptyFence == false {
-                Logger.debug("gwx地图 \($0) \(self.isEmptyFence)")
+                Logger.debug("地图 \($0)")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
                 self.circleBorderView.removeFromSuperview()
                 self.coordieToAddress()
-                }
-                self.isEmptyFence = false
-            }).addDisposableTo(disposeBag)
+            })
+            .addDisposableTo(disposeBag)
         }
         
         mainMapView.rx.willStartLoadingMap
@@ -298,6 +293,11 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let geocoder = CLGeocoder()
         self.fencelocation = CLLocationCoordinate2D(latitude: self.mainMapView.centerCoordinate.latitude, longitude: self.mainMapView.centerCoordinate.longitude)
         let currentLocation = CLLocation(latitude: (self.fencelocation?.latitude)!, longitude: (self.fencelocation?.longitude)!)
+        
+        if CLLocationDegrees.minimum(mainMapView.region.span.latitudeDelta, mainMapView.region.span.longitudeDelta) > 30.0 {
+            self.kidaddressTF.text = nil
+            return
+        }
 
         geocoder.reverseGeocodeLocation(currentLocation) { (pls: [CLPlacemark]?, error: Error?)  in
             if error == nil {
@@ -326,11 +326,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         
                     }
                     
-                    if(address?.contains("临夏"))!{
-                        Logger.debug("gwx1 \(address)")
-                    }else{
-                        self.kidaddressTF.text = address
-                    }
+                    self.kidaddressTF.text = address
                     
                 } else {
                     print("No placemarks!")
