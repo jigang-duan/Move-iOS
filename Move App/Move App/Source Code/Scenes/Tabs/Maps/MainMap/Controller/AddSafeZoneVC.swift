@@ -140,25 +140,26 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
             self.currentRadius = Double(safeZoneSlider.value)
-            self.drawOverlay(radius: self.currentRadius)
+//            self.drawOverlay(radius: self.currentRadius)
             let annotion = BaseAnnotation((self.fencelocation?.latitude)!, (self.fencelocation?.longitude)!)
 //            self.mainMapView.addAnnotation(annotion)
-            if self.circleOverlay == nil
-            {
-                self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
-                self.mainMapView.add(self.circleOverlay!)
-            }
             //得到最新的点
             let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
-                .map({
-                    let newDots = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
+                .map({ [weak self]  newdot in
+                    let newDots = CLLocationCoordinate2D(latitude: (newdot.location?.lat)!, longitude: (newdot.location?.lng)!)
                     let annotion = BaseAnnotation((newDots.latitude), (newDots.longitude))
-                    self.mainMapView.addAnnotation(annotion)
+                    self?.mainMapView.addAnnotation(annotion)
+                    self?.drawOverlay(radius: (self?.currentRadius)!)
                 })
             getaddressdata.subscribe(onNext: {
                 print($0)
             }).addDisposableTo(disposeBag)
             
+            if self.circleOverlay == nil
+            {
+                self.circleOverlay = MKCircle(center: annotion.coordinate, radius: self.currentRadius)
+                self.mainMapView.add(self.circleOverlay!)
+            }
             
             self.isEmptyFence = false
         }else{
@@ -218,7 +219,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             .asDriver()
             .drive(onNext: { [unowned self] in
                 if self.isEmptyFence == false {
-                Logger.debug("地图 \($0)!")
+                Logger.debug("gwx地图 \($0) \(self.isEmptyFence)")
                 self.currentRadius = Double(self.safeZoneSlider.value)
                 self.drawOverlay(radius: self.currentRadius)
                 self.circleBorderView.removeFromSuperview()
@@ -322,8 +323,15 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     
                     if (p.thoroughfare != nil) {
                         address?.append(p.thoroughfare!)
+                        
                     }
-                    self.kidaddressTF.text = address
+                    
+                    if(address?.contains("临夏"))!{
+                        Logger.debug("gwx1 \(address)")
+                    }else{
+                        self.kidaddressTF.text = address
+                    }
+                    
                 } else {
                     print("No placemarks!")
                 }

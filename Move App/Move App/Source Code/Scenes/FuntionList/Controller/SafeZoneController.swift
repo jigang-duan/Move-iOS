@@ -123,7 +123,7 @@ class SafeZoneController: UIViewController {
     func permissionsFun(adminbooll: Bool) {
         introducelLabel.text = "Only master can edit safe zone"
         if adminbooll{
-            introducelLabel.text = "When kid enter or leave the safe zone,warming will be send to your app."
+            introducelLabel.text = "When kid enter or leave the safe zone,warning will be sent to your app."
         }
         
         safezoneQutlet.isHidden = !adminbooll
