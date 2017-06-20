@@ -321,11 +321,11 @@ class UUMessageCell: UITableViewCell {
                         self.audio?.play(voiceURL: url)
                     } else {
                         self.UUAVAudioPlayerBeiginLoadVoice()
-                        FSManager.shared.fetchVoice(fromURL: url) {
+                        FSManager.shared.fetchVoice(fromURL: url) { [weak self] in
                             if let data = $0 {
-                                self.audio?.play(songData: data)
+                                self?.audio?.play(songData: data)
                             } else {
-                                self.UUAVAudioPlayerFault()
+                                self?.UUAVAudioPlayerFault()
                             }
                         }
                     }

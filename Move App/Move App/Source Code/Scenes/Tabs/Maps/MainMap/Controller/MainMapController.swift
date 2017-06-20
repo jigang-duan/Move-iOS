@@ -237,7 +237,7 @@ class MainMapController: UIViewController {
                     .withLatestFrom(gidsObservable, resultSelector: resultSelector)
                     .map{ $0.count > 0 }
             }
-            .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(UIImageRenderingMode.alwaysOriginal) : R.image.nav_notice_nor()! }
+            .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(.alwaysOriginal) : R.image.nav_notice_nor()! }
             .bindTo(noticeOutlet.rx.image)
             .addDisposableTo(disposeBag)
     }

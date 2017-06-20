@@ -89,6 +89,7 @@ class PopoverViewCell: UITableViewCell {
     func setAction(_ action: PopoverAction) {
         self.button.setTitle(action.title, for: .normal)
         self.button.titleEdgeInsets = (action.placeholderImage != nil) ? UIEdgeInsetsMake(0, PopoverViewCell.TitleLeftEdge, 0, -PopoverViewCell.TitleLeftEdge) : UIEdgeInsets.zero
+        self.hasBadge = action.hasBadge
         
         guard let placeholder = action.placeholderImage else {
             return
@@ -107,7 +108,7 @@ class PopoverViewCell: UITableViewCell {
             }
         }
         self.button.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
-        self.hasBadge = action.hasBadge
+        
     }
     
     private func convert(image: UIImage?, size: CGSize) -> UIImage? {
