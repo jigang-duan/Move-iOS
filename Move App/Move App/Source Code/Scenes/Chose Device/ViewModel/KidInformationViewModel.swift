@@ -77,16 +77,22 @@ class KidInformationViewModel {
                 
                 if self.isForSetting == true {
                     if let photo = input.photo.value {
-                        return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
-                            f.profile = pid
-                            KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
-                            return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil, owner: nil))
-                                .trackActivity(activity)
-                                .map({_ in
-                                    self.updateDeviceUser(addInfo: f)
-                                    return  ValidationResult.ok(message: "Update Success")
-                                })
-                            }).asDriver(onErrorRecover: commonErrorRecover)
+                        return FSManager.shared.uploadPngImage(with: photo)
+                            .map{$0.fid}
+                            .filterNil()
+                            .takeLast(1)
+                            .trackActivity(activity)
+                            .flatMapLatest({ pid -> Observable<ValidationResult> in
+                                f.profile = pid
+                                KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
+                                return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: pid, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil, owner: nil))
+                                    .trackActivity(activity)
+                                    .map({_ in
+                                        self.updateDeviceUser(addInfo: f)
+                                        return  ValidationResult.ok(message: "Update Success")
+                                    })
+                            })
+                            .asDriver(onErrorRecover: commonErrorRecover)
                     }else{
                         return deviceManager.updateKidInfo(updateInfo: DeviceUser(uid: nil, number: f.number, nickname: f.nickName, profile: f.profile, gender: f.gender, height: f.height, weight: f.weight, heightUnit: f.heightUnit, weightUnit: f.weightUnit, birthday: f.birthday, gid: nil, online: nil, owner: nil))
                             .trackActivity(activity)
@@ -98,16 +104,21 @@ class KidInformationViewModel {
                   
                 }else{
                     if let photo = input.photo.value {
-                        return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1).flatMapLatest({ pid -> Observable<ValidationResult> in
-                            f.profile = pid
-                            KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
-                            return deviceManager.addDevice(firstBindInfo: f)
-                                .trackActivity(activity)
-                                .map({_ in
-                                    return  ValidationResult.ok(message: "Bind Success")
-                                })
-                            
-                        }).asDriver(onErrorRecover: commonErrorRecover)
+                        return FSManager.shared.uploadPngImage(with: photo)
+                            .map{$0.fid}
+                            .filterNil()
+                            .takeLast(1)
+                            .trackActivity(activity)
+                            .flatMapLatest({ pid -> Observable<ValidationResult> in
+                                f.profile = pid
+                                KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
+                                return deviceManager.addDevice(firstBindInfo: f)
+                                    .trackActivity(activity)
+                                    .map({_ in
+                                        return  ValidationResult.ok(message: "Bind Success")
+                                    })
+                            })
+                            .asDriver(onErrorRecover: commonErrorRecover)
                     }else{
                         return deviceManager.addDevice(firstBindInfo: f)
                             .trackActivity(activity)
