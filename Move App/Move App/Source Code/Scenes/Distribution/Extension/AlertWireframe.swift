@@ -76,6 +76,21 @@ class AlertWireframe {
             }
         }
     }
+    
+    func promptYHFor<Action : CustomStringConvertible>(_ message: String, cancelAction: Action, action: Action) -> Observable<Action> {
+        return Observable.create { observer in
+            let alertView = YHAlertView(title: "", message: message, delegate: nil,
+                                        cancelButtonTitle: cancelAction.description, otherButtonTitles: [action.description])
+            alertView.visual = false
+            alertView.clickButtonBlock = { (alert, index) in
+                observer.onNext(index > 0 ? action: cancelAction)
+            }
+            alertView.show()
+            
+            return Disposables.create {
+            }
+        }
+    }
 }
 
 

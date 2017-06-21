@@ -33,6 +33,7 @@ protocol WatchSettingWorkerProtocl {
     func fetchAutoanswer(id: String) -> Observable<Bool>
     func fetchSavepower(id: String) -> Observable<Bool>
     func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool>
+    func update(deviceId: String, autoPosistion: Bool) -> Observable<Bool>
     
     func fetchLanguages(id: String) ->  Observable<[String]>
     func fetchLanguage(id: String) ->  Observable<String>
@@ -66,10 +67,10 @@ class WatchSettingsManager  {
         worker = MoveApiWatchSettingsWorker()
     }
 
-    func fetchautoPosistion() -> Observable<Bool>
+    func fetchautoPosistion(devID: String? = nil) -> Observable<Bool>
     {
-        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
-            return Observable<Bool>.empty()
+        guard let deviceId = devID ?? DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable.empty()
         }
         return self.worker.fetchautoPosistion(id: deviceId)
     }
@@ -94,6 +95,13 @@ class WatchSettingsManager  {
             return Observable<Bool>.empty()
         }
         return self.worker.updateSavepowerAndautoAnswer(id: deviceId, autoanswer: autoanswer, savepower: savepower, autoPosistion: autoPosistion)
+    }
+    
+    func update(deviceId: String? = nil, autoPosistion: Bool) -> Observable<Bool> {
+        guard let deviceId = deviceId ?? DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable.empty()
+        }
+        return self.worker.update(deviceId: deviceId, autoPosistion: autoPosistion)
     }
    
     

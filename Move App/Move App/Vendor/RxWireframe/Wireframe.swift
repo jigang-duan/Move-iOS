@@ -15,6 +15,11 @@ enum RetryResult {
     case cancel
 }
 
+enum CommonResult {
+    case ok
+    case cancel
+}
+
 protocol Wireframe {
     func open(url: URL)
     func promptFor<Action: CustomStringConvertible>(_ message: String, cancelAction: Action, actions: [Action]) -> Observable<Action>
@@ -82,6 +87,28 @@ extension RetryResult : CustomStringConvertible {
             return "Retry"
         case .cancel:
             return "Cancel"
+        }
+    }
+}
+
+extension CommonResult : CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .ok:
+            return "OK"
+        case .cancel:
+            return "Cancel"
+        }
+    }
+}
+
+extension CommonResult {
+    var select: Bool {
+        switch self {
+        case .ok:
+            return true
+        case .cancel:
+            return false
         }
     }
 }

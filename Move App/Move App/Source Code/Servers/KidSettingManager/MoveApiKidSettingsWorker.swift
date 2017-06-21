@@ -168,6 +168,17 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             .catchError(errorHandle)
     }
     
+    func update(deviceId: String, autoPosistion: Bool) -> Observable<Bool> {
+        return MoveApi.Device.getSetting(deviceId: deviceId)
+            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
+                _setting.auto_positiion = autoPosistion
+                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
+            })
+            .map(errorTransform)
+            .catchError(errorHandle)
+    }
+    
     func fetchEmergencyNumbers(id: String) ->  Observable<[String]> {
         return MoveApi.Device.getSetting(deviceId: id)
             .map({ $0.sos ?? [] })

@@ -71,7 +71,7 @@ class AccountKidsRulesuserController: UITableViewController {
             dependency: (
                 settingsManager: WatchSettingsManager.share,
                 validation: DefaultValidation.shared,
-                wireframe: DefaultWireframe.sharedInstance
+                wireframe: AlertWireframe.shared
             )
         )
         

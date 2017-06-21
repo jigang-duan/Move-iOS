@@ -153,6 +153,15 @@ public class YHAlertView : UIView{
         
     }
     
+    public var clickButtonBlock: YHAlertViewClickButtonBlock {
+        get {
+            return _clickButtonBlock
+        }
+        set {
+            _clickButtonBlock = newValue
+        }
+    }
+    
     open class func show(title:String,message:String?,cancelButtonTitle:String?,otherButtonTitles:String ... ,clickButtonBlock:YHAlertViewClickButtonBlock){
         let alertView = YHAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButtonTitle, otherButtonTitles: otherButtonTitles)
         alertView._clickButtonBlock = clickButtonBlock
@@ -363,7 +372,9 @@ public class YHAlertView : UIView{
                         }
                         
                     }, completion: { [unowned self] (finished:Bool) in
-                        self.removeFromSuperview()
+                        if self.superview != nil {
+                            self.removeFromSuperview()
+                        }
                     })
 
                 break

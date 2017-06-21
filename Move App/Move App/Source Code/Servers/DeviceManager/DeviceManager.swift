@@ -121,6 +121,10 @@ extension DeviceManager {
         return sendNotify(deviceId: deviceId, code: .uploadLocation)
     }
     
+    func uploadPower(deviceId: String) -> Observable<Bool> {
+        return sendNotify(deviceId: deviceId, code: .uploadPower)
+    }
+    
     func sendNotify(deviceId: String, code: DeviceNotify) -> Observable<Bool> {
         return worker.sendNotify(deviceId: deviceId, code: code)
     }
@@ -377,23 +381,31 @@ struct DeviceVersion {
 
 
 enum DeviceNotify: Int{
-//    1 - 请求设备上报位置，由APP发送
+//    提醒类型
+//    1 - 请求设备上报位置
 //    2 - 请求设备下载固件
 //    101 - 设备开机
 //    102 - 设备关机
 //    103 - 低电量, value为当前电量
 //    104 - SOS
 //    105 - 漫游
-//    106 - 固件升级成功, value为当前版本号
-//    107 - 固件下载进度，value为下载进度百分比
+//    106 - 设备升级成功, value为当前版本号
+//    107 - 设备下载进度，value为下载进度百分比
 //    108 - 设备穿戴
 //    109 - 设备脱落
 //    110 - 设备更换号码
+//    111 - 设备升级失败
+//    112 - 设备固件下载
+//    113 - 设备固件下载失败
+//    114 - 设备重启升级
+//    115 - 设备检查版本失败
+//    116 - 触发设备上报电量
     case uploadLocation = 1
     case downloadFirmware = 2
     case devicePowerOn = 101
     case devicePowerOff = 102
     case deviceLowPower = 103
+    case uploadPower = 106
 }
 
 

@@ -44,14 +44,17 @@ class MainMapViewModel {
     
     let badgeCount: Observable<Int>
     
-    let lowBattery: Observable<Int>
+    let battery: Observable<Int>
     
     let online: Driver<Bool>
+    
+    let autoPosistion: Driver<Bool>
     
     init(
         input: (
             enter: Driver<Bool>,
             avatarTap: Driver<Void>,
+            offTrackingModeTap: Driver<Void>,
             avatarView: UIView,
             isAtThisPage: Variable<Bool>,
             remindLocation: Observable<Void>
@@ -59,6 +62,7 @@ class MainMapViewModel {
          dependency: (
             geolocationService: GeolocationService,
             deviceManager: DeviceManager,
+            settingsManager: WatchSettingsManager,
             locationManager: LocationManager
         )
         ) {
@@ -67,6 +71,7 @@ class MainMapViewModel {
         let _ = dependency.geolocationService.location
         let deviceManager = dependency.deviceManager
         let locationManager = dependency.locationManager
+        let settingsManager = dependency.settingsManager
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
@@ -92,8 +97,8 @@ class MainMapViewModel {
                                            period: Configure.App.LoadDataOfPeriod,
                                            scheduler: MainScheduler.instance)
             .withLatestFrom(input.isAtThisPage.asObservable())
-            .filter({ $0 })
-            .map({ _ in Void() })
+            .filter { $0 }
+            .map { _ in () }
             .shareReplay(1)
         
         let remindActivitying = BehaviorSubject<Bool>(value: false)
@@ -105,6 +110,7 @@ class MainMapViewModel {
             .withLatestFrom(remindActivitying.asObservable())
             .filter { !$0 }
             .map{_ in () }
+            .share()
         
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
@@ -181,11 +187,31 @@ class MainMapViewModel {
         badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
             .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
         
-        lowBattery = MessageServer.share.lowBattery
+        let uploadPower = enterForeground
+            .withLatestFrom(currentDevice.asObservable())
+            .map{ $0.deviceId }.filterNil()
+            .flatMapLatest { deviceManager.uploadPower(deviceId: $0).catchErrorJustReturn(false) }
+            .filter { $0 }
+            .map {_ in () }
+        
+        battery = Observable.merge(MessageServer.share.lowBattery, uploadPower)
             .flatMapLatest{ deviceManager.power.catchErrorJustReturn(0) }
         
         online = period.delay(5.0, scheduler: MainScheduler.instance).asDriver(onErrorJustReturn: ())
             .flatMapLatest { deviceManager.online.asDriver(onErrorJustReturn: false) }
+        
+        let fetchAutoPosistion = Driver.merge(currentDevice.distinctUntilChanged{ $0.deviceId == $1.deviceId }, enter.withLatestFrom(currentDevice))
+            .withLatestFrom(userID.asDriver(onErrorJustReturn: "").filterEmpty()) { ($0.user?.owner == $1) ? $0 : nil }
+            .filterNil()
+            .flatMapLatest { settingsManager.fetchautoPosistion(devID: $0.deviceId).asDriver(onErrorJustReturn: false) }
+        
+        let offTrackingMode = input.offTrackingModeTap
+            .flatMapLatest { settingsManager.update(autoPosistion: false).asDriver(onErrorJustReturn: false) }
+            .filter { $0 }
+            .map { !$0 }
+        
+        autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false }, fetchAutoPosistion, offTrackingMode)
+        
     }
 }
 

@@ -29,11 +29,12 @@ class AccountKidsRulesuserViewModel {
         dependency: (
         settingsManager: WatchSettingsManager,
         validation: DefaultValidation,
-        wireframe: Wireframe
+        wireframe: AlertWireframe
         )
         ) {
         
         let manager = dependency.settingsManager
+        let wireframe = dependency.wireframe
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
@@ -53,9 +54,21 @@ class AccountKidsRulesuserViewModel {
         let fetchautoPosistion = manager.fetchautoPosistion()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
-        self.autoPosistionEnable = Driver.of(fetchautoPosistion, input.autoPosistion).merge()
         
-        let down = Driver.combineLatest(savePowerEnable , autoAnswereEnable , autoPosistionEnable) { ($0, $1, $2) }
+        let stringOnTrankingMode = "Turning on Tracking mode will consume more power."
+        let stringOffTrankingMode = "Turning off Tracking mode, the Safezone loction information will be not timely."
+        let selectAutoPosistion = input.autoPosistion
+            .flatMapLatest { (turning) in
+                wireframe.promptYHFor(turning ? stringOnTrankingMode : stringOffTrankingMode,
+                                    cancelAction: CommonResult.cancel, action: CommonResult.ok)
+                    .map{ $0.select }
+                    .asDriver(onErrorJustReturn: false)
+                    .map{ $0 ? turning : !turning }
+            }
+        
+        self.autoPosistionEnable = Driver.of(fetchautoPosistion, selectAutoPosistion).merge()
+        
+        let down = Driver.combineLatest(savePowerEnable , autoAnswereEnable , autoPosistionEnable.distinctUntilChanged()) { ($0, $1, $2) }
         
         self.saveFinish = down
             .flatMapLatest { (savepower, autoanswer, autoPosistion) in

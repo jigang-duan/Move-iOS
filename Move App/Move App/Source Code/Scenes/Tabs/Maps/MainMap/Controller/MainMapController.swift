@@ -45,6 +45,10 @@ class MainMapController: UIViewController {
     
     @IBOutlet weak var noticeOutlet: UIBarButtonItem!
     
+    @IBOutlet weak var trackingModeOutlet: UIView!
+    @IBOutlet weak var offTrackingModeOutlet: UIButton!
+    
+    
     let enterSubject = BehaviorSubject<Bool>(value: false)
     
     var isAtThisPage = Variable(false)
@@ -88,6 +92,7 @@ class MainMapController: UIViewController {
             input: (
                 enter: enterSubject.asDriver(onErrorJustReturn: false),
                 avatarTap: headPortraitOutlet.rx.tap.asDriver(),
+                offTrackingModeTap: offTrackingModeOutlet.rx.tap.asDriver(),
                 avatarView: headPortraitOutlet,
                 isAtThisPage: isAtThisPage,
                 remindLocation: remindLocationOutlet.rx.tap.asObservable()
@@ -95,6 +100,7 @@ class MainMapController: UIViewController {
             dependency: (
                 geolocationService: geolocationService,
                 deviceManager: DeviceManager.shared,
+                settingsManager: WatchSettingsManager.share,
                 locationManager: LocationManager.share
             )
         )
@@ -158,7 +164,7 @@ class MainMapController: UIViewController {
         
         let power = Driver.merge(
             viewModel.currentDevice.map{ $0.property?.power }.filterNil(),
-            viewModel.lowBattery.asDriver(onErrorJustReturn: 0)
+            viewModel.battery.asDriver(onErrorJustReturn: 0)
         )
         power.map{ "\($0)%" }.drive(voltameterOutlet.rx.text).addDisposableTo(disposeBag)
         power.map{ UIImage(named: "home_ic_battery\($0/20)") }.drive(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
@@ -240,6 +246,9 @@ class MainMapController: UIViewController {
             .map { $0 ? R.image.nav_notice_new()!.withRenderingMode(.alwaysOriginal) : R.image.nav_notice_nor()! }
             .bindTo(noticeOutlet.rx.image)
             .addDisposableTo(disposeBag)
+        
+        viewModel.autoPosistion.map{ !$0 }.drive(trackingModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
