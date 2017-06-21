@@ -15,13 +15,10 @@ class SignUpViewController: TranslucentNavBarController {
 
     @IBOutlet weak var emailTf: UITextField!
     @IBOutlet weak var emailValidation: UILabel!
-    @IBOutlet weak var emailValidHConstrain: NSLayoutConstraint!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var passwordValidation: UILabel!
-    @IBOutlet weak var passwdValidHConstrain: NSLayoutConstraint!
     @IBOutlet weak var rePasswordTf: UITextField!
     @IBOutlet weak var rePasswordValidation: UILabel!
-    @IBOutlet weak var rePasswdValidHConstrain: NSLayoutConstraint!
     
     @IBOutlet weak var signUpBtn: UIButton!
  
@@ -30,7 +27,6 @@ class SignUpViewController: TranslucentNavBarController {
     
     
     func showAccountError(_ text: String) {
-        emailValidHConstrain.constant = 16
         emailValidation.isHidden = false
         emailValidation.alpha = 0.0
         emailValidation.text = text
@@ -42,7 +38,6 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     func revertAccountError() {
-        emailValidHConstrain.constant = 0
         emailValidation.isHidden = true
         emailValidation.alpha = 1.0
         emailValidation.text = ""
@@ -54,7 +49,6 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     func showPasswdError(_ text: String) {
-        passwdValidHConstrain.constant = 16
         passwordValidation.isHidden = false
         passwordValidation.alpha = 0.0
         passwordValidation.text = text
@@ -66,7 +60,6 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     func revertPasswdError() {
-        passwdValidHConstrain.constant = 0
         passwordValidation.isHidden = true
         passwordValidation.alpha = 1.0
         passwordValidation.text = ""
@@ -78,7 +71,6 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     func showRePswdError(_ text: String) {
-        rePasswdValidHConstrain.constant = 16
         rePasswordValidation.isHidden = false
         rePasswordValidation.alpha = 0.0
         rePasswordValidation.text = text
@@ -90,7 +82,6 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     func revertRePswdError() {
-        rePasswdValidHConstrain.constant = 0
         rePasswordValidation.isHidden = true
         rePasswordValidation.alpha = 1.0
         rePasswordValidation.text = ""
@@ -103,11 +94,8 @@ class SignUpViewController: TranslucentNavBarController {
     
     func initUI() {
         emailValidation.isHidden = true
-        emailValidHConstrain.constant = 0
         passwordValidation.isHidden = true
-        passwdValidHConstrain.constant = 0
         rePasswordValidation.isHidden = true
-        rePasswdValidHConstrain.constant = 0
     }
     
     var viewModel: SignUpViewModel!
