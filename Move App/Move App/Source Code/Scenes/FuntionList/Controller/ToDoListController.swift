@@ -56,7 +56,7 @@ class ToDoListController: UITableViewController {
             remarkTextFieldQutlet.placeholder = R.string.localizable.id_remarks()
             beginLabel.text = R.string.localizable.id_begin()
             endLabel.text = R.string.localizable.id_end()
-            repeatLabel.text = R.string.localizable.id_repeat()
+            repeatLabel.text = R.string.localizable.id_setting_my_clock_repeat()
     }
     
     override func viewDidLoad() {
@@ -316,13 +316,13 @@ extension ToDoListController {
     
    fileprivate func repeatcount(name: String) -> Int {
         
-        return [R.string.localizable.id_never():0, R.string.localizable.id_Everyday():1, R.string.localizable.id_Everyweek() : 2, R.string.localizable.id_Everymonth():3][name] ?? 0
+        return [R.string.localizable.id_never():0, R.string.localizable.id_week_everyday():1, R.string.localizable.id_everyweek() : 2, R.string.localizable.id_everymonth():3][name] ?? 0
         
     }
    fileprivate func repeatcountInt(Intt: Int) -> String {
         
         let InttString = String(Intt)
-        return ["0": R.string.localizable.id_never(),"1": R.string.localizable.id_Everyday(),"2": R.string.localizable.id_Everyweek(),"3": R.string.localizable.id_Everymonth() ][InttString]!
+        return ["0": R.string.localizable.id_never(),"1": R.string.localizable.id_week_everyday(),"2": R.string.localizable.id_everyweek(),"3": R.string.localizable.id_everymonth() ][InttString]!
     }
 
     

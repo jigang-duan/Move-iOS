@@ -34,7 +34,7 @@ class AccountAndChoseDeviceController: UIViewController {
     
     
     private func initializeI18N() {
-        self.title = R.string.localizable.id_me()
+        self.title = R.string.localizable.id_button_menu_account()
         personalInformationLab.text = R.string.localizable.id_account_inform()
         deviceLab.text = R.string.localizable.id_device()
         addDeviceLab.text = R.string.localizable.id_add_device()

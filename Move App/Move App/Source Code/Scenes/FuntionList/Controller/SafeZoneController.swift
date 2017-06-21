@@ -225,7 +225,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return R.string.localizable.id_delete()
+        return R.string.localizable.id_str_remove_alarm_title()
     }
 }
 

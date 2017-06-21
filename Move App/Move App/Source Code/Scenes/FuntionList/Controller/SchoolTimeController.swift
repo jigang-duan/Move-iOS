@@ -51,8 +51,8 @@ class SchoolTimeController: UIViewController {
     func internationalization() {
         schooltimeTitleItem.title = R.string.localizable.id_school_time()
         saveItemQutlet.title = R.string.localizable.id_save()
-        anLabel.text = R.string.localizable.id_date_am()
-        pmLabel.text = R.string.localizable.id_date_pm()
+//        anLabel.text = R.string.localizable.id_date_am()
+//        pmLabel.text = R.string.localizable.id_date_pm()
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         

@@ -76,13 +76,13 @@ class WeekView: UIView {
         let satButton = self.viewWithTag(WeekType.sat.rawValue) as? UIButton
         let sunButton = self.viewWithTag(WeekType.sun.rawValue) as? UIButton
         
-        monButton?.setTitle(R.string.localizable.id_Monday_short(), for: .normal)
-        tueButton?.setTitle(R.string.localizable.id_Tuesday_short(), for: .normal)
-        wedButton?.setTitle(R.string.localizable.id_Wednesday_short(), for: .normal)
-        thuButton?.setTitle(R.string.localizable.id_Thursday_short(), for: .normal)
-        firButton?.setTitle(R.string.localizable.id_Friday_short(), for: .normal)
-        satButton?.setTitle(R.string.localizable.id_Saturday_short(), for: .normal)
-        sunButton?.setTitle(R.string.localizable.id_Sunday_short(), for: .normal)
+        monButton?.setTitle(R.string.localizable.id_monday_short(), for: .normal)
+        tueButton?.setTitle(R.string.localizable.id_tuesday_short(), for: .normal)
+        wedButton?.setTitle(R.string.localizable.id_wednesday_short(), for: .normal)
+        thuButton?.setTitle(R.string.localizable.id_thursday_short(), for: .normal)
+        firButton?.setTitle(R.string.localizable.id_friday_short(), for: .normal)
+        satButton?.setTitle(R.string.localizable.id_saturday_short(), for: .normal)
+        sunButton?.setTitle(R.string.localizable.id_sunday_short(), for: .normal)
         
         buttons.append(sunButton!)
         buttons.append(monButton!)

@@ -37,7 +37,7 @@ class AlarmController: UIViewController {
         
     }
     func internationalization() {
-        alarmTitleItem.title = R.string.localizable.id_alarm()
+        alarmTitleItem.title = R.string.localizable.id_alarms()
 //        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
         saveItemOutlet.title = R.string.localizable.id_save()
     }

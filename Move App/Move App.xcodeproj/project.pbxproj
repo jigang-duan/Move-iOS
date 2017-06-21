@@ -702,6 +702,11 @@
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
 		FFD06D021EEFAF3B0073CD48 /* TranslucentNavBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslucentNavBarController.swift; path = Shared/App/Theme/TranslucentNavBarController.swift; sourceTree = "<group>"; };
+		FFE4B63E1EFA492900E48BB1 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = "Move App/cs.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFE4B63F1EFA493300E48BB1 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = "Move App/hu.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFE4B6401EFA494000E48BB1 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = "Move App/ro.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFE4B6411EFA494F00E48BB1 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = "Move App/el.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFE4B6421EFA524100E48BB1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "Move App/tr.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FFE84D931E7021F2006B80AE /* UpgradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeController.swift; sourceTree = "<group>"; };
 		FFE84D951E702464006B80AE /* UpgradeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
 		FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APNforWatchVC.swift; sourceTree = "<group>"; };
@@ -2364,6 +2369,11 @@
 				nl,
 				"es-419",
 				"pt-PT",
+				cs,
+				hu,
+				ro,
+				el,
+				tr,
 			);
 			mainGroup = E01DF6D91E3059A800EA003D;
 			productRefGroup = E01DF6E31E3059A800EA003D /* Products */;
@@ -2954,6 +2964,11 @@
 				FFF4E31A1EC18D6500E9148F /* nl */,
 				FFF4E31C1EC18F3D00E9148F /* es-419 */,
 				FFF4E31D1EC192E300E9148F /* pt-PT */,
+				FFE4B63E1EFA492900E48BB1 /* cs */,
+				FFE4B63F1EFA493300E48BB1 /* hu */,
+				FFE4B6401EFA494000E48BB1 /* ro */,
+				FFE4B6411EFA494F00E48BB1 /* el */,
+				FFE4B6421EFA524100E48BB1 /* tr */,
 			);
 			name = Localizable.strings;
 			path = ..;

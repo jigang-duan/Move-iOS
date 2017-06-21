@@ -58,7 +58,7 @@ class MeSettingController: UIViewController {
     }
     
     private func initializeI18N() {
-        self.title = R.string.localizable.id_account()
+//        self.title = R.string.localizable.id_account()
         logoutBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
     }
     
@@ -206,7 +206,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
         case IndexPath(row: 0, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_gender()
             if let g = gender {
-                cell?.detailTextLabel?.text = (g == .female ? R.string.localizable.id_female():R.string.localizable.id_male())
+                cell?.detailTextLabel?.text = (g == .female ? R.string.localizable.id_user_female():R.string.localizable.id_user_male())
             }else{
                 cell?.detailTextLabel?.text = "Not specified"
             }

@@ -218,7 +218,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return R.string.localizable.id_delete()
+        return R.string.localizable.id_str_remove_alarm_title()
     }
 
     
@@ -318,7 +318,7 @@ extension RemindersController {
         let popover = RxPopover.shared
         popover.style = .dark
         let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
-                                        title: R.string.localizable.id_alarm(),
+                                        title: R.string.localizable.id_alarms(),
                                         isSelected: false)
         
         let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),
@@ -335,7 +335,7 @@ extension RemindersController {
     }
     
    fileprivate func showSubController(action: BasePopoverAction) {
-        if action.title == R.string.localizable.id_alarm() {
+        if action.title == R.string.localizable.id_alarms() {
                 self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
         } else if action.title == R.string.localizable.id_todolist() {
                 if let vc = R.storyboard.account.addTodo() {

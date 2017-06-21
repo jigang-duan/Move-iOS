@@ -316,7 +316,7 @@ extension AccountKidsRulesuserController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            return R.string.localizable.id_function()
+            return R.string.localizable.id_bandfunction_function()
         }
         if section == 2 {
             return R.string.localizable.id_action_settings()
