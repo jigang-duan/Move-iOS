@@ -29,9 +29,6 @@ class LoginViewController: TranslucentNavBarController {
     @IBOutlet weak var googleOutlet: UIButton!
     
     var disposeBag = DisposeBag()
-
-    @IBOutlet weak var accountValidationHCon: NSLayoutConstraint!
-    @IBOutlet weak var passwordValidationHCon: NSLayoutConstraint!
     
     @IBOutlet weak var orLab: UILabel!
     var thirdLogin = Variable(MoveApiUserWorker.LoginType.none)
@@ -67,9 +64,8 @@ class LoginViewController: TranslucentNavBarController {
             loginTopCons.constant = 50
         }
         
-        accountValidationHCon.constant = 0
+    
         emailValidationOutlet.isHidden = true
-        passwordValidationHCon.constant = 0
         passwordValidationOutlet.isHidden = true
         
         if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
@@ -253,7 +249,6 @@ extension LoginViewController {
     }
     
     private func showAccountError(_ text: String) {
-        accountValidationHCon.constant = 16
         emailValidationOutlet.isHidden = false
         emailValidationOutlet.alpha = 0.0
         emailValidationOutlet.text = text
@@ -266,7 +261,6 @@ extension LoginViewController {
     }
     
     fileprivate func revertAccountError() {
-        accountValidationHCon.constant = 0
         emailValidationOutlet.isHidden = true
         emailValidationOutlet.alpha = 1.0
         emailValidationOutlet.text = ""
@@ -279,7 +273,6 @@ extension LoginViewController {
     }
     
     private func showPasswordError(_ text: String) {
-        passwordValidationHCon.constant = 16
         passwordValidationOutlet.isHidden = false
         passwordValidationOutlet.alpha = 0.0
         passwordValidationOutlet.text = text
@@ -292,7 +285,6 @@ extension LoginViewController {
     }
     
     fileprivate func revertPasswordError() {
-        passwordValidationHCon.constant = 0
         passwordValidationOutlet.isHidden = true
         passwordValidationOutlet.alpha = 1.0
         passwordValidationOutlet.text = ""
