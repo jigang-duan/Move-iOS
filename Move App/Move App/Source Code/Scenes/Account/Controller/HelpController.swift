@@ -12,7 +12,7 @@ import SafariServices
 fileprivate let TermsConditionsURLString = "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/"
 fileprivate let PrivacyPolicyURLString = "http://www.tcl-move.com/help/#/mt30_privacy_policy/"
 fileprivate let UserManualURLString = "http://www.tcl-move.com/help/url.html#/mt30/um/generic/"
-
+fileprivate let FaqURLString = "http://www.tcl-move.com/help/#/mt30/faqs/en"
 
 class HelpController: UITableViewController {
 
@@ -20,10 +20,12 @@ class HelpController: UITableViewController {
         let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
         
         if indexPath.row == 0 {
-            open(url: URL(string: UserManualURLString + language)!)
+            open(url: URL(string: FaqURLString + language)!)
         } else if indexPath.row == 1 {
-            open(url: URL(string: TermsConditionsURLString + language)!)
+            open(url: URL(string: UserManualURLString + language)!)
         } else if indexPath.row == 2 {
+            open(url: URL(string: TermsConditionsURLString + language)!)
+        }else if indexPath.row == 3{
             open(url: URL(string: PrivacyPolicyURLString + language)!)
         }
     }
