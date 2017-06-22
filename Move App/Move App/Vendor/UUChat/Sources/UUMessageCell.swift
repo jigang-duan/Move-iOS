@@ -110,7 +110,7 @@ class UUMessageCell: UITableViewCell {
             // 3、设置下标
             self.labelNum.text = message.name
             if messageFrame.nameF.origin.x > 160 {
-                self.labelNum.frame = CGRect(x: messageFrame.nameF.origin.x - 0,
+                self.labelNum.frame = CGRect(x: messageFrame.nameF.origin.x - 3,
                                              y: messageFrame.nameF.origin.y + 3 ,
                                              width: messageFrame.nameF.size.width,
                                              height: messageFrame.nameF.size.height)
