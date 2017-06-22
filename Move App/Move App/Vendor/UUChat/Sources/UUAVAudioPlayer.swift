@@ -90,6 +90,7 @@ class UUAVAudioPlayer: NSObject {
     @objc private func applicationWillResignActive(_ application: UIApplication) {
         self.delegate?.UUAVAudioPlayerDidFinishPlay?()
     }
+    
 }
 
 

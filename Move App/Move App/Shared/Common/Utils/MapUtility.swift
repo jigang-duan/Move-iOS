@@ -27,3 +27,4 @@ class MapUtility {
         MKMapItem.openMaps(with: [originItem, toItem], launchOptions: options)
     }
 }
+
