@@ -70,16 +70,19 @@ class SafezoneCell: UITableViewCell {
                         let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
                             //发起请求打开open auto-positioning按钮
                            WatchSettingsManager.share.updateSavepowerAndautoAnswer(other11!, savepower: other22!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
-    
-                                    btn?.isOn = true
+//    
+//                                    btn?.isOn = true
+                            UserDefaults.standard.set(true, forKey: "autopositiBool")
+                            UserDefaults.standard.synchronize()
                             
                             }).addDisposableTo(self.disposeBag)
-                            
+
                         })
                         alertController.addAction(notOpen)
                         alertController.addAction(open)
                         
                         vcc?.present(alertController, animated: true, completion: nil)
+                        
                     }
                 }
                 }
