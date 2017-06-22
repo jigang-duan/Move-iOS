@@ -465,6 +465,6 @@ extension UUMessageCell: UUAVAudioPlayerDelegate {
     }
     
     var speekerDescription: String {
-        return !isTurnOnSpeeker ? R.string.localizable.id_turn_on_speaker() : "Turn Off Speeker"
+        return !isTurnOnSpeeker ? R.string.localizable.id_turn_on_speaker() : R.string.localizable.id_turn_off_speaker()
     }
 }

@@ -141,18 +141,15 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
 class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     
     func fetchautoPosistion(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.auto_positiion ?? false })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_positiion ?? false }
     }
 
     func fetchAutoanswer(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.auto_answer ?? false })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_answer ?? false }
     }
     
     func fetchSavepower(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.save_power ?? false })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.save_power ?? false }
     }
     
     func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool> {
@@ -180,8 +177,7 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     }
     
     func fetchEmergencyNumbers(id: String) ->  Observable<[String]> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.sos ?? [] })
+        return MoveApi.Device.getSetting(deviceId: id).map { $0.sos ?? [] }
     }
     
     func updateEmergencyNumbers(id: String, numbers: [String]) ->  Observable<Bool> {
@@ -196,15 +192,11 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     }
     
     func fetchLanguages(id: String) ->  Observable<[String]> {
-        return MoveApi.Device.getProperty(deviceId: id)
-            .map({ $0.languages ?? [] })
+        return MoveApi.Device.getProperty(deviceId: id).map { $0.languages ?? [] }
     }
     
     func fetchLanguage(id: String) ->  Observable<String> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({
-                $0.language ?? ""
-            })
+        return MoveApi.Device.getSetting(deviceId: id).map { $0.language ?? "" }
     }
     
     func updateLanguage(id: String, _ language: String) -> Observable<Bool> {
@@ -220,18 +212,15 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     
     
     func fetchshutTime(id: String) -> Observable<Date>{
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.shutdown_time ?? DateUtility.zone16hour() })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.shutdown_time ?? DateUtility.zone16hour() }
     }
     
     func fetchbootTime(id: String) -> Observable<Date>{
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.boot_time ?? DateUtility.zone7hour() })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.boot_time ?? DateUtility.zone7hour() }
     }
     
     func fetchoAutopoweronoff(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.auto_power_onoff ?? false })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_power_onoff ?? false }
     }
     
     func updateTime(id: String, bootTime: Date, shuntTime: Date, Autopoweronoff: Bool) -> Observable<Bool>{
@@ -248,21 +237,9 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     }
     
     func fetchUsePermission(id: String) -> Observable<[Bool]>{
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({self.wrappbool(perint: $0.permissions)})
-    
+        return MoveApi.Device.getSetting(deviceId: id).map{ wrappbool(perint: $0.permissions) }
     }
     
-    func wrappbool(perint: [Int]?) -> [Bool] {
-        guard let perint = perint else {
-            return [false, false, false, false]
-        }
-       return [
-        perint.contains(1),
-        perint.contains(2),
-        perint.contains(3),
-        perint.contains(4)]
-    }
     
     func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
@@ -284,23 +261,19 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     }
     
     func fetchHoursFormat(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.hour24 ?? true })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.hour24 ?? true }
     }
     
     func fetchGetTimeAuto(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.auto_time ?? true })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_time ?? true }
     }
     
     func fetchTimezone(id:String) -> Observable<String> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.timezone ?? "" })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.timezone ?? "" }
     }
     
     func fetchSummerTime(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .map({ $0.dst ?? false })
+        return MoveApi.Device.getSetting(deviceId: id).map{ $0.dst ?? false }
     }
     
     func updateTimezones(id: String, hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool> {
@@ -319,6 +292,16 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
     
     
     
+}
+
+fileprivate func wrappbool(perint: [Int]?) -> [Bool] {
+    guard let perint = perint else { return [false, false, false, false] }
+    return [
+        perint.contains(1),
+        perint.contains(2),
+        perint.contains(3),
+        perint.contains(4)
+    ]
 }
 
 extension MoveApiKidSettingsWorker {

@@ -145,7 +145,7 @@ extension UUInputView {
     
     func countVoiceTime() {
         _playTime = _playTime + 1
-        if _playTime >= 60 {
+        if _playTime >= 30 {
             self.endRecordVoice(nil)
         }
     }

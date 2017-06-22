@@ -73,7 +73,7 @@
         self.titleLabel.textColor = [UIColor whiteColor];
         
         centerLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2);
-        centerLabel.text = @"60";
+        centerLabel.text = @"30";
         centerLabel.textAlignment = NSTextAlignmentCenter;
         centerLabel.font = [UIFont systemFontOfSize:30];
         centerLabel.textColor = [UIColor yellowColor];
