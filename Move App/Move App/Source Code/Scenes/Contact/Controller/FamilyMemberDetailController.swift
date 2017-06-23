@@ -274,7 +274,7 @@ class FamilyMemberDetailController: UIViewController {
                 self?.photoVariable.value = image
             })
         }
-        let action3 = UIAlertAction(title: "Cancel", style: .cancel)
+        let action3 = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         
         vc.addAction(action1)
         vc.addAction(action2)

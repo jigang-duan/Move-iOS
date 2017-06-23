@@ -46,13 +46,12 @@ class DevicePermissions {
             strAlertTitle = "We need access to your phone's microphone to record voice messages"
         }
 
-        
         let alert = UIAlertController(title: nil, message: strAlertTitle, preferredStyle: UIAlertControllerStyle.alert)
-        let setting = UIAlertAction(title: "Settings", style: .default) { action in
+        let setting = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { action in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         }
         alert.addAction(setting)
-        alert.addAction(UIAlertAction(title: "Clean", style: .default))
+        alert.addAction(UIAlertAction(title: R.string.localizable.id_cancel(), style: .default))
         return alert
     }
     

@@ -143,7 +143,7 @@ class FamilyMemberController: UIViewController {
     
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)
     }

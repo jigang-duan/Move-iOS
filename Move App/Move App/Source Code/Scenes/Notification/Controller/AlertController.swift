@@ -35,7 +35,7 @@ class NoticeAlertControoler {
     var alertTitle: String?
     var iconURL: String?
     var content: String = "The content is emptyd"
-    var cancelAction = Action(title: "Cancel")
+    var cancelAction = Action(title: R.string.localizable.id_cancel())
     var confirmAction: Action?
     
     lazy var backgroundViwe: UIView = {
