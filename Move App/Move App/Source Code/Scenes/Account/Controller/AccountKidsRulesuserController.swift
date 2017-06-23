@@ -56,17 +56,7 @@ class AccountKidsRulesuserController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         propelToTargetController()
-        autopositiQutel.isOn = UserDefaults.standard.bool(forKey: "autopositiBool")
-        autoAnswerQutel.isOn = UserDefaults.standard.bool(forKey: "autoAnswerBool")
-        savePowerQutel.isOn = UserDefaults.standard.bool(forKey: "savePowerBool")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        UserDefaults.standard.set(autopositiQutel.isOn, forKey: "autopositiBool")
-        UserDefaults.standard.set(autoAnswerQutel.isOn, forKey: "autoAnswerBool")
-        UserDefaults.standard.set(savePowerQutel.isOn, forKey: "savePowerBool")
-        UserDefaults.standard.synchronize()
+      
     }
 
     override func viewDidLoad() {

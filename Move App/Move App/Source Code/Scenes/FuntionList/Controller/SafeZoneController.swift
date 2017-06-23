@@ -88,11 +88,8 @@ class SafeZoneController: UIViewController {
                     
                     let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
                         WatchSettingsManager.share.updateSavepowerAndautoAnswer(self.autoAnswer!, savepower: self.savePower!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
-                            
-                            UserDefaults.standard.set(true, forKey: "autopositiBool")
-                            UserDefaults.standard.synchronize()
-                            
-                        }).addDisposableTo(self.disposeBag)
+                            })
+                            .addDisposableTo(self.disposeBag)
                         self.autopositioningBtn?.isOn = true
                         self.autopositioningBool = true
 

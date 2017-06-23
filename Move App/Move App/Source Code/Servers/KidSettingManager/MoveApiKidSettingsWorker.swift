@@ -9,12 +9,15 @@
 import Foundation
 import RxSwift
 
+
 class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
     
     func fetchSchoolTime(id: String) -> Observable<KidSetting.SchoolTime> {
-        return MoveApi.Device
-            .getSetting(deviceId: id)
-            .map(wrappingSchoolTime)
+        return MoveApi.Device.fetchSetting(deviceId: id).map(wrappingSchoolTime)
+    }
+    
+    func fetchreminder(id: String) -> Observable<KidSetting.Reminder>{
+        return MoveApi.Device.fetchSetting(deviceId: id).map(wrappingReminder)
     }
     
     func updateSchoolTime(id: String, _ schoolTime: KidSetting.SchoolTime) -> Observable<Bool> {
@@ -51,8 +54,7 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .catchError(errorHandle)
     }
     
-    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
-    {
+    func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool> {
         return MoveApi.Device
             .getSetting(deviceId: deviceId)
             .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
@@ -74,8 +76,6 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             })
             .map(errorTransform)
             .catchError(errorHandle)
-        
-        
     }
 
     
@@ -115,12 +115,6 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .map(errorTransform)
             .catchError(errorHandle)
     }
-   
-    func fetchreminder(id: String) -> Observable<KidSetting.Reminder>{
-        return MoveApi.Device
-            .getSetting(deviceId: id)
-            .map(wrappingReminder)
-    }
     
     func updateReminder(id: String, _ reminder: KidSetting.Reminder) -> Observable<Bool>{
         return MoveApi.Device
@@ -133,175 +127,7 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
             .map(errorTransform)
             .catchError(errorHandle)
     }
-
     
-    
-}
-
-class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
-    
-    func fetchautoPosistion(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_positiion ?? false }
-    }
-
-    func fetchAutoanswer(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_answer ?? false }
-    }
-    
-    func fetchSavepower(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.save_power ?? false }
-    }
-    
-    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.save_power = savepower
-                _setting.auto_answer = autoanswer
-                _setting.auto_positiion = autoPosistion
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    func update(deviceId: String, autoPosistion: Bool) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: deviceId)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.auto_positiion = autoPosistion
-                return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    func fetchEmergencyNumbers(id: String) ->  Observable<[String]> {
-        return MoveApi.Device.getSetting(deviceId: id).map { $0.sos ?? [] }
-    }
-    
-    func updateEmergencyNumbers(id: String, numbers: [String]) ->  Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.sos = numbers
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    func fetchLanguages(id: String) ->  Observable<[String]> {
-        return MoveApi.Device.getProperty(deviceId: id).map { $0.languages ?? [] }
-    }
-    
-    func fetchLanguage(id: String) ->  Observable<String> {
-        return MoveApi.Device.getSetting(deviceId: id).map { $0.language ?? "" }
-    }
-    
-    func updateLanguage(id: String, _ language: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.language = language
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    
-    func fetchshutTime(id: String) -> Observable<Date>{
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.shutdown_time ?? DateUtility.zone16hour() }
-    }
-    
-    func fetchbootTime(id: String) -> Observable<Date>{
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.boot_time ?? DateUtility.zone7hour() }
-    }
-    
-    func fetchoAutopoweronoff(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_power_onoff ?? false }
-    }
-    
-    func updateTime(id: String, bootTime: Date, shuntTime: Date, Autopoweronoff: Bool) -> Observable<Bool>{
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.boot_time = bootTime
-                _setting.shutdown_time = shuntTime
-                _setting.auto_power_onoff = Autopoweronoff
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    func fetchUsePermission(id: String) -> Observable<[Bool]>{
-        return MoveApi.Device.getSetting(deviceId: id).map{ wrappbool(perint: $0.permissions) }
-    }
-    
-    
-    func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-            
-                var peris: [Int] = []
-                for (i, btn) in btns.enumerated() {
-                    if btn {
-                        peris.append(i+1)
-                    }
-                }
-
-                _setting.permissions = peris
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    func fetchHoursFormat(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.hour24 ?? true }
-    }
-    
-    func fetchGetTimeAuto(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.auto_time ?? true }
-    }
-    
-    func fetchTimezone(id:String) -> Observable<String> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.timezone ?? "" }
-    }
-    
-    func fetchSummerTime(id: String) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id).map{ $0.dst ?? false }
-    }
-    
-    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool> {
-        return MoveApi.Device.getSetting(deviceId: id)
-            .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
-                var _setting = setting
-                _setting.dst = summertime
-                _setting.auto_time = autotime
-                _setting.hour24 = hourformat
-                _setting.timezone = timezone
-                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
-            })
-            .map(errorTransform)
-            .catchError(errorHandle)
-    }
-    
-    
-    
-}
-
-fileprivate func wrappbool(perint: [Int]?) -> [Bool] {
-    guard let perint = perint else { return [false, false, false, false] }
-    return [
-        perint.contains(1),
-        perint.contains(2),
-        perint.contains(3),
-        perint.contains(4)
-    ]
 }
 
 extension MoveApiKidSettingsWorker {
@@ -309,7 +135,6 @@ extension MoveApiKidSettingsWorker {
     func unwrapping(todo: KidSetting.Reminder.ToDo) -> MoveApi.Todo {
         return MoveApi.Todo(topic: todo.topic, content: todo.content, start: todo.start, end: todo.end, repeatCount: todo.repeatCount)
     }
-//验证到此
     
     func unwrappingAlarm(_ alarm: KidSetting.Reminder.Alarm) -> MoveApi.Alarm {
         var days: [Int] = []
@@ -390,8 +215,6 @@ extension MoveApiKidSettingsWorker {
             pmStartPeriod: time.periods?[1].start ?? DateUtility.zone14hour(),
             pmEndPeriod: time.periods?[1].end ?? DateUtility.zone16hour(),
             days: days,active: time.active ?? false)
-        
-        
     }
     
     func wrappingr(reminder: MoveApi.Reminder?) -> KidSetting.Reminder {
@@ -414,6 +237,4 @@ extension MoveApiKidSettingsWorker {
     }
     
 }
-
-
 

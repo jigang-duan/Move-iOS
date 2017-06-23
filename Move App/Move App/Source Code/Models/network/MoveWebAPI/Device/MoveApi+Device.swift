@@ -102,10 +102,16 @@ extension MoveApi {
         final class func deleteWatchFriend(deviceId: String, uid: String) -> Observable<ApiError> {
             return request(.deleteWatchFriend(deviceId: deviceId, uid: uid)).mapMoveObject(ApiError.self)
         }
+        
 //        查看设备配置
         final class func getSetting(deviceId: String) -> Observable<DeviceSetting> {
+            return request(.getSetting(deviceId: deviceId)).mapMoveObject(DeviceSetting.self).takeLast(1)
+        }
+        
+        final class func fetchSetting(deviceId: String) -> Observable<DeviceSetting> {
             return request(.getSetting(deviceId: deviceId)).mapMoveObject(DeviceSetting.self)
         }
+        
 //        设置设备配置
         final class func setting(deviceId: String, settingInfo: DeviceSetting) -> Observable<ApiError> {
             return request(.setting(deviceId: deviceId, settingInfo: settingInfo)).mapMoveObject(ApiError.self)
@@ -523,7 +529,7 @@ extension MoveApi.Device.API: UseCache {
     
     var useCache: Bool {
         switch self {
-        case .getDeviceList:
+        case .getDeviceList, .getSetting:
             return true
         default:
             return false

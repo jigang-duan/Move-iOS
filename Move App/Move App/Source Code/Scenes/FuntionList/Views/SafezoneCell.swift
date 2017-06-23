@@ -71,9 +71,8 @@ class SafezoneCell: UITableViewCell {
                             //发起请求打开open auto-positioning按钮
                            WatchSettingsManager.share.updateSavepowerAndautoAnswer(other11!, savepower: other22!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
 //    
-//                                    btn?.isOn = true
-                            UserDefaults.standard.set(true, forKey: "autopositiBool")
-                            UserDefaults.standard.synchronize()
+                                    btn?.isOn = true
+                          
                             
                             }).addDisposableTo(self.disposeBag)
 

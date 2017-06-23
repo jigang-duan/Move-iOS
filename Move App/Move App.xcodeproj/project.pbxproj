@@ -45,6 +45,8 @@
 		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
 		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
 		1154AB9C1EFBD16800920F68 /* DevicePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */; };
+		1154AB9E1EFCB88E00920F68 /* WatchSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */; };
+		1154ABA01EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */; };
 		1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */; };
 		115F73031ED824D700BAAF3D /* aweat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72F91ED824D700BAAF3D /* aweat.gif */; };
 		115F73041ED824D700BAAF3D /* bye.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FA1ED824D700BAAF3D /* bye.gif */; };
@@ -407,6 +409,8 @@
 		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
 		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
 		1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DevicePermissions.swift; path = Shared/Common/Utils/DevicePermissions.swift; sourceTree = "<group>"; };
+		1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchSettingsManager.swift; path = KidSettingManager/WatchSettingsManager.swift; sourceTree = "<group>"; };
+		1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiWatchSettingsWorker.swift; path = KidSettingManager/MoveApiWatchSettingsWorker.swift; sourceTree = "<group>"; };
 		1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PulsingAnnotationView.swift; path = AnnotationView/PulsingAnnotationView.swift; sourceTree = "<group>"; };
 		115F72F91ED824D700BAAF3D /* aweat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = aweat.gif; path = Resource/Gif/aweat.gif; sourceTree = "<group>"; };
 		115F72FA1ED824D700BAAF3D /* bye.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = bye.gif; path = Resource/Gif/bye.gif; sourceTree = "<group>"; };
@@ -814,6 +818,8 @@
 			children = (
 				1109C6531E604BF6005B4AFD /* KidSettingManager.swift */,
 				1109C6551E604D38005B4AFD /* MoveApiKidSettingsWorker.swift */,
+				1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */,
+				1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */,
 			);
 			name = KidSettingManager;
 			sourceTree = "<group>";
@@ -2727,6 +2733,7 @@
 				D24F835E1E52D8450035CB17 /* VerificationCodeController.swift in Sources */,
 				FF090E471E71344800FA7EC7 /* FamilyMemberAddViewModel.swift in Sources */,
 				E03B1C591E53E9C8006EDB7B /* PopoverAction.swift in Sources */,
+				1154ABA01EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift in Sources */,
 				11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */,
 				E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */,
 				E0931F2A1E30C2DE00755B4A /* Configure.swift in Sources */,
@@ -2771,6 +2778,7 @@
 				A5B3E1EA1E7FF8A100F12E22 /* VoiceConverter.mm in Sources */,
 				E9C7B95C1E5024A700DD6542 /* LocationHistoryVC.swift in Sources */,
 				118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */,
+				1154AB9E1EFCB88E00920F68 /* WatchSettingsManager.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
 				11EAC30D1E6D7B14002906F1 /* UUMessageContentButton.swift in Sources */,
