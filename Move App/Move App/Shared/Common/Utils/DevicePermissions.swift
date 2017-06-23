@@ -43,7 +43,7 @@ class DevicePermissions {
         if  strLanguage == "cn"{
             strAlertTitle = "没有录音访问权限"
         }else{
-            strAlertTitle = "NO Microphone access permissions"
+            strAlertTitle = "We need access to your phone's microphone to record voice messages"
         }
 
         
