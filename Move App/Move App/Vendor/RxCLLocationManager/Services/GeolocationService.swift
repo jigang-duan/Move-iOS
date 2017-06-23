@@ -53,7 +53,7 @@ class GeolocationService {
             .map { $0.coordinate }
         
         
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
     
