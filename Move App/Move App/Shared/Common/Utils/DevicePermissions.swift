@@ -11,6 +11,18 @@ import AVFoundation
 
 class DevicePermissions {
     
+    func getCurrentLanguage() -> String {
+        let preferredLang = Bundle.main.preferredLocalizations.first! as NSString
+        switch String(describing: preferredLang) {
+        case "en-US", "en-CN":
+            return "en"//英文
+        case "zh-Hans-US","zh-Hans-CN","zh-Hant-CN","zh-TW","zh-HK","zh-Hans":
+            return "cn"//中文
+        default:
+            return "en"
+        }
+    }
+    
     var audioPermissions: Bool {
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeAudio)
         switch authStatus {
@@ -26,7 +38,16 @@ class DevicePermissions {
             return nil
         }
         
-        let alert = UIAlertController(title: nil, message: "没有录音访问权限", preferredStyle: UIAlertControllerStyle.alert)
+        let strLanguage = self.getCurrentLanguage()
+        var strAlertTitle :String = ""
+        if  strLanguage == "cn"{
+            strAlertTitle = "没有录音访问权限"
+        }else{
+            strAlertTitle = "NO Microphone access permissions"
+        }
+
+        
+        let alert = UIAlertController(title: nil, message: strAlertTitle, preferredStyle: UIAlertControllerStyle.alert)
         let setting = UIAlertAction(title: "Settings", style: .default) { action in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         }
