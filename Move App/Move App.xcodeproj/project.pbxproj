@@ -316,6 +316,7 @@
 		FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */; };
 		FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */; };
 		FFD06D031EEFAF3B0073CD48 /* TranslucentNavBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD06D021EEFAF3B0073CD48 /* TranslucentNavBarController.swift */; };
+		FFE4B6451EFCAD2D00E48BB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FFE4B6471EFCAD2D00E48BB1 /* InfoPlist.strings */; };
 		FFE84D941E7021F2006B80AE /* UpgradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D931E7021F2006B80AE /* UpgradeController.swift */; };
 		FFE84D961E702464006B80AE /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE84D951E702464006B80AE /* UpgradeViewModel.swift */; };
 		FFF2E8EA1E824C640082FEB7 /* APNforWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */; };
@@ -709,6 +710,20 @@
 		FFE4B6401EFA494000E48BB1 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = "Move App/ro.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FFE4B6411EFA494F00E48BB1 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = "Move App/el.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FFE4B6421EFA524100E48BB1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "Move App/tr.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFE4B6461EFCAD2D00E48BB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6551EFCAFA400E48BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6561EFCAFD900E48BB1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6571EFCAFDC00E48BB1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6581EFCAFDD00E48BB1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6591EFCAFDE00E48BB1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B65A1EFCAFDF00E48BB1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B65B1EFCAFE000E48BB1 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		FFE4B65C1EFCAFE100E48BB1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		FFE4B65D1EFCAFE200E48BB1 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B65E1EFCAFE400E48BB1 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B65F1EFCAFE500E48BB1 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6601EFCAFE600E48BB1 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FFE4B6611EFCAFE700E48BB1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FFE84D931E7021F2006B80AE /* UpgradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeController.swift; sourceTree = "<group>"; };
 		FFE84D951E702464006B80AE /* UpgradeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
 		FFF2E8E91E824C640082FEB7 /* APNforWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APNforWatchVC.swift; sourceTree = "<group>"; };
@@ -1484,6 +1499,7 @@
 			isa = PBXGroup;
 			children = (
 				E0931F151E30B9A500755B4A /* Localizable.strings */,
+				FFE4B6471EFCAD2D00E48BB1 /* InfoPlist.strings */,
 			);
 			name = Strings;
 			sourceTree = "<group>";
@@ -2405,6 +2421,7 @@
 				E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */,
 				112154C11EF7A5B600EBCE25 /* sad@3x.png in Resources */,
 				E0931F171E30B9A500755B4A /* Localizable.strings in Resources */,
+				FFE4B6451EFCAD2D00E48BB1 /* InfoPlist.strings in Resources */,
 				112154BC1EF7A5B600EBCE25 /* bye@3x.png in Resources */,
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
@@ -3025,6 +3042,27 @@
 				FF4ABDBA1E66D9C00029C643 /* Base */,
 			);
 			name = APN.storyboard;
+			sourceTree = "<group>";
+		};
+		FFE4B6471EFCAD2D00E48BB1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FFE4B6461EFCAD2D00E48BB1 /* Base */,
+				FFE4B6551EFCAFA400E48BB1 /* en */,
+				FFE4B6561EFCAFD900E48BB1 /* fr */,
+				FFE4B6571EFCAFDC00E48BB1 /* de */,
+				FFE4B6581EFCAFDD00E48BB1 /* es */,
+				FFE4B6591EFCAFDE00E48BB1 /* it */,
+				FFE4B65A1EFCAFDF00E48BB1 /* nl */,
+				FFE4B65B1EFCAFE000E48BB1 /* es-419 */,
+				FFE4B65C1EFCAFE100E48BB1 /* pt-PT */,
+				FFE4B65D1EFCAFE200E48BB1 /* cs */,
+				FFE4B65E1EFCAFE400E48BB1 /* hu */,
+				FFE4B65F1EFCAFE500E48BB1 /* ro */,
+				FFE4B6601EFCAFE600E48BB1 /* el */,
+				FFE4B6611EFCAFE700E48BB1 /* tr */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
