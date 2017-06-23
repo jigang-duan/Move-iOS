@@ -220,7 +220,6 @@
 		E91466A91E7C0B12009C0C52 /* SafezoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91466A71E7C0B12009C0C52 /* SafezoneCell.swift */; };
 		E91466AA1E7C0B12009C0C52 /* SafezoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91466A81E7C0B12009C0C52 /* SafezoneCell.xib */; };
 		E920CFDC1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */; };
-		E9260EE41E7CD11D00D272F5 /* safezone.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9260EE31E7CD11D00D272F5 /* safezone.plist */; };
 		E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E928BF091E76459800E70A57 /* RemindersCell.swift */; };
 		E928BF0C1E76459800E70A57 /* RemindersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E928BF0A1E76459800E70A57 /* RemindersCell.xib */; };
 		E92A6F491E8CD6BB00647726 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F481E8CD6BB00647726 /* libicucore.tbd */; };
@@ -229,7 +228,6 @@
 		E92A6F4F1E8CD6CF00647726 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92A6F4E1E8CD6CF00647726 /* JavaScriptCore.framework */; };
 		E92A7ABD1E79064700F1BC43 /* OfficaialNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */; };
 		E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */; };
-		E956E7F41E752B3500E4298D /* reminder.plist in Resources */ = {isa = PBXBuildFile; fileRef = E956E7F31E752B3500E4298D /* reminder.plist */; };
 		E9735EB71E6942A300C0B944 /* Rx+WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */; };
 		E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EAF1E6942A300C0B944 /* WeekView.swift */; };
 		E9735EC11E69432000C0B944 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBA1E69432000C0B944 /* AlarmController.swift */; };
@@ -609,7 +607,6 @@
 		E91466A71E7C0B12009C0C52 /* SafezoneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafezoneCell.swift; sourceTree = "<group>"; };
 		E91466A81E7C0B12009C0C52 /* SafezoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafezoneCell.xib; sourceTree = "<group>"; };
 		E920CFDB1E777B6000321DC6 /* AccountKidsRulesuserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountKidsRulesuserViewModel.swift; sourceTree = "<group>"; };
-		E9260EE31E7CD11D00D272F5 /* safezone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = safezone.plist; sourceTree = "<group>"; };
 		E928BF091E76459800E70A57 /* RemindersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersCell.swift; sourceTree = "<group>"; };
 		E928BF0A1E76459800E70A57 /* RemindersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindersCell.xib; sourceTree = "<group>"; };
 		E92A6F481E8CD6BB00647726 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -618,7 +615,6 @@
 		E92A6F4E1E8CD6CF00647726 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		E92A7ABC1E79064700F1BC43 /* OfficaialNumberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfficaialNumberController.swift; sourceTree = "<group>"; };
 		E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersViewModel.swift; sourceTree = "<group>"; };
-		E956E7F31E752B3500E4298D /* reminder.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reminder.plist; sourceTree = "<group>"; };
 		E9735EAE1E6942A300C0B944 /* Rx+WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+WeekView.swift"; sourceTree = "<group>"; };
 		E9735EAF1E6942A300C0B944 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		E9735EBA1E69432000C0B944 /* AlarmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
@@ -2066,7 +2062,6 @@
 				E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */,
 				E9E30CC61E6A909000B66979 /* UsepermissionController.swift */,
 				E98C32761E6D342E002EF0C8 /* TimeZoneController.swift */,
-				E9260EE31E7CD11D00D272F5 /* safezone.plist */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2082,7 +2077,6 @@
 				E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */,
 				E9E2B8AB1E712DCF00149257 /* ToDoListViewModel.swift */,
 				E956E7F11E74FD7000E4298D /* RemindersViewModel.swift */,
-				E956E7F31E752B3500E4298D /* reminder.plist */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2404,7 +2398,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E91466AA1E7C0B12009C0C52 /* SafezoneCell.xib in Resources */,
-				E956E7F41E752B3500E4298D /* reminder.plist in Resources */,
 				E9DA9C411E6FD960009A9189 /* SafeZoneTabViewCell.xib in Resources */,
 				115F73061ED824D700BAAF3D /* dizzy.gif in Resources */,
 				115F730C1ED824D700BAAF3D /* smile.gif in Resources */,
@@ -2413,7 +2406,6 @@
 				112154C11EF7A5B600EBCE25 /* sad@3x.png in Resources */,
 				E0931F171E30B9A500755B4A /* Localizable.strings in Resources */,
 				112154BC1EF7A5B600EBCE25 /* bye@3x.png in Resources */,
-				E9260EE41E7CD11D00D272F5 /* safezone.plist in Resources */,
 				E9E3F13F1E5704CD00B01E29 /* Major.storyboard in Resources */,
 				FF4ABDB31E669CA30029C643 /* Contact.storyboard in Resources */,
 				112154C21EF7A5B600EBCE25 /* sick@3x.png in Resources */,
