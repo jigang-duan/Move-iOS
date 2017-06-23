@@ -63,7 +63,8 @@ class MainMapViewModel {
             geolocationService: GeolocationService,
             deviceManager: DeviceManager,
             settingsManager: WatchSettingsManager,
-            locationManager: LocationManager
+            locationManager: LocationManager,
+            wireframe: AlertWireframe
         )
         ) {
         
@@ -72,6 +73,7 @@ class MainMapViewModel {
         let deviceManager = dependency.deviceManager
         let locationManager = dependency.locationManager
         let settingsManager = dependency.settingsManager
+        let wireframe = dependency.wireframe
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
@@ -206,7 +208,13 @@ class MainMapViewModel {
             .flatMapLatest { settingsManager.fetchautoPosistion(devID: $0.deviceId).asDriver(onErrorJustReturn: false) }
         
         let offTrackingMode = input.offTrackingModeTap
-            .flatMapLatest { settingsManager.update(autoPosistion: false).asDriver(onErrorJustReturn: false) }
+            .flatMapLatest{
+                wireframe.promptYHFor("Turning off Daily tracking mode, the Safezone loction information will be not timely",
+                                      cancelAction: CommonResult.cancel, action: CommonResult.ok)
+                    .filter { $0.isOK }
+                    .asDriver(onErrorJustReturn: .cancel)
+            }
+            .flatMapLatest { _ in settingsManager.update(autoPosistion: false).asDriver(onErrorJustReturn: false) }
             .filter { $0 }
             .map { !$0 }
         

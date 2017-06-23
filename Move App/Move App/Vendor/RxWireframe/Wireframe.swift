@@ -103,7 +103,7 @@ extension CommonResult : CustomStringConvertible {
 }
 
 extension CommonResult {
-    var select: Bool {
+    var isOK: Bool {
         switch self {
         case .ok:
             return true

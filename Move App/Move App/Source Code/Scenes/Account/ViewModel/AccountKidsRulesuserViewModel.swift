@@ -61,7 +61,7 @@ class AccountKidsRulesuserViewModel {
             .flatMapLatest { (turning) in
                 wireframe.promptYHFor(turning ? stringOnTrankingMode : stringOffTrankingMode,
                                     cancelAction: CommonResult.cancel, action: CommonResult.ok)
-                    .map{ $0.select }
+                    .map{ $0.isOK }
                     .asDriver(onErrorJustReturn: false)
                     .map{ $0 ? turning : !turning }
             }

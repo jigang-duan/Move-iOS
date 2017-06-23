@@ -101,7 +101,8 @@ class MainMapController: UIViewController {
                 geolocationService: geolocationService,
                 deviceManager: DeviceManager.shared,
                 settingsManager: WatchSettingsManager.share,
-                locationManager: LocationManager.share
+                locationManager: LocationManager.share,
+                wireframe: AlertWireframe.shared
             )
         )
         
@@ -212,7 +213,7 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         mapView.rx.regionDidChangeAnimated.asObservable()
-            .map{ _ in Void() }
+            .map{ _ in () }
             .bindTo(mapView.rx.redrawRadius)
             .addDisposableTo(disposeBag)
         
