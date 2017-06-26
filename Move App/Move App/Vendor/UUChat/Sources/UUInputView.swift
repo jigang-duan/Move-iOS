@@ -106,10 +106,13 @@ class UUInputView: UIView {
 extension UUInputView {
     
     func beginrecordVoice(_ sender: UIButton?) {
-        if let alert = DevicePermissions().audioPermissionsAlert().1 {
+        let audioPermissionsAlert = DevicePermissions().audioPermissionsAlert()
+        
+        if let alert = audioPermissionsAlert.1 {
             superVC.present(alert, animated: true, completion: nil)
             return
         }
+        guard audioPermissionsAlert.0 else { return }
         
         NotificationCenter.default.post(name: NSNotification.Name("VoicePlayHasInterrupt"), object: nil) // 停掉正在播放的语音
         Amr.startRecord()
