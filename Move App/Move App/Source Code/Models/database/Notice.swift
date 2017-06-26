@@ -109,6 +109,9 @@ class NoticeEntity: Object {
 extension NoticeEntity {
     
     func makeRead(realm: Realm) {
+        guard self.isInvalidated else {
+            return
+        }
         try? realm.write {
             self.readStatus = ReadStatus.read.rawValue
         }

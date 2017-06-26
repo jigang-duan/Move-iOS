@@ -106,7 +106,7 @@ class UUInputView: UIView {
 extension UUInputView {
     
     func beginrecordVoice(_ sender: UIButton?) {
-        if let alert = DevicePermissions().audioPermissionsAlert() {
+        if let alert = DevicePermissions().audioPermissionsAlert().1 {
             superVC.present(alert, animated: true, completion: nil)
             return
         }

@@ -11,18 +11,6 @@ import AVFoundation
 
 class DevicePermissions {
     
-    func getCurrentLanguage() -> String {
-        let preferredLang = Bundle.main.preferredLocalizations.first! as NSString
-        switch String(describing: preferredLang) {
-        case "en-US", "en-CN":
-            return "en"//英文
-        case "zh-Hans-US","zh-Hans-CN","zh-Hant-CN","zh-TW","zh-HK","zh-Hans":
-            return "cn"//中文
-        default:
-            return "en"
-        }
-    }
-    
     var audioPermissions: Bool {
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeAudio)
         switch authStatus {
@@ -33,20 +21,22 @@ class DevicePermissions {
         }
     }
     
-    func audioPermissionsAlert() -> UIAlertController? {
-        if audioPermissions {
-            return nil
+    func audioPermissionsAlert() -> (Bool, UIAlertController?) {
+        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeAudio)
+        switch authStatus {
+        case .authorized:
+            return (true, nil)
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeAudio) { (granted) in }
+            return (false, nil)
+        case .denied, .restricted:
+            return (false, buildAudioPermissionsAlert())
         }
-        
-        let strLanguage = self.getCurrentLanguage()
-        var strAlertTitle :String = ""
-        if  strLanguage == "cn"{
-            strAlertTitle = "没有录音访问权限"
-        }else{
-            strAlertTitle = "We need access to your phone's microphone to record voice messages"
-        }
-
-        let alert = UIAlertController(title: nil, message: strAlertTitle, preferredStyle: UIAlertControllerStyle.alert)
+    }
+    
+    private func buildAudioPermissionsAlert() -> UIAlertController {
+        let message = R.string.infoPlist.nSMicrophoneUsageDescription()
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let setting = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { action in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         }

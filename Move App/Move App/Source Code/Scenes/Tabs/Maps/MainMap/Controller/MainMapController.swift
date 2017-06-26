@@ -299,15 +299,15 @@ extension MainMapController {
         }
         let headItem = EAFeatureItem(focus: headPortraitOutlet,
                                      focusCornerRadius: headPortraitOutlet.frame.width/2 ,
-                                     focus: UIEdgeInsets.zero)
-        headItem?.actionTitle = "I Know"
-        headItem?.introduce = "Tap here to change watch"
+                                     focus: .zero)
+        headItem?.actionTitle = R.string.localizable.id_first_entry_tips()
+        headItem?.introduce = R.string.localizable.id_layout_guide_location_chosedevice()
         headItem?.action = { _ in
             let navItem = EAFeatureItem(focus: self.addressScrollLabel,
                                         focusCornerRadius: 6 ,
-                                        focus: UIEdgeInsets.zero)
-            navItem?.actionTitle = "I Know"
-            navItem?.introduce = "Tap here to navigate"
+                                        focus: .zero)
+            navItem?.actionTitle = R.string.localizable.id_first_entry_tips()
+            navItem?.introduce = R.string.localizable.id_layout_guide_location_navigate()
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                 self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
             }
@@ -354,7 +354,7 @@ extension MainMapController: MKMapViewDelegate {
     }
     
     func dotDot(online: Bool) {
-        self.mapView.mainAnnotationView?.dotColorDot = online ? defaultDotColor : UIColor.gray
+        self.mapView.mainAnnotationView?.dotColorDot = online ? defaultDotColor : .gray
     }
 }
 
