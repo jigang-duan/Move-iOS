@@ -250,6 +250,8 @@ class MainMapController: UIViewController {
         
         viewModel.autoPosistion.map{ !$0 }.drive(trackingModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
         
+        viewModel.activityIn.drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

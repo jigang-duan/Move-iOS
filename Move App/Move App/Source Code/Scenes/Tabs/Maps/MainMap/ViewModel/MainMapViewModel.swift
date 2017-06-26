@@ -82,17 +82,17 @@ class MainMapViewModel {
         let currentDeviceIdObservable = currentDeviceId.asObservable().filterNil()
         devicesVariable = RxStore.shared.deviceInfosState
 
-        currentDevice = Driver.combineLatest(
-            devicesVariable.asDriver(),
-            currentDeviceId.filterNil()
-        ) { (devices, id) in devices.filter({$0.deviceId == id}).first }
+        currentDevice = Driver.combineLatest(devicesVariable.asDriver(),
+                                             currentDeviceId.filterNil()) { (devices, id) in devices.filter({$0.deviceId == id}).first }
             .filterNil()
         
         let enter = input.enter.filter {$0}.map{ _ in Void() }
         
         fetchDevices = enter
             .flatMapLatest {
-                deviceManager.fetchDevices().asDriver(onErrorJustReturn: [])
+                deviceManager.fetchDevices()
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: [])
             }
         
         let period = Observable<Int>.timer(2,
@@ -121,6 +121,7 @@ class MainMapViewModel {
             .do(onNext: { _ in remindActivitying.onNext(true) })
             .flatMapLatest {
                 deviceManager.remindLocation(deviceId: $0)
+                    .trackActivity(activitying)
                     .do(onError: { errorSubject.onNext($0) })
                     .catchErrorJustReturn(false)
             }
@@ -137,7 +138,9 @@ class MainMapViewModel {
         
         errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
         
-        let currentLocation = Observable.merge(period, remindLocation, currentDeviceIdObservable.map{ Int($0) ?? 0 })
+        let currentLocation = Observable.merge(period,
+                                               remindLocation,
+                                               currentDeviceIdObservable.map{ Int($0) ?? 0 })
             .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)
@@ -178,7 +181,9 @@ class MainMapViewModel {
         let selecedAction = kidInfos.asObservable()
             .map(allAndTransformAction)
             .withLatestFrom(userID, resultSelector: allAndTransformActions)
-            .flatMapLatest({ actions in popoer.promptFor(toView: input.avatarView, actions: actions) })
+            .flatMapLatest{ actions in
+                popoer.promptFor(toView: input.avatarView, actions: actions)
+            }
             .shareReplay(1)
         
         allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
@@ -191,34 +196,60 @@ class MainMapViewModel {
         
         let uploadPower = enterForeground
             .withLatestFrom(currentDevice.asObservable())
-            .map{ $0.deviceId }.filterNil()
-            .flatMapLatest { deviceManager.uploadPower(deviceId: $0).catchErrorJustReturn(false) }
+            .map{ $0.deviceId }
+            .filterNil()
+            .flatMapLatest {
+                deviceManager.uploadPower(deviceId: $0)
+                    .trackActivity(activitying)
+                    .catchErrorJustReturn(false)
+            }
             .filter { $0 }
             .map {_ in () }
         
-        battery = Observable.merge(MessageServer.share.lowBattery, uploadPower)
-            .flatMapLatest{ deviceManager.power.catchErrorJustReturn(0) }
+        battery = Observable.merge(MessageServer.share.lowBattery,
+                                   uploadPower)
+            .flatMapLatest{
+                deviceManager.power
+                    .trackActivity(activitying)
+                    .catchErrorJustReturn(0)
+            }
         
         online = period.delay(5.0, scheduler: MainScheduler.instance).asDriver(onErrorJustReturn: ())
-            .flatMapLatest { deviceManager.online.asDriver(onErrorJustReturn: false) }
+            .flatMapLatest {
+                deviceManager.online
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: false)
+            }
         
-        let fetchAutoPosistion = Driver.merge(currentDevice.distinctUntilChanged{ $0.deviceId == $1.deviceId }, enter.withLatestFrom(currentDevice))
+        let fetchAutoPosistion = Driver.merge(currentDevice.distinctUntilChanged{ $0.deviceId == $1.deviceId },
+                                              enter.withLatestFrom(currentDevice))
             .withLatestFrom(userID.asDriver(onErrorJustReturn: "").filterEmpty()) { ($0.user?.owner == $1) ? $0 : nil }
             .filterNil()
-            .flatMapLatest { settingsManager.fetchautoPosistion(devID: $0.deviceId).asDriver(onErrorJustReturn: false) }
+            .flatMapLatest {
+                settingsManager.fetchautoPosistion(devID: $0.deviceId)
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: false)
+            }
         
         let offTrackingMode = input.offTrackingModeTap
             .flatMapLatest{
                 wireframe.promptYHFor("Turning off Daily tracking mode, the Safezone loction information will be not timely",
-                                      cancelAction: CommonResult.cancel, action: CommonResult.ok)
+                                      cancelAction: CommonResult.cancel,
+                                      action: CommonResult.ok)
                     .filter { $0.isOK }
                     .asDriver(onErrorJustReturn: .cancel)
             }
-            .flatMapLatest { _ in settingsManager.update(autoPosistion: false).asDriver(onErrorJustReturn: false) }
+            .flatMapLatest { _ in
+                settingsManager.update(autoPosistion: false)
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: false)
+            }
             .filter { $0 }
             .map { !$0 }
         
-        autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false }, fetchAutoPosistion, offTrackingMode)
+        autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false },
+                                     fetchAutoPosistion,
+                                     offTrackingMode)
         
     }
 }

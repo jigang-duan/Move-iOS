@@ -173,7 +173,7 @@ extension UUInputView: AmrRecorderDelegate {
     //回调录音资料
     func endAmrConvert(ofFile amrPath: String!) {
         let voiceURL = URL(fileURLWithPath: amrPath)
-        self.delegate?.UUInputView?(self, sendURLForVoice: voiceURL, duration: _playTime + 1)
+        self.delegate?.UUInputView?(self, sendURLForVoice: voiceURL, duration: _playTime)
         UUProgressHUD.dismiss(withSuccess: "Success")
         
         //缓冲消失时间 (最好有block回调消失完成)
