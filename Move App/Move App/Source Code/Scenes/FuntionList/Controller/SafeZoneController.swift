@@ -79,14 +79,14 @@ class SafeZoneController: UIViewController {
 
             if adminBool! {
                 if !autopositioningBool!{
-                    let alertController = UIAlertController(title: "Warning", message: "Auto-positioning is closed,the location infromation is not timely, for more accurate location information, please open Auto-positioning, it will consume more power", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Turn on auto-positioning?", message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
                     
-                    let notOpen = UIAlertAction(title: "Not open", style: .cancel, handler: { (UIAlertAction) in
+                    let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: { (UIAlertAction) in
                         
                         self.showAddSafezoneV()
                     })
                     
-                    let open = UIAlertAction(title: "Open Auto-positionning", style: .default, handler: { (UIAlertAction) in
+                    let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default, handler: { (UIAlertAction) in
                         WatchSettingsManager.share.updateSavepowerAndautoAnswer(self.autoAnswer!, savepower: self.savePower!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
                             })
                             .addDisposableTo(self.disposeBag)
@@ -121,9 +121,9 @@ class SafeZoneController: UIViewController {
     }
     
     func permissionsFun(adminbooll: Bool) {
-        introducelLabel.text = "Only master can edit safe zone"
+        introducelLabel.text = R.string.localizable.id_safezone_prompt_not_admin()
         if adminbooll{
-            introducelLabel.text = "When kid enter or leave the safe zone,warning will be sent to your app."
+            introducelLabel.text = R.string.localizable.id_safezone_prompt()
         }
         
         safezoneQutlet.isHidden = !adminbooll
@@ -152,7 +152,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
             let lable: UILabel = self.emptyViewQutlet.subviews[1] as! UILabel
             if self.adminBool!{
                 
-                lable.text = "No Safe zone here,tap \"+\" to add a safe zone"
+                lable.text = R.string.localizable.id_no_safe_zone_not_admin()
                 
             }else
             {

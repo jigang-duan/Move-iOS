@@ -79,6 +79,9 @@ class RemindersController: UIViewController {
         }).addDisposableTo(disposeBag)
         tableViw.register(R.nib.remindersCell(), forCellReuseIdentifier: R.reuseIdentifier.reminderCell.identifier)
         
+        titleSegment.setTitle(R.string.localizable.id_title_Alarm(), forSegmentAt: 0)
+        titleSegment.setTitle(R.string.localizable.id_todolist(), forSegmentAt: 1)
+        
         titleSegment.selectedSegmentIndex = 0
         changeShow()
         titleSegment.addTarget(self, action: #selector(RemindersController.changeShow), for: .valueChanged)
@@ -295,7 +298,7 @@ extension RemindersController {
             calendar.isHidden = true
             
             imageempty.image = R.image.reminder_empty()
-            label.text = "No alarm this day,tap \"+\" to add a alarm."
+            label.text = R.string.localizable.id_no_reminder_alarms()
         }else
         {
             self.changeBtnType(time: -1, date: Date.today().startDate)
@@ -303,7 +306,7 @@ extension RemindersController {
             tableviewtopConstraint.constant = 0
             calendar.isHidden = true
             imageempty.image = R.image.todolist_empty()
-            label.text = "No reminder this day,tap \"+\" to add a to do list."
+            label.text = R.string.localizable.id_no_reminder_todolist()
         }
         
         self.tableViw.reloadData()
@@ -318,7 +321,7 @@ extension RemindersController {
         let popover = RxPopover.shared
         popover.style = .dark
         let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
-                                        title: R.string.localizable.id_alarms(),
+                                        title: R.string.localizable.id_title_Alarm(),
                                         isSelected: false)
         
         let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),

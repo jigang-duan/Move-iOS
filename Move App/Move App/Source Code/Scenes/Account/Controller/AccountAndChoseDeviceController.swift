@@ -63,8 +63,9 @@ class AccountAndChoseDeviceController: UIViewController {
         
         RxStore.shared.deviceInfosObservable
             .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.cellDevice.identifier)) { (row, device, cell) in
-                cell.textLabel?.text = device.deviceType?.description
-                cell.detailTextLabel?.text = device.user?.nickname
+                cell.textLabel?.text = device.user?.nickname
+                cell.detailTextLabel?.text = device.deviceType?.description
+                cell.detailTextLabel?.textColor = R.color.appColor.thirdlyText()
                 cell.imageView?.image = device.deviceType?.image
             }
             .addDisposableTo(disposeBag)
