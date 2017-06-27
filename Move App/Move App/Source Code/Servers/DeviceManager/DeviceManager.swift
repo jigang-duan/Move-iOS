@@ -405,7 +405,7 @@ enum DeviceNotify: Int{
     case devicePowerOn = 101
     case devicePowerOff = 102
     case deviceLowPower = 103
-    case uploadPower = 106
+    case uploadPower = 116
 }
 
 

@@ -17,7 +17,7 @@ fileprivate let FaqURLString = "http://www.tcl-move.com/help/#/mt30/faqs/en"
 class HelpController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
+        let language = Bundle.main.preferredLocalizations[0].components(separatedBy: "-").first ?? "en"
         
         if indexPath.row == 0 {
             open(url: URL(string: FaqURLString + language)!)
