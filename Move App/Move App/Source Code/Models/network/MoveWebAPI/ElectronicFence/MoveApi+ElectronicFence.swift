@@ -142,7 +142,7 @@ extension MoveApi.ElectronicFence {
         return endpoint.adding(newHTTPHeaderFields: [
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Accept-Language": Locale.preferredLanguages[0],
+            "Accept-Language": Bundle.main.preferredLocalizations[0],
             "Authorization": MoveApi.apiKey])
     }
 }

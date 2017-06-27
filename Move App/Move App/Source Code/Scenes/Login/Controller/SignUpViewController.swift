@@ -112,7 +112,7 @@ class SignUpViewController: TranslucentNavBarController {
         
         
         
-        let language = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
+        let language = Bundle.main.preferredLocalizations[0].components(separatedBy: "-").first ?? "en"
         
         let termsUrl = URL(string: "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/" + language)!
         let privacyUrl = URL(string: "http://www.tcl-move.com/help/#/mt30_privacy_policy/" + language)!
