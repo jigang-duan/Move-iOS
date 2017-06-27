@@ -92,6 +92,14 @@ extension UUMessage {
             headURL = relation?.imageName ?? ""
         }
         
+        var name = ""
+        if let indentiy = from?.identity, indentiy.isNotEmpty {
+            let relation = Relation(input: indentiy)
+            name = relation?.description ?? ""
+        } else {
+            name = from?.nickname ?? ""
+        }
+        
         var type = MessageType.text
         let contentType = MessageEntity.ContentType(rawValue: messageEntity.contentType) ?? .unknown
         switch contentType {
@@ -110,7 +118,7 @@ extension UUMessage {
         self.init(icon: headURL,
                   msgId: messageEntity.id ?? "",
                   time: messageEntity.createDate ?? Date(),
-                  name: from?.nickname ?? "",
+                  name: name,
                   content: content,
                   state: MessageState(status: messageEntity.readStatus)!,
                   type: type,
