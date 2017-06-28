@@ -64,7 +64,7 @@ class RemindersController: UIViewController {
         
         
         internationalization()
-        addFuntion()
+//        addFuntion()
         initView()
         loadData()
         
@@ -83,6 +83,7 @@ class RemindersController: UIViewController {
         titleSegment.setTitle(R.string.localizable.id_todolist(), forSegmentAt: 1)
         
         titleSegment.selectedSegmentIndex = 0
+        
         changeShow()
         titleSegment.addTarget(self, action: #selector(RemindersController.changeShow), for: .valueChanged)
         
@@ -126,6 +127,22 @@ class RemindersController: UIViewController {
             } )
             .addDisposableTo(disposeBag)
     }
+//    " + "方法直接进入
+    @IBAction func showController() {
+        
+        print("aa")
+        
+        if titleSegment.titleForSegment(at: titleSegment.selectedSegmentIndex) == R.string.localizable.id_title_Alarm() {
+            self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
+        } else if titleSegment.titleForSegment(at: titleSegment.selectedSegmentIndex) == R.string.localizable.id_todolist() {
+            if let vc = R.storyboard.account.addTodo() {
+                vc.todos = (self.todos ?? nil)!
+                self.navigationController?.show(vc, sender: nil)
+            }
+        }
+    }
+    
+    
     
     fileprivate func initView() {
         titleSegment.layer.cornerRadius = 6
@@ -313,41 +330,44 @@ extension RemindersController {
     }
 
 }
-// + 的方法
-extension RemindersController {
 
-   fileprivate func addFuntion() {
-        
-        let popover = RxPopover.shared
-        popover.style = .dark
-        let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
-                                        title: R.string.localizable.id_title_Alarm(),
-                                        isSelected: false)
-        
-        let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),
-                                        title: R.string.localizable.id_todolist(),
-                                        isSelected: false)
-        addOutlet.rx.tap.asObservable()
-            .flatMapLatest {
-                popover.promptFor(toView: self.addOutlet, actions: [action1, action2])
-            }
-            .bindNext({[weak self] in
-                self?.showSubController(action: $0)
-            })
-            .addDisposableTo(disposeBag)
-    }
-    
-   fileprivate func showSubController(action: BasePopoverAction) {
-        if action.title == R.string.localizable.id_alarms() {
-                self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
-        } else if action.title == R.string.localizable.id_todolist() {
-                if let vc = R.storyboard.account.addTodo() {
-                    vc.todos = (self.todos ?? nil)!
-                    self.navigationController?.show(vc, sender: nil)
-                }
-        }
-    }
-}
+
+// + 的方法
+//extension RemindersController {
+//    
+//    //有选框的
+//   fileprivate func addFuntion() {
+//        
+//        let popover = RxPopover.shared
+//        popover.style = .dark
+//        let action1 = BasePopoverAction(placeholderImage: R.image.reminder_alarm(),
+//                                        title: R.string.localizable.id_title_Alarm(),
+//                                        isSelected: false)
+//        
+//        let action2 = BasePopoverAction(placeholderImage: R.image.reminder_todolist(),
+//                                        title: R.string.localizable.id_todolist(),
+//                                        isSelected: false)
+//        addOutlet.rx.tap.asObservable()
+//            .flatMapLatest {
+//                popover.promptFor(toView: self.addOutlet, actions: [action1, action2])
+//            }
+//            .bindNext({[weak self] in
+//                self?.showSubController(action: $0)
+//            })
+//            .addDisposableTo(disposeBag)
+//    }
+//    
+//   fileprivate func showSubController(action: BasePopoverAction) {
+//        if action.title == R.string.localizable.id_title_Alarm() {
+//                self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
+//        } else if action.title == R.string.localizable.id_todolist() {
+//                if let vc = R.storyboard.account.addTodo() {
+//                    vc.todos = (self.todos ?? nil)!
+//                    self.navigationController?.show(vc, sender: nil)
+//                }
+//        }
+//    }
+//}
 
 //日历按钮事件
 extension RemindersController {
