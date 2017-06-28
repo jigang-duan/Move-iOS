@@ -25,6 +25,9 @@ class SignUpViewController: TranslucentNavBarController {
     @IBOutlet weak var terms_privacy: UITextView!
     var disposeBag = DisposeBag()
     
+    fileprivate var emailSubject = PublishSubject<Void>()
+    fileprivate var passwordSubject = PublishSubject<Void>()
+    fileprivate var rePasswordSubject = PublishSubject<Void>()
     
     func showAccountError(_ text: String) {
         emailValidation.isHidden = false
@@ -93,9 +96,9 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     func initUI() {
-        emailValidation.isHidden = true
-        passwordValidation.isHidden = true
-        rePasswordValidation.isHidden = true
+        emailValidation.text = nil
+        passwordValidation.text = nil
+        rePasswordValidation.text = nil
     }
     
     var viewModel: SignUpViewModel!
@@ -170,6 +173,28 @@ class SignUpViewController: TranslucentNavBarController {
             )
         )
         
+        
+        emailSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedEmail)
+            .drive(onNext: { [weak self] in
+                self?.showEmailValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+        
+        passwordSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedPassword)
+            .drive(onNext: { [weak self] in
+                self?.showPasswordValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+        
+        rePasswordSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedRePassword)
+            .drive(onNext: { [weak self] in
+                self?.showRePasswordValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+        
         viewModel.signUpEnabled
             .drive(onNext: { [weak self] valid in
                 self?.signUpBtn.isEnabled = valid
@@ -192,46 +217,39 @@ class SignUpViewController: TranslucentNavBarController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.validatedEmail
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showAccountError(message)
-                case .empty:
-                    self?.showAccountError("Please fill")
-                default:
-                    self?.revertAccountError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.validatedPassword
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showPasswdError(message)
-                case .empty:
-                    self?.showPasswdError("Secure your account")
-                default:
-                    self?.revertPasswdError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.validatedRePassword
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showRePswdError(message)
-                default:
-                    self?.revertRePswdError()
-                }
-            })
-            .addDisposableTo(disposeBag)
+    func showEmailValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showAccountError(message)
+        case .empty:
+            self.showAccountError(R.string.localizable.id_password_please_fill_email())
+        default:
+            self.revertAccountError()
+        }
     }
+    
+    func showPasswordValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showPasswdError(message)
+        case .empty:
+            self.showPasswdError(R.string.localizable.id_secure_your_account_email())
+        default:
+            self.revertPasswdError()
+        }
+    }
+
+    func showRePasswordValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showRePswdError(message)
+        case .empty:
+            self.showRePswdError(R.string.localizable.id_password_please_fill_password())
+        default:
+            self.revertRePswdError()
+        }
+    }
+
     
     @IBAction func passwordEyeClick(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -246,9 +264,7 @@ class SignUpViewController: TranslucentNavBarController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        emailTf.resignFirstResponder()
-        passwordTf.resignFirstResponder()
-        rePasswordTf.resignFirstResponder()
+        self.view.endEditing(true)
     }
     
     
@@ -273,11 +289,39 @@ extension SignUpViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == emailTf {
+            emailSubject.onNext(())
+        }
+        if textField == passwordTf {
+            passwordSubject.onNext(())
+        }
+        if textField == rePasswordTf {
+            rePasswordSubject.onNext(())
+        }
+    }
+    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == emailTf {
+            self.revertAccountError()
+        }
+        if textField == passwordTf {
+            self.revertPasswdError()
+        }
+        if textField == rePasswordTf {
+            self.revertRePswdError()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTf {
             passwordTf.becomeFirstResponder()
+            return false
         }
         if textField == passwordTf {
             rePasswordTf.becomeFirstResponder()
+            return false
         }
+        return true
     }
     
 }

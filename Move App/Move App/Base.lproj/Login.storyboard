@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kjM-LX-aey">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,7 +63,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llT-7X-wmS" userLabel="EmailLine">
                                         <rect key="frame" x="45" y="32" width="285" height="1"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.84999999999999998"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="bMU-Cj-5Pp"/>
@@ -109,7 +109,7 @@
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0p-XS-oiU" userLabel="pwdLine">
                                         <rect key="frame" x="45" y="93" width="285" height="1"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="A7i-Cu-Vte"/>
                                         </constraints>
@@ -223,7 +223,7 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZnH-CB-kaZ">
                                 <rect key="frame" x="0.0" y="583" width="165" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="yq3-ml-ow8"/>
                                 </constraints>
@@ -236,7 +236,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sks-BJ-sxO">
                                 <rect key="frame" x="210" y="583" width="165" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="OzR-T5-Hm2"/>
                                 </constraints>
@@ -329,7 +329,7 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vib-9P-zPz" userLabel="EmailLine">
                                 <rect key="frame" x="45" y="139.5" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="dkR-vu-3V4"/>
                                 </constraints>
@@ -426,7 +426,7 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LwM-1v-9ga" userLabel="EmailLine">
                                 <rect key="frame" x="45" y="139.5" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="aKq-iA-IXR"/>
                                 </constraints>
@@ -551,16 +551,13 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-V0-ygb" userLabel="EmailLine">
                                 <rect key="frame" x="45" y="139.5" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="Ibz-pL-3Bf"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vcode incorrect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMB-pM-kr9">
-                                <rect key="frame" x="45" y="145.5" width="96.5" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="MeY-rK-3GZ"/>
-                                </constraints>
+                                <rect key="frame" x="45" y="145.5" width="285" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -579,16 +576,13 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDC-7X-Iej" userLabel="EmailLine">
                                 <rect key="frame" x="45" y="203.5" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="Xfc-fY-5JN"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not valid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F00-mJ-tYW">
-                                <rect key="frame" x="45" y="209.5" width="113.5" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="Xet-Qm-HDQ"/>
-                                </constraints>
+                                <rect key="frame" x="45" y="209.5" width="285" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -607,16 +601,13 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svc-SU-JhY" userLabel="EmailLine">
                                 <rect key="frame" x="45" y="267.5" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="BK6-x8-1j8"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPV-sX-19w">
-                                <rect key="frame" x="45" y="273.5" width="129" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="oL0-Zi-Na5"/>
-                                </constraints>
+                                <rect key="frame" x="45" y="273.5" width="285" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -659,12 +650,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="svc-SU-JhY" firstAttribute="top" secondItem="L2n-IA-bC8" secondAttribute="bottom" id="0cG-fd-LYE"/>
-                            <constraint firstItem="L2n-IA-bC8" firstAttribute="top" secondItem="F00-mJ-tYW" secondAttribute="bottom" constant="10" id="4SM-my-gz7"/>
                             <constraint firstAttribute="trailing" secondItem="DkM-1l-Rgw" secondAttribute="trailing" constant="45" id="4jP-VO-qXt"/>
                             <constraint firstItem="qsM-V0-ygb" firstAttribute="top" secondItem="gg9-25-vFM" secondAttribute="bottom" id="5Bk-28-KMd"/>
                             <constraint firstAttribute="trailing" secondItem="uDC-7X-Iej" secondAttribute="trailing" constant="45" id="9Rf-Za-IF0"/>
                             <constraint firstItem="L2n-IA-bC8" firstAttribute="leading" secondItem="svc-SU-JhY" secondAttribute="leading" id="9kD-c4-z0d"/>
-                            <constraint firstItem="Npb-YF-EnZ" firstAttribute="top" secondItem="rMB-pM-kr9" secondAttribute="bottom" constant="10" id="AZw-QY-bvx"/>
                             <constraint firstItem="AuF-SV-ojI" firstAttribute="centerY" secondItem="Npb-YF-EnZ" secondAttribute="centerY" id="DJU-1A-I8W"/>
                             <constraint firstItem="rNv-hQ-9gj" firstAttribute="top" secondItem="DkM-1l-Rgw" secondAttribute="bottom" constant="30" id="FUe-Gg-nci"/>
                             <constraint firstItem="Vfn-rN-Da0" firstAttribute="leading" secondItem="Hfe-SB-tlv" secondAttribute="leading" constant="20" id="Fsp-VK-491"/>
@@ -679,6 +668,7 @@
                             <constraint firstItem="DkM-1l-Rgw" firstAttribute="leading" secondItem="Hfe-SB-tlv" secondAttribute="leading" constant="45" id="Nxh-QX-765"/>
                             <constraint firstItem="F00-mJ-tYW" firstAttribute="top" secondItem="uDC-7X-Iej" secondAttribute="bottom" constant="5" id="XSO-ma-ZvX"/>
                             <constraint firstItem="gg9-25-vFM" firstAttribute="leading" secondItem="qsM-V0-ygb" secondAttribute="leading" id="XpM-SK-eO7"/>
+                            <constraint firstItem="qPV-sX-19w" firstAttribute="trailing" secondItem="svc-SU-JhY" secondAttribute="trailing" id="Z5m-Qd-mKY"/>
                             <constraint firstAttribute="trailing" secondItem="qsM-V0-ygb" secondAttribute="trailing" constant="45" id="ZMu-uC-BMU"/>
                             <constraint firstAttribute="trailing" secondItem="svc-SU-JhY" secondAttribute="trailing" constant="45" id="ZYw-va-AvK"/>
                             <constraint firstAttribute="trailing" secondItem="Vfn-rN-Da0" secondAttribute="trailing" constant="20" id="bEa-3E-8nh"/>
@@ -687,12 +677,16 @@
                             <constraint firstItem="gg9-25-vFM" firstAttribute="top" secondItem="Vfn-rN-Da0" secondAttribute="bottom" constant="40" id="h8w-vH-ZNU"/>
                             <constraint firstItem="dcj-7c-nn5" firstAttribute="centerY" secondItem="L2n-IA-bC8" secondAttribute="centerY" id="hdU-SG-L8g"/>
                             <constraint firstItem="Npb-YF-EnZ" firstAttribute="trailing" secondItem="uDC-7X-Iej" secondAttribute="trailing" constant="-30" id="hwW-xh-I8J"/>
+                            <constraint firstItem="F00-mJ-tYW" firstAttribute="trailing" secondItem="uDC-7X-Iej" secondAttribute="trailing" id="i0K-Q1-qwn"/>
                             <constraint firstItem="qPV-sX-19w" firstAttribute="leading" secondItem="svc-SU-JhY" secondAttribute="leading" id="kVP-Lr-sov"/>
+                            <constraint firstItem="Npb-YF-EnZ" firstAttribute="top" secondItem="qsM-V0-ygb" secondAttribute="bottom" constant="31" id="oSi-AW-dLj"/>
                             <constraint firstItem="svc-SU-JhY" firstAttribute="leading" secondItem="Hfe-SB-tlv" secondAttribute="leading" constant="45" id="p7K-7N-cPX"/>
                             <constraint firstItem="L2n-IA-bC8" firstAttribute="trailing" secondItem="svc-SU-JhY" secondAttribute="trailing" constant="-30" id="pOB-8c-ZhY"/>
+                            <constraint firstItem="L2n-IA-bC8" firstAttribute="top" secondItem="uDC-7X-Iej" secondAttribute="bottom" constant="31" id="t7T-UC-Zkr"/>
                             <constraint firstItem="uDC-7X-Iej" firstAttribute="top" secondItem="Npb-YF-EnZ" secondAttribute="bottom" id="taW-7Q-WYO"/>
                             <constraint firstItem="qPV-sX-19w" firstAttribute="top" secondItem="svc-SU-JhY" secondAttribute="bottom" constant="5" id="ufD-pE-TRb"/>
                             <constraint firstItem="nEw-DC-fWP" firstAttribute="centerY" secondItem="gg9-25-vFM" secondAttribute="centerY" id="unA-5Y-RMS"/>
+                            <constraint firstItem="rMB-pM-kr9" firstAttribute="trailing" secondItem="qsM-V0-ygb" secondAttribute="trailing" id="z37-Pb-sia"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Update password" id="X0V-DO-6fz">
@@ -701,14 +695,12 @@
                     <connections>
                         <outlet property="doneBun" destination="DkM-1l-Rgw" id="gNW-i4-N7F"/>
                         <outlet property="helpLabel" destination="Vfn-rN-Da0" id="O7o-9y-uW6"/>
-                        <outlet property="passwdValidHConstrain" destination="Xet-Qm-HDQ" id="NSz-Gd-WT5"/>
                         <outlet property="passwordTf" destination="Npb-YF-EnZ" id="SGw-S1-PFX"/>
                         <outlet property="passwordValidation" destination="F00-mJ-tYW" id="Q3B-fW-GXy"/>
                         <outlet property="rePasswordTf" destination="L2n-IA-bC8" id="JT4-5y-bNm"/>
                         <outlet property="rePasswordValidation" destination="qPV-sX-19w" id="OdG-Q5-3Uu"/>
                         <outlet property="sendBun" destination="nEw-DC-fWP" id="H1i-oD-iE3"/>
                         <outlet property="vcodeTf" destination="gg9-25-vFM" id="N2X-4B-yEj"/>
-                        <outlet property="vcodeValidHConstrain" destination="MeY-rK-3GZ" id="x53-82-7dj"/>
                         <outlet property="vcodeValidation" destination="rMB-pM-kr9" id="4EM-nQ-tBx"/>
                     </connections>
                 </viewController>
@@ -749,7 +741,7 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zll-P4-9Ic">
                                 <rect key="frame" x="45" y="68" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="dtr-Mm-jJ4"/>
                                 </constraints>
@@ -781,7 +773,7 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9A-2R-Br7">
                                 <rect key="frame" x="45" y="132" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="pqo-NA-jSG"/>
                                 </constraints>
@@ -813,7 +805,7 @@
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxm-UJ-B5B">
                                 <rect key="frame" x="45" y="196" width="285" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="toq-e8-ofA"/>
                                 </constraints>

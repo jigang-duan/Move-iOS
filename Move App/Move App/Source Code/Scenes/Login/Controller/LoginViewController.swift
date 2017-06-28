@@ -65,8 +65,8 @@ class LoginViewController: TranslucentNavBarController {
         }
         
     
-        emailValidationOutlet.isHidden = true
-        passwordValidationOutlet.isHidden = true
+        emailValidationOutlet.text = nil
+        passwordValidationOutlet.text = nil
         
         if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
             emailOutlet.text = email
