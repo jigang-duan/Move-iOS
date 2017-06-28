@@ -101,18 +101,18 @@ class UUInputView: UIView {
     }
 }
 
-
 // MARK:  录音touch事件
 extension UUInputView {
     
     func beginrecordVoice(_ sender: UIButton?) {
-        let audioPermissionsAlert = DevicePermissions().audioPermissionsAlert()
-        
-        if let alert = audioPermissionsAlert.1 {
-            superVC.present(alert, animated: true, completion: nil)
-            return
+        if !Platform.isSimulator {
+            let audioPermissionsAlert = DevicePermissions().audioPermissionsAlert()
+            if let alert = audioPermissionsAlert.1 {
+                superVC.present(alert, animated: true, completion: nil)
+                return
+            }
+            guard audioPermissionsAlert.0 else { return }
         }
-        guard audioPermissionsAlert.0 else { return }
         
         NotificationCenter.default.post(name: NSNotification.Name("VoicePlayHasInterrupt"), object: nil) // 停掉正在播放的语音
         Amr.startRecord()

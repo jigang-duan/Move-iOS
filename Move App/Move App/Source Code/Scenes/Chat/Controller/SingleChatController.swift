@@ -22,6 +22,7 @@ class SingleChatController: UIViewController {
     @IBOutlet weak var ifView: UUInputView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var moreView: MoreView!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
@@ -118,10 +119,16 @@ class SingleChatController: UIViewController {
         let topVoice = ifView.rx.sendVoice.asObservable()
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
         
+        let activitying = ActivityIndicator()
+        let activityIn = activitying.asObservable()
+        activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
+        activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
+        
         let updateVoice = Observable.merge(topVoice, needReUpdateVoice)
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { (imVoice) in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
+                    .trackActivity(activitying, need: imVoice.readStatus == 0)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }
         }

@@ -22,6 +22,7 @@ class FamilyChatController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ifView: UUInputView!
     @IBOutlet var moreView: MoreView!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
@@ -141,11 +142,18 @@ class FamilyChatController: UIViewController {
         
         let topVoice = ifView.rx.sendVoice.asObservable()
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
-            
+        
+        
+        let activitying = ActivityIndicator()
+        let activityIn = activitying.asObservable()
+        activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
+        activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
+        
         let updateVoice = Observable.merge(topVoice, needReUpdateVoice)
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { (imVoice) in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
+                    .trackActivity(activitying, need: imVoice.readStatus == 0)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }
             }
@@ -257,8 +265,8 @@ extension FamilyChatController {
                 let featureItem = EAFeatureItem(focus: cell.btnContent,
                                                 focusCornerRadius: 6 ,
                                                 focus: UIEdgeInsets.zero)
-                featureItem?.actionTitle = "I Know"
-                featureItem?.introduce = "Long press to delete"
+                featureItem?.actionTitle = R.string.localizable.id_first_entry_tips()
+                featureItem?.introduce = R.string.localizable.id_long_press_to_delete()
                 self.view.show(with: [featureItem!], saveKeyName: "mark:familychat:cell:content", inVersion: version)
             }
         }
@@ -378,3 +386,8 @@ extension FamilyChatController: DZNEmptyDataSetSource {
     }
 }
 
+extension ObservableConvertibleType {
+    func trackActivity(_ activityIndicator: ActivityIndicator, need: Bool) -> Observable<E> {
+        return need ? trackActivity(activityIndicator) : asObservable()
+    }
+}
