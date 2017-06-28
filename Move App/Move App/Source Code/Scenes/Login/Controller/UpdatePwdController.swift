@@ -15,15 +15,17 @@ class UpdatePwdController: TranslucentNavBarController {
     @IBOutlet weak var helpLabel: UILabel!
     @IBOutlet weak var vcodeTf: UITextField!
     @IBOutlet weak var vcodeValidation: UILabel!
-    @IBOutlet weak var vcodeValidHConstrain: NSLayoutConstraint!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var passwordValidation: UILabel!
-    @IBOutlet weak var passwdValidHConstrain: NSLayoutConstraint!
     @IBOutlet weak var rePasswordTf: UITextField!
     @IBOutlet weak var rePasswordValidation: UILabel!
     
     @IBOutlet weak var sendBun: UIButton!
     @IBOutlet weak var doneBun: UIButton!
+    
+    fileprivate var vcodeSubject = PublishSubject<Void>()
+    fileprivate var passwordSubject = PublishSubject<Void>()
+    fileprivate var rePasswordSubject = PublishSubject<Void>()
     
     var sid: String?
     var email: String?
@@ -38,7 +40,6 @@ class UpdatePwdController: TranslucentNavBarController {
     
     
     func showVcodeError(_ text: String) {
-        vcodeValidHConstrain.constant = 16
         vcodeValidation.isHidden = false
         vcodeValidation.alpha = 0.0
         vcodeValidation.text = text
@@ -50,7 +51,6 @@ class UpdatePwdController: TranslucentNavBarController {
     }
     
     func revertVcodeError() {
-        vcodeValidHConstrain.constant = 0
         vcodeValidation.isHidden = true
         vcodeValidation.alpha = 1.0
         vcodeValidation.text = ""
@@ -62,7 +62,6 @@ class UpdatePwdController: TranslucentNavBarController {
     }
     
     func showPasswdError(_ text: String) {
-        passwdValidHConstrain.constant = 16
         passwordValidation.isHidden = false
         passwordValidation.alpha = 0.0
         passwordValidation.text = text
@@ -74,7 +73,6 @@ class UpdatePwdController: TranslucentNavBarController {
     }
     
     func revertPasswdError() {
-        passwdValidHConstrain.constant = 0
         passwordValidation.isHidden = true
         passwordValidation.alpha = 1.0
         passwordValidation.text = ""
@@ -109,9 +107,7 @@ class UpdatePwdController: TranslucentNavBarController {
     
     func initUI() {
         vcodeValidation.isHidden = true
-        vcodeValidHConstrain.constant = 0
         passwordValidation.isHidden = true
-        passwdValidHConstrain.constant = 0
         rePasswordValidation.isHidden = true
     }
     
@@ -171,6 +167,28 @@ class UpdatePwdController: TranslucentNavBarController {
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
+        
+        vcodeSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedVcode)
+            .drive(onNext: { [weak self] in
+                self?.showVcodeValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+        
+        passwordSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedPassword)
+            .drive(onNext: { [weak self] in
+                self?.showPasswordValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+        
+        rePasswordSubject.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(viewModel.validatedRePassword)
+            .drive(onNext: { [weak self] in
+                self?.showRePasswordValidation($0)
+            })
+            .addDisposableTo(disposeBag)
+
         
         viewModel.sid = self.sid
         viewModel.email = self.email
@@ -235,44 +253,40 @@ class UpdatePwdController: TranslucentNavBarController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.validatedVcode
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showVcodeError(message)
-                default:
-                    self?.revertVcodeError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.validatedPassword
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showPasswdError(message)
-                default:
-                    self?.revertPasswdError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
-        viewModel.validatedRePassword
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showRePswdError(message)
-                default:
-                    self?.revertRePswdError()
-                }
-            })
-            .addDisposableTo(disposeBag)
+    func showVcodeValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showVcodeError(message)
+        case .empty:
+            self.showRePswdError(R.string.localizable.id_vcode_tint())
+        default:
+            self.revertVcodeError()
+        }
     }
     
+    func showPasswordValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showPasswdError(message)
+        case .empty:
+            self.showRePswdError(R.string.localizable.id_new_password())
+        default:
+            self.revertPasswdError()
+        }
+    }
+    
+    func showRePasswordValidation(_ result: ValidationResult) {
+        switch result{
+        case .failed(let message):
+            self.showRePswdError(message)
+        case .empty:
+            self.showRePswdError(R.string.localizable.id_confirm_new_password())
+        default:
+            self.revertRePswdError()
+        }
+    }
 
+   
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         vcodeTf.resignFirstResponder()
@@ -298,12 +312,41 @@ extension UpdatePwdController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == vcodeTf {
+            vcodeSubject.onNext(())
+        }
+        if textField == passwordTf {
+            passwordSubject.onNext(())
+        }
+        if textField == rePasswordTf {
+            rePasswordSubject.onNext(())
+        }
+    }
+    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == vcodeTf {
+            self.revertVcodeError()
+        }
+        if textField == passwordTf {
+            self.revertPasswdError()
+        }
+        if textField == rePasswordTf {
+            self.revertRePswdError()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == vcodeTf {
             passwordTf.becomeFirstResponder()
+            return false
         }
         if textField == passwordTf {
             rePasswordTf.becomeFirstResponder()
+            return false
         }
+        return true
     }
+
     
 }
 
