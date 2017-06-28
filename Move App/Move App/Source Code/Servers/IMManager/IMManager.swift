@@ -68,7 +68,7 @@ extension IMManager {
         return sendChatMessage(message: MoveIM.ImMessage(voice: voice))
             .map { $0.msg_id }
             .filterNil()
-            .map { voice.clone(msgId: $0) }
+            .map { voice.clone(msgId: $0).clone(readStatus: 0) }
     }
     
     func delete(message id: String) -> Observable<String> {
@@ -282,6 +282,18 @@ extension ImVoice {
                        ctime: self.ctime,
                        fid: fId,
                        readStatus: self.readStatus,
+                       duration: self.duration,
+                       locationURL: self.locationURL)
+    }
+    
+    func clone(readStatus: Int) -> ImVoice {
+        return ImVoice(msg_id: self.msg_id,
+                       from: self.from,
+                       to: self.to,
+                       gid: self.gid,
+                       ctime: self.ctime,
+                       fid: self.fid,
+                       readStatus: readStatus,
                        duration: self.duration,
                        locationURL: self.locationURL)
     }

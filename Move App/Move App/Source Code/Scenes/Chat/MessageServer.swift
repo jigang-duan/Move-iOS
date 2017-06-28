@@ -201,8 +201,8 @@ fileprivate func classifiedSave(messages: [MessageEntity], realm: Realm, sync: S
     let my = messages.filter({ $0.from == uid })
     save(messages: my, realm: realm, sync: sync, uid: uid)
     
-    let others = messages.filter({ $0.from != uid })
-    let gOthers = others.filter({ ($0.groupId != nil) && ($0.groupId != "") })
+    let others = messages.filter { !$0.isInvalidated && $0.from != uid }
+    let gOthers = others.filter { !$0.isInvalidated && ($0.groupId != nil) && ($0.groupId != "") }
     let cgOthers = gOthers.reduce([:]) { (map, message) -> [String: [MessageEntity]] in
         var result = map
         if let gid = message.groupId {

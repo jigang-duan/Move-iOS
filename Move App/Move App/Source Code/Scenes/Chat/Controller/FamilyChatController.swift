@@ -121,6 +121,7 @@ class FamilyChatController: UIViewController {
             .map { $0.filter{ $0.isVoiceOfFailed }.first }
             .filterNil()
             .map { ImVoice(entity: $0) }
+            .filter { $0.from == uid }
         
         let resendVoice = needResendVoice
             .filter { ($0.fid != nil) && ($0.locationURL == nil) }
