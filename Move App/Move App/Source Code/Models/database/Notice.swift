@@ -109,7 +109,7 @@ class NoticeEntity: Object {
 extension NoticeEntity {
     
     func makeRead(realm: Realm) {
-        guard self.isInvalidated else {
+        if self.isInvalidated {
             return
         }
         try? realm.write {
