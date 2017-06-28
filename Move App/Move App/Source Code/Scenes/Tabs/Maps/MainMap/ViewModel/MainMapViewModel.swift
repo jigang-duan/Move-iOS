@@ -130,11 +130,14 @@ class MainMapViewModel {
         let remindLocation = remindSuccess
             .flatMapLatest { _ in MessageServer.share.manuallyLocate }
         
-        let remindTimeOut = remindSuccess.delay(60.0, scheduler: MainScheduler.instance)
-            .withLatestFrom(remindActivitying.asObserver())
-            .filter { $0 }
-            .map{ _ in WorkerError.LocationTimeout as Error }
-            .do(onNext: { _ in remindActivitying.onNext(false) })
+        let remindTimeOut = remindSuccess.flatMapLatest{ (_) in
+                Observable.just(())
+                    .delay(60.0, scheduler: MainScheduler.instance)
+                    .withLatestFrom(remindActivitying.asObserver())
+                    .filter { $0 }
+                    .map{ _ in WorkerError.LocationTimeout as Error }
+                    .do(onNext: { _ in remindActivitying.onNext(false) })
+            }
         
         errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
         

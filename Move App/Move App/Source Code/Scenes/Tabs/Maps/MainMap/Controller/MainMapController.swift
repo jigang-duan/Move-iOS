@@ -179,18 +179,15 @@ class MainMapController: UIViewController {
             .bindTo(viewModel.devicesVariable)
             .addDisposableTo(disposeBag)
         
-        mapView.rx.willStartLoadingMap
-            .asDriver()
+        mapView.rx.willStartLoadingMap.asDriver()
             .drive(onNext: { Logger.debug("地图开始加载!") })
             .addDisposableTo(disposeBag)
         
-        mapView.rx.didFinishLoadingMap
-            .asDriver()
+        mapView.rx.didFinishLoadingMap.asDriver()
             .drive(onNext: { Logger.debug("地图结束加载!") })
             .addDisposableTo(disposeBag)
         
-        mapView.rx.didAddAnnotationViews
-            .asDriver()
+        mapView.rx.didAddAnnotationViews.asDriver()
             .drive(onNext: { Logger.debug("地图Annotion个数: \($0.count)")})
             .addDisposableTo(disposeBag)
         
