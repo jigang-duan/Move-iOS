@@ -130,11 +130,10 @@ class RemindersController: UIViewController {
 //    " + "方法直接进入
     @IBAction func showController() {
         
-        print("aa")
         
-        if titleSegment.titleForSegment(at: titleSegment.selectedSegmentIndex) == R.string.localizable.id_title_Alarm() {
+        if titleSegment.selectedSegmentIndex == 0{
             self.performSegue(withIdentifier: R.segue.remindersController.showAlarm, sender: nil)
-        } else if titleSegment.titleForSegment(at: titleSegment.selectedSegmentIndex) == R.string.localizable.id_todolist() {
+        } else if titleSegment.selectedSegmentIndex == 1 {
             if let vc = R.storyboard.account.addTodo() {
                 vc.todos = (self.todos ?? nil)!
                 self.navigationController?.show(vc, sender: nil)
