@@ -65,6 +65,11 @@ extension IMManager {
     }
     
     func sendChatVoice(_ voice: ImVoice) -> Observable<ImVoice> {
+        
+        guard let fid = voice.fid, !fid.contains("file:") else {
+            return Observable.error(WorkerError.emptyField("fid is empty or file."))
+        }
+        
         return sendChatMessage(message: MoveIM.ImMessage(voice: voice))
             .map { $0.msg_id }
             .filterNil()

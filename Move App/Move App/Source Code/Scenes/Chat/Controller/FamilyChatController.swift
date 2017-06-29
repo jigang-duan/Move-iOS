@@ -108,20 +108,24 @@ class FamilyChatController: UIViewController {
             .filterNil()
             .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), content: $0, failure: false) }
         
-        let timingMessages = Observable<Int>.timer(2.0, period: 16.0, scheduler: MainScheduler.instance)
-            .map { _ in group.messages  }
+//        let timingMessages = Observable<Int>.timer(2.0, period: 16.0, scheduler: MainScheduler.instance)
+//            .map { _ in group.messages  }
+//            .share()
+        let loseMessages = group.messages.filter("readStatus == 102").filter("groupId != %@", "").filter("from == %@", uid)
+        let loseMessageObservable = Observable.collection(from: loseMessages)
+            .map{ $0.first }
+            .filterNil()
+            .timeout(80, scheduler: MainScheduler.instance)
+            .retry()
             .share()
         
-        let resendEnoji = timingMessages
-            .map { $0.filter{ $0.isTextOfFailed }.first }
-            .filterNil()
+        let resendEnoji = loseMessageObservable
+            .filter{ $0.isTextOfFailed }
             .map { ImEmoji(entity: $0) }
         
-        let needResendVoice = timingMessages
-            .map { $0.filter{ $0.isVoiceOfFailed }.first }
-            .filterNil()
+        let needResendVoice = loseMessageObservable
+            .filter{ $0.isVoiceOfFailed }
             .map { ImVoice(entity: $0) }
-            .filter { $0.from == uid }
         
         let resendVoice = needResendVoice
             .filter { ($0.fid != nil) && ($0.locationURL == nil) }
