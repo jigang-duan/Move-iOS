@@ -90,7 +90,8 @@ class SingleChatController: UIViewController {
         let topEnoji = ifView.rx.sendEmoji.asObservable()
             .map { EmojiType(rawValue: $0) }
             .filterNil()
-            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: false) }
+            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: true) }
+            .map { MessageEntity(meoji: $0) }
         
 //        let timingMessages = Observable<Int>.timer(2.0, period: 16.0, scheduler: MainScheduler.instance)
 //            .map { _ in group.messages  }
@@ -115,7 +116,7 @@ class SingleChatController: UIViewController {
         let resendVoice = needResendVoice.filter { ($0.fid != nil) && ($0.locationURL == nil) }
         let needReUpdateVoice = needResendVoice.filter { ($0.fid != nil) && ($0.locationURL != nil) }
         
-        let sendEnoji = Observable.merge(topEnoji, resendEnoji)
+        let sendEnoji = Observable.merge(resendEnoji)
             .flatMapLatest { IMManager.shared.sendChatEmoji($0).catchErrorJustReturn($0.clone(failure: true)) }
             .share()
         
@@ -124,13 +125,15 @@ class SingleChatController: UIViewController {
         
         let topVoice = ifView.rx.sendVoice.asObservable()
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
+            .map { $0.clone(fId: $0.locationURL!.absoluteString) }
+            .map { MessageEntity(voice: $0) }
         
         let activitying = ActivityIndicator()
         let activityIn = activitying.asObservable()
         activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
         activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
         
-        let updateVoice = Observable.merge(topVoice, needReUpdateVoice)
+        let updateVoice = Observable.merge(needReUpdateVoice)
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { (imVoice) in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
@@ -150,7 +153,7 @@ class SingleChatController: UIViewController {
             .bindNext { group.update(realm: realm, message: $0, readStatus: .sent) }
             .addDisposableTo(bag)
         
-        Observable.merge(failedEnoji, failedVoice)
+        Observable.merge(topEnoji, failedEnoji, topVoice, failedVoice)
             .bindNext { group.update(realm: realm, message: $0, readStatus: .failedSend) }
             .addDisposableTo(bag)
         

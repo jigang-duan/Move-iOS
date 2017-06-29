@@ -78,7 +78,7 @@ extension GroupEntity {
                 realm.delete(old)
                 self.messages.insert(message, at: indexOld)
             }
-        } else {
+        } else if !self.messages.contains(where: {$0.id == messageId}) {
             try? realm.write {
                 self.messages.append(message)
             }
