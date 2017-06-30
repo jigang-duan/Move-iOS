@@ -21,6 +21,7 @@ class UsepermissionController: UITableViewController {
     @IBOutlet weak var voicechangeLabel: UILabel!
     @IBOutlet weak var playingHamsteLabel: UILabel!
     
+    @IBOutlet weak var usePermissionDescribeLabel: UILabel!
     
     @IBOutlet weak var myfriendQulet: SwitchButton!
     @IBOutlet weak var groupchatQulet: SwitchButton!
@@ -37,6 +38,7 @@ class UsepermissionController: UITableViewController {
         groupchatLabel.text = R.string.localizable.id_group_chat()
         voicechangeLabel.text = R.string.localizable.id_voice_changer()
         playingHamsteLabel.text = R.string.localizable.id_playing_hamster()
+//        没有该国际化usePermissionDescribeLabel.text =
         
         
     }
@@ -45,7 +47,7 @@ class UsepermissionController: UITableViewController {
         super.viewDidLoad()
         
         self.internationalization()
-        self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
+//        self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         
         let viewModel = UsepermissionViewModel(
             dependency: (
@@ -77,3 +79,4 @@ class UsepermissionController: UITableViewController {
 
     
 }
+

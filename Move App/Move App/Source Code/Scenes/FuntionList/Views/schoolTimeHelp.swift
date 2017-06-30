@@ -10,8 +10,11 @@ import UIKit
 
 class schoolTimeHelp: UIView {
     
+    @IBOutlet weak var helpDescribeLabel: UILabel!
 
     @IBAction func removeView(_ sender: Any) {
         removeFromSuperview()
     }
+    
+    
 }

@@ -1029,11 +1029,30 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="rUI-M9-NW1">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If turn off, kids cannot use these functions in the watch" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usX-tg-bP4">
+                                    <rect key="frame" x="10" y="10" width="355" height="35"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="usX-tg-bP4" secondAttribute="bottom" constant="5" id="7Zo-Rj-wKC"/>
+                                <constraint firstAttribute="trailing" secondItem="usX-tg-bP4" secondAttribute="trailing" constant="10" id="m9k-Qf-H2E"/>
+                                <constraint firstItem="usX-tg-bP4" firstAttribute="leading" secondItem="rUI-M9-NW1" secondAttribute="leading" constant="10" id="uvy-2N-G6Z"/>
+                                <constraint firstItem="usX-tg-bP4" firstAttribute="top" secondItem="rUI-M9-NW1" secondAttribute="top" constant="10" id="xTf-76-xrc"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="lw4-AG-HPs">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZYL-jw-KKo">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZYL-jw-KKo" id="EaU-Tq-ZEd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1070,7 +1089,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="4ib-16-u8D">
-                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="94" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ib-16-u8D" id="xM8-gk-pBW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1107,7 +1126,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="IzI-Xh-yJE">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="138" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IzI-Xh-yJE" id="EhD-3C-BRr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1144,7 +1163,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lqW-ZA-6rp">
-                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="182" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lqW-ZA-6rp" id="jCj-fb-wL9">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1199,6 +1218,7 @@
                         <outlet property="myfriendQulet" destination="jzy-RU-UBu" id="cOO-Rf-Y8t"/>
                         <outlet property="playingHamsteLabel" destination="UZc-r8-cpH" id="i47-k9-Ka9"/>
                         <outlet property="playinghamsterQulet" destination="Kfh-rV-X2O" id="Rah-V5-HUo"/>
+                        <outlet property="usePermissionDescribeLabel" destination="usX-tg-bP4" id="V99-wT-w67"/>
                         <outlet property="usepermissonTitleItem" destination="WNl-BD-wXN" id="Mx5-NQ-BtO"/>
                         <outlet property="voicechagerQulet" destination="yes-Ky-A39" id="JSB-DB-Nta"/>
                         <outlet property="voicechangeLabel" destination="hwX-xt-Cg2" id="34e-hW-ekA"/>
@@ -1206,7 +1226,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aM7-UY-dNg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3585" y="3215"/>
+            <point key="canvasLocation" x="3584.8000000000002" y="3214.5427286356826"/>
         </scene>
         <!--Data Source-->
         <scene sceneID="Tgp-2j-p98">
@@ -1273,28 +1293,6 @@
                                     <outlet property="dataSource" destination="Y1x-Oo-cZ5" id="YZe-dj-NP8"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4Q-sD-BuR" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="60" width="375" height="190"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="190" id="YFC-2E-Cf8"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
-                                        <color key="value" red="0.99215686319999996" green="0.73725491759999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
-                                        <color key="value" red="0.43179979920387268" green="0.85729926824569702" blue="0.99981874227523804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" red="0.99215686319999996" green="0.058823529630000003" blue="0.058823529630000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Y1x-Oo-cZ5" id="gAw-ex-aVq"/>
-                                    <outlet property="delegate" destination="Y1x-Oo-cZ5" id="Hiy-3s-vMe"/>
-                                </connections>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3U-GZ-qUk" userLabel="emptyView">
                                 <rect key="frame" x="10" y="202" width="355" height="246"/>
                                 <subviews>
@@ -1324,6 +1322,28 @@
                                     <constraint firstAttribute="height" constant="246" id="mQF-av-sQt"/>
                                     <constraint firstItem="Jfu-RL-szC" firstAttribute="top" secondItem="f3U-GZ-qUk" secondAttribute="top" id="q8L-86-5d7"/>
                                 </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4Q-sD-BuR" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="60" width="375" height="190"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="YFC-2E-Cf8"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" red="0.99215686319999996" green="0.73725491759999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" red="0.43179979920387268" green="0.85729926824569702" blue="0.99981874227523804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" red="0.99215686319999996" green="0.058823529630000003" blue="0.058823529630000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Y1x-Oo-cZ5" id="gAw-ex-aVq"/>
+                                    <outlet property="delegate" destination="Y1x-Oo-cZ5" id="Hiy-3s-vMe"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -2759,10 +2779,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Xeo-Hp-YkO" firstAttribute="top" secondItem="NgA-kS-hhx" secondAttribute="bottom" id="0nf-9Z-t2j"/>
                             <constraint firstItem="VW0-Wr-5db" firstAttribute="leading" secondItem="iiq-7d-hKL" secondAttribute="leading" id="ESF-SG-U3V"/>
                             <constraint firstAttribute="trailing" secondItem="Xeo-Hp-YkO" secondAttribute="trailing" id="Ggh-Ez-vtP"/>
                             <constraint firstItem="RUh-hR-ucg" firstAttribute="leading" secondItem="iiq-7d-hKL" secondAttribute="leading" id="JfW-sf-BOi"/>
-                            <constraint firstItem="Xeo-Hp-YkO" firstAttribute="top" secondItem="NgA-kS-hhx" secondAttribute="bottom" id="M4e-VB-yHD"/>
                             <constraint firstItem="Xeo-Hp-YkO" firstAttribute="leading" secondItem="iiq-7d-hKL" secondAttribute="leading" id="TGP-K2-1HX"/>
                             <constraint firstItem="ux8-aY-qbM" firstAttribute="centerX" secondItem="iiq-7d-hKL" secondAttribute="centerX" id="XPH-f2-Lcv"/>
                             <constraint firstItem="VW0-Wr-5db" firstAttribute="centerX" secondItem="iiq-7d-hKL" secondAttribute="centerX" id="aZw-IY-DnI"/>

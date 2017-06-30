@@ -56,7 +56,7 @@ class SchoolTimeController: UIViewController {
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         
-        
+        helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
     }
 
     

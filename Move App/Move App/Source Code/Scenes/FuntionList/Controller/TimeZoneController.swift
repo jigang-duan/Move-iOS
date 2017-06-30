@@ -44,6 +44,12 @@ class TimeZoneController: UITableViewController {
     }
     func enablecell(_ enable: Bool) {
         timezoneCell.isUserInteractionEnabled = !enable
+        if !enable {
+            timezoneCell.accessoryType = .disclosureIndicator
+        }else
+        {
+            timezoneCell.accessoryType = .none
+        }
     }
     
     override func viewDidLoad() {
