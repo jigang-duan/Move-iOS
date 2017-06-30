@@ -98,6 +98,7 @@
 		11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F71CF71EA9F0360066B9FC /* Preferences.swift */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		7F62A0AB1ED5728E00ADDF9E /* MoveApns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */; };
+		7FC0A90D1F06284E00040C0E /* MapNavigateActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0A90C1F06284E00040C0E /* MapNavigateActionSheet.swift */; };
 		93015C121EC43E76002D08C3 /* AuthenCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C0D1EC43E76002D08C3 /* AuthenCryptor.m */; };
 		93015C131EC43E76002D08C3 /* Encryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C0F1EC43E76002D08C3 /* Encryptor.m */; };
 		93015C141EC43E76002D08C3 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015C111EC43E76002D08C3 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -469,6 +470,7 @@
 		35E731807D2860715DF8F413 /* Pods_Move_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.debug.xcconfig"; sourceTree = "<group>"; };
 		7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApns.swift; sourceTree = "<group>"; };
+		7FC0A90C1F06284E00040C0E /* MapNavigateActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapNavigateActionSheet.swift; path = Vendor/MapNavigateActionSheet/MapNavigateActionSheet.swift; sourceTree = "<group>"; };
 		85B2640603391AC6872E01CD /* Pods-Move AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C4A2CD5C2A7BA27AE209FE9 /* Pods-Move AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		93015C0C1EC43E76002D08C3 /* AuthenCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenCryptor.h; path = Vendor/AuthenCryptor/AuthenCryptor.h; sourceTree = "<group>"; };
@@ -1120,6 +1122,14 @@
 			path = MoveApns;
 			sourceTree = "<group>";
 		};
+		7FC0A90B1F0627FF00040C0E /* MapNavigateActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				7FC0A90C1F06284E00040C0E /* MapNavigateActionSheet.swift */,
+			);
+			name = MapNavigateActionSheet;
+			sourceTree = "<group>";
+		};
 		93015C0B1EC43E5B002D08C3 /* AuthenCryptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1407,6 +1417,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				7FC0A90B1F0627FF00040C0E /* MapNavigateActionSheet */,
 				E99C8FEB1EC156A6000F3F30 /* ScrollLabelView */,
 				93015C0B1EC43E5B002D08C3 /* AuthenCryptor */,
 				11500FF81EC0699B008E7517 /* EAFeatureGuideView */,
@@ -2703,6 +2714,7 @@
 				E0931F591E31ED6900755B4A /* CellData.swift in Sources */,
 				FFF5BD6F1E6E8D2E0037AFFF /* FamilyMemberTableViewCell.swift in Sources */,
 				FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */,
+				7FC0A90D1F06284E00040C0E /* MapNavigateActionSheet.swift in Sources */,
 				E0C228E51E347EDB00BCF83D /* String+Helpers.swift in Sources */,
 				93015C141EC43E76002D08C3 /* NSData+Base64.m in Sources */,
 				E9CF8A6A1E7136FE00E8D8E7 /* LocationManager.swift in Sources */,
