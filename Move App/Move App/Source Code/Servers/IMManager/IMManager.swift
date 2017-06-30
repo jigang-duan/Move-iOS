@@ -56,6 +56,10 @@ extension IMManager {
         return worker.syncData(syncData: synckeyData)
     }
     
+    func checkSyncData() -> Observable<EntityType> {
+        return worker.checkSyncData(syncData: synckeyData)
+    }
+    
     
     func sendChatEmoji(_ emoji: ImEmoji) -> Observable<ImEmoji> {
         return sendChatMessage(message: MoveIM.ImMessage(meoji: emoji))
@@ -123,8 +127,8 @@ protocol IMWorkerProtocl {
     func initSyncKey() -> Observable<SynckeyEntity>
     
     func checkSyncKey(syncData: SynckeyEntity?) -> Observable<Bool>
-    
     func syncData(syncData: SynckeyEntity?) -> Observable<EntityType>
+    func checkSyncData(syncData: SynckeyEntity?) -> Observable<EntityType>
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp>
     

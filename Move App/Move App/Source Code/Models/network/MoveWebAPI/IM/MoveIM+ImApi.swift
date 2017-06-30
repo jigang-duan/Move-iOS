@@ -39,10 +39,7 @@ extension MoveIM {
         }
         
         final class func initSyncKey() -> Observable<SynckeyEntity> {
-            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self)
-                .map({ $0.synckey  })
-                .map({ SynckeyEntity(im: $0)  })
-                .filterNil()
+            return request(.initSyncKey).mapMoveObject(ImUserSynckey.self).map{ $0.synckey }.map{ SynckeyEntity(im: $0) }.filterNil()
         }
         
         final class func checkSyncKey(synckey: ImCheckSynkey) -> Observable<Bool> {
@@ -51,6 +48,10 @@ extension MoveIM {
         
         final class func syncData(synckey: ImSynDatakey) -> Observable<ImSyncData> {
             return request(.syncData(synckey: synckey)).mapMoveObject(ImSyncData.self) //.saveSynData()
+        }
+        
+        final class func checkSyncData(synckey: ImSynDatakey) -> Observable<ImSyncData> {
+            return request(.checkSyncData(synckey: synckey)).mapMoveObject(ImSyncData.self)
         }
         
         final class func sendChatMessage(messageInfo: ImMessage) -> Observable<ImMesageRsp> {
@@ -75,8 +76,9 @@ extension MoveIM {
             case createGroup(group: ImGroup)
             case readGroup(gid: String)
             case initSyncKey
-            case checkSyncKey(userSynckey:ImCheckSynkey)
+            case checkSyncKey(userSynckey: ImCheckSynkey)
             case syncData(synckey: ImSynDatakey)
+            case checkSyncData(synckey: ImSynDatakey)
             case sendChatMessage(message: IMMessage)
             case deleteMessage(id: String)
             case deleteMessages(ids: ImMessagesIDs)
@@ -111,6 +113,8 @@ extension MoveIM.ImApi.API: TargetType {
             return "check"
         case .syncData:
             return "sync"
+        case .checkSyncData:
+            return "check_sync"
         case .sendChatMessage:
             return "message"
         case .deleteMessage(let id):
@@ -125,7 +129,7 @@ extension MoveIM.ImApi.API: TargetType {
         switch self {
         case .getGroups, .readGroup, .checkSyncKey:
             return .get
-        case .createGroup, .initSyncKey, .syncData, .sendChatMessage:
+        case .createGroup, .initSyncKey, .syncData, .checkSyncData, .sendChatMessage:
             return .post
         case .deleteMessage, .deleteMessages:
             return .delete
@@ -142,6 +146,8 @@ extension MoveIM.ImApi.API: TargetType {
         case .checkSyncKey(let userSynckey):
             return userSynckey.toJSON()
         case .syncData(let synckey):
+            return synckey.toJSON()
+        case .checkSyncData(let synckey):
             return synckey.toJSON()
         case .sendChatMessage(let messageInfo):
             return messageInfo.toJSON()
@@ -164,12 +170,7 @@ extension MoveIM.ImApi.API: TargetType {
     
     /// Provides stub data for use in testing.
     var sampleData: Data {
-        switch self {
-        case .getGroups:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        default:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        }
+        return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
     }
     
     /// The type of HTTP task to be performed.

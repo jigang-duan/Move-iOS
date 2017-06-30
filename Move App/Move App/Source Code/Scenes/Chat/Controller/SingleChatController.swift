@@ -101,7 +101,7 @@ class SingleChatController: UIViewController {
         let loseMessageObservable = Observable.collection(from: loseMessages)
             .map{ $0.first }
             .filterNil()
-            .timeout(100, scheduler: MainScheduler.instance)
+            .timeout(60, scheduler: MainScheduler.instance)
             .retry()
             .share()
         

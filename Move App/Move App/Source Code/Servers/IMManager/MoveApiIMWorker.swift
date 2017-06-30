@@ -45,6 +45,19 @@ class MoveApiIMWorker: IMWorkerProtocl {
         return MoveIM.ImApi.syncData(synckey: imSynData).map { $0.mapEntity() }
     }
     
+    func checkSyncData(syncData: SynckeyEntity?) -> Observable<EntityType> {
+        guard
+            let data = syncData,
+            let _ = try? Realm().objects(GroupEntity.self).first else {
+                return Observable.empty()
+        }
+        let imSynData = MoveIM.ImSynDatakey(synckey: [
+            MoveIM.ImSynckey(key: 1, value: data.message),
+            MoveIM.ImSynckey(key: 2, value: data.contact),
+            MoveIM.ImSynckey(key: 3, value: data.group)])
+        return MoveIM.ImApi.checkSyncData(synckey: imSynData).map { $0.mapEntity() }
+    }
+    
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
         return MoveIM.ImApi.sendChatMessage(messageInfo: message)
     }
