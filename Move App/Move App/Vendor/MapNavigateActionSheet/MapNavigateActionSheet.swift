@@ -11,8 +11,12 @@ import UIKit
 class MapNavigateActionSheet: NSObject, UIActionSheetDelegate {
     
     private var maps: [[String: String]] = []
+    private var endLocation: CLLocationCoordinate2D?
+    private var title = ""
     
     func show(endLocation: CLLocationCoordinate2D, title: String, atView: UIView) {
+        self.endLocation = endLocation
+        self.title = title
         getInstallMapAppWithEndLocation(endLocation: endLocation)
         
         let actionSheet = UIActionSheet()
@@ -24,19 +28,21 @@ class MapNavigateActionSheet: NSObject, UIActionSheetDelegate {
     }
     
     func actionSheet(_ actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-        if (buttonIndex != -1) {
-            if (buttonIndex == 0) {
-                print("打开苹果地图")
-                return
-            }
-            let dic = maps[buttonIndex-1]
-            if let urlString = dic["url"], let url = URL(string: urlString) {
-                UIApplication.shared.openURL(url)
-            }
+        guard buttonIndex == -1 else {
+            return
+        }
+        
+        if buttonIndex == 0, let location = endLocation {
+            MapUtility.openPlacemark(name: title, location: location)
+            return
+        }
+        let dic = maps[buttonIndex-1]
+        if let urlString = dic["url"], let url = URL(string: urlString) {
+            UIApplication.shared.openURL(url)
         }
     }
     
-    func getInstallMapAppWithEndLocation(endLocation:CLLocationCoordinate2D)  {
+    func getInstallMapAppWithEndLocation(endLocation: CLLocationCoordinate2D)  {
         
         //苹果地图
         maps.append(["title":"apple Map"])
