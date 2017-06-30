@@ -100,6 +100,10 @@
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Yc-vY-xhQ" customClass="ScrollLabelView">
                                         <rect key="frame" x="67" y="34" width="313" height="32"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="xsd-xS-KJU" appends="YES" id="KYy-EQ-HUr"/>
+                                        </connections>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vP-5M-IIQ">
                                         <rect key="frame" x="195" y="11" width="211" height="16"/>
@@ -325,6 +329,7 @@
                         <outlet property="remindActivityOutlet" destination="4FX-yC-N2n" id="qOl-ar-8kh"/>
                         <outlet property="remindLocationOutlet" destination="Edu-4d-HAK" id="MzW-bS-WKN"/>
                         <outlet property="statesOutlet" destination="jCk-Qg-6qK" id="upn-8y-ixp"/>
+                        <outlet property="tapAddressOutlet" destination="xsd-xS-KJU" id="hZj-Bg-eeh"/>
                         <outlet property="timeOutlet" destination="5vP-5M-IIQ" id="A0r-lR-u12"/>
                         <outlet property="trackingModeOutlet" destination="imr-nd-beI" id="NNt-4O-Oa8"/>
                         <outlet property="voltameterImageOutlet" destination="819-oq-ciP" id="ObD-LL-Dsn"/>
@@ -378,6 +383,7 @@
                         <constraint firstItem="2rY-Ie-vjV" firstAttribute="width" secondItem="sFB-LP-DJj" secondAttribute="width" id="ya9-Gz-xmV"/>
                     </constraints>
                 </view>
+                <tapGestureRecognizer id="xsd-xS-KJU"/>
             </objects>
             <point key="canvasLocation" x="2517.5999999999999" y="1669.1154422788607"/>
         </scene>

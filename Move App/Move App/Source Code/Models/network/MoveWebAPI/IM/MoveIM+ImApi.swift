@@ -46,9 +46,7 @@ extension MoveIM {
         }
         
         final class func checkSyncKey(synckey: ImCheckSynkey) -> Observable<Bool> {
-            return request(.checkSyncKey(userSynckey:synckey))
-                .mapMoveObject(ImSelector.self)
-                .map({  ($0.selector ?? 0) > 0 })
+            return request(.checkSyncKey(userSynckey:synckey)).mapMoveObject(ImSelector.self).map { ($0.selector ?? 0) > 0 }
         }
         
         final class func syncData(synckey: ImSynDatakey) -> Observable<ImSyncData> {

@@ -48,6 +48,7 @@ class MainMapController: UIViewController {
     @IBOutlet weak var trackingModeOutlet: UIView!
     @IBOutlet weak var offTrackingModeOutlet: UIButton!
     
+    @IBOutlet var tapAddressOutlet: UITapGestureRecognizer!
     
     let enterSubject = BehaviorSubject<Bool>(value: false)
     
@@ -146,7 +147,8 @@ class MainMapController: UIViewController {
         name.drive(nameOutle.rx.text).addDisposableTo(disposeBag)
         
         let nameAndLocation = Observable.combineLatest(name.asObservable(), viewModel.kidLocation)
-        guideOutlet.rx.tap.asObservable()
+        
+        Observable.merge(guideOutlet.rx.tap.asObservable(), tapAddressOutlet.rx.event.asObservable().map{_ in () })
             .withLatestFrom(nameAndLocation)
             .bindNext { MapUtility.openPlacemark(name: $0.0, location: $0.1) }
             .addDisposableTo(disposeBag)
