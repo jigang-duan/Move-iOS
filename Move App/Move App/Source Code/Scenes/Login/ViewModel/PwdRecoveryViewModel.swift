@@ -60,7 +60,7 @@ class PwdRecoveryViewModel {
         
         self.doneResult  = input.doneTaps.withLatestFrom(input.email)
             .flatMapLatest({email in
-                return userManager.sendVcode(to: email)
+                return userManager.sendVcode(to: email, type: 1)
                     .trackActivity(activity)
                     .map{ info in
                         self.sid = info.sid

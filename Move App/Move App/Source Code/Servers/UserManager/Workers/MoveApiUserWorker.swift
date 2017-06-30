@@ -49,8 +49,8 @@ class MoveApiUserWorker: UserWorkerProtocl {
             .catchError(errorHandle)
     }
     
-    func sendVcode(to: String) -> Observable<MoveApi.VerificationCodeSend> {
-        return MoveApi.VerificationCode.send(to: to)
+    func sendVcode(to: String, type: Int) -> Observable<MoveApi.VerificationCodeSend> {
+        return MoveApi.VerificationCode.send(to: to, type: type)
             .map { info in
                 if info.sid == nil {
                      throw WorkerError.emptyField("vcode is empty!")

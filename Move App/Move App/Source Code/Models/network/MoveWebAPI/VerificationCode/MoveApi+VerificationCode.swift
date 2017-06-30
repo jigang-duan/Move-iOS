@@ -26,8 +26,8 @@ extension MoveApi {
             return defaultProvider.request(target)
         }
         
-        final class func send(to: String) -> Observable<VerificationCodeSend> {
-            return request(.send(to: to)).mapMoveObject(VerificationCodeSend.self)
+        final class func send(to: String, type: Int) -> Observable<VerificationCodeSend> {
+            return request(.send(to: to,type: type)).mapMoveObject(VerificationCodeSend.self)
         }
         
         final class func verify(sid: String, vcode: String) -> Observable<ApiError> {
@@ -39,7 +39,7 @@ extension MoveApi {
         }
         
         enum API {
-            case send(to: String)
+            case send(to: String, type: Int)
             case verify(sid: String, vcode: String)
             case delete(sid: String)
         }
@@ -83,8 +83,8 @@ extension MoveApi.VerificationCode.API: TargetType {
     /// The parameters to be incoded in the request.
     var parameters: [String: Any]? {
         switch self {
-        case .send(let to):
-            return ["to":to]
+        case .send(let to, let type):
+            return ["to":to, "type":type]
         case .verify(_, let vcode):
             return ["vcode":vcode]
         case .delete:
