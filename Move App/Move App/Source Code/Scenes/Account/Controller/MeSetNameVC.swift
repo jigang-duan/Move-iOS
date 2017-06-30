@@ -83,6 +83,7 @@ class MeSetNameViewController: UIViewController {
         
         
         nameValid.isHidden = true
+        nameTf.text = UserInfo.shared.profile?.nickname
         
         let nameText = nameTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
         let nameDrier = nameTf.rx.text.orEmpty.asDriver()
