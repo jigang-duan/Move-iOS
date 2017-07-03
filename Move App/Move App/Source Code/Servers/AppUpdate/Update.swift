@@ -48,7 +48,7 @@ fileprivate extension NoticeEntity {
         self.id = "\(Date().timeIntervalSince1970),\(devUID)"
         self.from = devUID
         self.to = uid
-        self.content = String(format: "New version for %@'s watch", name)
+        self.content = String(format: NSLocalizedString("id_new_version_for_watch", comment: ""), name)
         self.readStatus = ReadStatus.unread.rawValue
         self.type = NoticeType.deviceUpdateVersion.rawValue
         self.createDate = Date()

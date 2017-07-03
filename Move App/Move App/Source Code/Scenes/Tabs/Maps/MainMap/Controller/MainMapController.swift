@@ -82,8 +82,10 @@ class MainMapController: UIViewController {
         timeOutlet.adjustsFontSizeToFitWidth = true
         
         self.addressScrollLabel.addObaserverNotification()
-       callOutlet.setTitle(R.string.localizable.id_location_call(), for: .normal)
         
+        self.navigationItem.title = R.string.localizable.id_top_menu_location()
+        self.navigationController?.tabBarController?.tabBarItem.title = R.string.localizable.id_button_menu_home()
+        callOutlet.setTitle(R.string.localizable.id_location_call(), for: .normal)
         messageOutlet.setTitle(R.string.localizable.id_location_message(), for: .normal)
         
         noGeolocationView.frame = view.bounds

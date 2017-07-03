@@ -37,8 +37,8 @@ class UUInputView: UIView {
         $.setBackgroundImage(UIImage(named: "chat_message_back"), for: .normal)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 1.0), for: .normal)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 0.5), for: .highlighted)
-        $.setTitle("Hold to Talk", for: .normal)
-        $.setTitle("Release to Send", for: .highlighted)
+        $.setTitle(R.string.localizable.id_hold_to_talk(), for: .normal)
+        $.setTitle(R.string.localizable.id_release_send(), for: .highlighted)
         $.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         return $
     }()
@@ -139,11 +139,11 @@ extension UUInputView {
             playTimer?.invalidate()
             playTimer = nil
         }
-        UUProgressHUD.dismissWithError("Cancel")
+        UUProgressHUD.dismissWithError(R.string.localizable.id_cancel())
     }
     
     func remindDragExit(_ sender: UIButton) {
-        UUProgressHUD.changeSubTitle("Release to cancel")
+        UUProgressHUD.changeSubTitle(R.string.localizable.id_release_cancel_send())
     }
     
     func remindDragEnter(_ sender: UIButton) {
@@ -161,7 +161,7 @@ extension UUInputView {
 extension UUInputView: AmrRecorderDelegate {
     
     func failRecord() {
-        UUProgressHUD.dismiss(withSuccess: "Too short")
+        UUProgressHUD.dismiss(withSuccess: R.string.localizable.id_too_short())
         
         //缓冲消失时间 (最好有block回调消失完成)
         self.btnVoiceRecord.isEnabled = false

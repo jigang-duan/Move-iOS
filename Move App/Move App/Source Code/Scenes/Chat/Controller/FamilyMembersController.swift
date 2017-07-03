@@ -21,7 +21,9 @@ class FamilyMembersController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.title = R.string.localizable.id_family_chat()
+        
         // Do any additional setup after loading the view.
         RxStore.shared.deviceIdObservable
             .flatMapLatest { (id) in DeviceManager.shared.getContacts(deviceId: id).catchErrorJustReturn([]) }

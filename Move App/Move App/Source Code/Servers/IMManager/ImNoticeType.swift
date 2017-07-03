@@ -207,22 +207,22 @@ extension NoticeAlertStyle : CustomStringConvertible {
         case .default:
             return ""
         case .navigate:
-            return "Navigate"
+            return R.string.localizable.id_system_notice_navigate_bt()
         case .unpired:
             return R.string.localizable.id_ok()
         case .goToSee:
             return R.string.localizable.id_system_notice_go_to_see()
         case .update:
-            return "Update"
+            return R.string.localizable.id_update()
         case .download:
-            return "Download"
+            return R.string.localizable.id_download()
         }
     }
     
     var okDescription: String {
         switch self {
         case .update, .download:
-            return "Not now"
+            return R.string.localizable.id_not_now()
         default:
             return R.string.localizable.id_ok()
         }

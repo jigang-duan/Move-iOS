@@ -116,7 +116,7 @@ struct UUMessage {
         let days = Date.daysOffBetween(startDate: lastDate, endDate: nowDate)
         var str: String? = nil
         if days <= 2 {
-            str = lastDate.stringYearMonthDayCompareToday?.rawValue
+            str = lastDate.stringYearMonthDayCompareToday?.description
         }
         if str == nil {
             dateStr = lastDate.stringDefaultYearMonthDay
@@ -143,7 +143,7 @@ struct UUMessage {
             let days = Date.daysOffBetween(startDate: lastDate, endDate: nowDate)
             var str: String? = nil
             if days <= 2 {
-                str = lastDate.stringYearMonthDayCompareToday?.rawValue
+                str = lastDate.stringYearMonthDayCompareToday?.description
             }
             if str == nil {
                 dateStr = lastDate.stringMonthDay

@@ -28,7 +28,7 @@ class ChatController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
+        segmentedOutlet.setTitle(R.string.localizable.id_family_chat(), forSegmentAt: 0)
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
         
         (segmentedOutlet.rx.value <-> selectedIndexVariable).addDisposableTo(disposeBag)

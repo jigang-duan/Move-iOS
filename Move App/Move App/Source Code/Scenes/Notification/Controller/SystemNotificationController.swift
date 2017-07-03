@@ -31,6 +31,7 @@ class SystemNotificationController: UIViewController {
 
         // Do any additional setup after loading the view.
         tableView.emptyDataSetSource = self
+        self.navigationItem.title = R.string.localizable.id_system_notice_title()
         
         let realm = try! Realm()
         if let uid = Me.shared.user.id {

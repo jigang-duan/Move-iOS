@@ -129,6 +129,20 @@ extension Date {
     }
 }
 
+extension Date.CompareToday: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .today:
+            return  R.string.localizable.id_today()
+        case .tomorrow:
+            return R.string.localizable.id_tomorrow()
+        case .yesterday:
+            return R.string.localizable.id_yesterday()
+        }
+    }
+}
+
 // MARK: - Relative Dates
 extension Date {
     
