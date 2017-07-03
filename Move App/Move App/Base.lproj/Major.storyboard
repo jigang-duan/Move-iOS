@@ -79,6 +79,9 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_btn_exchange_nor" highlightedImage="home_btn_exchange_pre" translatesAutoresizingMaskIntoConstraints="NO" id="cib-Ho-U1W">
+                                        <rect key="frame" x="40" y="38" width="15" height="15"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzE-4h-zm9">
                                         <rect key="frame" x="67" y="8" width="43" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -148,10 +151,12 @@
                                     <constraint firstAttribute="bottom" secondItem="Tx3-nC-fyZ" secondAttribute="bottom" id="Ysd-iW-bAC"/>
                                     <constraint firstItem="819-oq-ciP" firstAttribute="leading" secondItem="jCk-Qg-6qK" secondAttribute="trailing" constant="9" id="ZyJ-k2-TAp"/>
                                     <constraint firstItem="fzE-4h-zm9" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="12" id="a3P-Jq-VXE"/>
+                                    <constraint firstItem="cib-Ho-U1W" firstAttribute="trailing" secondItem="GI0-OT-WGr" secondAttribute="trailing" id="cYz-xF-M9K"/>
                                     <constraint firstItem="GI0-OT-WGr" firstAttribute="centerY" secondItem="mZQ-sj-e6I" secondAttribute="centerY" id="koK-ph-VYM"/>
                                     <constraint firstAttribute="trailing" secondItem="Tx3-nC-fyZ" secondAttribute="trailing" constant="10" id="lqe-gq-2pe"/>
                                     <constraint firstAttribute="trailing" secondItem="5vP-5M-IIQ" secondAttribute="trailing" constant="8" id="oXM-Bh-XpB"/>
                                     <constraint firstItem="jCk-Qg-6qK" firstAttribute="leading" secondItem="fzE-4h-zm9" secondAttribute="trailing" constant="9" id="paI-ad-f0b"/>
+                                    <constraint firstItem="cib-Ho-U1W" firstAttribute="bottom" secondItem="GI0-OT-WGr" secondAttribute="bottom" id="sct-1R-bda"/>
                                     <constraint firstAttribute="bottom" secondItem="4Yc-vY-xhQ" secondAttribute="bottom" id="uV5-OK-7Va"/>
                                     <constraint firstItem="4Yc-vY-xhQ" firstAttribute="top" secondItem="fzE-4h-zm9" secondAttribute="bottom" constant="5" id="uq2-Wb-Xeg"/>
                                     <constraint firstItem="jCk-Qg-6qK" firstAttribute="centerY" secondItem="fzE-4h-zm9" secondAttribute="centerY" id="wLl-RJ-5Id"/>
@@ -385,7 +390,7 @@
                 </view>
                 <tapGestureRecognizer id="xsd-xS-KJU"/>
             </objects>
-            <point key="canvasLocation" x="2517.5999999999999" y="1669.1154422788607"/>
+            <point key="canvasLocation" x="2517.3913043478265" y="1668.7500000000002"/>
         </scene>
         <!--Data Source-->
         <scene sceneID="0XR-iv-C57">
@@ -1100,6 +1105,8 @@
     <resources>
         <image name="general_back" width="10" height="10"/>
         <image name="general_next" width="10" height="10"/>
+        <image name="home_btn_exchange_nor" width="15" height="15"/>
+        <image name="home_btn_exchange_pre" width="15" height="15"/>
         <image name="home_btn_locatio_nor" width="36" height="36"/>
         <image name="home_btn_message" width="18" height="18"/>
         <image name="home_btn_munber" width="18" height="18"/>

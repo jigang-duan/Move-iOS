@@ -32,11 +32,23 @@ class MessageServer {
             
             let syncObject = realm.objects(SynckeyEntity.self).filter("uid == %@", uid)
             
+//            let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
+//                .flatMapFirst { _ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
+//                .filter { $0 }
+//                .flatMapLatest { _ in
+//                    IMManager.shared.syncData()
+//                        .catchErrorJustReturn( (synckey: nil,
+//                                                messages: nil,
+//                                                members: nil,
+//                                                groups: nil,
+//                                                notices: nil,
+//                                                chatops: nil) )
+//                }
+//                .shareReplay(1)
+            
             let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
-                .flatMapFirst { _ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
-                .filter { $0 }
-                .flatMapLatest { _ in
-                    IMManager.shared.syncData()
+                .flatMapFirst { _ in
+                    IMManager.shared.checkSyncData()
                         .catchErrorJustReturn( (synckey: nil,
                                                 messages: nil,
                                                 members: nil,
@@ -315,9 +327,9 @@ fileprivate func transform(group: ImGroup, uid: String? = nil) -> GroupEntity {
 }
 
 fileprivate func catchImGroupEmptyError(error: Error) -> Observable<ImGroup> {
-    return Observable<ImGroup>.empty()
+    return Observable.empty()
 }
 
 fileprivate func catchImGroupsEmptyError(error: Error) -> Observable<[ImGroup]> {
-    return Observable<[ImGroup]>.empty()
+    return Observable.empty()
 }
