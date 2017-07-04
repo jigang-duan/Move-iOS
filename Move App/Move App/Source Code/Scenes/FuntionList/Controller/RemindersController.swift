@@ -254,9 +254,9 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
             {
                 if (self.fifleremeder?[indexPath.row]["repeat"] as? Int)! != 0
                 {
-                    let alertController = UIAlertController(title: "This is a repeating to do list", message: "", preferredStyle: preferredStyle)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let deletThis = UIAlertAction(title: "Delete this To do list only", style: .destructive, handler: { (UIAlertAction) in
+                    let alertController = UIAlertController(title: R.string.localizable.id_title_repeats_to(), message: "", preferredStyle: preferredStyle)
+                    let cancelAction = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil)
+                    let deletThis = UIAlertAction(title: R.string.localizable.id_delete_this_fence(), style: .destructive, handler: { (UIAlertAction) in
                         var inde: Int?
                         for i in 0 ..< (self.todos?.count)!
                         {
@@ -270,7 +270,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                         
                         self.deleteTap.value += 1
                     })
-                    let deletall = UIAlertAction(title: "Delete All To do list", style: .destructive, handler: { [weak self] (UIAlertAction) in
+                    let deletall = UIAlertAction(title: R.string.localizable.id_delect_all_todolist(), style: .destructive, handler: { [weak self] (UIAlertAction) in
                           self?.viewModel.reminderVariable.value.todo.removeAll()
                           self?.deleteTap.value += 1
                     })

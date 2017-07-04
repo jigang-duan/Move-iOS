@@ -107,10 +107,10 @@ class APNforWatchVC: UIViewController {
                 }
             }
             
-            let vc = UIAlertController(title: nil, message: "Connect to \(deviceNameLab.text ?? "")", preferredStyle: .alert)
-            let action1 = UIAlertAction(title: "Cancel", style: .default)
+            let vc = UIAlertController(title: nil, message: R.string.localizable.id_apn_description()+" \(deviceNameLab.text ?? "")", preferredStyle: .alert)
+            let action1 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
             
-            let action2 = UIAlertAction(title: "YES", style: .default) {[weak self] _ in
+            let action2 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default) {[weak self] _ in
                 self?.manager?.connect(pp, options: nil)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
                     
@@ -129,8 +129,8 @@ class APNforWatchVC: UIViewController {
     
     
     func showFailToPair() {
-        let vc = UIAlertController(title: "Bluetooth Pairing Failed", message: "Can not pair this watch, please check the watch again.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default)
+        let vc = UIAlertController(title: R.string.localizable.id_bluetooth_pairing_failed(), message: R.string.localizable.id_pairing_failed_description(), preferredStyle: .alert)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .default)
         vc.addAction(action)
         self.present(vc, animated: true)
     }
@@ -269,11 +269,12 @@ extension APNforWatchVC: CBCentralManagerDelegate {
         case .poweredOn:
             manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
+            //缺Turn on Bluetooth
             let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"MOVETIME\" to connect to watch", preferredStyle: .alert)
-            let action1 = UIAlertAction(title: "Settings", style: .default) { _ in
+            let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { _ in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }
-            let action2 = UIAlertAction(title: "Ok", style: .default)
+            let action2 = UIAlertAction(title: R.string.localizable.id_ok(), style: .default)
             vc.addAction(action1)
             vc.addAction(action2)
             self.present(vc, animated: true)

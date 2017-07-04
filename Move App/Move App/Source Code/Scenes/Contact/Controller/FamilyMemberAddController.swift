@@ -126,12 +126,13 @@ class FamilyMemberAddController: UIViewController {
     @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "Take a photo", style: .default) { _ in
+        let action1 = UIAlertAction(title: R.string.localizable.id_take_a_photo(), style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
             })
         }
+        //缺Select from album
         let action2 = UIAlertAction(title: "Select from album", style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image

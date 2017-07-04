@@ -27,9 +27,18 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
     
     var resultArr : NSMutableArray?
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       //下个版本改
+//        let backBtn = UIButton()
+//        backBtn.setTitle("", for: .normal)
+////        backArrow1
+//        backBtn.setImage(UIImage(named: "nav_back_nor"), for: .normal)
+//        backBtn.setImage(UIImage(named: "nav_back_pre"), for: .highlighted)
+//        backBtn.addTarget(self, action: #selector(SafeZoneAddressSearchVC.back), for: .touchUpInside)
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
+//        
         self.title = R.string.localizable.id_search_position()
         searchTextField.placeholder = R.string.localizable.id_address_is_empty()
         searchTextField.addTarget(self, action: #selector(textDidChange), for: UIControlEvents.editingChanged)

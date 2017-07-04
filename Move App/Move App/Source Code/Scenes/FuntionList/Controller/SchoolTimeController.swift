@@ -57,12 +57,22 @@ class SchoolTimeController: UIViewController {
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
 //        NullQutlet.setTitle(<#T##title: String?##String?#>, for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
-        
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
+       
     }
 
     
     
+    func saveAction() {
+        if !weekOutlet.weekSelected.contains(true){
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Please select the date", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         internationalization()
@@ -70,6 +80,7 @@ class SchoolTimeController: UIViewController {
         if Preferences.shared.mkSchoolTimeFirst {
          self.helpView()
          Preferences.shared.mkSchoolTimeFirst = false
+            
         }
         helpBtnQutlet.rx.tap
             .asDriver()
@@ -78,6 +89,12 @@ class SchoolTimeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+        saveItemQutlet.rx.tap
+            .asDriver()
+            .drive(onNext: {[weak self] in
+                self?.saveAction()
+            })
+            .addDisposableTo(disposeBag)
         
         self.datepicke.timeZone = TimeZone(secondsFromGMT: 0)
         let openEnable = openSchoolSwitch.rx.switch.asDriver()
@@ -149,6 +166,8 @@ class SchoolTimeController: UIViewController {
             .drive(confirmOutlet.rx.isEnabled)
             .addDisposableTo(disposeBag)
         
+        
+        
         viewModel = SchoolTimeViewModel(
             input: (
                 save: saveItemQutlet.rx.tap.asDriver(),
@@ -170,10 +189,11 @@ class SchoolTimeController: UIViewController {
         
         viewModel.saveFinish?
             .drive(onNext: { [weak self] finish in
+                print(finish)
+                
                 if finish {
                         _ = self?.navigationController?.popViewController(animated: true)
                     }
-              
                 
             })
             .addDisposableTo(disposeBag)

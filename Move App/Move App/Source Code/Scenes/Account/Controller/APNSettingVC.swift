@@ -140,12 +140,13 @@ class APNSettingVC: UITableViewController {
                 case .fecthApn(let apnData):
                     self.showApnDatas(with: apnData)
                 case .setSuccess:
-                    self.showApnMessage("Upload completed")
+                    self.showApnMessage(R.string.localizable.id_upload_completed())
                     self.activity.stopAnimating()
                     self.saveBun.isEnabled = true
                     self.saveBun.tintColor?.withAlphaComponent(1)
-                    self.saveBun.title = "Edit"
+                    self.saveBun.title = R.string.localizable.id_edit()
                 case .setFail:
+                    //缺fail
                     self.showApnMessage("Failed to upload data")
                     self.activity.stopAnimating()
                     self.saveBun.isEnabled = true
@@ -160,8 +161,9 @@ class APNSettingVC: UITableViewController {
                 case .sending:
                     print("APN 发送数据中...")
                 case .disconnect:
+                    //缺Bluetooth disconnected
                     let vc = UIAlertController(title: nil, message: "Bluetooth disconnected", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                    let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel, handler: { _ in
                         _ = self.navigationController?.popViewController(animated: true)
                     })
                     vc.addAction(action)

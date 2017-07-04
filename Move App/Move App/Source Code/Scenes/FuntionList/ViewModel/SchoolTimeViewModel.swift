@@ -103,25 +103,20 @@ class SchoolTimeViewModel {
                 amEndPeriod: $1,
                 pmStartPeriod: $2,
                 pmEndPeriod: $3,
-                days: self.sortschooltime($4),
+                days: $4,
                 active: $5)
         }
         
         self.saveFinish = input.save
+            .withLatestFrom(dayFromWeekVariable.asDriver())
+            .filter{$0.contains(true)}
             .withLatestFrom(schoolTime)
             .flatMapLatest { schoolTime in
                 manager.updateSchoolTime(schoolTime)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
             }
-    }
-    
-   fileprivate func sortschooltime(_ flags: [Bool]) -> [Bool] {
-        var fs = flags
-//        let flag = fs.first!
-//        _ = fs.remove(at: 0)
-//        _ = fs.append(flag)
-        return fs
+        
     }
 
 }

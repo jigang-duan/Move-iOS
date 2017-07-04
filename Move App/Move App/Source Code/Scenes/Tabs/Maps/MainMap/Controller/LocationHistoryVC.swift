@@ -278,11 +278,11 @@ class LocationHistoryVC: UIViewController {
     
     func changeBtnType(time : Int , date : Date){
         if time == 1 {
-            timeSelectBtn.setTitle("Tomorrow", for: UIControlState.normal)
+            timeSelectBtn.setTitle(R.string.localizable.id_tomorrow(), for: UIControlState.normal)
         }else if time == -1 {
-            timeSelectBtn.setTitle("Yesterday", for: UIControlState.normal)
+            timeSelectBtn.setTitle(R.string.localizable.id_yesterday(), for: UIControlState.normal)
         }else if time == 0{
-            timeSelectBtn.setTitle("Today", for: UIControlState.normal)
+            timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
         }else{
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: UIControlState.normal)

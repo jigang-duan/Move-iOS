@@ -335,7 +335,7 @@ extension AccountKidsRulesuserController {
 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 95, 44, 44, 44, 44, 44, 44]]
+        let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 0, 44, 44, 44, 44, 44, 44]]
         let heightNotAdmin = [[55], [44, 44, 44, 44,  0], [0,  0,  0,  0,  0,  0,  0,  0, 44]]
         let height = isAdmin ? heightAtAdmin : heightNotAdmin
         return CGFloat(height[indexPath.section][indexPath.row])

@@ -378,9 +378,9 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     func SaveNewSafeZone() {
         item?.isEnabled = false
-        let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
-            alert -> Void in
+//        let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+//        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
+//            alert -> Void in
             if self.kidnameTF.text != "" {
                 if (self.editFenceDataSounrce != nil) {
                     //编辑
@@ -388,7 +388,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     for i in 0..<self.fences.count {
                         if ( self.editFenceDataSounrce?.ids != self.fences[i].ids ){
                             if self.fences[i].name == self.kidnameTF.text {
-                                self.errorshow(message: "Enter a new, previously unused name.")
+                                self.errorshow(message: R.string.localizable.id_name_same())
                                 self.item?.isEnabled = true
                                 issame = true
                             }
@@ -413,7 +413,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     var issame : Bool = false
                     for i in 0..<self.fences.count {
                             if self.fences[i].name == self.kidnameTF.text {
-                                self.errorshow(message: "Enter a new, previously unused name.")
+                                self.errorshow(message: R.string.localizable.id_name_same())
                                 self.item?.isEnabled = true
                                 issame = true
                             }
@@ -435,29 +435,30 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     }
                 }
             } else {
-                self.errorshow(message: "Enter a new, previously unused name.")
+                self.errorshow(message: R.string.localizable.id_name_same())
                 self.item?.isEnabled = true
             }
-        })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-            self.item?.isEnabled = true
-        })
+//        })
+        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+//            (action : UIAlertAction!) -> Void in
+//            self.item?.isEnabled = true
+//        })
         
         
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+//        alertController.addAction(saveAction)
+//        alertController.addAction(cancelAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
     }
     
     
     func EditSafeZone() {
        
-        let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
-            alert ->  Void in
+//        let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
+//        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
+//            alert ->  Void in
             if self.kidnameTF.text != "" {
                 var asSame = false
                 for i in 0..<self.fences.count {
@@ -467,7 +468,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     }
                 }
                 if asSame {
-                    self.errorshow(message: "Enter a new, previously unused name.")
+                    self.errorshow(message: R.string.localizable.id_name_same())
                     
                 }else
                 {
@@ -499,17 +500,18 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 
             
             //截断else
-        })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-           
-        })
+//        })
         
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+//            (action : UIAlertAction!) -> Void in
+//           
+//        })
+//        
+//        alertController.addAction(saveAction)
+//        alertController.addAction(cancelAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
         
     }
 
