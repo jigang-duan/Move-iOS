@@ -228,11 +228,3 @@ func commonErrorRecover(_ error: Error) -> Driver<ValidationResult> {
     return Driver.just(ValidationResult.failed(message: msg))
 }
 
-
-
-
-
-
-
-
-

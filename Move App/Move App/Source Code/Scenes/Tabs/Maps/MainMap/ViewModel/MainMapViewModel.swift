@@ -248,7 +248,12 @@ class MainMapViewModel {
                     .asDriver(onErrorJustReturn: false)
             }
             .filter { $0 }
-            .map { !$0 }
+            .withLatestFrom(currentDevice.map{ $0.deviceId }.filterNil())
+            .flatMapLatest {
+                settingsManager.fetchautoPosistion(devID: $0)
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: false)
+            }
         
         autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false },
                                      fetchAutoPosistion,
