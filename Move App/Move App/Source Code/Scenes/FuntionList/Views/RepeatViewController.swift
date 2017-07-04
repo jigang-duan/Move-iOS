@@ -24,18 +24,35 @@ class RepeatViewController: UITableViewController {
     @IBOutlet weak var everymonthcell: UITableViewCell!
     
     var repeatBlock: ((String) -> Void)?
+    var selectCell: String = ""
     
-    func internationalization() {
+    private func internationalization() {
         self.navigationItem.title = R.string.localizable.id_setting_my_clock_repeat()
         NeverLabel.text = R.string.localizable.id_never()
         everydayLabel.text = R.string.localizable.id_everyday()
         everyweekhLabel.text = R.string.localizable.id_everyweek()
-        everymonthLabel.text = R.string.localizable.id_everymonth()
+    everymonthLabel.text = R.string.localizable.id_everymonth()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        switch selectCell {
+        case R.string.localizable.id_never():
+            nevercell?.accessoryType = .checkmark
+            break
+        case R.string.localizable.id_everyday():
+            everydaycell?.accessoryType = .checkmark
+            break
+        case R.string.localizable.id_everyweek():
+            everyweekcell?.accessoryType = .checkmark
+            break
+        case R.string.localizable.id_everymonth():
+            everymonthcell?.accessoryType = .checkmark
+            break
+        default:
+            break
+        }
         
       self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
     }

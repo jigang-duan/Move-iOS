@@ -43,7 +43,7 @@ class RegularshutdownController: UIViewController {
     
     var touchesBeganEnable = Variable(false)
     
-    func internationalization() {
+    private func internationalization() {
         regularshutdownTitleItem.title = R.string.localizable.id_regular_shutdown()
         automaticOnOffLabel.text =  R.string.localizable.id_automatic_power_on_off()
         booTimeLabel.text = R.string.localizable.id_boot_time()
@@ -56,7 +56,7 @@ class RegularshutdownController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.internationalization()
+        internationalization()
         
         self.datePicker.timeZone = TimeZone(secondsFromGMT: 0)
 

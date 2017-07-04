@@ -32,13 +32,14 @@ class UsepermissionController: UITableViewController {
     
     var disposeBag = DisposeBag()
     
-    func internationalization() {
+    private func internationalization() {
         usepermissonTitleItem.title = R.string.localizable.id_use_permission()
         myfriendLabel.text = R.string.localizable.id_my_friends()
         groupchatLabel.text = R.string.localizable.id_group_chat()
         voicechangeLabel.text = R.string.localizable.id_voice_changer()
         playingHamsteLabel.text = R.string.localizable.id_playing_hamster()
-//        没有该国际化usePermissionDescribeLabel.text =
+//        缺描述
+//        usePermissionDescribeLabel.text =
         
         
     }
@@ -46,7 +47,7 @@ class UsepermissionController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.internationalization()
+        internationalization()
 //        self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         
         let viewModel = UsepermissionViewModel(

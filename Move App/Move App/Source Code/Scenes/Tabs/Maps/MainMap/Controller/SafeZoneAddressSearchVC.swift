@@ -29,6 +29,9 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        self.title = R.string.localizable.id_search_position()
+        searchTextField.placeholder = R.string.localizable.id_address_is_empty()
         searchTextField.addTarget(self, action: #selector(textDidChange), for: UIControlEvents.editingChanged)
         self.addressTableView.delegate = self
         resultArr = NSMutableArray()

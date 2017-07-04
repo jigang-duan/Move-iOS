@@ -35,7 +35,7 @@ class TimeZoneController: UITableViewController {
     
     var disposeBag = DisposeBag()
     
-    func internationalization() {
+    private func internationalization() {
         timezoneTitleItem.title = R.string.localizable.id_time_zone()
         hoursFormatLabel.text = R.string.localizable.id_hours_format24()
         gettimeautoLabel.text = R.string.localizable.id_get_time_auto()
@@ -55,7 +55,7 @@ class TimeZoneController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
-        self.internationalization()
+        internationalization()
         
         //auto on timecell off ,off on 控制跳转
         let openEnable = autoGetTimeQutlet.rx.switch.asDriver()

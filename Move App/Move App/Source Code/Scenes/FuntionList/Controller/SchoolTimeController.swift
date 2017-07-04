@@ -48,12 +48,14 @@ class SchoolTimeController: UIViewController {
     
     var viewModel: SchoolTimeViewModel!
     
-    func internationalization() {
+    private func internationalization() {
         schooltimeTitleItem.title = R.string.localizable.id_school_time()
         saveItemQutlet.title = R.string.localizable.id_save()
+        //缺am，pm,null
 //        anLabel.text = R.string.localizable.id_date_am()
 //        pmLabel.text = R.string.localizable.id_date_pm()
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
+//        NullQutlet.setTitle(<#T##title: String?##String?#>, for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
@@ -63,7 +65,7 @@ class SchoolTimeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.internationalization()
+        internationalization()
         
         if Preferences.shared.mkSchoolTimeFirst {
          self.helpView()

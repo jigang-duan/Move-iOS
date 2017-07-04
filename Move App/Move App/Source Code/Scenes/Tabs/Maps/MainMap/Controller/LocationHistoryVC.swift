@@ -66,7 +66,7 @@ class LocationHistoryVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.title = "Location History"
+        self.title = R.string.localizable.id_location_history()
         let img=UIImage(named: "nav_location_nor")
         item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item

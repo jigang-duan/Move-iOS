@@ -55,7 +55,7 @@ class RemindersController: UIViewController {
         updateTap.value += 1
     }
     
-    func internationalization() {
+    private func internationalization() {
        
     }
     

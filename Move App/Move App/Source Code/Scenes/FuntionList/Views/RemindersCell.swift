@@ -63,31 +63,32 @@ class RemindersCell: UITableViewCell {
 
     func timeToType(weeks : [Bool]) -> String {
         // 7 tian , every day ,schooltime
-        let week : [String] = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Every day","School day"]
+        let week : [String] = [R.string.localizable.id_week_sunday(),R.string.localizable.id_week_monday(),R.string.localizable.id_week_tuesday(),R.string.localizable.id_week_wednesday(),R.string.localizable.id_week_thurday(),R.string.localizable.id_week_friday(),R.string.localizable.id_week_saturday(),R.string.localizable.id_week_everyday(),R.string.localizable.id_week_school_day()]
         var s : String = ""
         var weekss = weeks
 //        weekss.insert(weeks.last!, at: 0)
         for index in 0 ... 6{
             if weekss[index]{
                 s += week[index]
-                s += " "
+//                s += " "
             }
         }
-        if s == "Mon Tue Wed Thu Fri "
+        if s == R.string.localizable.id_week_monday()+R.string.localizable.id_week_tuesday()+R.string.localizable.id_week_wednesday()+R.string.localizable.id_week_thurday()+R.string.localizable.id_week_friday()
         {
-            s = "School day"
+            s = R.string.localizable.id_week_school_day()
         }
-        if s == "Sun Mon Tue Wed Thu Fri Sat "
+       else if s == R.string.localizable.id_week_sunday()+R.string.localizable.id_week_monday()+R.string.localizable.id_week_tuesday()+R.string.localizable.id_week_wednesday()+R.string.localizable.id_week_thurday()+R.string.localizable.id_week_friday()+R.string.localizable.id_week_saturday()
+            
         {
-            s = "Every day"
+            s = R.string.localizable.id_week_everyday()
         }
-        if s == "Sun Sat "
+       else if s == R.string.localizable.id_week_sunday()+R.string.localizable.id_week_saturday()
         {
-            s = "Weekend"
+            s = R.string.localizable.id_week_weekend()
         }
-        if s == ""
+       else if s == ""
         {
-            s = "No repeat"
+            s = R.string.localizable.id_week_no_repeat()
         }
         return s
     }

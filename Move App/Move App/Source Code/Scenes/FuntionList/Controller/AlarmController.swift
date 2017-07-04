@@ -36,7 +36,7 @@ class AlarmController: UIViewController {
         weekOutlet.weekAction(btn)
         
     }
-    func internationalization() {
+    private func internationalization() {
         alarmTitleItem.title = R.string.localizable.id_title_Alarm()
 //        saveOutlet.setTitle(R.string.localizable.id_save(), for: .normal)
         saveItemOutlet.title = R.string.localizable.id_save()
@@ -45,7 +45,7 @@ class AlarmController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.internationalization()
+        internationalization()
         back.isHidden = false
         isOldAlarm = false
         

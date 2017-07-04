@@ -41,6 +41,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var kidaddressTF: UITextField!
     
     @IBOutlet weak var mainMapView: MKMapView!
+    //缺半径国际化
     @IBOutlet weak var RadiusL: UILabel!
     @IBOutlet weak var safeZoneSlider: UISlider!
     @IBOutlet weak var informationView: UIView!
@@ -55,72 +56,26 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     var centerss : CLLocationCoordinate2D?
     
     
+    private func internationalization(){
+        nameTitleL.text = R.string.localizable.id_name()
+        kidnameTF.placeholder = R.string.localizable.id_is_enter_safe_zone()
+        addressTitleL.text = R.string.localizable.id_address()
+        
+        
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         item = UIBarButtonItem(title : R.string.localizable.id_save(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
+        internationalization()
         if self.adminBool!{
             self.navigationItem.rightBarButtonItem = item
         }
         
     }
     
-//    fileprivate lazy var yellowDots: UIImageView = {
-//        let imageView = UIImageView.init(image: R.image.positioning_ic_1())
-//        
-//        return imageView
-//    }()
-    
-    func rightBarButtonClick (sender : UIBarButtonItem){
-         if (self.editFenceDataSounrce != nil) {
-            self.EditSafeZone()
-         }else{
-            self.SaveNewSafeZone()
-        }
-        
-    }
-    
-    @IBAction func SearchBtnClick(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SafeZoneAddressSearchVC")  as! SafeZoneAddressSearchVC
-        vc.delegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func actionFenceRadiusValueChanged(_ slider:UISlider) {
-        
-        self.currentRadius = Double(slider.value)
-        self.drawOverlay(radius: self.currentRadius)
-        RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
-    }
-    
-    func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
-        var centerCoordinate = centerCoordinate
-        centerCoordinate = centerCoordinate ?? self.mainMapView.centerCoordinate
-        guard let coordinate = centerCoordinate, CLLocationCoordinate2DIsValid(coordinate) else {
-            return
-        }
-        self.mainMapView.removeOverlays(self.mainMapView.overlays.filter { !$0.isEqual(self.kidOverlay) } )
-        self.circleOverlay = MKCircle(center:coordinate, radius:radius)
-        
-        self.mainMapView.add(circleOverlay!)
-        self.mainMapView.setNeedsDisplay()
-    }
-    
-    func permissionsView(_ adminBool: Bool){
-        self.informationView.isHidden = !adminBool
-        self.informationView1.isHidden = !adminBool
-
-        if adminBool{
-            mapTopConstraint.constant = 0
-            mapBottomContraint.constant = 0
-        }else
-        {
-            mapTopConstraint.constant = -90
-            mapBottomContraint.constant = -70
-        }
-        
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -163,7 +118,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
 //            self.isEmptyFence = false
         }else{
             //新增
-            self.title = "Add Safe zone"
+            self.title = R.string.localizable.id_add_safe_zone()
             let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
                 .map({
                     self.kidaddressTF.text = $0.location?.addr
@@ -270,7 +225,58 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
 
     }
+    
+    func rightBarButtonClick (sender : UIBarButtonItem){
+        if (self.editFenceDataSounrce != nil) {
+            self.EditSafeZone()
+        }else{
+            self.SaveNewSafeZone()
+        }
+        
+    }
+    
+    @IBAction func SearchBtnClick(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SafeZoneAddressSearchVC")  as! SafeZoneAddressSearchVC
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func actionFenceRadiusValueChanged(_ slider:UISlider) {
+        
+        self.currentRadius = Double(slider.value)
+        self.drawOverlay(radius: self.currentRadius)
+        RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
+    }
+    
+    func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
+        var centerCoordinate = centerCoordinate
+        centerCoordinate = centerCoordinate ?? self.mainMapView.centerCoordinate
+        guard let coordinate = centerCoordinate, CLLocationCoordinate2DIsValid(coordinate) else {
+            return
+        }
+        self.mainMapView.removeOverlays(self.mainMapView.overlays.filter { !$0.isEqual(self.kidOverlay) } )
+        self.circleOverlay = MKCircle(center:coordinate, radius:radius)
+        
+        self.mainMapView.add(circleOverlay!)
+        self.mainMapView.setNeedsDisplay()
+    }
+    
+    func permissionsView(_ adminBool: Bool){
+        self.informationView.isHidden = !adminBool
+        self.informationView1.isHidden = !adminBool
+        
+        if adminBool{
+            mapTopConstraint.constant = 0
+            mapBottomContraint.constant = 0
+        }else
+        {
+            mapTopConstraint.constant = -90
+            mapBottomContraint.constant = -70
+        }
+        
+    }
 
+    
     @IBAction func PinchToChangeZoom(_ sender: UIPinchGestureRecognizer) {
             
             switch sender.state {

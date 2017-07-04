@@ -133,8 +133,6 @@ class AccountKidsRulesuserController: UITableViewController {
        
     }
     
-   
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //safe zone
@@ -195,6 +193,40 @@ class AccountKidsRulesuserController: UITableViewController {
 }
 
 extension AccountKidsRulesuserController {
+
+    
+    fileprivate func initializeI18N() {
+        //判断用户，没有多语言字串
+        self.title = R.string.localizable.id_account_devicelist_mode_mt30()
+        
+        watchContactLabel.text = R.string.localizable.id_watch_contact()
+        safeZoneLabel.text = R.string.localizable.id_safe_zone()
+        schoolTimeLabel.text = R.string.localizable.id_school_time()
+        reminderLabel.text = R.string.localizable.id_reminder()
+        regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
+        //缺daily tracking mode
+        //缺daily tracking mode描述
+        autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
+        autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
+        autoansweIntroduceLabel.adjustsFontSizeToFitWidth = true
+        autopositiorIntroduceLabel.adjustsFontSizeToFitWidth = true
+        savepowerLabel.text = R.string.localizable.id_save_power()
+        savepowerIntroduceLabel.text = R.string.localizable.id_save_power_describe()
+        savepowerIntroduceLabel.adjustsFontSizeToFitWidth = true
+        usePermissiorLabel.text = R.string.localizable.id_use_permission()
+        timeZoneLabel.text = R.string.localizable.id_time_zone()
+        languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
+        apnLabel.text = R.string.localizable.id_apn()
+        updateLabel.text = R.string.localizable.id_update()
+        unpairedWithLabel.text = R.string.localizable.id_unpaired_with_watch()
+    }
+    
+}
+
+//跳转
+
+extension AccountKidsRulesuserController {
+    
     
     func propelToTargetController() {
         if let target = Distribution.shared.target {
@@ -235,28 +267,29 @@ extension AccountKidsRulesuserController {
         self.accountNameQutlet.text = deviceInfo.user?.nickname
     }
     
-    fileprivate func initializeI18N() {
-        //判断用户，没有多语言字串
-        //kidswatchTitleItem.title =
-        
-        watchContactLabel.text = R.string.localizable.id_watch_contact()
-        safeZoneLabel.text = R.string.localizable.id_safe_zone()
-        schoolTimeLabel.text = R.string.localizable.id_school_time()
-        reminderLabel.text = R.string.localizable.id_reminder()
-        regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
-        autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
-        autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
-        autoansweIntroduceLabel.adjustsFontSizeToFitWidth = true
-        autopositiorIntroduceLabel.adjustsFontSizeToFitWidth = true
-        savepowerLabel.text = R.string.localizable.id_save_power()
-        savepowerIntroduceLabel.text = R.string.localizable.id_save_power_describe()
-        savepowerIntroduceLabel.adjustsFontSizeToFitWidth = true
-        timeZoneLabel.text = R.string.localizable.id_time_zone()
-        languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
-        apnLabel.text = R.string.localizable.id_apn()
-        updateLabel.text = R.string.localizable.id_update()
-        unpairedWithLabel.text = R.string.localizable.id_unpaired_with_watch()
+    fileprivate func showFamilyMemberController() {
+        if let toVC = R.storyboard.contact.familyMemberController() {
+            self.navigationController?.show(toVC, sender: nil)
+        }
     }
+    
+    fileprivate func showFriendListController() {
+        if let toVC = R.storyboard.contact.watchFriends() {
+            self.navigationController?.show(toVC, sender: nil)
+        }
+    }
+    
+    fileprivate func showUpdataController() {
+        if let toVC = R.storyboard.account.upgrade() {
+            self.navigationController?.show(toVC, sender: nil)
+        }
+    }
+
+}
+
+
+//tableview 操作
+extension AccountKidsRulesuserController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
@@ -288,25 +321,18 @@ extension AccountKidsRulesuserController {
         }
     }
     
-   
     
-    fileprivate func showFamilyMemberController() {
-        if let toVC = R.storyboard.contact.familyMemberController() {
-            self.navigationController?.show(toVC, sender: nil)
-        }
-    }
     
-    fileprivate func showFriendListController() {
-        if let toVC = R.storyboard.contact.watchFriends() {
-            self.navigationController?.show(toVC, sender: nil)
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            if section == 1 {
+                return R.string.localizable.id_bandfunction_function()
+            }
+            if section == 2 {
+                return R.string.localizable.id_action_settings()
+            }
+            return nil
         }
-    }
-    
-    fileprivate func showUpdataController() {
-        if let toVC = R.storyboard.account.upgrade() {
-            self.navigationController?.show(toVC, sender: nil)
-        }
-    }
+
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 95, 44, 44, 44, 44, 44, 44]]
@@ -314,15 +340,6 @@ extension AccountKidsRulesuserController {
         let height = isAdmin ? heightAtAdmin : heightNotAdmin
         return CGFloat(height[indexPath.section][indexPath.row])
     }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            return R.string.localizable.id_bandfunction_function()
-        }
-        if section == 2 {
-            return R.string.localizable.id_action_settings()
-        }
-        return nil
-    }
+
 }
 

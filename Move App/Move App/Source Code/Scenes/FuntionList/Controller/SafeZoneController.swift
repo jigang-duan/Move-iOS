@@ -14,8 +14,6 @@ import CustomViews
 class SafeZoneController: UIViewController {
     
     //internationalization
-    @IBOutlet weak var safezoneTitleItem: UINavigationItem!
-
     
     @IBOutlet weak var safezoneQutlet: UIButton!
     @IBOutlet weak var tableview: UITableView!
@@ -36,9 +34,11 @@ class SafeZoneController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.reloadData()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = R.string.localizable.id_safe_zone()
         self.permissionsFun(adminbooll: adminBool!)
         
         self.tableview.estimatedRowHeight = 80.0
@@ -71,14 +71,15 @@ class SafeZoneController: UIViewController {
         
             
         if self.fences.count >= 5 {
-            let alertController = UIAlertController(title: nil, message: "not more than 5 safe zone", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let alertController = UIAlertController(title: nil, message: R.string.localizable.id_only_safe_zone(), preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
         }else{
 
             if adminBool! {
                 if !autopositioningBool!{
+                    //缺打开自动定位
                     let alertController = UIAlertController(title: "Turn on auto-positioning?", message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
                     
                     let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: { (UIAlertAction) in
@@ -149,6 +150,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
         if self.fences.count == 0
         {
             self.tableview.isHidden = true
+            //缺非管理员无数据提示国际化
             let lable: UILabel = self.emptyViewQutlet.subviews[1] as! UILabel
             if self.adminBool!{
                 

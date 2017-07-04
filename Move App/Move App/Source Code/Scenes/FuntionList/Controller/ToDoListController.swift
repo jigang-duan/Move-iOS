@@ -49,7 +49,7 @@ class ToDoListController: UITableViewController {
     var repeatStateVariable = Variable("Never")
     
     //国际化
-    func internationalization()  {
+    private func internationalization()  {
             todolistTitleItem.title = R.string.localizable.id_todolist()
             saveItemQutlet.title = R.string.localizable.id_save()
             titleTextFieldQutle.placeholder = R.string.localizable.id_title()
@@ -57,12 +57,14 @@ class ToDoListController: UITableViewController {
             beginLabel.text = R.string.localizable.id_begin()
             endLabel.text = R.string.localizable.id_end()
             repeatLabel.text = R.string.localizable.id_setting_my_clock_repeat()
+            cancelQutle.setTitle(R.string.localizable.id_cancel(), for: .normal)
+            comfirmQutle.setTitle(R.string.localizable.id_confirm(), for: .normal)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.internationalization()
+        internationalization()
         self.isOldTodo = false
         back.isHidden = false
         tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
@@ -136,15 +138,17 @@ class ToDoListController: UITableViewController {
         self.view.endEditing(true)
         
         let cell = tableView.cellForRow(at: indexPath)
-         let vc = R.storyboard.account.repeatViewController()!
+        let vc = R.storyboard.account.repeatViewController()!
         if cell == repeatCell {
             print("test")
-            vc.repeatBlock = { repea in
-                self.repeatStateVariable.value = repea
+            vc.repeatBlock = { [weak self] repea in
+                self?.repeatStateVariable.value = repea
             }
+            vc.selectCell = repeatStateQutlet.text ?? R.string.localizable.id_never()
             self.navigationController?.show(vc, sender: nil)
         }
     }
+    
     
 }
 
@@ -167,7 +171,7 @@ extension ToDoListController {
         self.saveItemQutlet.isEnabled = false
         
         if self.beginTime == self.endTime{
-            
+            //缺弹框提示语
             self.alertSeting(message: "begin time not the same as end time", preferredStyle: .alert)
             
         } else if (self.beginTime) < Date()
