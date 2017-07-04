@@ -16,6 +16,27 @@ fileprivate let FaqURLString = "http://www.tcl-move.com/help/#/mt30/faqs/en"
 
 class HelpController: UITableViewController {
 
+    @IBOutlet weak var cellLab1: UILabel!
+    @IBOutlet weak var cellLab2: UILabel!
+    @IBOutlet weak var cellLab3: UILabel!
+    @IBOutlet weak var cellLab4: UILabel!
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_help()
+        
+        cellLab1.text = "FAQ"
+        cellLab2.text = R.string.localizable.id_user_manual()
+        cellLab3.text = R.string.localizable.id_terms_of_use_help()
+        cellLab4.text = R.string.localizable.id_privacy_and_security()
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.initializeI18N()
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let language = Bundle.main.preferredLocalizations[0].components(separatedBy: "-").first ?? "en"
         

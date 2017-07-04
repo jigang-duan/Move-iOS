@@ -13,7 +13,9 @@ import AVFoundation
 
 
 class FamilyMemberDetailController: UIViewController {
-    
+    @IBOutlet weak var photoLab: UILabel!
+    @IBOutlet weak var titleLab: UILabel!
+    @IBOutlet weak var numberLab: UILabel!
     
     @IBOutlet weak var selectPhotoBun: UIButton!
     @IBOutlet weak var selectRelationBun: UIButton!
@@ -70,10 +72,23 @@ class FamilyMemberDetailController: UIViewController {
        self.view.endEditing(true)
     }
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_family_member()
+        
+        saveBun.title = R.string.localizable.id_save()
+        photoLab.text = R.string.localizable.id_photo()
+        titleLab.text = R.string.localizable.id_title()
+        numberLab.text = R.string.localizable.id_number()
+        noRegisterTipLab.text = R.string.localizable.id_not_usp_app()
+        masterBun.setTitle(R.string.localizable.id_set_as_master(), for: .normal)
+        deleteBun.setTitle(R.string.localizable.id_str_remove_alarm_title(), for: .normal)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.initializeI18N()
         
         validateLab.text = nil
         
@@ -92,7 +107,7 @@ class FamilyMemberDetailController: UIViewController {
         let masterTap = Variable(false)
         masterBun.rx.tap.asObservable()
             .bindNext {
-                let vc = UIAlertController(title: nil, message: "Sure to set this contact as master? you will be removed from favorited member.", preferredStyle: .alert)
+                let vc = UIAlertController(title: nil, message: R.string.localizable.id_sure_as_master(), preferredStyle: .alert)
                 let action1 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     masterTap.value = true
                 }
@@ -106,7 +121,7 @@ class FamilyMemberDetailController: UIViewController {
         let deleteTap = Variable(false)
         deleteBun.rx.tap.asObservable()
             .bindNext {
-                let vc = UIAlertController(title: nil, message: "Sure to detele this contact?", preferredStyle: .alert)
+                let vc = UIAlertController(title: nil, message: R.string.localizable.id_delete_description(), preferredStyle: .alert)
                 let action1 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     deleteTap.value = true
                 }
@@ -262,19 +277,19 @@ class FamilyMemberDetailController: UIViewController {
     @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "Take a photo", style: .default) { _ in
+        let action1 = UIAlertAction(title: R.string.localizable.id_take_a_photo(), style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
             })
         }
-        let action2 = UIAlertAction(title: "Select from album", style: .default) { _ in
+        let action2 = UIAlertAction(title: R.string.localizable.id_select_image(), style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
             })
         }
-        let action3 = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
+        let action3 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel)
         
         vc.addAction(action1)
         vc.addAction(action2)

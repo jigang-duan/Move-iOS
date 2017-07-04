@@ -12,6 +12,7 @@ import CustomViews
 
 class ShareQRcodeController: UIViewController {
     
+    @IBOutlet weak var titleLab: UILabel!
     @IBOutlet weak var backImgV: UIImageView!
     
     @IBOutlet weak var headImgV: UIImageView!
@@ -29,6 +30,8 @@ class ShareQRcodeController: UIViewController {
     var profile: String?
     var memberPhone: String?
     
+    @IBOutlet weak var tipLab1: UILabel!
+    @IBOutlet weak var tipLab2: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,8 +48,16 @@ class ShareQRcodeController: UIViewController {
         UIApplication.shared.isStatusBarHidden = false
     }
     
+    private func initializeI18N() {
+        titleLab.text = R.string.localizable.id_qr_code()
+        tipLab1.text = R.string.localizable.id_master_share_qr()
+        tipLab2.text = R.string.localizable.id_safety_reason()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         if UIScreen.main.bounds.height < 500 {
             QRImageViewHCons.constant = 120

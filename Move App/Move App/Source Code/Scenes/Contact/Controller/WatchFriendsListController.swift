@@ -30,6 +30,8 @@ class WatchFriendsListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = R.string.localizable.id_watch_friends()
+        
         tableView.delegate = nil
         tableView.dataSource = nil
 

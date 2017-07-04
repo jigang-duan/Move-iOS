@@ -12,6 +12,12 @@ import RxSwift
 
 class ScanCodeController: UIViewController {
     
+    @IBOutlet weak var titleLab: UILabel!
+    @IBOutlet weak var albumBun: UIButton!
+    @IBOutlet weak var tipLab: UILabel!
+    @IBOutlet weak var imeiBun: UIButton!
+    @IBOutlet weak var orLab: UILabel!
+    
     var disposeBag = DisposeBag()
     
     var photoPicker: ImageUtility?
@@ -42,8 +48,18 @@ class ScanCodeController: UIViewController {
     
     var qrCodeFrameView = UIView()
     
+    private func initializeI18N() {
+        titleLab.text = R.string.localizable.id_qr_code()
+        albumBun.setTitle(R.string.localizable.id_title_album(), for: .normal)
+        tipLab.text = R.string.localizable.id_scan_hint()
+        imeiBun.setTitle(R.string.localizable.id_input_imei(), for: .normal)
+        orLab.text = R.string.localizable.id_or()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
 
         qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
         qrCodeFrameView.layer.borderWidth = 2
@@ -254,7 +270,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                         vc.imei = info.deviceId
                         self?.navigationController?.show(vc, sender: nil)
                     }else{
-                        self?.showMessage("The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                        self?.showMessage(R.string.localizable.id_device_isbind())
                     }
                 })
                 .addDisposableTo(disposeBag)
@@ -269,7 +285,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                     return uid == UserInfo.shared.id
                 })
                 if flag == true {
-                    self?.showMessage("This watch is existed")
+                    self?.showMessage(R.string.localizable.id_watch_existed())
                 }else{
                     self?.goPairWithGeneral(with: info)
                 }

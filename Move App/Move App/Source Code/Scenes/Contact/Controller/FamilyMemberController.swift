@@ -12,6 +12,10 @@ import RxCocoa
 
 
 class FamilyMemberController: UIViewController {
+    @IBOutlet weak var tipLab: UILabel!
+    @IBOutlet weak var emergencyTip: UILabel!
+    @IBOutlet weak var qrCodeLab: UILabel!
+    @IBOutlet weak var manualLab: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var popView: UIView!
@@ -53,8 +57,20 @@ class FamilyMemberController: UIViewController {
     }
     
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_family_member()
+        
+        tipLab.text = R.string.localizable.id_family_member_prompt()
+        emergencyTip.text = R.string.localizable.id_family_emergency_number()
+        qrCodeLab.text = R.string.localizable.id_family_member_by_qr_code()
+        manualLab.text = R.string.localizable.id_family_member_input_number()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         popView.isHidden = true
         
@@ -96,10 +112,10 @@ class FamilyMemberController: UIViewController {
                     }
                 }
                 
-                cell.relationName.text = element.relation + (element.state.contains(.me) ? "(Me)":"")
+                cell.relationName.text = element.relation + (element.state.contains(.me) ? R.string.localizable.id_contact_me():"")
                 
                 if element.state.contains(.master){
-                    cell.detailLab.text = "Master"
+                    cell.detailLab.text = R.string.localizable.id_master()
                 }else{
                     cell.detailLab.text = ""
                 }

@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 class PhoneNumberController: UIViewController {
+    @IBOutlet weak var titleLab: UILabel!
 
     @IBOutlet weak var regionBun: UIButton!
     
@@ -75,9 +76,17 @@ class PhoneNumberController: UIViewController {
         }
     }
     
+    private func initializeI18N() {
+        titleLab.text = R.string.localizable.id_phone_number()
+        
+        nextBun.setTitle(R.string.localizable.id_phone_number_next(), for: .normal)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         validate.isHidden = true
         

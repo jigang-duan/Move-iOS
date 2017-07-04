@@ -10,11 +10,21 @@ import UIKit
 
 class PairWatchController: UIViewController {
 
+    @IBOutlet weak var scanBun: UIButton!
+    @IBOutlet weak var tipBun: UIButton!
+    
+    
     @IBOutlet weak var tipBottomCons: NSLayoutConstraint!
     
+    private func initializeI18N() {
+        scanBun.setTitle(R.string.localizable.id_scan_qr_code(), for: .normal)
+        tipBun.setTitle(R.string.localizable.id_where_is_qr_cord(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
 
         // Do any additional setup after loading the view.
         

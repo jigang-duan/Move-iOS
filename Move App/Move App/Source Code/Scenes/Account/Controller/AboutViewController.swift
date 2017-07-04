@@ -16,6 +16,8 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = R.string.localizable.id_about()
+        
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             versionLab.text = "V \(version)"
         }

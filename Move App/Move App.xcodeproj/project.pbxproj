@@ -309,6 +309,7 @@
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
 		FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
 		FF517A2A1EA498C80014E53F /* countryphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF517A291EA498C80014E53F /* countryphone.plist */; };
+		FF836FD71F0B62890025C60B /* HelpForPairVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF836FD61F0B62890025C60B /* HelpForPairVC.swift */; };
 		FF83B0711ECA956400E39C74 /* countryCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF83B0701ECA956400E39C74 /* countryCode.plist */; };
 		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
 		FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */; };
@@ -700,6 +701,7 @@
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FF517A291EA498C80014E53F /* countryphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = countryphone.plist; path = Resource/countryphone.plist; sourceTree = "<group>"; };
+		FF836FD61F0B62890025C60B /* HelpForPairVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpForPairVC.swift; sourceTree = "<group>"; };
 		FF83B0701ECA956400E39C74 /* countryCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = countryCode.plist; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
 		FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailController.swift; sourceTree = "<group>"; };
@@ -1828,6 +1830,7 @@
 			children = (
 				E0931F411E31AC3A00755B4A /* ChoseDeviceController.swift */,
 				D2EFB0481E529801000BE93C /* PairWatchController.swift */,
+				FF836FD61F0B62890025C60B /* HelpForPairVC.swift */,
 				D2EFB0491E529801000BE93C /* ScanCodeController.swift */,
 				D24F835B1E52D1C90035CB17 /* IputIMEIControllerTableController.swift */,
 				D24F835D1E52D8450035CB17 /* VerificationCodeController.swift */,
@@ -2876,6 +2879,7 @@
 				FFD06D031EEFAF3B0073CD48 /* TranslucentNavBarController.swift in Sources */,
 				E9CF8A6E1E715F0300E8D8E7 /* AllKidsLocationController.swift in Sources */,
 				E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */,
+				FF836FD71F0B62890025C60B /* HelpForPairVC.swift in Sources */,
 				D2D661241E4F139900E46F41 /* SignUpViewController.swift in Sources */,
 				FF499E471EAE077800EF16F8 /* CantPairToApnVC.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,

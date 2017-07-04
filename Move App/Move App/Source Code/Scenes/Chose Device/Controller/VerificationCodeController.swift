@@ -18,7 +18,12 @@ class VerificationCodeController: UIViewController {
     
     @IBOutlet weak var validate: UILabel!
 
+    
+    @IBOutlet weak var titleLab: UILabel!
     @IBOutlet weak var tipLab: UILabel!
+    @IBOutlet weak var inputTip: UILabel!
+    @IBOutlet weak var cantPairLab: UILabel!
+    @IBOutlet weak var helpBun: UIButton!
     
     
     var disposeBag = DisposeBag()
@@ -56,8 +61,21 @@ class VerificationCodeController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    private func initializeI18N() {
+        titleLab.text = R.string.localizable.id_verification_code()
+        
+        tipLab.text = R.string.localizable.id_help_apn_code()
+        inputTip.text = R.string.localizable.id_verification_code_prompt()
+        nextBun.setTitle(R.string.localizable.id_phone_number_next(), for: .normal)
+        cantPairLab.text = R.string.localizable.id_verification_code_help()
+        helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         tipLab.isHidden = true
         
@@ -80,10 +98,10 @@ class VerificationCodeController: UIViewController {
                 self.sendBun.isEnabled = valid
                 self.sendBun.alpha = valid ? 1.0 : 0.5
                 if valid {
-                    self.sendBun.setTitle("Resend", for: UIControlState.normal)
+                    self.sendBun.setTitle(R.string.localizable.id_resend(), for: UIControlState.normal)
                 }else{
                     self.timeCount = 90
-                    self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
+                    self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(self.timeCount)s)", for: UIControlState.normal)
                     self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setupSendBunTitle), userInfo: nil, repeats: true)
                 }
 
@@ -127,11 +145,11 @@ class VerificationCodeController: UIViewController {
         timeCount -= 1
         if timeCount <= -1 {
             self.timer?.invalidate()
-            self.sendBun.setTitle("Resend", for: UIControlState.normal)
+            self.sendBun.setTitle(R.string.localizable.id_resend(), for: UIControlState.normal)
             self.sendBun.isEnabled = true
             self.sendBun.alpha = 1
         }else{
-            self.sendBun.setTitle("Resend(\(timeCount)s)", for: UIControlState.normal)
+            self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(timeCount)s)", for: UIControlState.normal)
         }
     }
     

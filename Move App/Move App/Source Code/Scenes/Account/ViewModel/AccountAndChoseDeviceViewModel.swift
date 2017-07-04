@@ -37,7 +37,7 @@ class AccountAndChoseDeviceViewModel {
         
         self.profile = enter.flatMapLatest { userManger.getProfile().asDriver(onErrorJustReturn: UserInfo.Profile()) }
         self.accountName = profile.map({ profile in
-            if let name = profile.nickname {
+            if let name = profile.nickname, name.characters.count > 0 {
                 return name
             }
             if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {

@@ -15,6 +15,9 @@ import ContactsUI
 
 class FamilyMemberAddController: UIViewController {
     
+    @IBOutlet weak var photoLab: UILabel!
+    @IBOutlet weak var titleLab: UILabel!
+    @IBOutlet weak var numberLab: UILabel!
     
     @IBOutlet weak var saveBun: UIBarButtonItem!
     
@@ -45,8 +48,19 @@ class FamilyMemberAddController: UIViewController {
         self.view.endEditing(true)
     }
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_family_member()
+        
+        saveBun.title = R.string.localizable.id_save()
+        photoLab.text = R.string.localizable.id_photo()
+        titleLab.text = R.string.localizable.id_title()
+        numberLab.text = R.string.localizable.id_number()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         validate.isHidden = true
 

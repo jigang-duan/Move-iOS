@@ -491,8 +491,8 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="FNx-CL-U42"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="HelpLabel" destination="zL5-qI-7nc" id="p5N-2Z-13k"/>
                         <outlet property="doneBun" destination="VhK-LQ-Hs2" id="HGI-5E-YUe"/>
+                        <outlet property="helpLabel" destination="zL5-qI-7nc" id="uwh-Dv-yMo"/>
                         <outlet property="sendBun" destination="m9G-E6-ovx" id="81f-XQ-dvP"/>
                         <outlet property="vcodeTf" destination="zYi-Ed-HlJ" id="j7i-wV-yIa"/>
                         <outlet property="vcodeValidation" destination="Prf-eB-X9M" id="mHs-Gm-B2c"/>
@@ -514,7 +514,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The verification code was sent to your Email xxx@xxx.com." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfn-rN-Da0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A verification code was sent to your Email xxx@xxx.com." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfn-rN-Da0">
                                 <rect key="frame" x="20" y="36" width="335" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.3843137324" green="0.3843137324" blue="0.3843137324" alpha="1" colorSpace="calibratedRGB"/>
@@ -689,7 +689,7 @@
                             <constraint firstItem="rMB-pM-kr9" firstAttribute="trailing" secondItem="qsM-V0-ygb" secondAttribute="trailing" id="z37-Pb-sia"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Update password" id="X0V-DO-6fz">
+                    <navigationItem key="navigationItem" title="Password recovery" id="X0V-DO-6fz">
                         <barButtonItem key="backBarButtonItem" title=" " id="kql-mq-dVj"/>
                     </navigationItem>
                     <connections>

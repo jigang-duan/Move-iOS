@@ -10,6 +10,9 @@ import UIKit
 
 class CantPairToApnVC: UIViewController {
     
+    @IBOutlet weak var titleLab: UILabel!
+    @IBOutlet weak var tipLab: UILabel!
+    @IBOutlet weak var apnBun: UIButton!
     
     var imei = ""
     
@@ -18,10 +21,18 @@ class CantPairToApnVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    private func initializeI18N() {
+        titleLab.text = R.string.localizable.id_cant_pair()
+        tipLab.text = R.string.localizable.id_help_apn()
+        
+        apnBun.setTitle(R.string.localizable.id_apn_setting(), for: .normal)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.initializeI18N()
     }
     
     

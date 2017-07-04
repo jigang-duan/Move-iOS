@@ -14,6 +14,7 @@ class RelationshipTableController: UIViewController {
     
     var relationBlock: ((Relation) -> ())?
     
+    @IBOutlet weak var nextBun: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var otherTf: UITextField!
@@ -54,6 +55,11 @@ class RelationshipTableController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = R.string.localizable.id_title()
+        otherTf.placeholder = R.string.localizable.id_other()
+        nextBun.title = R.string.localizable.id_phone_number_next()
+        
+        
         tableView.delegate = self
         
         otherBadge.isHidden = true
@@ -71,7 +77,7 @@ class RelationshipTableController: UIViewController {
     
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)
     }
@@ -100,8 +106,8 @@ class RelationshipTableController: UIViewController {
                 self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)
             }else{
                 DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!)
-                    .subscribe(onNext: {[weak self] flag in
-                        _ = Distribution.shared.backToMainMap()//self?.navigationController?.popToRootViewController(animated: true)
+                    .subscribe(onNext: {_ in
+                        _ = Distribution.shared.backToMainMap()
                     }, onError: { er in
                         if let msg = errorRecover(er) {
                             self.showMessage(msg)
@@ -138,7 +144,7 @@ extension RelationshipTableController: UITextFieldDelegate {
         if let text = textField.text, text.characters.count > 0 {
             selectedRelation = Relation.other(value: text)
         }else{
-            selectedRelation = Relation.other(value: "Other")
+            selectedRelation = Relation.other(value: R.string.localizable.id_other())
         }
     }
     
@@ -195,11 +201,11 @@ fileprivate func errorRecover(_ error: Error) -> String? {
     }
     
     if WorkerError.webApi(id: 7, field: "uid", msg: "Exists") == _error {
-        return "This watch is existed"
+        return R.string.localizable.id_watch_existed()
     }
     
     if WorkerError.webApi(id: 7, field: "phone", msg: "Exists") == _error {
-        return "This phone number has been paired by others!"
+        return R.string.localizable.id_phone_error_add()
     }
     
     let msg = WorkerError.apiErrorTransform(from: _error)

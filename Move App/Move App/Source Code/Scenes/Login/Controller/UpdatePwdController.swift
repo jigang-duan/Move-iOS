@@ -112,11 +112,13 @@ class UpdatePwdController: TranslucentNavBarController {
     }
     
     private func initializeI18N() {
-        self.title = "Update password"
+        self.title = R.string.localizable.id_password_recovery()
+        
+        helpLabel.text = R.string.localizable.id_sent_email_success_tint() + self.email!
         vcodeTf.placeholder = R.string.localizable.id_verification_code()
         sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
         passwordTf.placeholder = R.string.localizable.id_new_password()
-        rePasswordTf.placeholder = R.string.localizable.id_register_confirm_hint()
+        rePasswordTf.placeholder = R.string.localizable.id_confirm_new_password()
         
         doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
     }
@@ -128,9 +130,6 @@ class UpdatePwdController: TranslucentNavBarController {
         
         self.initUI()
         // Do any additional setup after loading the view.
-        
-        
-        helpLabel.text = "The verification code was sent to your Email \(self.email!)."
         
         
         let passwdText = passwordTf.rx.observe(String.self, "text").filterNil()
@@ -201,7 +200,7 @@ class UpdatePwdController: TranslucentNavBarController {
                     self.sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
                 }else{
                     self.timeCount = 90
-                    self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
+                    self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(self.timeCount)s)", for: UIControlState.normal)
                     self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setupSendBunTitle), userInfo: nil, repeats: true)
                 }
             })
@@ -248,7 +247,7 @@ class UpdatePwdController: TranslucentNavBarController {
             self.sendBun.isEnabled = true
             self.sendBun.alpha = 1
         }else{
-            self.sendBun.setTitle("Resend(\(timeCount)s)", for: UIControlState.normal)
+            self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(timeCount)s)", for: UIControlState.normal)
         }
     }
     

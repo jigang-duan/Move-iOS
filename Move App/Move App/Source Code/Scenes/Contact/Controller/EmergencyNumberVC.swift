@@ -14,7 +14,8 @@ import RxCocoa
 
 class EmergencyNumberVC: UIViewController {
     
-    
+    @IBOutlet weak var photoLab: UILabel!
+    @IBOutlet weak var numberLab: UILabel!
     
     @IBOutlet weak var saveBun: UIBarButtonItem!
     @IBOutlet weak var numberTf: UITextField!
@@ -28,7 +29,14 @@ class EmergencyNumberVC: UIViewController {
     
     var numbers = ""
     
-    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_family_emergency_number()
+        
+        saveBun.title = R.string.localizable.id_save()
+        photoLab.text = R.string.localizable.id_photo()
+        numberLab.text = R.string.localizable.id_number()
+        numberTf.placeholder = R.string.localizable.id_emergency_number_tips()
+    }
     
     func showValidateError(_ text: String) {
         validate.isHidden = false
@@ -55,6 +63,8 @@ class EmergencyNumberVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         validate.isHidden = true
         

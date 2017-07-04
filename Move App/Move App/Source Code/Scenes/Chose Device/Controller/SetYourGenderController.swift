@@ -11,12 +11,23 @@ import UIKit
 class SetYourGenderController: UIViewController {
 
     
+    @IBOutlet weak var setGenderLab: UILabel!
+    @IBOutlet weak var saveBun: UIButton!
+    
     var genderBlock: ((Gender) -> Void)?
     var selectedGender: Gender?
+    
+    
+    private func initializeI18N() {
+        setGenderLab.text = R.string.localizable.id_set_your_gender()
+        saveBun.setTitle(R.string.localizable.id_save(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.initializeI18N()
+        
         if selectedGender == .female {
             girlBtn.isSelected = true
         }else{

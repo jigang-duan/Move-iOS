@@ -48,7 +48,7 @@ class InputIMEIViewModel {
                                 return uid == UserInfo.shared.id
                             })
                             if flag == true {
-                                return ValidationResult.ok(message: "This watch is existed")
+                                return ValidationResult.ok(message: R.string.localizable.id_watch_existed())
                             }else{
                                 return ValidationResult.failed(message: "")
                             }
@@ -64,7 +64,7 @@ class InputIMEIViewModel {
                                 if bind == false {
                                     return ValidationResult.ok(message: "check Success.")
                                 }else {
-                                    return ValidationResult.failed(message: "The watch has been paired by others,please contact this watch's master to share QR code with you.")
+                                    return ValidationResult.failed(message: R.string.localizable.id_device_isbind())
                                 }
                             })
                             .asDriver(onErrorRecover: commonErrorRecover)

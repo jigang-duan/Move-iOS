@@ -61,7 +61,7 @@ class MeSettingController: UIViewController {
     }
     
     private func initializeI18N() {
-//        self.title = R.string.localizable.id_account()
+        self.title = R.string.localizable.id_button_menu_account()
         logoutBun.setTitle(R.string.localizable.id_login_out(), for: .normal)
     }
     
@@ -132,7 +132,7 @@ class MeSettingController: UIViewController {
     
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)
     }
@@ -141,19 +141,19 @@ class MeSettingController: UIViewController {
     func selectPhoto() {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let action1 = UIAlertAction(title: "PhotoLibrary", style: UIAlertActionStyle.default) { _ in
-            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
-                self.headImgV.image = image
-                self.changedImage = image
-            })
-        }
-        let action2 = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default) { _ in
+        let action1 = UIAlertAction(title: R.string.localizable.id_take_a_photo(), style: UIAlertActionStyle.default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { (image) in
                 self.headImgV.image = image
                 self.changedImage = image
             })
         }
-        let action3 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
+        let action2 = UIAlertAction(title: R.string.localizable.id_select_image(), style: UIAlertActionStyle.default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { (image) in
+                self.headImgV.image = image
+                self.changedImage = image
+            })
+        }
+        let action3 = UIAlertAction(title: R.string.localizable.id_cancel(), style: UIAlertActionStyle.cancel)
         
         vc.addAction(action1)
         vc.addAction(action2)
@@ -217,28 +217,28 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             if let g = gender {
                 cell?.detailTextLabel?.text = (g == .female ? R.string.localizable.id_user_female():R.string.localizable.id_user_male())
             }else{
-                cell?.detailTextLabel?.text = "Not specified"
+                cell?.detailTextLabel?.text = R.string.localizable.id_not_specified()
             }
         case IndexPath(row: 1, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_height()
             if let h = height, h > 0 {
                 cell?.detailTextLabel?.text = "\(h) " + ((heightUnit == UnitType.metric) ? "cm":"inch")
             }else{
-                cell?.detailTextLabel?.text = "Not specified"
+                cell?.detailTextLabel?.text = R.string.localizable.id_not_specified()
             }
         case IndexPath(row: 2, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_weight()
             if let w = weight, w > 0 {
                 cell?.detailTextLabel?.text = "\(w) " + ((weightUnit == UnitType.metric) ? "kg":"lb")
             }else{
-                cell?.detailTextLabel?.text = "Not specified"
+                cell?.detailTextLabel?.text = R.string.localizable.id_not_specified()
             }
         case IndexPath(row: 3, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_set_your_birthday()
             if let b = birthday, b > Date(timeIntervalSince1970: -2209017600) {
                 cell?.detailTextLabel?.text = b.stringYearMonthDay
             }else{
-                cell?.detailTextLabel?.text = "Not specified"
+                cell?.detailTextLabel?.text = R.string.localizable.id_not_specified()
             }
         default:
             break

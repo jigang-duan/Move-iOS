@@ -78,9 +78,16 @@ class MeSetNameViewController: UIViewController {
         return text
     }
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_name()
+        
+        saveBun.title = R.string.localizable.id_save()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.initializeI18N()
         
         nameValid.isHidden = true
         nameTf.text = UserInfo.shared.profile?.nickname

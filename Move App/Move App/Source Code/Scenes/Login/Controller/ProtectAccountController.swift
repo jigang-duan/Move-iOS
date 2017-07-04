@@ -13,7 +13,7 @@ import RxCocoa
 
 class ProtectAccountController: TranslucentNavBarController {
     
-    @IBOutlet weak var HelpLabel: UILabel!
+    @IBOutlet weak var helpLabel: UILabel!
     @IBOutlet weak var vcodeTf: UITextField!
     @IBOutlet weak var sendBun: UIButton!
     @IBOutlet weak var vcodeValidation: UILabel!
@@ -60,7 +60,7 @@ class ProtectAccountController: TranslucentNavBarController {
     
     private func initializeI18N() {
         self.title = R.string.localizable.id_protect_your_account()
-        
+    
         vcodeTf.placeholder = R.string.localizable.id_verification_code()
         sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
         doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
@@ -71,7 +71,7 @@ class ProtectAccountController: TranslucentNavBarController {
         
         self.initializeI18N()
 
-        HelpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email ?? "")."
+        helpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email ?? "")."
         
         vcodeValidation.isHidden = true
         
@@ -98,7 +98,7 @@ class ProtectAccountController: TranslucentNavBarController {
                     self.sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
                 }else{
                     self.timeCount = 90
-                    self.sendBun.setTitle("Resend(\(self.timeCount)s)", for: UIControlState.normal)
+                    self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(self.timeCount)s)", for: UIControlState.normal)
                     self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setupSendBunTitle), userInfo: nil, repeats: true)
                 }
             })
@@ -148,7 +148,7 @@ class ProtectAccountController: TranslucentNavBarController {
             self.sendBun.isEnabled = true
             self.sendBun.alpha = 1
         }else{
-            self.sendBun.setTitle("Resend(\(timeCount)s)", for: UIControlState.normal)
+            self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(timeCount)s)", for: UIControlState.normal)
         }
     }
     

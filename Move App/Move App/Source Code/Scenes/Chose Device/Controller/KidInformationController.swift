@@ -86,6 +86,7 @@ class KidInformationController: UIViewController {
     
     
     func  setupUI() {
+        self.title = R.string.localizable.id_kids_information()
         
         if UIScreen.main.bounds.height < 500 {
             cameraTopCons.constant = 20

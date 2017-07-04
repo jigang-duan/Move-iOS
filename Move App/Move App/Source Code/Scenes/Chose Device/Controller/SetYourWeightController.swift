@@ -12,6 +12,9 @@ import CustomViews
 
 class SetYourWeightController: UIViewController {
     
+    @IBOutlet weak var setWeightLab: UILabel!
+    @IBOutlet weak var saveBun: UIButton!
+    
     let changeUnit = 2.2046226218488
     let maxKg: UInt = 248
     let maxLb: UInt = 550
@@ -28,9 +31,16 @@ class SetYourWeightController: UIViewController {
     
     var ruler:CustomRuler!
     
+    private func initializeI18N() {
+        setWeightLab.text = R.string.localizable.id_set_your_weight()
+        saveBun.setTitle(R.string.localizable.id_save(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
+        
         self.drawRule()
         
         kgBtn.isEnabled = !isUnitKg

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hye-Rj-fwk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hye-Rj-fwk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -447,6 +447,8 @@
                         <outlet property="kgBtn" destination="Bg2-Lm-AKR" id="dz8-Rr-6Ky"/>
                         <outlet property="lbBtn" destination="gcd-uV-hDT" id="h1a-DS-LqM"/>
                         <outlet property="rulerView" destination="eTg-Bz-fqW" id="0md-oP-DMm"/>
+                        <outlet property="saveBun" destination="K58-M6-wpk" id="5Rz-Mh-zWJ"/>
+                        <outlet property="setWeightLab" destination="5YR-6B-Xeo" id="rVn-SR-3f2"/>
                         <outlet property="weightLab" destination="92t-1s-I5f" id="xBX-zO-nmz"/>
                     </connections>
                 </viewController>
@@ -550,6 +552,8 @@
                     <connections>
                         <outlet property="boyBtn" destination="dlG-wc-eIo" id="wuC-gf-okw"/>
                         <outlet property="girlBtn" destination="8NL-FA-4JJ" id="yJD-2c-MWJ"/>
+                        <outlet property="saveBun" destination="Mu7-ib-PGw" id="DG3-Mr-R2u"/>
+                        <outlet property="setGenderLab" destination="D0h-53-fFg" id="RQd-mo-gex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGS-CL-sys" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -687,6 +691,8 @@
                         <outlet property="heightLab" destination="oh7-zg-1oh" id="Wae-D3-aeF"/>
                         <outlet property="inchBun" destination="blD-2b-THU" id="Xh1-Os-qCY"/>
                         <outlet property="rulerView" destination="Xfv-HB-Von" id="fMd-Fe-NMU"/>
+                        <outlet property="saveBun" destination="fft-cK-aH5" id="5ti-dn-0fK"/>
+                        <outlet property="setHeightLab" destination="hew-hA-ulv" id="u76-Sy-OH0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sHN-pJ-tS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -770,6 +776,8 @@
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="PlE-cz-Owa" id="qJs-2j-Y1t"/>
+                        <outlet property="saveBun" destination="6B6-6G-IOI" id="mxa-Nz-vRI"/>
+                        <outlet property="setBirthLab" destination="g5L-WK-ruZ" id="f6O-Vh-ixJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8x-zP-TKX" userLabel="First Responder" sceneMemberID="firstResponder"/>

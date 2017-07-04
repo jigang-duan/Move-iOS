@@ -24,6 +24,8 @@ class OfficialNumberController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = R.string.localizable.id_contact_us()
+        
         tableview.delegate = self
         
         if let arr = NSArray(contentsOf: R.file.countryphonePlist()!) as? [[NSArray]] {

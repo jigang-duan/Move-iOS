@@ -46,6 +46,7 @@ class PwdRecoveryController: TranslucentNavBarController {
     
     private func initializeI18N() {
         self.title = R.string.localizable.id_password_recovery()
+        helpLabel.text = R.string.localizable.id_set_password_tint()
         emailTf.placeholder = R.string.localizable.id_email()
         doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
     }

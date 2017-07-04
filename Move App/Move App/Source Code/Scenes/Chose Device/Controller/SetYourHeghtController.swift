@@ -11,6 +11,8 @@ import CustomViews
 
 
 class SetYourHeghtController: UIViewController {
+    @IBOutlet weak var setHeightLab: UILabel!
+    @IBOutlet weak var saveBun: UIButton!
     
     let changeUnit = 2.54
     let maxInch: UInt = 90
@@ -30,8 +32,16 @@ class SetYourHeghtController: UIViewController {
     @IBOutlet weak var heightLab: UILabel!
     
     
+    private func initializeI18N() {
+        setHeightLab.text = R.string.localizable.id_set_your_height()
+        saveBun.setTitle(R.string.localizable.id_save(), for: .normal)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
+        
         self .drawRule()
         
         inchBun.isEnabled = isUnitCm

@@ -11,7 +11,9 @@ import RxSwift
 import RxCocoa
 
 class WatchFriendsController: UIViewController {
-    
+    @IBOutlet weak var photoTip: UILabel!
+    @IBOutlet weak var nameTip: UILabel!
+    @IBOutlet weak var numberTip: UILabel!
     
     @IBOutlet weak var photoImgV: UIImageView!
     @IBOutlet weak var nameLab: UILabel!
@@ -34,9 +36,20 @@ class WatchFriendsController: UIViewController {
         phoneLab.text = friendInfo?.phone
     }
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_watch_friends()
+        
+        photoTip.text = R.string.localizable.id_photo()
+        nameTip.text = R.string.localizable.id_name()
+        numberTip.text = R.string.localizable.id_number()
+        
+        deleteBun.setTitle(R.string.localizable.id_str_remove_alarm_title(), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeI18N()
         
         self.setupUI()
         

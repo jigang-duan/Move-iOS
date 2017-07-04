@@ -11,11 +11,21 @@ import UIKit
 
 class SelectFamilyAndWatchVC: UITableViewController {
     
+    @IBOutlet weak var cellLab1: UILabel!
+    @IBOutlet weak var cellLab2: UILabel!
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_watch_contact()
+        
+        cellLab1.text = R.string.localizable.id_family_member()
+        cellLab2.text = R.string.localizable.id_watch_friends()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.initializeI18N()
     }
     
     
