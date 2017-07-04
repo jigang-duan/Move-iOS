@@ -523,16 +523,16 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     }
 }
 
-class CPinchGuesture :UIPinchGestureRecognizer {
-    
-    func canBePreventedByGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
-        return false
-    }
-    
-    func canPreventGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
-        return false
-    }
-}
+//class CPinchGuesture :UIPinchGestureRecognizer {
+//    
+//    func canBePreventedByGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
+//        return false
+//    }
+//    
+//    func canPreventGestureRecognizer(_ gestureRecognizer:UIGestureRecognizer) ->Bool{
+//        return false
+//    }
+//}
 
 extension AddSafeZoneVC : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
