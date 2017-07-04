@@ -19,13 +19,11 @@ public class NoEventView: UIView {
     }
     
     @IBInspectable
-    public var strokeColor: UIColor = UIColor(red:0.450980, green:0.607843, blue:0.674510, alpha:1.0).withAlphaComponent(0.7)
+    public var strokeColor: UIColor = UIColor(red:0.0, green:0.62, blue:1.0, alpha:1.0)
     
     override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         return self.superview
     }
-    
-    
     
     override public func draw(_ rect: CGRect) {
         //super.draw(rect)
@@ -34,17 +32,18 @@ public class NoEventView: UIView {
         let context = UIGraphicsGetCurrentContext()
         
         // Set the circle outerline-width
-        context?.setLineWidth(2.0)
+        context?.setLineWidth(1.0)
+        context?.setLineDash(phase: 0, lengths: [6, 6])
         
         // Set the circle outerline-colour
         strokeColor.withAlphaComponent(0.7).setStroke()
-        UIColor.cyan.withAlphaComponent(0.2).setFill()
+        strokeColor.withAlphaComponent(0.1).setFill()
         
         // Create Circle
         context?.addArc(center: CGPoint(x: self.bounds.width/2, y: self.bounds.height/2),
                         radius:  self.radius,
                         startAngle:  0.0,
-                        endAngle: CGFloat.pi * 2.0 ,
+                        endAngle: CGFloat.pi * 2.0,
                         clockwise: true)
         // Draw
         context?.drawPath(using: .fillStroke)

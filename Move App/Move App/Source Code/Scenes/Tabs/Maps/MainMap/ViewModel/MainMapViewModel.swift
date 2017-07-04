@@ -143,7 +143,7 @@ class MainMapViewModel {
         
         let currentLocation = Observable.merge(period,
                                                remindLocation,
-                                               currentDeviceIdObservable.map{ $0 })
+                                               currentDeviceIdObservable.map{_ in ()})
             .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)

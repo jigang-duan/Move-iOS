@@ -134,6 +134,7 @@ struct ThemeManager {
             .withRenderingMode(.alwaysTemplate)
             .resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 6.0, bottom: 0, right: 0)), for: .normal)
         }
+        UISlider.appearance().setThumbImage(R.image.general_slider_dot(), for: .normal)
 
         UISwitch.appearance().onTintColor = theme.mainColor.withAlphaComponent(0.7)
         UISwitch.appearance().thumbTintColor = theme.mainColor

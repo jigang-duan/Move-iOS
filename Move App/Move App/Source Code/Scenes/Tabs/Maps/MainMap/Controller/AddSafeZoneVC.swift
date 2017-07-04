@@ -140,8 +140,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         }
         
         centerss = mainMapView.centerCoordinate
-        let img = UIImage(named : "general_slider_dot")
-        safeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         self.safeZoneSlider!.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
 
         let geolocationService = GeolocationService.instance
@@ -569,12 +567,15 @@ extension AddSafeZoneVC : MKMapViewDelegate {
         
         if overlay.isEqual(self.circleOverlay) {
             let circleRender = MKCircleRenderer(overlay: overlay)
-            circleRender.fillColor = UIColor.cyan.withAlphaComponent(0.2)
-            circleRender.strokeColor = UIColor(red:0.450980, green:0.607843, blue:0.674510, alpha:1.0).withAlphaComponent(0.7)
-            circleRender.lineWidth = 2
+            circleRender.fillColor = defaultCircleColor
+            circleRender.strokeColor = R.color.appColor.primary().withAlphaComponent(0.7)
+            circleRender.lineWidth = 1
+            circleRender.lineDashPattern = [6, 6]
             return circleRender
         }
         
         return MKCircleRenderer(overlay: overlay)
     }
 }
+
+fileprivate let defaultCircleColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 0.1)

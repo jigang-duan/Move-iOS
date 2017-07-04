@@ -96,8 +96,6 @@ class LocationHistoryVC: UIViewController {
         
         
         timeSelectBtn.setTitle("Today", for: UIControlState.normal)
-        let img = R.image.general_slider_dot()
-        timeZoneSlider.setThumbImage(img, for: UIControlState.normal)
         timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
         
         locationMap.rx.willStartLoadingMap
