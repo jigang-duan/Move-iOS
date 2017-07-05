@@ -53,13 +53,16 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     var adminBool: Bool? = false
 
     
+
+    
     var centerss : CLLocationCoordinate2D?
     
     
     private func internationalization(){
-        nameTitleL.text = R.string.localizable.id_name()
+//        nameTitleL.text = R.string.localizable.id_name()
         kidnameTF.placeholder = R.string.localizable.id_is_enter_safe_zone()
-        addressTitleL.text = R.string.localizable.id_address()
+        
+//        addressTitleL.text = R.string.localizable.id_address()
         
         
     }
@@ -92,6 +95,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             safeZoneSlider.value = Float((self.editFenceDataSounrce?.radius)!)
 //            self.currentRadius = (self.editFenceDataSounrce?.radius)!
             RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
+            
+            
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
             self.currentRadius = Double(safeZoneSlider.value)
 //            self.drawOverlay(radius: self.currentRadius)
@@ -242,8 +247,10 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     func actionFenceRadiusValueChanged(_ slider:UISlider) {
         
         self.currentRadius = Double(slider.value)
+
         self.drawOverlay(radius: self.currentRadius)
         RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
+        
     }
     
     func drawOverlay(radius:Double, centerCoordinate:CLLocationCoordinate2D? = nil) {
@@ -268,8 +275,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             mapBottomContraint.constant = 0
         }else
         {
-            mapTopConstraint.constant = -90
-            mapBottomContraint.constant = -70
+            mapTopConstraint.constant = -96
+            mapBottomContraint.constant = -75
         }
         
     }
