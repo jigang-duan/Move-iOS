@@ -112,6 +112,7 @@
 		A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D740E11E81549300EC0CEB /* MessageServer.swift */; };
 		A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F71E8506BE00D2CE50 /* ChatController.swift */; };
 		A5ED01FA1E850AD300D2CE50 /* FamilyChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */; };
+		AD5734AF1F0C920B00C20D1E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5734AE1F0C920B00C20D1E /* File.swift */; };
 		AD7706241F0B601C0092EB91 /* CPinchGuesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7706231F0B601C0092EB91 /* CPinchGuesture.swift */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
@@ -495,6 +496,7 @@
 		A5D740E11E81549300EC0CEB /* MessageServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageServer.swift; path = Chat/MessageServer.swift; sourceTree = "<group>"; };
 		A5ED01F71E8506BE00D2CE50 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatController.swift; path = Chat/Controller/ChatController.swift; sourceTree = "<group>"; };
 		A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyChatController.swift; path = Chat/Controller/FamilyChatController.swift; sourceTree = "<group>"; };
+		AD5734AE1F0C920B00C20D1E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		AD7706231F0B601C0092EB91 /* CPinchGuesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPinchGuesture.swift; sourceTree = "<group>"; };
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1403,6 +1405,7 @@
 				E01DF7211E3087AB00EA003D /* Assets */,
 				E01DF7201E30879E00EA003D /* Storyboards */,
 				E01DF71F1E30878F00EA003D /* Xibs */,
+				AD5734AE1F0C920B00C20D1E /* File.swift */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -2867,6 +2870,7 @@
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */,
 				113F2E401E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift in Sources */,
+				AD5734AF1F0C920B00C20D1E /* File.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
