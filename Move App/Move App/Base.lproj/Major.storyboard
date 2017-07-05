@@ -697,7 +697,7 @@
                                 <rect key="frame" x="0.0" y="661" width="414" height="75"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius : 200m~1000m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-em-agX">
-                                        <rect key="frame" x="8" y="11" width="398" height="15"/>
+                                        <rect key="frame" x="8" y="15" width="398" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="YvQ-E4-3de"/>
                                         </constraints>
@@ -706,7 +706,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="600" minValue="200" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Yev-8s-JJr">
-                                        <rect key="frame" x="33" y="31" width="347" height="31"/>
+                                        <rect key="frame" x="33" y="35" width="347" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="zdh-fa-EmX"/>
                                         </constraints>
@@ -715,7 +715,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="W1c-em-agX" firstAttribute="top" secondItem="IOG-Cq-eA8" secondAttribute="top" constant="11" id="14Q-tm-1Oy"/>
+                                    <constraint firstItem="W1c-em-agX" firstAttribute="top" secondItem="IOG-Cq-eA8" secondAttribute="top" constant="15" id="14Q-tm-1Oy"/>
                                     <constraint firstItem="W1c-em-agX" firstAttribute="leading" secondItem="IOG-Cq-eA8" secondAttribute="leading" constant="8" id="1fi-RK-8MF"/>
                                     <constraint firstAttribute="trailing" secondItem="W1c-em-agX" secondAttribute="trailing" constant="8" id="5dy-eX-q8X"/>
                                     <constraint firstAttribute="height" constant="75" id="B9a-hS-1I8"/>
