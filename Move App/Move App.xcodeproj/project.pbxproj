@@ -50,6 +50,7 @@
 		1154ABA01EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */; };
 		1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */; };
 		115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
+		115964991F0E37F600D3748A /* UIImage+RTTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115964981F0E37F600D3748A /* UIImage+RTTint.swift */; };
 		115F73031ED824D700BAAF3D /* aweat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72F91ED824D700BAAF3D /* aweat.gif */; };
 		115F73041ED824D700BAAF3D /* bye.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FA1ED824D700BAAF3D /* bye.gif */; };
 		115F73051ED824D700BAAF3D /* cry.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FB1ED824D700BAAF3D /* cry.gif */; };
@@ -417,6 +418,7 @@
 		1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchSettingsManager.swift; path = KidSettingManager/WatchSettingsManager.swift; sourceTree = "<group>"; };
 		1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiWatchSettingsWorker.swift; path = KidSettingManager/MoveApiWatchSettingsWorker.swift; sourceTree = "<group>"; };
 		1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PulsingAnnotationView.swift; path = AnnotationView/PulsingAnnotationView.swift; sourceTree = "<group>"; };
+		115964981F0E37F600D3748A /* UIImage+RTTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+RTTint.swift"; path = "Vendor/RTTint/UIImage+RTTint.swift"; sourceTree = "<group>"; };
 		115F72F91ED824D700BAAF3D /* aweat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = aweat.gif; path = Resource/Gif/aweat.gif; sourceTree = "<group>"; };
 		115F72FA1ED824D700BAAF3D /* bye.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = bye.gif; path = Resource/Gif/bye.gif; sourceTree = "<group>"; };
 		115F72FB1ED824D700BAAF3D /* cry.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = cry.gif; path = Resource/Gif/cry.gif; sourceTree = "<group>"; };
@@ -948,6 +950,14 @@
 			name = AnnotationView;
 			sourceTree = "<group>";
 		};
+		115964971F0E379800D3748A /* RTTint */ = {
+			isa = PBXGroup;
+			children = (
+				115964981F0E37F600D3748A /* UIImage+RTTint.swift */,
+			);
+			name = RTTint;
+			sourceTree = "<group>";
+		};
 		116BAE591EC9448B001577D3 /* cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -1427,6 +1437,7 @@
 		E01DF7191E3086BF00EA003D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				115964971F0E379800D3748A /* RTTint */,
 				7FC0A90B1F0627FF00040C0E /* MapNavigateActionSheet */,
 				E99C8FEB1EC156A6000F3F30 /* ScrollLabelView */,
 				93015C0B1EC43E5B002D08C3 /* AuthenCryptor */,
@@ -2683,6 +2694,7 @@
 				D24C4D511E4DD57F00F9E33A /* MoveApi+VerificationCode.swift in Sources */,
 				E9DA9C401E6FD960009A9189 /* SafeZoneTabViewCell.swift in Sources */,
 				FFB811FF1E63E5590049D85C /* IputIMEIViewModel.swift in Sources */,
+				115964991F0E37F600D3748A /* UIImage+RTTint.swift in Sources */,
 				11A66FF31ED3D1E700EAE093 /* Update.swift in Sources */,
 				FFB543AF1E7175C400E11F5A /* MeLogoutController.swift in Sources */,
 				116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */,

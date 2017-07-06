@@ -30,6 +30,7 @@ class ChatController: UIViewController {
         // Do any additional setup after loading the view.
         segmentedOutlet.setTitle(R.string.localizable.id_family_chat(), forSegmentAt: 0)
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
+//        segmentedOutlet.setBackgroundImage(UIImage(named: "chat_message_back"), for: .normal, barMetrics: .default)
         
         (segmentedOutlet.rx.value <-> selectedIndexVariable).addDisposableTo(disposeBag)
         

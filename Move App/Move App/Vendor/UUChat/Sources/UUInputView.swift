@@ -35,7 +35,8 @@ class UUInputView: UIView {
         let width = Main_Screen_Width - (Edge_R * 3) - 26.0
         $.frame = CGRect(x: Edge_R, y: y, width: width, height: Side_R)
         $.setBackgroundImage(UIImage(named: "chat_message_back"), for: .normal)
-        $.setBackgroundImage(UIImage(named: "chat_message_back"), for: .highlighted)
+        let tintedImageColor = UIColor.gray.withAlphaComponent(0.167)
+        $.setBackgroundImage(UIImage(named: "chat_message_back")?.rt_tintedImage(color: tintedImageColor), for: .highlighted)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 1.0), for: .normal)
         $.setTitleColor(UIColor(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 0.5), for: .highlighted)
         $.setTitle(R.string.localizable.id_hold_to_talk(), for: .normal)
