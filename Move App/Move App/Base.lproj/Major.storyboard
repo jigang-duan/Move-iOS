@@ -803,7 +803,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Y6-Gt-w8f">
-                                        <rect key="frame" x="15" y="24" width="265" height="32"/>
+                                        <rect key="frame" x="15" y="24" width="272" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="KiD-1a-ytT"/>
                                         </constraints>
@@ -848,7 +848,7 @@
                                     <constraint firstItem="83g-pr-bqH" firstAttribute="height" secondItem="4Y6-Gt-w8f" secondAttribute="height" id="YKO-zC-rkP"/>
                                     <constraint firstAttribute="bottom" secondItem="FNW-uR-tKZ" secondAttribute="bottom" constant="20" id="aWN-xD-JwA"/>
                                     <constraint firstAttribute="bottom" secondItem="5b8-Fa-hD0" secondAttribute="bottom" id="h84-KQ-Pag"/>
-                                    <constraint firstItem="DwS-gi-dn9" firstAttribute="leading" secondItem="4Y6-Gt-w8f" secondAttribute="trailing" constant="15" id="jZ9-fg-bbw"/>
+                                    <constraint firstItem="DwS-gi-dn9" firstAttribute="leading" secondItem="4Y6-Gt-w8f" secondAttribute="trailing" constant="8" id="jZ9-fg-bbw"/>
                                     <constraint firstAttribute="bottom" secondItem="DwS-gi-dn9" secondAttribute="bottom" constant="10" id="l0a-dD-YYd"/>
                                     <constraint firstAttribute="bottom" secondItem="83g-pr-bqH" secondAttribute="bottom" constant="8" id="mvd-DZ-1ey"/>
                                     <constraint firstAttribute="height" constant="64" id="oBo-Jq-Ma7"/>
