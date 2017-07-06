@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -961,12 +961,25 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="KyR-Oe-0Hy">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="2Zp-bI-Spu">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Cei-M8-sAf" id="ueY-OD-Wdp"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KyR-Oe-0Hy">
+                                <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="FZX-ng-gBf">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTimeZone" textLabel="laJ-cS-1zm" detailTextLabel="OHX-GE-IJb" style="IBUITableViewCellStyleSubtitle" id="SFq-jy-WVt">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SFq-jy-WVt" id="WH2-42-0pl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -998,7 +1011,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="KyR-Oe-0Hy" secondAttribute="trailing" id="2xK-r4-J0w"/>
-                            <constraint firstItem="KyR-Oe-0Hy" firstAttribute="top" secondItem="Ywo-yQ-gka" secondAttribute="bottom" id="i6N-k6-gfX"/>
+                            <constraint firstItem="2Zp-bI-Spu" firstAttribute="top" secondItem="Ywo-yQ-gka" secondAttribute="bottom" id="DRC-Hq-YOn"/>
+                            <constraint firstItem="KyR-Oe-0Hy" firstAttribute="top" secondItem="2Zp-bI-Spu" secondAttribute="bottom" id="OES-JM-fGa"/>
+                            <constraint firstAttribute="trailing" secondItem="2Zp-bI-Spu" secondAttribute="trailing" id="p4P-dn-RKs"/>
+                            <constraint firstItem="2Zp-bI-Spu" firstAttribute="leading" secondItem="XkH-LH-1dN" secondAttribute="leading" id="vsA-29-Lv7"/>
                             <constraint firstItem="xBC-6t-qjp" firstAttribute="top" secondItem="KyR-Oe-0Hy" secondAttribute="bottom" id="zPR-KW-qsv"/>
                             <constraint firstItem="KyR-Oe-0Hy" firstAttribute="leading" secondItem="XkH-LH-1dN" secondAttribute="leading" id="znr-Sb-Ush"/>
                         </constraints>
@@ -1008,13 +1024,22 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="selecttimezoneTitleItem" destination="gW4-Ws-05c" id="f0k-f0-PQJ"/>
+                        <outlet property="searchDisplayController" destination="bwn-Ah-47C" id="rVx-CC-Y7j"/>
                         <outlet property="tableview" destination="KyR-Oe-0Hy" id="FsZ-jV-7WA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odF-K7-p7u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="bwn-Ah-47C">
+                    <connections>
+                        <outlet property="delegate" destination="Cei-M8-sAf" id="rc3-gG-YQD"/>
+                        <outlet property="searchBar" destination="2Zp-bI-Spu" id="gUX-yk-DDa"/>
+                        <outlet property="searchContentsController" destination="Cei-M8-sAf" id="jTO-80-Nkm"/>
+                        <outlet property="searchResultsDataSource" destination="Cei-M8-sAf" id="cxc-01-7aO"/>
+                        <outlet property="searchResultsDelegate" destination="Cei-M8-sAf" id="zz9-yj-JQW"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2332" y="3204"/>
+            <point key="canvasLocation" x="2332" y="3203.7481259370315"/>
         </scene>
         <!--Use permission-->
         <scene sceneID="5Jg-wq-9E2">

@@ -2495,7 +2495,7 @@
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="29" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-Vc-Upl">
                                 <rect key="frame" x="0.0" y="44" width="375" height="559"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2545,7 +2545,6 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="spr-pX-16E"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="search" destination="co1-TS-Dyc" id="UGQ-mT-nkD"/>
                         <outlet property="searchDisplayController" destination="KeL-zB-Co0" id="PUb-zy-Szp"/>
                         <outlet property="tableview" destination="MgI-Vc-Upl" id="htt-1l-Cgo"/>
                     </connections>

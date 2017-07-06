@@ -16,34 +16,19 @@ class SelectTimeZoneController: UIViewController {
     
     var selectedTimezone: ((String) -> ())?
     
-    
-    @IBOutlet weak var selecttimezoneTitleItem: UINavigationItem!
-    
-    
     @IBOutlet weak var tableview: UITableView!
     
-    var searchController: UISearchController?
-    
-    
     var visibleResults: [[TimezoneInfo]] = []
-    
     var ableTimezones: [[TimezoneInfo]] = []
-    
     
     var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableview.delegate = self
+        self.title = R.string.localizable.id_select_time_zone()
         
-        searchController = UISearchController(searchResultsController: nil)
-        self.searchController?.searchResultsUpdater = self
-        self.searchController?.dimsBackgroundDuringPresentation = false
-        self.searchController?.delegate = self
-        self.searchController?.searchBar .sizeToFit()
-        self.tableview.tableHeaderView = self.searchController?.searchBar
-        self.definesPresentationContext = true
+        tableview.delegate = self
         
         
         DeviceManager.shared.fetchTimezones()
@@ -78,19 +63,19 @@ class SelectTimeZoneController: UIViewController {
 }
 
 
-extension SelectTimeZoneController: UISearchResultsUpdating,UISearchControllerDelegate {
+extension SelectTimeZoneController: UISearchBarDelegate {
     
-    func willDismissSearchController(_ searchController: UISearchController) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)  {
         visibleResults = ableTimezones
         self.tableview.reloadData()
     }
     
     
-    func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text,text.characters.count > 0 {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.characters.count > 0 {
             visibleResults = []
             for tms in ableTimezones {
-                let t = tms.filter({ $0.timezoneId?.lowercased().contains(text.lowercased()) == true })
+                let t = tms.filter({ $0.timezoneId?.lowercased().contains(searchText.lowercased()) == true })
                 if t.count > 0 {
                     visibleResults.append(t)
                 }
@@ -116,21 +101,25 @@ extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellTimeZone.identifier, for: indexPath)
+        var cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.cellTimeZone.identifier)
+        
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: R.reuseIdentifier.cellTimeZone.identifier)
+        }
         
         let tm = visibleResults[indexPath.section][indexPath.row]
         
-        cell.textLabel?.text = tm.timezoneId
+        cell?.textLabel?.text = tm.timezoneId
         if let offset = tm.gmtoffset {
             if offset > 0 {
-                cell.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT +\(offset)"
+                cell?.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT +\(offset)"
             }else if offset == 0{
-                cell.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT"
+                cell?.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT"
             }else{
-                cell.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT \(offset)"
+                cell?.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT \(offset)"
             }
         }
-        return cell
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

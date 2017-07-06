@@ -13,6 +13,10 @@ import ObjectMapper
 
 class APNforWatchVC: UIViewController {
     
+    @IBOutlet weak var deviceLab: UILabel!
+    @IBOutlet weak var helpBun: UIButton!
+    
+    
     @IBOutlet weak var helpImgV: UIImageView!
     @IBOutlet weak var helpHCons: NSLayoutConstraint!
     
@@ -78,9 +82,19 @@ class APNforWatchVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
+    private func initializeI18N() {
+        
+        
+        deviceLab.text = R.string.localizable.id_available_device()
+        helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.initializeI18N()
+        
         if hasPairedWatch == true {
             helpHCons.constant = UIScreen.main.bounds.size.width*188/375
         }else{

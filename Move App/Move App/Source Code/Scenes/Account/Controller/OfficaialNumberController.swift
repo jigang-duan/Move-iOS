@@ -12,8 +12,6 @@ class OfficialNumberController: UIViewController {
 
     @IBOutlet var tableview: UITableView!
     
-    @IBOutlet weak var search: UISearchBar!
-    
     var visibleModels: [SectionModel] = []
     var loadedModels: [SectionModel] = []
     

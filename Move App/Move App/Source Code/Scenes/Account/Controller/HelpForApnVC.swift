@@ -35,10 +35,17 @@ class HelpForApnVC: UIViewController {
     
     var isPaired = false
     
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_help_apn()
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.initializeI18N()
         
         if isPaired == true {
             tipLab.text = "If your watch has been paired"

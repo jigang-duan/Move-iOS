@@ -268,8 +268,11 @@
                     <connections>
                         <outlet property="deleteBun" destination="YFR-Rq-ohD" id="ifA-9G-BNG"/>
                         <outlet property="nameLab" destination="vC2-7W-ebH" id="Cyz-ta-vjI"/>
+                        <outlet property="nameTip" destination="vbW-9I-bdg" id="qJ1-zX-sCS"/>
+                        <outlet property="numberTip" destination="4Gw-ez-x9X" id="KTq-C7-fyD"/>
                         <outlet property="phoneLab" destination="eLn-No-itI" id="dzQ-yn-EcL"/>
                         <outlet property="photoImgV" destination="aaG-cE-e4H" id="vDk-hM-nhg"/>
+                        <outlet property="photoTip" destination="exs-wd-2ex" id="7Zu-Ib-HIg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8o-yc-ARe" userLabel="First Responder" sceneMemberID="firstResponder"/>

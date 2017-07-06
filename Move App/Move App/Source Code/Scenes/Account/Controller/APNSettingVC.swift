@@ -38,10 +38,16 @@ class APNSettingVC: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_set_apn()
+        
+        saveBun.title = R.string.localizable.id_save()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.initializeI18N()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.apnSettingNotification(_:)), name: NSNotification.Name(rawValue: APNforWatchVC.ApnNotification), object: nil)
         
