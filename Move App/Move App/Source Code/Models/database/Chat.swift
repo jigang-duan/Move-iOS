@@ -72,7 +72,9 @@ extension GroupEntity {
                 realm.delete(same)
                 self.messages.insert(message, at: indexSame)
             }
-        } else if let indexOld = self.messages.index(where: { $0.createDate == message.createDate }) {
+        } else if let indexOld = self.messages.index(where: {
+            $0.createDate?.timeIntervalSince1970 == message.createDate?.timeIntervalSince1970
+        }) {
             let old = self.messages[indexOld]
             try? realm.write {
                 realm.delete(old)

@@ -122,7 +122,8 @@ extension UUInputView {
                                          selector: #selector(countVoiceTime),
                                          userInfo: nil,
                                          repeats: true)
-        UUProgressHUD.show()
+        UUVoiceHUD.show()
+        UUVoiceHUD.shared.delegate = self
     }
     
     func endRecordVoice(_ sender: UIButton?) {
@@ -139,15 +140,15 @@ extension UUInputView {
             playTimer?.invalidate()
             playTimer = nil
         }
-        UUProgressHUD.dismissWithError(R.string.localizable.id_cancel())
+        UUVoiceHUD.dismiss(state: .cancel)
     }
     
     func remindDragExit(_ sender: UIButton) {
-        UUProgressHUD.changeSubTitle(R.string.localizable.id_release_cancel_send())
+        UUVoiceHUD.change(state: .release)
     }
     
     func remindDragEnter(_ sender: UIButton) {
-        UUProgressHUD.changeSubTitle("Slide up to cancel")
+        UUVoiceHUD.change(state: .default)
     }
     
     func countVoiceTime() {
@@ -158,10 +159,17 @@ extension UUInputView {
     }
 }
 
+extension UUInputView: UUVoiceHUDDelegate {
+
+    func fetchVoice(voiceHUD: UUVoiceHUD) -> Int {
+        return Int(Amr.detectionVoice())
+    }
+}
+
 extension UUInputView: AmrRecorderDelegate {
     
     func failRecord() {
-        UUProgressHUD.dismiss(withSuccess: R.string.localizable.id_too_short())
+        UUVoiceHUD.dismiss(state: .tooShort)
         
         //缓冲消失时间 (最好有block回调消失完成)
         self.btnVoiceRecord.isEnabled = false
@@ -177,7 +185,7 @@ extension UUInputView: AmrRecorderDelegate {
     func endAmrConvert(ofFile amrPath: String!) {
         let voiceURL = URL(fileURLWithPath: amrPath)
         self.delegate?.UUInputView?(self, sendURLForVoice: voiceURL, duration: _playTime)
-        UUProgressHUD.dismiss(withSuccess: "Success")
+        UUVoiceHUD.dismiss(state: .succeed)
         
         //缓冲消失时间 (最好有block回调消失完成)
         self.btnVoiceRecord.isEnabled = false

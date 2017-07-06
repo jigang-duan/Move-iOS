@@ -31,6 +31,7 @@
 		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
 		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
 		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
+		1130AAA41F0CB801004A1773 /* UUVoiceHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1130AAA31F0CB801004A1773 /* UUVoiceHUD.swift */; };
 		113446191EE1307F009117D5 /* YHAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113446181EE1307F009117D5 /* YHAlertView.swift */; };
 		11393AED1EA877C800F571C8 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11393AEC1EA877C800F571C8 /* Random.swift */; };
 		113E5CB41EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113E5CB31EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift */; };
@@ -48,6 +49,7 @@
 		1154AB9E1EFCB88E00920F68 /* WatchSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */; };
 		1154ABA01EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */; };
 		1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */; };
+		115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
 		115F73031ED824D700BAAF3D /* aweat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72F91ED824D700BAAF3D /* aweat.gif */; };
 		115F73041ED824D700BAAF3D /* bye.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FA1ED824D700BAAF3D /* bye.gif */; };
 		115F73051ED824D700BAAF3D /* cry.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FB1ED824D700BAAF3D /* cry.gif */; };
@@ -89,7 +91,6 @@
 		11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3071E6D7B14002906F1 /* UUMessageCell.swift */; };
 		11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3081E6D7B14002906F1 /* UUAVAudioPlayer.swift */; };
 		11EAC3101E6D7B14002906F1 /* UUImageAvatarBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3091E6D7B14002906F1 /* UUImageAvatarBrowser.swift */; };
-		11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
 		11EAC31C1E6D7B3D002906F1 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC31B1E6D7B3D002906F1 /* Date+Utils.swift */; };
 		11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC31F1E6E42B8002906F1 /* Rx+SwitchButton.swift */; };
 		11EAC3221E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3201E6E42B8002906F1 /* RxSwitchButtonDelegateProxy.swift */; };
@@ -398,6 +399,7 @@
 		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
+		1130AAA31F0CB801004A1773 /* UUVoiceHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUVoiceHUD.swift; path = Vendor/UUChat/OtherResources/UUProgressHUD/UUVoiceHUD.swift; sourceTree = "<group>"; };
 		113446181EE1307F009117D5 /* YHAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YHAlertView.swift; path = AlertView/YHAlertView.swift; sourceTree = "<group>"; };
 		11393AEC1EA877C800F571C8 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Shared/Common/Utils/Random.swift; sourceTree = "<group>"; };
 		113E5CB31EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxMoyaProvider+UserOfflineCache.swift"; sourceTree = "<group>"; };
@@ -1087,6 +1089,7 @@
 			children = (
 				11EAC3121E6D7B24002906F1 /* UUProgressHUD.h */,
 				11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */,
+				1130AAA31F0CB801004A1773 /* UUVoiceHUD.swift */,
 			);
 			name = UUProgressHUD;
 			sourceTree = "<group>";
@@ -2757,6 +2760,7 @@
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
 				FF0C6D571EA9EF2A00282808 /* CantPairViewController.swift in Sources */,
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
+				1130AAA41F0CB801004A1773 /* UUVoiceHUD.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
 				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,
 				E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */,
@@ -2857,6 +2861,7 @@
 				FFFF62921EBC77FF00EC22F3 /* ProgressHUD.swift in Sources */,
 				FF2F1B6E1E9F9131007F6B30 /* ContactUsController.swift in Sources */,
 				FFB543B11E7175DD00E11F5A /* MeSettingController.swift in Sources */,
+				115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
 				E9DD2A961EA8B13B0057784F /* schoolTimeHelp.swift in Sources */,
@@ -2888,7 +2893,6 @@
 				FF499E471EAE077800EF16F8 /* CantPairToApnVC.swift in Sources */,
 				116F81601E63E5E3003CEC39 /* DateUtility.swift in Sources */,
 				E0C228F41E349F6B00BCF83D /* RxCLLocationManagerDelegateProxy.swift in Sources */,
-				11EAC3141E6D7B24002906F1 /* UUProgressHUD.m in Sources */,
 				E9735EB81E6942A300C0B944 /* WeekView.swift in Sources */,
 				E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */,
 				A5B3E1EC1E7FFBBB00F12E22 /* FileUtility.swift in Sources */,
@@ -3239,7 +3243,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3265,8 +3269,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

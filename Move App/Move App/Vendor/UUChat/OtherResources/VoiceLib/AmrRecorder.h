@@ -32,6 +32,8 @@
 - (void)stopRecord;
 - (void)cancelRecord;
 
+- (int)detectionVoice;
+
 @end
 
 

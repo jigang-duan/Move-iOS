@@ -14,6 +14,10 @@ func transformMinuteOffSet(messages: [UUMessage]) -> [UUMessageFrame] {
     return minuteOffSet(messages: messages).map { UUMessageFrame(message: $0) }
 }
 
+func transformSet(messages: [UUMessage]) -> [UUMessageFrame] {
+    return messages.map { UUMessageFrame(message: $0) }
+}
+
 private func minuteOffSet(messages: [UUMessage]) -> [UUMessage] {
     return messages.reduce([]) { (initianl, next) -> [UUMessage] in
         var message = next

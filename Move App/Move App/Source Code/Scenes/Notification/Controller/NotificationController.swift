@@ -70,7 +70,7 @@ class NotificationController: UIViewController {
                                                 showDateLabel: true)
                     }
                 }
-                .map(transformMinuteOffSet)
+                .map(transformSet)
             
             
             tableView.rx.setDelegate(self).addDisposableTo(bag)

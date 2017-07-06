@@ -95,6 +95,66 @@
     [_recorder deleteRecording];
 }
 
+#pragma mark 获取音量值
+- (int)detectionVoice
+{
+    [_recorder updateMeters];//刷新音量数据
+    //获取音量的平均值  [recorder averagePowerForChannel:0];
+    //音量的最大值  [recorder peakPowerForChannel:0];
+    
+//    double lowPassResults = pow(10, (0.05 * [_recorder peakPowerForChannel:0]));
+//    
+//    if (0<lowPassResults<=0.27) {
+//        return 1;
+//    }else if (0.27<lowPassResults<=0.34) {
+//        return 2;
+//    }else if (0.34<lowPassResults<=0.41) {
+//        return 3;
+//    }else if (0.41<lowPassResults<=0.48) {
+//        return 4;
+//    }else if (0.48<lowPassResults<=0.55) {
+//        return 5;
+//    }else if (0.55<lowPassResults) {
+//        return 6;
+//    }
+//    
+//    return 0;
+    
+    float   level;                // The linear 0.0 .. 1.0 value we need.
+    float   minDecibels = -80.0f; // Or use -60dB, which I measured in a silent room.
+    float   decibels    = [_recorder averagePowerForChannel:0];
+    
+    if (decibels < minDecibels) {
+        level = 0.0f;
+    } else if (decibels >= 0.0f) {
+        level = 1.0f;
+    } else {
+        float   root            = 2.0f;
+        float   minAmp          = powf(10.0f, 0.05f * minDecibels);
+        float   inverseAmpRange = 1.0f / (1.0f - minAmp);
+        float   amp             = powf(10.0f, 0.05f * decibels);
+        float   adjAmp          = (amp - minAmp) * inverseAmpRange;
+        
+        level = powf(adjAmp, 1.0f / root);
+    }
+    if (0<level<=0.17) {
+        return 1;
+    }else if (0.17<level<=0.34) {
+        return 2;
+    }else if (0.34<level<=0.51) {
+        return 3;
+    }else if (0.51<level<=0.68) {
+        return 4;
+    }else if (0.68<level<=0.85) {
+        return 5;
+    }else if (0.85<level) {
+        return 6;
+    }
+    
+    return 0;
+    
+}
+
 #pragma mark - Convert Utils
 - (void)audio_PCM2AMR
 {
