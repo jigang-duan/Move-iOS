@@ -17,6 +17,7 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
     
     var delegate : SearchVCdelegate? = nil
     
+    @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var addressTableView: UITableView!
 
     @IBOutlet weak var searchTextField: UITextField!
@@ -27,18 +28,26 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
     
     var resultArr : NSMutableArray?
     
-
+    func back(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    func backButton() {
+        backBtn.addTarget(self, action: #selector(SafeZoneAddressSearchVC.back), for: .touchUpInside)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       //下个版本改
-//        let backBtn = UIButton()
-//        backBtn.setTitle("", for: .normal)
-////        backArrow1
-//        backBtn.setImage(UIImage(named: "nav_back_nor"), for: .normal)
-//        backBtn.setImage(UIImage(named: "nav_back_pre"), for: .highlighted)
-//        backBtn.addTarget(self, action: #selector(SafeZoneAddressSearchVC.back), for: .touchUpInside)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
-//        
+        self.addressTableView.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
+        backButton()
+//
         self.title = R.string.localizable.id_search_position()
         searchTextField.placeholder = R.string.localizable.id_address_is_empty()
         searchTextField.addTarget(self, action: #selector(textDidChange), for: UIControlEvents.editingChanged)
@@ -72,26 +81,13 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
             }
         })
         
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     func textDidChange() {
         self.performSearch()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
