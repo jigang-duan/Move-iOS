@@ -77,7 +77,7 @@ class UUVoiceHUD: UIView {
             }
             
             if self._centerLabel == nil {
-                self._centerLabel = UILabel(frame: CGRect(x: HUD_Center_X, y: 56.0, width: 150, height: 40))
+                self._centerLabel = UILabel(frame: CGRect(x: HUD_Center_X, y: 36.0, width: 150, height: 40))
                 self._centerLabel?.textColor = UIColor.white
                 self._centerLabel?.font = UIFont.systemFont(ofSize: 30.0)
                 self._centerLabel?.text = "30"

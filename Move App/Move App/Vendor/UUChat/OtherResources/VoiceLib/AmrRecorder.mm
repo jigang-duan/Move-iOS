@@ -137,15 +137,15 @@
         
         level = powf(adjAmp, 1.0f / root);
     }
-    if (0<level<=0.17) {
+    if ((0<level) && (level<=0.17)) {
         return 1;
-    }else if (0.17<level<=0.34) {
+    }else if ((0.17<level) && (level<=0.34)) {
         return 2;
-    }else if (0.34<level<=0.51) {
+    }else if ((0.34<level) && (level<=0.51)) {
         return 3;
-    }else if (0.51<level<=0.68) {
+    }else if ((0.51<level) && (level<=0.68)) {
         return 4;
-    }else if (0.68<level<=0.85) {
+    }else if ((0.68<level) && (level<=0.85)) {
         return 5;
     }else if (0.85<level) {
         return 6;
