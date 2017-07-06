@@ -274,19 +274,19 @@ class KidInformationController: UIViewController {
     @IBAction func selectPhoto(_ sender: UIButton) {
         photoPicker = ImageUtility()
         let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "PhotoLibrary", style: .default) { _ in
-            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 200, height: 200), callback: { (image) in
-                self.cameraBun.setBackgroundImage(image, for: .normal)
-                self.photoVariable.value = image
-            })
-        }
-        let action2 = UIAlertAction(title: "Camera", style: .default) { _ in
+        let action1 = UIAlertAction(title: R.string.localizable.id_take_a_photo(), style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 200, height: 200), callback: { (image) in
                 self.cameraBun.setBackgroundImage(image, for: .normal)
                 self.photoVariable.value = image
             })
         }
-        let action3 = UIAlertAction(title: "Cancel", style: .cancel)
+        let action2 = UIAlertAction(title: R.string.localizable.id_select_image(), style: .default) { _ in
+            self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 200, height: 200), callback: { (image) in
+                self.cameraBun.setBackgroundImage(image, for: .normal)
+                self.photoVariable.value = image
+            })
+        }
+        let action3 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel)
         
         vc.addAction(action1)
         vc.addAction(action2)
@@ -303,7 +303,7 @@ class KidInformationController: UIViewController {
 
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)
     }

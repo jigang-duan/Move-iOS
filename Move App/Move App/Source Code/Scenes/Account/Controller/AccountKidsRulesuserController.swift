@@ -177,7 +177,7 @@ class AccountKidsRulesuserController: UITableViewController {
         manager.deleteDevice(with: deviceId)
             .subscribe(onNext: { [weak self] flag in
                 if flag == false{
-                    self?.showAlert(message: "Unpaired watch faild")
+                    self?.showAlert(message: R.string.localizable.id_unpaired_fail())
                 }else{
                     _ = self?.navigationController?.popToRootViewController(animated: true)
                     UseOfflineCache.shared.clean(containKeys: deviceId)
@@ -185,7 +185,7 @@ class AccountKidsRulesuserController: UITableViewController {
                 
                 }, onError: { er in
                     print(er)
-                    self.showAlert(message: "Unpaired watch faild")
+                    self.showAlert(message: R.string.localizable.id_unpaired_fail())
             })
             .addDisposableTo(disposeBag)
     }
@@ -254,7 +254,7 @@ extension AccountKidsRulesuserController {
     
     fileprivate func showAlert(message text: String) {
         let alert = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         alert.addAction(action)
         self.present(alert, animated: true)
     }
@@ -306,9 +306,9 @@ extension AccountKidsRulesuserController {
         if cell == unpairCell {
             var tip = ""
             if isAdmin {
-                tip = "As a master, unpaired with watch will factory reset the watch and all of the general user will also unpaired with watch"
+                tip = R.string.localizable.id_unbind_admin()
             }else{
-                tip = "You can't make a call with watch and can't receive notification or position from watch by unpaired with watch"
+                tip = R.string.localizable.id_unbind()
             }
             let alert = UIAlertController(title: R.string.localizable.id_warming(), message: tip, preferredStyle: .alert)
             let action1 = UIAlertAction(title: R.string.localizable.id_still_unpaired(), style: .default, handler: { [weak self] _ in

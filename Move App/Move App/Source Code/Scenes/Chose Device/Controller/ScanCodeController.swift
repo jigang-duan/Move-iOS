@@ -195,7 +195,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
     
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel, handler: { _ in
             self.sessionRun()
         })
         vc.addAction(action)

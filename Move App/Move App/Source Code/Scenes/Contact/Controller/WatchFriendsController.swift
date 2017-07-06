@@ -28,12 +28,11 @@ class WatchFriendsController: UIViewController {
     
     
     func setupUI() {
-        deleteBun.isHidden = true
         
         let imgUrl = URL(string: FSManager.imageUrl(with: friendInfo?.profile ?? ""))
         photoImgV.kf.setImage(with: imgUrl, placeholder: R.image.relationship_ic_other()!)
         nameLab.text = friendInfo?.nickname
-        phoneLab.text = friendInfo?.phone
+        phoneLab.text = friendInfo?.phone?.replacingOccurrences(of: "@", with: " ")
     }
     
     private func initializeI18N() {
@@ -70,7 +69,7 @@ class WatchFriendsController: UIViewController {
                 if rs.isValid {
                     _ = self?.navigationController?.popViewController(animated: true)
                 }else{
-                    print("failed")
+                    print("Delete watch friend failed")
                 }
             })
             .addDisposableTo(disposeBag)
