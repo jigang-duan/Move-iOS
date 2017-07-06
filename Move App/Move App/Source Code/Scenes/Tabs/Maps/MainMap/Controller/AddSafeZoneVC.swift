@@ -169,6 +169,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                 self?.mainMapView.addSubview((self?.circleBorderView)!)
                 self?.circleBorderView.radius = (self?.rectFromCoordinate.height)!
                 self?.circleBorderView.setNeedsDisplay()
+                self?.view.endEditing(true)
             }).addDisposableTo(disposeBag)
         
         mainMapView.rx.regionDidChangeAnimated.asDriver()

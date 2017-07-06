@@ -13,7 +13,7 @@ protocol SearchVCdelegate : NSObjectProtocol{
     func Searchback(item : MKMapItem ) 
 }
 
-class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableViewDataSource{
+class SafeZoneAddressSearchVC: UIViewController {
     
     var delegate : SearchVCdelegate? = nil
     
@@ -28,12 +28,7 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
     
     var resultArr : NSMutableArray?
     
-    func back(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    func backButton() {
-        backBtn.addTarget(self, action: #selector(SafeZoneAddressSearchVC.back), for: .touchUpInside)
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -55,9 +50,8 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
         resultArr = NSMutableArray()
         // Do any additional setup after loading the view.
     }
-
-    func performSearch() {
-        
+    
+    func textDidChange() {
         searchRequest.naturalLanguageQuery = searchTextField.text
         
         searchLocation = MKLocalSearch(request: searchRequest)
@@ -80,14 +74,19 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
                 self.addressTableView.reloadData()
             }
         })
-        
-        
     }
     
-    func textDidChange() {
-        self.performSearch()
+    func back(){
+        self.navigationController?.popViewController(animated: true)
     }
-
+    func backButton() {
+        backBtn.addTarget(self, action: #selector(SafeZoneAddressSearchVC.back), for: .touchUpInside)
+    }
+  
+}
+//tablview代理方法
+extension SafeZoneAddressSearchVC:UITableViewDelegate,UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -134,5 +133,11 @@ class SafeZoneAddressSearchVC: UIViewController , UITableViewDelegate , UITableV
         }
         _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
+    
+
 }
 
