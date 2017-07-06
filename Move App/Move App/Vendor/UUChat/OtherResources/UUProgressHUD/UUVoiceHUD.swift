@@ -19,7 +19,7 @@ class UUVoiceHUD: UIView {
     
     private init() {
         super.init(frame: UIScreen.main.bounds)
-        self.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        self.backgroundColor = UIColor.clear
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -73,20 +73,20 @@ class UUVoiceHUD: UIView {
                 self._contentView?.backgroundColor = UIColor.black.withAlphaComponent(0.7)
                 self._contentView?.layer.cornerRadius = 6.0
                 self._contentView?.layer.masksToBounds = true
-                self._contentView?.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
+                self._contentView?.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2 - 46)
             }
             
             if self._centerLabel == nil {
-                self._centerLabel = UILabel(frame: CGRect(x: HUD_Center_X, y: 36.0, width: 150, height: 40))
+                self._centerLabel = UILabel(frame: CGRect(x: 0, y: HUD_Spse, width: 150, height: 40))
+                self._centerLabel?.center.x = HUD_Center_X
                 self._centerLabel?.textColor = UIColor.white
                 self._centerLabel?.font = UIFont.systemFont(ofSize: 30.0)
                 self._centerLabel?.text = "30"
                 self._centerLabel?.textAlignment = .center
-                self._centerLabel?.center.x = HUD_Center_X
                 self._centerLabel?.isHidden = true
             }
             if self._subTitleLabel == nil {
-                self._subTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 20))
+                self._subTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: HUD_Center_W, height: 20))
                 self._subTitleLabel?.backgroundColor = UIColor.clear
                 self._subTitleLabel?.center = CGPoint(x: HUD_Center_X, y: HUD_SubTitle_Y)
                 self._subTitleLabel?.textAlignment = .center
@@ -96,15 +96,18 @@ class UUVoiceHUD: UIView {
             }
             if self._tubeImageView == nil {
                 self._tubeImageView = UIImageView(image: R.image.voice())
-                self._tubeImageView?.center = CGPoint(x: HUD_Center_X - 15.0, y: 56.0)
+                self._tubeImageView?.frame.origin = CGPoint(x: 0, y: HUD_Spse)
+                self._tubeImageView?.center.x = HUD_Center_X-13.0
             }
             if self._volumeImageView == nil {
                 self._volumeImageView = UIImageView(image: R.image.voice_level1())
-                self._volumeImageView?.center = CGPoint(x: HUD_Center_X + 15.0, y: 56.0)
+                self._volumeImageView?.frame.origin = CGPoint(x: 0, y: HUD_Spse)
+                self._volumeImageView?.center.x = HUD_Center_X+13.0
             }
             if self._wringImageView == nil {
                 self._wringImageView = UIImageView(image: R.image.voice_slideup())
-                self._wringImageView?.center = CGPoint(x: HUD_Center_X, y: 56.0)
+                self._wringImageView?.frame.origin.y = HUD_Spse
+                self._wringImageView?.center.x = HUD_Center_X
                 self._wringImageView?.isHidden = true
             }
             
@@ -139,8 +142,8 @@ class UUVoiceHUD: UIView {
     @objc private func startAnimation() {
         if let second = _centerLabel?.text?.toDouble() {
             _centerLabel?.text = String(format: "%.1f", second-SecondD)
-            if second <= 5.0, _wringImageView?.isHidden == true {
-                _centerLabel?.isHidden = false
+            if second <= 5.0 {
+                _centerLabel?.isHidden = _wringImageView?.isHidden != true
                 _tubeImageView?.isHidden = true
                 _volumeImageView?.isHidden = true
             } else if let volume = delegate?.fetchVoice?(voiceHUD: self) {
@@ -267,9 +270,9 @@ extension UUVoiceHUD.State: CustomStringConvertible {
 
 
 fileprivate let HUD_Center_W: CGFloat = 180.0
-fileprivate let HUD_Center_H: CGFloat = 120.0
-fileprivate let HUD_Bottom_Spse: CGFloat = 18.0
-fileprivate let HUD_SubTitle_Y: CGFloat = HUD_Center_H - HUD_Bottom_Spse - 12.0
+fileprivate let HUD_Center_H: CGFloat = 92.0
+fileprivate let HUD_Spse: CGFloat = 20.0
+fileprivate let HUD_SubTitle_Y: CGFloat = HUD_Center_H - HUD_Spse
 fileprivate let HUD_Center_X: CGFloat = HUD_Center_W/2
 fileprivate let HUD_Center_Y: CGFloat = HUD_Center_H/2
 fileprivate let SecondD: TimeInterval = 0.1
