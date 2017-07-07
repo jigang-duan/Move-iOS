@@ -13,8 +13,6 @@ import RxCocoa
 
 class PwdRecoveryViewModel {
     
-    let emailInvalidte: Driver<ValidationResult>
-    
     let sending: Driver<Bool>
     
     let doneEnabled: Driver<Bool>
@@ -42,31 +40,37 @@ class PwdRecoveryViewModel {
         self.sending = activity.asDriver()
         
         
-        emailInvalidte = input.email
+        let emailInvalidte = input.email
             .map { email in
                 return validation.validateEmail(email)
         }
         
+        let emailNotEmpty = input.email
+            .map { email in
+                return email.characters.count > 0
+        }
         
-        self.doneEnabled = Driver.combineLatest(
-            emailInvalidte,
-            sending) { vcode, sending in
-                vcode.isValid &&
-                    !sending
+        self.doneEnabled = Driver.combineLatest(emailNotEmpty,sending) { vcode, sending in
+                vcode && !sending
             }
             .distinctUntilChanged()
         
         
+        let com = Driver.combineLatest(emailInvalidte, input.email){($0,$1)}
         
-        self.doneResult  = input.doneTaps.withLatestFrom(input.email)
-            .flatMapLatest({email in
-                return userManager.sendVcode(to: email, type: 1)
-                    .trackActivity(activity)
-                    .map{ info in
-                        self.sid = info.sid
-                        return ValidationResult.ok(message: "Send Success.")
-                    }
-                    .asDriver(onErrorRecover: commonErrorRecover)
+        self.doneResult  = input.doneTaps.withLatestFrom(com)
+            .flatMapLatest({res, email in
+                if res.isValid {
+                    return userManager.sendVcode(to: email, type: 1)
+                        .trackActivity(activity)
+                        .map{ info in
+                            self.sid = info.sid
+                            return ValidationResult.ok(message: "Send Success.")
+                        }
+                        .asDriver(onErrorRecover: commonErrorRecover)
+                }else{
+                    return Driver.just(res)
+                }
             })
         
     

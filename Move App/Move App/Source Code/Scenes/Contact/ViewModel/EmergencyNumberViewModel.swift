@@ -44,28 +44,37 @@ class EmergencyNumberViewModel {
         self.sending = activity.asDriver()
         
         
+        let phoneNotEmpty = input.phone.map({ph in
+            return ph.characters.count > 0
+        })
         
-        saveEnable = Driver.combineLatest(phoneInvalidte, sending) { phone, sending in
-                 phone.isValid && !sending
+        saveEnable = Driver.combineLatest(phoneNotEmpty, sending) { phone, sending in
+                 phone && !sending
             }
             .distinctUntilChanged()
         
         
         
+        let com = Driver.combineLatest(phoneInvalidte, input.phone){($0,$1)}
+        
         saveResult = input.saveTaps.asDriver()
-            .withLatestFrom(input.phone)
-            .flatMapLatest({ ph in
-                var phs: [String] = []
-                if ph.contains(",") {
-                    phs = ph.components(separatedBy: ",")
+            .withLatestFrom(com)
+            .flatMapLatest({ res, ph in
+                if res.isValid {
+                    var phs: [String] = []
+                    if ph.contains(",") {
+                        phs = ph.components(separatedBy: ",")
+                    }else{
+                        phs = [ph]
+                    }
+                    return watchManager.updateEmergencyNumbers(with: phs)
+                        .trackActivity(activity)
+                        .map({_ in
+                        return ValidationResult.ok(message: "success")
+                    }).asDriver(onErrorRecover: commonErrorRecover)
                 }else{
-                    phs = [ph]
+                    return Driver.just(res)
                 }
-                return watchManager.updateEmergencyNumbers(with: phs)
-                    .trackActivity(activity)
-                    .map({_ in
-                    return ValidationResult.ok(message: "success")
-                }).asDriver(onErrorRecover: commonErrorRecover)
         })
         
       

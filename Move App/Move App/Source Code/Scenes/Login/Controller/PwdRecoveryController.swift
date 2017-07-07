@@ -96,22 +96,6 @@ class PwdRecoveryController: TranslucentNavBarController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.emailInvalidte
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showValidateError(message)
-                default:
-                    self?.revertValidateError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         emailTf.resignFirstResponder()
