@@ -120,9 +120,11 @@ class SignUpViewController: TranslucentNavBarController {
         let termsUrl = URL(string: "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/" + language)!
         let privacyUrl = URL(string: "http://www.tcl-move.com/help/#/mt30_privacy_policy/" + language)!
         
-        let terms = NSAttributedString(string: "Terms of use", attributes: [NSUnderlineStyleAttributeName: 1,NSLinkAttributeName: termsUrl,NSUnderlineColorAttributeName: UIColor.darkGray])
-        let privacy = NSAttributedString(string: "Privacy and Secunity", attributes: [NSUnderlineStyleAttributeName: 1,NSLinkAttributeName: privacyUrl,NSUnderlineColorAttributeName: UIColor.darkGray])
-        let link = NSMutableAttributedString(string: "I have read and agree with ", attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
+        let strs = R.string.localizable.id_terms_of_use_privacy_policy().components(separatedBy: ",")
+        
+        let terms = NSAttributedString(string: strs[0], attributes: [NSUnderlineStyleAttributeName: 1,NSLinkAttributeName: termsUrl,NSUnderlineColorAttributeName: UIColor.darkGray])
+        let privacy = NSAttributedString(string: strs[1], attributes: [NSUnderlineStyleAttributeName: 1,NSLinkAttributeName: privacyUrl,NSUnderlineColorAttributeName: UIColor.darkGray])
+        let link = NSMutableAttributedString(string: R.string.localizable.id_read_agree() + " ", attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
         link.append(terms)
         link.append(NSAttributedString(string: " , "))
         link.append(privacy)

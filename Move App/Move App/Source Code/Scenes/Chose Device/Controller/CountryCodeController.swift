@@ -12,8 +12,6 @@ import CoreTelephony
 
 class CountryCodeViewController: UITableViewController {
     
-    @IBOutlet weak var nextBun: UIBarButtonItem!
-    
     var selectBlock: ((CountryCode) -> ())?
     
     
@@ -39,6 +37,8 @@ class CountryCodeViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
+        self.title = R.string.localizable.id_country_code()
+        
         let path = Bundle.main.path(forResource: "countryCode", ofType: "plist")
         let arr = NSArray(contentsOfFile: path!) as! [[String:String]]
     
@@ -63,13 +63,13 @@ class CountryCodeViewController: UITableViewController {
             cellDatas.append(sm)
         }
     
-        let noneModel = CountryCode(name: "None", abbr: "-", code: "-")
+        let noneModel = CountryCode(name: R.string.localizable.id_alarm_protocol_none(), abbr: "-", code: "-")
         
         if let localModel = CountryCodeViewController.localCountryCode() {
-            let first = sectionModel(models: [noneModel,localModel], title: "Location")
+            let first = sectionModel(models: [noneModel,localModel], title: R.string.localizable.id_top_menu_location())
             cellDatas.insert(first, at: 0)
         }else{
-            let first = sectionModel(models: [noneModel], title: "Location")
+            let first = sectionModel(models: [noneModel], title: R.string.localizable.id_top_menu_location())
             cellDatas.insert(first, at: 0)
         }
         

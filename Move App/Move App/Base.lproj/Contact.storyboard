@@ -639,13 +639,13 @@
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="1lJ-71-zRk" firstAttribute="top" secondItem="hYV-Uv-xks" secondAttribute="bottom" constant="20" id="4aD-6v-2GR"/>
                                     <constraint firstAttribute="trailing" secondItem="1lJ-71-zRk" secondAttribute="trailing" constant="40" id="IUg-Cn-Ta5"/>
                                     <constraint firstItem="hYV-Uv-xks" firstAttribute="leading" secondItem="9qf-r6-pdX" secondAttribute="leading" constant="35" id="bJI-BE-gmg"/>
                                     <constraint firstItem="stH-AP-Gdh" firstAttribute="top" secondItem="1lJ-71-zRk" secondAttribute="bottom" constant="20" id="bVC-ML-0G7"/>
                                     <constraint firstItem="stH-AP-Gdh" firstAttribute="leading" secondItem="9qf-r6-pdX" secondAttribute="leading" constant="40" id="eGQ-SD-CrK"/>
                                     <constraint firstAttribute="trailing" secondItem="hYV-Uv-xks" secondAttribute="trailing" constant="35" id="lkw-Sm-k2e"/>
                                     <constraint firstAttribute="trailing" secondItem="stH-AP-Gdh" secondAttribute="trailing" constant="40" id="oKE-ZC-gah"/>
+                                    <constraint firstAttribute="bottom" secondItem="stH-AP-Gdh" secondAttribute="bottom" constant="20" id="qdo-iq-IP2"/>
                                     <constraint firstItem="1lJ-71-zRk" firstAttribute="leading" secondItem="9qf-r6-pdX" secondAttribute="leading" constant="40" id="rmx-we-asQ"/>
                                     <constraint firstItem="hYV-Uv-xks" firstAttribute="top" secondItem="9qf-r6-pdX" secondAttribute="top" constant="40" id="zjP-H4-mte"/>
                                 </constraints>
@@ -653,7 +653,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7V-6h-Mp1">
                                 <rect key="frame" x="121" y="30" width="78" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKN-dn-woE">
