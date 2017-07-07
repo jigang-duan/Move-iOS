@@ -412,7 +412,7 @@ extension URL {
         guard let number = deviceInfo.user?.number else {
             return nil
         }
-        let phone = "telprompt://\(number)".replacingOccurrences(of: " ", with: "")
+        let phone = "telprompt://\(number)".replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "@", with: "")
         self.init(string: phone)
     }
 }

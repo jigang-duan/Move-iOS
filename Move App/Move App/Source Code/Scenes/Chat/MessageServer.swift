@@ -24,7 +24,7 @@ class MessageServer {
     var firmwareUpdate: Observable<FirmwareUpdateType>?
     
     var lowBattery: Observable<Void>!
-    var manuallyLocate: Observable<Void>!
+    var manuallyLocate: Observable<KidSate.LocationInfo>!
     
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
@@ -86,7 +86,8 @@ class MessageServer {
             
             
             lowBattery = reNotice.filter{ $0.imType == .lowBatteryAlert }.map{_ in Void() }
-            manuallyLocate = reNotice.filter{ $0.imType == .manuallyLocate }.map{ _ in Void() }
+            manuallyLocate = reNotice.filter{ $0.imType == .manuallyLocate }.map{ $0.content }.filterNil().map{ KidSate.LocationInfo(content: $0) }
+            
             
             let netNotice = reNotice.filter { $0.imType.needSave }.filter { ($0.to == nil) || ($0.to == uid) }
             

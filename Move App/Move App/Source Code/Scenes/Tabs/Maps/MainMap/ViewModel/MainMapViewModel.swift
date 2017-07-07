@@ -103,6 +103,14 @@ class MainMapViewModel {
             .map { _ in () }
             .shareReplay(1)
         
+        let periodLocation = Observable<Int>.timer(6,
+                                           period: 10,
+                                           scheduler: MainScheduler.instance)
+            .withLatestFrom(input.isAtThisPage.asObservable())
+            .filter { $0 }
+            .map { _ in () }
+            .shareReplay(1)
+        
         let remindActivitying = BehaviorSubject<Bool>(value: false)
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         
@@ -112,7 +120,6 @@ class MainMapViewModel {
             .withLatestFrom(remindActivitying.asObservable())
             .filter { !$0 }
             .map{_ in () }
-            .share()
         
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
@@ -130,6 +137,7 @@ class MainMapViewModel {
         let remindLocation = remindSuccess
             .flatMapLatest { _ in MessageServer.share.manuallyLocate }
             .do(onNext: { _ in remindActivitying.onNext(false) })
+            .share()
         
         let remindTimeOut = remindSuccess.flatMapLatest{ (_) in
                 Observable.just(())
@@ -142,8 +150,7 @@ class MainMapViewModel {
         
         errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
         
-        let currentLocation = Observable.merge(period,
-                                               remindLocation,
+        let currentLocation = Observable.merge(periodLocation,
                                                currentDeviceIdObservable.map{_ in ()})
             .flatMapLatest {
                 locationManager.currentLocation
@@ -162,17 +169,18 @@ class MainMapViewModel {
             }
             .shareReplay(1)
         
-        kidLocation = currentLocation
+        kidLocation = Observable.merge(currentLocation, remindLocation)
             .map{ $0.location }
             .filterNil()
             .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
             .do(onNext: { _ in remindActivitying.onNext(false) })
+            .share()
         
-        kidAddress = currentLocation.map{ $0.address }.filterNil()
-        kidType = currentLocation.map{ $0.type }.filterNil()
-        locationTime = currentLocation.map{ $0.time }.filterNil()
+        kidAddress = Observable.merge(currentLocation, remindLocation).map{ $0.address }.filterNil()
+        kidType = Observable.merge(currentLocation, remindLocation).map{ $0.type }.filterNil()
+        locationTime = Observable.merge(currentLocation, remindLocation).map{ $0.time }.filterNil()
         
-        let accuracy = currentLocation.map { $0.accuracy }.filterNil()
+        let accuracy = Observable.merge(currentLocation, remindLocation).map { $0.accuracy }.filterNil().distinctUntilChanged()
         kidAnnotion = Observable.combineLatest(kidLocation, accuracy) { AccuracyAnnotation($0, accuracy: $1) }
         
         let kidInfos = input.avatarTap

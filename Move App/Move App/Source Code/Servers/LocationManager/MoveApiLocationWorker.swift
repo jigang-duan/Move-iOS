@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import ObjectMapper
 
 class MoveApiLocationWorker: MoveApiSafeZoneWorker, LocationWorkerProtocl {
     
@@ -121,7 +122,20 @@ extension KidSate.LocationInfo {
         self.time = location.time
         self.type = KidSate.LocationTypeSet(rawValue: location.type ?? 0)
     }
-
+    
+    init(content: String) {
+        self.init()
+        guard let info = Mapper<MoveApi.LocationInfo>().map(JSONString: content) else {
+            return
+        }
+        if let lat = info.lat, let lng = info.lng {
+            self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        }
+        self.address = info.addr
+        self.accuracy = info.accuracy
+        self.time = info.time
+        self.type = KidSate.LocationTypeSet(rawValue: info.type ?? 0)
+    }
 }
 
 
