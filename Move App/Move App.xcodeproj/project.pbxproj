@@ -51,6 +51,7 @@
 		1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */; };
 		115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
 		115964991F0E37F600D3748A /* UIImage+RTTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115964981F0E37F600D3748A /* UIImage+RTTint.swift */; };
+		1159649B1F0F38BF00D3748A /* MoyaProvider+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159649A1F0F38BF00D3748A /* MoyaProvider+Configuration.swift */; };
 		115F73031ED824D700BAAF3D /* aweat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72F91ED824D700BAAF3D /* aweat.gif */; };
 		115F73041ED824D700BAAF3D /* bye.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FA1ED824D700BAAF3D /* bye.gif */; };
 		115F73051ED824D700BAAF3D /* cry.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FB1ED824D700BAAF3D /* cry.gif */; };
@@ -419,6 +420,7 @@
 		1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiWatchSettingsWorker.swift; path = KidSettingManager/MoveApiWatchSettingsWorker.swift; sourceTree = "<group>"; };
 		1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PulsingAnnotationView.swift; path = AnnotationView/PulsingAnnotationView.swift; sourceTree = "<group>"; };
 		115964981F0E37F600D3748A /* UIImage+RTTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+RTTint.swift"; path = "Vendor/RTTint/UIImage+RTTint.swift"; sourceTree = "<group>"; };
+		1159649A1F0F38BF00D3748A /* MoyaProvider+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoyaProvider+Configuration.swift"; path = "Account/MoyaProvider+Configuration.swift"; sourceTree = "<group>"; };
 		115F72F91ED824D700BAAF3D /* aweat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = aweat.gif; path = Resource/Gif/aweat.gif; sourceTree = "<group>"; };
 		115F72FA1ED824D700BAAF3D /* bye.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = bye.gif; path = Resource/Gif/bye.gif; sourceTree = "<group>"; };
 		115F72FB1ED824D700BAAF3D /* cry.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = cry.gif; path = Resource/Gif/cry.gif; sourceTree = "<group>"; };
@@ -1674,6 +1676,7 @@
 				E04621391E49977A007D3BD3 /* Observable+MoveObjectMapper.swift */,
 				E03B1BB71E49DE32006EDB7B /* MoveAccessTokenPlugin.swift */,
 				E01906E61E55A7E100F65852 /* OnlineProvider.swift */,
+				1159649A1F0F38BF00D3748A /* MoyaProvider+Configuration.swift */,
 				113E5CB31EEFAF0E00244DDD /* RxMoyaProvider+UserOfflineCache.swift */,
 				FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */,
 			);
@@ -2774,6 +2777,7 @@
 				E9BEF3981E5C5A6000A36A13 /* AccountEntity.swift in Sources */,
 				1130AAA41F0CB801004A1773 /* UUVoiceHUD.swift in Sources */,
 				E0931F2D1E30C63500755B4A /* ApplicationManager.swift in Sources */,
+				1159649B1F0F38BF00D3748A /* MoyaProvider+Configuration.swift in Sources */,
 				D2F1A4861E554EC900915D9D /* SetYourWeightController.swift in Sources */,
 				E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */,
 				11DA65F51EC06B9500552578 /* EAFeatureItem.m in Sources */,

@@ -116,7 +116,7 @@ class MainMapViewModel {
         
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
-            .throttle(1.0, scheduler: MainScheduler.instance)
+            .throttle(3.0, scheduler: MainScheduler.instance)
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .do(onNext: { _ in remindActivitying.onNext(true) })
             .flatMapLatest {
@@ -129,6 +129,7 @@ class MainMapViewModel {
         
         let remindLocation = remindSuccess
             .flatMapLatest { _ in MessageServer.share.manuallyLocate }
+            .do(onNext: { _ in remindActivitying.onNext(false) })
         
         let remindTimeOut = remindSuccess.flatMapLatest{ (_) in
                 Observable.just(())

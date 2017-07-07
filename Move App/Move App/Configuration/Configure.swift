@@ -15,7 +15,7 @@ struct Configure {
     struct App {
         
         // Main
-        static let isDebugJSON = false
+        static let isDebugJSON = true
         static let isHTTPS = true
 
         static let testHost = "10.129.60.82:9092"

@@ -131,6 +131,9 @@ class Logger {
 
 extension Logger {
     static func reversedLog(seperator: String, terminator: String, items: Any...) {
+        guard Configure.App.isDebugJSON else {
+            return
+        }
         debugPrint("🌐")
         for (index, item) in items.enumerated() {
             Log.shareInstance.debug(item, "Web", "API", index)

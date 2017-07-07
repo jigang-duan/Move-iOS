@@ -46,7 +46,7 @@ class MessageServer {
 //                }
 //                .shareReplay(1)
             
-            let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
+            let syncData = Observable<Int>.timer(2.0, period: 25.0, scheduler: MainScheduler.instance)
                 .flatMapFirst { _ in
                     IMManager.shared.checkSyncData()
                         .catchErrorJustReturn( (synckey: nil,
@@ -57,6 +57,7 @@ class MessageServer {
                                                 chatops: nil) )
                 }
                 .shareReplay(1)
+            
             
             let messageObservable = syncData.map { $0.messages }
                 .filterNil()

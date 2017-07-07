@@ -17,6 +17,7 @@ extension MoveIM {
         
         static let defaultProvider = OnlineProvider<API>(
             endpointClosure: MoveIM.ImApi.endpointMapping,
+            manager: RxMoyaProvider<API>.customAlamofireManager(),
             plugins: [
                 MoveAccessTokenPlugin(),
                 NetworkLoggerPlugin(verbose: true, output: Logger.reversedLog)
