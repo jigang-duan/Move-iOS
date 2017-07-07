@@ -38,8 +38,7 @@ class UsepermissionController: UITableViewController {
         groupchatLabel.text = R.string.localizable.id_group_chat()
         voicechangeLabel.text = R.string.localizable.id_voice_changer()
         playingHamsteLabel.text = R.string.localizable.id_playing_hamster()
-//        缺描述
-//        usePermissionDescribeLabel.text =
+        usePermissionDescribeLabel.text = R.string.localizable.id_use_permission_tint()
         
         
     }

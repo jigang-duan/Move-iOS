@@ -37,9 +37,20 @@ class UpgradeController: UIViewController {
     var downloadBlur: UIView?
     var progressLab: UILabel?
 
+    
+    private func initializeI18N() {
+        self.title = R.string.localizable.id_update()
+        
+        tipLab.text = R.string.localizable.id_watch_fv_download_info()
+        downloadBun.setTitle(R.string.localizable.id_download(), for: .normal)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
+        self.initializeI18N()
+        
         self.setupUI()
         
         self.fetchProperty()
@@ -132,7 +143,7 @@ class UpgradeController: UIViewController {
             
             let maxLength = downloadBun.frame.size.width
             downloadBlur?.frame = CGRect(x: 0, y: 0, width: CGFloat(progress)/100*maxLength, height: self.downloadBun.frame.size.height)
-            progressLab?.text = "Download:\(progress)%"
+            progressLab?.text = R.string.localizable.id_download() + ":\(progress)%"
             downloadBun.setTitle("", for: .disabled)
         }else{
             downloadBlur?.removeFromSuperview()
@@ -142,7 +153,7 @@ class UpgradeController: UIViewController {
             
             if progress >= 100{
                 self.updateDownloadButton(isEnable: false)
-                downloadBun.setTitle("Download Finished", for: .disabled)
+                downloadBun.setTitle(R.string.localizable.id_finished(), for: .disabled)
             }
         }
     }
@@ -156,7 +167,7 @@ class UpgradeController: UIViewController {
     
     func showMessage(_ text: String) {
         let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel)
+        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
         vc.addAction(action)
         self.present(vc, animated: true)
     }
@@ -175,7 +186,7 @@ class UpgradeController: UIViewController {
         nameLab.text = device.user?.nickname ?? ""
         
         batteryLevel.text = "\(device.property?.power ?? 0)%"
-        versionLab.text = "Firmware Version " + (device.property?.firmware_version ?? "")
+        versionLab.text = R.string.localizable.id_firmware_version() + " "  + (device.property?.firmware_version ?? "")
         
         activity.center = self.view.center
         self.view.addSubview(activity)
@@ -239,19 +250,19 @@ class UpgradeController: UIViewController {
         DeviceManager.shared.checkVersion(checkInfo: checkInfo)
             .subscribe(onNext: { [weak self] info in
                 if let vs = info.newVersion, vs.characters.count > 2 {
-                    self?.versionLab.text = "New Firmware Version MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
+                    self?.versionLab.text = R.string.localizable.id_new_firmware_version() + " " + "MT30_00_00.01_" + vs.substring(from: vs.index(vs.endIndex, offsetBy: -2))
                     self?.versionInfo.isHidden = true
                     self?.downloadBun.isHidden = false
                     if self?.downloadProgress == 0 {
                         self?.tipLab.isHidden = true
                         self?.updateDownloadButton(isEnable: true)
-                        self?.downloadBun.setTitle("Download", for: .normal)
+                        self?.downloadBun.setTitle(R.string.localizable.id_download(), for: .normal)
                     }
                 }else{
                     let version = DeviceManager.shared.currentDevice?.property?.firmware_version
-                    self?.versionLab.text = "Firmware Version " + (version ?? "")
+                    self?.versionLab.text = R.string.localizable.id_firmware_version() + " "  + (version ?? "")
                     self?.versionInfo.isHidden = false
-                    self?.versionInfo.text = "This watch's firmware is up to date."
+                    self?.versionInfo.text = R.string.localizable.id_firmware_up_to_date()
                     self?.tipLab.isHidden = true
                     self?.downloadBun.isHidden = true
                 }

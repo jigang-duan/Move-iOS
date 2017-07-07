@@ -26,6 +26,10 @@ class APNforWatchVC: UIViewController {
     @IBOutlet weak var deviceHCons: NSLayoutConstraint!
     
     
+    @IBOutlet weak var openApnTip: UILabel!
+    @IBOutlet weak var cantFindTip: UILabel!
+    
+    
     var hasPairedWatch = false///是否已绑定手表
     var imei = ""
     
@@ -86,6 +90,9 @@ class APNforWatchVC: UIViewController {
         
         
         deviceLab.text = R.string.localizable.id_available_device()
+        openApnTip.text = R.string.localizable.id_apn_tint()
+        cantFindTip.text = R.string.localizable.id_apn_help()
+        
         helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
     }
     
@@ -97,6 +104,8 @@ class APNforWatchVC: UIViewController {
         
         if hasPairedWatch == true {
             helpHCons.constant = UIScreen.main.bounds.size.width*188/375
+            cantFindTip.isHidden = true
+            helpBun.isHidden = true
         }else{
             helpHCons.constant = 0
             helpImgV.isHidden = true
@@ -171,12 +180,6 @@ class APNforWatchVC: UIViewController {
                 self.writeIndex = 0
                 self.writeApnData()
             }
-        }
-        
-        
-        //help
-        if let vc = R.segue.aPNforWatchVC.showHelp(segue: segue)?.destination {
-            vc.isPaired = hasPairedWatch
         }
         
         
@@ -284,7 +287,7 @@ extension APNforWatchVC: CBCentralManagerDelegate {
             manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
             //缺Turn on Bluetooth
-            let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"MOVETIME\" to connect to watch", preferredStyle: .alert)
+            let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"TCLMOVE\" to connect to watch", preferredStyle: .alert)
             let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { _ in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }

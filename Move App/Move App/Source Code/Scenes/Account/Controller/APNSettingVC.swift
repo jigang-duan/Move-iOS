@@ -152,15 +152,14 @@ class APNSettingVC: UITableViewController {
                     self.saveBun.tintColor?.withAlphaComponent(1)
                     self.saveBun.title = R.string.localizable.id_edit()
                 case .setFail:
-                    //缺fail
-                    self.showApnMessage("Failed to upload data")
+                    self.showApnMessage(R.string.localizable.id_upload_failed())
                     self.activity.stopAnimating()
                     self.saveBun.isEnabled = true
                     self.saveBun.tintColor?.withAlphaComponent(1)
                 case .sendDone:
                     print("APN 数据发送完成")
                 case .error:
-                    self.showApnMessage("Failed to upload data")
+                    self.showApnMessage(R.string.localizable.id_upload_failed())
                     self.activity.stopAnimating()
                     self.saveBun.isEnabled = true
                     self.saveBun.tintColor?.withAlphaComponent(1)

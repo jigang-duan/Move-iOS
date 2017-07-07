@@ -79,8 +79,7 @@ class SafeZoneController: UIViewController {
 
             if adminBool! {
                 if !autopositioningBool!{
-                    //缺打开自动定位
-                    let alertController = UIAlertController(title: "Turn on auto-positioning?", message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+                    let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
                     
                     let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: { (UIAlertAction) in
                         
@@ -128,14 +127,6 @@ class SafeZoneController: UIViewController {
         }
         
         safezoneQutlet.isHidden = !adminbooll
-    }
-
-    
-    func errorshow(message : String) {
-        let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
     }
     
 }

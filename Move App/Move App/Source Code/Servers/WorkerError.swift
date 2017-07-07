@@ -149,10 +149,8 @@ extension WorkerError {
                 }
             case 7:
                 switch field ?? "" {
-                case "identity":
-                    errorMessage = "Identity existed"
                 case "username":
-                    errorMessage = "Account already exists"
+                    errorMessage = R.string.localizable.id_account_used()
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
