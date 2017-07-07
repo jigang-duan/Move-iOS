@@ -46,13 +46,13 @@ class DefaultWireframe: Wireframe {
     
     static func presentActionSheet() {
         let sheetView = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        sheetView.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        sheetView.addAction(UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil))
         rootViewController().present(sheetView, animated: true, completion: nil)
     }
 
     static func presentAlert(_ message: String) {
         let alertView = UIAlertController(title: "TCLMOVE", message: message, preferredStyle: .alert)
-        alertView.addAction(UIAlertAction(title: "OK", style: .cancel) { _ in
+        alertView.addAction(UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel) { _ in
         })
         rootViewController().present(alertView, animated: true, completion: nil)
     }
@@ -86,7 +86,7 @@ extension RetryResult : CustomStringConvertible {
         case .retry:
             return "Retry"
         case .cancel:
-            return "Cancel"
+            return R.string.localizable.id_cancel()
         }
     }
 }
@@ -95,9 +95,9 @@ extension CommonResult : CustomStringConvertible {
     var description: String {
         switch self {
         case .ok:
-            return "OK"
+            return R.string.localizable.id_ok()
         case .cancel:
-            return "Cancel"
+            return R.string.localizable.id_cancel()
         }
     }
 }
