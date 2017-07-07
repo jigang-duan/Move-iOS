@@ -143,7 +143,7 @@ extension WorkerError {
             case 6:
                 switch field ?? "" {
                 case "account":
-                    errorMessage = "Account doesn’t exist."
+                    errorMessage = R.string.localizable.id_account_not_existed()
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
@@ -182,7 +182,7 @@ extension WorkerError {
             case 14:
                 switch msg ?? "" {
                 case "Excess error":
-                    errorMessage = "Watch can add most 10 members"
+                    errorMessage = R.string.localizable.id_contact_contact_full()
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }

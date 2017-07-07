@@ -151,24 +151,7 @@ class ProtectAccountController: TranslucentNavBarController {
             self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(timeCount)s)", for: UIControlState.normal)
         }
     }
-    
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        viewModel.vcodeInvalidte?
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showValidateError(message)
-                default:
-                    self?.revertValidateError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-   
-    }
-    
     
 }
 

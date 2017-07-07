@@ -95,24 +95,12 @@ class EmergencyNumberVC: UIViewController {
             case .ok(_):
                 _ = self?.navigationController?.popViewController(animated: true)
             case .failed(let message):
-                print(message)
-            default:
-                break
-            }
-        }).addDisposableTo(disposeBag)
-        
-        
-        
-        viewModel.phoneInvalidte.drive(onNext: { [weak self] res in
-            switch res {
-            case .ok(_):
-                self?.revertValidateError()
-            case .failed(let message):
                 self?.showValidateError(message)
             default:
                 break
             }
         }).addDisposableTo(disposeBag)
+        
         
         
     }

@@ -14,7 +14,6 @@ import RxOptional
 
 class ProtectAccountViewModel {
     
-    var vcodeInvalidte: Driver<ValidationResult>?
     var sendEnabled: Driver<Bool>?
 
     var sending: Driver<Bool>?
@@ -46,7 +45,7 @@ class ProtectAccountViewModel {
         let activity = ActivityIndicator()
         self.sending = activity.asDriver()
         
-        vcodeInvalidte = input.vcode.map{vcode in
+        let vcodeInvalidte = input.vcode.map{vcode in
             return validation.validateVCode(vcode)
         }
         
@@ -56,11 +55,12 @@ class ProtectAccountViewModel {
         }).asDriver(onErrorRecover: commonErrorRecover)
         
         
-        self.doneEnabled = Driver.combineLatest(
-            vcodeInvalidte!,
-            sending!) { vcode, sending in
-                vcode.isValid &&
-                !sending
+        let vcodeNotEmpty = input.vcode.map{vcode in
+            return vcode.characters.count > 0
+        }
+        
+        self.doneEnabled = Driver.combineLatest(vcodeNotEmpty,sending!) { vcode, sending in
+                vcode && !sending
             }
             .distinctUntilChanged()
         
@@ -77,14 +77,21 @@ class ProtectAccountViewModel {
         
         self.sendEnabled = Driver.of(firstEnter, sendResult!).merge().map{ !$0.isValid }
 
-        self.doneResult = input.doneTaps.withLatestFrom(input.vcode)
-            .flatMapLatest({ (vcode) in
-                return userManager.signUp(username: input.registerInfo.email!, password: input.registerInfo.password!, sid: self.sid!, vcode: vcode)
-                    .trackActivity(activity)
-                    .map { _ in
-                        ValidationResult.ok(message: "SignUp Success.")
-                    }
-                    .asDriver(onErrorRecover: commonErrorRecover)
+        
+        let com = Driver.combineLatest(vcodeInvalidte, input.vcode){($0,$1)}
+        
+        self.doneResult = input.doneTaps.withLatestFrom(com)
+            .flatMapLatest({ res, vcode in
+                if res.isValid {
+                    return userManager.signUp(username: input.registerInfo.email!, password: input.registerInfo.password!, sid: self.sid!, vcode: vcode)
+                        .trackActivity(activity)
+                        .map { _ in
+                            ValidationResult.ok(message: "SignUp Success.")
+                        }
+                        .asDriver(onErrorRecover: commonErrorRecover)
+                }else{
+                    return Driver.just(res)
+                }
             })
     }
     

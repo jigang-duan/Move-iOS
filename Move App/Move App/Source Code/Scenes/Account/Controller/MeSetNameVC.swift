@@ -20,20 +20,6 @@ class MeSetNameViewController: UIViewController {
     var disposeBag = DisposeBag()
     var viewModel: MeSetNameViewModel!
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.validatedName
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showNameError(message)
-                default:
-                    self?.revertNameError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
