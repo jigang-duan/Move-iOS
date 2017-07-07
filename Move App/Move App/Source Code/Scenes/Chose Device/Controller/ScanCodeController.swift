@@ -221,6 +221,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                     if let expired = embeded["expired_at"] as? Int {
                         let now = Int(Date().timeIntervalSince1970)
                         if now > expired {
+                            //缺
                             self.showMessage("This code has expired")
                         }else{
                             isValidQRcode = true
