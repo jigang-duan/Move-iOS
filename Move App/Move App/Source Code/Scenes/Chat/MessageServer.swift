@@ -47,7 +47,7 @@ class MessageServer {
 //                .shareReplay(1)
             
             let completedReSyncSubject = PublishSubject<Int>()
-            let syncData = Observable.merge(Observable<Int>.timer(2.0, period: 25.0, scheduler: MainScheduler.instance),
+            let syncData = Observable.merge(Observable<Int>.timer(2.0, period: 35.0, scheduler: MainScheduler.instance),
                              completedReSyncSubject.asObservable().delay(3.0, scheduler: MainScheduler.instance))
 //            let syncData = Observable<Int>.timer(2.0, period: 25.0, scheduler: MainScheduler.instance)
                 .flatMapFirst { _ in

@@ -74,6 +74,7 @@ class MainMapViewModel {
         let locationManager = dependency.locationManager
         let settingsManager = dependency.settingsManager
         let wireframe = dependency.wireframe
+        let isAtThisPage = input.isAtThisPage.asObservable()
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
@@ -92,15 +93,15 @@ class MainMapViewModel {
             .flatMapLatest {
                 deviceManager.fetchDevices()
                     .trackActivity(activitying)
+                    .catchErrorEmpty()
                     .asDriver(onErrorJustReturn: [])
             }
         
         let period = Observable<Int>.timer(2,
                                            period: Configure.App.LoadDataOfPeriod,
                                            scheduler: MainScheduler.instance)
-            .withLatestFrom(input.isAtThisPage.asObservable())
-            .filter { $0 }
-            .map { _ in () }
+            .withLatestFrom(isAtThisPage)
+            .filterTrue()
             .shareReplay(1)
         
         let remindActivitying = BehaviorSubject<Bool>(value: false)
@@ -111,7 +112,7 @@ class MainMapViewModel {
         let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground)
             .withLatestFrom(remindActivitying.asObservable())
             .filter { !$0 }
-            .map{_ in () }
+            .mapVoid()
         
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
@@ -141,13 +142,16 @@ class MainMapViewModel {
             }
         
         errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
+            .withLatestFrom(isAtThisPage) { $1 ? $0 : nil }
+            .filterNil()
         
         let currentLocation = Observable.merge(period,
                                                currentDeviceIdObservable.map{_ in ()})
             .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)
-                    .catchErrorJustReturn(KidSate.LocationInfo())
+                    .catchErrorEmpty()
+//                    .catchErrorJustReturn(KidSate.LocationInfo())
             }
             .shareReplay(1)
         
@@ -157,7 +161,8 @@ class MainMapViewModel {
             .flatMapLatest {
                 deviceManager.getProperty(deviceId: $0)
                     .trackActivity(activitying)
-                    .catchErrorJustReturn(DeviceProperty())
+                    .catchErrorEmpty()
+//                    .catchErrorJustReturn(DeviceProperty())
             }
             .shareReplay(1)
         
@@ -207,21 +212,22 @@ class MainMapViewModel {
                     .trackActivity(activitying)
                     .catchErrorJustReturn(false)
             }
-            .filter { $0 }
-            .map {_ in () }
+            .filterTrue()
         
         battery = Observable.merge(MessageServer.share.lowBattery,
                                    uploadPower)
             .flatMapLatest{
                 deviceManager.power
                     .trackActivity(activitying)
-                    .catchErrorJustReturn(0)
+                    .catchErrorEmpty()
+//                    .catchErrorJustReturn(0)
             }
         
         online = period.delay(5.0, scheduler: MainScheduler.instance).asDriver(onErrorJustReturn: ())
             .flatMapLatest {
                 deviceManager.online
                     .trackActivity(activitying)
+                    .catchErrorEmpty()
                     .asDriver(onErrorJustReturn: false)
             }
         
@@ -312,4 +318,16 @@ extension BasePopoverAction {
 }
 
 
+extension ObservableType {
+    
+    func mapVoid() -> Observable<Void> {
+        return self.map{_ in () }
+    }
+}
 
+extension ObservableType where E == Bool {
+    
+    func filterTrue() -> Observable<Void> {
+        return self.filter { $0 }.map { _ in () }
+    }
+}
