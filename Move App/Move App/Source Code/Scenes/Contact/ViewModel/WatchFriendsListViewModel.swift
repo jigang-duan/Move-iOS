@@ -37,10 +37,13 @@ class WatchFriendsListViewModel {
         
         
         self.cellDatas = enter.flatMapLatest({ _ in
-            return deviceManager.getWatchFriends(with: (deviceManager.currentDevice?.deviceId)!).map{ fs in
-                self.friends = fs
-                return fs
-            }.asDriver(onErrorJustReturn: [])
+            return deviceManager.getWatchFriends(with: (deviceManager.currentDevice?.deviceId)!)
+                .map{ deviceFriends in
+                    let fs = deviceFriends.filter({$0.uid != UserInfo.shared.id})
+                    self.friends = fs
+                    return fs
+                }
+                .asDriver(onErrorJustReturn: [])
         })
     }
     
