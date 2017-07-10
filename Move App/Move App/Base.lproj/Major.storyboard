@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -64,32 +64,32 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="66"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GI0-OT-WGr">
-                                        <rect key="frame" x="15" y="13" width="40" height="40"/>
+                                        <rect key="frame" x="15" y="15" width="36" height="36"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="AU0-ho-DhZ"/>
-                                            <constraint firstAttribute="width" constant="40" id="aYs-pL-Vk7"/>
+                                            <constraint firstAttribute="height" constant="36" id="AU0-ho-DhZ"/>
+                                            <constraint firstAttribute="width" constant="36" id="aYs-pL-Vk7"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="member_btn_contact_pre">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="20"/>
+                                                <real key="value" value="18"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_btn_exchange_nor" highlightedImage="home_btn_exchange_pre" translatesAutoresizingMaskIntoConstraints="NO" id="cib-Ho-U1W">
-                                        <rect key="frame" x="40" y="38" width="15" height="15"/>
+                                        <rect key="frame" x="36" y="36" width="15" height="15"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzE-4h-zm9">
-                                        <rect key="frame" x="67" y="8" width="43" height="21"/>
+                                        <rect key="frame" x="63" y="8" width="43" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVH-Ns-GUh">
-                                        <rect key="frame" x="166" y="11" width="19" height="16"/>
+                                        <rect key="frame" x="162" y="11" width="19" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="8Cy-35-d0a"/>
                                         </constraints>
@@ -98,18 +98,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_wear" translatesAutoresizingMaskIntoConstraints="NO" id="jCk-Qg-6qK">
-                                        <rect key="frame" x="119" y="11" width="16" height="16"/>
+                                        <rect key="frame" x="115" y="11" width="16" height="16"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Yc-vY-xhQ" customClass="ScrollLabelView">
-                                        <rect key="frame" x="67" y="34" width="274" height="32"/>
+                                        <rect key="frame" x="63" y="34" width="278" height="24"/>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="xsd-xS-KJU" appends="YES" id="KYy-EQ-HUr"/>
                                         </connections>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vP-5M-IIQ">
-                                        <rect key="frame" x="195" y="11" width="172" height="16"/>
+                                        <rect key="frame" x="191" y="11" width="176" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="rBQ-CL-rQd"/>
                                         </constraints>
@@ -118,7 +118,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tx3-nC-fyZ">
-                                        <rect key="frame" x="335" y="36" width="30" height="30"/>
+                                        <rect key="frame" x="335" y="28" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="Jbs-w0-ggo"/>
                                             <constraint firstAttribute="height" constant="30" id="Pzp-xm-QTK"/>
@@ -131,7 +131,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_ic_battery0" translatesAutoresizingMaskIntoConstraints="NO" id="819-oq-ciP">
-                                        <rect key="frame" x="144" y="11" width="16" height="16"/>
+                                        <rect key="frame" x="140" y="11" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="9vD-bp-h66"/>
                                             <constraint firstAttribute="height" constant="16" id="xeb-1f-vBs"/>
@@ -148,7 +148,7 @@
                                     <constraint firstItem="GI0-OT-WGr" firstAttribute="leading" secondItem="mZQ-sj-e6I" secondAttribute="leading" constant="15" id="X6Y-5X-a7w"/>
                                     <constraint firstItem="Tx3-nC-fyZ" firstAttribute="leading" secondItem="4Yc-vY-xhQ" secondAttribute="trailing" constant="-6" id="XoW-XQ-O87"/>
                                     <constraint firstItem="819-oq-ciP" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="top" constant="11" id="Xpd-VL-teq"/>
-                                    <constraint firstAttribute="bottom" secondItem="Tx3-nC-fyZ" secondAttribute="bottom" id="Ysd-iW-bAC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tx3-nC-fyZ" secondAttribute="bottom" constant="8" id="Ysd-iW-bAC"/>
                                     <constraint firstItem="819-oq-ciP" firstAttribute="leading" secondItem="jCk-Qg-6qK" secondAttribute="trailing" constant="9" id="ZyJ-k2-TAp"/>
                                     <constraint firstItem="fzE-4h-zm9" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="12" id="a3P-Jq-VXE"/>
                                     <constraint firstItem="cib-Ho-U1W" firstAttribute="trailing" secondItem="GI0-OT-WGr" secondAttribute="trailing" id="cYz-xF-M9K"/>
@@ -157,7 +157,7 @@
                                     <constraint firstAttribute="trailing" secondItem="5vP-5M-IIQ" secondAttribute="trailing" constant="8" id="oXM-Bh-XpB"/>
                                     <constraint firstItem="jCk-Qg-6qK" firstAttribute="leading" secondItem="fzE-4h-zm9" secondAttribute="trailing" constant="9" id="paI-ad-f0b"/>
                                     <constraint firstItem="cib-Ho-U1W" firstAttribute="bottom" secondItem="GI0-OT-WGr" secondAttribute="bottom" id="sct-1R-bda"/>
-                                    <constraint firstAttribute="bottom" secondItem="4Yc-vY-xhQ" secondAttribute="bottom" id="uV5-OK-7Va"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Yc-vY-xhQ" secondAttribute="bottom" constant="8" id="uV5-OK-7Va"/>
                                     <constraint firstItem="4Yc-vY-xhQ" firstAttribute="top" secondItem="fzE-4h-zm9" secondAttribute="bottom" constant="5" id="uq2-Wb-Xeg"/>
                                     <constraint firstItem="jCk-Qg-6qK" firstAttribute="centerY" secondItem="fzE-4h-zm9" secondAttribute="centerY" id="wLl-RJ-5Id"/>
                                     <constraint firstItem="qVH-Ns-GUh" firstAttribute="leading" secondItem="819-oq-ciP" secondAttribute="trailing" constant="6" id="x0b-gw-YeT"/>
