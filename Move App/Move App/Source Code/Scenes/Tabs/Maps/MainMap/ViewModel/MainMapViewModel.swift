@@ -103,14 +103,6 @@ class MainMapViewModel {
             .map { _ in () }
             .shareReplay(1)
         
-        let periodLocation = Observable<Int>.timer(6,
-                                           period: 10,
-                                           scheduler: MainScheduler.instance)
-            .withLatestFrom(input.isAtThisPage.asObservable())
-            .filter { $0 }
-            .map { _ in () }
-            .shareReplay(1)
-        
         let remindActivitying = BehaviorSubject<Bool>(value: false)
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         
@@ -139,7 +131,7 @@ class MainMapViewModel {
             .do(onNext: { _ in remindActivitying.onNext(false) })
             .share()
         
-        let remindTimeOut = remindSuccess.flatMapLatest{ (_) in
+        let remindTimeOut = remindSuccess.flatMapLatest{ _ in
                 Observable.just(())
                     .delay(60.0, scheduler: MainScheduler.instance)
                     .withLatestFrom(remindActivitying.asObserver())
@@ -150,7 +142,7 @@ class MainMapViewModel {
         
         errorObservable = Observable.merge(errorSubject.asObserver(), remindTimeOut)
         
-        let currentLocation = Observable.merge(periodLocation,
+        let currentLocation = Observable.merge(period,
                                                currentDeviceIdObservable.map{_ in ()})
             .flatMapLatest {
                 locationManager.currentLocation
@@ -318,3 +310,6 @@ extension BasePopoverAction {
     }
     
 }
+
+
+

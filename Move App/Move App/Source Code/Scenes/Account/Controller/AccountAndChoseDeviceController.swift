@@ -83,7 +83,6 @@ class AccountAndChoseDeviceController: UIViewController {
         tableView.rx.modelSelected(DeviceInfo.self).asObservable()
             .map{ $0.deviceId }
             .filterNil()
-//            .distinctUntilChanged()
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
         

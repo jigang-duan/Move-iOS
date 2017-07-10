@@ -65,6 +65,7 @@
 		1162A5051EADE5C900DA6164 /* UIView+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5041EADE5C900DA6164 /* UIView+Badge.swift */; };
 		1162A5071EADFEE000DA6164 /* Rx+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162A5061EADFEE000DA6164 /* Rx+Badge.swift */; };
 		116860BE1EB8624700C3426A /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116860BD1EB8624700C3426A /* HelpController.swift */; };
+		116B90771F1326B200336E3B /* KidSate+SOSLbsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90761F1326B200336E3B /* KidSate+SOSLbsModel.swift */; };
 		116BAE601EC9672A001577D3 /* IMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5F1EC9672A001577D3 /* IMDB.swift */; };
 		116BAE621EC96EC2001577D3 /* DBIMWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE611EC96EC2001577D3 /* DBIMWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
@@ -434,6 +435,7 @@
 		1162A5041EADE5C900DA6164 /* UIView+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Badge.swift"; path = "Badge/UIView+Badge.swift"; sourceTree = "<group>"; };
 		1162A5061EADFEE000DA6164 /* Rx+Badge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+Badge.swift"; path = "Shared/Extensisons/View/Rx+Badge.swift"; sourceTree = "<group>"; };
 		116860BD1EB8624700C3426A /* HelpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
+		116B90761F1326B200336E3B /* KidSate+SOSLbsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KidSate+SOSLbsModel.swift"; sourceTree = "<group>"; };
 		116BAE5F1EC9672A001577D3 /* IMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDB.swift; path = IM/IMDB.swift; sourceTree = "<group>"; };
 		116BAE611EC96EC2001577D3 /* DBIMWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBIMWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
@@ -2062,6 +2064,7 @@
 				FF08591A1E72A93300EB81D9 /* IMManager */,
 				E0FA02A11E5C061D004A55BA /* WorkerError.swift */,
 				11D0BEC81E5E784F006F957E /* Business.swift */,
+				116B90761F1326B200336E3B /* KidSate+SOSLbsModel.swift */,
 				11A0C63A1E9B282600AFB71F /* RxStore.swift */,
 			);
 			path = Servers;
@@ -2735,6 +2738,7 @@
 				11DA65F61EC06B9500552578 /* UIView+EAFeatureGuideView.m in Sources */,
 				11EAC3211E6E42B8002906F1 /* Rx+SwitchButton.swift in Sources */,
 				112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */,
+				116B90771F1326B200336E3B /* KidSate+SOSLbsModel.swift in Sources */,
 				114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */,
 				E956E7F21E74FD7000E4298D /* RemindersViewModel.swift in Sources */,
 				1109C6561E604D38005B4AFD /* MoveApiKidSettingsWorker.swift in Sources */,
@@ -3216,49 +3220,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = BV28C32GBU;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ShareSDK",
-					"$(PROJECT_DIR)/ShareSDK/Support/Optional",
-					"$(PROJECT_DIR)/ShareSDK/Support/PlatformConnector",
-					"$(PROJECT_DIR)/ShareSDK/Support/Required",
-					"$(PROJECT_DIR)/Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/FacebookMessengerSDK",
-				);
-				INFOPLIST_FILE = "Move App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(PROJECT_DIR)/Move App/Vendor/UUChat/OtherResources/VoiceLib\"",
-					"\"$(PROJECT_DIR)/Move App\"",
-					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
-					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
-					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
-					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
-					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
-					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
-				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		E01DF70C1E3059A900EA003D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
@@ -3287,6 +3248,49 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
 				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
+				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E01DF70C1E3059A900EA003D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = BV28C32GBU;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShareSDK",
+					"$(PROJECT_DIR)/ShareSDK/Support/Optional",
+					"$(PROJECT_DIR)/ShareSDK/Support/PlatformConnector",
+					"$(PROJECT_DIR)/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/Pods/ShareSDK3/ShareSDK/Support/PlatformSDK/FacebookMessengerSDK",
+				);
+				INFOPLIST_FILE = "Move App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Move App/Vendor/UUChat/OtherResources/VoiceLib\"",
+					"\"$(PROJECT_DIR)/Move App\"",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceLib",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
+					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
