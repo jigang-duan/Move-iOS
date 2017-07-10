@@ -12,7 +12,7 @@ public class CDFInitialsAvatar {
     
     private var frame: CGRect
     private var fullName: String
-    private var backgroundColor: UIColor
+    public var backgroundColor: UIColor
     private var initialsColor: UIColor
     private var initialsFont: UIFont?
     
@@ -59,12 +59,8 @@ public class CDFInitialsAvatar {
     
     private func initials() -> String {
         let words = self.fullName.components(separatedBy: CharacterSet.whitespaces)
-        let initials = words.filter{
-                $0.characters.count > 0
-            }
-            .map {
-                $0.substring(to: $0.index($0.startIndex, offsetBy: 1))
-            }
+        let initials = words.filter{ $0.characters.count > 0 }
+            .map { $0.substring(to: $0.index($0.startIndex, offsetBy: 1)) }
             .reduce("", {$0 + $1})
         
         return initials.characters.count > 2 ? initials.substring(to: initials.index(initials.startIndex, offsetBy: 2)) : initials

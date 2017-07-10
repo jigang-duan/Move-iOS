@@ -82,6 +82,8 @@ class MainMapController: UIViewController {
         timeOutlet.adjustsFontSizeToFitWidth = true
         
         self.addressScrollLabel.addObaserverNotification()
+        addressScrollLabel.textFont = UIFont.systemFont(ofSize: 15.0)
+        addressScrollLabel.textColor = R.color.appColor.secondayText()
         
         self.navigationItem.title = R.string.localizable.id_top_menu_location()
         self.navigationController?.tabBarController?.tabBarItem.title = R.string.localizable.id_button_menu_home()
