@@ -34,7 +34,7 @@ class PairWatchController: UIViewController {
         }else if screenH > 500 && screenH < 600 {
             tipBottomCons.constant = 20
         }else{
-            tipBottomCons.constant = 43
+            tipBottomCons.constant = 30
         }
     }
 

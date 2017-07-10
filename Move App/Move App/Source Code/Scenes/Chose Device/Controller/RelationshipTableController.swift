@@ -14,7 +14,6 @@ class RelationshipTableController: UIViewController {
     
     var relationBlock: ((Relation) -> ())?
     
-    @IBOutlet weak var nextBun: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var otherTf: UITextField!
@@ -50,6 +49,18 @@ class RelationshipTableController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notify:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notify:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -57,7 +68,6 @@ class RelationshipTableController: UIViewController {
         
         self.title = R.string.localizable.id_title()
         otherTf.placeholder = R.string.localizable.id_other()
-        nextBun.title = R.string.localizable.id_phone_number_next()
         
         
         tableView.delegate = self
@@ -86,10 +96,39 @@ class RelationshipTableController: UIViewController {
         otherTf.becomeFirstResponder()
         otherBadge.isHidden = false
         
+        
         self.clearCellSelected()
     }
     
-    @IBAction func nextClick(_ sender: Any) {
+    
+    func keyboardWillShow(notify: Notification) {
+        let frame = notify.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect
+        
+        let screenH = UIScreen.main.bounds.size.height
+        
+        var ff = self.tableView.frame
+        ff.size.height = screenH - 64 - (frame?.size.height)! - 10
+        self.tableView.frame = ff
+        
+        self.tableView.scrollToRow(at: IndexPath(row: self.identities.count - 1 , section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+    }
+    
+    
+    func keyboardWillHide(notify: Notification) {
+        let duration = notify.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval
+        
+        let screenH = UIScreen.main.bounds.size.height
+        
+        UIView.animate(withDuration: duration!) {[weak self] in
+            var ff = self?.tableView.frame
+            ff?.size.height = screenH - 64
+            self?.tableView.frame = ff!
+        }
+    }
+    
+    
+    
+    func confirmSelectRelation() {
         otherTf.resignFirstResponder()
         
         if let identity = selectedRelation {
@@ -148,6 +187,11 @@ extension RelationshipTableController: UITextFieldDelegate {
         }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.confirmSelectRelation()
+        return true
+    }
+    
 }
 
 
@@ -187,6 +231,8 @@ extension RelationshipTableController: UITableViewDelegate, UITableViewDataSourc
         cell?.accessoryType = .checkmark
         
         selectedRelation = Relation(input: String(indexPath.row + 1))
+        
+        self.confirmSelectRelation()
     }
 
 
