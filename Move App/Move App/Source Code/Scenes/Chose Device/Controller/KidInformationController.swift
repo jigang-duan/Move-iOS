@@ -73,17 +73,6 @@ class KidInformationController: UIViewController {
         }
     }
     
-    func revertvalidateError() {
-        validateLab.isHidden = true
-        validateLab.alpha = 1.0
-        validateLab.text = ""
-        UIView.animate(withDuration: 0.6) { [weak self] in
-            self?.validateLab.textColor = ValidationColors.okColor
-            self?.validateLab.alpha = 0.0
-            self?.view.layoutIfNeeded()
-        }
-    }
-    
     
     func  setupUI() {
         self.title = R.string.localizable.id_kids_information()
@@ -224,24 +213,6 @@ class KidInformationController: UIViewController {
         )
         viewModel.isForSetting = isForSetting
         
-        viewModel.nameValid.drive(onNext: {[weak self] result in
-            switch result{
-            case .failed(let message):
-                self?.showvalidateError(message)
-            default:
-                self?.revertvalidateError()
-            }
-        }).addDisposableTo(disposeBag)
-        
-        viewModel.phoneValid.drive(onNext: {[weak self] result in
-            switch result{
-            case .failed(let message):
-                self?.showvalidateError(message)
-            default:
-                self?.revertvalidateError()
-            }
-        }).addDisposableTo(disposeBag)
-        
         
         viewModel.nextEnabled
             .drive(onNext: { [weak self] valid in
@@ -255,7 +226,7 @@ class KidInformationController: UIViewController {
             .drive(onNext: {[weak self] doneResult in
                 switch doneResult {
                 case .failed(let message):
-                    self?.showMessage(message)
+                    self?.showvalidateError(message)
                 case .ok:
                     if self?.isForSetting == true {
                         _ = self?.navigationController?.popViewController(animated: true)
@@ -297,14 +268,6 @@ class KidInformationController: UIViewController {
             popover.sourceRect = sender.frame
         }
         
-        self.present(vc, animated: true)
-    }
-    
-
-    func showMessage(_ text: String) {
-        let vc = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel)
-        vc.addAction(action)
         self.present(vc, animated: true)
     }
     

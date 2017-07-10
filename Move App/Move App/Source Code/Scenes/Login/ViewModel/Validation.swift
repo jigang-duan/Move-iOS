@@ -101,16 +101,16 @@ class DefaultValidation {
             return .empty
         }
         
-//        if numberOfCharacters < 4 {
-//            return .failed(message: "Phone must be at least 4 characters")
-//        }
+        if numberOfCharacters < 3 {
+            return .failed(message: "Phone must be at least 3 characters")
+        }
         
-//        let setString = "0123456789"
-//        for character in phone.characters {
-//            if setString.characters.index(of: character) == nil {
-//                return .failed(message: "Phone input incorrect")
-//            }
-//        }
+        let setString = "0123456789"
+        for character in phone.characters {
+            if setString.characters.index(of: character) == nil {
+                return .failed(message: R.string.localizable.id_phone_error())
+            }
+        }
         
         return .ok(message: "Phone available")
     }

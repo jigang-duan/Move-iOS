@@ -14,9 +14,6 @@ import Kingfisher
 
 class KidInformationViewModel {
     
-    let nameValid: Driver<ValidationResult>
-    let phoneValid: Driver<ValidationResult>
-    
     let sending: Driver<Bool>
     
     let nextEnabled: Driver<Bool>
@@ -45,11 +42,11 @@ class KidInformationViewModel {
         _ = dependency.wireframe
         
         
-        nameValid = input.name.map { name in
+        let nameValid = input.name.map { name in
             return validation.validateNickName(name)
         }
         
-        phoneValid = input.phone.map { phone in
+        let phoneValid = input.phone.map { phone in
             return validation.validatePhone(phone)
         }
         
@@ -57,15 +54,32 @@ class KidInformationViewModel {
         sending = activity.asDriver()
         
         
-        nextEnabled = Driver.combineLatest(nameValid, phoneValid, sending) { name, phone, send in
-                name.isValid && phone.isValid && !send
+        
+        let nameNotEmpty = input.name.map { name in
+            return name.characters.count > 0
+        }
+        
+        let phoneNotEmpty = input.phone.map { phone in
+            return phone.characters.count > 0
+        }
+        
+        nextEnabled = Driver.combineLatest(nameNotEmpty, phoneNotEmpty, sending) { name, phone, send in
+                name && phone && !send
             }
             .distinctUntilChanged()
         
-        let com = Driver.combineLatest(input.name, input.phonePrefix, input.phone, input.addInfo.asDriver()){($0, $1, $2, $3)}
+        let com = Driver.combineLatest(nameValid, phoneValid, input.name, input.phonePrefix, input.phone, input.addInfo.asDriver()){($0, $1, $2, $3, $4, $5)}
         
         self.nextResult = input.nextTaps.withLatestFrom(com)
-            .flatMapLatest({ name, phonePrefix, phone, addInfo in
+            .flatMapLatest({nameRes, phoneRes, name, phonePrefix, phone, addInfo in
+                
+                if nameRes.isValid == false {
+                    return Driver.just(nameRes)
+                }
+                
+                if phoneRes.isValid == false {
+                    return Driver.just(phoneRes)
+                }
                 
                 var f = addInfo
                 f.nickName = name
