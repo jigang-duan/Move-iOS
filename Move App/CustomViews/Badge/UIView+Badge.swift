@@ -58,7 +58,8 @@ extension UIView {
             return
         }
         
-        let frame = CGRect(origin: point ?? CGPoint(x: self.frame.width - rightRange - 2*pointWidth, y: upRange),
+        self.clipsToBounds = false
+        let frame = CGRect(origin: point ?? CGPoint(x: self.frame.width - pointWidth/2, y: -pointWidth/2),
                            size: CGSize(width: pointWidth, height: pointWidth))
         self.badgeView = UILabel(frame: frame)
         self.badgeView?.backgroundColor = UIColor.red
@@ -85,6 +86,8 @@ extension UIView {
         if frame.width < frame.height {
             frame.size.width = frame.height
         }
+        frame.origin.x = self.frame.width - frame.size.width + upRange
+        frame.origin.y = -upRange
         self.badgeView?.frame = frame
         self.badgeView?.layer.cornerRadius = frame.height / 2
     }
