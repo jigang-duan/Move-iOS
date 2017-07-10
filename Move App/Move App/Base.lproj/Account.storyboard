@@ -1088,7 +1088,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiK-Mi-Jsf">
-                                                    <rect key="frame" x="10" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="10" y="13.5" width="81" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="FAD-5w-UZQ"/>
                                                     </constraints>
@@ -1097,7 +1097,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="666" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzy-RU-UBu" userLabel="friendSwitchBtn" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="11" width="40" height="22"/>
+                                                    <rect key="frame" x="325" y="13" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="3Bz-8w-e9p"/>
                                                         <constraint firstAttribute="height" constant="22" id="hqj-O1-IES"/>
@@ -1125,7 +1125,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n3b-1z-bQP">
-                                                    <rect key="frame" x="10" y="11" width="86" height="21"/>
+                                                    <rect key="frame" x="10" y="13.5" width="86" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="zdt-Uk-Y3w"/>
                                                     </constraints>
@@ -1134,7 +1134,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="668" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sg-Rw-EGt" userLabel="GroupSwitchBtn" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="11" width="40" height="22"/>
+                                                    <rect key="frame" x="325" y="13" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rHQ-XF-kan"/>
                                                         <constraint firstAttribute="width" constant="40" id="vQI-1s-SXf"/>
@@ -1162,7 +1162,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Voice changer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwX-xt-Cg2">
-                                                    <rect key="frame" x="10" y="11" width="110" height="21"/>
+                                                    <rect key="frame" x="10" y="13.5" width="110" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="qPW-WI-gt6"/>
                                                     </constraints>
@@ -1171,7 +1171,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="669" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yes-Ky-A39" userLabel="VoiceChangerSwitchBtn" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="11" width="40" height="22"/>
+                                                    <rect key="frame" x="325" y="13" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="4eh-jZ-Tfe"/>
                                                         <constraint firstAttribute="height" constant="22" id="Izv-sZ-s7H"/>
@@ -1199,7 +1199,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playing hamster" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZc-r8-cpH">
-                                                    <rect key="frame" x="10" y="11" width="123" height="21"/>
+                                                    <rect key="frame" x="10" y="13.5" width="123" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="HLy-ac-olF"/>
                                                     </constraints>
@@ -1208,7 +1208,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="670" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfh-rV-X2O" userLabel="PlayinghamsterSwitchBtn" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="11" width="40" height="22"/>
+                                                    <rect key="frame" x="325" y="13" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="1X3-vV-NWh"/>
                                                         <constraint firstAttribute="width" constant="40" id="g0T-Rg-Nj1"/>
