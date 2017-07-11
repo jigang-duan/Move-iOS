@@ -190,7 +190,7 @@ extension ToDoListController {
             
         }else if (self.beginTime) > (self.endTime) {
             
-            self.alertSeting(message: "Start time later than the end of time", preferredStyle: .alert)
+            self.alertSeting(message: R.string.localizable.id_end_less_than_start_time(), preferredStyle: .alert)
             self.saveItemQutlet.isEnabled = true
             
             
