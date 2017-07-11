@@ -288,6 +288,3 @@ fileprivate func resultSelector(notices: [NoticeEntity], gids: [String]) throws 
     return notices.filter{  gids.contains($0.groupId ?? "") }
 }
 
-
-
-
