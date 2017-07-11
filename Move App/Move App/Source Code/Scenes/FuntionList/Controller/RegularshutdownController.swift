@@ -228,7 +228,7 @@ extension RegularshutdownController {
             let result = selectTime - currTime
             if (datePicker.date == shutdownTimeVariable.value) ||  (fabsf(Float(result)) <= 600) {
                 
-                self.alertSeting(message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                self.alertSeting(message: R.string.localizable.id_time_interval_too_short(), preferredStyle: .alert)
                 
             }else
             {
@@ -244,7 +244,7 @@ extension RegularshutdownController {
             let result = selectTime - currTime
             if (datePicker.date == bootTimeVariable.value) || (fabsf(Float(result)) <= 600) {
                 
-                self.alertSeting(message: "Boot and shutdown time cannot be the same or difference for 10 minutes", preferredStyle: .alert)
+                self.alertSeting(message: R.string.localizable.id_time_interval_too_short(), preferredStyle: .alert)
                 
             }else
             {

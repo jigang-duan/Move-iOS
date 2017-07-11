@@ -181,7 +181,7 @@ extension ToDoListController {
             
         }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
             
-            self.alertSeting(message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
+            self.alertSeting(message: R.string.localizable.id_reminder_remarks_characters() + " or " + R.string.localizable.id_reminder_title_characters(), preferredStyle: .alert)
             
         }else if self.titleTextFieldQutle.text == "" {
             
