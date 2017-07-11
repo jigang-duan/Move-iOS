@@ -10,25 +10,23 @@ import UIKit
 import RxCocoa
 import RxSwift
 import CustomViews
+import DZNEmptyDataSet
 
 class SafeZoneController: UIViewController {
     
     //internationalization
     
-    @IBOutlet weak var safezoneQutlet: UIButton!
-    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var introducelLabel: UILabel!
-    @IBOutlet weak var emptyViewQutlet: UIView!
     
     var dataISexit: Bool = true
     var autopositioningBool: Bool?
     var adminBool: Bool? = false
-    var autoAnswer: Bool?
-    var savePower: Bool?
+    
     var autopositioningBtn: SwitchButton?
     var disposeBag = DisposeBag()
     
-    var fences: [KidSate.ElectronicFencea] = []
+    var fences: [KidSate.ElectronicFence] = []
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,22 +37,11 @@ class SafeZoneController: UIViewController {
         super.viewDidLoad()
         
         self.title = R.string.localizable.id_safe_zone()
-        self.permissionsFun(adminbooll: adminBool!)
+        self.permissionsFun(adminbool: adminBool!)
         
-        self.tableview.estimatedRowHeight = 80.0
-        self.tableview.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
-        
-        safezoneQutlet.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                self?.showAddSafeZoneVC()
-            })
-            .addDisposableTo(disposeBag)
-       
-       tableview.delegate = self
-       tableview.dataSource = self
-    
-        tableview.register(R.nib.safezoneCell(), forCellReuseIdentifier: R.reuseIdentifier.safezonecell.identifier)
+        tableView.emptyDataSetSource = self
+        tableView.delegate = self
+        tableView.tableFooterView = UIView()
     }
     
     func reloadData(){
@@ -62,57 +49,50 @@ class SafeZoneController: UIViewController {
         LocationManager.share.fetchSafeZone()
             .bindNext { [weak self] in
                 self?.fences = $0
-                self?.tableview.reloadData()
+                self?.tableView.reloadData()
             }
             .addDisposableTo(disposeBag)
     }
     
-    func showAddSafeZoneVC() {
+    
+    @IBAction func addClick(_ sender: Any) {
         
-            
         if self.fences.count >= 5 {
             let alertController = UIAlertController(title: nil, message: R.string.localizable.id_only_safe_zone(), preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
         }else{
-
-            if adminBool! {
-                if !autopositioningBool!{
-                    let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+            if autopositioningBool == false {
+                let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+                
+                let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default, handler: { (UIAlertAction) in
                     
-                    let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: { (UIAlertAction) in
-                        
-                        self.showAddSafezoneV()
-                    })
+                    self.showAddSafezoneVC()
+                })
+                
+                let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default, handler: { (UIAlertAction) in
+                    WatchSettingsManager.share.updateAutoPosition(true)
+                        .subscribe({ (bool : Event<Bool>) in
+                            
+                        })
+                        .addDisposableTo(self.disposeBag)
                     
-                    let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default, handler: { (UIAlertAction) in
-                        WatchSettingsManager.share.updateSavepowerAndautoAnswer(self.autoAnswer!, savepower: self.savePower!, autoPosistion: true).subscribe({ (bool : Event<Bool>) in
-                            })
-                            .addDisposableTo(self.disposeBag)
-                        self.autopositioningBtn?.isOn = true
-                        self.autopositioningBool = true
+                    self.autopositioningBtn?.isOn = true
+                    self.autopositioningBool = true
 
-                        self.showAddSafezoneV()
-                        
-                    })
-                    alertController.addAction(notOpen)
-                    alertController.addAction(open)
-                    self.present(alertController, animated: true, completion: nil)
-                }
-                self.showAddSafezoneV()
-  
-            }else
-            {
-                self.showAddSafezoneV()
+                    self.showAddSafezoneVC()
+                })
+                alertController.addAction(notOpen)
+                alertController.addAction(open)
+                self.present(alertController, animated: true, completion: nil)
+            }else{
+                self.showAddSafezoneVC()
             }
-            
         }
-        
-
     }
     
-    func showAddSafezoneV() {
+    func showAddSafezoneVC() {
         if let vc = R.storyboard.major.addSafeZoneVC() {
             vc.fences = self.fences
             vc.adminBool = self.adminBool
@@ -120,95 +100,115 @@ class SafeZoneController: UIViewController {
         }
     }
     
-    func permissionsFun(adminbooll: Bool) {
+    func permissionsFun(adminbool: Bool) {
         introducelLabel.text = R.string.localizable.id_safezone_prompt_not_admin()
-        if adminbooll{
+        if adminbool {
             introducelLabel.text = R.string.localizable.id_safezone_prompt()
+        }else {
+            self.navigationItem.rightBarButtonItem = nil
         }
-        
-        safezoneQutlet.isHidden = !adminbooll
     }
     
 }
 
-extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
+extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.tableview.isHidden = false
-        self.introducelLabel.isHidden = (self.fences.count == 0)
-        if self.fences.count == 0
-        {
-            self.tableview.isHidden = true
-            //缺非管理员无数据提示国际化
-            let lable: UILabel = self.emptyViewQutlet.subviews[1] as! UILabel
-            if self.adminBool!{
-                
-                lable.text = R.string.localizable.id_no_safe_zone_not_admin()
-                
-            }else
-            {
-                lable.text = "No Safe zone here"
-            }
-        }
-        
-        
         return self.fences.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: R.reuseIdentifier.safezonecell.identifier, for: indexPath) as! SafezoneCell
-        cell.model = self.fences[indexPath.row]
-        cell.autopositioningBool = autopositioningBool
-        cell.adminBool = adminBool
-        cell.autoAnswer = autoAnswer
-        cell.savePower = savePower
-        cell.btn = autopositioningBtn
-        cell.onOFFLabel.isHidden = adminBool!
-        cell.switchOnOffQutiet.isHidden = !adminBool!
-        if !adminBool!{
-            cell.accessoryType = .disclosureIndicator
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         }
-        cell.vc = self
         
-        return cell
+        var model = self.fences[indexPath.row]
+        
+        cell?.textLabel?.text = model.name
+        cell?.detailTextLabel?.text = model.location?.address
+        
+        if adminBool == false {
+            let lab = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+            lab.textColor = UIColor.lightGray
+            lab.textAlignment = .right
+            if model.active == true {
+                lab.text = R.string.localizable.id_on()
+            }else{
+                lab.text = R.string.localizable.id_off()
+            }
+            cell?.accessoryView = lab
+        }else{
+            let bun = SwitchButton(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
+            bun.onImage = R.image.general_btn_on()!
+            bun.offImage = R.image.general_btn_off()!
+            
+            bun.isOn = model.active ?? false
+            cell?.accessoryView = bun
+         
+            bun.closureSwitch = { [unowned self] isOn in
+                if isOn{
+                    if self.autopositioningBool == false {
+                        let alertController = UIAlertController(title: "Turn on auto-positioning?", message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+                        
+                        let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil)
+                        
+                        let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default, handler: { (UIAlertAction) in
+                            //发起请求打开open auto-positioning按钮
+                            WatchSettingsManager.share.updateAutoPosition(true)
+                                .subscribe(onNext: { (flag) in
+                                
+                                })
+                                .addDisposableTo(self.disposeBag)
+                            
+                        })
+                        alertController.addAction(notOpen)
+                        alertController.addAction(open)
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                       
+                    }
+                }
+                
+                model.active = isOn
+                
+                let fenceloc = MoveApi.Fencelocation(lat: model.location?.location?.latitude, lng: model.location?.location?.longitude, addr: model.location?.address)
+                let fenceinfo = MoveApi.FenceInfo(id: model.ids, name: model.name, location: fenceloc, radius: model.radius, active: model.active)
+                let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                
+                MoveApi.ElectronicFence.settingFence(fenceId : (model.ids)!, fenceReq: fencereq)
+                    .subscribe(onNext: {_ in
+                        
+                    })
+                    .addDisposableTo(self.disposeBag)
+            }
+
+        }
+        
+        
+        return cell!
     }
     
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        
         if self.adminBool!{
-            
             return .delete
-            
-        }
-        else
-        {
+        }else{
             return .none
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let vc : AddSafeZoneVC = R.storyboard.major.addSafeZoneVC()  {
+        if let vc = R.storyboard.major.addSafeZoneVC()  {
             vc.editFenceDataSounrce = self.fences[indexPath.row]
-            var fence = self.fences
-            fence.remove(at: indexPath.row)
-            vc.fences = fence
+            vc.fences = self.fences
             vc.adminBool = self.adminBool
             self.navigationController?.show(vc, sender: nil)
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
-    }
-    
-    
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete {
             //删除
             LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids ?? "")
@@ -216,10 +216,9 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
                 print($0)
                 self?.fences.remove(at: indexPath.row)
 //                self.tableview.deleteRows(at: [indexPath], with: .top)
-                self?.tableview.reloadData()
+                self?.tableView.reloadData()
                 }.addDisposableTo(disposeBag)        
         }
-     
     }
     
     
@@ -228,4 +227,25 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
 }
 
+
+extension SafeZoneController: DZNEmptyDataSetSource {
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return R.image.safe_zone_empty()!
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        var text = ""
+        //缺非管理员无数据提示国际化
+        if self.adminBool == false {
+            text = R.string.localizable.id_no_safe_zone_not_admin()
+        }else{
+            text = "No safe zone here,tap \"+\" to add a safe zone"
+        }
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
+                          NSForegroundColorAttributeName: UIColor.lightGray]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+}
 

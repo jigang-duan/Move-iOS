@@ -12,7 +12,6 @@ import RxCocoa
 
 class AccountKidsRulesuserViewModel {
     // outputs {
-    let savePowerEnable: Driver<Bool>
     let autoAnswereEnable: Driver<Bool>
     let autoPosistionEnable: Driver<Bool>
     
@@ -22,7 +21,6 @@ class AccountKidsRulesuserViewModel {
     
     init(
         input: (
-        savePower: Driver<Bool>,
         autoAnswer: Driver<Bool>,
         autoPosistion: Driver<Bool>
         ),
@@ -39,11 +37,6 @@ class AccountKidsRulesuserViewModel {
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-        let fetchsavePower = manager.fetchSavepower()
-            .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: false)
-        
-        self.savePowerEnable = Driver.of(fetchsavePower, input.savePower).merge()
         
         let fetchautoAnswer = manager.fetchAutoanswer()
             .trackActivity(activitying)
@@ -68,11 +61,11 @@ class AccountKidsRulesuserViewModel {
         
         self.autoPosistionEnable = Driver.of(fetchautoPosistion, selectAutoPosistion).merge()
         
-        let down = Driver.combineLatest(savePowerEnable , autoAnswereEnable , autoPosistionEnable.distinctUntilChanged()) { ($0, $1, $2) }
+        let down = Driver.combineLatest( autoAnswereEnable , autoPosistionEnable.distinctUntilChanged()) { ($0, $1) }
         
         self.saveFinish = down
-            .flatMapLatest { (savepower, autoanswer, autoPosistion) in
-                manager.updateSavepowerAndautoAnswer(autoanswer, savepower: savepower, autoPosistion: autoPosistion)
+            .flatMapLatest { ( autoanswer, autoPosistion) in
+                manager.updateAnswerAndPosition(autoanswer, autoPosition: autoPosistion)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
             }

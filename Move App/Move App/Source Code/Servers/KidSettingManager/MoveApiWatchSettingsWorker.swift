@@ -19,10 +19,6 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
         return MoveApi.Device.fetchSetting(deviceId: id).map{ $0.auto_answer ?? false }
     }
     
-    func fetchSavepower(id: String) -> Observable<Bool> {
-        return MoveApi.Device.fetchSetting(deviceId: id).map{ $0.save_power ?? false }
-    }
-    
     func fetchEmergencyNumbers(id: String) ->  Observable<[String]> {
         return MoveApi.Device.fetchSetting(deviceId: id).map { $0.sos ?? [] }
     }
@@ -67,13 +63,24 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
         return MoveApi.Device.fetchSetting(deviceId: id).map{ $0.dst ?? false }
     }
     
-    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool> {
+    
+    func updateAutoPosition(id: String, autoPosition: Bool) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
             .flatMapLatest{  setting -> Observable<MoveApi.ApiError> in
                 var _setting = setting
-                _setting.save_power = savepower
+                _setting.auto_positiion = autoPosition
+                return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
+            }
+            .map(errorTransform)
+            .catchError(errorHandle)
+    }
+    
+    func updateAnswerAndPosition(id: String, autoanswer: Bool, autoPosition: Bool) -> Observable<Bool> {
+        return MoveApi.Device.getSetting(deviceId: id)
+            .flatMapLatest{  setting -> Observable<MoveApi.ApiError> in
+                var _setting = setting
                 _setting.auto_answer = autoanswer
-                _setting.auto_positiion = autoPosistion
+                _setting.auto_positiion = autoPosition
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             }
             .map(errorTransform)

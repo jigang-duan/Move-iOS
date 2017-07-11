@@ -14,8 +14,8 @@ protocol WatchSettingWorkerProtocl {
     
     func fetchautoPosistion(id: String) -> Observable<Bool>
     func fetchAutoanswer(id: String) -> Observable<Bool>
-    func fetchSavepower(id: String) -> Observable<Bool>
-    func updateSavepowerAndautoAnswer(id: String, autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool>
+    func updateAutoPosition(id: String, autoPosition: Bool) -> Observable<Bool>
+    func updateAnswerAndPosition(id: String, autoanswer: Bool,autoPosition: Bool) -> Observable<Bool>
     func update(deviceId: String, autoPosistion: Bool) -> Observable<Bool>
     
     func fetchLanguages(id: String) ->  Observable<[String]>
@@ -64,19 +64,21 @@ class WatchSettingsManager  {
         return self.worker.fetchAutoanswer(id: deviceId)
     }
     
-    func fetchSavepower() -> Observable<Bool>{
-        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
-            return Observable.empty()
-        }
-        return self.worker.fetchSavepower(id: deviceId)
-    }
     
-    func updateSavepowerAndautoAnswer(_ autoanswer: Bool,savepower: Bool,autoPosistion: Bool) -> Observable<Bool>
+    func updateAnswerAndPosition(_ autoanswer: Bool, autoPosition: Bool) -> Observable<Bool>
     {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
-        return self.worker.updateSavepowerAndautoAnswer(id: deviceId, autoanswer: autoanswer, savepower: savepower, autoPosistion: autoPosistion)
+        return self.worker.updateAnswerAndPosition(id: deviceId, autoanswer: autoanswer, autoPosition: autoPosition)
+    }
+    
+    func updateAutoPosition(_ autoPosition: Bool) -> Observable<Bool>
+    {
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable<Bool>.empty()
+        }
+        return self.worker.updateAutoPosition(id: deviceId, autoPosition: autoPosition)
     }
     
     func update(deviceId: String? = nil, autoPosistion: Bool) -> Observable<Bool> {

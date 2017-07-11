@@ -14,10 +14,6 @@ import RxOptional
 
 class FamilyMemberDetailViewModel {
     
-    var nameInvalidte: Driver<ValidationResult>?
-    var phoneInvalidte: Driver<ValidationResult>?
-    
-    
     var saveEnabled: Driver<Bool>?
     var saveResult: Driver<ValidationResult>?
     

@@ -27,8 +27,6 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var autopositiorIntroduceLabel: UILabel!
     @IBOutlet weak var autoanswerLabel: UILabel!
     @IBOutlet weak var autoansweIntroduceLabel: UILabel!
-    @IBOutlet weak var savepowerLabel: UILabel!
-    @IBOutlet weak var savepowerIntroduceLabel: UILabel!
     @IBOutlet weak var usePermissiorLabel: UILabel!
     @IBOutlet weak var timeZoneLabel: UILabel!
     @IBOutlet weak var languageforthiswatchLabel: UILabel!
@@ -43,7 +41,6 @@ class AccountKidsRulesuserController: UITableViewController {
     
     @IBOutlet weak var autopositiQutel: SwitchButton!
     @IBOutlet weak var autoAnswerQutel: SwitchButton!
-    @IBOutlet weak var savePowerQutel: SwitchButton!
     
     @IBOutlet weak var unpairCell: UITableViewCell!
     
@@ -71,7 +68,6 @@ class AccountKidsRulesuserController: UITableViewController {
         
         let viewModel = AccountKidsRulesuserViewModel(
             input: (
-                savePower: savePowerQutel.rx.value.asDriver(),
                 autoAnswer: autoAnswerQutel.rx.value.asDriver(),
                 autoPosistion: autopositiQutel.rx.value.asDriver()
             ),
@@ -86,7 +82,6 @@ class AccountKidsRulesuserController: UITableViewController {
             .drive(onNext:{_ in
             }).addDisposableTo(disposeBag)
         
-        viewModel.savePowerEnable.drive(savePowerQutel.rx.on).addDisposableTo(disposeBag)
         viewModel.autoAnswereEnable.drive(autoAnswerQutel.rx.on).addDisposableTo(disposeBag)
         viewModel.autoPosistionEnable.drive(autopositiQutel.rx.on).addDisposableTo(disposeBag)
         
@@ -140,8 +135,6 @@ class AccountKidsRulesuserController: UITableViewController {
             vc.autopositioningBool = autopositiQutel.isOn
             vc.autopositioningBtn = autopositiQutel
             vc.adminBool = isAdmin
-           vc.autoAnswer = autoAnswerQutel.isOn
-           vc.savePower = savePowerQutel.isOn
         }
         
         //apn
@@ -210,9 +203,6 @@ extension AccountKidsRulesuserController {
         autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
         autoansweIntroduceLabel.adjustsFontSizeToFitWidth = true
         autopositiorIntroduceLabel.adjustsFontSizeToFitWidth = true
-        savepowerLabel.text = R.string.localizable.id_save_power()
-        savepowerIntroduceLabel.text = R.string.localizable.id_save_power_describe()
-        savepowerIntroduceLabel.adjustsFontSizeToFitWidth = true
         usePermissiorLabel.text = R.string.localizable.id_use_permission()
         timeZoneLabel.text = R.string.localizable.id_time_zone()
         languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
@@ -324,21 +314,27 @@ extension AccountKidsRulesuserController {
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            if section == 1 {
-                return R.string.localizable.id_bandfunction_function()
-            }
-            if section == 2 {
-                return R.string.localizable.id_action_settings()
-            }
-            return nil
+        if section == 1 {
+            return R.string.localizable.id_bandfunction_function()
         }
+        if section == 2 {
+            return R.string.localizable.id_action_settings()
+        }
+        return nil
+    }
 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let heightAtAdmin =  [[55], [44, 44, 44, 44, 44], [95, 95, 0, 44, 44, 44, 44, 44, 44]]
-        let heightNotAdmin = [[55], [44, 44, 44, 44,  0], [0,  0,  0,  0,  0,  0,  0,  0, 44]]
-        let height = isAdmin ? heightAtAdmin : heightNotAdmin
-        return CGFloat(height[indexPath.section][indexPath.row])
+        if isAdmin == false {
+            if indexPath.row == 4 && indexPath.section == 1  {
+                return 0
+            }
+            if indexPath.row != 7 && indexPath.section == 2  {
+                return 0
+            }
+        }
+        
+        return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

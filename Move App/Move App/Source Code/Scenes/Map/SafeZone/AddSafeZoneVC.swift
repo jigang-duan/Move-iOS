@@ -15,12 +15,12 @@ import CustomViews
 
 class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
-    var editFenceDataSounrce : KidSate.ElectronicFencea?
+    var editFenceDataSounrce : KidSate.ElectronicFence?
     
     var fenceName : String? = ""
     var fencelocation : CLLocationCoordinate2D?
     var fenceActive: Bool?
-    var fences: [KidSate.ElectronicFencea] = []
+    var fences: [KidSate.ElectronicFence] = []
     var currentRadius :Double = 600
     var kidOverlay: MKCircle!
     var circleOverlay:MKCircle?

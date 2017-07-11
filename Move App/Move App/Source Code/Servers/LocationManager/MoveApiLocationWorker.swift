@@ -82,7 +82,7 @@ class MoveApiLocationWorker: MoveApiSafeZoneWorker, LocationWorkerProtocl {
 
 class MoveApiSafeZoneWorker: SafeZoneWorkerProtocl {
     
-    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]> {
+    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFence]> {
         return MoveApi.ElectronicFence.getFences(deviceId: deviceId).map({ transform(fences: $0.fences) })
     }
     
@@ -92,7 +92,7 @@ class MoveApiSafeZoneWorker: SafeZoneWorkerProtocl {
             .catchError(errorHandle)
     }
     
-    func updateSafeZone(deviceId: String,  fence: KidSate.ElectronicFencea) -> Observable<Bool> {
+    func updateSafeZone(deviceId: String,  fence: KidSate.ElectronicFence) -> Observable<Bool> {
         guard
             let fenceId = fence.ids,
             let lat = fence.location?.location?.latitude,
@@ -160,13 +160,13 @@ fileprivate extension MoveApi.Bts {
 }
 
 
-fileprivate func transform(fences: [MoveApi.FenceInfo]?) -> [KidSate.ElectronicFencea] {
+fileprivate func transform(fences: [MoveApi.FenceInfo]?) -> [KidSate.ElectronicFence] {
     return fences?.map(transforma) ?? []
 }
 
-fileprivate func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFencea {
-    let locatio = KidSate.locatio(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), address: fence.location?.addr)
-    return KidSate.ElectronicFencea(ids: fence.id, name: fence.name, radius: fence.radius, active: fence.active, location: locatio)
+fileprivate func transforma(fence: MoveApi.FenceInfo) -> KidSate.ElectronicFence {
+    let locatio = KidSate.Location(location: CLLocationCoordinate2D(latitude: fence.location?.lat ?? 0, longitude: fence.location?.lng ?? 0), address: fence.location?.addr)
+    return KidSate.ElectronicFence(ids: fence.id, name: fence.name, radius: fence.radius, active: fence.active, location: locatio)
 }
 
 fileprivate func transformLocationOfDevice(_ new: MoveApi.LocationOfDevice) -> KidSate.LocationInfo? {

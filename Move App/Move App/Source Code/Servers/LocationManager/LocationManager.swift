@@ -20,9 +20,9 @@ protocol LocationWorkerProtocl: SafeZoneWorkerProtocl {
 }
 
 protocol SafeZoneWorkerProtocl {
-    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFencea]>
+    func fetchSafeZone(deviceId: String) -> Observable<[KidSate.ElectronicFence]>
     func delectSafeZone(deviceId: String, fenceId: String) -> Observable<Bool>
-    func updateSafeZone(deviceId: String, fence: KidSate.ElectronicFencea) -> Observable<Bool>
+    func updateSafeZone(deviceId: String, fence: KidSate.ElectronicFence) -> Observable<Bool>
 }
 
 class LocationManager  {
@@ -56,7 +56,7 @@ class LocationManager  {
         return self.worker.getHistoryLocation(id: deviceId, start: start, end: end)
     }
     
-    func fetchSafeZone() -> Observable<[KidSate.ElectronicFencea]> {
+    func fetchSafeZone() -> Observable<[KidSate.ElectronicFence]> {
         guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable.empty()
         }
@@ -70,7 +70,7 @@ class LocationManager  {
         return self.worker.delectSafeZone(deviceId: deviceId, fenceId: fenceId)
     }
     
-    func updateSafeZone(_ fence: KidSate.ElectronicFencea) -> Observable<Bool> {
+    func updateSafeZone(_ fence: KidSate.ElectronicFence) -> Observable<Bool> {
         guard let deviceId = Me.shared.currDeviceID, deviceId.isNotEmpty else {
             return Observable<Bool>.empty()
         }

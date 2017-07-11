@@ -83,20 +83,20 @@ class KidSate {
         var type: LocationTypeSet?
     }
     
-    struct ElectronicFencea {
+    struct ElectronicFence {
         var ids: String?
         var name: String?
         var radius: Double?
         var active: Bool?
-        var location: locatio?
+        var location: Location?
     }
     
-    struct locatio {
+    struct Location {
         var location: CLLocationCoordinate2D?
         var address: String?
     }
     
-    var fences: [ElectronicFencea]?
+    var fences: [ElectronicFence]?
     
     
     struct SOSLbsModel {
