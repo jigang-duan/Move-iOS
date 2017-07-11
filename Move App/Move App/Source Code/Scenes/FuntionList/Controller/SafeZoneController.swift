@@ -138,6 +138,7 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.tableview.isHidden = false
+        self.introducelLabel.isHidden = (self.fences.count == 0)
         if self.fences.count == 0
         {
             self.tableview.isHidden = true
@@ -199,6 +200,11 @@ extension SafeZoneController: UITableViewDelegate,UITableViewDataSource{
             self.navigationController?.show(vc, sender: nil)
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
+    
     
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

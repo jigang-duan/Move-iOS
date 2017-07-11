@@ -19,7 +19,7 @@ class RemindersCell: UITableViewCell {
     
     var delegate: RemindersCellDelegate?
     
-    @IBOutlet weak var titleimage: UIImageView!
+   
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailtitleLabel: UILabel!
     @IBOutlet weak var accviewBtn: SwitchButton!
@@ -29,7 +29,6 @@ class RemindersCell: UITableViewCell {
         didSet  {
             titleLabel.text = DateUtility.dateTostringHHmm(date: model?["alarms"] as? Date)
             detailtitleLabel.text = timeToType(weeks: model?["dayFromWeek"] as! [Bool])
-            titleimage.image = R.image.reminder_school()
             accviewBtn.isHidden = false
             accviewBtn.isOn = model?["active"] as! Bool
         }

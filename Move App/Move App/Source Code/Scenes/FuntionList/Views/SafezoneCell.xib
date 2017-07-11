@@ -19,9 +19,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MO0-9J-2CG" customClass="SwitchButton" customModule="CustomViews">
-                        <rect key="frame" x="316" y="34" width="46" height="21"/>
+                        <rect key="frame" x="319" y="34" width="40" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="46" id="O0R-gf-WTM"/>
+                            <constraint firstAttribute="width" constant="40" id="O0R-gf-WTM"/>
                             <constraint firstAttribute="height" constant="21" id="ghh-Hh-SpW"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -31,13 +31,13 @@
                         </userDefinedRuntimeAttributes>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shenzhen nanshan school" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3J-pq-1OI">
-                        <rect key="frame" x="5" y="34" width="296" height="49.5"/>
+                        <rect key="frame" x="15" y="34" width="286" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEk-5I-bFy">
-                        <rect key="frame" x="5" y="5" width="54" height="24"/>
+                        <rect key="frame" x="15" y="5" width="54" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="fn5-EY-fN8"/>
                         </constraints>
@@ -57,12 +57,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="I3J-pq-1OI" secondAttribute="bottom" constant="5" id="DfK-AK-4dz"/>
-                    <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="JJY-rN-Xfz"/>
-                    <constraint firstItem="I3J-pq-1OI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="TX0-D6-ZQ3"/>
+                    <constraint firstItem="FEk-5I-bFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="JJY-rN-Xfz"/>
+                    <constraint firstItem="I3J-pq-1OI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="TX0-D6-ZQ3"/>
                     <constraint firstItem="I3J-pq-1OI" firstAttribute="top" secondItem="FEk-5I-bFy" secondAttribute="bottom" constant="5" id="ac7-VT-IQD"/>
                     <constraint firstItem="FEk-5I-bFy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bcl-Z8-7mK"/>
-                    <constraint firstAttribute="trailing" secondItem="MO0-9J-2CG" secondAttribute="trailing" constant="10" id="dZi-9r-9Ch"/>
-                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="I3J-pq-1OI" secondAttribute="trailing" constant="15" id="nCh-uo-9vM"/>
+                    <constraint firstAttribute="trailing" secondItem="MO0-9J-2CG" secondAttribute="trailing" constant="13" id="dZi-9r-9Ch"/>
+                    <constraint firstItem="MO0-9J-2CG" firstAttribute="leading" secondItem="I3J-pq-1OI" secondAttribute="trailing" constant="18" id="nCh-uo-9vM"/>
                     <constraint firstItem="3ke-pW-zbn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="o5N-Gx-dHq"/>
                     <constraint firstItem="MO0-9J-2CG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rwn-XC-K02"/>
                     <constraint firstAttribute="trailing" secondItem="3ke-pW-zbn" secondAttribute="trailing" id="xm7-fR-79n"/>

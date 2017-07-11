@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +18,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="326" height="72.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reminder_homework" translatesAutoresizingMaskIntoConstraints="NO" id="8Op-d4-iyg">
-                        <rect key="frame" x="15" y="24" width="24" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="Rpv-eK-V4J"/>
-                            <constraint firstAttribute="width" constant="24" id="gVy-qi-ogt"/>
-                        </constraints>
-                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5d-2Y-4QN" customClass="SwitchButton" customModule="CustomViews">
                         <rect key="frame" x="271" y="26" width="40" height="21"/>
                         <constraints>
@@ -38,7 +31,7 @@
                         </userDefinedRuntimeAttributes>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="school time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-mu-Ehg">
-                        <rect key="frame" x="49" y="37.5" width="75" height="17"/>
+                        <rect key="frame" x="15" y="41.5" width="75" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="A1D-Ay-60b"/>
                         </constraints>
@@ -47,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21J-Tq-zEC">
-                        <rect key="frame" x="49" y="17.5" width="52" height="24"/>
+                        <rect key="frame" x="15" y="14.5" width="52" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="3S2-el-oTN"/>
                         </constraints>
@@ -58,20 +51,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="DtD-mu-Ehg" firstAttribute="leading" secondItem="21J-Tq-zEC" secondAttribute="leading" id="GHh-E0-BoU"/>
-                    <constraint firstItem="21J-Tq-zEC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-6.75" id="IiE-q2-cSG"/>
-                    <constraint firstItem="8Op-d4-iyg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="IxE-U4-8Wb"/>
+                    <constraint firstItem="21J-Tq-zEC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-9.75" id="IiE-q2-cSG"/>
+                    <constraint firstItem="21J-Tq-zEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="OpI-KX-er0"/>
                     <constraint firstItem="K5d-2Y-4QN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="W40-6a-3Oo"/>
-                    <constraint firstItem="21J-Tq-zEC" firstAttribute="leading" secondItem="8Op-d4-iyg" secondAttribute="trailing" constant="10" id="YCm-Mj-AHX"/>
                     <constraint firstAttribute="trailing" secondItem="K5d-2Y-4QN" secondAttribute="trailing" constant="15" id="cGA-jg-PqW"/>
-                    <constraint firstItem="DtD-mu-Ehg" firstAttribute="top" secondItem="21J-Tq-zEC" secondAttribute="bottom" constant="-4" id="pXv-BV-Rvi"/>
-                    <constraint firstItem="8Op-d4-iyg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uku-RO-RHW"/>
+                    <constraint firstItem="DtD-mu-Ehg" firstAttribute="top" secondItem="21J-Tq-zEC" secondAttribute="bottom" constant="3" id="pXv-BV-Rvi"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="accviewBtn" destination="K5d-2Y-4QN" id="PMJ-aP-kui"/>
                 <outlet property="detailtitleLabel" destination="DtD-mu-Ehg" id="7M2-qB-PqS"/>
                 <outlet property="titleLabel" destination="21J-Tq-zEC" id="ApH-hh-HdQ"/>
-                <outlet property="titleimage" destination="8Op-d4-iyg" id="6uf-lk-c9G"/>
             </connections>
             <point key="canvasLocation" x="28" y="66.5"/>
         </tableViewCell>
@@ -79,6 +69,5 @@
     <resources>
         <image name="general_btn_off" width="40" height="21"/>
         <image name="general_btn_on" width="40" height="21"/>
-        <image name="reminder_homework" width="24" height="24"/>
     </resources>
 </document>

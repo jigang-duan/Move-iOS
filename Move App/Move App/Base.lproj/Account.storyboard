@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="avg-XR-5s9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="avg-XR-5s9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -699,7 +699,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITy-Xg-iVb" userLabel="emptyView">
-                                <rect key="frame" x="0.0" y="178" width="375" height="246"/>
+                                <rect key="frame" x="0.0" y="150.5" width="375" height="246"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="safe_zone_empty" translatesAutoresizingMaskIntoConstraints="NO" id="5V5-lp-qMD">
                                         <rect key="frame" x="92.5" y="28" width="190" height="190"/>
@@ -753,8 +753,8 @@
                         <constraints>
                             <constraint firstItem="EVX-hK-LrN" firstAttribute="leading" secondItem="mYP-Ls-Kiu" secondAttribute="leading" id="0Ao-98-N3a"/>
                             <constraint firstItem="SuR-OB-JQX" firstAttribute="leading" secondItem="mYP-Ls-Kiu" secondAttribute="leading" id="1Rk-8T-gg9"/>
-                            <constraint firstItem="ITy-Xg-iVb" firstAttribute="centerY" secondItem="mYP-Ls-Kiu" secondAttribute="centerY" id="3Ss-hJ-imn"/>
                             <constraint firstItem="NSO-lE-erc" firstAttribute="top" secondItem="EVX-hK-LrN" secondAttribute="bottom" id="8am-b5-qbK"/>
+                            <constraint firstItem="ITy-Xg-iVb" firstAttribute="centerY" secondItem="mYP-Ls-Kiu" secondAttribute="centerY" multiplier="0.99" constant="-25" id="Ftr-cF-ntZ"/>
                             <constraint firstItem="EVX-hK-LrN" firstAttribute="top" secondItem="SuR-OB-JQX" secondAttribute="bottom" id="Hg6-IC-zq9"/>
                             <constraint firstItem="ITy-Xg-iVb" firstAttribute="leading" secondItem="mYP-Ls-Kiu" secondAttribute="leading" id="Sxv-Ir-AUF"/>
                             <constraint firstItem="EVX-hK-LrN" firstAttribute="top" secondItem="ZX9-8n-lSH" secondAttribute="bottom" constant="50" id="fmg-ld-rNE"/>
@@ -785,7 +785,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFi-3Q-u8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="802" y="3204"/>
+            <point key="canvasLocation" x="800.79999999999995" y="3203.7481259370315"/>
         </scene>
         <!--Time zone-->
         <scene sceneID="0c5-9C-dYe">
@@ -1323,7 +1323,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3U-GZ-qUk" userLabel="emptyView">
-                                <rect key="frame" x="10" y="202" width="355" height="246"/>
+                                <rect key="frame" x="10" y="178.5" width="355" height="246"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reminder_empty" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-RL-szC">
                                         <rect key="frame" x="82.5" y="0.0" width="190" height="190"/>
@@ -1382,7 +1382,6 @@
                             <constraint firstItem="0Gs-xm-bSJ" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="8Db-PR-zP1"/>
                             <constraint firstAttribute="trailing" secondItem="f3U-GZ-qUk" secondAttribute="trailing" constant="10" id="KzK-Ml-YYk"/>
                             <constraint firstItem="e6v-Tn-N1g" firstAttribute="top" secondItem="0Gs-xm-bSJ" secondAttribute="bottom" id="S1t-8r-a3R"/>
-                            <constraint firstItem="f3U-GZ-qUk" firstAttribute="centerY" secondItem="jUE-lf-gSd" secondAttribute="centerY" constant="23.5" id="TVM-v1-Jac"/>
                             <constraint firstAttribute="trailing" secondItem="W4Q-sD-BuR" secondAttribute="trailing" id="YJP-VC-UZ1"/>
                             <constraint firstAttribute="trailing" secondItem="vTV-gS-blv" secondAttribute="trailing" id="YvA-gv-p9D"/>
                             <constraint firstItem="f3U-GZ-qUk" firstAttribute="centerX" secondItem="jUE-lf-gSd" secondAttribute="centerX" id="dMk-8w-c5b"/>
@@ -1391,6 +1390,7 @@
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="jZq-6O-1Td"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" id="kQF-oZ-xi3"/>
                             <constraint firstItem="vTV-gS-blv" firstAttribute="top" secondItem="Jt5-EY-98r" secondAttribute="bottom" id="r75-LV-E2w"/>
+                            <constraint firstItem="f3U-GZ-qUk" firstAttribute="centerY" secondItem="jUE-lf-gSd" secondAttribute="centerY" id="rqh-18-gdI"/>
                             <constraint firstItem="f3U-GZ-qUk" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" constant="10" id="xwO-4S-njr"/>
                         </constraints>
                     </view>

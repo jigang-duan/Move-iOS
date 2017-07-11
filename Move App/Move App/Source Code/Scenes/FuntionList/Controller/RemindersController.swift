@@ -146,7 +146,7 @@ class RemindersController: UIViewController {
     fileprivate func initView() {
         titleSegment.layer.cornerRadius = 6
         titleSegment.clipsToBounds = true
-        titleSegment.borderWidth = 2
+        titleSegment.borderWidth = 1
         titleSegment.borderColor = UIColor.white
         
         self.tableViw.delegate = self
@@ -199,7 +199,6 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
         {
                 _cell.titleLabel?.text = self.fifleremeder?[indexPath.row]["topic"] as? String
                 _cell.detailtitleLabel?.text = "\(DateUtility.dateTostringyyMMdd(date: (self.fifleremeder?[indexPath.row]["start"] as! Date)))\("--")\(DateUtility.dateTostringMMdd(date: (self.fifleremeder?[indexPath.row]["end"] as! Date)))"
-                _cell.titleimage?.image = UIImage.init(named: "reminder_homework")
                 _cell.accviewBtn.isHidden = true
 
         }
@@ -239,7 +238,10 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return R.string.localizable.id_str_remove_alarm_title()
     }
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
     
     //删除数据源数据
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
