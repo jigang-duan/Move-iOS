@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import RxSwift
 import RxCocoa
-import SVPulsingAnnotationView
 import Realm
 import RealmSwift
 import MessageUI
@@ -276,117 +275,6 @@ class MainMapController: UIViewController {
     }
 }
 
-extension MainMapController {
-    
-    fileprivate func showChat(index: Int = 0) {
-        if let chatController = R.storyboard.social.chat() {
-            chatController.selectedIndexVariable.value = index
-            self.navigationController?.show(chatController, sender: nil)
-        }
-    }
-    
-    func propelToTargetController() {
-        if let target = Distribution.shared.target {
-            switch target {
-            case .chatMessage(let index):
-                showChat(index: index)
-                Distribution.shared.target = nil
-            default: ()
-            }
-        }
-    }
-}
-
-extension MainMapController {
-    
-    fileprivate func showFeatureGudieView() {
-        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
-            return
-        }
-        let headItem = EAFeatureItem(focus: headPortraitOutlet,
-                                     focusCornerRadius: headPortraitOutlet.frame.width/2 ,
-                                     focus: .zero)
-        headItem?.actionTitle = R.string.localizable.id_first_entry_tips()
-        headItem?.introduce = R.string.localizable.id_layout_guide_location_chosedevice()
-        headItem?.action = { _ in
-            let navItem = EAFeatureItem(focus: self.addressScrollLabel,
-                                        focusCornerRadius: 6 ,
-                                        focus: .zero)
-            navItem?.actionTitle = R.string.localizable.id_first_entry_tips()
-            navItem?.introduce = R.string.localizable.id_layout_guide_location_navigate()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
-            }
-        }
-        self.view.show(with: [headItem!], saveKeyName: "mark:main_map:head", inVersion: version)
-        
-    }
-
-    fileprivate func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
-        let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
-        let title =  "Navigate to kid\'s location"
-        let sheetView = UIAlertController(title: title, message: nil, preferredStyle: preferredStyle)
-        
-        sheetView.addAction(UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil))
-        
-        if let name = locationInfo.address, let location = locationInfo.location {
-            sheetView.addAction(UIAlertAction(title: "Navigation", style: .default) { _ in
-                MapUtility.openPlacemark(name: name, location: location)
-            })
-        }
-        self.present(sheetView, animated: true, completion: nil)
-    }
-    
-    fileprivate func showAllKidsLocationController() {
-        self.performSegue(withIdentifier: R.segue.mainMapController.showAllKidsLocation, sender: nil)
-    }
-
-}
-
-extension MainMapController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotation = annotation as? AccuracyAnnotation {
-            let identifier = "mainMapAccuracyAnnotation"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? PulsingAnnotationView
-            if annotationView == nil {
-                annotationView = PulsingAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView?.radius = mapView.convertRect(radius: annotation.accuracy).width
-            }
-            annotationView?.canShowCallout = false
-            return annotationView
-        }
-        return nil
-    }
-    
-    func dotDot(online: Bool) {
-        self.mapView.mainAnnotationView?.dotColorDot = online ? defaultDotColor : .gray
-    }
-}
-
-
-extension MainMapController: MFMessageComposeViewControllerDelegate {
-    
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss(animated: true, completion: nil)
-        switch result{
-        case .sent :
-            Logger.debug("短信已发送")
-        case .cancelled:
-            Logger.debug("短信取消发送")
-        case .failed:
-            Logger.debug("短信发送失败")
-        }
-    }
-}
-
-extension Reactive where Base: ScrollLabelView {
-    var text: UIBindingObserver<Base, String> {
-        return UIBindingObserver(UIElement: self.base) { label, str in
-            label.text = str
-        }
-    }
-}
 
 fileprivate func transform(info: DeviceInfo, infos: [DeviceInfo]) -> [DeviceInfo] {
     var devices = infos
@@ -400,23 +288,6 @@ fileprivate func resultSelector(notices: [NoticeEntity], gids: [String]) throws 
     return notices.filter{  gids.contains($0.groupId ?? "") }
 }
 
-fileprivate extension DeviceInfo {
 
-    init(property: DeviceProperty, info: DeviceInfo) {
-        self.init()
-        self = info
-        self.property = property
-    }
-}
-
-extension URL {
-    init?(deviceInfo: DeviceInfo) {
-        guard let number = deviceInfo.user?.number else {
-            return nil
-        }
-        let phone = "telprompt://\(number)".replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "@", with: "")
-        self.init(string: phone)
-    }
-}
 
 

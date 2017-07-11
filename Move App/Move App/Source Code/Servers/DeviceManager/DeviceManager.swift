@@ -437,3 +437,21 @@ extension DeviceUser {
     }
 }
 
+extension DeviceInfo {
+    
+    init(property: DeviceProperty, info: DeviceInfo) {
+        self.init()
+        self = info
+        self.property = property
+    }
+}
+
+extension URL {
+    init?(deviceInfo: DeviceInfo) {
+        guard let number = deviceInfo.user?.number else {
+            return nil
+        }
+        let phone = "telprompt://\(number)".replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "@", with: "")
+        self.init(string: phone)
+    }
+}
