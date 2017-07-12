@@ -75,6 +75,7 @@ class FamilyMemberAddViewModel {
                         .trackActivity(activity)
                         .flatMap({ fid -> Observable<ValidationResult> in
                              deviceManager.addNoRegisterMember(deviceId: (deviceManager.currentDevice?.deviceId)!, phone: phone, profile: fid, identity: input.identity.value!)
+                                .trackActivity(activity)
                                 .map({_ in
                                     return ValidationResult.ok(message: "Send Success.")
                                 })
