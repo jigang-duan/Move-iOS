@@ -31,7 +31,7 @@ extension MoveApi {
         
         //        设备获取Access Token
         final class func getAccessToken(tokenReq: AccessTokenReq) -> Observable<UserInfo> {
-            return defaultProvider.request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self).catchingToken().pushToken()
+            return defaultProvider.request(.getAccessToken(tokenReq: tokenReq)).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        检查用户名，邮箱，手机号码是否已被使用
         final class func isRegistered(account: String) -> Observable<Registered> {
@@ -52,7 +52,7 @@ extension MoveApi {
         }
         //        刷新Access Token
         final class func refreshToken() -> Observable<UserInfo> {
-            return defaultProvider.request(.refreshToken).mapMoveObject(AccessToken.self).catchingToken().pushToken()
+            return defaultProvider.request(.refreshToken).mapMoveObject(AccessToken.self).catchingToken()
         }
         //        帐号注销
         final class func logout() -> Observable<ApiError> {

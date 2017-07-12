@@ -86,10 +86,6 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
     }
     
     if apiError.isTokenExpired {
-//        if MoveApi.canPopToLoginScreen {
-//            Distribution.shared.popToLoginScreen(true)
-//        }
-//        throw error
         UserInfo.shared.accessToken.refreshing = true
         return MoveApi.Account.refreshToken()
             .map { $0.accessToken.token }
@@ -102,7 +98,7 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
             }
             .flatMapLatest { (_) -> Observable<Response> in
                 UserInfo.shared.accessToken.refreshing = false
-                return Observable.error(NSError.tokenRefreshingError())
+                return Observable.error(NSError.tokenRefreshedError())
             }
     }
     
@@ -120,8 +116,6 @@ func catchTokenError(_ error: Swift.Error) throws -> Observable<Response> {
                     Observable.error(NSError.tokenForbiddenError())
                 }
         }
-        UserInfo.shared.invalidate()
-        UserInfo.shared.clean()
         if MoveApi.canPopToLoginScreen {
             Distribution.shared.popToLoginScreen(true)
         }

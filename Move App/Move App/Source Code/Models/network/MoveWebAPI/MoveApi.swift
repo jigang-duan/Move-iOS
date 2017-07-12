@@ -86,4 +86,9 @@ extension NSError {
         let userInfo = [NSLocalizedDescriptionKey: "Token刷新中..."]
         return NSError(domain: "com.tclcom.moveApiError", code: 1888, userInfo: userInfo)
     }
+    
+    static func tokenRefreshedError() -> NSError {
+        let userInfo = [NSLocalizedDescriptionKey: "Token刷新了！"]
+        return NSError(domain: "com.tclcom.moveApiError", code: 1887, userInfo: userInfo)
+    }
 }
