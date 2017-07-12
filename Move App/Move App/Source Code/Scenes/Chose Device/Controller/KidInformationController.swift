@@ -39,6 +39,7 @@ class KidInformationController: UIViewController {
     //for 4/4s适配
     @IBOutlet weak var cameraTopCons: NSLayoutConstraint!
     @IBOutlet weak var nextBunTopCons: NSLayoutConstraint!
+    @IBOutlet weak var genderWidth: NSLayoutConstraint!
     
     var isForSetting = false
     var isMaster = false//设置资料时，是否为管理员
@@ -82,6 +83,10 @@ class KidInformationController: UIViewController {
             nextBunTopCons.constant = 10
         }
         
+        if UIScreen.main.bounds.width < 350 {
+            genderWidth.constant = 40
+        }
+        
         if isForSetting == true {
             nextBun.setTitle(R.string.localizable.id_save(), for: .normal)
         }else{
@@ -104,14 +109,9 @@ class KidInformationController: UIViewController {
             nextBun.isHidden = true
         }
         
-        var info = addInfoVariable.value
+        let info = addInfoVariable.value
         
-        if info.nickName == nil || info.nickName == "" {
-            info.nickName = "baby"
-            nameTf.text = "baby"
-        }else{
-            nameTf.text = info.nickName
-        }
+        nameTf.text = info.nickName
         
         let numberArr = info.number?.components(separatedBy: "@")
         if let arr = numberArr, arr.count > 1 {

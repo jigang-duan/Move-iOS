@@ -124,6 +124,7 @@ class FamilyMemberDetailViewModel {
                         .flatMapLatest({ fid -> Observable<ValidationResult> in
                             info.profile = fid
                             return deviceManager.settingContactInfo(contactInfo: info)
+                                .trackActivity(activity)
                                 .map({ _ in
                                     return ValidationResult.ok(message: "Set Success.")
                                 })
