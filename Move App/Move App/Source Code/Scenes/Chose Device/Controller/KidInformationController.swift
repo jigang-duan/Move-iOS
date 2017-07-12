@@ -166,7 +166,7 @@ class KidInformationController: UIViewController {
         var length = 0
         for char in text.characters {
             // 判断是否中文，是中文+2 ，不是+1
-            length += "\(char)".lengthOfBytes(using: .utf8) == 3 ? 2 : 1
+            length += "\(char)".lengthOfBytes(using: .utf8) >= 3 ? 2 : 1
         }
         
         if length > 11 {

@@ -45,6 +45,8 @@ class AccountAndChoseDeviceController: UIViewController {
 
         self.initializeI18N()
         
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        
         let viewModel = AccountAndChoseDeviceViewModel(
             input: (
                 enter: enterSubject.asDriver(onErrorJustReturn: false),

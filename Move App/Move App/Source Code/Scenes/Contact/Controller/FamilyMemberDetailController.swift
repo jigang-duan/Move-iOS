@@ -45,7 +45,6 @@ class FamilyMemberDetailController: UIViewController {
     
     private var photoVariable:Variable<UIImage?> = Variable(nil)
     private var identityVariable:Variable<Relation?> = Variable(nil)
-    private var numberVariable:Variable<String?> = Variable(nil)
     
     var info: ContactDetailInfo?
     
@@ -97,12 +96,6 @@ class FamilyMemberDetailController: UIViewController {
         
         contactInfo.value = (info?.contactInfo)!
         
-        numberTf.rx.text.orEmpty
-            .bindNext({ [weak self] _ in
-                self?.updateNumberVariable()
-            })
-            .addDisposableTo(disposeBag)
-        
         
         let masterTap = Variable(false)
         masterBun.rx.tap.asObservable()
@@ -132,12 +125,18 @@ class FamilyMemberDetailController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
+        let phonePrefix = self.phonePreLab.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
+        
+        let numberText = numberTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
+        let numberDriver = numberTf.rx.text.orEmpty.asDriver()
+        let comNumber = Driver.of(numberText,numberDriver).merge()
         
         let viewModel = FamilyMemberDetailViewModel(input:
             (
              photo: photoVariable,
              name: identityVariable,
-             number: numberVariable,
+             phonePrefix: phonePrefix,
+             number: comNumber,
              masterTaps: masterTap.asDriver(),
              deleteTaps: deleteTap.asDriver(),
              saveTaps: saveBun.rx.tap.asDriver()
@@ -258,19 +257,6 @@ class FamilyMemberDetailController: UIViewController {
             numberTf.text = info?.contactInfo?.phone
         }
         
-        self.updateNumberVariable()
-    }
-    
-    func updateNumberVariable() {
-        if let number = numberTf.text, number.characters.count > 0 {
-            if let pre = self.phonePreLab.text, pre != "-", pre.characters.count > 0 {
-                self.numberVariable.value = "\(pre)@\(number)"
-            }else{
-                self.numberVariable.value = number
-            }
-        }else{
-            self.numberVariable.value = ""
-        }
     }
     
     
@@ -325,7 +311,6 @@ class FamilyMemberDetailController: UIViewController {
                     }
                 }
                 self.numberTf.text = str
-                self.numberVariable.value = str
             }
         }
     }
@@ -336,7 +321,6 @@ class FamilyMemberDetailController: UIViewController {
         vc.selectBlock = { [weak self] model in
             self?.countryCodeBun.setTitle(model.abbr, for: .normal)
             self?.phonePreLab.text = model.code
-            self?.updateNumberVariable()
         }
         self.navigationController?.show(vc, sender: nil)
     }

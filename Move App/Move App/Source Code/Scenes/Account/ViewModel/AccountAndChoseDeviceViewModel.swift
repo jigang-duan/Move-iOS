@@ -40,7 +40,7 @@ class AccountAndChoseDeviceViewModel {
             if let name = profile.nickname, name.characters.count > 0 {
                 return name
             }
-            if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
+            if let email = profile.email {
                 return email
             }
             return ""

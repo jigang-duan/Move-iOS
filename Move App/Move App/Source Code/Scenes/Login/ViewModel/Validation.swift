@@ -78,7 +78,6 @@ class DefaultValidation {
     static let shared = DefaultValidation()
     // validation
     
-    let minPhoneCount = 3
     let minPasswordCount = 8
     let maxPasswordCount = 16
     
@@ -102,7 +101,7 @@ class DefaultValidation {
         }
         
         if numberOfCharacters < 3 {
-            return .failed(message: "Phone must be at least 3 characters")
+            return .failed(message: "the phone number can't less than 3")
         }
         
         let setString = "0123456789"
@@ -122,8 +121,8 @@ class DefaultValidation {
             return .empty
         }
         
-        if numberOfCharacters < minPhoneCount {
-            return .failed(message: "Phone must be at least \(minPhoneCount) characters")
+        if numberOfCharacters < 3 {
+            return .failed(message: "the phone number can't less than 3")
         }
         
         let setString = "0123456789,"

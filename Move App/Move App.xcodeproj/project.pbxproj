@@ -75,7 +75,6 @@
 		116B90941F14B13500336E3B /* ScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B90921F14B13500336E3B /* ScrollLabelView.m */; };
 		116B90951F14B13500336E3B /* ScrollLabelView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90931F14B13500336E3B /* ScrollLabelView+Rx.swift */; };
 		116B90991F14B3B000336E3B /* HeadPortraitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90961F14B3B000336E3B /* HeadPortraitAnnotationView.swift */; };
-		116B909A1F14B3B000336E3B /* SafeZoneTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90971F14B3B000336E3B /* SafeZoneTabViewCell.swift */; };
 		116B909F1F14B3D100336E3B /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B909C1F14B3D100336E3B /* AddSafeZoneVC.swift */; };
 		116B90A01F14B3D100336E3B /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B909D1F14B3D100336E3B /* SafeZoneAddressSearchVC.swift */; };
 		116B90A11F14B3D100336E3B /* SafeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B909E1F14B3D100336E3B /* SafeZoneViewModel.swift */; };
@@ -318,7 +317,6 @@
 		FF517A2A1EA498C80014E53F /* countryphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF517A291EA498C80014E53F /* countryphone.plist */; };
 		FF836FD71F0B62890025C60B /* HelpForPairVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF836FD61F0B62890025C60B /* HelpForPairVC.swift */; };
 		FF83B0711ECA956400E39C74 /* countryCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF83B0701ECA956400E39C74 /* countryCode.plist */; };
-		FF8D52451F14DC20004AED41 /* SafeZoneTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116B90981F14B3B000336E3B /* SafeZoneTabViewCell.xib */; };
 		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
 		FFA4291F1E6E955E00CC70F0 /* FamilyMemberDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */; };
 		FFA429211E6E956B00CC70F0 /* FamilyMemberAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */; };
@@ -449,8 +447,6 @@
 		116B90921F14B13500336E3B /* ScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollLabelView.m; path = "Move App/Vendor/ScrollLabelView/ScrollLabelView.m"; sourceTree = SOURCE_ROOT; };
 		116B90931F14B13500336E3B /* ScrollLabelView+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ScrollLabelView+Rx.swift"; path = "Move App/Vendor/ScrollLabelView/ScrollLabelView+Rx.swift"; sourceTree = SOURCE_ROOT; };
 		116B90961F14B3B000336E3B /* HeadPortraitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeadPortraitAnnotationView.swift; path = "Move App/Source Code/Scenes/Map/SafeZone/MapCusCell/HeadPortraitAnnotationView.swift"; sourceTree = SOURCE_ROOT; };
-		116B90971F14B3B000336E3B /* SafeZoneTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneTabViewCell.swift; path = "Move App/Source Code/Scenes/Map/SafeZone/MapCusCell/SafeZoneTabViewCell.swift"; sourceTree = SOURCE_ROOT; };
-		116B90981F14B3B000336E3B /* SafeZoneTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SafeZoneTabViewCell.xib; path = "Move App/Source Code/Scenes/Map/SafeZone/MapCusCell/SafeZoneTabViewCell.xib"; sourceTree = SOURCE_ROOT; };
 		116B909C1F14B3D100336E3B /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSafeZoneVC.swift; path = Map/SafeZone/AddSafeZoneVC.swift; sourceTree = "<group>"; };
 		116B909D1F14B3D100336E3B /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneAddressSearchVC.swift; path = Map/SafeZone/SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
 		116B909E1F14B3D100336E3B /* SafeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneViewModel.swift; path = Map/SafeZone/SafeZoneViewModel.swift; sourceTree = "<group>"; };
@@ -2220,8 +2216,6 @@
 			isa = PBXGroup;
 			children = (
 				116B90961F14B3B000336E3B /* HeadPortraitAnnotationView.swift */,
-				116B90971F14B3B000336E3B /* SafeZoneTabViewCell.swift */,
-				116B90981F14B3B000336E3B /* SafeZoneTabViewCell.xib */,
 			);
 			name = MapCusCell;
 			path = Tabs/Maps/MainMap/ViewModel/MapCusCell;
@@ -2495,7 +2489,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF8D52451F14DC20004AED41 /* SafeZoneTabViewCell.xib in Resources */,
 				115F73061ED824D700BAAF3D /* dizzy.gif in Resources */,
 				115F730C1ED824D700BAAF3D /* smile.gif in Resources */,
 				115F73051ED824D700BAAF3D /* cry.gif in Resources */,
@@ -2925,7 +2918,6 @@
 				115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
-				116B909A1F14B3B000336E3B /* SafeZoneTabViewCell.swift in Sources */,
 				116B90991F14B3B000336E3B /* HeadPortraitAnnotationView.swift in Sources */,
 				E9DD2A961EA8B13B0057784F /* schoolTimeHelp.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,

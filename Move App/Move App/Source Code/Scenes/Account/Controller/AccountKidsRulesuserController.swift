@@ -23,8 +23,9 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var schoolTimeLabel: UILabel!
     @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var regularShutdownLabel: UILabel!
-    @IBOutlet weak var autoposiitiorLabel: UILabel!
-    @IBOutlet weak var autopositiorIntroduceLabel: UILabel!
+    
+    @IBOutlet weak var autoPositionLab: UILabel!
+    @IBOutlet weak var autoPositionIntroduceLab: UILabel!
     @IBOutlet weak var autoanswerLabel: UILabel!
     @IBOutlet weak var autoansweIntroduceLabel: UILabel!
     @IBOutlet weak var usePermissiorLabel: UILabel!
@@ -39,8 +40,8 @@ class AccountKidsRulesuserController: UITableViewController {
     @IBOutlet weak var headQutlet: UIImageView!
     @IBOutlet weak var accountNameQutlet: UILabel!
     
-    @IBOutlet weak var autopositiQutel: SwitchButton!
-    @IBOutlet weak var autoAnswerQutel: SwitchButton!
+    @IBOutlet weak var autoPositionSwitch: SwitchButton!
+    @IBOutlet weak var autoAnswerSwitch: SwitchButton!
     
     @IBOutlet weak var unpairCell: UITableViewCell!
     
@@ -68,8 +69,8 @@ class AccountKidsRulesuserController: UITableViewController {
         
         let viewModel = AccountKidsRulesuserViewModel(
             input: (
-                autoAnswer: autoAnswerQutel.rx.value.asDriver(),
-                autoPosistion: autopositiQutel.rx.value.asDriver()
+                autoAnswer: autoAnswerSwitch.rx.value.asDriver(),
+                autoPosistion: autoPositionSwitch.rx.value.asDriver()
             ),
             dependency: (
                 settingsManager: WatchSettingsManager.share,
@@ -82,8 +83,8 @@ class AccountKidsRulesuserController: UITableViewController {
             .drive(onNext:{_ in
             }).addDisposableTo(disposeBag)
         
-        viewModel.autoAnswereEnable.drive(autoAnswerQutel.rx.on).addDisposableTo(disposeBag)
-        viewModel.autoPosistionEnable.drive(autopositiQutel.rx.on).addDisposableTo(disposeBag)
+        viewModel.autoAnswereEnable.drive(autoAnswerSwitch.rx.on).addDisposableTo(disposeBag)
+        viewModel.autoPosistionEnable.drive(autoPositionSwitch.rx.on).addDisposableTo(disposeBag)
         
         viewModel.activityIn
             .map({ !$0 })
@@ -132,9 +133,12 @@ class AccountKidsRulesuserController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //safe zone
         if let vc = R.segue.accountKidsRulesuserController.showSafezone(segue: segue)?.destination {
-            vc.autopositioningBool = autopositiQutel.isOn
-            vc.autopositioningBtn = autopositiQutel
+            vc.autopositioningBool = autoPositionSwitch.isOn
+            vc.autopositioningBtn = autoPositionSwitch
             vc.adminBool = isAdmin
+            vc.autoPositionBlock = {flag in
+                self.autoPositionSwitch.isOn = flag
+            }
         }
         
         //apn
@@ -199,10 +203,12 @@ extension AccountKidsRulesuserController {
         regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
         //缺daily tracking mode
         //缺daily tracking mode描述
+//        autoPositionLab.text = ""
+//        autoPositionIntroduceLab.text = ""
+        
         autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
         autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()
-        autoansweIntroduceLabel.adjustsFontSizeToFitWidth = true
-        autopositiorIntroduceLabel.adjustsFontSizeToFitWidth = true
+    
         usePermissiorLabel.text = R.string.localizable.id_use_permission()
         timeZoneLabel.text = R.string.localizable.id_time_zone()
         languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
@@ -331,6 +337,18 @@ extension AccountKidsRulesuserController {
             }
             if indexPath.row != 7 && indexPath.section == 2  {
                 return 0
+            }
+        }else{
+            let screenW = UIScreen.main.bounds.size.width
+            if indexPath.row == 0 && indexPath.section == 2  {
+                let str = autoPositionIntroduceLab.text!
+                let h = str.boundingRect(with: CGSize(width: screenW - 30 - 21 - 60 , height: 999), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 12)], context: nil).size.height
+                return h + 54
+            }
+            if indexPath.row == 1 && indexPath.section == 2  {
+                let str = autoansweIntroduceLabel.text!
+                let h = str.boundingRect(with: CGSize(width: screenW - 30 - 21 - 60 , height: 999), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 12)], context: nil).size.height
+                return h + 54
             }
         }
         

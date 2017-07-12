@@ -16,6 +16,8 @@ class SafeZoneController: UIViewController {
     
     //internationalization
     
+    var autoPositionBlock: ((Bool) -> ())?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var introducelLabel: UILabel!
     
@@ -66,26 +68,28 @@ class SafeZoneController: UIViewController {
             if autopositioningBool == false {
                 let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
                 
-                let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default, handler: { (UIAlertAction) in
-                    
+                let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default) { _ in
                     self.showAddSafezoneVC()
-                })
-                
-                let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default, handler: { (UIAlertAction) in
+                }
+                let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default) { _ in
                     WatchSettingsManager.share.updateAutoPosition(true)
                         .subscribe({ (bool : Event<Bool>) in
                             
                         })
                         .addDisposableTo(self.disposeBag)
                     
+                    if self.autoPositionBlock != nil {
+                        self.autoPositionBlock!(true)
+                    }
+                    
                     self.autopositioningBtn?.isOn = true
                     self.autopositioningBool = true
 
                     self.showAddSafezoneVC()
-                })
+                }
                 alertController.addAction(notOpen)
                 alertController.addAction(open)
-                self.present(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true)
             }else{
                 self.showAddSafezoneVC()
             }
@@ -108,6 +112,7 @@ class SafeZoneController: UIViewController {
             self.navigationItem.rightBarButtonItem = nil
         }
     }
+    
     
 }
 
@@ -149,24 +154,25 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
             bun.closureSwitch = { [unowned self] isOn in
                 if isOn{
                     if self.autopositioningBool == false {
-                        let alertController = UIAlertController(title: "Turn on auto-positioning?", message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+                        let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
                         
-                        let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil)
+                        let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                         
-                        let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default, handler: { (UIAlertAction) in
+                        let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default) { _ in
                             //发起请求打开open auto-positioning按钮
                             WatchSettingsManager.share.updateAutoPosition(true)
                                 .subscribe(onNext: { (flag) in
                                 
                                 })
                                 .addDisposableTo(self.disposeBag)
-                            
-                        })
+                            if self.autoPositionBlock != nil {
+                                self.autoPositionBlock!(true)
+                            }
+                        }
                         alertController.addAction(notOpen)
                         alertController.addAction(open)
                         
-                        self.present(alertController, animated: true, completion: nil)
-                       
+                        self.present(alertController, animated: true)
                     }
                 }
                 

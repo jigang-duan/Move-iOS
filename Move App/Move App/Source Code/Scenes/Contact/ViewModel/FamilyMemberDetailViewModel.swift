@@ -30,7 +30,8 @@ class FamilyMemberDetailViewModel {
         input:(
         photo: Variable<UIImage?>,
         name: Variable<Relation?>,
-        number: Variable<String?>,
+        phonePrefix: Driver<String>,
+        number: Driver<String>,
         masterTaps: Driver<Bool>,
         deleteTaps: Driver<Bool>,
         saveTaps: Driver<Void>
@@ -51,15 +52,11 @@ class FamilyMemberDetailViewModel {
         sending = activity.asDriver()
         
         let numberInvalidate = input.number.asDriver().map({number -> ValidationResult in
-            if let num = number {
-                return validate.validatePhone(num)
-            }else{
-                return ValidationResult.empty
-            }
+            return validate.validatePhone(number)
         })
         
         let identityInvalidte = input.name.asDriver().map({$0 != nil})
-        let numberNotEmpty = input.number.asDriver().map({$0 != nil && $0 != ""})
+        let numberNotEmpty = input.number.map({$0 != ""})
         
         
         saveEnabled = Driver.combineLatest(identityInvalidte, numberNotEmpty, sending){$0 && $1 && !$2}
@@ -103,16 +100,23 @@ class FamilyMemberDetailViewModel {
                 }).asDriver(onErrorRecover: commonErrorRecover)
             })
         
+        let comNumber = Driver.combineLatest(numberInvalidate, input.phonePrefix, input.number){($0, $1, $2)}
+        
         saveResult = input.saveTaps
-            .withLatestFrom(numberInvalidate)
-            .flatMapLatest({ res in
+            .withLatestFrom(comNumber)
+            .flatMapLatest({ res, prefix, number in
                 if res.isValid == false {
                     return Driver.just(res)
                 }
                 
                 var info = (self.contactInfo?.value)!
                 info.identity = input.name.value
-                info.phone = input.number.value
+                if prefix == "" || prefix == "-" {
+                    info.phone = number
+                }else{
+                    info.phone = "\(prefix)@\(number)"
+                }
+
                 
                 if let photo = input.photo.value {
                     return FSManager.shared.uploadPngImage(with: photo).map{$0.fid}.filterNil().takeLast(1)

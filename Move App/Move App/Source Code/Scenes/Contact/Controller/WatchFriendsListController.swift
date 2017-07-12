@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import DZNEmptyDataSet
 
 
 class WatchFriendsListController: UITableViewController {
@@ -34,6 +35,7 @@ class WatchFriendsListController: UITableViewController {
         
         tableView.delegate = nil
         tableView.dataSource = nil
+        tableView.emptyDataSetSource = self
 
         tableView.rx
             .setDelegate(self)
@@ -87,3 +89,21 @@ class WatchFriendsListController: UITableViewController {
 
     
 }
+
+
+extension WatchFriendsListController: DZNEmptyDataSetSource {
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return R.image.watch_friends_empty()!
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No friend now, use watch to add friends"
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
+                          NSForegroundColorAttributeName: UIColor.lightGray]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+}
+
+

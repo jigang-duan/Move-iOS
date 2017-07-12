@@ -37,7 +37,6 @@ class FamilyMemberAddController: UIViewController {
     
     private var photoVariable:Variable<UIImage?> = Variable(nil)
     private var identityVariable:Variable<Relation?> = Variable(nil)
-    private var numberVariable:Variable<String?> = Variable(nil)
     
     
     private var contactInfo: ImContact?
@@ -67,18 +66,18 @@ class FamilyMemberAddController: UIViewController {
         countryCodeBun.setTitle("-", for: .normal)
         phonePreLab.text = "-"
         
+        let prefix = self.phonePreLab.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
         
-        numberTf.rx.text.orEmpty
-            .bindNext({ [weak self] _ in
-                self?.updateNumberVariable()
-            })
-            .addDisposableTo(disposeBag)
+        let numberText = numberTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
+        let numberDriver = numberTf.rx.text.orEmpty.asDriver()
+        let comNumber = Driver.of(numberText,numberDriver).merge()
         
         let viewModel = FamilyMemberAddViewModel(
             input:(
                 photo: photoVariable,
                 identity: identityVariable,
-                number: numberVariable,
+                prefix: prefix,
+                number: comNumber,
                 saveTaps: saveBun.rx.tap.asDriver()
             ),
             dependency: (
@@ -108,18 +107,6 @@ class FamilyMemberAddController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-    }
-    
-    func updateNumberVariable() {
-        if let number = numberTf.text, number.characters.count > 0 {
-            if let pre = self.phonePreLab.text, pre != "-", pre.characters.count > 0 {
-                self.numberVariable.value = "\(pre)@\(number)"
-            }else{
-                self.numberVariable.value = number
-            }
-        }else{
-            self.numberVariable.value = ""
-        }
     }
     
     
@@ -175,7 +162,6 @@ class FamilyMemberAddController: UIViewController {
                     }
                 }
                 self.numberTf.text = str
-                self.numberVariable.value = str
             }
         }
     }
@@ -186,7 +172,6 @@ class FamilyMemberAddController: UIViewController {
         vc.selectBlock = { [weak self] model in
             self?.countryCodeBun.setTitle(model.abbr, for: .normal)
             self?.phonePreLab.text = model.code
-            self?.updateNumberVariable()
         }
         self.navigationController?.show(vc, sender: nil)
     }
