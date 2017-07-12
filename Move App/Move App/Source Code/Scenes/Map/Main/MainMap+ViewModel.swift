@@ -50,9 +50,11 @@ class MainMapViewModel {
     
     let autoPosistion: Driver<Bool>
     
+    // }
+    
     init(
         input: (
-            enter: Driver<Bool>,
+            enter: Driver<Void>,
             avatarTap: Driver<Void>,
             offTrackingModeTap: Driver<Void>,
             avatarView: UIView,
@@ -87,7 +89,7 @@ class MainMapViewModel {
                                              currentDeviceId.filterNil()) { (devices, id) in devices.filter({$0.deviceId == id}).first }
             .filterNil()
         
-        let enter = input.enter.filter {$0}.map{ _ in Void() }
+        let enter = input.enter
         
         fetchDevices = enter
             .flatMapLatest {
@@ -104,12 +106,21 @@ class MainMapViewModel {
             .filterTrue()
             .shareReplay(1)
         
+
+        let onlineObservable = Observable.merge(period, currentDeviceIdObservable.mapVoid())
+            .delay(1.0, scheduler: MainScheduler.instance)
+            .flatMapLatest { deviceManager.online.trackActivity(activitying).catchErrorEmpty() }
+        online = onlineObservable.asDriver(onErrorJustReturn: false)
+        
         let remindActivitying = BehaviorSubject<Bool>(value: false)
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
         
         let errorSubject = PublishSubject<Error>()
         
+        // 通知： 后台进入APP
         let enterForeground = NotificationCenter.default.rx.notification(.UIApplicationWillEnterForeground)
+            .withLatestFrom(online.asObservable()) { $1 ? $0 : nil }
+            .filterNil()
             .withLatestFrom(remindActivitying.asObservable())
             .filter { !$0 }
             .mapVoid()
@@ -135,7 +146,7 @@ class MainMapViewModel {
         let remindTimeOut = remindSuccess.flatMapLatest{ _ in
                 Observable.just(())
                     .delay(60.0, scheduler: MainScheduler.instance)
-                    .withLatestFrom(remindActivitying.asObserver())
+                    .withLatestFrom(remindActivitying.asObservable())
                     .filter { $0 }
                     .map{ _ in WorkerError.LocationTimeout as Error }
                     .do(onNext: { _ in remindActivitying.onNext(false) })
@@ -146,12 +157,11 @@ class MainMapViewModel {
             .filterNil()
         
         let currentLocation = Observable.merge(period,
-                                               currentDeviceIdObservable.map{_ in ()})
+                                               currentDeviceIdObservable.mapVoid())
             .flatMapLatest {
                 locationManager.currentLocation
                     .trackActivity(activitying)
                     .catchErrorEmpty()
-//                    .catchErrorJustReturn(KidSate.LocationInfo())
             }
             .shareReplay(1)
         
@@ -162,7 +172,6 @@ class MainMapViewModel {
                 deviceManager.getProperty(deviceId: $0)
                     .trackActivity(activitying)
                     .catchErrorEmpty()
-//                    .catchErrorJustReturn(DeviceProperty())
             }
             .shareReplay(1)
         
@@ -220,16 +229,8 @@ class MainMapViewModel {
                 deviceManager.power
                     .trackActivity(activitying)
                     .catchErrorEmpty()
-//                    .catchErrorJustReturn(0)
             }
         
-        online = period.delay(5.0, scheduler: MainScheduler.instance).asDriver(onErrorJustReturn: ())
-            .flatMapLatest {
-                deviceManager.online
-                    .trackActivity(activitying)
-                    .catchErrorEmpty()
-                    .asDriver(onErrorJustReturn: false)
-            }
         
         let fetchAutoPosistion = Driver.merge(currentDevice.distinctUntilChanged{ $0.deviceId == $1.deviceId },
                                               enter.withLatestFrom(currentDevice))

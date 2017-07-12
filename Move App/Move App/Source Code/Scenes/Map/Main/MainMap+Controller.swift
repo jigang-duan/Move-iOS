@@ -46,10 +46,11 @@ class MainMapController: UIViewController {
     
     @IBOutlet weak var trackingModeOutlet: UIView!
     @IBOutlet weak var offTrackingModeOutlet: UIButton!
+    @IBOutlet weak var offlineModeOutlet: UIView!
     
     @IBOutlet var tapAddressOutlet: UITapGestureRecognizer!
     
-    let enterSubject = BehaviorSubject<Bool>(value: false)
+    let enterSubject = PublishSubject<Void>()
     
     var isAtThisPage = Variable(false)
     
@@ -57,7 +58,7 @@ class MainMapController: UIViewController {
         super.viewWillAppear(animated)
         
         self.isAtThisPage.value = true
-        enterSubject.onNext(true)
+        enterSubject.onNext(())
 
     }
     
@@ -74,7 +75,6 @@ class MainMapController: UIViewController {
         super.viewWillDisappear(animated)
         self.isAtThisPage.value = false
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +97,7 @@ class MainMapController: UIViewController {
         
         let viewModel = MainMapViewModel(
             input: (
-                enter: enterSubject.asDriver(onErrorJustReturn: false),
+                enter: enterSubject.asDriver(onErrorJustReturn: ()),
                 avatarTap: headPortraitOutlet.rx.tap.asDriver(),
                 offTrackingModeTap: offTrackingModeOutlet.rx.tap.asDriver(),
                 avatarView: headPortraitOutlet,
@@ -113,14 +113,10 @@ class MainMapController: UIViewController {
             )
         )
         
-        viewModel.allAction
-            .bindNext({ [weak self] devices in
-                self?.showAllKidsLocationController()
-            })
-            .addDisposableTo(disposeBag)
+        viewModel.allAction.mapVoid().bindTo(rx.segueAllKids).addDisposableTo(disposeBag)
         
         viewModel.singleAction
-            .map({ $0.deviceId })
+            .map{ $0.deviceId }
             .filterNil()
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
@@ -135,16 +131,12 @@ class MainMapController: UIViewController {
         
         callOutlet.rx.tap.asDriver()
             .withLatestFrom(viewModel.currentDevice)
-            .map({ URL(deviceInfo: $0) })
+            .map{ URL(deviceInfo: $0) }
             .filterNil()
             .drive(onNext: { wireframe.open(url: $0) })
             .addDisposableTo(disposeBag)
         
-        messageOutlet.rx.tap
-            .bindNext { [unowned self] in
-               self.showChat()
-            }
-            .addDisposableTo(disposeBag)
+        messageOutlet.rx.tap.asObservable().bindTo(rx.segueChat).addDisposableTo(disposeBag)
         
         let name = viewModel.currentDevice.map { $0.user?.nickname }.filterNil()
         name.drive(nameOutle.rx.text).addDisposableTo(disposeBag)
@@ -163,13 +155,12 @@ class MainMapController: UIViewController {
             .drive(headPortraitOutlet.rx.initialsAvatar)
             .addDisposableTo(disposeBag)
         
-        let online = Driver.merge(viewModel.currentDevice.map{ $0.user?.online }.filterNil(), viewModel.online)
-        online.map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }
+        viewModel.online.map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }
             .drive(statesOutlet.rx.image)
             .addDisposableTo(disposeBag)
         
-        online.map{ !$0 }.drive(voltameterOutlet.rx.isHidden).addDisposableTo(disposeBag)
-        online.map{ !$0 }.drive(voltameterImageOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.online.map{ !$0 }.drive(voltameterOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.online.map{ !$0 }.drive(voltameterImageOutlet.rx.isHidden).addDisposableTo(disposeBag)
         
         let power = Driver.merge(
             viewModel.currentDevice.map{ $0.property?.power }.filterNil(),
@@ -217,14 +208,14 @@ class MainMapController: UIViewController {
             .bindTo(mapView.rx.soleAccuracyAnnotation)
             .addDisposableTo(disposeBag)
         
-        mapView.rx.regionDidChangeAnimated.asObservable()
-            .map{ _ in () }
+        mapView.rx.regionDidChangeAnimated.asObservable().mapVoid()
             .bindTo(mapView.rx.redrawRadius)
             .addDisposableTo(disposeBag)
         
         viewModel.remindActivityIn.drive(remindActivityOutlet.rx.isAnimating).addDisposableTo(disposeBag)
         viewModel.remindActivityIn.map{ !$0 }.drive(remindActivityOutlet.rx.isHidden).addDisposableTo(disposeBag)
         viewModel.remindActivityIn.drive(remindLocationOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.online.drive(remindLocationOutlet.rx.isEnabled).addDisposableTo(disposeBag)
         
         viewModel.errorObservable
             .map { WorkerError.timeoutAndApiErrorTransform(from: $0) }
@@ -234,9 +225,7 @@ class MainMapController: UIViewController {
         
         viewModel.badgeCount.bindTo(messageOutlet.rx.badgeCount).addDisposableTo(disposeBag)
         
-        AlertServer.share.navigateLocationSubject
-            .bindNext { [weak self] in self?.showNavigationSheetView(locationInfo: $0) }
-            .addDisposableTo(disposeBag)
+        AlertServer.share.navigateLocationSubject.bindTo(rx.navigationSheet).addDisposableTo(disposeBag)
         
         let realm = try! Realm()
         let gidsObservable = RxStore.shared.deviceInfosObservable.filterEmpty().map{ $0.flatMap{ $0.user?.gid } }
@@ -253,7 +242,11 @@ class MainMapController: UIViewController {
             .bindTo(noticeOutlet.rx.image)
             .addDisposableTo(disposeBag)
         
-        viewModel.autoPosistion.map{ !$0 }.drive(trackingModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        Driver.combineLatest(viewModel.online, viewModel.autoPosistion) { $0 ? !$1 : true }
+            .drive(trackingModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.online.drive(offlineModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        
+        viewModel.online.drive(mapView.rx.online).addDisposableTo(disposeBag)
         
         viewModel.activityIn.drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
         

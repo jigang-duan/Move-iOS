@@ -67,7 +67,7 @@
 		116B90771F1326B200336E3B /* KidSate+SOSLbsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90761F1326B200336E3B /* KidSate+SOSLbsModel.swift */; };
 		116B907C1F149ED600336E3B /* MainMap+Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B907A1F149ED600336E3B /* MainMap+Controller.swift */; };
 		116B907D1F149ED600336E3B /* MainMap+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B907B1F149ED600336E3B /* MainMap+ViewModel.swift */; };
-		116B90811F14A63700336E3B /* MainMap+Controller+FeatureGudie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90801F14A63700336E3B /* MainMap+Controller+FeatureGudie.swift */; };
+		116B90811F14A63700336E3B /* MainMap+Controller+Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90801F14A63700336E3B /* MainMap+Controller+Sheet.swift */; };
 		116B90831F14A7A800336E3B /* MainMap+Controller+Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90821F14A7A800336E3B /* MainMap+Controller+Segue.swift */; };
 		116B90851F14A99400336E3B /* MainMap+Controller+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90841F14A99400336E3B /* MainMap+Controller+Delegate.swift */; };
 		116B908E1F14AE8C00336E3B /* CPinchGuesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B908D1F14AE8C00336E3B /* CPinchGuesture.swift */; };
@@ -82,6 +82,7 @@
 		116B90A31F14B41D00336E3B /* SOSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90A21F14B41D00336E3B /* SOSController.swift */; };
 		116B90A51F14B43200336E3B /* AllKidsLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90A41F14B43200336E3B /* AllKidsLocationController.swift */; };
 		116B90A71F14B44300336E3B /* LocationHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90A61F14B44300336E3B /* LocationHistoryVC.swift */; };
+		116B90A91F15FAA200336E3B /* MainMap+Controller+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90A81F15FAA200336E3B /* MainMap+Controller+Rx.swift */; };
 		116BAE601EC9672A001577D3 /* IMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE5F1EC9672A001577D3 /* IMDB.swift */; };
 		116BAE621EC96EC2001577D3 /* DBIMWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116BAE611EC96EC2001577D3 /* DBIMWorker.swift */; };
 		116F815D1E60535F003CEC39 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F815C1E60535F003CEC39 /* R.generated.swift */; };
@@ -439,7 +440,7 @@
 		116B90761F1326B200336E3B /* KidSate+SOSLbsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KidSate+SOSLbsModel.swift"; sourceTree = "<group>"; };
 		116B907A1F149ED600336E3B /* MainMap+Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller.swift"; path = "Map/Main/MainMap+Controller.swift"; sourceTree = "<group>"; };
 		116B907B1F149ED600336E3B /* MainMap+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+ViewModel.swift"; path = "Map/Main/MainMap+ViewModel.swift"; sourceTree = "<group>"; };
-		116B90801F14A63700336E3B /* MainMap+Controller+FeatureGudie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller+FeatureGudie.swift"; path = "Map/Main/MainMap+Controller+FeatureGudie.swift"; sourceTree = "<group>"; };
+		116B90801F14A63700336E3B /* MainMap+Controller+Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller+Sheet.swift"; path = "Map/Main/MainMap+Controller+Sheet.swift"; sourceTree = "<group>"; };
 		116B90821F14A7A800336E3B /* MainMap+Controller+Segue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller+Segue.swift"; path = "Map/Main/MainMap+Controller+Segue.swift"; sourceTree = "<group>"; };
 		116B90841F14A99400336E3B /* MainMap+Controller+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller+Delegate.swift"; path = "Map/Main/MainMap+Controller+Delegate.swift"; sourceTree = "<group>"; };
 		116B908D1F14AE8C00336E3B /* CPinchGuesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPinchGuesture.swift; path = Map/Ex/CPinchGuesture.swift; sourceTree = "<group>"; };
@@ -456,6 +457,7 @@
 		116B90A21F14B41D00336E3B /* SOSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSController.swift; path = Map/SOS/SOSController.swift; sourceTree = "<group>"; };
 		116B90A41F14B43200336E3B /* AllKidsLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllKidsLocationController.swift; path = Map/AllKids/AllKidsLocationController.swift; sourceTree = "<group>"; };
 		116B90A61F14B44300336E3B /* LocationHistoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationHistoryVC.swift; path = Map/History/LocationHistoryVC.swift; sourceTree = "<group>"; };
+		116B90A81F15FAA200336E3B /* MainMap+Controller+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller+Rx.swift"; path = "Map/Main/MainMap+Controller+Rx.swift"; sourceTree = "<group>"; };
 		116BAE5F1EC9672A001577D3 /* IMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDB.swift; path = IM/IMDB.swift; sourceTree = "<group>"; };
 		116BAE611EC96EC2001577D3 /* DBIMWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBIMWorker.swift; sourceTree = "<group>"; };
 		116F815C1E60535F003CEC39 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
@@ -986,7 +988,8 @@
 				116B907A1F149ED600336E3B /* MainMap+Controller.swift */,
 				116B90841F14A99400336E3B /* MainMap+Controller+Delegate.swift */,
 				116B90821F14A7A800336E3B /* MainMap+Controller+Segue.swift */,
-				116B90801F14A63700336E3B /* MainMap+Controller+FeatureGudie.swift */,
+				116B90801F14A63700336E3B /* MainMap+Controller+Sheet.swift */,
+				116B90A81F15FAA200336E3B /* MainMap+Controller+Rx.swift */,
 				116B907B1F149ED600336E3B /* MainMap+ViewModel.swift */,
 			);
 			name = Main;
@@ -2724,7 +2727,7 @@
 				110528F11E7A569C00FE97A8 /* NotificationController.swift in Sources */,
 				11EAC30F1E6D7B14002906F1 /* UUAVAudioPlayer.swift in Sources */,
 				E92A7ABD1E79064700F1BC43 /* OfficaialNumberController.swift in Sources */,
-				116B90811F14A63700336E3B /* MainMap+Controller+FeatureGudie.swift in Sources */,
+				116B90811F14A63700336E3B /* MainMap+Controller+Sheet.swift in Sources */,
 				E03B1BC61E4B2E60006EDB7B /* HeaderSectionView.swift in Sources */,
 				E9E30CC71E6A909000B66979 /* UsepermissionController.swift in Sources */,
 				D24C4D4F1E4DD57F00F9E33A /* MoveApi+FileStorage.swift in Sources */,
@@ -2884,6 +2887,7 @@
 				A53513571E790E8E0093445F /* Chat.swift in Sources */,
 				E0C229051E35E55600BCF83D /* Operators.swift in Sources */,
 				116860BE1EB8624700C3426A /* HelpController.swift in Sources */,
+				116B90A91F15FAA200336E3B /* MainMap+Controller+Rx.swift in Sources */,
 				E0C228F71E35B01300BCF83D /* Theme.swift in Sources */,
 				E0C2290F1E35E5AE00BCF83D /* UIImageView+DownloadableImage.swift in Sources */,
 				118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */,

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension MainMapController {
     
     func showFeatureGudieView() {

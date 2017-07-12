@@ -60,6 +60,13 @@ extension MKMapView {
         }
         self.mainAnnotationView?.radius = convertRect(radius: annotation.accuracy).width
     }
+    
+    func online(_ on: Bool) {
+        guard (self.annotations.first as? AccuracyAnnotation) != nil else {
+            return
+        }
+        self.mainAnnotationView?.online = on
+    }
 }
 
 extension Reactive where Base : MKMapView {
@@ -67,6 +74,12 @@ extension Reactive where Base : MKMapView {
     var redrawRadius: UIBindingObserver<Base, Void> {
         return UIBindingObserver(UIElement: self.base) { mapView, _ in
             mapView.redrawRadius()
+        }
+    }
+    
+    var online: UIBindingObserver<Base, Bool> {
+        return UIBindingObserver(UIElement: self.base) { mapView, on in
+            mapView.online(on)
         }
     }
 }

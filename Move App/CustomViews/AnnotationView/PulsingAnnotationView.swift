@@ -12,8 +12,17 @@ import MapKit
 
 //public let defaultDotColor = UIColor(red: 0.992156863212585, green: 0.737254917621613, blue: 0.0, alpha: 1.0)
 public let defaultDotColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 1.0)
+let offlineDotColor = UIColor.gray
 
 public class PulsingAnnotationView: MKAnnotationView {
+    
+    public var online: Bool = true {
+        didSet {
+            if self.superview != nil {
+                self.rebuildLayers()
+            }
+        }
+    }
     
     public var annotationColor: UIColor = UIColor(red: 0, green: 0.478, blue: 1.00, alpha: 1.0) {
         didSet {
@@ -136,7 +145,7 @@ public class PulsingAnnotationView: MKAnnotationView {
                 _colorDotLayer = CALayer()
                 _colorDotLayer?.bounds = CGRect(x: 0, y: 0, width: 16, height: 16)
                 _colorDotLayer?.allowsGroupOpacity = true
-                _colorDotLayer?.backgroundColor = self.dotColorDot.cgColor
+                _colorDotLayer?.backgroundColor =  self.online ? self.dotColorDot.cgColor : offlineDotColor.cgColor
                 _colorDotLayer?.cornerRadius = 8
                 _colorDotLayer?.position = CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
                 
@@ -193,6 +202,7 @@ public class PulsingAnnotationView: MKAnnotationView {
                 
                 DispatchQueue.global(qos: .default).async {
                     if
+                        self.online,
                         self.radius > self.bounds.width,
                         self.delayBetweenPulseCycles != TimeInterval.infinity {
                         let animationGroup = self.pulseAnimationGroup()
