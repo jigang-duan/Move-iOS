@@ -25,7 +25,7 @@ extension MainMapController {
                                         focus: .zero)
             navItem?.actionTitle = R.string.localizable.id_first_entry_tips()
             navItem?.introduce = R.string.localizable.id_layout_guide_location_navigate()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
             }
         }

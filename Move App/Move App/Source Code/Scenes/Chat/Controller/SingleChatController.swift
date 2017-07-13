@@ -46,16 +46,14 @@ class SingleChatController: UIViewController {
         }
         
         let realm = try! Realm()
-        guard let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
+        guard
+            let groups = realm.objects(SynckeyEntity.self).filter("uid == %@", uid).first?.groups,
             let group = groups.filter({ $0.members.contains(where: { $0.id == devuid }) }).first else {
                 return
         }
         
-        let messages = Observable.collection(from: group.messages)
-            //.share()
-        
-        let chatMessages = messages
-            .map { list -> [UUMessage]  in list.filter { !$0.isGroup }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) } }
+        let chatMessages = Observable.collection(from: group.messages)
+            .map { list -> [UUMessage] in list.filter { !$0.isGroup }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) } }
             .map(transformMinuteOffSet)
         
         tableView.rx.setDelegate(self).addDisposableTo(bag)
@@ -81,81 +79,87 @@ class SingleChatController: UIViewController {
         let messagesCount = messageFramesVariable.asObservable().map{ $0.count }.share()
         messagesCount.scan((false, 0)) { ($0.0.1 < $0.1, $0.1) }
             .map{ $0.0 }
-            .filter{$0}
+            .filter{ $0 }
             .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
             .addDisposableTo(bag)
         
         // MARK: 发送 Enoji 和 语音
-        
-        let topEnoji = ifView.rx.sendEmoji.asObservable()
-            .map { EmojiType(rawValue: $0) }
-            .filterNil()
-            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: true) }
-            .map { MessageEntity(meoji: $0) }
-        
-//        let timingMessages = Observable<Int>.timer(2.0, period: 16.0, scheduler: MainScheduler.instance)
-//            .map { _ in group.messages  }
-//            .share()
-        
-        let loseMessages = group.messages.filter("readStatus == 102").filter("groupId == %@", "").filter("from == %@", uid)
-        let loseMessageObservable = Observable.collection(from: loseMessages)
-            .map{ $0.first }
-            .filterNil()
-            .timeout(60, scheduler: MainScheduler.instance)
-            .retry()
-            .share()
-        
-        let resendEnoji = loseMessageObservable
-            .filter{ $0.isTextOfFailed }
-            .map { ImEmoji(entity: $0) }
-        
-        let needResendVoice = loseMessageObservable
-            .filter{ $0.isVoiceOfFailed }
-            .map { ImVoice(entity: $0) }
-        
-        let resendVoice = needResendVoice.filter { ($0.fid != nil) && ($0.locationURL == nil) }
-        let needReUpdateVoice = needResendVoice.filter { ($0.fid != nil) && ($0.locationURL != nil) }
-        
-        let sendEnoji = Observable.merge(resendEnoji)
-            .flatMapLatest { IMManager.shared.sendChatEmoji($0).catchErrorJustReturn($0.clone(failure: true)) }
-            .share()
-        
-        let sentEnoji = sendEnoji.filter { $0.msg_id != nil }.map { MessageEntity(meoji: $0) }
-        let failedEnoji = sendEnoji.filter { $0.msg_id == nil }.map { MessageEntity(meoji: $0) }
-        
-        let topVoice = ifView.rx.sendVoice.asObservable()
-            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
-            .map { $0.clone(fId: $0.locationURL!.absoluteString) }
-            .map { MessageEntity(voice: $0) }
         
         let activitying = ActivityIndicator()
         let activityIn = activitying.asObservable()
         activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
         activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
         
-        let updateVoice = Observable.merge(needReUpdateVoice)
-            .filter { ($0.locationURL != nil) && ($0.duration != nil) }
-            .flatMapFirst { (imVoice) in
-                FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
-                    .trackActivity(activitying, need: imVoice.readStatus == 0)
-                    .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
-                    .map { imVoice.clone(fId: $0) }
-        }
-        
-        let sendVoice = Observable.merge(updateVoice, resendVoice)
-            .flatMapLatest { IMManager.shared.sendChatVoice($0).catchErrorJustReturn($0.clone(failure: true)) }
+        let prepareMessages = group.messages.filter("readStatus == 102").filter("groupId == %@", "").filter("from == %@", uid)
+        let prepareMessageObservable = Observable.collection(from: prepareMessages)
+            .map{ $0.first }
+            .filterNil()
+            .timeout(25, scheduler: MainScheduler.instance)
+            .retry()
+            .withLatestFrom(activityIn) { $1 ? nil : $0 }
+            .filterNil()
             .share()
         
-        let sentVoice = sendVoice.filter { $0.msg_id != nil }.map { MessageEntity(voice: $0) }
-        let failedVoice = sendVoice.filter { $0.msg_id == nil }.map { MessageEntity(voice: $0) }
+        // Enoji
         
-        Observable.merge(sentEnoji, sentVoice)
+        ifView.rx.sendEmoji.asObservable()
+            .map { EmojiType(rawValue: $0) }
+            .filterNil()
+            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: true) }
+            .map { MessageEntity(meoji: $0) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
+            .addDisposableTo(bag)
+        
+        prepareMessageObservable
+            .filter{ $0.isTextOfFailed }
+            .map { ImEmoji(entity: $0) }
+            .flatMapLatest {
+                IMManager.shared.sendChatEmoji($0)
+                    .trackActivity(activitying)
+                    .catchErrorEmpty()
+            }
+            .filter { $0.msg_id != nil }
+            .map { MessageEntity(meoji: $0) }
             .bindNext { group.update(realm: realm, message: $0, readStatus: .sent) }
             .addDisposableTo(bag)
         
-        Observable.merge(topEnoji, failedEnoji, topVoice, failedVoice)
-            .bindNext { group.update(realm: realm, message: $0, readStatus: .failedSend) }
+        // 语音
+        
+        ifView.rx.sendVoice.asObservable()
+            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
+            .map { $0.clone(fId: $0.locationURL!.absoluteString) }
+            .map { MessageEntity(voice: $0) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
             .addDisposableTo(bag)
+        
+        let needSendVoice = prepareMessageObservable
+            .filter{ $0.isVoiceOfFailed }
+            .map { ImVoice(entity: $0) }
+        
+        let updateVoice = needSendVoice
+            .filter { ($0.fid != nil) && ($0.locationURL != nil) }
+            .filter { ($0.locationURL != nil) && ($0.duration != nil) }
+            .flatMapFirst { imVoice in
+                FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
+                    .trackActivity(activitying)
+                    .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
+                    .map { imVoice.clone(fId: $0) }
+            }
+        
+        let resendVoice = needSendVoice
+            .filter { ($0.fid != nil) && ($0.locationURL == nil) }
+        
+        Observable.merge(updateVoice, resendVoice)
+            .flatMapLatest {
+                IMManager.shared.sendChatVoice($0)
+                    .trackActivity(activitying)
+                    .catchErrorEmpty()
+            }
+            .filter { $0.msg_id != nil }
+            .map { MessageEntity(voice: $0) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .sent) }
+            .addDisposableTo(bag)
+
         
         moreView.delegate = self
         

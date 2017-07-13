@@ -53,10 +53,10 @@ class FamilyChatController: UIViewController {
             return
         }
         
-        let messages = Observable.collection(from: group.messages)
-            //.share()
+//        let messages = Observable.collection(from: group.messages)
+//            //.share()
         
-        let chatMessages = messages
+        let chatMessages = Observable.collection(from: group.messages)
             .map { list -> [UUMessage]  in
                 list.filter { $0.isGroup }
                     .map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
@@ -87,12 +87,12 @@ class FamilyChatController: UIViewController {
         let messagesCount = messageFramesObservable.map{ $0.count }.share()
         messagesCount.scan((false, 0)) { ($0.0.1 < $0.1, $0.1) }
             .map{ $0.0 }
-            .filter{$0}
+            .filter{ $0 }
             .bindNext({ [weak self] _ in self?.tableViewScrollToBottom() })
             .addDisposableTo(bag)
         
         enterSubject.asObservable()
-            .flatMapLatest { (_) in messageFramesObservable }
+            .flatMapLatest { _ in messageFramesObservable }
             .filterEmpty()
             .single()
             .bindNext { [weak self] (_) in
@@ -102,6 +102,11 @@ class FamilyChatController: UIViewController {
         
         
         // MARK: 发送 Enoji 和 语音
+        
+        let activitying = ActivityIndicator()
+        let activityIn = activitying.asObservable()
+        activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
+        activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
         
         let topEnoji = ifView.rx.sendEmoji.asObservable()
             .map { EmojiType(rawValue: $0) }
@@ -113,13 +118,29 @@ class FamilyChatController: UIViewController {
         let loseMessageObservable = Observable.collection(from: loseMessages)
             .map{ $0.first }
             .filterNil()
-            .timeout(45, scheduler: MainScheduler.instance)
+            .timeout(20, scheduler: MainScheduler.instance)
             .retry()
+            .withLatestFrom(activityIn) { $1 ? nil : $0 }
+            .filterNil()
             .share()
         
-        let resendEnoji = loseMessageObservable
+        let sendEnoji = loseMessageObservable
             .filter{ $0.isTextOfFailed }
             .map { ImEmoji(entity: $0) }
+            .flatMapLatest {
+                IMManager.shared.sendChatEmoji($0)
+                    .trackActivity(activitying)
+                    .catchErrorJustReturn($0.clone(failure: true))
+            }
+            .share()
+        
+        let sentEnoji = sendEnoji
+            .filter { $0.msg_id != nil }
+            .map { MessageEntity(meoji: $0) }
+        
+        let failedEnoji = sendEnoji
+            .filter { $0.msg_id == nil }
+            .map { MessageEntity(meoji: $0) }
         
         let needResendVoice = loseMessageObservable
             .filter{ $0.isVoiceOfFailed }
@@ -131,40 +152,26 @@ class FamilyChatController: UIViewController {
         let needReUpdateVoice = needResendVoice
             .filter { ($0.fid != nil) && ($0.locationURL != nil) }
         
-        let sendEnoji = Observable.merge(resendEnoji)
-            .flatMapLatest { IMManager.shared.sendChatEmoji($0).catchErrorJustReturn($0.clone(failure: true)) }
-            .share()
-        
-        let sentEnoji = sendEnoji
-            .filter { $0.msg_id != nil }
-            .map { MessageEntity(meoji: $0) }
-        
-        let failedEnoji = sendEnoji
-            .filter { $0.msg_id == nil }
-            .map { MessageEntity(meoji: $0) }
-        
         let topVoice = ifView.rx.sendVoice.asObservable()
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
             .map { $0.clone(fId: $0.locationURL!.absoluteString) }
             .map { MessageEntity(voice: $0) }
         
-        
-        let activitying = ActivityIndicator()
-        let activityIn = activitying.asObservable()
-        activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
-        activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
-        
         let updateVoice = Observable.merge(needReUpdateVoice)
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { (imVoice) in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
-                    .trackActivity(activitying, need: imVoice.readStatus == 0)
+                    .trackActivity(activitying)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }
             }
         
         let sendVoice = Observable.merge(updateVoice, resendVoice)
-            .flatMapLatest { IMManager.shared.sendChatVoice($0).catchErrorJustReturn($0.clone(failure: true)) }
+            .flatMapLatest {
+                IMManager.shared.sendChatVoice($0)
+                    .trackActivity(activitying)
+                    .catchErrorJustReturn($0.clone(failure: true))
+            }
             .share()
         
         let sentVoice = sendVoice
@@ -180,7 +187,7 @@ class FamilyChatController: UIViewController {
             .addDisposableTo(bag)
         
         Observable.merge(topEnoji, failedEnoji, topVoice, failedVoice)
-            .bindNext { group.update(realm: realm, message: $0, readStatus: .failedSend) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
             .addDisposableTo(bag)
         
         tableView.rx.itemSelected
@@ -216,7 +223,7 @@ class FamilyChatController: UIViewController {
             .addDisposableTo(bag)
         
         // mark Read
-        markReadSubject.asObserver()
+        markReadSubject.asObservable()
             .flatMapLatest { IMManager.shared.mark(message: $0).catchErrorJustReturn($0) }
             .filterEmpty()
             .subscribe(onNext: { group.markRead(realm: realm, message: $0) })
@@ -391,8 +398,3 @@ extension FamilyChatController: DZNEmptyDataSetSource {
     }
 }
 
-extension ObservableConvertibleType {
-    func trackActivity(_ activityIndicator: ActivityIndicator, need: Bool) -> Observable<E> {
-        return need ? trackActivity(activityIndicator) : asObservable()
-    }
-}

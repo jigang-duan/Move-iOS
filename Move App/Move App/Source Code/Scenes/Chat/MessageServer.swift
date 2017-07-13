@@ -63,7 +63,7 @@ class MessageServer {
                 .shareReplay(1)
             
             
-            let messageObservable = syncData.map { $0.messages }
+            let messageObservable = syncData.map { $0.messages?.filter{ $0.from != uid } }
                 .filterNil()
                 .share()
             

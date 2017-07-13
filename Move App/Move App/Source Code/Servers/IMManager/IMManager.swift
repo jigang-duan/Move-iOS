@@ -264,7 +264,7 @@ extension ImEmoji {
                   ctime: entity.createDate ?? Date(),
                   content: EmojiType(rawValue: entity.content ?? ""),
                   failure: false)
-        self.msg_id = (entity.readStatus == MessageEntity.ReadStatus.failedSend.rawValue) ? nil : entity.id
+        self.msg_id = (entity.readStatus == MessageEntity.ReadStatus.readySend.rawValue) ? nil : entity.id
     }
 }
 
@@ -318,7 +318,7 @@ extension ImVoice {
                        duration: self.duration,
                        locationURL: self.locationURL)
         if failure {
-            it.readStatus = MessageEntity.ReadStatus.failedSend.rawValue
+            it.readStatus = MessageEntity.ReadStatus.readySend.rawValue
         }
         return it
     }
@@ -333,7 +333,7 @@ extension ImVoice {
                   readStatus: entity.readStatus,
                   duration: Int(entity.duration),
                   locationURL: nil)
-        self.msg_id = (entity.readStatus == MessageEntity.ReadStatus.failedSend.rawValue) ? nil : entity.id
+        self.msg_id = (entity.readStatus == MessageEntity.ReadStatus.readySend.rawValue) ? nil : entity.id
         if let content = entity.content {
             if let url = URL(string: content), url.isFileURL {
                 self.locationURL = url
@@ -473,7 +473,7 @@ extension MessageEntity {
         let imMessage = MoveIM.ImMessage(meoji: meoji)
         self.init(im: imMessage)!
         if let failure = meoji.failure, failure {
-            self.readStatus = MessageEntity.ReadStatus.failedSend.rawValue
+            self.readStatus = MessageEntity.ReadStatus.readySend.rawValue
         }
         if imMessage.msg_id == nil {
             self.id = imMessage.locaId
@@ -501,7 +501,7 @@ extension MessageEntity {
     }
     
     var isSendFailed: Bool {
-        return self.readStatus == MessageEntity.ReadStatus.failedSend.rawValue
+        return self.readStatus == MessageEntity.ReadStatus.readySend.rawValue
     }
     
     var isTextOfFailed: Bool {

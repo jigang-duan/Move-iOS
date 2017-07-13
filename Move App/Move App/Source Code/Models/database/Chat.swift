@@ -64,8 +64,8 @@ extension GroupEntity {
         if let indexSame = self.messages.index(where: { $0.id == messageId }) {
             let same = self.messages[indexSame]
             if
-                same.readStatus == MessageEntity.ReadStatus.failedSend.rawValue,
-                message.readStatus == MessageEntity.ReadStatus.failedSend.rawValue {
+                same.readStatus == MessageEntity.ReadStatus.readySend.rawValue,
+                message.readStatus == MessageEntity.ReadStatus.readySend.rawValue {
                 return
             }
             try? realm.write {
@@ -246,7 +246,7 @@ class MessageEntity: Object {
      0 - 未读
      1 - 已读
      101 - 发送了: - 发送成功了，但还没用通过服务器同步
-     102 - 发送失败
+     102 - 准备 发送
      100 - 成功: - 通过服务器同步
      */
     enum ReadStatus: Int {
@@ -254,7 +254,7 @@ class MessageEntity: Object {
         case unread = 0
         case read = 1
         case sent = 101
-        case failedSend = 102
+        case readySend = 102
         case finished = 100
     }
     

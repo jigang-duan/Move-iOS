@@ -63,7 +63,7 @@ extension UUMessage {
                   state: .unread,
                   type: .voice,
                   from: .me,
-                  isFailure: imVoice.readStatus == MessageEntity.ReadStatus.failedSend.rawValue,
+                  isFailure: imVoice.readStatus == MessageEntity.ReadStatus.readySend.rawValue,
                   showDateLabel: true)
     }
     
@@ -127,7 +127,7 @@ extension UUMessage {
                   state: MessageState(status: messageEntity.readStatus)!,
                   type: type,
                   from: (messageEntity.from == userId) ? .me : .other,
-                  isFailure: messageEntity.readStatus == MessageEntity.ReadStatus.failedSend.rawValue,
+                  isFailure: messageEntity.readStatus == MessageEntity.ReadStatus.readySend.rawValue,
                   showDateLabel: true)
     }
     
