@@ -154,6 +154,7 @@ class FamilyChatController: UIViewController {
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { imVoice in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
+                    .do(onNext: { FileUtility.rename(fileURL: imVoice.locationURL!, name: "\($0)_tmp.amr") })
                     .trackActivity(activitying)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }

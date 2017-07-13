@@ -303,6 +303,7 @@ extension ObservableType where E == UserInfo {
             NotificationService.shared.fetchDeviceToken()
                 .flatMapLatest { MoveApi.Account.settingPushToken(deviceId: $0) }
                 .map {_ in info }
+                .catchErrorJustReturn(info)
         }
     }
 }

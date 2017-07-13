@@ -36,6 +36,13 @@ class FileUtility {
         
         return nil
     }
+    
+    class func rename(fileURL: URL, name: String) {
+        let fileManager = FileManager.default
+        guard fileURL.isFileURL, fileManager.fileExists(atPath: fileURL.path) else { return }
+        let to = fileURL.deletingLastPathComponent().appendingPathComponent(name)
+        try? fileManager.copyItem(at: fileURL, to: to)
+    }
 }
 
 

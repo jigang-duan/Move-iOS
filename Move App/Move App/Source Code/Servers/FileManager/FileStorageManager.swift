@@ -62,6 +62,16 @@ extension FSManager {
         let amrURL = URL(fileURLWithPath: amrPath)
         let wavPath = NSTemporaryDirectory() + path! + "_tmp.wav"
         let wavURL = URL(fileURLWithPath: wavPath)
+        
+        if FileManager.default.fileExists(atPath: amrPath) {
+            if VoiceConverter.convertAmr(toWav: amrPath, wavSavePath: wavPath) == 1 {
+                if let cache = try? Data(contentsOf: wavURL) {
+                    closure(cache)
+                    return
+                }
+            }
+        }
+        
         if let cache = try? Data(contentsOf: wavURL) {
             closure(cache)
             return
