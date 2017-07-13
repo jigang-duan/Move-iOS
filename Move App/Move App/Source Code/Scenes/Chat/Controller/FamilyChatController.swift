@@ -40,6 +40,7 @@ class FamilyChatController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.emptyDataSetSource = self
         moreView.isHidden = true
+        activityView.isHidden = true
         
         guard
             let uid = Me.shared.user.id,
@@ -53,13 +54,9 @@ class FamilyChatController: UIViewController {
             return
         }
         
-//        let messages = Observable.collection(from: group.messages)
-//            //.share()
-        
         let chatMessages = Observable.collection(from: group.messages)
             .map { list -> [UUMessage]  in
-                list.filter { $0.isGroup }
-                    .map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
+                list.filter { $0.isGroup }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
             }
             .map(transformMinuteOffSet)
         
@@ -95,7 +92,7 @@ class FamilyChatController: UIViewController {
             .flatMapLatest { _ in messageFramesObservable }
             .filterEmpty()
             .single()
-            .bindNext { [weak self] (_) in
+            .bindNext { [weak self] _ in
                 self?.showFeatureGudieView()
             }
             .addDisposableTo(bag)
@@ -105,17 +102,9 @@ class FamilyChatController: UIViewController {
         
         let activitying = ActivityIndicator()
         let activityIn = activitying.asObservable()
-        activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
-        activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
-        
-        let topEnoji = ifView.rx.sendEmoji.asObservable()
-            .map { EmojiType(rawValue: $0) }
-            .filterNil()
-            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), content: $0, failure: true) }
-            .map { MessageEntity(meoji: $0) }
         
         let loseMessages = group.messages.filter("readStatus == 102").filter("groupId != %@", "").filter("from == %@", uid)
-        let loseMessageObservable = Observable.collection(from: loseMessages)
+        let prepareMessageObservable = Observable.collection(from: loseMessages)
             .map{ $0.first }
             .filterNil()
             .timeout(20, scheduler: MainScheduler.instance)
@@ -124,70 +113,64 @@ class FamilyChatController: UIViewController {
             .filterNil()
             .share()
         
-        let sendEnoji = loseMessageObservable
+        // Enoji
+        
+        ifView.rx.sendEmoji.asObservable()
+            .map { EmojiType(rawValue: $0) }
+            .filterNil()
+            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: true) }
+            .map { MessageEntity(meoji: $0) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
+            .addDisposableTo(bag)
+        
+        prepareMessageObservable
             .filter{ $0.isTextOfFailed }
             .map { ImEmoji(entity: $0) }
             .flatMapLatest {
                 IMManager.shared.sendChatEmoji($0)
                     .trackActivity(activitying)
-                    .catchErrorJustReturn($0.clone(failure: true))
+                    .catchErrorEmpty()
             }
-            .share()
-        
-        let sentEnoji = sendEnoji
             .filter { $0.msg_id != nil }
             .map { MessageEntity(meoji: $0) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .sent) }
+            .addDisposableTo(bag)
         
-        let failedEnoji = sendEnoji
-            .filter { $0.msg_id == nil }
-            .map { MessageEntity(meoji: $0) }
+        // 语音
         
-        let needResendVoice = loseMessageObservable
-            .filter{ $0.isVoiceOfFailed }
-            .map { ImVoice(entity: $0) }
-        
-        let resendVoice = needResendVoice
-            .filter { ($0.fid != nil) && ($0.locationURL == nil) }
-        
-        let needReUpdateVoice = needResendVoice
-            .filter { ($0.fid != nil) && ($0.locationURL != nil) }
-        
-        let topVoice = ifView.rx.sendVoice.asObservable()
+        ifView.rx.sendVoice.asObservable()
             .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
             .map { $0.clone(fId: $0.locationURL!.absoluteString) }
             .map { MessageEntity(voice: $0) }
+            .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
+            .addDisposableTo(bag)
         
-        let updateVoice = Observable.merge(needReUpdateVoice)
+        let needSendVoice = prepareMessageObservable
+            .filter{ $0.isVoiceOfFailed }
+            .map { ImVoice(entity: $0) }
+        
+        let updateVoice = needSendVoice
+            .filter { ($0.fid != nil) && ($0.locationURL != nil) }
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
-            .flatMapFirst { (imVoice) in
+            .flatMapFirst { imVoice in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
                     .trackActivity(activitying)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }
             }
         
-        let sendVoice = Observable.merge(updateVoice, resendVoice)
+        let resendVoice = needSendVoice
+            .filter { ($0.fid != nil) && ($0.locationURL == nil) }
+        
+        Observable.merge(updateVoice, resendVoice)
             .flatMapLatest {
                 IMManager.shared.sendChatVoice($0)
                     .trackActivity(activitying)
-                    .catchErrorJustReturn($0.clone(failure: true))
+                    .catchErrorEmpty()
             }
-            .share()
-        
-        let sentVoice = sendVoice
             .filter { $0.msg_id != nil }
             .map { MessageEntity(voice: $0) }
-        
-        let failedVoice = sendVoice
-            .filter { $0.msg_id == nil }
-            .map { MessageEntity(voice: $0) }
-        
-        Observable.merge(sentEnoji, sentVoice)
             .bindNext { group.update(realm: realm, message: $0, readStatus: .sent) }
-            .addDisposableTo(bag)
-        
-        Observable.merge(topEnoji, failedEnoji, topVoice, failedVoice)
-            .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
             .addDisposableTo(bag)
         
         tableView.rx.itemSelected

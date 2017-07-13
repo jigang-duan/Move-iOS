@@ -87,8 +87,6 @@ class SingleChatController: UIViewController {
         
         let activitying = ActivityIndicator()
         let activityIn = activitying.asObservable()
-        activityIn.map{!$0}.bindTo(activityView.rx.isHidden).addDisposableTo(bag)
-        activityIn.bindTo(activityView.rx.isAnimating).addDisposableTo(bag)
         
         let prepareMessages = group.messages.filter("readStatus == 102").filter("groupId == %@", "").filter("from == %@", uid)
         let prepareMessageObservable = Observable.collection(from: prepareMessages)

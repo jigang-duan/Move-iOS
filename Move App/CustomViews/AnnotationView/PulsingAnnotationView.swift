@@ -149,34 +149,36 @@ public class PulsingAnnotationView: MKAnnotationView {
                 _colorDotLayer?.cornerRadius = 8
                 _colorDotLayer?.position = CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
                 
-                DispatchQueue.global(qos: .default).async {
-                    if self.delayBetweenPulseCycles != TimeInterval.infinity {
-                        let defaultCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
-                        
-                        let animationGroup = CAAnimationGroup()
-                        animationGroup.duration = self.pulseAnimationDuration
-                        animationGroup.repeatCount = Float.infinity
-                        animationGroup.isRemovedOnCompletion = false
-                        animationGroup.autoreverses = true
-                        animationGroup.beginTime = 1.0
-                        animationGroup.timingFunction = defaultCurve
-                        animationGroup.speed = 1
-                        animationGroup.fillMode = kCAFillModeBoth
-                        
-                        let pulseAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
-                        pulseAnimation.fromValue = 0.7
-                        pulseAnimation.toValue = 1
-                        pulseAnimation.duration = self.pulseAnimationDuration
-                        
-                        let opacityAnimation = CABasicAnimation(keyPath: "opacity")
-                        opacityAnimation.fromValue = 0.6
-                        opacityAnimation.toValue = 1.0
-                        opacityAnimation.duration = self.pulseAnimationDuration
-                        
-                        animationGroup.animations = [pulseAnimation, opacityAnimation]
-                        
-                        DispatchQueue.main.async {
-                            self._colorDotLayer?.add(animationGroup, forKey: "pulse")
+                if self.online {
+                    DispatchQueue.global(qos: .default).async {
+                        if self.delayBetweenPulseCycles != TimeInterval.infinity {
+                            let defaultCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+                            
+                            let animationGroup = CAAnimationGroup()
+                            animationGroup.duration = self.pulseAnimationDuration
+                            animationGroup.repeatCount = Float.infinity
+                            animationGroup.isRemovedOnCompletion = false
+                            animationGroup.autoreverses = true
+                            animationGroup.beginTime = 1.0
+                            animationGroup.timingFunction = defaultCurve
+                            animationGroup.speed = 1
+                            animationGroup.fillMode = kCAFillModeBoth
+                            
+                            let pulseAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
+                            pulseAnimation.fromValue = 0.7
+                            pulseAnimation.toValue = 1
+                            pulseAnimation.duration = self.pulseAnimationDuration
+                            
+                            let opacityAnimation = CABasicAnimation(keyPath: "opacity")
+                            opacityAnimation.fromValue = 0.6
+                            opacityAnimation.toValue = 1.0
+                            opacityAnimation.duration = self.pulseAnimationDuration
+                            
+                            animationGroup.animations = [pulseAnimation, opacityAnimation]
+                            
+                            DispatchQueue.main.async {
+                                self._colorDotLayer?.add(animationGroup, forKey: "pulse")
+                            }
                         }
                     }
                 }

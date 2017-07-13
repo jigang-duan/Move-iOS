@@ -49,6 +49,7 @@ class MainMapController: UIViewController {
     @IBOutlet weak var offlineModeOutlet: UIView!
     
     @IBOutlet var tapAddressOutlet: UITapGestureRecognizer!
+    @IBOutlet weak var floatMenuTopConstraint: NSLayoutConstraint!
     
     let enterSubject = PublishSubject<Void>()
     
@@ -243,8 +244,14 @@ class MainMapController: UIViewController {
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.online, viewModel.autoPosistion) { $0 ? !$1 : true }
-            .drive(trackingModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
+            .drive(trackingModeOutlet.rx.isHidden)
+            .addDisposableTo(disposeBag)
         viewModel.online.drive(offlineModeOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        
+        Driver.combineLatest(viewModel.online, viewModel.autoPosistion) { !$0 || $1 }
+            .map{ $0 ? 54.0 : 15.0 }
+            .drive(floatMenuTopConstraint.rx.constant)
+            .addDisposableTo(disposeBag)
         
         viewModel.online.drive(mapView.rx.online).addDisposableTo(disposeBag)
         
