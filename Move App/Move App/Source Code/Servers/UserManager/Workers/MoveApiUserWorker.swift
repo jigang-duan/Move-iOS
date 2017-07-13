@@ -141,7 +141,7 @@ fileprivate func userInfoTransform(userInfo: UserInfo) throws ->Bool {
         throw WorkerError.emptyField("user id is empty!")
     }
     if !userInfo.accessToken.isValidAndNotExpired {
-        throw WorkerError.expired("access token is expired!")
+        throw WorkerError.expired("access permission is expired!")
     }
     return true
 }

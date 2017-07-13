@@ -28,4 +28,8 @@ extension NSError {
         let userInfo = [NSLocalizedDescriptionKey: "None Device Token error"]
         return NSError(domain: "com.clcom.defaultError", code: 996, userInfo: userInfo)
     }
+    
+    var isDeviceTokenError: Bool {
+        return (self.domain == "com.clcom.defaultError") && (self.code == 996)
+    }
 }

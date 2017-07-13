@@ -182,6 +182,6 @@ fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> 
         return Driver.just(ValidationResult.empty)
     }
     
-    let msg = WorkerError.apiErrorTransform(from: _error)
+    let msg = WorkerError.verifyErrorTransform(from: _error)
     return Driver.just(ValidationResult.failed(message: msg))
 }

@@ -68,7 +68,7 @@ extension WorkerError {
         }
         
         if apiError == .LocationTimeout {
-            return "Location Timeout"
+            return R.string.localizable.id_location_failed()
         }
         
         return apiErrorTransform(from: apiError)
@@ -80,7 +80,7 @@ extension WorkerError {
         }
         
         if apiError == .LocationTimeout {
-            return "Location Timeout"
+            return R.string.localizable.id_location_failed()
         }
         
         return apiErrorTransform(from: apiError)
@@ -195,7 +195,17 @@ extension WorkerError {
         return errorMessage
     }
     
+    static func permissionErrorTransform(from error: WorkerError) -> String {
+        if case WorkerError.expired(let msg) = error {
+            return msg
+        }
+        return ""
+    }
     
+    static func verifyErrorTransform(from error: WorkerError) -> String {
+        let apimsg = WorkerError.apiErrorTransform(from: error)
+        return apimsg.isNotEmpty ? apimsg : WorkerError.permissionErrorTransform(from: error)
+    }
 }
 
 
@@ -222,7 +232,7 @@ func commonErrorRecover(_ error: Error) -> Driver<ValidationResult> {
         return Driver.just(ValidationResult.empty)
     }
     
-    let msg = WorkerError.apiErrorTransform(from: _error)
+    let msg = WorkerError.verifyErrorTransform(from: _error)
     return Driver.just(ValidationResult.failed(message: msg))
 }
 
