@@ -95,8 +95,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             safeZoneSlider.value = Float((self.editFenceDataSounrce?.radius)!)
 //            self.currentRadius = (self.editFenceDataSounrce?.radius)!
             RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
-            
-            
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
             self.currentRadius = Double(safeZoneSlider.value)
 //            self.drawOverlay(radius: self.currentRadius)
@@ -386,39 +384,38 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     func SaveNewSafeZone() {
         item?.isEnabled = false
-//        let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
-//        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
-//            alert -> Void in
+        var issame : Bool = false
             if self.kidnameTF.text != "" {
-                if (self.editFenceDataSounrce != nil) {
-                    //编辑
-                    var issame : Bool = false
-                    for i in 0..<self.fences.count {
-                        if ( self.editFenceDataSounrce?.ids != self.fences[i].ids ){
-                            if self.fences[i].name == self.kidnameTF.text {
-                                self.errorshow(message: R.string.localizable.id_name_same())
-                                self.item?.isEnabled = true
-                                issame = true
-                            }
-                        }
-                    }
-                    if issame == false {
-                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
-                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : self.editFenceDataSounrce?.ids ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
-                        let fencereq = MoveApi.FenceReq(fence : fenceinfo)
-                        MoveApi.ElectronicFence.settingFence(fenceId : (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq)
-                            .subscribe(onNext: {
-                                print($0)
-                                if $0.msg != "ok" {
-                                    self.errorshow(message: $0.field!)
-                                }else{
-                                  let _ = self.navigationController?.popViewController(animated: true)
-                                }
-                            }).addDisposableTo(self.disposeBag)
-                    }
-                }else{
+//                if (self.editFenceDataSounrce != nil) {
+//                    //编辑
+//                    var issame : Bool = false
+//                    for i in 0..<self.fences.count {
+//                        if ( self.editFenceDataSounrce?.ids != self.fences[i].ids ){
+//                            if self.fences[i].name == self.kidnameTF.text {
+//                                self.errorshow(message: R.string.localizable.id_name_same())
+//                                self.item?.isEnabled = true
+//                                issame = true
+//                            }
+//                        }
+//                    }
+//                    if issame == false {
+//                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+//                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : self.editFenceDataSounrce?.ids ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
+//                        let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+//                        MoveApi.ElectronicFence.settingFence(fenceId : (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq)
+//                            .subscribe(onNext: {
+//                                print($0)
+//                                if $0.msg != "ok" {
+//                                    self.errorshow(message: $0.field!)
+//                                }else{
+//                                  let _ = self.navigationController?.popViewController(animated: true)
+//                                }
+//                            }).addDisposableTo(self.disposeBag)
+//                    }
+//                }else{
                     //新增
-                    var issame : Bool = false
+                
+                //判断是否和之前的重复命名
                     for i in 0..<self.fences.count {
                             if self.fences[i].name == self.kidnameTF.text {
                                 self.errorshow(message: R.string.localizable.id_name_same())
@@ -426,10 +423,21 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                                 issame = true
                             }
                     }
+                    //否
                     if issame == false {
+                        
+                        
                         let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
                         let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
                         let fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                        
+                        
+                        
+                        let currentfence = KidSate.ElectronicFence(ids: nil, name: fenceinfo.name, radius: fenceinfo.radius, active: true, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo.location?.lat)!, longitude: (fenceinfo.location?.lng)!), address: self.kidaddressTF.text))
+                        
+                        
+                        if !positioningRangeOverlap(fences: self.fences, currentfence: currentfence){
+                            //判断新建的与旧的是否重叠
                         MoveApi.ElectronicFence.addFence(deviceId: Me.shared.currDeviceID!, fenceReq: fencereq)
                             .subscribe(onNext: {
                                 print($0)
@@ -441,45 +449,49 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                                 }
                             }).addDisposableTo(self.disposeBag)
                     }
+                        
+                        else
+                        {
+                            self.errorshow(message: "positioningRangeOverlap")
+                            
+                            self.item?.isEnabled = true
+                        }
+                    }
+                    
+                else{
+                    self.errorshow(message: R.string.localizable.id_is_enter_safe_zone())
+                    self.item?.isEnabled = true
                 }
+//                }
             } else {
-                self.errorshow(message: R.string.localizable.id_name_same())
+            // self.kidnameTF.text == “”
+                self.errorshow(message: R.string.localizable.id_is_enter_safe_zone())
+               
                 self.item?.isEnabled = true
             }
         
-//        })
-        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
-//            (action : UIAlertAction!) -> Void in
-//            self.item?.isEnabled = true
-//        })
-        
-        
-//        alertController.addAction(saveAction)
-//        alertController.addAction(cancelAction)
-//        
-//        self.present(alertController, animated: true, completion: nil)
     }
     
     
     func EditSafeZone() {
        
-//        let alertController = UIAlertController(title: "Confirm Did Edited ?", message: "", preferredStyle: .alert)
-//        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
-//            alert ->  Void in
             if self.kidnameTF.text != "" {
                 var asSame = false
+                //判断是否重名
                 for i in 0..<self.fences.count {
-                        if self.fences[i].name == self.kidnameTF.text {
+                        if self.fences[i].name == self.kidnameTF.text  {
                             asSame = true
                         
                     }
                 }
+                //是
                 if asSame {
                     self.errorshow(message: R.string.localizable.id_name_same())
                     
                 }else
                 {
+                    
+                    //否
                     var fenceloc : MoveApi.Fencelocation? = nil
                     var fenceinfo : MoveApi.FenceInfo? = nil
                     var fencereq : MoveApi.FenceReq? = nil
@@ -488,44 +500,60 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     }else{
                         fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
                     }
-                    
                     fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
                     fencereq = MoveApi.FenceReq(fence : fenceinfo)
+                    
+                   
+                    let currentfence = KidSate.ElectronicFence(ids: fenceinfo?.id!, name: fenceinfo?.name, radius: fenceinfo?.radius!, active: fenceinfo?.active, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo?.location?.lat)!, longitude: (fenceinfo?.location?.lng)!), address: self.kidaddressTF.text))
+                
+                    
+                   if !positioningRangeOverlap(fences: self.fences, currentfence: currentfence){
+                    //不是重叠
+                    
                     
                     MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
                         print($0)
                         if $0.msg != "ok" {
                             self.errorshow(message: $0.field!)
-                            
                         }else{
                             let _ = self.navigationController?.popViewController(animated: true)
                         }
                         }.addDisposableTo(self.disposeBag)
+                    }
+                   else
+                   {    //重叠了
+                         self.errorshow(message: "positioningRangeOverlap")
+                    }
                     
                 }
 
                 }
-                
+        
+    }
+    func positioningRangeOverlap(fences: [KidSate.ElectronicFence],currentfence: KidSate.ElectronicFence) -> Bool {
+ 
+        var flag = false
+        let orig1 = CLLocation(latitude: (currentfence.location?.location?.latitude)!, longitude: (currentfence.location?.location?.longitude)!)
+        let r1 = currentfence.radius
+        for i in 0..<self.fences.count {
+            let orig2 = CLLocation(latitude: (self.fences[i].location?.location?.latitude)!, longitude: (self.fences[i].location?.location?.longitude)!)
+            let r2 = self.fences[i].radius
+            let distance = orig1.distance(from: orig2)
             
-            //截断else
+            if distance < r1!+r2!+50
+            {
+                flag = true
+                break
+            }
+            
+        }
         
-//        })
-        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
-//            (action : UIAlertAction!) -> Void in
-//           
-//        })
-//        
-//        alertController.addAction(saveAction)
-//        alertController.addAction(cancelAction)
-//        
-//        self.present(alertController, animated: true, completion: nil)
-        
+        return flag
     }
 
     func errorshow(message : String) {
         let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: {
+        let cancelAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: {
             (action : UIAlertAction!) -> Void in
         })
         alertController.addAction(cancelAction)

@@ -98,6 +98,7 @@ class SafeZoneController: UIViewController {
     
     func showAddSafezoneVC() {
         if let vc = R.storyboard.major.addSafeZoneVC() {
+            
             vc.fences = self.fences
             vc.adminBool = self.adminBool
             self.navigationController?.show(vc, sender: nil)
@@ -206,8 +207,11 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = R.storyboard.major.addSafeZoneVC()  {
+            //让addsafe控制器 获取修改的值
             vc.editFenceDataSounrce = self.fences[indexPath.row]
             vc.fences = self.fences
+            //删除自己
+            vc.fences.remove(at: indexPath.row)
             vc.adminBool = self.adminBool
             self.navigationController?.show(vc, sender: nil)
         }

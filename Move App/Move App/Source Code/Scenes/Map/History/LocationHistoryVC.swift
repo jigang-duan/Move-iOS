@@ -51,6 +51,7 @@ class LocationHistoryVC: UIViewController {
     
     @IBOutlet weak var bottomViewheight: NSLayoutConstraint!
         
+    @IBOutlet weak var marBottomConstraint: NSLayoutConstraint!
     var isCalendarOpen : Bool = false
     
     var item : UIBarButtonItem?
@@ -70,6 +71,7 @@ class LocationHistoryVC: UIViewController {
         let img=UIImage(named: "nav_location_nor")
         item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
         self.navigationItem.rightBarButtonItem=item
+        self.marBottomConstraint.constant = -80
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
@@ -94,8 +96,8 @@ class LocationHistoryVC: UIViewController {
         super.viewDidLoad()
         calendar.select(calendar.today)
         
+        timeSelectBtn.setTitle(DateUtility.dateTostringyyMMddd(date: calendar.today), for: UIControlState.normal)
         
-        timeSelectBtn.setTitle("Today", for: UIControlState.normal)
         timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
         
         locationMap.rx.willStartLoadingMap
@@ -148,10 +150,12 @@ class LocationHistoryVC: UIViewController {
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     self.annotationArr.removeAll()
                     self.bottomViewheight.constant = 50
+                    self.marBottomConstraint.constant = 0
                     self.bottomView.isHidden = true
                     
                 }else{
                     self.bottomViewheight.constant = 80
+                    self.marBottomConstraint.constant = 0
                     self.bottomView.isHidden = false
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     self.locationMap.addAnnotations($0)
@@ -215,6 +219,7 @@ class LocationHistoryVC: UIViewController {
     @IBAction func CalenderOpenBtnClick(_ sender: UIButton) {
         if isCalendarOpen == false {
             calendar.isHidden = false
+            
             isCalendarOpen = true
         }else{
             calendar.isHidden = true
@@ -277,16 +282,24 @@ class LocationHistoryVC: UIViewController {
     
     
     func changeBtnType(time : Int , date : Date){
-        if time == 1 {
-            timeSelectBtn.setTitle(R.string.localizable.id_tomorrow(), for: UIControlState.normal)
-        }else if time == -1 {
-            timeSelectBtn.setTitle(R.string.localizable.id_yesterday(), for: UIControlState.normal)
-        }else if time == 0{
-            timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
-        }else{
+        timeNextBtn.setImage(UIImage(named: "general_next"), for: .normal)
+        timeNextBtn.isEnabled = true
+//        if time == 1 {
+//            timeSelectBtn.setTitle(R.string.localizable.id_tomorrow(), for: UIControlState.normal)
+//        }else if time == -1 {
+//            timeSelectBtn.setTitle(R.string.localizable.id_yesterday(), for: UIControlState.normal)
+//        }else
+            if time == 0{
+//            timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
+            
+            timeNextBtn.setImage(UIImage(named: "general_next_dis"), for: .normal)
+            timeNextBtn.isEnabled = false
+        }
+//            else{
             let string = self.formatter.string(from: date)
             timeSelectBtn.setTitle(string, for: UIControlState.normal)
-        }
+        
+//        }
         locationMap.removeOverlays(locationMap.overlays)
         
     }
@@ -397,7 +410,28 @@ extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
         selectedDate.value = date
         index = 0
     }
-
+    //可选日期
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        
+        if date > calendar.today!{
+            return false
+        
+        }else
+        {
+            return true
+        }
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if date > calendar.today!{
+            return R.color.appColor.fourthlyText()
+        }else
+        {
+            return UIColor.black
+        }
+    }
+    
+    
+    
 }
 
 

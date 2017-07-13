@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -451,17 +450,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dQG-kO-Vl3">
-                                <rect key="frame" x="0.0" y="114" width="375" height="473"/>
-                                <connections>
-                                    <outlet property="delegate" destination="VGt-kf-yJX" id="NAj-w5-rV8"/>
-                                </connections>
-                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ala-mz-wtg">
                                 <rect key="frame" x="0.0" y="64" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgk-nu-LrD">
-                                        <rect key="frame" x="164.5" y="10" width="46" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgk-nu-LrD">
+                                        <rect key="frame" x="137" y="10" width="101" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="JBI-YP-etu"/>
                                         </constraints>
@@ -471,23 +464,23 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptS-0H-M1f">
-                                        <rect key="frame" x="66" y="8" width="36" height="36"/>
+                                        <rect key="frame" x="66" y="8" width="80" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="4mR-6x-DBe"/>
-                                            <constraint firstAttribute="width" constant="36" id="eLK-j5-WML"/>
+                                            <constraint firstAttribute="width" constant="80" id="eLK-j5-WML"/>
                                         </constraints>
-                                        <state key="normal" image="general_back"/>
+                                        <state key="normal" image="general_backli"/>
                                         <connections>
                                             <action selector="LastBtnClick:" destination="VGt-kf-yJX" eventType="touchUpInside" id="mOS-1Y-EOV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QcJ-DR-vS4">
-                                        <rect key="frame" x="273" y="8" width="36" height="36"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QcJ-DR-vS4">
+                                        <rect key="frame" x="229" y="8" width="80" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="36" id="gDn-Nh-h58"/>
+                                            <constraint firstAttribute="width" constant="80" id="gDn-Nh-h58"/>
                                             <constraint firstAttribute="height" constant="36" id="hfZ-I9-aHs"/>
                                         </constraints>
-                                        <state key="normal" image="general_next"/>
+                                        <state key="normal" image="general_next_dis"/>
                                         <connections>
                                             <action selector="NextBtnClick:" destination="VGt-kf-yJX" eventType="touchUpInside" id="F7I-u4-dAM"/>
                                         </connections>
@@ -532,7 +525,7 @@
                                             <constraint firstAttribute="width" constant="36" id="g5H-w8-kff"/>
                                             <constraint firstAttribute="height" constant="36" id="wAm-fc-JRL"/>
                                         </constraints>
-                                        <state key="normal" image="general_back"/>
+                                        <state key="normal" image="general_back_dis"/>
                                         <connections>
                                             <action selector="LastPointClick:" destination="VGt-kf-yJX" eventType="touchUpInside" id="45W-s9-rXZ"/>
                                         </connections>
@@ -543,7 +536,7 @@
                                             <constraint firstAttribute="width" constant="36" id="HNX-i5-Jt9"/>
                                             <constraint firstAttribute="height" constant="36" id="QMB-7e-L5W"/>
                                         </constraints>
-                                        <state key="normal" image="general_next"/>
+                                        <state key="normal" image="general_next_dis"/>
                                         <connections>
                                             <action selector="NextPointClick:" destination="VGt-kf-yJX" eventType="touchUpInside" id="voN-f9-xpE"/>
                                         </connections>
@@ -602,9 +595,18 @@
                                     <constraint firstAttribute="trailing" secondItem="5Oe-yG-ii2" secondAttribute="trailing" constant="22" id="pg0-td-fRS"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THJ-zM-oru" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="114" width="375" height="232"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dQG-kO-Vl3">
+                                <rect key="frame" x="0.0" y="114" width="375" height="473"/>
+                                <connections>
+                                    <outlet property="delegate" destination="VGt-kf-yJX" id="NAj-w5-rV8"/>
+                                </connections>
+                            </mapView>
+                            <view hidden="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="THJ-zM-oru" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="114" width="375" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="l8c-D8-3mD"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
                                         <color key="value" red="0.99215686321258545" green="0.73725491762161255" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -613,11 +615,15 @@
                                         <color key="value" red="0.0" green="0.61960784310000006" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" red="1" green="0.36762930059999999" blue="0.26369951829999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titlePlaceholderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsSelection" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="VGt-kf-yJX" id="xsz-sh-38B"/>
@@ -635,7 +641,6 @@
                             <constraint firstAttribute="trailing" secondItem="THJ-zM-oru" secondAttribute="trailing" id="MIL-66-2P0"/>
                             <constraint firstAttribute="bottom" secondItem="anr-YV-lA0" secondAttribute="bottom" id="MiZ-gj-hJs"/>
                             <constraint firstItem="THJ-zM-oru" firstAttribute="centerX" secondItem="xlf-80-3DF" secondAttribute="centerX" id="SBn-go-tqc"/>
-                            <constraint firstItem="THJ-zM-oru" firstAttribute="height" secondItem="dQG-kO-Vl3" secondAttribute="height" multiplier="0.49" id="VNk-pP-FU4"/>
                             <constraint firstItem="Ala-mz-wtg" firstAttribute="top" secondItem="LV0-am-Hny" secondAttribute="bottom" id="YG6-Av-bpT"/>
                             <constraint firstAttribute="trailing" secondItem="vGq-04-YzX" secondAttribute="trailing" id="itd-IA-mK8"/>
                             <constraint firstItem="anr-YV-lA0" firstAttribute="leading" secondItem="xlf-80-3DF" secondAttribute="leading" id="jWj-9X-uGQ"/>
@@ -655,6 +660,7 @@
                         <outlet property="bottomViewheight" destination="SNE-oM-JAN" id="mMP-nd-buP"/>
                         <outlet property="calendar" destination="THJ-zM-oru" id="DLV-y0-evh"/>
                         <outlet property="locationMap" destination="dQG-kO-Vl3" id="B3U-0I-O7Q"/>
+                        <outlet property="marBottomConstraint" destination="wPz-Oj-ViI" id="dQO-NL-Zby"/>
                         <outlet property="nextPoint" destination="ITg-y7-l8W" id="9jQ-xk-xmV"/>
                         <outlet property="timeBackBtn" destination="ptS-0H-M1f" id="cIs-8o-1pw"/>
                         <outlet property="timeNextBtn" destination="QcJ-DR-vS4" id="Hwa-gr-mMC"/>
@@ -1160,8 +1166,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="general_back" width="10" height="10"/>
-        <image name="general_next" width="10" height="10"/>
+        <image name="general_back_dis" width="20" height="20"/>
+        <image name="general_backli" width="20" height="20"/>
+        <image name="general_next_dis" width="20" height="20"/>
         <image name="home_btn_exchange_nor" width="15" height="15"/>
         <image name="home_btn_exchange_pre" width="15" height="15"/>
         <image name="home_btn_locatio_nor" width="41" height="41"/>
