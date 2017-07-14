@@ -11,7 +11,7 @@ API KEY
          whco6R2vfkGjKpH8J5G21xui3wjBLh23pSGFoJ_Q4KfLjwEVezo
 
 
-http://139.196.178.104/docs/cloud.html
+http://106.14.6.65/docs/cloud.html
 ---------------------------------------------------------------
 ---------------------------------------------------------------
 139.196.178.104
@@ -19,7 +19,10 @@ APIKEY：whco6R2vfkGjKpH8J5G21xui3wjBLh23pSGFoJ_Q4KfLjwEVezo
 
 关于消息推送
 流程请参考：
-http://139.196.178.104/docs/im2.html
+http://106.14.6.65/docs/im2.html
  
 API请参考：
-http://139.196.178.104/docs/im.html
+http://106.14.6.65/docs/im.html
+
+
+证书密码： 1
