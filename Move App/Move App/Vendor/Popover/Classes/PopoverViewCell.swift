@@ -91,24 +91,21 @@ class PopoverViewCell: UITableViewCell {
         self.button.titleEdgeInsets = (action.placeholderImage != nil) ? UIEdgeInsetsMake(0, PopoverViewCell.TitleLeftEdge, 0, -PopoverViewCell.TitleLeftEdge) : UIEdgeInsets.zero
         self.hasBadge = action.hasBadge
         
-        guard let placeholder = action.placeholderImage else {
-            return
-        }
-        
-        let showImage = (action.canAvatar ? self.conver(title: action.title!, size: placeholder.size) : placeholder) ?? placeholder
-        guard let url = action.imageUrl else {
-            self.button.setImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
-            return
-        }
-        
-        let image = UIImage.image(fromURL: url,
-                                  placeholder: showImage) { [weak self] in
-            if let image = $0 {
-                self?.button.setImage(self?.convert(image: image, size: placeholder.size), for: .normal)
+        if let placeholder = action.placeholderImage {
+            let showImage = (action.canAvatar ? self.conver(title: action.title!, size: placeholder.size) : placeholder) ?? placeholder
+            guard let url = action.imageUrl else {
+                self.button.setImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
+                return
             }
+            
+            let image = UIImage.image(fromURL: url,
+                                      placeholder: showImage) { [weak self] in
+                                        if let image = $0 {
+                                            self?.button.setImage(self?.convert(image: image, size: placeholder.size), for: .normal)
+                                        }
+            }
+            self.button.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
         }
-        self.button.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
-        
     }
     
     private func convert(image: UIImage?, size: CGSize) -> UIImage? {

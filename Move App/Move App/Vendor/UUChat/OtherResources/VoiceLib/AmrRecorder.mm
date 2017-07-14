@@ -102,24 +102,6 @@
     //获取音量的平均值  [recorder averagePowerForChannel:0];
     //音量的最大值  [recorder peakPowerForChannel:0];
     
-//    double lowPassResults = pow(10, (0.05 * [_recorder peakPowerForChannel:0]));
-//    
-//    if (0<lowPassResults<=0.27) {
-//        return 1;
-//    }else if (0.27<lowPassResults<=0.34) {
-//        return 2;
-//    }else if (0.34<lowPassResults<=0.41) {
-//        return 3;
-//    }else if (0.41<lowPassResults<=0.48) {
-//        return 4;
-//    }else if (0.48<lowPassResults<=0.55) {
-//        return 5;
-//    }else if (0.55<lowPassResults) {
-//        return 6;
-//    }
-//    
-//    return 0;
-    
     float   level;                // The linear 0.0 .. 1.0 value we need.
     float   minDecibels = -80.0f; // Or use -60dB, which I measured in a silent room.
     float   decibels    = [_recorder averagePowerForChannel:0];
