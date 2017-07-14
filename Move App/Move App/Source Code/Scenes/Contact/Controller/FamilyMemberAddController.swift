@@ -63,8 +63,13 @@ class FamilyMemberAddController: UIViewController {
         
         validate.isHidden = true
 
-        countryCodeBun.setTitle("-", for: .normal)
-        phonePreLab.text = "-"
+        if let localModel = CountryCodeViewController.localCountryCode() {
+            countryCodeBun.setTitle(localModel.abbr, for: .normal)
+            phonePreLab.text = localModel.code
+        }else{
+            countryCodeBun.setTitle("-", for: .normal)
+            phonePreLab.text = "-"
+        }
         
         let prefix = self.phonePreLab.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
         

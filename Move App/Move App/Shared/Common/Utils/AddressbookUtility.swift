@@ -35,11 +35,11 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
                 self.target?.present(pickController, animated: true, completion: nil)
             }
         }else{
-            let vc = UIAlertController(title: nil, message: "没有通讯录访问权限", preferredStyle: UIAlertControllerStyle.alert)
-            let action1 = UIAlertAction(title: "Settings", style: .default) { action in
+            let vc = UIAlertController(title: nil, message: R.string.infoPlist.nSContactsUsageDescription(), preferredStyle: UIAlertControllerStyle.alert)
+            let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { action in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }
-            let action2 = UIAlertAction(title: "Ok", style: .default)
+            let action2 = UIAlertAction(title: R.string.localizable.id_ok(), style: .default)
             vc.addAction(action1)
             vc.addAction(action2)
             self.target?.present(vc, animated: true)

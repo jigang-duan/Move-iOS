@@ -117,6 +117,15 @@ class KidInformationViewModel {
                     }
                   
                 }else{
+                    var userInfo = UserInfo.shared.profile
+                    if userInfo?.phone == nil || userInfo?.phone == "" {
+                        userInfo?.phone = f.phone
+                        _ = UserManager.shared.setUserInfo(userInfo: userInfo!)
+                            .map({ _ in
+                            
+                            })
+                    }
+                    
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo)
                             .map{$0.fid}

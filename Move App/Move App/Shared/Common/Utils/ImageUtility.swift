@@ -51,14 +51,14 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             if  strLanguage == "cn"{
                 strAlertTitle = "没有相机/照片访问权限"
             }else{
-                strAlertTitle = "NO Camera/album access permissions"
+                strAlertTitle = R.string.infoPlist.nSCameraUsageDescription()
             }
             
             let vc = UIAlertController(title: nil, message: strAlertTitle, preferredStyle: UIAlertControllerStyle.alert)
-            let action1 = UIAlertAction(title: "Settings", style: .default) { action in
+            let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { action in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }
-            let action2 = UIAlertAction(title: "Ok", style: .default)
+            let action2 = UIAlertAction(title: R.string.localizable.id_ok(), style: .default)
             vc.addAction(action1)
             vc.addAction(action2)
             self.target?.present(vc, animated: true)
@@ -79,7 +79,7 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         picker.dismiss(animated: true){
-            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
                 let img = self.compressImage(with: image, size: self.imageSize)
                 if self.photoCallback != nil {
                     self.photoCallback!(img)

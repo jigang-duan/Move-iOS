@@ -92,9 +92,24 @@ class PhoneNumberController: UIViewController {
         
         validate.isHidden = true
         
-        if let localModel = CountryCodeViewController.localCountryCode() {
-            self.regionBun.setTitle(localModel.abbr, for: .normal)
-            self.phonePrefix.text = localModel.code
+        if let phone = UserInfo.shared.profile?.phone, phone != "" {
+            let numberArr = phone.components(separatedBy: "@")
+            if numberArr.count > 1 {
+                if let model = CountryCodeViewController.fetchCountryCode(with: numberArr[0]) {
+                    regionBun.setTitle(model.abbr, for: .normal)
+                }
+                phonePrefix.text = numberArr[0]
+                phoneTf.text = numberArr[1]
+            }else{
+                regionBun.setTitle("-", for: .normal)
+                phonePrefix.text = "-"
+                phoneTf.text = phone
+            }
+        }else {
+            if let localModel = CountryCodeViewController.localCountryCode() {
+                self.regionBun.setTitle(localModel.abbr, for: .normal)
+                self.phonePrefix.text = localModel.code
+            }
         }
         
         

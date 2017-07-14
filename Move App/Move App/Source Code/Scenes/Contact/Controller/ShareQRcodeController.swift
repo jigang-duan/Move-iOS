@@ -25,6 +25,9 @@ class ShareQRcodeController: UIViewController {
     //for 4/4s 适配
     @IBOutlet weak var QRImageViewHCons: NSLayoutConstraint!
     
+    @IBOutlet weak var qrcodeTop: NSLayoutConstraint!
+    @IBOutlet weak var timeBottom: NSLayoutConstraint!
+    @IBOutlet weak var timeTop: NSLayoutConstraint!
     
     var relation: String?
     var profile: String?
@@ -59,9 +62,26 @@ class ShareQRcodeController: UIViewController {
         
         self.initializeI18N()
         
-        if UIScreen.main.bounds.height < 500 {
+        
+        let screenH = UIScreen.main.bounds.height
+        if screenH < 600 && screenH > 500 {
+            QRImageViewHCons.constant = 180
+            qrcodeTop.constant = 30
+            timeTop.constant = 10
+            timeBottom.constant = 30
+        }else if screenH > 600 {
+            qrcodeTop.constant = 50
+            timeTop.constant = 25
+            timeBottom.constant = 50
+        }else if screenH < 500 {
             QRImageViewHCons.constant = 120
+            qrcodeTop.constant = 20
+            timeTop.constant = 10
+            timeBottom.constant = 20
         }
+        
+        
+        
         
         let startColor = UIColor.init(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
         let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
@@ -154,7 +174,19 @@ class ShareQRcodeController: UIViewController {
     func screenShot() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(screenShotView.bounds.size, false, 0.0)
         
-        screenShotView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let currentContext = UIGraphicsGetCurrentContext()!
+        
+        let startColor = UIColor.init(red: 19/255, green: 210/255, blue: 241/255, alpha: 1)
+        let endColor = UIColor.init(red: 19/255, green: 130/255, blue: 237/255, alpha: 1)
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let colors = [startColor,endColor].map {(color: UIColor) -> AnyObject! in return color.cgColor as AnyObject! } as NSArray
+        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: nil)!
+        
+        currentContext.drawLinearGradient(gradient, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: screenShotView.bounds.size.height), options: CGGradientDrawingOptions(rawValue: 0))
+        
+        screenShotView.layer.render(in: currentContext)
+        
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         

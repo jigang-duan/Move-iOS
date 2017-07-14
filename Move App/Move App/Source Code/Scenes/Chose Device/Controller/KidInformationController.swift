@@ -126,6 +126,13 @@ class KidInformationController: UIViewController {
             phoneTf.text = info.number
         }
         
+        if isForSetting == false {
+            if let localModel = CountryCodeViewController.localCountryCode() {
+                regionCodeBun.setTitle(localModel.abbr, for: .normal)
+                phonePrefix.text = localModel.code
+            }
+        }
+        
         
         let imgUrl = URL(string: FSManager.imageUrl(with: info.profile ?? ""))
         cameraBun.kf.setBackgroundImage(with: imgUrl, for: .normal, placeholder: cameraBun.currentBackgroundImage!)
