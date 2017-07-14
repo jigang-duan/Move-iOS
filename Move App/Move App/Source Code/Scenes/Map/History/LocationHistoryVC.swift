@@ -67,24 +67,21 @@ class LocationHistoryVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.title = R.string.localizable.id_location_history()
-        let img=UIImage(named: "nav_location_nor")
-        item=UIBarButtonItem(image: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(rightBarButtonClick))
-        self.navigationItem.rightBarButtonItem=item
+        
         self.marBottomConstraint.constant = -80
     }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
         if self.annotationArr.count > 0 {
             if isOpenList == false {
-                let img=UIImage(named: "nav_slider_nor")
-                sender.image = img
+                
+                sender.image = R.image.nav_slider_nor()
                 addressDetailL.isHidden = true
                 timeZoneSlider.isHidden = false
                 isOpenList = true
             }else {
-                let img=UIImage(named: "nav_location_nor")
-                sender.image = img
+                
+                sender.image = R.image.nav_location_nor()
                 addressDetailL.isHidden = false
                 timeZoneSlider.isHidden = true
                 isOpenList = false
@@ -94,11 +91,15 @@ class LocationHistoryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = R.string.localizable.id_location_history()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: R.image.nav_location_nor(), style: .plain, target: self, action: #selector(rightBarButtonClick))
+        
         calendar.select(calendar.today)
         calendar.placeholderType = .none
         calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
         
-        timeSelectBtn.setTitle(DateUtility.dateTostringyyMMddd(date: calendar.today), for: UIControlState.normal)
+        timeSelectBtn.setTitle(calendar.today?.stringDefaultYearMonthDay, for: .normal)
         
         timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
         
@@ -198,8 +199,9 @@ class LocationHistoryVC: UIViewController {
         if self.annotationArr.count > 0 {
             let annotation = annotationArr[index]
             
-            let datestr = String.init(format: "(%d/%d)%@", annotation.tag + 1 , annotationArr.count , (annotation.info?.time?.stringYearMonthDayHourMinuteSecond)!)
+            let datestr = String(format: "(%d/%d)%@", annotation.tag + 1 , annotationArr.count , (annotation.info?.time?.stringDefaultDescription)!)
             timeZoneL.text = datestr
+            timeZoneL.adjustsFontSizeToFitWidth = true
             addressDetailL.text = annotation.info?.address
             locationMap.removeOverlays(locationMap.overlays)
             locationMap.add(MKCircle(center: (annotation.info?.location)!, radius: (annotation.info?.accuracy ?? 0)!))
@@ -214,9 +216,6 @@ class LocationHistoryVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func openAppPreferences() {
-        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-    }
     
     @IBAction func CalenderOpenBtnClick(_ sender: UIButton) {
         if isCalendarOpen == false {
@@ -232,8 +231,11 @@ class LocationHistoryVC: UIViewController {
     
     
     @IBAction func LastBtnClick(_ sender: UIButton) {
-        let curday = calendar.selectedDate
-        let perivday = calendar.date(bySubstractingDays: 1, from: curday!)
+        guard
+            let curday = calendar.selectedDate,
+            let perivday = Calendar.current.date(byAdding: .day, value: -1, to: curday) else {
+                return
+        }
         calendar.select(perivday)
         let time = self.calenderConversion(from: calendar.today!, to: perivday)
         self .changeBtnType(time: time , date : perivday)
@@ -243,8 +245,12 @@ class LocationHistoryVC: UIViewController {
     }
     
     @IBAction func NextBtnClick(_ sender: UIButton) {
-        let curday = calendar.selectedDate
-        let nextday = calendar.date(byAddingDays: 1, to: curday!)
+        guard
+            let curday = calendar.selectedDate,
+            let nextday = Calendar.current.date(byAdding: .day, value: 1, to: curday) else {
+                return
+        }
+        
         calendar .select(nextday)
         let time = self.calenderConversion(from: calendar.today!, to: nextday)
         self .changeBtnType(time: time , date : nextday)
@@ -298,8 +304,8 @@ class LocationHistoryVC: UIViewController {
             timeNextBtn.isEnabled = false
         }
 //            else{
-            let string = self.formatter.string(from: date)
-            timeSelectBtn.setTitle(string, for: UIControlState.normal)
+//            let string = self.formatter.string(from: date)
+            timeSelectBtn.setTitle(date.stringDefaultYearMonthDay, for: .normal)
         
 //        }
         locationMap.removeOverlays(locationMap.overlays)
@@ -312,17 +318,17 @@ class LocationHistoryVC: UIViewController {
         return result.day!
     }
     
-    func dateNowAsString(date : Date) -> String {
-
-        let timeZone = TimeZone.init(identifier: "UTC")
-        let formatter = DateFormatter()
-        formatter.timeZone = timeZone
-        formatter.locale = Locale.init(identifier: "zh_CN")
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        let datestr = formatter.string(from: date)
-        return datestr
-    }
+//    func dateNowAsString(date : Date) -> String {
+//
+//        let timeZone = TimeZone.init(identifier: "UTC")
+//        let formatter = DateFormatter()
+//        formatter.timeZone = timeZone
+//        formatter.locale = Locale.init(identifier: "zh_CN")
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        
+//        let datestr = formatter.string(from: date)
+//        return datestr
+//    }
     
     func timePointSelect(index : Int) {
         if annotationArr.count > 0 {
