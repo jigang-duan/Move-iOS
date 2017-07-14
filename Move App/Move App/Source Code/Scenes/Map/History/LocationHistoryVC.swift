@@ -95,6 +95,8 @@ class LocationHistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         calendar.select(calendar.today)
+        calendar.placeholderType = .none
+        calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
         
         timeSelectBtn.setTitle(DateUtility.dateTostringyyMMddd(date: calendar.today), for: UIControlState.normal)
         
@@ -421,6 +423,7 @@ extension LocationHistoryVC : FSCalendarDelegate,FSCalendarDelegateAppearance{
             return true
         }
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         if date > calendar.today!{
             return R.color.appColor.fourthlyText()

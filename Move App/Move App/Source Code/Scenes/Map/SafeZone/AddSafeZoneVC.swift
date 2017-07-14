@@ -452,7 +452,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         
                         else
                         {
-                            self.errorshow(message: "positioningRangeOverlap")
+                            self.errorshow(message: "Please don’t create a overlapping safezone")
                             
                             self.item?.isEnabled = true
                         }
@@ -522,7 +522,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     }
                    else
                    {    //重叠了
-                         self.errorshow(message: "positioningRangeOverlap")
+                    
+                         self.errorshow(message: "Please don’t create a overlapping safezone")
                     }
                     
                 }
@@ -552,7 +553,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     }
 
     func errorshow(message : String) {
-        let alertController = UIAlertController(title: "Save Error", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: {
             (action : UIAlertAction!) -> Void in
         })

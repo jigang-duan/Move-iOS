@@ -62,7 +62,8 @@ class RemindersController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        calendar.placeholderType = .none
+        calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
         internationalization()
 //        addFuntion()
         initView()

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1182,8 +1181,11 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4Q-sD-BuR" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="60" width="375" height="241"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="280"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="ADm-Ew-n8P"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
                                         <color key="value" red="0.99215686319999996" green="0.73725491759999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1192,10 +1194,13 @@
                                         <color key="value" red="0.0" green="0.61960784310000006" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titlePlaceholderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1215,7 +1220,6 @@
                             <constraint firstAttribute="trailing" secondItem="vTV-gS-blv" secondAttribute="trailing" id="YvA-gv-p9D"/>
                             <constraint firstItem="f3U-GZ-qUk" firstAttribute="centerX" secondItem="jUE-lf-gSd" secondAttribute="centerX" id="dMk-8w-c5b"/>
                             <constraint firstItem="0Gs-xm-bSJ" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" constant="10" id="fxe-Vw-YaX"/>
-                            <constraint firstItem="W4Q-sD-BuR" firstAttribute="height" secondItem="jUE-lf-gSd" secondAttribute="height" multiplier="0.4" id="h4M-fb-dLt"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="leading" secondItem="jUE-lf-gSd" secondAttribute="leading" id="jZq-6O-1Td"/>
                             <constraint firstItem="W4Q-sD-BuR" firstAttribute="top" secondItem="vTV-gS-blv" secondAttribute="bottom" id="kQF-oZ-xi3"/>
                             <constraint firstItem="vTV-gS-blv" firstAttribute="top" secondItem="Jt5-EY-98r" secondAttribute="bottom" id="r75-LV-E2w"/>
