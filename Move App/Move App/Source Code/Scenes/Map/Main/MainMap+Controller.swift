@@ -45,8 +45,14 @@ class MainMapController: UIViewController {
     @IBOutlet weak var noticeOutlet: UIBarButtonItem!
     
     @IBOutlet weak var trackingModeOutlet: UIView!
+    @IBOutlet weak var trackingTitleOutlet: UILabel!
+    @IBOutlet weak var trackingModeHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var offTrackingModeOutlet: UIButton!
+    
     @IBOutlet weak var offlineModeOutlet: UIView!
+    @IBOutlet weak var offlineTitleOutlet: UILabel!
+    @IBOutlet weak var offlineModeHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet var tapAddressOutlet: UITapGestureRecognizer!
     @IBOutlet weak var floatMenuTopConstraint: NSLayoutConstraint!
@@ -70,6 +76,10 @@ class MainMapController: UIViewController {
         self.addressScrollLabel.scrollLabelIfNeed()
         
         propelToTargetController()
+        
+        offlineModeHeightConstraint.constant = offlineTitleOutlet.bounds.height + 14.0
+        trackingModeHeightConstraint.constant = trackingTitleOutlet.bounds.height + 14.0
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -375,14 +375,18 @@
                         <outlet property="noGeolocationView" destination="qq8-s0-eFv" id="AQV-eU-Bf7"/>
                         <outlet property="noticeOutlet" destination="wZG-pb-3Ev" id="y0o-jN-D0v"/>
                         <outlet property="offTrackingModeOutlet" destination="j9l-Yt-adv" id="gPy-0W-htE"/>
+                        <outlet property="offlineModeHeightConstraint" destination="Pfv-DH-Izo" id="6VA-EP-OMq"/>
                         <outlet property="offlineModeOutlet" destination="2KL-x9-XlB" id="zgn-or-D6k"/>
+                        <outlet property="offlineTitleOutlet" destination="5OR-JA-wTP" id="beP-mJ-Gu4"/>
                         <outlet property="openPreferencesBtn" destination="nZf-no-x56" id="fAq-2c-ibZ"/>
                         <outlet property="remindActivityOutlet" destination="4FX-yC-N2n" id="qOl-ar-8kh"/>
                         <outlet property="remindLocationOutlet" destination="Edu-4d-HAK" id="MzW-bS-WKN"/>
                         <outlet property="statesOutlet" destination="jCk-Qg-6qK" id="upn-8y-ixp"/>
                         <outlet property="tapAddressOutlet" destination="xsd-xS-KJU" id="hZj-Bg-eeh"/>
                         <outlet property="timeOutlet" destination="5vP-5M-IIQ" id="A0r-lR-u12"/>
+                        <outlet property="trackingModeHeightConstraint" destination="hG8-k4-4rK" id="M4U-01-EhR"/>
                         <outlet property="trackingModeOutlet" destination="imr-nd-beI" id="NNt-4O-Oa8"/>
+                        <outlet property="trackingTitleOutlet" destination="MzW-Bs-kxY" id="EG7-Xn-dSF"/>
                         <outlet property="voltameterImageOutlet" destination="819-oq-ciP" id="ObD-LL-Dsn"/>
                         <outlet property="voltameterOutlet" destination="qVH-Ns-GUh" id="B8g-H8-ajw"/>
                         <segue destination="06j-ga-eoj" kind="show" identifier="showAllKidsLocation" id="FIc-Qy-oXz"/>

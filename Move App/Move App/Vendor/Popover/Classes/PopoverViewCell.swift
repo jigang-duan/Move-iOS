@@ -9,6 +9,7 @@
 import UIKit
 //import AFImageHelper
 import CustomViews
+import Kingfisher
 
 class PopoverViewCell: UITableViewCell {
     
@@ -22,7 +23,7 @@ class PopoverViewCell: UITableViewCell {
         $0.titleLabel?.font = PopoverViewCell.titleFont
         $0.backgroundColor = self.contentView.backgroundColor
         $0.contentHorizontalAlignment = .left
-        $0.setTitleColor(UIColor.black, for: .normal)
+        $0.setTitleColor(.black, for: .normal)
         return $0
     } (UIButton(type: .custom))
     
@@ -92,24 +93,22 @@ class PopoverViewCell: UITableViewCell {
         self.hasBadge = action.hasBadge
         
         if let placeholder = action.placeholderImage {
-            let showImage = (action.canAvatar ? self.conver(title: action.title!, size: placeholder.size) : placeholder) ?? placeholder
-            guard let url = action.imageUrl else {
-                self.button.setImage(self.convert(image: showImage, size: placeholder.size), for: .normal)
+            let image = (action.canAvatar ? self.conver(title: action.title!, size: placeholder.size) : placeholder) ?? placeholder
+            let showImage = self.convert(image: image, placeholder: image) ?? placeholder
+            self.button.setImage(self.convert(image: showImage, placeholder: showImage), for: .normal)
+            guard let url = try? action.imageUrl?.asURL() else {
                 return
             }
             
-            let image = UIImage.image(fromURL: url,
-                                      placeholder: showImage) { [weak self] in
-                                        if let image = $0 {
-                                            self?.button.setImage(self?.convert(image: image, size: placeholder.size), for: .normal)
-                                        }
+            self.button.kf.setImage(with: url, for: .normal, placeholder: showImage, options: nil, progressBlock: nil) { [weak self] (image, _, _, _) in
+                self?.button.setImage(self?.convert(image: image, placeholder: showImage), for: .normal)
             }
-            self.button.setImage(self.convert(image: image, size: placeholder.size), for: .normal)
         }
     }
     
-    private func convert(image: UIImage?, size: CGSize) -> UIImage? {
-        return image?.scale(toSize: size)?.roundCornersToCircle()
+    private func convert(image: UIImage?, placeholder: UIImage) -> UIImage? {
+        let size = CGSize(width: placeholder.size.width, height: placeholder.size.height)
+        return image?.scale(toSize: size)?.circle() ?? placeholder
     }
     
     private func conver(title: String, size: CGSize) -> UIImage? {
@@ -209,15 +208,33 @@ class PopoverViewCell: UITableViewCell {
 fileprivate extension UIImage {
     
     func scale(toSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(toSize, false, 0)
         
-        UIGraphicsBeginImageContext(toSize)
-        
-        self.draw(in: CGRect.init(x: 0, y: 0, width: toSize.width, height: toSize.height))
+        let rect = CGRect(origin: .zero, size: toSize)
+        self.draw(in: rect)
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
         return scaledImage
+    }
+    
+    func circle() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        let rect = CGRect(origin: .zero, size: size)
+        
+        context?.addEllipse(in: rect)
+        context?.clip()
+        self.draw(in: rect)
+        
+        let circleImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return circleImage
     }
 }
 
