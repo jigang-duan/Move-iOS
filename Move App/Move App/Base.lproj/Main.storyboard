@@ -249,16 +249,16 @@
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe_left" translatesAutoresizingMaskIntoConstraints="NO" id="4d4-RJ-tDN" customClass="swipe_left">
-                                        <rect key="frame" x="30" y="156.5" width="62" height="65"/>
+                                        <rect key="frame" x="30" y="156" width="62" height="65"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Swipe left,you will see QR code and IMEI on screen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgg-vn-2gU">
-                                        <rect key="frame" x="30" y="84" width="175" height="57.5"/>
+                                        <rect key="frame" x="30" y="83.5" width="175" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAx-pt-Ntn">
-                                        <rect key="frame" x="30" y="60.5" width="44" height="18.5"/>
+                                        <rect key="frame" x="30" y="60" width="44" height="18.5"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -288,7 +288,6 @@
                             <constraint firstAttribute="trailing" secondItem="fuW-Ln-FWB" secondAttribute="trailing" id="gfV-z8-7j2"/>
                             <constraint firstAttribute="trailing" secondItem="Rre-tx-Z3A" secondAttribute="trailing" id="nfq-wS-x7n"/>
                             <constraint firstItem="Rre-tx-Z3A" firstAttribute="leading" secondItem="tQY-h5-1wT" secondAttribute="leading" id="twz-Pr-n5R"/>
-                            <constraint firstItem="fuW-Ln-FWB" firstAttribute="top" secondItem="Rre-tx-Z3A" secondAttribute="bottom" id="zeW-ki-cLE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Help for paird" id="tgI-oM-06a">
@@ -519,6 +518,9 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qr_ic2" translatesAutoresizingMaskIntoConstraints="NO" id="Uk7-r4-0NE">
                                 <rect key="frame" x="292" y="197.5" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="5hl-fY-hef"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put QR code into box to scan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSx-bI-vMl">
                                 <rect key="frame" x="94" y="196.5" width="187.5" height="17"/>
@@ -528,6 +530,9 @@
                             </label>
                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qr_ic1" translatesAutoresizingMaskIntoConstraints="NO" id="55h-x3-cgA">
                                 <rect key="frame" x="69" y="197.5" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="ubq-vV-9ke"/>
+                                </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xy-VU-deZ" userLabel="ScanView">
                                 <rect key="frame" x="77.5" y="233.5" width="220" height="200"/>
@@ -558,6 +563,7 @@
                             <constraint firstItem="PcB-ej-QBh" firstAttribute="centerX" secondItem="SJ5-KW-u3I" secondAttribute="centerX" id="CVN-yc-gQM"/>
                             <constraint firstItem="2R1-Ih-mQw" firstAttribute="top" secondItem="SJ5-KW-u3I" secondAttribute="top" id="CYH-dN-t4C"/>
                             <constraint firstItem="OC8-sz-GhJ" firstAttribute="leading" secondItem="3xy-VU-deZ" secondAttribute="trailing" id="Fay-1e-ftv"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Uk7-r4-0NE" secondAttribute="trailing" constant="15" id="HLI-ja-6wp"/>
                             <constraint firstItem="snu-mw-Fmx" firstAttribute="leading" secondItem="SJ5-KW-u3I" secondAttribute="leading" id="I4f-ck-QAv"/>
                             <constraint firstAttribute="trailing" secondItem="2R1-Ih-mQw" secondAttribute="trailing" id="P3E-K1-Gdg"/>
                             <constraint firstItem="3xy-VU-deZ" firstAttribute="centerY" secondItem="SJ5-KW-u3I" secondAttribute="centerY" id="PTx-pi-7qm"/>
@@ -574,6 +580,7 @@
                             <constraint firstItem="hSx-bI-vMl" firstAttribute="leading" secondItem="55h-x3-cgA" secondAttribute="trailing" constant="10" id="eQJ-dn-VXj"/>
                             <constraint firstItem="rtW-bF-rO1" firstAttribute="top" secondItem="OC8-sz-GhJ" secondAttribute="bottom" id="ews-7a-zpV"/>
                             <constraint firstItem="Uk7-r4-0NE" firstAttribute="centerY" secondItem="hSx-bI-vMl" secondAttribute="centerY" id="iqr-O6-bC5"/>
+                            <constraint firstItem="55h-x3-cgA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SJ5-KW-u3I" secondAttribute="leading" constant="15" id="kXh-fC-Ch7"/>
                             <constraint firstItem="3xy-VU-deZ" firstAttribute="top" secondItem="ak6-O3-Xzd" secondAttribute="bottom" id="miE-U8-Ghn"/>
                             <constraint firstItem="PcB-ej-QBh" firstAttribute="top" secondItem="hSx-bI-vMl" secondAttribute="bottom" constant="20" id="mtI-2P-ByY"/>
                             <constraint firstItem="hSx-bI-vMl" firstAttribute="centerX" secondItem="SJ5-KW-u3I" secondAttribute="centerX" id="rCC-O8-ECX"/>

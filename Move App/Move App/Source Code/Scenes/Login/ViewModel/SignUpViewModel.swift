@@ -70,7 +70,7 @@ class SignUpViewModel {
                         if flag == false{
                            return ValidationResult.ok(message: "Account avaliable")
                         }else{
-                           return ValidationResult.failed(message: "Account already exists")
+                           return ValidationResult.failed(message: R.string.localizable.id_account_used())
                         }
                     }
                     .asDriver(onErrorRecover: commonErrorRecover)

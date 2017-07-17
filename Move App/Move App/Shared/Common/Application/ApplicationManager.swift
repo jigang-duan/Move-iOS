@@ -174,7 +174,7 @@ extension ApplicationManager {
             print("Network Status Changed: \(status)")
             switch status {
             case .notReachable:
-                ProgressHUD.show(status: "Can't connect to network")
+                ProgressHUD.show(status: R.string.localizable.id_unconnect_network())
             default:
                 break
             }

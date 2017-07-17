@@ -234,7 +234,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 cell?.detailTextLabel?.text = R.string.localizable.id_not_specified()
             }
         case IndexPath(row: 3, section: 1):
-            cell?.textLabel?.text = R.string.localizable.id_set_your_birthday()
+            cell?.textLabel?.text = R.string.localizable.id_birthday()
             if let b = birthday, b > Date(timeIntervalSince1970: -2209017600) {
                 cell?.detailTextLabel?.text = b.stringYearMonthDay
             }else{
