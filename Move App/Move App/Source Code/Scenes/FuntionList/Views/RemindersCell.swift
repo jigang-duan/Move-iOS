@@ -69,7 +69,7 @@ class RemindersCell: UITableViewCell {
         for index in 0 ... 6{
             if weekss[index]{
                 s += week[index]
-//                s += " "
+                s += " "
             }
         }
         if s == R.string.localizable.id_week_monday()+R.string.localizable.id_week_tuesday()+R.string.localizable.id_week_wednesday()+R.string.localizable.id_week_thurday()+R.string.localizable.id_week_friday()
