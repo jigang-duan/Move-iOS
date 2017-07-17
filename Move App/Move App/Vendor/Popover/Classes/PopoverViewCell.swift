@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import AFImageHelper
 import CustomViews
 import Kingfisher
 
@@ -205,36 +204,5 @@ class PopoverViewCell: UITableViewCell {
     
 }
 
-fileprivate extension UIImage {
-    
-    func scale(toSize: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(toSize, false, 0)
-        
-        let rect = CGRect(origin: .zero, size: toSize)
-        self.draw(in: rect)
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return scaledImage
-    }
-    
-    func circle() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        let rect = CGRect(origin: .zero, size: size)
-        
-        context?.addEllipse(in: rect)
-        context?.clip()
-        self.draw(in: rect)
-        
-        let circleImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return circleImage
-    }
-}
+
 

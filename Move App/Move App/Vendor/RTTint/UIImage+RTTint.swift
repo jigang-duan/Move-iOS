@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension UIImage {
+extension UIImage {
     
     func rt_tintedImage(color: UIColor) -> UIImage {
         return self.rt_tintedImage(color: color, level: 1.0)
@@ -44,4 +44,37 @@ public extension UIImage {
         return darkImage
     }
 
+}
+
+extension UIImage {
+    
+    func scale(toSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(toSize, false, 0)
+        
+        let rect = CGRect(origin: .zero, size: toSize)
+        self.draw(in: rect)
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
+    
+    func circle() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        let rect = CGRect(origin: .zero, size: size)
+        
+        context?.addEllipse(in: rect)
+        context?.clip()
+        self.draw(in: rect)
+        
+        let circleImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return circleImage
+    }
 }

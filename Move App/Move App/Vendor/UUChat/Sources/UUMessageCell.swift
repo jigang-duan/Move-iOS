@@ -49,7 +49,7 @@ class UUMessageCell: UITableViewCell {
     
     lazy var headImageBackView: UIView = {
         let $ = UIView()
-        $.layer.cornerRadius = 18
+        $.layer.cornerRadius = ChatIconWH / 2
         $.layer.masksToBounds = true
         $.backgroundColor = UIColor.gray.withAlphaComponent(0.4)
         return $
@@ -57,7 +57,7 @@ class UUMessageCell: UITableViewCell {
     
     lazy var btnHeadImage: UIButton = {
         let $ = UIButton(type: .custom)
-        $.layer.cornerRadius = 16
+        $.layer.cornerRadius = (ChatIconWH-ChatIconBorder)/2
         $.layer.masksToBounds = true
         return $
     }()
@@ -95,7 +95,7 @@ class UUMessageCell: UITableViewCell {
             
             // 2、设置头像
             headImageBackView.frame = messageFrame.iconF
-            self.btnHeadImage.frame = CGRect(x: 2, y: 2, width: ChatIconWH-4, height: ChatIconWH-4)
+            self.btnHeadImage.frame = CGRect(x: ChatIconBorder/2, y: ChatIconBorder/2, width: ChatIconWH-ChatIconBorder, height: ChatIconWH-ChatIconBorder)
             let placeImg = CDFInitialsAvatar(
                 rect: CGRect(x: 0, y: 0, width: btnHeadImage.frame.width, height: btnHeadImage.frame.height),
                 fullName: message.name)
@@ -278,8 +278,8 @@ class UUMessageCell: UITableViewCell {
         imageAvatarBrowser = UUImageAvatarBrowser()
         
         // Menu
-        let itDelete = UIMenuItem(title: "Delete", action: #selector(handleDeleteMenu(_:)))
-        let itMore = UIMenuItem(title: "More", action: #selector(handleMoreMenu(_:)))
+        let itDelete = UIMenuItem(title: R.string.localizable.id_str_remove_alarm_title(), action: #selector(handleDeleteMenu(_:)))
+        let itMore = UIMenuItem(title: R.string.localizable.id_more(), action: #selector(handleMoreMenu(_:)))
         let itTurnOnSpeaker = UIMenuItem(title: speekerDescription, action: #selector(handleSpeakerMenu(_:)))
         
         let menu = UIMenuController.shared

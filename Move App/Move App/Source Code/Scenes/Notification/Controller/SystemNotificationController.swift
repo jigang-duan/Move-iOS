@@ -16,7 +16,7 @@ import RxDataSources
 import RxRealmDataSources
 import Kingfisher
 import CustomViews
-//import AFImageHelper
+import AFImageHelper
 import DZNEmptyDataSet
 
 
@@ -104,7 +104,7 @@ class SystemNotificationController: UIViewController {
     }
     
     private func convert(image: UIImage, size: CGSize) -> UIImage {
-        return image.scale(toSize: size)?.roundCornersToCircle() ?? image
+        return image.scale(toSize: size)?.circle() ?? image
     }
 
     
@@ -128,7 +128,7 @@ extension SystemNotificationController: DZNEmptyDataSetSource {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No notification here"
+        let text = R.string.localizable.id_no_notification_here()
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
                           NSForegroundColorAttributeName: UIColor.lightGray]
         return NSAttributedString(string: text, attributes: attributes)
@@ -171,18 +171,3 @@ fileprivate extension GroupEntity {
     
 }
 
-
-fileprivate extension UIImage {
-    
-    func scale(toSize: CGSize) -> UIImage? {
-        
-        UIGraphicsBeginImageContext(toSize)
-        
-        self.draw(in: CGRect.init(x: 0, y: 0, width: toSize.width, height: toSize.height))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return scaledImage
-    }
-}

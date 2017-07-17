@@ -92,8 +92,6 @@
 		11795CB11ED283DF00A5F10E /* Emotion_Dynamic_144 in Resources */ = {isa = PBXBuildFile; fileRef = 11795CB01ED283DF00A5F10E /* Emotion_Dynamic_144 */; };
 		118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8661E7CE8ED003C3C13 /* AlertController.swift */; };
 		118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8681E7CE992003C3C13 /* AlertServer.swift */; };
-		118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */; };
-		118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */; };
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
 		11A66FF31ED3D1E700EAE093 /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A66FF21ED3D1E700EAE093 /* Update.swift */; };
 		11A66FF61ED3D5FD00EAE093 /* AppUpdate+Itunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A66FF51ED3D5FD00EAE093 /* AppUpdate+Itunes.swift */; };
@@ -465,8 +463,6 @@
 		11795CB01ED283DF00A5F10E /* Emotion_Dynamic_144 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Emotion_Dynamic_144; sourceTree = "<group>"; };
 		118BA8661E7CE8ED003C3C13 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		118BA8681E7CE992003C3C13 /* AlertServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertServer.swift; sourceTree = "<group>"; };
-		118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
-		118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
 		11A66FF21ED3D1E700EAE093 /* Update.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Update.swift; path = AppUpdate/Update.swift; sourceTree = "<group>"; };
 		11A66FF51ED3D5FD00EAE093 /* AppUpdate+Itunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppUpdate+Itunes.swift"; path = "AppUpdate/AppUpdate+Itunes.swift"; sourceTree = "<group>"; };
@@ -1081,24 +1077,6 @@
 			name = Notification;
 			sourceTree = "<group>";
 		};
-		118BA86A1E7D2AB9003C3C13 /* AFImageHelper */ = {
-			isa = PBXGroup;
-			children = (
-				118BA86B1E7D2B31003C3C13 /* Sources */,
-			);
-			name = AFImageHelper;
-			path = Vendor/AFImageHelper;
-			sourceTree = "<group>";
-		};
-		118BA86B1E7D2B31003C3C13 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				118BA86C1E7D2B7E003C3C13 /* ImageHelper.swift */,
-				118BA86D1E7D2B7E003C3C13 /* ImageVIewExtension.swift */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		11A66FF11ED3D1B700EAE093 /* Update */ = {
 			isa = PBXGroup;
 			children = (
@@ -1527,7 +1505,6 @@
 				93015C0B1EC43E5B002D08C3 /* AuthenCryptor */,
 				11500FF81EC0699B008E7517 /* EAFeatureGuideView */,
 				FFFF62901EBC77FF00EC22F3 /* ProgressHUD */,
-				118BA86A1E7D2AB9003C3C13 /* AFImageHelper */,
 				11EAC2FE1E6D796F002906F1 /* UUChat */,
 				E03B1C541E53E8C4006EDB7B /* Popover */,
 				E0C228FD1E35DC0200BCF83D /* RxUtilities */,
@@ -2866,7 +2843,6 @@
 				11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */,
 				E0FA02941E5AD3F7004A55BA /* LoginViewModel.swift in Sources */,
 				A5B3E1EA1E7FF8A100F12E22 /* VoiceConverter.mm in Sources */,
-				118BA86E1E7D2B7E003C3C13 /* ImageHelper.swift in Sources */,
 				1154AB9E1EFCB88E00920F68 /* WatchSettingsManager.swift in Sources */,
 				D299374E1E53126400350E1C /* MoveApi+ActivityRecord.swift in Sources */,
 				1109C6421E5EF6FA005B4AFD /* DistributionViewModel.swift in Sources */,
@@ -2929,7 +2905,6 @@
 				D298B3B11E5C3CEC00613F94 /* AccountKidsRulesuserController.swift in Sources */,
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
-				118BA86F1E7D2B7E003C3C13 /* ImageVIewExtension.swift in Sources */,
 				113F2E401E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift in Sources */,
 				AD5734AF1F0C920B00C20D1E /* File.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,

@@ -11,6 +11,7 @@ import UIKit
 
 let ChatMargin: CGFloat = 10       //间隔
 let ChatIconWH: CGFloat = 36       //头像宽高height、width
+let ChatIconBorder: CGFloat = 2
 let ChatPicWH: CGFloat = 200       //图片宽高
 let ChatContentW: CGFloat = 180    //内容宽度
 

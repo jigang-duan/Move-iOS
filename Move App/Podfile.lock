@@ -1,4 +1,5 @@
 PODS:
+  - AFImageHelper (3.2.1)
   - Alamofire (4.4.0)
   - AwesomeCache (5.0)
   - Bugly (2.4.7)
@@ -63,6 +64,7 @@ PODS:
   - SwiftyBeaver (1.1.3)
 
 DEPENDENCIES:
+  - AFImageHelper (from `./github/ImageHelper-3.2.1`)
   - AwesomeCache
   - Bugly
   - DZNEmptyDataSet
@@ -87,7 +89,12 @@ DEPENDENCIES:
   - SwiftGifOrigin (~> 1.6.1)
   - SwiftyBeaver
 
+EXTERNAL SOURCES:
+  AFImageHelper:
+    :path: "./github/ImageHelper-3.2.1"
+
 SPEC CHECKSUMS:
+  AFImageHelper: 63eb32592e2963ae2ba0996180f92de3a0ee2638
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AwesomeCache: d8906955242173357caa0be0214d5e77dec32cc5
   Bugly: 2c256069145f550171907c5cb1c0f84ad291f6c1
@@ -118,6 +125,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   SwiftyBeaver: 949aa1439b8fa3667f68555cfef65de46a70ccde
 
-PODFILE CHECKSUM: efc076772de91f651bf1ef05609fa3136ef37b02
+PODFILE CHECKSUM: 228a488f6755bc8cd93a7c1eed1991bc7f34ee01
 
 COCOAPODS: 1.2.0
