@@ -99,7 +99,6 @@ class LocationHistoryVC: UIViewController {
         calendar.placeholderType = .none
         calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
         
-//        timeSelectBtn.setTitle(calendar.today?.stringDefaultYearMonthDay, for: .normal)
         timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
         
         timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)

@@ -89,6 +89,8 @@ class RemindersController: UIViewController {
         titleSegment.selectedSegmentIndex = 0
         
         changeShow()
+        
+        timeSelectBtn.setTitle(self.formatter.string(from: calendar.today!), for: .normal)
         titleSegment.addTarget(self, action: #selector(RemindersController.changeShow), for: .valueChanged)
         
         
@@ -126,7 +128,8 @@ class RemindersController: UIViewController {
                 self?.todos =  $0.todo.map({ ["start": $0.start ?? zoneDate, "end": $0.end ?? zoneDate, "content": $0.content ?? "", "topic": $0.topic ?? "" ,"repeat": $0.repeatCount ?? 0 ]   })
                 
                 let date  = DateUtility.stringToDateyyMMddd(dateString: self?.timeSelectBtn.titleLabel?.text ?? "")
-                self?.changeBtnType(time: 0 , date : date)
+                let time = self?.calenderConversion(from: (self?.calendar.today)!, to: date)
+                self?.changeBtnType(time: time! , date : date)
                 
                 self?.tableViw.reloadData()
             } )
@@ -407,24 +410,21 @@ extension RemindersController {
    fileprivate func changeBtnType(time : Int , date : Date){
                 if time == 1 {
                 timeBtnhelpBtn.setTitle(R.string.localizable.id_tomorrow(), for: .normal)
-                    timeSelectBtn.isHidden = true
-                    timeBtnhelpBtn.isHidden = false
+                   
                     
                 }else if time == -1 {
                 timeBtnhelpBtn.setTitle(R.string.localizable.id_yesterday(), for: .normal)
-                    timeSelectBtn.isHidden = true
-                    timeBtnhelpBtn.isHidden = false
+                    
                     
                 }else if time == 0{
                     timeBtnhelpBtn.setTitle(R.string.localizable.id_today(), for: .normal)
-                    timeSelectBtn.isHidden = true
-                    timeBtnhelpBtn.isHidden = false
+                  
                     
                 }else
                 {
-                    timeSelectBtn.isHidden = false
-                    timeBtnhelpBtn.isHidden = true
+                    timeBtnhelpBtn.setTitle(date.stringDefaultYearMonthDay, for: .normal)
                 }
+
 //    else{
     
         //        self.fifletodos?.removeAll()
@@ -445,7 +445,7 @@ extension RemindersController {
             if self.timeSelectBtn.titleLabel?.text != (DateUtility.dateTostringyyMMddd(date: (self.todos?[i]["start"] as! Date))){
                 switch self.todos?[i]["repeat"] as! Int {
                 case 0:
-                    print(self.todos?[i]["repeat"] as! Int)
+                    
                     break
                 case 1:
                     self.fifleremeder?.append((self.todos?[i])!)
