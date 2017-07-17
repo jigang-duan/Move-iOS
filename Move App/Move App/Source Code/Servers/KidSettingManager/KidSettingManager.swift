@@ -82,7 +82,7 @@ class KidSettingsManager {
    
     func fetchreminder() -> Observable<KidSetting.Reminder>{
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId else {
-            return Observable<KidSetting.Reminder>.empty()
+            return Observable.empty()
         }
         return self.worker.fetchreminder(id: deviceId)
     }

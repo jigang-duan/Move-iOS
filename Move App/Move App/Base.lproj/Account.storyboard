@@ -1100,13 +1100,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTV-gS-blv" userLabel="DateView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pyJ-Ql-0q7">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pyJ-Ql-0q7">
                                         <rect key="frame" x="111" y="13" width="153" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="6Qg-m5-JLw"/>
                                         </constraints>
                                         <state key="normal" title="10 December 2016">
                                             <color key="titleColor" red="0.13333334028720856" green="0.13333334028720856" blue="0.13333334028720856" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opt-eK-CFQ" userLabel="timeBtn">
+                                        <rect key="frame" x="111" y="13" width="153" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="s7M-XQ-xd2"/>
+                                        </constraints>
+                                        <state key="normal" title="10 December 2016">
+                                            <color key="titleColor" red="0.13333334029999999" green="0.13333334029999999" blue="0.13333334029999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ig8-eO-M8o">
@@ -1134,11 +1143,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="opt-eK-CFQ" firstAttribute="leading" secondItem="pyJ-Ql-0q7" secondAttribute="leading" id="0Oc-G8-v9N"/>
+                                    <constraint firstItem="opt-eK-CFQ" firstAttribute="width" secondItem="pyJ-Ql-0q7" secondAttribute="width" id="65A-rd-scI"/>
                                     <constraint firstItem="ig8-eO-M8o" firstAttribute="centerY" secondItem="vTV-gS-blv" secondAttribute="centerY" id="9Ni-Wz-UhA"/>
                                     <constraint firstItem="pyJ-Ql-0q7" firstAttribute="centerX" secondItem="vTV-gS-blv" secondAttribute="centerX" id="IVW-jM-tTS"/>
                                     <constraint firstItem="pyJ-Ql-0q7" firstAttribute="centerY" secondItem="vTV-gS-blv" secondAttribute="centerY" id="KvB-65-Umh"/>
+                                    <constraint firstItem="opt-eK-CFQ" firstAttribute="top" secondItem="pyJ-Ql-0q7" secondAttribute="bottom" constant="-35" id="LEV-JF-bOY"/>
                                     <constraint firstAttribute="height" constant="60" id="NWe-Wv-5gs"/>
                                     <constraint firstItem="ig8-eO-M8o" firstAttribute="leading" secondItem="pyJ-Ql-0q7" secondAttribute="trailing" constant="20" id="kA7-6T-tbX"/>
+                                    <constraint firstItem="opt-eK-CFQ" firstAttribute="height" secondItem="pyJ-Ql-0q7" secondAttribute="height" id="m4M-jR-9ed"/>
                                     <constraint firstItem="X98-vf-cBC" firstAttribute="centerY" secondItem="vTV-gS-blv" secondAttribute="centerY" id="s3w-TI-FoQ"/>
                                     <constraint firstItem="pyJ-Ql-0q7" firstAttribute="leading" secondItem="X98-vf-cBC" secondAttribute="trailing" constant="20" id="v25-sp-4nq"/>
                                 </constraints>
@@ -1262,6 +1275,7 @@
                         <outlet property="tableViw" destination="0Gs-xm-bSJ" id="6E7-6o-KQ2"/>
                         <outlet property="tableviewtopConstraint" destination="fxe-Vw-YaX" id="346-cL-CvL"/>
                         <outlet property="timeBackBtn" destination="X98-vf-cBC" id="e2s-in-PQq"/>
+                        <outlet property="timeBtnhelpBtn" destination="opt-eK-CFQ" id="3Ge-Wb-cbF"/>
                         <outlet property="timeNextBtn" destination="ig8-eO-M8o" id="ybG-qE-ea3"/>
                         <outlet property="timeSelectBtn" destination="pyJ-Ql-0q7" id="5Mt-pd-LA0"/>
                         <outlet property="titleSegment" destination="inP-0C-WGb" id="xVm-tR-fNi"/>

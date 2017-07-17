@@ -40,9 +40,9 @@ class RemindersViewModel {
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-        let reminderInfomation = manager.fetchreminder()
-            .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: KidSetting.Reminder())
+//        let reminderInfomation = manager.fetchreminder()
+//            .trackActivity(activitying)
+//            .asDriver(onErrorRecover: { _ in Driver.empty() })
         
         let delectReminder = input.delect
             .withLatestFrom(reminderVariable.asDriver())
@@ -50,14 +50,17 @@ class RemindersViewModel {
                 manager.updateReminder($0)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
-            }).debug()
+            })
             .flatMapLatest({_ in
-                reminderInfomation.debug()
+                manager.fetchreminder().takeLast(1)
+                    .asDriver(onErrorRecover: { _ in Driver.empty() })
             })
         
         let updateReminder = input.update
             .flatMapLatest({
-                reminderInfomation
+                manager.fetchreminder()
+                    .trackActivity(activitying)
+                    .asDriver(onErrorRecover: { _ in Driver.empty() })
             })
         
         fetchReminder = Driver.of(updateReminder, delectReminder).merge()

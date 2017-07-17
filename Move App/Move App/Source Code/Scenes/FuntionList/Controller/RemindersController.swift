@@ -20,6 +20,7 @@ class RemindersController: UIViewController {
     @IBOutlet weak var addOutlet: UIButton!
     @IBOutlet weak var tableViw: UITableView!
     
+    @IBOutlet weak var timeBtnhelpBtn: UIButton!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var timeSelectBtn: UIButton!
     @IBOutlet weak var timeBackBtn: UIButton!
@@ -68,7 +69,9 @@ class RemindersController: UIViewController {
 //        addFuntion()
         initView()
         loadData()
-        
+        timeBtnhelpBtn.rx.tap.asDriver().drive(onNext: {[weak self] in
+            self?.calenderIsOpen()
+        }).addDisposableTo(disposeBag)
         timeSelectBtn.rx.tap.asDriver().drive(onNext: {[weak self] in
             self?.calenderIsOpen()
         }).addDisposableTo(disposeBag)
@@ -88,6 +91,7 @@ class RemindersController: UIViewController {
         changeShow()
         titleSegment.addTarget(self, action: #selector(RemindersController.changeShow), for: .valueChanged)
         
+        
     }
 
     fileprivate func loadData() {
@@ -96,7 +100,7 @@ class RemindersController: UIViewController {
                 update: updateTap.asDriver().filter({ $0 > 0 }).map({_ in
                     Void()
                 }) ,
-                delect: deleteTap.asDriver ().filter({ $0 > 0 }).debug().map({_ in
+                delect: deleteTap.asDriver ().filter({ $0 > 0 }).map({_ in
                     Void()
                 }) ,
                 empty: Void()
@@ -320,7 +324,7 @@ extension RemindersController {
             label.text = R.string.localizable.id_no_reminder_alarms()
         }else
         {
-            self.changeBtnType(time: -1, date: Date.today().startDate)
+            self.changeBtnType(time: 0, date: Date.today().startDate)
             dateView.isHidden = false
             tableviewtopConstraint.constant = 0
             calendar.isHidden = true
@@ -401,14 +405,28 @@ extension RemindersController {
     }
     
    fileprivate func changeBtnType(time : Int , date : Date){
-        //        if time == 1 {
-        //            timeSelectBtn.setTitle("Tomorrow", for: .normal)
-        //        }else if time == -1 {
-        //            timeSelectBtn.setTitle("Yesterday", for: .normal)
-        ////        }else if time == 0{
-        ////            timeSelectBtn.setTitle("Today", for: .normal)
-        //        }else{
-        
+                if time == 1 {
+                timeBtnhelpBtn.setTitle(R.string.localizable.id_tomorrow(), for: .normal)
+                    timeSelectBtn.isHidden = true
+                    timeBtnhelpBtn.isHidden = false
+                    
+                }else if time == -1 {
+                timeBtnhelpBtn.setTitle(R.string.localizable.id_yesterday(), for: .normal)
+                    timeSelectBtn.isHidden = true
+                    timeBtnhelpBtn.isHidden = false
+                    
+                }else if time == 0{
+                    timeBtnhelpBtn.setTitle(R.string.localizable.id_today(), for: .normal)
+                    timeSelectBtn.isHidden = true
+                    timeBtnhelpBtn.isHidden = false
+                    
+                }else
+                {
+                    timeSelectBtn.isHidden = false
+                    timeBtnhelpBtn.isHidden = true
+                }
+//    else{
+    
         //        self.fifletodos?.removeAll()
         //        for i in 0 ..< (self.todos?.count ?? 0)
         //        {
