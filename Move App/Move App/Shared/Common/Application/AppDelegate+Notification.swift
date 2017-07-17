@@ -50,6 +50,7 @@ extension AppDelegate {
 
         Logger.verbose("notification Receive : \(userInfo)")
         
+        
         if application.applicationState == UIApplicationState.active{
             return //app在前台直接返回不进行任何跳转操作
         }
