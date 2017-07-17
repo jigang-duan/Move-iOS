@@ -174,7 +174,7 @@ extension Reactive where Base: ShareSDK {
 fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> {
     if let merror = error as?  MoyaError {
         if case MoyaError.underlying(_) = merror {
-            ProgressHUD.show(status: "Network Unavailable")
+            ProgressHUD.show(status: R.string.localizable.id_network_unavailable())
         }
     }
     

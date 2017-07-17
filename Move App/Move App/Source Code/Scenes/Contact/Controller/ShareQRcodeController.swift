@@ -75,9 +75,9 @@ class ShareQRcodeController: UIViewController {
             timeBottom.constant = 50
         }else if screenH < 500 {
             QRImageViewHCons.constant = 120
-            qrcodeTop.constant = 20
+            qrcodeTop.constant = 10
             timeTop.constant = 10
-            timeBottom.constant = 20
+            timeBottom.constant = 10
         }
         
         

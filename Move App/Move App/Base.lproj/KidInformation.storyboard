@@ -65,7 +65,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rks-NN-2Yh" userLabel="NicknameLine">
-                                <rect key="frame" x="128" y="169" width="118" height="1"/>
+                                <rect key="frame" x="129" y="169" width="117" height="1"/>
                                 <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="5RG-OL-1Ay"/>
@@ -756,7 +756,6 @@
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-3187281943">
                                     <!--1900-01-01 03:54:17 +0000-->
                                 </date>
-                                <locale key="locale" localeIdentifier="en_AS"/>
                             </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
