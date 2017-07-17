@@ -166,8 +166,7 @@ class APNSettingVC: UITableViewController {
                 case .sending:
                     print("APN 发送数据中...")
                 case .disconnect:
-                    //缺Bluetooth disconnected
-                    let vc = UIAlertController(title: nil, message: "Bluetooth disconnected", preferredStyle: .alert)
+                    let vc = UIAlertController(title: nil, message: R.string.localizable.id_bluetooth_disconnected(), preferredStyle: .alert)
                     let action = UIAlertAction(title: R.string.localizable.id_ok(), style: .cancel, handler: { _ in
                         _ = self.navigationController?.popViewController(animated: true)
                     })

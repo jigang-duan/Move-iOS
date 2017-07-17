@@ -36,7 +36,7 @@ class HelpForApnVC: UIViewController {
         
         self.initializeI18N()
         
-        tipLab.text = "If your watch has not be paired"
+        tipLab.text = R.string.localizable.id_apn_unpaired_hint()
         
         
     }

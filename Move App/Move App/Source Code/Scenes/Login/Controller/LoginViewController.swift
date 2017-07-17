@@ -231,7 +231,7 @@ extension LoginViewController {
         case .failed(let message):
             self.showAccountError(message)
         case .empty:
-            self.showAccountError("Please fill")
+            self.showAccountError(R.string.localizable.id_password_please_fill_email())
         default:
             self.revertAccountError()
         }
@@ -242,7 +242,7 @@ extension LoginViewController {
         case .failed(let message):
             self.showPasswordError(message)
         case .empty:
-            self.showPasswordError("Please fill")
+            self.showPasswordError(R.string.localizable.id_password_is_empty())
         default:
             self.revertPasswordError()
         }

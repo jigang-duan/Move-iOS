@@ -140,7 +140,7 @@ class KidInformationController: UIViewController {
         
         
         if let gender = info.gender {
-            genderLab.text = (gender == .female ? "Girl":"Boy")
+            genderLab.text = (gender == .female ? R.string.localizable.id_girl():R.string.localizable.id_boy())
             let img = (gender == .female ? R.image.information_gender_female():R.image.information_gender_male())
             self.genderBun.setBackgroundImage(img, for: .normal)
         }else{
@@ -285,7 +285,7 @@ class KidInformationController: UIViewController {
             
             vc.genderBlock = { [weak self] (gender) in
                 self?.addInfoVariable.value.gender = gender
-                self?.genderLab.text = (gender == .female ? "Girl":"Boy")
+                self?.genderLab.text = (gender == .female ? R.string.localizable.id_girl():R.string.localizable.id_boy())
                 let img = (gender == .female ? R.image.information_gender_female():R.image.information_gender_male())
                 self?.genderBun.setBackgroundImage(img, for: .normal)
             }

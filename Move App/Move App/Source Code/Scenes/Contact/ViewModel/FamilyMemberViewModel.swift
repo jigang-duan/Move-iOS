@@ -94,7 +94,7 @@ class FamilyMemberViewModel {
                         }
                     }
                     
-                    let cellData = FamilyMemberCellData(headUrl: mb.profile ?? "", isHeartOn: self.transformIsHeartOn(flag: mb.flag ?? 0), relation: (mb.identity?.description) ?? "", state: memberState)
+                    let cellData = FamilyMemberCellData(headUrl: mb.profile ?? "", isHeartOn: self.transformIsHeartOn(flag: mb.flag ?? 0), relation: mb.identity ?? Relation.other(value: ""), state: memberState)
                     cellDatas.append(cellData)
                     
                     var conInfo = FamilyMemberDetailController.ContactDetailInfo()

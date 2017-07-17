@@ -246,11 +246,10 @@ extension SafeZoneController: DZNEmptyDataSetSource {
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         var text = ""
-        //缺非管理员无数据提示国际化
         if self.adminBool == false {
             text = R.string.localizable.id_no_safe_zone_not_admin()
         }else{
-            text = "No safe zone here,tap \"+\" to add a safe zone"
+            text = R.string.localizable.id_no_safe_zone()
         }
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
                           NSForegroundColorAttributeName: UIColor.lightGray]

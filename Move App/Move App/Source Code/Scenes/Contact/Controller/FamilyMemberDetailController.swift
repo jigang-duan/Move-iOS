@@ -240,7 +240,7 @@ class FamilyMemberDetailController: UIViewController {
         }
         
         let imgUrl = URL(string: FSManager.imageUrl(with: info?.contactInfo?.profile ?? ""))
-        photoImgV.kf.setImage(with: imgUrl, placeholder: R.image.relationship_ic_other()!)
+        photoImgV.kf.setImage(with: imgUrl, placeholder: info?.contactInfo?.identity?.image)
         identityLab.text = info?.contactInfo?.identity?.description
         identityVariable.value = info?.contactInfo?.identity
         
@@ -295,6 +295,7 @@ class FamilyMemberDetailController: UIViewController {
         vc.relationBlock = {[weak self] relation in
             self?.identityLab.text = relation.description
             self?.identityVariable.value = relation
+            self?.photoImgV.image = relation.image
         }
         self.navigationController?.show(vc, sender: nil)
     }

@@ -41,7 +41,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var kidaddressTF: UITextField!
     
     @IBOutlet weak var mainMapView: MKMapView!
-    //缺半径国际化
+    
     @IBOutlet weak var RadiusL: UILabel!
     @IBOutlet weak var safeZoneSlider: UISlider!
     @IBOutlet weak var informationView: UIView!
@@ -94,7 +94,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             self.mainMapView.setRegion(region, animated: true)
             safeZoneSlider.value = Float((self.editFenceDataSounrce?.radius)!)
 //            self.currentRadius = (self.editFenceDataSounrce?.radius)!
-            RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
+            RadiusL.text = String.init(format: R.string.localizable.id_range() + ":" + "%.fm"+"(200m~1000m)", safeZoneSlider.value)
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
             self.currentRadius = Double(safeZoneSlider.value)
 //            self.drawOverlay(radius: self.currentRadius)

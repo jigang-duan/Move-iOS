@@ -201,10 +201,9 @@ extension AccountKidsRulesuserController {
         schoolTimeLabel.text = R.string.localizable.id_school_time()
         reminderLabel.text = R.string.localizable.id_reminder()
         regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
-        //缺daily tracking mode
-        //缺daily tracking mode描述
-//        autoPositionLab.text = ""
-//        autoPositionIntroduceLab.text = ""
+      
+        autoPositionLab.text = R.string.localizable.id_auto_position()
+        autoPositionIntroduceLab.text = R.string.localizable.id_auto_position_describe()
         
         autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
         autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()

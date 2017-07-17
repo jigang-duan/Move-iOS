@@ -17,8 +17,7 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var schooltimeTitleItem: UINavigationItem!
     @IBOutlet weak var saveItemQutlet: UIBarButtonItem!
     @IBOutlet weak var openschooltimeLabel: UILabel!
-    @IBOutlet weak var anLabel: UILabel!
-    @IBOutlet weak var pmLabel: UILabel!
+ 
     @IBOutlet weak var confirmOutlet: UIButton!
     @IBOutlet weak var cancelDatePickeOutlet: UIButton!
     
@@ -38,9 +37,6 @@ class SchoolTimeController: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    @IBOutlet weak var amOutlet: UILabel!
-    @IBOutlet weak var pmOutlet: UILabel!
-    
     @IBOutlet weak var helpBtnQutlet: UIButton!
     @IBOutlet weak var NullQutlet: UIButton!
     
@@ -51,11 +47,9 @@ class SchoolTimeController: UIViewController {
     private func internationalization() {
         schooltimeTitleItem.title = R.string.localizable.id_school_time()
         saveItemQutlet.title = R.string.localizable.id_save()
-        //缺am，pm,null
-//        anLabel.text = R.string.localizable.id_date_am()
-//        pmLabel.text = R.string.localizable.id_date_pm()
+        
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
-//        NullQutlet.setTitle(<#T##title: String?##String?#>, for: .normal)
+        NullQutlet.setTitle(R.string.localizable.id_is_null(), for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
        
@@ -65,8 +59,7 @@ class SchoolTimeController: UIViewController {
     
     func saveAction() {
         if !weekOutlet.weekSelected.contains(true){
-            //缺提示语
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "Please select the date", preferredStyle: .alert)
+            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_school_time_date_empty(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
             
             alertController.addAction(okAction)
@@ -230,8 +223,6 @@ class SchoolTimeController: UIViewController {
         window.addSubview(view)
     }
     private func enableView(_ enable: Bool) {
-        self.amOutlet.isEnabled = enable
-        self.pmOutlet.isEnabled = enable
         self.weekOutlet.isEnable = enable
         self.amStartTimeOutlet.isEnabled = enable
         self.amEndTimeOutlet.isEnabled = enable
@@ -326,8 +317,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date > self.amEndTime{
-                //缺提示语
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_morning_time_later_end(), preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
@@ -348,8 +338,7 @@ class SchoolTimeController: UIViewController {
                 else
                 {
               if datepicke.date < self.amStartTime{
-                //缺提示语
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the morning of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_morning_time_later_end(), preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)
@@ -371,8 +360,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date > self.pmEndTime{
-                //缺提示语
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_afternoon_time_later_end(), preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
@@ -395,8 +383,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date < self.pmStartTime{
-                //缺提示语
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: "On the afernoon of the start time later than the end of time", preferredStyle: .alert)
+                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_afternoon_time_later_end(), preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)

@@ -71,7 +71,7 @@ class ProtectAccountController: TranslucentNavBarController {
         
         self.initializeI18N()
 
-        helpLabel.text = "Help us protect your.The verification\ncode was sent to your Email\n\(registerInfo?.email ?? "")."
+        helpLabel.text = R.string.localizable.id_protect_account_tint() + "\n\(registerInfo?.email ?? "")."
         
         vcodeValidation.isHidden = true
         

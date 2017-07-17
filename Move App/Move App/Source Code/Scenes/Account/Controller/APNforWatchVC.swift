@@ -87,7 +87,7 @@ class APNforWatchVC: UIViewController {
     }
     
     private func initializeI18N() {
-        
+        self.title = R.string.localizable.id_apn_for_watch()
         
         deviceLab.text = R.string.localizable.id_available_device()
         openApnTip.text = R.string.localizable.id_apn_tint()
@@ -286,8 +286,7 @@ extension APNforWatchVC: CBCentralManagerDelegate {
         case .poweredOn:
             manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
-            //缺Turn on Bluetooth
-            let vc = UIAlertController(title: nil, message: "Turn on Bluetooth to Allow \"TCLMOVE\" to connect to watch", preferredStyle: .alert)
+            let vc = UIAlertController(title: nil, message: R.string.localizable.id_bluetooth_connect_watch(), preferredStyle: .alert)
             let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { _ in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }

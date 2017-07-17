@@ -151,6 +151,7 @@ class FamilyMemberAddController: UIViewController {
         vc.relationBlock = {[weak self] (relation) in
             self?.identityLab.text = relation.description
             self?.identityVariable.value = relation
+            self?.photoImgV.image = relation.image
         }
         self.navigationController?.show(vc, sender: nil)
     }

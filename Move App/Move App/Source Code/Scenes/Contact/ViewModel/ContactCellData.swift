@@ -15,7 +15,7 @@ protocol ContactCellType {
 struct FamilyMemberCellData: ContactCellType {
     var headUrl: String
     var isHeartOn: Bool
-    var relation: String
+    var relation: Relation
     var state: [FamilyMemberCellState]
 }
 

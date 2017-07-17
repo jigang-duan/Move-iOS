@@ -2353,7 +2353,7 @@
                                             <color key="titleColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OV5-VC-7GA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OV5-VC-7GA">
                                         <rect key="frame" x="10" y="62.5" width="26" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -2764,9 +2764,7 @@
                     <connections>
                         <outlet property="NullQutlet" destination="DI4-P7-idi" id="11T-Cp-JJE"/>
                         <outlet property="amEndTimeOutlet" destination="GQY-Ma-XhY" id="w2G-3d-78u"/>
-                        <outlet property="amOutlet" destination="OV5-VC-7GA" id="uOj-H2-YJ4"/>
                         <outlet property="amStartTimeOutlet" destination="q2I-sz-T33" id="YNo-rv-j6c"/>
-                        <outlet property="anLabel" destination="OV5-VC-7GA" id="l10-aS-dPj"/>
                         <outlet property="cancelDatePickeOutlet" destination="goW-nz-Ix3" id="wzm-dR-Hoc"/>
                         <outlet property="confirmOutlet" destination="pjW-TN-Wp5" id="dEA-19-tRW"/>
                         <outlet property="datePickView" destination="VW0-Wr-5db" id="aLu-fV-2e0"/>
@@ -2775,8 +2773,6 @@
                         <outlet property="openSchoolSwitch" destination="MoX-h8-kRO" id="HA9-ZD-Zdr"/>
                         <outlet property="openschooltimeLabel" destination="V9D-qA-VHF" id="RpS-0K-8HZ"/>
                         <outlet property="pmEndTimeOutlet" destination="vDL-nF-JZK" id="8Kd-cB-jw2"/>
-                        <outlet property="pmLabel" destination="CTU-tM-APL" id="Uid-DJ-DuQ"/>
-                        <outlet property="pmOutlet" destination="CTU-tM-APL" id="SVh-Ep-fvi"/>
                         <outlet property="pmStartTimeOutlet" destination="lcC-HY-lWX" id="Ny5-XM-J1H"/>
                         <outlet property="saveItemQutlet" destination="FLA-jN-Ypo" id="zxe-41-2Dc"/>
                         <outlet property="schooltimeTitleItem" destination="p9l-sD-KKe" id="Dvh-Mu-DNX"/>

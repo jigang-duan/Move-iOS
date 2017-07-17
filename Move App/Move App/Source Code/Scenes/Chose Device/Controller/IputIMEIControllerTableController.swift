@@ -12,8 +12,6 @@ import RxCocoa
 
 class InputImeiVC: UIViewController {
     @IBOutlet weak var whereIsLab: UILabel!
-    @IBOutlet weak var imeiBun: UIButton!
-
     @IBOutlet weak var IMEITextF: UITextField!
     @IBOutlet weak var confirmBun: UIButton!
     
@@ -52,6 +50,8 @@ class InputImeiVC: UIViewController {
     
     private func initializeI18N() {
         self.title = R.string.localizable.id_input_imei()
+        
+        whereIsLab.text = R.string.localizable.id_where_is_the()
         
         confirmBun.setTitle(R.string.localizable.id_confirm(), for: .normal)
         

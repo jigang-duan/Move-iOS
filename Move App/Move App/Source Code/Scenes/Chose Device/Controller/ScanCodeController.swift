@@ -146,7 +146,7 @@ class ScanCodeController: UIViewController {
                 let feature = fs[0] as! CIQRCodeFeature
                 self?.makeDeviceAdd(with: feature.messageString!)
             }else{
-                self?.showMessage("No QR code detected")
+                self?.showMessage(R.string.localizable.id_no_qr_code_detected())
             }
         })
     }
@@ -187,7 +187,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                 self.sessionStop()
                 self.makeDeviceAdd(with: metadataObj.stringValue)
             }else{
-                self.showMessage("No QR code detected")
+                self.showMessage(R.string.localizable.id_no_qr_code_detected())
             }
         }
     }
@@ -221,8 +221,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                     if let expired = embeded["expired_at"] as? Int {
                         let now = Int(Date().timeIntervalSince1970)
                         if now > expired {
-                            //缺
-                            self.showMessage("This code has expired")
+                            self.showMessage(R.string.localizable.id_code_has_expired())
                         }else{
                             isValidQRcode = true
                             
@@ -255,7 +254,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
         }
         
         if isValidQRcode == false {
-            self.showMessage("Invalid QR code")
+            self.showMessage(R.string.localizable.id_qr_code_invalid())
         }
         
     }

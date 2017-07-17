@@ -24,7 +24,7 @@ class HelpController: UITableViewController {
     private func initializeI18N() {
         self.title = R.string.localizable.id_help()
         
-        cellLab1.text = "FAQ"
+        cellLab1.text = R.string.localizable.id_help_faq()
         cellLab2.text = R.string.localizable.id_user_manual()
         cellLab3.text = R.string.localizable.id_terms_of_use_help()
         cellLab4.text = R.string.localizable.id_privacy_and_security()

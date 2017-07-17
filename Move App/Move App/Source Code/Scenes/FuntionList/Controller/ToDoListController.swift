@@ -171,12 +171,11 @@ extension ToDoListController {
         self.saveItemQutlet.isEnabled = false
         
         if self.beginTime == self.endTime{
-            //缺弹框提示语
-            self.alertSeting(message: "begin time not the same as end time", preferredStyle: .alert)
+            self.alertSeting(message: R.string.localizable.id_begin_time_same_end(), preferredStyle: .alert)
             
         } else if (self.beginTime) < Date()
         {
-            
+            // 缺提示语  id重复了
             self.alertSeting(message: "begin time later than the system time", preferredStyle: .alert)
             
         }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
@@ -185,7 +184,7 @@ extension ToDoListController {
             
         }else if self.titleTextFieldQutle.text == "" {
             
-            self.alertSeting(message: "The title and remark can't Null", preferredStyle: .alert)
+            self.alertSeting(message: R.string.localizable.id_title_can_not_null(), preferredStyle: .alert)
             self.saveItemQutlet.isEnabled = true
             
         }else if (self.beginTime) > (self.endTime) {

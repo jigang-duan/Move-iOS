@@ -112,7 +112,7 @@ class FamilyMemberController: UIViewController {
                     }
                 }
                 
-                cell.relationName.text = element.relation + (element.state.contains(.me) ? R.string.localizable.id_contact_me():"")
+                cell.relationName.text = element.relation.description + (element.state.contains(.me) ? R.string.localizable.id_contact_me():"")
                 
                 if element.state.contains(.master){
                     cell.detailLab.text = R.string.localizable.id_master()
@@ -121,7 +121,7 @@ class FamilyMemberController: UIViewController {
                 }
                 
                 let imgUrl = URL(string: FSManager.imageUrl(with: element.headUrl))
-                cell.headImgV.kf.setImage(with: imgUrl, placeholder: R.image.member_btn_contact_nor()!)
+                cell.headImgV.kf.setImage(with: imgUrl, placeholder: element.relation.image)
                 cell.headImgV.layer.cornerRadius = 18
                 cell.headImgV.layer.masksToBounds = true
             }
