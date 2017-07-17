@@ -99,7 +99,8 @@ class LocationHistoryVC: UIViewController {
         calendar.placeholderType = .none
         calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
         
-        timeSelectBtn.setTitle(calendar.today?.stringDefaultYearMonthDay, for: .normal)
+//        timeSelectBtn.setTitle(calendar.today?.stringDefaultYearMonthDay, for: .normal)
+        timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
         
         timeZoneSlider.addTarget(self, action: #selector(actionFenceRadiusValueChanged(_:)), for: .valueChanged)
         
@@ -294,20 +295,19 @@ class LocationHistoryVC: UIViewController {
         timeNextBtn.isEnabled = true
 //        if time == 1 {
 //            timeSelectBtn.setTitle(R.string.localizable.id_tomorrow(), for: UIControlState.normal)
-//        }else if time == -1 {
-//            timeSelectBtn.setTitle(R.string.localizable.id_yesterday(), for: UIControlState.normal)
-//        }else
-            if time == 0{
-//            timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
+//        }else 
+        if time == -1 {
+            timeSelectBtn.setTitle(R.string.localizable.id_yesterday(), for: UIControlState.normal)
+        }else if time == 0{
+            timeSelectBtn.setTitle(R.string.localizable.id_today(), for: UIControlState.normal)
             
             timeNextBtn.setImage(UIImage(named: "general_next_dis"), for: .normal)
             timeNextBtn.isEnabled = false
         }
-//            else{
-//            let string = self.formatter.string(from: date)
+        else{
             timeSelectBtn.setTitle(date.stringDefaultYearMonthDay, for: .normal)
         
-//        }
+        }
         locationMap.removeOverlays(locationMap.overlays)
         
     }
