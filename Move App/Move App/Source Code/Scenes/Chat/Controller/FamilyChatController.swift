@@ -22,7 +22,6 @@ class FamilyChatController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ifView: UUInputView!
     @IBOutlet var moreView: MoreView!
-    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
@@ -40,7 +39,6 @@ class FamilyChatController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.emptyDataSetSource = self
         moreView.isHidden = true
-        activityView.isHidden = true
         
         guard
             let uid = Me.shared.user.id,
@@ -118,7 +116,7 @@ class FamilyChatController: UIViewController {
         ifView.rx.sendEmoji.asObservable()
             .map { EmojiType(rawValue: $0) }
             .filterNil()
-            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: nil, ctime: Date(), content: $0, failure: true) }
+            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), content: $0, failure: true) }
             .map { MessageEntity(meoji: $0) }
             .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
             .addDisposableTo(bag)
@@ -154,7 +152,7 @@ class FamilyChatController: UIViewController {
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { imVoice in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
-                    .do(onNext: { FileUtility.rename(fileURL: imVoice.locationURL!, name: "\($0)_tmp.amr") })
+                    .do(onNext: { _ = FileUtility.rename(fileURL: imVoice.locationURL!, name: "\($0)_tmp.amr") })
                     .trackActivity(activitying)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }

@@ -59,7 +59,7 @@
                             </segments>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="6"/>
+                                    <real key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                     <real key="value" value="1"/>
@@ -375,22 +375,15 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ctU-ZX-T5A">
-                                <rect key="frame" x="169" y="283" width="37" height="37"/>
-                                <color key="color" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="qat-C3-6yT" firstAttribute="top" secondItem="mrp-ER-g6b" secondAttribute="top" id="3uQ-9A-6Da"/>
-                            <constraint firstItem="ctU-ZX-T5A" firstAttribute="centerX" secondItem="mrp-ER-g6b" secondAttribute="centerX" id="F5l-Du-8v3"/>
                             <constraint firstItem="qat-C3-6yT" firstAttribute="leading" secondItem="mrp-ER-g6b" secondAttribute="leading" id="HlG-qQ-4L1"/>
                             <constraint firstAttribute="bottom" secondItem="qat-C3-6yT" secondAttribute="bottom" constant="53" id="cI9-w8-bUv"/>
                             <constraint firstAttribute="trailing" secondItem="qat-C3-6yT" secondAttribute="trailing" id="ctC-Bs-Pri"/>
-                            <constraint firstItem="ctU-ZX-T5A" firstAttribute="centerY" secondItem="mrp-ER-g6b" secondAttribute="centerY" id="t9s-B7-Upj"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityView" destination="ctU-ZX-T5A" id="Nsw-1t-Uoc"/>
                         <outlet property="ifView" destination="srb-GD-rWH" id="chh-CI-a4E"/>
                         <outlet property="moreView" destination="qYj-zk-abQ" id="DIA-Es-4Yi"/>
                         <outlet property="tableView" destination="qat-C3-6yT" id="tI4-ly-vH2"/>
@@ -499,22 +492,15 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="deW-KD-edL">
-                                <rect key="frame" x="169" y="283" width="37" height="37"/>
-                                <color key="color" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="hbs-S1-SMF" firstAttribute="top" secondItem="8bJ-GU-kRL" secondAttribute="bottom" constant="53" id="0sn-hu-ohe"/>
                             <constraint firstAttribute="trailing" secondItem="8bJ-GU-kRL" secondAttribute="trailing" id="1iZ-5Q-3qx"/>
-                            <constraint firstItem="deW-KD-edL" firstAttribute="centerY" secondItem="6fX-Ch-ncz" secondAttribute="centerY" id="QRU-OX-4ce"/>
                             <constraint firstItem="8bJ-GU-kRL" firstAttribute="top" secondItem="QjO-c7-J8f" secondAttribute="bottom" id="Skj-ct-qhR"/>
                             <constraint firstItem="8bJ-GU-kRL" firstAttribute="leading" secondItem="6fX-Ch-ncz" secondAttribute="leading" id="VjQ-Wz-WGY"/>
-                            <constraint firstItem="deW-KD-edL" firstAttribute="centerX" secondItem="6fX-Ch-ncz" secondAttribute="centerX" id="e9H-f9-6xq"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityView" destination="deW-KD-edL" id="Ux4-Mx-fr2"/>
                         <outlet property="ifView" destination="xp3-VT-AMK" id="6h6-hW-dg9"/>
                         <outlet property="moreView" destination="0iM-Hx-Qny" id="5p8-Wq-BgW"/>
                         <outlet property="tableView" destination="8bJ-GU-kRL" id="vND-nN-6uc"/>

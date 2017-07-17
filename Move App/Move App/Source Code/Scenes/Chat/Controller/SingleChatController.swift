@@ -22,7 +22,6 @@ class SingleChatController: UIViewController {
     @IBOutlet weak var ifView: UUInputView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var moreView: MoreView!
-    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
@@ -139,7 +138,7 @@ class SingleChatController: UIViewController {
             .filter { ($0.locationURL != nil) && ($0.duration != nil) }
             .flatMapFirst { imVoice in
                 FSManager.shared.uploadVoice(with: try Data(contentsOf: imVoice.locationURL!), duration: imVoice.duration!)
-                    .do(onNext: { FileUtility.rename(fileURL: imVoice.locationURL!, name: "\($0)_tmp.amr") })
+                    .do(onNext: { _ = FileUtility.rename(fileURL: imVoice.locationURL!, name: "\($0)_tmp.amr") })
                     .trackActivity(activitying)
                     .catchErrorJustReturn(imVoice.locationURL!.absoluteString)
                     .map { imVoice.clone(fId: $0) }
