@@ -41,6 +41,9 @@ class KidInformationController: UIViewController {
     @IBOutlet weak var nextBunTopCons: NSLayoutConstraint!
     @IBOutlet weak var genderWidth: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var nextActivity: UIActivityIndicatorView!
+    
     var isForSetting = false
     var isMaster = false//设置资料时，是否为管理员
     
@@ -56,6 +59,8 @@ class KidInformationController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
+        
+        nameTf.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -220,6 +225,9 @@ class KidInformationController: UIViewController {
         )
         viewModel.isForSetting = isForSetting
         
+        viewModel.sending
+            .drive(nextActivity.rx.isAnimating)
+            .addDisposableTo(disposeBag)
         
         viewModel.nextEnabled
             .drive(onNext: { [weak self] valid in
@@ -335,8 +343,24 @@ class KidInformationController: UIViewController {
         
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
 
+extension KidInformationController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == nameTf {
+            phoneTf.becomeFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+}
 
 
 

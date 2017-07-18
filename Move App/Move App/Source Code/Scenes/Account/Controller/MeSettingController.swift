@@ -37,7 +37,7 @@ class MeSettingController: UIViewController {
     var disposeBag = DisposeBag()
     
     
-    let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    @IBOutlet weak var logoutActivity: UIActivityIndicatorView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -97,19 +97,17 @@ class MeSettingController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
         ))
         
+        
+        viewModel.sending
+            .drive(logoutActivity.rx.isAnimating)
+            .addDisposableTo(disposeBag)
+        
         viewModel.logoutEnabled
             .drive(onNext: { [unowned self] valid in
                 self.logoutBun.isEnabled = valid
                 self.logoutBun.backgroundColor?.withAlphaComponent(valid ? 1.0 : 0.5)
-                if valid == false {
-                    self.activity.startAnimating()
-                }else{
-                    self.activity.stopAnimating()
-                }
             })
             .addDisposableTo(disposeBag)
-        
-        
         
         viewModel.logoutResult
             .drive(onNext: { [unowned self] result in
@@ -123,9 +121,6 @@ class MeSettingController: UIViewController {
                 }
             })
             .addDisposableTo(disposeBag)
-        
-        activity.center = self.view.center
-        self.view.addSubview(activity)
         
     }
     
