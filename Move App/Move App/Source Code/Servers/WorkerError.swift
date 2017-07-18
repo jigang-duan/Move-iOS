@@ -203,7 +203,7 @@ extension WorkerError {
     }
     
     static func verifyErrorTransform(from error: WorkerError) -> String {
-        let apimsg = WorkerError.apiErrorTransform(from: error)
+        let apimsg = WorkerError.errorTransform(from: error)
         return apimsg.isNotEmpty ? apimsg : WorkerError.permissionErrorTransform(from: error)
     }
 }
