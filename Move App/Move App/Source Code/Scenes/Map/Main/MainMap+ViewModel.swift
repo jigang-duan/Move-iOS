@@ -11,6 +11,8 @@ import RxSwift
 import RxCocoa
 import MapKit
 import RxOptional
+import Realm
+import RealmSwift
 
 
 class MainMapViewModel {
@@ -44,11 +46,15 @@ class MainMapViewModel {
     
     let badgeCount: Observable<Int>
     
-    let battery: Observable<Int>
+    let power: Driver<Int>
     
     let online: Driver<Bool>
     
     let autoPosistion: Driver<Bool>
+    
+    let netReachable: Observable<Bool>
+    
+    let hasNotication: Observable<Bool>
     
     // }
     
@@ -63,6 +69,7 @@ class MainMapViewModel {
         ),
          dependency: (
             geolocationService: GeolocationService,
+            reachabilityService: ReachabilityService,
             deviceManager: DeviceManager,
             settingsManager: WatchSettingsManager,
             locationManager: LocationManager,
@@ -72,6 +79,7 @@ class MainMapViewModel {
         
         authorized = dependency.geolocationService.authorized
         let _ = dependency.geolocationService.location
+        
         let deviceManager = dependency.deviceManager
         let locationManager = dependency.locationManager
         let settingsManager = dependency.settingsManager
@@ -80,6 +88,8 @@ class MainMapViewModel {
         
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
+        
+        netReachable = dependency.reachabilityService.reachability.map{ $0.reachable }
         
         let currentDeviceId = RxStore.shared.currentDeviceId.asDriver()
         let currentDeviceIdObservable = currentDeviceId.asObservable().filterNil()
@@ -109,8 +119,10 @@ class MainMapViewModel {
 
         let onlineObservable = Observable.merge(period, currentDeviceIdObservable.mapVoid())
             .delay(1.0, scheduler: MainScheduler.instance)
-            .flatMapLatest { deviceManager.online.trackActivity(activitying).catchErrorEmpty() }
-        online = onlineObservable.asDriver(onErrorJustReturn: false)
+            .flatMapLatest {
+                deviceManager.online.trackActivity(activitying).catchErrorEmpty()
+            }
+        online = onlineObservable.startWith(false).asDriver(onErrorJustReturn: false)
         
         let remindActivitying = BehaviorSubject<Bool>(value: false)
         self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
@@ -207,7 +219,6 @@ class MainMapViewModel {
         allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
         singleAction = selecedAction.map({ $0.data as? DeviceInfo  }).filterNil()
         
-        
         let devUID = currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
         badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
             .flatMapLatest { IMManager.shared.countUnreadMessages(uid: $0, devUid: $1) }
@@ -223,14 +234,17 @@ class MainMapViewModel {
             }
             .filterTrue()
         
-        battery = Observable.merge(MessageServer.share.lowBattery,
+        let battery = Observable.merge(MessageServer.share.lowBattery,
                                    uploadPower)
             .flatMapLatest{
                 deviceManager.power
                     .trackActivity(activitying)
                     .catchErrorEmpty()
             }
-        
+        power = Driver.merge(
+            currentDevice.map{ $0.property?.power }.filterNil(),
+            battery.asDriver(onErrorJustReturn: 0)
+        )
         
         let fetchAutoPosistion = Driver.merge(currentDevice.distinctUntilChanged{ $0.deviceId == $1.deviceId },
                                               enter.withLatestFrom(currentDevice))
@@ -267,7 +281,23 @@ class MainMapViewModel {
                                      fetchAutoPosistion,
                                      offTrackingMode)
         
+        let realm = try! Realm()
+        let gidsObservable = RxStore.shared.deviceInfosObservable.filterEmpty().map{ $0.flatMap{ $0.user?.gid } }
+        hasNotication = RxStore.shared.uidObservable
+            .flatMapLatest { (uid) -> Observable<Bool> in
+                let notices = realm.objects(NoticeEntity.self).filter("to == %@", uid)
+                return Observable.collection(from: notices)
+                    .map{ $0.filter("readStatus == 0") }
+                    .map{ $0.filter{ $0.imType.atNotiicationPage } }
+                    .withLatestFrom(gidsObservable, resultSelector: resultSelector)
+                    .map{ $0.count > 0 }
+            }
+        
     }
+}
+
+fileprivate func resultSelector(notices: [NoticeEntity], gids: [String]) throws -> [NoticeEntity] {
+    return notices.filter{  gids.contains($0.groupId ?? "") }
 }
 
 fileprivate func transformAction(infos: [DeviceInfo]) -> [BasePopoverAction] {

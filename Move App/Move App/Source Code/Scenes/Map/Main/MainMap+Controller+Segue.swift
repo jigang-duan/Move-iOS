@@ -26,6 +26,16 @@ extension MainMapController {
 // Segue
 extension MainMapController {
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.mainMapController.locationHistory(segue: segue)?.destination {
+            if let device = DeviceManager.shared.currentDevice {
+                vc.Sprofile = device.user?.profile
+                vc.Snikename = device.user?.nickname
+                vc.deviceId = device.deviceId
+            }
+        }
+    }
+    
     func showChat(index: Int = 0) {
         if let chatController = R.storyboard.social.chat() {
             chatController.selectedIndexVariable.value = index

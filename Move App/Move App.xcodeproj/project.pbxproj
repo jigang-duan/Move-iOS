@@ -89,6 +89,8 @@
 		116F818D1E665C74003CEC39 /* NotificationServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F818C1E665C74003CEC39 /* NotificationServer.swift */; };
 		117577DA1E8B8D59007B2254 /* Rx+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117577D91E8B8D59007B2254 /* Rx+UIButton.swift */; };
 		11795CB11ED283DF00A5F10E /* Emotion_Dynamic_144 in Resources */ = {isa = PBXBuildFile; fileRef = 11795CB01ED283DF00A5F10E /* Emotion_Dynamic_144 */; };
+		117C294C1F1DBA8500078646 /* NetworkReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117C294B1F1DBA8500078646 /* NetworkReachabilityService.swift */; };
+		117C294E1F1DD53900078646 /* MainMap+Controller+Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117C294D1F1DD53900078646 /* MainMap+Controller+Binding.swift */; };
 		118BA8671E7CE8ED003C3C13 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8661E7CE8ED003C3C13 /* AlertController.swift */; };
 		118BA8691E7CE992003C3C13 /* AlertServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118BA8681E7CE992003C3C13 /* AlertServer.swift */; };
 		11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0C63A1E9B282600AFB71F /* RxStore.swift */; };
@@ -459,6 +461,8 @@
 		116F818C1E665C74003CEC39 /* NotificationServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationServer.swift; path = Shared/Common/Application/Notification/NotificationServer.swift; sourceTree = "<group>"; };
 		117577D91E8B8D59007B2254 /* Rx+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+UIButton.swift"; path = "Shared/Extensisons/View/Rx+UIButton.swift"; sourceTree = "<group>"; };
 		11795CB01ED283DF00A5F10E /* Emotion_Dynamic_144 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Emotion_Dynamic_144; sourceTree = "<group>"; };
+		117C294B1F1DBA8500078646 /* NetworkReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityService.swift; path = Vendor/RxReachability/NetworkReachabilityService.swift; sourceTree = "<group>"; };
+		117C294D1F1DD53900078646 /* MainMap+Controller+Binding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MainMap+Controller+Binding.swift"; path = "Map/Main/MainMap+Controller+Binding.swift"; sourceTree = "<group>"; };
 		118BA8661E7CE8ED003C3C13 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		118BA8681E7CE992003C3C13 /* AlertServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertServer.swift; sourceTree = "<group>"; };
 		11A0C63A1E9B282600AFB71F /* RxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxStore.swift; sourceTree = "<group>"; };
@@ -976,6 +980,7 @@
 			isa = PBXGroup;
 			children = (
 				116B907A1F149ED600336E3B /* MainMap+Controller.swift */,
+				117C294D1F1DD53900078646 /* MainMap+Controller+Binding.swift */,
 				116B90841F14A99400336E3B /* MainMap+Controller+Delegate.swift */,
 				116B90821F14A7A800336E3B /* MainMap+Controller+Segue.swift */,
 				116B90801F14A63700336E3B /* MainMap+Controller+Sheet.swift */,
@@ -2036,6 +2041,7 @@
 			children = (
 				E0C228FE1E35DCB300BCF83D /* Reachability.swift */,
 				E0C228FF1E35DCB300BCF83D /* ReachabilityService.swift */,
+				117C294B1F1DBA8500078646 /* NetworkReachabilityService.swift */,
 			);
 			name = RxReachability;
 			sourceTree = "<group>";
@@ -2774,6 +2780,7 @@
 				E0C228F31E349F6B00BCF83D /* CLLocationManager+Rx.swift in Sources */,
 				1109C6541E604BF6005B4AFD /* KidSettingManager.swift in Sources */,
 				116BAE601EC9672A001577D3 /* IMDB.swift in Sources */,
+				117C294C1F1DBA8500078646 /* NetworkReachabilityService.swift in Sources */,
 				E9EA91DC1EA0BB3A000216AA /* OtherSettingsTableViewController.swift in Sources */,
 				93015C121EC43E76002D08C3 /* AuthenCryptor.m in Sources */,
 				FF08590A1E72371A00EB81D9 /* MeSetNameVC.swift in Sources */,
@@ -2895,6 +2902,7 @@
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
 				114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */,
+				117C294E1F1DD53900078646 /* MainMap+Controller+Binding.swift in Sources */,
 				FF0B13421E5FDD1900DF12D3 /* UpdatePswdViewModel.swift in Sources */,
 				116B907C1F149ED600336E3B /* MainMap+Controller.swift in Sources */,
 				E0C229011E35DCB300BCF83D /* ReachabilityService.swift in Sources */,
