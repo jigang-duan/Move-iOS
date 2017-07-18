@@ -18,8 +18,6 @@ import CustomViews
 extension MainMapController {
 
     override func initBinding() {
-        let geolocationService = GeolocationService.instance
-        let reachabilityService = NetworkReachabilityService.instance
         
         let wireframe = DefaultWireframe.sharedInstance
         
@@ -33,8 +31,8 @@ extension MainMapController {
                 remindLocation: remindLocationOutlet.rx.tap.asObservable()
             ),
             dependency: (
-                geolocationService: geolocationService,
-                reachabilityService: reachabilityService,
+                geolocationService: GeolocationService.instance,
+                reachabilityService: NetworkReachabilityService.instance,
                 deviceManager: DeviceManager.shared,
                 settingsManager: WatchSettingsManager.share,
                 locationManager: LocationManager.share,
@@ -81,6 +79,8 @@ extension MainMapController {
         viewModel.online.map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }.drive(statesOutlet.rx.image).addDisposableTo(disposeBag)
         viewModel.online.map{ !$0 }.drive(voltameterOutlet.rx.isHidden).addDisposableTo(disposeBag)
         viewModel.online.map{ !$0 }.drive(voltameterImageOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.online.drive(remindLocationOutlet.rx.isEnabled).addDisposableTo(disposeBag)
+        viewModel.online.drive(mapView.rx.online).addDisposableTo(disposeBag)
         
         viewModel.power.map{ "\($0)%" }.drive(voltameterOutlet.rx.text).addDisposableTo(disposeBag)
         viewModel.power.map{ UIImage(named: "home_ic_battery\($0/20)") }.drive(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
@@ -93,16 +93,8 @@ extension MainMapController {
         
         viewModel.kidAddress.bindTo(addressScrollLabel.rx.text).addDisposableTo(disposeBag)
         viewModel.locationTime.map { $0.stringScreenDescription }.bindTo(timeOutlet.rx.text).addDisposableTo(disposeBag)
-        
-        viewModel.kidLocation
-            .map{ MKCoordinateRegionMakeWithDistance($0, 500, 500) }
-            .bindTo(mapView.rx.region)
-            .addDisposableTo(disposeBag)
-        
-        viewModel.kidAnnotion
-            .distinctUntilChanged()
-            .bindTo(mapView.rx.soleAccuracyAnnotation)
-            .addDisposableTo(disposeBag)
+        viewModel.kidLocation.map{ MKCoordinateRegionMakeWithDistance($0, 500, 500) }.bindTo(mapView.rx.region).addDisposableTo(disposeBag)
+        viewModel.kidAnnotion.distinctUntilChanged().bindTo(mapView.rx.soleAccuracyAnnotation).addDisposableTo(disposeBag)
         
         mapView.rx.regionDidChangeAnimated.asObservable().mapVoid()
             .bindTo(mapView.rx.redrawRadius)
@@ -111,7 +103,6 @@ extension MainMapController {
         viewModel.remindActivityIn.drive(remindActivityOutlet.rx.isAnimating).addDisposableTo(disposeBag)
         viewModel.remindActivityIn.map{ !$0 }.drive(remindActivityOutlet.rx.isHidden).addDisposableTo(disposeBag)
         viewModel.remindActivityIn.drive(remindLocationOutlet.rx.isHidden).addDisposableTo(disposeBag)
-        viewModel.online.drive(remindLocationOutlet.rx.isEnabled).addDisposableTo(disposeBag)
         
         viewModel.errorObservable
             .map { WorkerError.timeoutAndApiErrorTransform(from: $0) }
@@ -145,8 +136,6 @@ extension MainMapController {
             .map{ $0 ? 54.0 : 15.0 }
             .drive(floatMenuTopConstraint.rx.constant)
             .addDisposableTo(disposeBag)
-        
-        viewModel.online.drive(mapView.rx.online).addDisposableTo(disposeBag)
         
         viewModel.activityIn.drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)
     }

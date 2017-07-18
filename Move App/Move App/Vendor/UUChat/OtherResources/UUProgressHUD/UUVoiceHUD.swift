@@ -239,7 +239,7 @@ extension UUVoiceHUD.State: CustomStringConvertible {
         case .release:
             return R.string.localizable.id_release_cancel_send()
         case .default:
-            return "Slide up to cancel"
+            return R.string.localizable.id_slide_cancel()
         case .succeed:
             return "Success"
         }

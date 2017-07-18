@@ -136,7 +136,7 @@ extension WorkerError {
                 case "password":
                     errorMessage = R.string.localizable.id_password_not_same()
                 case "vcode":
-                    errorMessage = "This code has expired"
+                    errorMessage = R.string.localizable.id_code_has_expired()
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }
@@ -223,8 +223,6 @@ func errorHandle(error: Error) throws -> Observable<Bool> {
     }
     throw error
 }
-
-
 
 
 func commonErrorRecover(_ error: Error) -> Driver<ValidationResult> {
