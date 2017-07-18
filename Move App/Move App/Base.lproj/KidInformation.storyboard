@@ -22,22 +22,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yvg-Bc-GSZ">
-                                <rect key="frame" x="15" y="529" width="345" height="44"/>
-                                <color key="backgroundColor" red="0.1215686277" green="0.50196081400000003" blue="0.93725490570000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="c6g-Hw-vLJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foX-n3-65d">
                                 <rect key="frame" x="152.5" y="50" width="70" height="70"/>
                                 <constraints>
@@ -62,7 +46,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Hye-Rj-fwk" id="gpn-Sb-r5E"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rks-NN-2Yh" userLabel="NicknameLine">
                                 <rect key="frame" x="129" y="169" width="117" height="1"/>
@@ -103,6 +90,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Hye-Rj-fwk" id="ZXC-gd-syi"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YtZ-zr-FDT" userLabel="PhoneLine">
                                 <rect key="frame" x="123.5" y="211" width="160" height="1"/>
@@ -190,6 +180,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yvg-Bc-GSZ">
+                                <rect key="frame" x="15" y="529" width="345" height="44"/>
+                                <color key="backgroundColor" red="0.1215686277" green="0.50196081400000003" blue="0.93725490570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="c6g-Hw-vLJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="rzw-9K-ACt">
+                                <rect key="frame" x="35" y="541" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -199,10 +208,12 @@
                             <constraint firstItem="F7L-nN-gd4" firstAttribute="top" secondItem="mMC-0x-N4F" secondAttribute="bottom" constant="5" id="7ik-H5-HbI"/>
                             <constraint firstItem="Zkc-Re-dbX" firstAttribute="top" secondItem="hGM-SX-9YX" secondAttribute="bottom" constant="5" id="9v3-Ci-i8o"/>
                             <constraint firstItem="hGM-SX-9YX" firstAttribute="centerX" secondItem="erm-BZ-FWi" secondAttribute="centerX" constant="80" id="Asj-Pg-Qkb"/>
+                            <constraint firstItem="rzw-9K-ACt" firstAttribute="leading" secondItem="Yvg-Bc-GSZ" secondAttribute="leading" constant="20" id="BFA-du-Hu9"/>
                             <constraint firstItem="hGM-SX-9YX" firstAttribute="width" secondItem="dBy-z6-Vvg" secondAttribute="width" id="BMZ-t8-y60"/>
                             <constraint firstAttribute="trailing" secondItem="Yvg-Bc-GSZ" secondAttribute="trailing" constant="15" id="BtB-Dg-ypz"/>
                             <constraint firstItem="mMC-0x-N4F" firstAttribute="leading" secondItem="hGM-SX-9YX" secondAttribute="leading" id="Chc-Iy-8ew"/>
                             <constraint firstItem="9iv-Qa-aog" firstAttribute="centerY" secondItem="a3S-F1-p6v" secondAttribute="centerY" id="E8K-FW-5pa"/>
+                            <constraint firstItem="rzw-9K-ACt" firstAttribute="centerY" secondItem="Yvg-Bc-GSZ" secondAttribute="centerY" id="Fe1-bd-3Ta"/>
                             <constraint firstItem="s7A-jc-G0T" firstAttribute="centerX" secondItem="xAu-WE-3aK" secondAttribute="centerX" id="Hfs-KS-oHk"/>
                             <constraint firstItem="9iv-Qa-aog" firstAttribute="leading" secondItem="a3S-F1-p6v" secondAttribute="trailing" constant="-2" id="KEx-BF-f2g"/>
                             <constraint firstItem="vIa-bp-J4u" firstAttribute="leading" secondItem="uxd-lM-MKt" secondAttribute="trailing" constant="2" id="Pee-su-UhL"/>
@@ -254,6 +265,7 @@
                         <outlet property="heightBun" destination="mMC-0x-N4F" id="VDM-LN-01T"/>
                         <outlet property="heightLab" destination="F7L-nN-gd4" id="wXK-id-3QD"/>
                         <outlet property="nameTf" destination="3y9-nO-LHY" id="mKi-Yf-WSQ"/>
+                        <outlet property="nextActivity" destination="rzw-9K-ACt" id="QUH-59-Io2"/>
                         <outlet property="nextBun" destination="Yvg-Bc-GSZ" id="Cgz-4e-xRo"/>
                         <outlet property="nextBunTopCons" destination="Qkq-06-rQG" id="CdR-47-Zgo"/>
                         <outlet property="phonePrefix" destination="uxd-lM-MKt" id="KGC-88-LfC"/>
