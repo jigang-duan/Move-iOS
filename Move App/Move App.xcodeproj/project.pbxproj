@@ -29,7 +29,6 @@
 		112154C51EF7BF4800EBCE25 /* UIScreen+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112154C41EF7BF4800EBCE25 /* UIScreen+Device.swift */; };
 		112D6E9E1E865C02006135E3 /* UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6E9D1E865C02006135E3 /* UUInputView.swift */; };
 		112D6EA31E868E68006135E3 /* Rx+UUInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */; };
-		112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA41E87A517006135E3 /* SingleChatController.swift */; };
 		112D6EA81E88A3E8006135E3 /* AmrRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */; };
 		1130AAA41F0CB801004A1773 /* UUVoiceHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1130AAA31F0CB801004A1773 /* UUVoiceHUD.swift */; };
 		113446191EE1307F009117D5 /* YHAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113446181EE1307F009117D5 /* YHAlertView.swift */; };
@@ -129,7 +128,7 @@
 		A5D031251E7D051A0077FC9F /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031241E7D051A0077FC9F /* FileStorageManager.swift */; };
 		A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D740E11E81549300EC0CEB /* MessageServer.swift */; };
 		A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F71E8506BE00D2CE50 /* ChatController.swift */; };
-		A5ED01FA1E850AD300D2CE50 /* FamilyChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */; };
+		A5ED01FA1E850AD300D2CE50 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F91E850AD300D2CE50 /* ChatViewController.swift */; };
 		AD5734AF1F0C920B00C20D1E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5734AE1F0C920B00C20D1E /* File.swift */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
@@ -398,7 +397,6 @@
 		112154C41EF7BF4800EBCE25 /* UIScreen+Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIScreen+Device.swift"; path = "Shared/Extensisons/Screen/UIScreen+Device.swift"; sourceTree = "<group>"; };
 		112D6E9D1E865C02006135E3 /* UUInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUInputView.swift; path = Vendor/UUChat/Sources/UUInputView.swift; sourceTree = "<group>"; };
 		112D6EA21E868E68006135E3 /* Rx+UUInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+UUInputView.swift"; path = "Vendor/UUChat/Rx/Rx+UUInputView.swift"; sourceTree = "<group>"; };
-		112D6EA41E87A517006135E3 /* SingleChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleChatController.swift; path = Chat/Controller/SingleChatController.swift; sourceTree = "<group>"; };
 		112D6EA61E88A354006135E3 /* AmrRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AmrRecorder.h; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.h; sourceTree = "<group>"; };
 		112D6EA71E88A3E8006135E3 /* AmrRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AmrRecorder.mm; path = Vendor/UUChat/OtherResources/VoiceLib/AmrRecorder.mm; sourceTree = "<group>"; };
 		1130AAA31F0CB801004A1773 /* UUVoiceHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UUVoiceHUD.swift; path = Vendor/UUChat/OtherResources/UUProgressHUD/UUVoiceHUD.swift; sourceTree = "<group>"; };
@@ -517,7 +515,7 @@
 		A5D031241E7D051A0077FC9F /* FileStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileStorageManager.swift; path = FileManager/FileStorageManager.swift; sourceTree = "<group>"; };
 		A5D740E11E81549300EC0CEB /* MessageServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageServer.swift; path = Chat/MessageServer.swift; sourceTree = "<group>"; };
 		A5ED01F71E8506BE00D2CE50 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatController.swift; path = Chat/Controller/ChatController.swift; sourceTree = "<group>"; };
-		A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyChatController.swift; path = Chat/Controller/FamilyChatController.swift; sourceTree = "<group>"; };
+		A5ED01F91E850AD300D2CE50 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Chat/Controller/ChatViewController.swift; sourceTree = "<group>"; };
 		AD5734AE1F0C920B00C20D1E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1261,8 +1259,7 @@
 			isa = PBXGroup;
 			children = (
 				A5ED01F71E8506BE00D2CE50 /* ChatController.swift */,
-				A5ED01F91E850AD300D2CE50 /* FamilyChatController.swift */,
-				112D6EA41E87A517006135E3 /* SingleChatController.swift */,
+				A5ED01F91E850AD300D2CE50 /* ChatViewController.swift */,
 				114D075D1E8F9FEA00349742 /* MessageModel.swift */,
 				114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */,
 				114D961C1EB842F3000D2809 /* FamilyMembersController.swift */,
@@ -2784,7 +2781,6 @@
 				FF07DA601E652011000E87B7 /* PhoneNumberViewModel.swift in Sources */,
 				11EAC30B1E6D7B14002906F1 /* UUMessage.swift in Sources */,
 				11D0BEC91E5E784F006F957E /* Business.swift in Sources */,
-				112D6EA51E87A517006135E3 /* SingleChatController.swift in Sources */,
 				FF0859201E72BD6500EB81D9 /* FamilyMemberViewModel.swift in Sources */,
 				D2EFB04B1E529801000BE93C /* ScanCodeController.swift in Sources */,
 				D298B3AF1E5C166F00613F94 /* AccountAndChoseDeviceViewModel.swift in Sources */,
@@ -2833,7 +2829,7 @@
 				FFF5BD621E6E84FA0037AFFF /* WatchFriendsController.swift in Sources */,
 				A5B3E1E71E7FF8A100F12E22 /* amrFileCodec.mm in Sources */,
 				FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */,
-				A5ED01FA1E850AD300D2CE50 /* FamilyChatController.swift in Sources */,
+				A5ED01FA1E850AD300D2CE50 /* ChatViewController.swift in Sources */,
 				117577DA1E8B8D59007B2254 /* Rx+UIButton.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
 				1140A0821EA4B8E200185200 /* MoreView.swift in Sources */,

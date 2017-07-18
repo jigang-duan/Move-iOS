@@ -15,6 +15,7 @@ class ChatController: UIViewController {
     @IBOutlet weak var segmentedOutlet: UISegmentedControl!
     @IBOutlet weak var familyChatView: UIView!
     @IBOutlet weak var singleChatView: UIView!
+    @IBOutlet weak var page0LeadConstraint: NSLayoutConstraint!
     
     var disposeBag = DisposeBag()
     
@@ -34,16 +35,20 @@ class ChatController: UIViewController {
         
         (segmentedOutlet.rx.value <-> selectedIndexVariable).addDisposableTo(disposeBag)
         
-        selectedIndexVariable
-            .asDriver()
-            .map({ $0 != 0 })
+        selectedIndexVariable.asDriver()
+            .map{ $0 != 0 }
             .drive(familyChatView.rx.isHidden)
             .addDisposableTo(disposeBag)
         
-        selectedIndexVariable
-            .asDriver()
-            .map({ $0 != 1 })
+        selectedIndexVariable.asDriver()
+            .map{ $0 != 1 }
             .drive(singleChatView.rx.isHidden)
+            .addDisposableTo(disposeBag)
+        
+        let viewWidth = self.view.bounds.width
+        selectedIndexVariable.asObservable()
+            .map{ -viewWidth * CGFloat($0) }
+            .bindTo(page0LeadConstraint.rx.constant)
             .addDisposableTo(disposeBag)
         
         selectedIndexVariable.asDriver()
@@ -79,6 +84,18 @@ class ChatController: UIViewController {
 }
 
 extension ChatController {
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let familyChat = R.segue.chatController.showFamilyChat(segue: segue)?.destination {
+            familyChat.isFamilyChat = true
+        }
+        if let singleChat = R.segue.chatController.showSingleChat(segue: segue)?.destination {
+            singleChat.isFamilyChat = false
+        }
+    }
     
     @objc fileprivate func removeView() {
         guideimageView.removeFromSuperview()

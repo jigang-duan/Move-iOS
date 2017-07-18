@@ -59,7 +59,7 @@ class SingleChatController: UIViewController {
         
         chatMessages.bindTo(messageFramesVariable).addDisposableTo(bag)
         
-        let cellIdentifier = R.reuseIdentifier.cellSingleChat.identifier
+        let cellIdentifier = R.reuseIdentifier.cellChat.identifier
         messageFramesVariable.asObservable()
             .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
                 cell.messageFrame = model

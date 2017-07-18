@@ -1,5 +1,5 @@
 //
-//  FamilyChatController.swift
+//  ChatViewController.swift
 //  Move App
 //
 //  Created by yinxiao on 2017/3/24.
@@ -17,7 +17,9 @@ import RxRealmDataSources
 import DZNEmptyDataSet
 
 
-class FamilyChatController: UIViewController {
+class ChatViewController: UIViewController {
+    
+    var isFamilyChat = true
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ifView: UUInputView!
@@ -52,9 +54,12 @@ class FamilyChatController: UIViewController {
             return
         }
         
+        let isGroupChat = isFamilyChat
+        let groupId = isGroupChat ? group.id : nil
+        
         let chatMessages = Observable.collection(from: group.messages)
             .map { list -> [UUMessage]  in
-                list.filter { $0.isGroup }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
+                list.filter { ($0.isGroup == isGroupChat) }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
             }
             .map(transformMinuteOffSet)
         
@@ -62,7 +67,7 @@ class FamilyChatController: UIViewController {
         
         chatMessages.bindTo(messageFramesVariable).addDisposableTo(bag)
         
-        let cellIdentifier = R.reuseIdentifier.cellFamilyChat.identifier
+        let cellIdentifier = R.reuseIdentifier.cellChat.identifier
         let messageFramesObservable = messageFramesVariable.asObservable()
         messageFramesObservable
             .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
@@ -101,9 +106,9 @@ class FamilyChatController: UIViewController {
         let activitying = ActivityIndicator()
         let activityIn = activitying.asObservable()
         
-        let loseMessages = group.messages.filter("readStatus == 102").filter("groupId != %@", "").filter("from == %@", uid)
-        let prepareMessageObservable = Observable.collection(from: loseMessages)
-            .map{ $0.first }
+        let prepareMessages = group.messages.filter("readStatus == 102").filter("from == %@", uid)
+        let prepareMessageObservable = Observable.collection(from: prepareMessages)
+            .map{ $0.filter { ($0.isGroup == isGroupChat) }.first }
             .filterNil()
             .timeout(20, scheduler: MainScheduler.instance)
             .retry()
@@ -116,7 +121,7 @@ class FamilyChatController: UIViewController {
         ifView.rx.sendEmoji.asObservable()
             .map { EmojiType(rawValue: $0) }
             .filterNil()
-            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), content: $0, failure: true) }
+            .map { ImEmoji(msg_id: nil, from: uid, to: devuid, gid: groupId, ctime: Date(), content: $0, failure: true) }
             .map { MessageEntity(meoji: $0) }
             .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
             .addDisposableTo(bag)
@@ -137,7 +142,7 @@ class FamilyChatController: UIViewController {
         // 语音
         
         ifView.rx.sendVoice.asObservable()
-            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: group.id, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
+            .map { ImVoice(msg_id: nil, from: uid, to: devuid, gid: groupId, ctime: Date(), fid: nil, readStatus: 0, duration: $1, locationURL: $0) }
             .map { $0.clone(fId: $0.locationURL!.absoluteString) }
             .map { MessageEntity(voice: $0) }
             .bindNext { group.update(realm: realm, message: $0, readStatus: .readySend) }
@@ -213,7 +218,7 @@ class FamilyChatController: UIViewController {
         
         Observable<Int>.timer(1.0, period: 6.0, scheduler: MainScheduler.instance)
             .map { _ in group.messages  }
-            .map { list -> [MessageEntity] in list.filter { $0.isGroup && $0.isText && $0.isUnRead } }
+            .map { list -> [MessageEntity] in list.filter { ($0.isGroup == isGroupChat) && $0.isText && $0.isUnRead } }
             .filterEmpty()
             .subscribe(onNext: { markRead(realm: realm, messages: $0) })
             .addDisposableTo(bag)
@@ -245,7 +250,7 @@ class FamilyChatController: UIViewController {
 }
 
 
-extension FamilyChatController {
+extension ChatViewController {
     
     fileprivate func UUAVAudioPlayerForcedStopPlay() {
         // 关闭红外线感应
@@ -267,7 +272,7 @@ extension FamilyChatController {
     }
 }
 
-extension FamilyChatController: UUMessageCellDelegate {
+extension ChatViewController: UUMessageCellDelegate {
     
     func cellContentDidClick(cell: UUMessageCell, voice messageId: String) {
         if cell.messageFrame.message.from == .other {
@@ -277,7 +282,7 @@ extension FamilyChatController: UUMessageCellDelegate {
 }
 
 
-extension FamilyChatController: MoreViewDelegate {
+extension ChatViewController: MoreViewDelegate {
     
     func multipleChoice(moreView: MoreView) -> [Int] {
         return tableView.indexPathsForSelectedRows?.map({ $0.row }) ?? []
@@ -293,7 +298,7 @@ extension FamilyChatController: MoreViewDelegate {
     }
 }
 
-extension FamilyChatController: UUMessageCellMenuDelegate {
+extension ChatViewController: UUMessageCellMenuDelegate {
     
     func handleMenu(cell: UUMessageCell, menuItem title: String, at index: Int) {
         if title == UUMessageCell.MenuItem_Delete {
@@ -318,7 +323,7 @@ extension FamilyChatController: UUMessageCellMenuDelegate {
     }
 }
 
-extension FamilyChatController: UITableViewDelegate {
+extension ChatViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
@@ -350,7 +355,7 @@ extension FamilyChatController: UITableViewDelegate {
     }
 }
 
-extension FamilyChatController {
+extension ChatViewController {
     
     func tapGesturedDid(_ sender: UITapGestureRecognizer) {
         ifView.shrinkEmoji()
@@ -362,7 +367,7 @@ extension FamilyChatController {
     }
 }
 
-extension FamilyChatController: DZNEmptyDataSetSource {
+extension ChatViewController: DZNEmptyDataSetSource {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return R.image.message_friends_empty()!
