@@ -66,7 +66,7 @@ class CountryCodeViewController: UITableViewController {
         let noneModel = CountryCode(name: R.string.localizable.id_alarm_protocol_none(), abbr: "-", code: "-")
         
         if let localModel = CountryCodeViewController.localCountryCode() {
-            let first = sectionModel(models: [noneModel,localModel], title: R.string.localizable.id_top_menu_location())
+            let first = sectionModel(models: [localModel,noneModel], title: R.string.localizable.id_top_menu_location())
             cellDatas.insert(first, at: 0)
         }else{
             let first = sectionModel(models: [noneModel], title: R.string.localizable.id_top_menu_location())
