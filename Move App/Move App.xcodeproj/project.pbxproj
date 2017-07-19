@@ -716,6 +716,8 @@
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
 		FFA4291E1E6E955E00CC70F0 /* FamilyMemberDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberDetailController.swift; sourceTree = "<group>"; };
 		FFA429201E6E956B00CC70F0 /* FamilyMemberAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyMemberAddController.swift; sourceTree = "<group>"; };
+		FFA9D4F01F1EEB4200364281 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Move App/pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFA9D4F11F1EEB4200364281 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		FFB543AE1E7175C400E11F5A /* MeLogoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeLogoutController.swift; sourceTree = "<group>"; };
 		FFB543B01E7175DD00E11F5A /* MeSettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeSettingController.swift; sourceTree = "<group>"; };
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
@@ -2450,6 +2452,7 @@
 				ro,
 				el,
 				tr,
+				"pt-BR",
 			);
 			mainGroup = E01DF6D91E3059A800EA003D;
 			productRefGroup = E01DF6E31E3059A800EA003D /* Products */;
@@ -3055,6 +3058,7 @@
 				FFE4B6401EFA494000E48BB1 /* ro */,
 				FFE4B6411EFA494F00E48BB1 /* el */,
 				FFE4B6421EFA524100E48BB1 /* tr */,
+				FFA9D4F01F1EEB4200364281 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -3125,6 +3129,7 @@
 				FFE4B65F1EFCAFE500E48BB1 /* ro */,
 				FFE4B6601EFCAFE600E48BB1 /* el */,
 				FFE4B6611EFCAFE700E48BB1 /* tr */,
+				FFA9D4F11F1EEB4200364281 /* pt-BR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
