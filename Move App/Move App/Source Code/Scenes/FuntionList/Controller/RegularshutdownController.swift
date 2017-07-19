@@ -108,7 +108,7 @@ class RegularshutdownController: UIViewController {
                 self?.comfirmDatepicker()
             })
             .addDisposableTo(disposeBag)
-        
+       
         self.cancelQutlet.rx.tap
             .asDriver()
             .drive(onNext: {[weak self] in

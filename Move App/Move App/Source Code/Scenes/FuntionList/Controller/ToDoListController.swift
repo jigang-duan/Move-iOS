@@ -252,7 +252,7 @@ extension ToDoListController {
         self.endTimeQutle.isSelected = false
         self.datePicker.date = beginTime
         self.DatePickerView.isHidden = false
-        if UIScreen.main.bounds.height < self.DatePickerView.frame.maxY{
+        if (UIScreen.main.bounds.height-64) < self.tableView.contentSize.height{
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
         }else
         {
@@ -271,7 +271,7 @@ extension ToDoListController {
         self.beginTimeQutle.isSelected = false
         self.datePicker.date = endTime
         self.DatePickerView.isHidden = false
-        if UIScreen.main.bounds.height < self.DatePickerView.frame.maxY{
+        if (UIScreen.main.bounds.height-64) < self.tableView.contentSize.height{
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)}
         else
         {
