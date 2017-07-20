@@ -45,7 +45,7 @@ class EmergencyNumberViewModel {
         
         
         let phoneNotEmpty = input.phone.map({ph in
-            return ph.characters.count > 0
+            return ph.characters.count >= 0
         })
         
         saveEnable = Driver.combineLatest(phoneNotEmpty, sending) { phone, sending in
@@ -60,7 +60,7 @@ class EmergencyNumberViewModel {
         saveResult = input.saveTaps.asDriver()
             .withLatestFrom(com)
             .flatMapLatest({ res, ph in
-                if res.isValid {
+//                if res.isValid {
                     var phs: [String] = []
                     if ph.contains(",") {
                         phs = ph.components(separatedBy: ",")
@@ -72,9 +72,9 @@ class EmergencyNumberViewModel {
                         .map({_ in
                         return ValidationResult.ok(message: "success")
                     }).asDriver(onErrorRecover: commonErrorRecover)
-                }else{
-                    return Driver.just(res)
-                }
+//                }else{
+//                    return Driver.just(res)
+//                }
         })
         
       
