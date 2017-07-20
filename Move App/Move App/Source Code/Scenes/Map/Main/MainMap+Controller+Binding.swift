@@ -25,6 +25,7 @@ extension MainMapController {
             input: (
                 enter: enterSubject.asDriver(onErrorJustReturn: ()),
                 avatarTap: headPortraitOutlet.rx.tap.asDriver(),
+                callTap: callOutlet.rx.tap.asDriver(),
                 offTrackingModeTap: offTrackingModeOutlet.rx.tap.asDriver(),
                 avatarView: headPortraitOutlet,
                 isAtThisPage: isAtThisPage,
@@ -48,16 +49,9 @@ extension MainMapController {
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(disposeBag)
         
-        viewModel.authorized
-            .drive(noGeolocationView.rx.isHidden)
-            .addDisposableTo(disposeBag)
+        viewModel.authorized.drive(noGeolocationView.rx.isHidden).addDisposableTo(disposeBag)
         
-        callOutlet.rx.tap.asDriver()
-            .withLatestFrom(viewModel.currentDevice)
-            .map{ URL(deviceInfo: $0) }
-            .filterNil()
-            .drive(onNext: { wireframe.open(url: $0) })
-            .addDisposableTo(disposeBag)
+        viewModel.callTelprompt.drive(onNext: { wireframe.open(url: $0) }).addDisposableTo(disposeBag)
         
         let name = viewModel.currentDevice.map { $0.user?.nickname }.filterNil()
         name.drive(nameOutle.rx.text).addDisposableTo(disposeBag)

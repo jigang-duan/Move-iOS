@@ -87,7 +87,9 @@ extension IMManager {
     
     
     func sendChatMessage(message: MoveIM.ImMessage) -> Observable<MoveIM.ImMesageRsp> {
-        return worker.sendChatMessage(message: message)
+        var _message = message
+        _message.content_status = 0
+        return worker.sendChatMessage(message: _message)
     }
     
     func delete(messages ids: [String]) -> Observable<[String]> {

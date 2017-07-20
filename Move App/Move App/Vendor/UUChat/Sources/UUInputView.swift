@@ -206,10 +206,7 @@ extension UUInputView: AmrRecorderDelegate {
 extension UUInputView: ISEmojiViewDelegate {
     
     func emojiViewDidSelectEmoji(emojiView: ISEmojiView, emoji: EmojiType) {
-        isUnfoldEmoji = false
-        UIView.animate(withDuration: 0.3, animations: {
-            self.frame = defaultFrame
-        })
+        unfoldEmoji()
         self.delegate?.UUInputView?(self, sendEmoji: emoji.rawValue)
     }
     
@@ -226,7 +223,7 @@ extension UUInputView {
         }
     }
     
-    private func unfoldEmoji() {
+    fileprivate func unfoldEmoji() {
         isUnfoldEmoji = !isUnfoldEmoji
         UIView.animate(withDuration: 0.6, animations: {
             self.frame = self.isUnfoldEmoji ? unfoldFrame : defaultFrame

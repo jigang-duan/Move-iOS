@@ -58,7 +58,7 @@ class ChatViewController: UIViewController {
         let groupId = isGroupChat ? group.id : nil
         
         let chatMessages = Observable.collection(from: group.messages)
-            .map { list -> [UUMessage]  in
+            .map { list -> [UUMessage] in
                 list.filter { ($0.isGroup == isGroupChat) }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
             }
             .map(transformMinuteOffSet)

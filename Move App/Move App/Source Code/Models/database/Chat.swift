@@ -253,6 +253,7 @@ class MessageEntity: Object {
         case unknown = -100
         case unread = 0
         case read = 1
+        case mark = 201
         case sent = 101
         case readySend = 102
         case finished = 100

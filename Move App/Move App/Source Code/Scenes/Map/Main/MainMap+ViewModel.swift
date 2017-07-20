@@ -56,12 +56,15 @@ class MainMapViewModel {
     
     let hasNotication: Observable<Bool>
     
+    let callTelprompt: Driver<URL>
+    
     // }
     
     init(
         input: (
             enter: Driver<Void>,
             avatarTap: Driver<Void>,
+            callTap: Driver<Void>,
             offTrackingModeTap: Driver<Void>,
             avatarView: UIView,
             isAtThisPage: Variable<Bool>,
@@ -118,7 +121,7 @@ class MainMapViewModel {
         
 
         let onlineObservable = Observable.merge(period, currentDeviceIdObservable.mapVoid())
-            .delay(1.0, scheduler: MainScheduler.instance)
+            .delay(0.3, scheduler: MainScheduler.instance)
             .flatMapLatest {
                 deviceManager.online.trackActivity(activitying).catchErrorEmpty()
             }
@@ -139,7 +142,7 @@ class MainMapViewModel {
         
         remindSuccess = Observable.merge(enterForeground, input.remindLocation)
             .startWith(())
-            .throttle(3.0, scheduler: MainScheduler.instance)
+            .throttle(1.0, scheduler: MainScheduler.instance)
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .do(onNext: { _ in remindActivitying.onNext(true) })
             .flatMapLatest {
@@ -203,6 +206,11 @@ class MainMapViewModel {
         
         let kidInfos = input.avatarTap
             .withLatestFrom(devicesVariable.asDriver())
+        
+        callTelprompt = input.callTap
+            .withLatestFrom(currentDevice)
+            .map{ URL(deviceInfo: $0) }
+            .filterNil()
         
         let userID = RxStore.shared.uidObservable
         

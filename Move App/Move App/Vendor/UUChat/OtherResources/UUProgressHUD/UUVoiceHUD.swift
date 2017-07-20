@@ -182,7 +182,7 @@ class UUVoiceHUD: UIView {
             
             self.set(state: state)
             self._centerLabel?.text = nil
-            
+            self.overlayWindow.isUserInteractionEnabled = true
             
             UIView.animate(withDuration: state.timeLonger,
                            delay: 0,
