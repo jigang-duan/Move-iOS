@@ -60,7 +60,11 @@ class KidInformationController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         
-        nameTf.becomeFirstResponder()
+        if  nameTf.text == nil{
+            nameTf.becomeFirstResponder()
+        }
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
