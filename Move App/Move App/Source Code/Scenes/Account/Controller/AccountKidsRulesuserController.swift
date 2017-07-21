@@ -202,8 +202,8 @@ extension AccountKidsRulesuserController {
         reminderLabel.text = R.string.localizable.id_reminder()
         regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
       
-        autoPositionLab.text = R.string.localizable.id_auto_position()
-        autoPositionIntroduceLab.text = R.string.localizable.id_auto_position_describe()
+        autoPositionLab.text = R.string.localizable.id_daily_tracking_mode()
+        autoPositionIntroduceLab.text = R.string.localizable.id_tracking_mode_describe()
         
         autoanswerLabel.text = R.string.localizable.id_auto_answer_call()
         autoansweIntroduceLabel.text = R.string.localizable.id_auto_answer_call_describe()

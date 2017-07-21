@@ -68,7 +68,7 @@ class VerificationCodeController: UIViewController {
         inputTip.text = R.string.localizable.id_verification_code_prompt()
         vcodeTf.placeholder = R.string.localizable.id_verification_code()
         sendBun.setTitle(R.string.localizable.id_resend(), for: UIControlState.normal)
-        nextBun.setTitle(R.string.localizable.id_phone_number_next(), for: .normal)
+        nextBun.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cantPairLab.text = R.string.localizable.id_verification_code_help()
         helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
         

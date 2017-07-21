@@ -146,6 +146,11 @@ class FamilyMemberController: UIViewController {
                 self?.performSegue(withIdentifier: R.segue.familyMemberController.showFamilyMemberDetail, sender: nil)
             })
             .addDisposableTo(disposeBag)
+        
+        viewModel.cellDatasVariable.asObservable()
+            .map{ $0.count < 10 }
+            .bindTo(addBun.rx.isEnabled)
+            .addDisposableTo(disposeBag)
     }
     
     

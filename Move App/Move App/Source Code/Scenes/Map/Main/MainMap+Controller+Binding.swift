@@ -126,7 +126,7 @@ extension MainMapController {
             .drive(offlineTitleOutlet.rx.text)
             .addDisposableTo(disposeBag)
         
-        Driver.combineLatest(viewModel.online, viewModel.autoPosistion) { !$0 || $1 }
+        Driver.combineLatest(viewModel.online, viewModel.autoPosistion, netNoReachable) {!$0 || $1 || $2}
             .map{ $0 ? 54.0 : 15.0 }
             .drive(floatMenuTopConstraint.rx.constant)
             .addDisposableTo(disposeBag)
