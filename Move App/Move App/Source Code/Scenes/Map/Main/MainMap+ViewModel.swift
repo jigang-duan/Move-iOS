@@ -191,10 +191,11 @@ class MainMapViewModel {
             .shareReplay(1)
         
         kidLocation = Observable.merge(currentLocation, remindLocation)
+            .distinctUntilChanged { $0.time?.timeIntervalSince1970 == $1.time?.timeIntervalSince1970 }
             .map{ $0.location }
             .filterNil()
-            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
             .do(onNext: { _ in remindActivitying.onNext(false) })
+            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
             .share()
         
         kidAddress = Observable.merge(currentLocation, remindLocation).map{ $0.address }.filterNil()
@@ -224,8 +225,8 @@ class MainMapViewModel {
             }
             .shareReplay(1)
         
-        allAction = selecedAction.map({ $0.data as? [DeviceInfo] }).filterNil()
-        singleAction = selecedAction.map({ $0.data as? DeviceInfo  }).filterNil()
+        allAction = selecedAction.map{ $0.data as? [DeviceInfo] }.filterNil()
+        singleAction = selecedAction.map{ $0.data as? DeviceInfo  }.filterNil()
         
         let devUID = currentDevice.map{ $0.user?.uid }.filterNil().asObservable()
         badgeCount = Observable.combineLatest(userID, devUID) { ($0, $1) }
