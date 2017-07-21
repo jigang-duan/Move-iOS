@@ -71,7 +71,7 @@ extension MainMapController {
             .addDisposableTo(disposeBag)
         
         viewModel.online.map { $0 ? R.image.home_ic_wear() : R.image.home_ic_nottowear() }.drive(statesOutlet.rx.image).addDisposableTo(disposeBag)
-        viewModel.online.map{ !$0 }.drive(voltameterOutlet.rx.isHidden).addDisposableTo(disposeBag)
+        viewModel.online.map{ _ in true }.drive(voltameterOutlet.rx.isHidden).addDisposableTo(disposeBag)
         viewModel.online.map{ !$0 }.drive(voltameterImageOutlet.rx.isHidden).addDisposableTo(disposeBag)
         viewModel.online.drive(remindLocationOutlet.rx.isEnabled).addDisposableTo(disposeBag)
         viewModel.online.drive(mapView.rx.online).addDisposableTo(disposeBag)
