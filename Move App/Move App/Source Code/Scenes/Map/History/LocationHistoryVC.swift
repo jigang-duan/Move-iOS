@@ -65,11 +65,6 @@ class LocationHistoryVC: UIViewController {
     var selectedDate = Variable(Date())
     var LocationsVariable: Variable<[KidSate.LocationInfo]> = Variable([])
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        self.marBottomConstraint.constant = -80
-    }
     
     func rightBarButtonClick (sender : UIBarButtonItem){
         if self.annotationArr.count > 0 {
@@ -153,7 +148,7 @@ class LocationHistoryVC: UIViewController {
                     self.locationMap.removeAnnotations(self.locationMap.annotations)
                     self.annotationArr.removeAll()
                     self.bottomViewheight.constant = 50
-                    self.marBottomConstraint.constant = 0
+//                    self.marBottomConstraint.constant = 0
                     self.bottomView.isHidden = true
                     
                 }else{
