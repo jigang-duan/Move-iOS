@@ -158,7 +158,7 @@ class RemindersController: UIViewController {
         titleSegment.borderColor = UIColor.white
         
         self.tableViw.delegate = self
-        self.tableViw.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
+        self.tableViw.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         calendar.select(calendar.today)
         timeSelectBtn.setTitle(DateUtility.todayy(), for: .normal)
     }
