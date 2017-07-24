@@ -50,6 +50,26 @@ extension Badge {
     }
 }
 
+extension Badge {
+    
+    public var isLeftHidden: Bool {
+        get {
+            return self.view.isLeftBadgeHidden
+        }
+        set {
+            !newValue ? self.view.showLeftBadge() : self.view.hidenLeftBadge()
+        }
+    }
+    
+    public var isRightHidden: Bool {
+        get {
+            return self.view.isRightBadgeHidden
+        }
+        set {
+            !newValue ? self.view.showRightBadge() : self.view.hidenRightBadge()
+        }
+    }
+}
 
 extension UIView {
     
@@ -112,8 +132,86 @@ extension UIView {
     
 }
 
+// Left Badge
+extension UIView {
+    
+    func showLeftBadge() {
+        guard self.leftBadgeView == nil else {
+            return
+        }
+        
+        let frame = CGRect(origin: CGPoint(x: upRange, y: upRange),
+                           size: CGSize(width: pointWidth, height: pointWidth))
+        self.leftBadgeView = UILabel(frame: frame)
+        self.leftBadgeView?.backgroundColor = UIColor.red
+        self.leftBadgeView?.layer.cornerRadius = pointWidth / 2
+        self.leftBadgeView?.layer.masksToBounds = true
+        self.addSubview(self.leftBadgeView!)
+        self.bringSubview(toFront: self.leftBadgeView!)
+    }
+    
+    func hidenLeftBadge() {
+        self.leftBadgeView?.removeFromSuperview()
+        self.leftBadgeView = nil
+    }
+    
+    var isLeftBadgeHidden: Bool {
+        return self.leftBadgeView == nil
+    }
+    
+    var leftBadgeView: UILabel? {
+        get {
+            return objc_getAssociatedObject(self, &leftBadgeViewKey) as? UILabel
+        }
+        set {
+            objc_setAssociatedObject(self, &leftBadgeViewKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+}
+
+// Right Badge
+extension UIView {
+    
+    func showRightBadge() {
+        guard self.rightBadgeView == nil else {
+            return
+        }
+        
+        let frame = CGRect(origin: CGPoint(x: self.frame.width - pointWidth - upRange, y: upRange),
+                           size: CGSize(width: pointWidth, height: pointWidth))
+        self.rightBadgeView = UILabel(frame: frame)
+        self.rightBadgeView?.backgroundColor = UIColor.red
+        self.rightBadgeView?.layer.cornerRadius = pointWidth / 2
+        self.rightBadgeView?.layer.masksToBounds = true
+        self.addSubview(self.rightBadgeView!)
+        self.bringSubview(toFront: self.rightBadgeView!)
+    }
+    
+    func hidenRightBadge() {
+        self.rightBadgeView?.removeFromSuperview()
+        self.rightBadgeView = nil
+    }
+    
+    var isRightBadgeHidden: Bool {
+        return self.rightBadgeView == nil
+    }
+    
+    var rightBadgeView: UILabel? {
+        get {
+            return objc_getAssociatedObject(self, &rightBadgeViewKey) as? UILabel
+        }
+        set {
+            objc_setAssociatedObject(self, &rightBadgeViewKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
 fileprivate var badgeViewKey: Void?
 fileprivate let pointWidth: CGFloat = 6 //小红点的宽高
 fileprivate let rightRange: CGFloat = 8.0 //距离控件右边的距离
 fileprivate let upRange: CGFloat = 2.0
 fileprivate let badgeFont: CGFloat = 9 //字体的大小
+
+fileprivate var leftBadgeViewKey: Void?
+fileprivate var rightBadgeViewKey: Void?

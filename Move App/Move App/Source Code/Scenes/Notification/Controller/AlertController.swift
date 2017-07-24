@@ -8,7 +8,6 @@
 
 import UIKit
 import Kingfisher
-//import AFImageHelper
 
 
 fileprivate let AlertView_Size = CGSize(width: 240.0, height: 164.0)

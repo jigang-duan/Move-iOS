@@ -31,7 +31,6 @@ class ChatController: UIViewController {
         // Do any additional setup after loading the view.
         segmentedOutlet.setTitle(R.string.localizable.id_family_chat(), forSegmentAt: 0)
         segmentedOutlet.setTitle(DeviceManager.shared.currentDevice?.user?.nickname, forSegmentAt: 1)
-//        segmentedOutlet.setBackgroundImage(UIImage(named: "chat_message_back"), for: .normal, barMetrics: .default)
         
         (segmentedOutlet.rx.value <-> selectedIndexVariable).addDisposableTo(disposeBag)
         
@@ -62,7 +61,7 @@ class ChatController: UIViewController {
             .filterNil()
             .withLatestFrom(RxStore.shared.deviceInfosState.asDriver()) { (id, infos) in infos.filter { id == $0.deviceId }.first }
             .filterNil()
-            .map({ URL(deviceInfo: $0) })
+            .map{ URL(deviceInfo: $0) }
             .filterNil()
             .drive(onNext: { DefaultWireframe.sharedInstance.open(url: $0) })
             .addDisposableTo(disposeBag)
@@ -91,9 +90,13 @@ extension ChatController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let familyChat = R.segue.chatController.showFamilyChat(segue: segue)?.destination {
             familyChat.isFamilyChat = true
+            selectedIndexVariable.asObservable().map{ $0 == 0 }.bindTo(familyChat.selectedSubject).addDisposableTo(disposeBag)
+            familyChat.hasUnReadSubject.asObservable().map{!$0}.bindTo(segmentedOutlet.rx.isLeftBadgeHidden).addDisposableTo(disposeBag)
         }
         if let singleChat = R.segue.chatController.showSingleChat(segue: segue)?.destination {
             singleChat.isFamilyChat = false
+            selectedIndexVariable.asObservable().map{ $0 == 1 }.bindTo(singleChat.selectedSubject).addDisposableTo(disposeBag)
+            singleChat.hasUnReadSubject.asObservable().map{!$0}.bindTo(segmentedOutlet.rx.isRightBadgeHidden).addDisposableTo(disposeBag)
         }
     }
     
@@ -118,3 +121,4 @@ fileprivate extension Reactive where Base: UIButton {
     }
     
 }
+

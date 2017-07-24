@@ -245,6 +245,7 @@ class MessageEntity: Object {
     /*
      0 - 未读
      1 - 已读
+     201 - 标记红点
      101 - 发送了: - 发送成功了，但还没用通过服务器同步
      102 - 准备 发送
      100 - 成功: - 通过服务器同步
@@ -253,7 +254,9 @@ class MessageEntity: Object {
         case unknown = -100
         case unread = 0
         case read = 1
+        
         case mark = 201
+        
         case sent = 101
         case readySend = 102
         case finished = 100

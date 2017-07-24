@@ -43,8 +43,8 @@ class NotificationController: UIViewController {
             return
         }
         
-        let kidsId = group?.notices.first?.from
-        let kids = group?.members.filter({ $0.id == kidsId }).first
+        let kidsId = group?.notices.filter{ $0.imType.atNotiicationPage }.first?.from
+        let kids = group?.members.filter{ $0.id == kidsId }.first
         navigationOutlet.title = kids?.nickname
         
         if let _group = group {
@@ -80,9 +80,7 @@ class NotificationController: UIViewController {
             itemDeleted
                 .withLatestFrom(messageFramesVariable.asObservable()) { $1[$0].message.msgId }
                 .filterEmpty()
-                .map({ id in
-                    objects.filter({ $0.id == id }).first
-                })
+                .map{ id in objects.filter{ $0.id == id }.first }
                 .filterNil()
                 .subscribe(Realm.rx.delete())
                 .addDisposableTo(bag)
@@ -94,6 +92,7 @@ class NotificationController: UIViewController {
             messageFramesObservable
                 .bindTo(tableView.rx.items(cellIdentifier: cellIdentifier, cellType: UUMessageCell.self)) { [weak self] (index, model, cell) in
                     cell.messageFrame = model
+                    cell.labelNum.isHidden = true
                     cell.menuDelegate = self
                     cell.index = index
                 }

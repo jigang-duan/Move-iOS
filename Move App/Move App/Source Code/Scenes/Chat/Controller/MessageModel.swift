@@ -31,7 +31,7 @@ private func minuteOffSet(messages: [UUMessage]) -> [UUMessage] {
 func markRead(realm: Realm, messages: [MessageEntity]) {
     try? realm.write {
         messages.forEach { (entity) in
-            entity.readStatus = MessageEntity.ReadStatus.read.rawValue
+            entity.readStatus = MessageEntity.ReadStatus.mark.rawValue
         }
     }
 }
@@ -141,7 +141,7 @@ fileprivate extension MessageState {
     }
     
     init?(status: MessageEntity.ReadStatus) {
-        self = (status == .unread) ? .unread : .read
+        self = ((status == .unread) || (status == .mark)) ? .unread : .read
     }
     
 }

@@ -20,6 +20,8 @@ import DZNEmptyDataSet
 class ChatViewController: UIViewController {
     
     var isFamilyChat = true
+    let selectedSubject = PublishSubject<Bool>()
+    let hasUnReadSubject = PublishSubject<Bool>()
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ifView: UUInputView!
@@ -57,7 +59,8 @@ class ChatViewController: UIViewController {
         let isGroupChat = isFamilyChat
         let groupId = isGroupChat ? group.id : nil
         
-        let chatMessages = Observable.collection(from: group.messages)
+        let groupMessages = Observable.collection(from: group.messages).shareReplay(1)
+        let chatMessages = groupMessages
             .map { list -> [UUMessage] in
                 list.filter { ($0.isGroup == isGroupChat) }.map { it -> UUMessage in UUMessage(userId: Me.shared.user.id ?? "", messageEntity: it) }
             }
@@ -216,9 +219,18 @@ class ChatViewController: UIViewController {
             .subscribe(onNext: { group.markRead(realm: realm, message: $0) })
             .addDisposableTo(bag)
         
-        Observable<Int>.timer(1.0, period: 6.0, scheduler: MainScheduler.instance)
-            .map { _ in group.messages  }
-            .map { list -> [MessageEntity] in list.filter { ($0.isGroup == isGroupChat) && $0.isText && $0.isUnRead } }
+        let hasUnReadObservable = groupMessages.map{ $0.filter { ($0.isGroup == isGroupChat) && $0.isUnRead }.count }
+            .map{ $0 > 0 }.shareReplay(1)
+        hasUnReadObservable.bindTo(hasUnReadSubject).addDisposableTo(bag)
+        
+        let selectedObservable = selectedSubject.asObservable()
+        let markUnReadObservable = hasUnReadObservable.delay(1.0, scheduler: MainScheduler.instance).filter{$0}.withLatestFrom(selectedObservable)
+        
+        Observable.merge(selectedObservable, markUnReadObservable)
+            .filter{ $0 }
+            .mapVoid()
+            .map { group.messages }
+            .map { list -> [MessageEntity] in list.filter { ($0.isGroup == isGroupChat) && $0.isUnRead } }
             .filterEmpty()
             .subscribe(onNext: { markRead(realm: realm, messages: $0) })
             .addDisposableTo(bag)

@@ -180,11 +180,14 @@ class UUMessageCell: UITableViewCell {
                 self.makeMaskView(self.btnContent.backImageView, with: normal)
             case .voice:
                 self.btnContent.voiceBackView.isHidden = false
-                //self.btnContent.second.text = String(format: "%d's Voice", message.content.voice?.second ?? 0)
                 self.btnContent.second.text = String(format: "%d\" ", message.content.voice?.second ?? 0)
                 voiceURL = message.content.voice?.url
                 if message.from == .other {
                     self.badgeView.isHidden = (message.state == .read)
+                    self.btnContent.voice.image = UIImage(named: "message_listen_eachother")
+                } else {
+                    self.btnContent.voice.image = UIImage(named: "message_listen_me")
+                    self.btnContent.second.textColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 1.0)
                 }
                 
             case .emoji:
