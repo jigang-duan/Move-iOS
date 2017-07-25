@@ -91,26 +91,24 @@ class AllKidsLocationController: UIViewController {
             }
             .addDisposableTo(disposeBag)
         
-        didSelect.map { $0.targetId }.filterNil()
+        didSelect
+            .map { $0.targetId }.filterNil()
             .bindTo(targetId)
             .addDisposableTo(disposeBag)
         
-        let current = Observable.merge(selected, didSelect)
+        let current = Observable.merge(selected, didSelect).shareReplay(1)
         
-        current.map { $0.name }
-            .bindTo(nameOutlet.rx.text)
-            .addDisposableTo(disposeBag)
+        let name = current.map { $0.name }.filterNil()
+        let location = current.map{ $0.coordinate }
+            
+        name.bindTo(nameOutlet.rx.text).addDisposableTo(disposeBag)
+        current.map { $0.address }.bindTo(addressOutlet.rx.text).addDisposableTo(disposeBag)
         
-        current.map { $0.address }
-            .bindTo(addressOutlet.rx.text)
-            .addDisposableTo(disposeBag)
-        
-        let geolocationService = GeolocationService.instance
-        let navlocations = Observable.combineLatest(current, geolocationService.location.asObservable()) { ($0.0.coordinate, $0.1) }
+        let navlocations = Observable.combineLatest(name, location) { ($0, $1) }
         
         navOutlet.rx.tap.asObservable()
             .withLatestFrom(navlocations)
-            .bindNext { MapUtility.navigation(originLocation: $1, toLocation: $0) }
+            .bindNext { MapUtility.openPlacemark(name: $0, location: $1) }
             .addDisposableTo(disposeBag)
     }
     
