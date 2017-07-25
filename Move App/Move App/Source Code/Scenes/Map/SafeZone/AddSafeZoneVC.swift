@@ -427,7 +427,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         
                         
                         let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
-                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
+                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : false)
                         let fencereq = MoveApi.FenceReq(fence : fenceinfo)
                         
                         

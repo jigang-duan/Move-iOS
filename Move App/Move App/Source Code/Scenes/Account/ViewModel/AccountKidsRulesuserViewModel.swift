@@ -48,8 +48,9 @@ class AccountKidsRulesuserViewModel {
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
         
-        let stringOnTrankingMode = "Turning on Tracking mode will consume more power."
-        let stringOffTrankingMode = "Turning off Tracking mode, the Safezone loction information will be not timely."
+        let stringOnTrankingMode = R.string.localizable.id_turn_on_auto_position()
+        
+        let stringOffTrankingMode = R.string.localizable.id_turn_off_auto_position()
         let selectAutoPosistion = input.autoPosistion
             .flatMapLatest { (turning) in
                 wireframe.promptYHFor(turning ? stringOnTrankingMode : stringOffTrankingMode,

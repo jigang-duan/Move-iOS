@@ -65,34 +65,35 @@ class SafeZoneController: UIViewController {
             alertController.addAction(cancelAction)
             self.present(alertController, animated: true, completion: nil)
         }else{
-            if autopositioningBool == false {
-                let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
-                
-                let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default) { _ in
-                    self.showAddSafezoneVC()
-                }
-                let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default) { _ in
-                    WatchSettingsManager.share.updateAutoPosition(true)
-                        .subscribe({ (bool : Event<Bool>) in
-                            
-                        })
-                        .addDisposableTo(self.disposeBag)
-                    
-                    if self.autoPositionBlock != nil {
-                        self.autoPositionBlock!(true)
-                    }
-                    
-                    self.autopositioningBtn?.isOn = true
-                    self.autopositioningBool = true
-
-                    self.showAddSafezoneVC()
-                }
-                alertController.addAction(notOpen)
-                alertController.addAction(open)
-                self.present(alertController, animated: true)
-            }else{
+//            if autopositioningBool == false {
+//                let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+//                
+//                let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default) { _ in
+//                    self.showAddSafezoneVC()
+//                }
+//                let open = UIAlertAction(title: R.string.localizable.id_safe_zone_admin_right(), style: .default) { _ in
+//                    WatchSettingsManager.share.updateAutoPosition(true)
+//                        .subscribe({ (bool : Event<Bool>) in
+//                            
+//                        })
+//                        .addDisposableTo(self.disposeBag)
+//                    
+//                    if self.autoPositionBlock != nil {
+//                        self.autoPositionBlock!(true)
+//                    }
+//                    
+//                    self.autopositioningBtn?.isOn = true
+//                    self.autopositioningBool = true
+//
+//                    self.showAddSafezoneVC()
+//                }
+//                alertController.addAction(notOpen)
+//                alertController.addAction(open)
+//                self.present(alertController, animated: true)
+//            }else{
+                self.autoPositionBlock!(autopositioningBool!)
                 self.showAddSafezoneVC()
-            }
+//            }
         }
     }
     
