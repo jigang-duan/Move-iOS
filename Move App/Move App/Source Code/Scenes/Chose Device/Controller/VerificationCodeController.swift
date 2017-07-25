@@ -70,7 +70,11 @@ class VerificationCodeController: UIViewController {
         sendBun.setTitle(R.string.localizable.id_resend(), for: UIControlState.normal)
         nextBun.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cantPairLab.text = R.string.localizable.id_verification_code_help()
-        helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
+        
+        let helpAttributeString = NSAttributedString(string: R.string.localizable.id_help(),
+                                                     attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+        helpBun.setAttributedTitle(helpAttributeString, for: .normal)
+//        helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
         
     }
     
@@ -110,12 +114,8 @@ class VerificationCodeController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.nextEnabled
-            .drive(onNext: { [weak self] valid in
-                self?.nextBun.isEnabled = valid
-                self?.nextBun.alpha = valid ? 1.0 : 0.5
-            })
-            .addDisposableTo(disposeBag)
+        viewModel.nextEnabled.drive(nextBun.rx.enabled).addDisposableTo(disposeBag)
+        
         
         viewModel.sendResult?
             .drive(onNext: { [weak self] doneResult in
