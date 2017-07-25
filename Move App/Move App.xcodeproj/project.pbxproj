@@ -41,6 +41,7 @@
 		1140A0841EA4CC0D00185200 /* Rx+MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */; };
 		114437BF1ECAD1E20095E648 /* ActivityImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114437BE1ECAD1E20095E648 /* ActivityImageView.swift */; };
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
+		114D6EDF1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */; };
 		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
 		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
 		1154AB9C1EFBD16800920F68 /* DevicePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */; };
@@ -73,7 +74,6 @@
 		116B90901F14AEE400336E3B /* BaseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B908F1F14AEE400336E3B /* BaseAnnotation.swift */; };
 		116B90941F14B13500336E3B /* ScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B90921F14B13500336E3B /* ScrollLabelView.m */; };
 		116B90951F14B13500336E3B /* ScrollLabelView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90931F14B13500336E3B /* ScrollLabelView+Rx.swift */; };
-		116B90991F14B3B000336E3B /* HeadPortraitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B90961F14B3B000336E3B /* HeadPortraitAnnotationView.swift */; };
 		116B909F1F14B3D100336E3B /* AddSafeZoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B909C1F14B3D100336E3B /* AddSafeZoneVC.swift */; };
 		116B90A01F14B3D100336E3B /* SafeZoneAddressSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B909D1F14B3D100336E3B /* SafeZoneAddressSearchVC.swift */; };
 		116B90A11F14B3D100336E3B /* SafeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B909E1F14B3D100336E3B /* SafeZoneViewModel.swift */; };
@@ -412,6 +412,7 @@
 		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
 		114437BE1ECAD1E20095E648 /* ActivityImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityImageView.swift; path = Activity/ActivityImageView.swift; sourceTree = "<group>"; };
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
+		114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeadPortraitAnnotationView.swift; path = Map/Annotation/HeadPortraitAnnotationView.swift; sourceTree = "<group>"; };
 		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
 		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
 		1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DevicePermissions.swift; path = Shared/Common/Utils/DevicePermissions.swift; sourceTree = "<group>"; };
@@ -444,7 +445,6 @@
 		116B90911F14B13500336E3B /* ScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollLabelView.h; path = "Move App/Vendor/ScrollLabelView/ScrollLabelView.h"; sourceTree = SOURCE_ROOT; };
 		116B90921F14B13500336E3B /* ScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollLabelView.m; path = "Move App/Vendor/ScrollLabelView/ScrollLabelView.m"; sourceTree = SOURCE_ROOT; };
 		116B90931F14B13500336E3B /* ScrollLabelView+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ScrollLabelView+Rx.swift"; path = "Move App/Vendor/ScrollLabelView/ScrollLabelView+Rx.swift"; sourceTree = SOURCE_ROOT; };
-		116B90961F14B3B000336E3B /* HeadPortraitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeadPortraitAnnotationView.swift; path = "Move App/Source Code/Scenes/Map/SafeZone/MapCusCell/HeadPortraitAnnotationView.swift"; sourceTree = SOURCE_ROOT; };
 		116B909C1F14B3D100336E3B /* AddSafeZoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddSafeZoneVC.swift; path = Map/SafeZone/AddSafeZoneVC.swift; sourceTree = "<group>"; };
 		116B909D1F14B3D100336E3B /* SafeZoneAddressSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneAddressSearchVC.swift; path = Map/SafeZone/SafeZoneAddressSearchVC.swift; sourceTree = "<group>"; };
 		116B909E1F14B3D100336E3B /* SafeZoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SafeZoneViewModel.swift; path = Map/SafeZone/SafeZoneViewModel.swift; sourceTree = "<group>"; };
@@ -1014,7 +1014,6 @@
 				116B909C1F14B3D100336E3B /* AddSafeZoneVC.swift */,
 				116B909D1F14B3D100336E3B /* SafeZoneAddressSearchVC.swift */,
 				116B909E1F14B3D100336E3B /* SafeZoneViewModel.swift */,
-				E9DA9C2F1E6FD91D009A9189 /* MapCusCell */,
 			);
 			name = SafeZone;
 			sourceTree = "<group>";
@@ -1022,6 +1021,7 @@
 		116B90891F14ADA400336E3B /* Annotation */ = {
 			isa = PBXGroup;
 			children = (
+				114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */,
 				116B908F1F14AEE400336E3B /* BaseAnnotation.swift */,
 			);
 			name = Annotation;
@@ -2194,15 +2194,6 @@
 			path = LocationManager;
 			sourceTree = "<group>";
 		};
-		E9DA9C2F1E6FD91D009A9189 /* MapCusCell */ = {
-			isa = PBXGroup;
-			children = (
-				116B90961F14B3B000336E3B /* HeadPortraitAnnotationView.swift */,
-			);
-			name = MapCusCell;
-			path = Tabs/Maps/MainMap/ViewModel/MapCusCell;
-			sourceTree = "<group>";
-		};
 		FF02FBC21E67F625008D0C84 /* Contact */ = {
 			isa = PBXGroup;
 			children = (
@@ -2731,6 +2722,7 @@
 				D29937471E53123C00350E1C /* MoveApi+HistoryMessage.swift in Sources */,
 				D24C4D4C1E4DD57F00F9E33A /* MoveApi+ElectronicFence+Mappable.swift in Sources */,
 				E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */,
+				114D6EDF1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift in Sources */,
 				E0931F361E30CA3500755B4A /* Error+Default.swift in Sources */,
 				D2FE6BAB1E52F7BF000CD7B7 /* RelationshipTableController.swift in Sources */,
 				FFF5BD641E6E85960037AFFF /* WatchFriendsListController.swift in Sources */,
@@ -2900,7 +2892,6 @@
 				115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */,
 				E0C2290E1E35E5AE00BCF83D /* UIImage+Extensions.swift in Sources */,
 				E03B1C5A1E53E9C8006EDB7B /* PopoverView.swift in Sources */,
-				116B90991F14B3B000336E3B /* HeadPortraitAnnotationView.swift in Sources */,
 				E9DD2A961EA8B13B0057784F /* schoolTimeHelp.swift in Sources */,
 				FFB812001E63E5590049D85C /* VerificationCodeViewModel.swift in Sources */,
 				E03B1BB81E49DE32006EDB7B /* MoveAccessTokenPlugin.swift in Sources */,
