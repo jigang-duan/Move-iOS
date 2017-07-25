@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import RxSwift
 import RxCocoa
-import SVPulsingAnnotationView
 import CustomViews
 
 class AddSafeZoneVC: UIViewController , SearchVCdelegate {
