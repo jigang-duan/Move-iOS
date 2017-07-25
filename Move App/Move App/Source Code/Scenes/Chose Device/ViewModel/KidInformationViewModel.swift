@@ -119,35 +119,38 @@ class KidInformationViewModel {
                 }else{
                     var userInfo = UserInfo.shared.profile
                     userInfo?.phone = f.phone
-                    _ = UserManager.shared.setUserInfo(userInfo: userInfo!)
-                        .map({ _ in
-                        
-                        })
                     
-                    if let photo = input.photo.value {
-                        return FSManager.shared.uploadPngImage(with: photo)
-                            .map{$0.fid}
-                            .filterNil()
-                            .takeLast(1)
-                            .trackActivity(activity)
-                            .flatMapLatest({ pid -> Observable<ValidationResult> in
-                                f.profile = pid
-                                KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
+                    return UserManager.shared.setUserInfo(userInfo: userInfo!)
+                        .asDriver(onErrorJustReturn: true)
+                        .flatMapLatest({ _ in
+                            if let photo = input.photo.value {
+                                return FSManager.shared.uploadPngImage(with: photo)
+                                    .map{$0.fid}
+                                    .filterNil()
+                                    .takeLast(1)
+                                    .trackActivity(activity)
+                                    .flatMapLatest({ pid -> Observable<ValidationResult> in
+                                        f.profile = pid
+                                        KingfisherManager.shared.cache.store(photo, forKey: FSManager.imageUrl(with: pid))
+                                        return deviceManager.addDevice(firstBindInfo: f)
+                                            .trackActivity(activity)
+                                            .map({_ in
+                                                return  ValidationResult.ok(message: "Bind Success")
+                                            })
+                                    })
+                                    .asDriver(onErrorRecover: commonErrorRecover)
+                            }else{
                                 return deviceManager.addDevice(firstBindInfo: f)
                                     .trackActivity(activity)
                                     .map({_ in
                                         return  ValidationResult.ok(message: "Bind Success")
                                     })
-                            })
-                            .asDriver(onErrorRecover: commonErrorRecover)
-                    }else{
-                        return deviceManager.addDevice(firstBindInfo: f)
-                            .trackActivity(activity)
-                            .map({_ in
-                                return  ValidationResult.ok(message: "Bind Success")
-                            })
-                            .asDriver(onErrorRecover: commonErrorRecover)
-                    }
+                                    .asDriver(onErrorRecover: commonErrorRecover)
+                            }
+                        })
+                    
+                    
+                    
                 }
             })
         

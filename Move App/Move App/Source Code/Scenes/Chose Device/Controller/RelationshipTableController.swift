@@ -144,6 +144,13 @@ class RelationshipTableController: UIViewController {
             if deviceAddInfo?.isMaster == true {
                 self.performSegue(withIdentifier: R.segue.relationshipTableController.showKidInformation, sender: nil)
             }else{
+                var userInfo = UserInfo.shared.profile
+                userInfo?.phone = deviceAddInfo?.phone
+                
+                UserManager.shared.setUserInfo(userInfo: userInfo!)
+                    .subscribe()
+                    .addDisposableTo(disposeBag)
+                
                 DeviceManager.shared.joinGroup(joinInfo: deviceAddInfo!)
                     .subscribe(onNext: {_ in
                         _ = Distribution.shared.backToMainMap()
