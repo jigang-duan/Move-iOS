@@ -100,9 +100,11 @@ class MainMapController: UIViewController {
         addressScrollLabel.textColor = R.color.appColor.secondayText()
         
         self.navigationItem.title = R.string.localizable.id_top_menu_location()
-        self.navigationController?.tabBarController?.tabBarItem.title = R.string.localizable.id_button_menu_home()
+        self.navigationController?.tabBarItem.title = R.string.localizable.id_button_menu_home()
         callOutlet.setTitle(R.string.localizable.id_location_call(), for: .normal)
         messageOutlet.setTitle(R.string.localizable.id_location_message(), for: .normal)
+        
+        trackingTitleOutlet.text = NSLocalizedString("Daily tracking mode will consume more power, tap to close.", comment: "")
         
         noGeolocationView.frame = view.bounds
         view.addSubview(noGeolocationView)

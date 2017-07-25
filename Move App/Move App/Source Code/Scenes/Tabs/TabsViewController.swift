@@ -37,14 +37,6 @@ class TabsViewController: UITabBarController {
                 self?.viewControllers?[0].tabBarItem.isEnabled = $0
             })
             .addDisposableTo(bag)
-        
-//        enterSubject.asObservable()
-//            .withLatestFrom(hasDevice)
-//            .filter({ !$0 })
-//            .bindNext { [weak self] _ in
-//                self?.selectedIndex = 1
-//            }
-//            .addDisposableTo(bag)
 
         hasDevice.filter { !$0 }
             .bindNext { [weak self] _ in
