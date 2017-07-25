@@ -59,7 +59,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     private func internationalization(){
 //        nameTitleL.text = R.string.localizable.id_name()
-        kidnameTF.placeholder = R.string.localizable.id_is_enter_safe_zone()
+        kidnameTF.placeholder = R.string.localizable.id_name()
         
 //        addressTitleL.text = R.string.localizable.id_address()
         
@@ -464,7 +464,8 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
 //                }
             } else {
             // self.kidnameTF.text == “”
-                self.errorshow(message: R.string.localizable.id_is_enter_safe_zone())
+//                self.errorshow(message: R.string.localizable.id_is_enter_safe_zone())
+                self.errorshow(message: R.string.localizable.id_name_is_empty());
                
                 self.item?.isEnabled = true
             }
