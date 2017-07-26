@@ -65,8 +65,8 @@ class MoveApiUserWorker: UserWorkerProtocl {
         }
     }
     
-    func checkVcode(sid: String, vcode: String) -> Observable<Bool> {
-        return MoveApi.VerificationCode.verify(sid: sid, vcode: vcode)
+    func checkVcode(sid: String, vcode: String, from: String) -> Observable<Bool> {
+        return MoveApi.VerificationCode.verify(sid: sid, vcode: vcode, from: from)
             .map(errorTransform)
             .catchError(errorHandle)
     }

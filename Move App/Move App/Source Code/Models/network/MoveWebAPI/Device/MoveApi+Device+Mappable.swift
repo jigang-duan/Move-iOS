@@ -42,6 +42,7 @@ extension MoveApi {
         var identity: String?
         var flag: Int?
         var profile: String?
+        var owner_token: String?
     }
     
     struct DevicePhoneType {
@@ -388,6 +389,7 @@ extension MoveApi.DeviceContactInfo: Mappable {
         identity <- map["identity"]
         flag <- map["flag"]
         profile <- map["profile"]
+        owner_token <- map["owner_token"]
     }
 }
 

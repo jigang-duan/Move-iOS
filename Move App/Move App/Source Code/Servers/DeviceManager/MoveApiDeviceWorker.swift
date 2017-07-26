@@ -46,6 +46,7 @@ class MoveApiDeviceWorker: DeviceWorkerProtocl {
         info.identity = joinInfo.identity?.identity
         info.phone = joinInfo.phone
         info.profile = joinInfo.profile
+        info.owner_token = joinInfo.owner_token
     
         return MoveApi.Device.joinDeviceGroup(deviceId: joinInfo.deviceId!, joinInfo: info)
             .map(errorTransform)

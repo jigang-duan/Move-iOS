@@ -52,8 +52,8 @@ extension UserManager {
         return worker.sendVcode(to: to, type: type)
     }
     
-    func checkVcode(sid: String, vcode: String) -> Observable<Bool>{
-        return worker.checkVcode(sid: sid, vcode: vcode)
+    func checkVcode(sid: String, vcode: String, from: String) -> Observable<Bool>{
+        return worker.checkVcode(sid: sid, vcode: vcode, from: from)
     }
     
     func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool> {
@@ -85,7 +85,7 @@ protocol UserWorkerProtocl {
     
     func sendVcode(to: String, type: Int) -> Observable<MoveApi.VerificationCodeSend>
     
-    func checkVcode(sid: String, vcode: String) -> Observable<Bool>
+    func checkVcode(sid: String, vcode: String, from: String) -> Observable<Bool>
     
     func updatePasssword(sid: String, vcode: String, email: String, password: String) -> Observable<Bool>
     

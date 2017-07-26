@@ -30,18 +30,13 @@ extension MoveApi {
             return request(.send(to: to,type: type)).mapMoveObject(VerificationCodeSend.self)
         }
         
-        final class func verify(sid: String, vcode: String) -> Observable<ApiError> {
-            return request(.verify(sid: sid, vcode: vcode)).mapMoveObject(ApiError.self)
-        }
-        
-        final class func delete(sid: String) -> Observable<ApiError> {
-            return request(.delete(sid: sid)).mapMoveObject(ApiError.self)
+        final class func verify(sid: String, vcode: String, from: String) -> Observable<ApiError> {
+            return request(.verify(sid: sid, vcode: vcode, from: from)).mapMoveObject(ApiError.self)
         }
         
         enum API {
             case send(to: String, type: Int)
-            case verify(sid: String, vcode: String)
-            case delete(sid: String)
+            case verify(sid: String, vcode: String, from: String)
         }
         
     }
@@ -63,9 +58,7 @@ extension MoveApi.VerificationCode.API: TargetType {
         switch self {
         case .send:
             return "vcs"
-        case .verify(let sid,_):
-            return "vcs/\(sid)"
-        case .delete(let sid):
+        case .verify(let sid, _, _):
             return "vcs/\(sid)"
         }
     }
@@ -75,8 +68,6 @@ extension MoveApi.VerificationCode.API: TargetType {
         switch self {
         case .send, .verify:
             return .post
-        case .delete:
-            return .delete
         }
     }
     
@@ -85,10 +76,8 @@ extension MoveApi.VerificationCode.API: TargetType {
         switch self {
         case .send(let to, let type):
             return ["to":to, "type":type]
-        case .verify(_, let vcode):
-            return ["vcode":vcode]
-        case .delete:
-            return nil
+        case .verify(_, let vcode, let from):
+            return ["vcode":vcode,"from":from]
         }
     }
     
@@ -101,8 +90,6 @@ extension MoveApi.VerificationCode.API: TargetType {
         case .send:
             return "{\"sid\": \"abcdefg\"}".utf8Encoded
         case .verify:
-            return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
-        case .delete:
             return "{\"error_id\": 0, \"error_msg\":\"ok\"}".utf8Encoded
         }
     }

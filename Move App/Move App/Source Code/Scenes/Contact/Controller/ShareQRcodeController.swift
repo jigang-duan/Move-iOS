@@ -109,7 +109,7 @@ class ShareQRcodeController: UIViewController {
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         countDownTime.text = format.string(from: Date())
         
-        let embededDic = ["imei": device.deviceId ?? "", "expired_at": Int(downTime.timeIntervalSince1970), "phone":self.memberPhone ?? "", "identity":self.relation ?? "", "profile":self.profile ?? ""] as [String : Any]
+        let embededDic = ["imei": device.deviceId ?? "", "expired_at": Int(downTime.timeIntervalSince1970), "phone":self.memberPhone ?? "", "identity":self.relation ?? "", "profile":self.profile ?? "", "token":UserInfo.shared.accessToken.token ?? ""] as [String : Any]
         
         let linksDic = ["join":["href": "/v1.0/device/" + device.deviceId! + "/join"]]
         
@@ -196,7 +196,7 @@ class ShareQRcodeController: UIViewController {
     @IBAction func shareQRImage(_ sender: UIButton) {
         let activity = UIActivity()
         
-        let vc = UIActivityViewController(activityItems: ["分享标题", self.screenShot()], applicationActivities: [activity])
+        let vc = UIActivityViewController(activityItems: [self.screenShot()], applicationActivities: [activity])
         
         if let popover = vc.popoverPresentationController {
             popover.sourceView = sender.superview

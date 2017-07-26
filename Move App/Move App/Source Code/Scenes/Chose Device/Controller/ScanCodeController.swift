@@ -229,6 +229,7 @@ extension ScanCodeController: AVCaptureMetadataOutputObjectsDelegate{
                             info.deviceId = embeded["imei"] as? String
                             info.phone = embeded["phone"] as? String
                             info.profile = embeded["profile"] as? String
+                            info.owner_token = embeded["token"] as? String
                             if let str = embeded["identity"] as? String {
                                 info.identity = Relation(input: str)
                             }
