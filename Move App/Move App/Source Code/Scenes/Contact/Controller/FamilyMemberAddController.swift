@@ -41,6 +41,7 @@ class FamilyMemberAddController: UIViewController {
     
     private var contactInfo: ImContact?
     
+    var isSetHeadImage = false
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -122,6 +123,7 @@ class FamilyMemberAddController: UIViewController {
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
+                self?.isSetHeadImage = true
             })
         }
         
@@ -129,6 +131,7 @@ class FamilyMemberAddController: UIViewController {
             self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
+                self?.isSetHeadImage = true
             })
         }
         let action3 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel)
@@ -151,7 +154,9 @@ class FamilyMemberAddController: UIViewController {
         vc.relationBlock = {[weak self] (relation) in
             self?.identityLab.text = relation.description
             self?.identityVariable.value = relation
-            self?.photoImgV.image = relation.image
+            if self?.isSetHeadImage == false {
+                self?.photoImgV.image = relation.image
+            }
         }
         self.navigationController?.show(vc, sender: nil)
     }

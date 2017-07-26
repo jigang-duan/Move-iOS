@@ -346,6 +346,7 @@ struct DeviceBindInfo {
     var phone: String? //用户号码
     var identity: Relation?
     var profile: String?
+    var owner_token: String?
     var nickName: String?
     var number: String? //设备号码
     var gender: Gender?

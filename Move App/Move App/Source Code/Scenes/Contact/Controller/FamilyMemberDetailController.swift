@@ -57,6 +57,7 @@ class FamilyMemberDetailController: UIViewController {
     
     var masterInfo: ImContact?//管理员信息,用于转让管理员时取消自己紧急联系人身份
     
+    var isSetHeadImage = false
     
     struct ContactDetailInfo {
         var contactInfo: ImContact?
@@ -239,6 +240,8 @@ class FamilyMemberDetailController: UIViewController {
             }
         }
         
+        isSetHeadImage = (info?.contactInfo?.profile != nil)
+        
         let imgUrl = URL(string: FSManager.imageUrl(with: info?.contactInfo?.profile ?? ""))
         photoImgV.kf.setImage(with: imgUrl, placeholder: info?.contactInfo?.identity?.image)
         identityLab.text = info?.contactInfo?.identity?.description
@@ -267,12 +270,14 @@ class FamilyMemberDetailController: UIViewController {
             self.photoPicker?.selectPhoto(with: self, soureType: .camera, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
+                self?.isSetHeadImage = true
             })
         }
         let action2 = UIAlertAction(title: R.string.localizable.id_select_image(), style: .default) { _ in
             self.photoPicker?.selectPhoto(with: self, soureType: .photoLibrary, size: CGSize(width: 100, height: 100), callback: { [weak self] (image) in
                 self?.photoImgV.image = image
                 self?.photoVariable.value = image
+                self?.isSetHeadImage = true
             })
         }
         let action3 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel)
@@ -295,7 +300,9 @@ class FamilyMemberDetailController: UIViewController {
         vc.relationBlock = {[weak self] relation in
             self?.identityLab.text = relation.description
             self?.identityVariable.value = relation
-            self?.photoImgV.image = relation.image
+            if self?.isSetHeadImage == false {
+                self?.photoImgV.image = relation.image
+            }
         }
         self.navigationController?.show(vc, sender: nil)
     }
