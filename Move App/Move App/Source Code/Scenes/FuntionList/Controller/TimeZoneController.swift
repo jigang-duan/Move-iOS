@@ -42,25 +42,34 @@ class TimeZoneController: UITableViewController {
         timezoneLabel.text = R.string.localizable.id_time_zone()
         summerTimeLabel.text = R.string.localizable.id_summer_time()
     }
-    func enablecell(_ enable: Bool) {
+    
+    func enableView(_ enable: Bool) {
         timezoneCell.isUserInteractionEnabled = !enable
-        if !enable {
+        if !enable { //关闭
             timezoneCell.accessoryType = .disclosureIndicator
-        }else
+            self.summerTimeQutlet.isEnabled = true
+        }else //打开的
         {
             timezoneCell.accessoryType = .none
+            //发送一个请求关闭，且不能用
+            self.summerTimeQutlet.isEnabled = false
+            self.summerTimeQutlet.isOn = false
+            let _ = WatchSettingsManager.share.updateTimezones(hourFormatQutlet.isOn, autotime: autoGetTimeQutlet.isOn, timezone: selectedTimeZone.value, summertime: false).subscribe(onNext:
+            { [weak self] in
+                print($0)
+            }).addDisposableTo(self.disposeBag)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //a开 b不能用,b开 再开a->b关掉&&b不能用
         internationalization()
         
         //auto on timecell off ,off on 控制跳转
         let openEnable = autoGetTimeQutlet.rx.switch.asDriver()
         openEnable.drive(onNext: {[weak self] in
-            self?.enablecell($0)
+            self?.enableView($0)
         }).addDisposableTo(disposeBag)
         
         selectedTimeZone.asDriver()
@@ -91,7 +100,7 @@ class TimeZoneController: UITableViewController {
         viewModel.fetchtimezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
         viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.autotimeEnable.drive(onNext: {[weak self] bool in
-            self?.enablecell(bool)
+            self?.enableView(bool)
         }).addDisposableTo(disposeBag)
         viewModel.activityIn
             .map{ !$0 }
