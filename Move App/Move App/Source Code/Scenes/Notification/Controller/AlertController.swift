@@ -143,6 +143,7 @@ class NoticeAlertControoler {
         
         titleLabel.text = alertTitle
         contentLabel.text = content
+        contentLabel.adjustsFontSizeToFitWidth = true
         
         confirmBtn.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
         cancelBtn.addTarget(self, action: #selector(cancelDidTap(_:)), for: .touchUpInside)

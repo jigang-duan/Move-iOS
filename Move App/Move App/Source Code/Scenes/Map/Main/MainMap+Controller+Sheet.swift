@@ -33,15 +33,15 @@ extension MainMapController {
         
     }
     
-    func showNavigationSheetView(locationInfo: KidSate.LocationInfo) {
+    func showNavigationSheetView(locationInfo: AlertServer.NavigateLocation) {
         let preferredStyle: UIAlertControllerStyle = UIDevice.current.userInterfaceIdiom == .phone ? .actionSheet : .alert
-        let title =  "Navigate to kid\'s location"
+        let title =  R.string.localizable.id_dialog_navigate(locationInfo.name ?? "")
         let sheetView = UIAlertController(title: title, message: nil, preferredStyle: preferredStyle)
         
         sheetView.addAction(UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil))
         
         if let name = locationInfo.address, let location = locationInfo.location {
-            sheetView.addAction(UIAlertAction(title: "Navigation", style: .default) { _ in
+            sheetView.addAction(UIAlertAction(title: R.string.localizable.id_system_notice_navigate_bt(), style: .default) { _ in
                 MapUtility.openPlacemark(name: name, location: location)
             })
         }

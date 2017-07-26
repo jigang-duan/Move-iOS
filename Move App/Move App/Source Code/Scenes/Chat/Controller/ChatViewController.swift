@@ -95,8 +95,10 @@ class ChatViewController: UIViewController {
             .addDisposableTo(bag)
         
         enterSubject.asObservable()
+            .filter { _ in isGroupChat }
             .flatMapLatest { _ in messageFramesObservable }
             .filterEmpty()
+            .filter{ $0.count < 6 }
             .single()
             .bindNext { [weak self] _ in
                 self?.showFeatureGudieView()

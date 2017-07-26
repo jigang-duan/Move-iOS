@@ -77,7 +77,7 @@ extension MainMapController {
         viewModel.online.drive(mapView.rx.online).addDisposableTo(disposeBag)
         
         viewModel.power.map{ "\($0)%" }.drive(voltameterOutlet.rx.text).addDisposableTo(disposeBag)
-        viewModel.power.map{ UIImage(named: "home_ic_battery\($0/20)") }.drive(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
+        viewModel.power.map{ UIImage(named: "home_ic_battery\($0/10)") }.drive(voltameterImageOutlet.rx.image).addDisposableTo(disposeBag)
         
         viewModel.currentProperty
             .withLatestFrom(viewModel.currentDevice) { (property, info) in DeviceInfo(property: property, info: info) }

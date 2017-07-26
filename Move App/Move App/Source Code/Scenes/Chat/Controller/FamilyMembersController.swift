@@ -15,7 +15,13 @@ private let reuseIdentifier = "cellFamilyMember"
 
 class FamilyMembersController: UICollectionViewController {
     
-    var members: [ImContact] = []
+    struct DataSource {
+        let name: String?
+        let headImage: URL?
+        let identity: Relation?
+    }
+    
+    var members: [DataSource] = []
     
     var disposeBag = DisposeBag()
 
@@ -25,8 +31,12 @@ class FamilyMembersController: UICollectionViewController {
         self.title = R.string.localizable.id_family_chat()
         
         // Do any additional setup after loading the view.
-        RxStore.shared.deviceIdObservable
+        let family = RxStore.shared.deviceIdObservable
             .flatMapLatest { (id) in DeviceManager.shared.getContacts(deviceId: id).catchErrorJustReturn([]) }
+            .map(transform)
+        let kids = RxStore.shared.currentDevice.map(transform)
+        
+        Observable.combineLatest(kids, family) { [$0] + $1 }
             .bindNext { [weak self] in
                 self?.members = $0
                 self?.collectionView?.reloadData()
@@ -53,23 +63,33 @@ class FamilyMembersController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let _cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         // Configure the cell
-        if let cell = cell as? FamilyMemberCell {
-            let member = members[indexPath.row]
-            cell.textLabel.text = member.identity?.description
-            
-            let placeImg = CDFInitialsAvatar(
-                rect: CGRect(x: 0, y: 0, width: cell.imageView.frame.width, height: cell.imageView.frame.height),
-                fullName: member.identity?.description ?? "")
-                .imageRepresentation()!
-            
-            let imgUrl = URL(string: member.profile?.fsImageUrl ?? "")
-            cell.imageView.kf.setImage(with: imgUrl, placeholder: member.identity?.image ?? placeImg)
-        }
+        guard let cell = _cell as? FamilyMemberCell else { return _cell }
+        let member = members[indexPath.row]
+        
+        cell.textLabel.text = member.name
+        
+        let placeImg = CDFInitialsAvatar(rect: CGRect(x: 0, y: 0, width: cell.imageView.frame.width, height: cell.imageView.frame.height),
+                                         fullName: member.name ?? "").imageRepresentation()!
+        cell.imageView.kf.setImage(with: member.headImage, placeholder: member.identity?.image ?? placeImg)
     
         return cell
     }
 
+}
+
+fileprivate func transform(kids: DeviceInfo) -> FamilyMembersController.DataSource {
+    return FamilyMembersController.DataSource(name: kids.user?.nickname, headImage: URL(string: kids.user?.profile?.fsImageUrl ?? ""), identity: nil)
+}
+
+fileprivate func transform(contact: ImContact) -> FamilyMembersController.DataSource {
+    return FamilyMembersController.DataSource(name: contact.identity?.description,
+                                              headImage: URL(string: contact.profile?.fsImageUrl ?? ""),
+                                              identity: contact.identity)
+}
+
+fileprivate func transform(contacts: [ImContact]) -> [FamilyMembersController.DataSource] {
+     return contacts.map(transform)
 }

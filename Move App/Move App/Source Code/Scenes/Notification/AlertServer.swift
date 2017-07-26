@@ -17,9 +17,15 @@ import ObjectMapper
 
 class AlertServer {
     
+    struct NavigateLocation {
+        let location: CLLocationCoordinate2D?
+        let address: String?
+        let name: String?
+    }
+    
     static let share = AlertServer()
     
-    let navigateLocationSubject = PublishSubject<KidSate.LocationInfo>()
+    let navigateLocationSubject = PublishSubject<NavigateLocation>()
     let unpiredSubject = PublishSubject<Void>()
     
     func subscribe(disposeBag: DisposeBag) {
@@ -83,9 +89,7 @@ class AlertServer {
         navigate
             .withLatestFrom(RxStore.shared.deviceInfosObservable) { (uid, devs) in devs.filter({ $0.user?.uid == uid }).first }
             .filterNil()
-            .map{ $0.deviceId }
-            .filterNil()
-            .flatMapLatest { LocationManager.share.location(deviceId: $0).catchErrorJustReturn(KidSate.LocationInfo()).filter{ $0.location != nil } }
+            .flatMapLatest(selctorNavigateLocation)
             .bindTo(navigateLocationSubject)
             .addDisposableTo(disposeBag)
         
@@ -281,4 +285,12 @@ fileprivate func transform(alertResult: AlertResult) -> NoticeEntity? {
 
 fileprivate func resultSelector(notice: NoticeEntity, devices: [DeviceInfo]) -> (NoticeEntity, DeviceInfo?) {
     return (notice ,devices.filter{ $0.user?.uid == notice.from }.first)
+}
+
+fileprivate func selctorNavigateLocation(deviceInfo : DeviceInfo) throws -> Observable<AlertServer.NavigateLocation> {
+    guard let deviceId = deviceInfo.deviceId else {
+        return Observable.empty()
+    }
+    return LocationManager.share.location(deviceId: deviceId).catchErrorEmpty()
+        .map { AlertServer.NavigateLocation(location: $0.location, address: $0.address, name: deviceInfo.user?.nickname) }
 }
