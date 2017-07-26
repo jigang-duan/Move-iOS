@@ -26,6 +26,7 @@ class AllKidsLocationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = R.string.localizable.id_all_location()
         self.mapView.delegate = self
         
         let locations = Observable<Int>.timer(1, period: 30.0, scheduler: MainScheduler.instance)

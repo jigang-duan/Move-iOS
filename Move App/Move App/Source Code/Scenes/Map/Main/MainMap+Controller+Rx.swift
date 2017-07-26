@@ -26,7 +26,7 @@ extension Reactive where Base: MainMapController {
     }
     
     // Sheet
-    var navigationSheet: UIBindingObserver<Base, KidSate.LocationInfo> {
+    var navigationSheet: UIBindingObserver<Base, AlertServer.NavigateLocation> {
         return UIBindingObserver(UIElement: self.base) { controller, info in
             controller.showNavigationSheetView(locationInfo: info)
         }
