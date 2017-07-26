@@ -91,7 +91,9 @@ fileprivate extension KidSate.SOSLbsModel.BTS {
     }
     
     static func queryParameters(str: String) -> [KidSate.SOSLbsModel.BTS] {
-        return str.components(separatedBy: "],[").map({  $0.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "") }).flatMap({ KidSate.SOSLbsModel.BTS(cs: $0) })
+        return str.components(separatedBy: "],[")
+            .map{ $0.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "") }
+            .flatMap{ KidSate.SOSLbsModel.BTS(cs: $0) }
     }
 }
 
@@ -108,6 +110,8 @@ fileprivate extension KidSate.SOSLbsModel.WiFi {
     }
     
     static func queryParameters(str: String) -> [KidSate.SOSLbsModel.WiFi] {
-        return str.components(separatedBy: "],[").map({  $0.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "") }).flatMap({ KidSate.SOSLbsModel.WiFi(ws: $0) })
+        return str.components(separatedBy: "],[")
+            .map{ $0.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "") }
+            .flatMap{ KidSate.SOSLbsModel.WiFi(ws: $0) }
     }
 }

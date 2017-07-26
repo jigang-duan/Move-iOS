@@ -956,9 +956,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BIM-Rz-5C5">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Tc-2x-h9N">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Tc-2x-h9N">
                                 <rect key="frame" x="0.0" y="569" width="375" height="98"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tk1-1G-ECO">
@@ -1004,7 +1004,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="BIM-Rz-5C5" secondAttribute="trailing" id="8am-i9-kl4"/>
-                            <constraint firstItem="MrG-a6-Umu" firstAttribute="top" secondItem="BIM-Rz-5C5" secondAttribute="bottom" id="P0Z-e9-1T8"/>
+                            <constraint firstAttribute="bottom" secondItem="BIM-Rz-5C5" secondAttribute="bottom" id="eqw-JF-bHg"/>
                             <constraint firstItem="BIM-Rz-5C5" firstAttribute="top" secondItem="oQE-UK-xnj" secondAttribute="bottom" id="j77-2u-Mix"/>
                             <constraint firstItem="BIM-Rz-5C5" firstAttribute="leading" secondItem="pe3-T4-ndU" secondAttribute="leading" id="jIk-I1-Iof"/>
                             <constraint firstAttribute="bottom" secondItem="5Tc-2x-h9N" secondAttribute="bottom" id="kbP-c6-6b9"/>
@@ -1020,6 +1020,7 @@
                     <connections>
                         <outlet property="addressOutlet" destination="U61-qc-dY8" id="lyA-57-2Tk"/>
                         <outlet property="barItemOutlet" destination="Jnw-X0-dVw" id="NtT-hy-W4Y"/>
+                        <outlet property="infoOutlet" destination="5Tc-2x-h9N" id="cyJ-H0-N9K"/>
                         <outlet property="mapView" destination="BIM-Rz-5C5" id="KTm-Uw-Irj"/>
                         <outlet property="nameOutlet" destination="Tk1-1G-ECO" id="nTe-Bw-GU7"/>
                         <outlet property="navOutlet" destination="9yF-Uc-Mbu" id="VQw-dC-nv4"/>

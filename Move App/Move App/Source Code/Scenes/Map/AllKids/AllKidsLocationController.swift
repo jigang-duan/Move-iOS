@@ -20,6 +20,8 @@ class AllKidsLocationController: UIViewController {
     @IBOutlet weak var addressOutlet: UILabel!
     @IBOutlet weak var navOutlet: UIButton!
     @IBOutlet weak var barItemOutlet: UIBarButtonItem!
+    @IBOutlet weak var infoOutlet: UIView!
+    
     
     var targetId = Variable("")
     
@@ -73,6 +75,11 @@ class AllKidsLocationController: UIViewController {
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 self.mapView.addAnnotations($0)
             }
+            .addDisposableTo(disposeBag)
+        
+        annotations.filterEmpty()
+            .map{_ in false}
+            .bindTo(infoOutlet.rx.isHidden)
             .addDisposableTo(disposeBag)
         
         let selected = annotations
