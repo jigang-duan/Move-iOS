@@ -39,8 +39,8 @@
                                     <action selector="selectPhoto:" destination="Hye-Rj-fwk" eventType="touchUpInside" id="IJn-B1-ZT9"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nick name" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="3y9-nO-LHY">
-                                <rect key="frame" x="129" y="130" width="117" height="36"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="baby" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="3y9-nO-LHY">
+                                <rect key="frame" x="159" y="130" width="57.5" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="DvI-wk-5Nr"/>
                                 </constraints>
@@ -52,7 +52,7 @@
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rks-NN-2Yh" userLabel="NicknameLine">
-                                <rect key="frame" x="129" y="169" width="117" height="1"/>
+                                <rect key="frame" x="159" y="169" width="57.5" height="1"/>
                                 <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="5RG-OL-1Ay"/>

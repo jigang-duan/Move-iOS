@@ -101,7 +101,7 @@ class DefaultValidation {
         }
         
         if numberOfCharacters < 3 {
-            return .failed(message: "the phone number can't less than 3")
+            return .failed(message: R.string.localizable.id_phone_number_less_three())
         }
         
         let setString = "0123456789"
@@ -122,7 +122,7 @@ class DefaultValidation {
         }
         
         if numberOfCharacters < 3 {
-            return .failed(message: "the phone number can't less than 3")
+            return .failed(message: R.string.localizable.id_phone_number_less_three())
         }
         
         let setString = "0123456789,"

@@ -175,8 +175,7 @@ extension ToDoListController {
             
         } else if (self.beginTime) < Date()
         {
-            // 缺提示语  id重复了
-            self.alertSeting(message: "begin time later than the system time", preferredStyle: .alert)
+            self.alertSeting(message: R.string.localizable.id_begin_time_later_system(), preferredStyle: .alert)
             
         }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
             

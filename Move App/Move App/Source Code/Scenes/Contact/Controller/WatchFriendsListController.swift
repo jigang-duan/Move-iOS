@@ -98,7 +98,7 @@ extension WatchFriendsListController: DZNEmptyDataSetSource {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No friend now, use watch to add friends"
+        let text = R.string.localizable.id_watch_friends_empty()
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
                           NSForegroundColorAttributeName: UIColor.lightGray]
         return NSAttributedString(string: text, attributes: attributes)
