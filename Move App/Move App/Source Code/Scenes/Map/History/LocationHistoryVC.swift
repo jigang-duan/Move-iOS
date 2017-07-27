@@ -45,6 +45,10 @@ class LocationHistoryVC: UIViewController {
     @IBOutlet weak var bottomViewheight: NSLayoutConstraint!
         
     @IBOutlet weak var marBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var noLocatlonDescribeOutlet: UILabel!
+    
+    
     var isCalendarOpen : Bool = false
     
     var item : UIBarButtonItem?
@@ -82,6 +86,7 @@ class LocationHistoryVC: UIViewController {
         
         self.title = R.string.localizable.id_location_history()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: R.image.nav_location_nor(), style: .plain, target: self, action: #selector(rightBarButtonClick))
+        noLocatlonDescribeOutlet.text = R.string.localizable.id_history_no_day()
         
         calendar.select(calendar.today)
         calendar.placeholderType = .none

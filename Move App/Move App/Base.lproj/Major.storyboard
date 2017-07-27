@@ -55,7 +55,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EZI-JX-nJk">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="544"/>
                                 <connections>
                                     <outlet property="delegate" destination="1qy-IZ-lOf" id="ODX-kp-upO"/>
                                 </connections>
@@ -333,7 +333,7 @@
                             <constraint firstItem="EZI-JX-nJk" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" id="2YS-Tw-FuJ"/>
                             <constraint firstItem="mZQ-sj-e6I" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" id="AGb-Sf-6ST"/>
                             <constraint firstAttribute="trailing" secondItem="EZI-JX-nJk" secondAttribute="trailing" id="I7C-CG-h3o"/>
-                            <constraint firstItem="EZI-JX-nJk" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" id="Jdr-6m-WGD"/>
+                            <constraint firstItem="EZI-JX-nJk" firstAttribute="top" secondItem="wza-tg-GZf" secondAttribute="bottom" constant="10" id="Jdr-6m-WGD"/>
                             <constraint firstItem="C76-YW-V2X" firstAttribute="leading" secondItem="Hpy-90-pyP" secondAttribute="trailing" id="KtZ-Vs-W7A"/>
                             <constraint firstItem="Hpy-90-pyP" firstAttribute="leading" secondItem="q7P-JH-3Oz" secondAttribute="leading" constant="15" id="MKE-j3-lQG"/>
                             <constraint firstAttribute="trailing" secondItem="2KL-x9-XlB" secondAttribute="trailing" id="bmh-wF-UCM"/>
@@ -666,6 +666,7 @@
                         <outlet property="locationMap" destination="dQG-kO-Vl3" id="B3U-0I-O7Q"/>
                         <outlet property="marBottomConstraint" destination="wPz-Oj-ViI" id="dQO-NL-Zby"/>
                         <outlet property="nextPoint" destination="ITg-y7-l8W" id="9jQ-xk-xmV"/>
+                        <outlet property="noLocatlonDescribeOutlet" destination="aRh-iI-2O2" id="Xap-pS-SIE"/>
                         <outlet property="timeBackBtn" destination="ptS-0H-M1f" id="cIs-8o-1pw"/>
                         <outlet property="timeNextBtn" destination="QcJ-DR-vS4" id="Hwa-gr-mMC"/>
                         <outlet property="timeSelectBtn" destination="kgk-nu-LrD" id="fjy-tZ-68M"/>
