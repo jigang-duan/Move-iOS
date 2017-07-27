@@ -18,8 +18,8 @@ class SelectTimeZoneController: UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
     
-    var visibleResults: [[TimezoneInfo]] = []
-    var ableTimezones: [[TimezoneInfo]] = []
+    var visibleResults: [[TimeZone]] = []
+    var ableTimezones: [[TimeZone]] = []
     
     var disposeBag = DisposeBag()
     
@@ -31,33 +31,56 @@ class SelectTimeZoneController: UIViewController {
         tableview.delegate = self
         
         
-        DeviceManager.shared.fetchTimezones()
-            .subscribe(onNext: {[weak self] res in
-                //地区去重
-                var tms = [TimezoneInfo]()
-                res.forEach({ tm in
-                    if !tms.contains(where: { $0.timezoneId == tm.timezoneId}) {
-                        tms.append(tm)
-                    }
-                })
-                
-                let letters = tms
-                    .map({$0.timezoneId!.components(separatedBy: "/").first!})
-                let results = Array(Set(letters))
-                
-                for i in 0..<results.count {
-                    var tempTms:[TimezoneInfo] = []
-                    for tm in tms {
-                        if results[i] == tm.timezoneId?.components(separatedBy: "/").first {
-                            tempTms.append(tm)
-                        }
-                    }
-                    self?.ableTimezones.append(tempTms)
+        
+        let allTimezones = TimeZone.knownTimeZoneIdentifiers.map { identifier in
+            TimeZone(identifier: identifier)!
+        }
+        
+        let letters = allTimezones
+            .map({$0.identifier.components(separatedBy: "/").first!})
+        let results = Array(Set(letters))
+
+        for i in 0..<results.count {
+            var tempTms:[TimeZone] = []
+            for tm in allTimezones {
+                if results[i] == tm.identifier.components(separatedBy: "/").first {
+                    tempTms.append(tm)
                 }
-                self?.visibleResults = (self?.ableTimezones)!
-                self?.tableview.reloadData()
-            })
-            .addDisposableTo(disposeBag)
+            }
+            ableTimezones.append(tempTms)
+        }
+        
+        visibleResults = ableTimezones
+        
+        tableview.reloadData()
+        
+//        DeviceManager.shared.fetchTimezones()
+//            .subscribe(onNext: {[weak self] res in
+//                //地区去重
+//                var tms = [TimezoneInfo]()
+//                res.forEach({ tm in
+//                    if !tms.contains(where: { $0.timezoneId == tm.timezoneId}) {
+//                        tms.append(tm)
+//                    }
+//                })
+//                
+//                let letters = tms
+//                    .map({$0.timezoneId!.components(separatedBy: "/").first!})
+//                let results = Array(Set(letters))
+//                
+//                for i in 0..<results.count {
+//                    var tempTms:[TimezoneInfo] = []
+//                    for tm in tms {
+//                        if results[i] == tm.timezoneId?.components(separatedBy: "/").first {
+//                            tempTms.append(tm)
+//                        }
+//                    }
+//                    self?.ableTimezones.append(tempTms)
+//                }
+//                self?.visibleResults = (self?.ableTimezones)!
+//                self?.tableview.reloadData()
+//            })
+//            .addDisposableTo(disposeBag)
         
     }
 }
@@ -74,8 +97,13 @@ extension SelectTimeZoneController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count > 0 {
             visibleResults = []
+//            for tm in ableTimezones {
+//                if tm.identifier.lowercased().contains(searchText.lowercased()) || (tm.localizedName(for: .generic, locale: Locale.current)!.lowercased().contains(searchText.lowercased())){
+//                    visibleResults.append(tm)
+//                }
+//            }
             for tms in ableTimezones {
-                let t = tms.filter({ $0.timezoneId?.lowercased().contains(searchText.lowercased()) == true })
+                let t = tms.filter({ $0.identifier.lowercased().contains(searchText.lowercased()) == true })
                 if t.count > 0 {
                     visibleResults.append(t)
                 }
@@ -109,34 +137,27 @@ extension SelectTimeZoneController: UITableViewDataSource,UITableViewDelegate{
         
         let tm = visibleResults[indexPath.section][indexPath.row]
         
-        cell?.textLabel?.text = tm.timezoneId
-        if let offset = tm.gmtoffset {
-            if offset > 0 {
-                cell?.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT +\(offset)"
-            }else if offset == 0{
-                cell?.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT"
-            }else{
-                cell?.detailTextLabel?.text = "\(tm.countryname ?? "")  GMT \(offset)"
-            }
-        }
+        cell?.textLabel?.text = tm.identifier
+        cell?.detailTextLabel?.text = tm.localizedName(for: .generic, locale: Locale.current)
+        
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.selectedTimezone != nil {
             let tm = visibleResults[indexPath.section][indexPath.row]
-            self.selectedTimezone!(tm.timezoneId!)
+            self.selectedTimezone!(tm.identifier)
         }
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        let strs = visibleResults.map({$0[0].timezoneId!.components(separatedBy: "/").first!})
+        let strs = visibleResults.map({$0[0].identifier.components(separatedBy: "/").first!})
         return strs.map{$0.substring(to: ($0.index($0.startIndex, offsetBy: 2)))}
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return visibleResults[section][0].timezoneId?.components(separatedBy: "/").first
+        return visibleResults[section][0].identifier.components(separatedBy: "/").first
     }
     
 }

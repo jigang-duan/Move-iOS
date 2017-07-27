@@ -202,7 +202,7 @@ class UpgradeController: UIViewController {
                 RxStore.shared.bind(property: property)
                 
                 self?.batteryLevel.text = "\(property.power ?? 0)%"
-                self?.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/20)")
+                self?.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/10)")
                 
                 
                 var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")

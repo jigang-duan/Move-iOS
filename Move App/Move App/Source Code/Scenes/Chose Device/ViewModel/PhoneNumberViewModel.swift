@@ -49,7 +49,7 @@ class PhoneNumberViewModel {
                         if type == -1 {
                             return ValidationResult.ok(message: "")
                         }else{
-                            return ValidationResult.failed(message: "This phone number has been paired by others!")
+                            return ValidationResult.failed(message: R.string.localizable.id_phone_error_add())
                         }
                     })
                     .asDriver(onErrorJustReturn: ValidationResult.ok(message: ""))
