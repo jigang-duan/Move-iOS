@@ -65,6 +65,14 @@ class SchoolTimeController: UIViewController {
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
+        if self.amStartTimeOutlet.titleLabel?.text == "Null" || self.amEndTimeOutlet.titleLabel?.text == "Null" || self.pmStartTimeOutlet.titleLabel?.text == "Null" || self.pmEndTimeOutlet.titleLabel?.text == "Null"
+        {
+            let alertController = UIAlertController(title: nil, message: "time error", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
         
     }
     override func viewDidLoad() {
@@ -233,7 +241,11 @@ class SchoolTimeController: UIViewController {
     
     private func selectAmStartTime() {
         self.datepicke.minimumDate = self.amMin
-        self.datepicke.maximumDate = self.amMax
+        if self.amStartTime == Date(timeIntervalSince1970: 0) && self.amEndTime == Date(timeIntervalSince1970: 0){
+            self.datepicke.maximumDate = self.amMax;
+        }else{
+            self.datepicke.maximumDate = amEndTime
+        }
         self.amStartTimeOutlet.isSelected = true
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = false
@@ -255,12 +267,21 @@ class SchoolTimeController: UIViewController {
     
     private func selectPmStartTime() {
         self.datepicke.minimumDate = self.pmMin
-        self.datepicke.maximumDate = self.pmMax
+        self.datepicke.date = self.pmMin
+        if self.pmStartTime == Date(timeIntervalSince1970: 0) && self.pmEndTime == Date(timeIntervalSince1970: 0){
+            self.datepicke.maximumDate = pmEndTime
+        }else{
+            self.datepicke.maximumDate = pmMax
+        }
+        
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = true
         self.pmEndTimeOutlet.isSelected = false
-        self.datepicke.date = pmStartTime
+        
+        if !(self.pmStartTime == Date(timeIntervalSince1970: 0)){
+            self.datepicke.date = pmStartTime
+        }
         self.datePickView.isHidden = false
     }
     
@@ -271,7 +292,9 @@ class SchoolTimeController: UIViewController {
         self.amEndTimeOutlet.isSelected = false
         self.pmStartTimeOutlet.isSelected = false
         self.pmEndTimeOutlet.isSelected = true
-        self.datepicke.date = pmEndTime
+        if !(self.pmEndTime == Date(timeIntervalSince1970: 0)){
+            self.datepicke.date = pmEndTime
+        }
         self.datePickView.isHidden = false
     }
     
@@ -296,6 +319,7 @@ class SchoolTimeController: UIViewController {
         if pmStartTimeOutlet.isSelected {
              viewModel.pmStartDateVariable.value = Date(timeIntervalSince1970: 0)
              viewModel.pmEndDateVariable.value = Date(timeIntervalSince1970: 0)
+
              pmStartTimeOutlet.isSelected = false
          }
          if pmEndTimeOutlet.isSelected {
@@ -309,6 +333,7 @@ class SchoolTimeController: UIViewController {
      }
 
     private func comfirmDatepicker() {
+        
         if amStartTimeOutlet.isSelected {
             if self.amStartTime == Date(timeIntervalSince1970: 0){
                 viewModel.amStartDateVariable.value = datepicke.date
