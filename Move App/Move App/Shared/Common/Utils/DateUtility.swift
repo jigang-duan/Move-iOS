@@ -240,14 +240,11 @@ extension Date {
     }
     
     var stringScreenDescription: String {
-//        if UIScreen.main.isIPhone5OrLess {
-//            return DateUtility.shortDateFormatter.string(from: self)
-//        } else {
-//            return DateUtility.defaultDateFormatter.string(from: self)
-//        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd HH:mm"
-        return dateFormatter.string(from: self)
+        if UIScreen.main.isIPhone5OrLess {
+            return DateUtility.shortDateFormatter.string(from: self)
+        } else {
+            return DateUtility.defaultDateFormatter.string(from: self)
+        }
     }
     
     var stringDefaultYearMonthDay: String {
