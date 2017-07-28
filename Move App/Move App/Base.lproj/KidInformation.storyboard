@@ -109,8 +109,8 @@
                                     <constraint firstAttribute="width" constant="30" id="BRi-CG-YtV"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickname invalid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhK-sF-hdS">
-                                <rect key="frame" x="137" y="217" width="101" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickname invalid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhK-sF-hdS">
+                                <rect key="frame" x="15" y="217" width="345" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -218,6 +218,7 @@
                             <constraint firstItem="s7A-jc-G0T" firstAttribute="centerX" secondItem="xAu-WE-3aK" secondAttribute="centerX" id="Hfs-KS-oHk"/>
                             <constraint firstItem="9iv-Qa-aog" firstAttribute="leading" secondItem="a3S-F1-p6v" secondAttribute="trailing" constant="-2" id="KEx-BF-f2g"/>
                             <constraint firstItem="vIa-bp-J4u" firstAttribute="leading" secondItem="uxd-lM-MKt" secondAttribute="trailing" constant="2" id="Pee-su-UhL"/>
+                            <constraint firstAttribute="trailing" secondItem="rhK-sF-hdS" secondAttribute="trailing" constant="15" id="QWf-ek-S2V"/>
                             <constraint firstItem="Yvg-Bc-GSZ" firstAttribute="top" secondItem="s7A-jc-G0T" secondAttribute="bottom" constant="30" id="Qkq-06-rQG"/>
                             <constraint firstItem="zQI-ao-qF3" firstAttribute="top" secondItem="dBy-z6-Vvg" secondAttribute="bottom" constant="5" id="T44-EJ-rjd"/>
                             <constraint firstItem="a3S-F1-p6v" firstAttribute="centerY" secondItem="vIa-bp-J4u" secondAttribute="centerY" id="TSz-eU-NN7"/>
@@ -250,6 +251,7 @@
                             <constraint firstItem="3y9-nO-LHY" firstAttribute="centerX" secondItem="erm-BZ-FWi" secondAttribute="centerX" id="vvz-N3-fzh"/>
                             <constraint firstItem="dBy-z6-Vvg" firstAttribute="centerY" secondItem="erm-BZ-FWi" secondAttribute="centerY" id="wI4-eq-Rb3"/>
                             <constraint firstItem="s7A-jc-G0T" firstAttribute="top" secondItem="xAu-WE-3aK" secondAttribute="bottom" constant="5" id="x4F-a0-E5d"/>
+                            <constraint firstItem="rhK-sF-hdS" firstAttribute="leading" secondItem="erm-BZ-FWi" secondAttribute="leading" constant="15" id="yas-6k-Aoq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Kid Information" id="QXR-DT-I7R">

@@ -17,8 +17,6 @@ class UpgradeController: UIViewController {
     @IBOutlet weak var nameLab: UILabel!
     @IBOutlet weak var batteryImgV: UIImageView!
     
-    @IBOutlet weak var batteryLevel: UILabel!
-    
     @IBOutlet weak var versionLab: UILabel!
     @IBOutlet weak var versionInfo: UILabel!
     
@@ -185,7 +183,6 @@ class UpgradeController: UIViewController {
         
         nameLab.text = device.user?.nickname ?? ""
         
-        batteryLevel.text = "\(device.property?.power ?? 0)%"
         versionLab.text = R.string.localizable.id_firmware_version() + " "  + (device.property?.firmware_version ?? "")
         
         activity.center = self.view.center
@@ -201,7 +198,6 @@ class UpgradeController: UIViewController {
             .subscribe(onNext: { [weak self] property in
                 RxStore.shared.bind(property: property)
                 
-                self?.batteryLevel.text = "\(property.power ?? 0)%"
                 self?.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/10)")
                 
                 

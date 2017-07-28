@@ -91,8 +91,8 @@ class KidInformationController: UIViewController {
         
         
         if UIScreen.main.bounds.height < 500 {
-            cameraTopCons.constant = 20
-            nextBunTopCons.constant = 10
+            cameraTopCons.constant = 5
+            nextBunTopCons.constant = 5
         }
         
         if UIScreen.main.bounds.width < 350 {
