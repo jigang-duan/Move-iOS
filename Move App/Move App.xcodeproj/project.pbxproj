@@ -42,6 +42,8 @@
 		114437BF1ECAD1E20095E648 /* ActivityImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114437BE1ECAD1E20095E648 /* ActivityImageView.swift */; };
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
 		114D6EDF1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */; };
+		114D6EE21F2B0B7F000D0817 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EE11F2B0B7F000D0817 /* DataCache.swift */; };
+		114D6EE41F2B2DC4000D0817 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EE31F2B2DC4000D0817 /* DataCacheManager.swift */; };
 		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
 		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
 		1154AB9C1EFBD16800920F68 /* DevicePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */; };
@@ -131,7 +133,6 @@
 		A5D740E21E81549300EC0CEB /* MessageServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D740E11E81549300EC0CEB /* MessageServer.swift */; };
 		A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F71E8506BE00D2CE50 /* ChatController.swift */; };
 		A5ED01FA1E850AD300D2CE50 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ED01F91E850AD300D2CE50 /* ChatViewController.swift */; };
-		AD5734AF1F0C920B00C20D1E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5734AE1F0C920B00C20D1E /* File.swift */; };
 		B1DA7F1CFD12FE14AC4091FD /* Pods_Move_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */; };
 		D239B1EB1E55800E0013E72E /* SetYourGenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EA1E55800E0013E72E /* SetYourGenderController.swift */; };
 		D239B1ED1E55804C0013E72E /* SetYourBirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239B1EC1E55804C0013E72E /* SetYourBirthdayController.swift */; };
@@ -413,6 +414,8 @@
 		114437BE1ECAD1E20095E648 /* ActivityImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityImageView.swift; path = Activity/ActivityImageView.swift; sourceTree = "<group>"; };
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
 		114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeadPortraitAnnotationView.swift; path = Map/Annotation/HeadPortraitAnnotationView.swift; sourceTree = "<group>"; };
+		114D6EE11F2B0B7F000D0817 /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataCache.swift; path = cache/database/DataCache.swift; sourceTree = "<group>"; };
+		114D6EE31F2B2DC4000D0817 /* DataCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataCacheManager.swift; path = cache/database/DataCacheManager.swift; sourceTree = "<group>"; };
 		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
 		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
 		1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DevicePermissions.swift; path = Shared/Common/Utils/DevicePermissions.swift; sourceTree = "<group>"; };
@@ -520,7 +523,6 @@
 		A5D740E11E81549300EC0CEB /* MessageServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageServer.swift; path = Chat/MessageServer.swift; sourceTree = "<group>"; };
 		A5ED01F71E8506BE00D2CE50 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatController.swift; path = Chat/Controller/ChatController.swift; sourceTree = "<group>"; };
 		A5ED01F91E850AD300D2CE50 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Chat/Controller/ChatViewController.swift; sourceTree = "<group>"; };
-		AD5734AE1F0C920B00C20D1E /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppUITests/Pods-Move AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1060D42BB61F8E0F2AECC7C /* Pods_Move_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -937,6 +939,15 @@
 			name = Activity;
 			sourceTree = "<group>";
 		};
+		114D6EE01F2B0A3B000D0817 /* database */ = {
+			isa = PBXGroup;
+			children = (
+				114D6EE11F2B0B7F000D0817 /* DataCache.swift */,
+				114D6EE31F2B2DC4000D0817 /* DataCacheManager.swift */,
+			);
+			name = database;
+			sourceTree = "<group>";
+		};
 		11500FF81EC0699B008E7517 /* EAFeatureGuideView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1046,6 +1057,7 @@
 		116BAE591EC9448B001577D3 /* cache */ = {
 			isa = PBXGroup;
 			children = (
+				114D6EE01F2B0A3B000D0817 /* database */,
 				116BAE5A1EC944EF001577D3 /* InternalMemory */,
 			);
 			name = cache;
@@ -1484,7 +1496,6 @@
 				E01DF7211E3087AB00EA003D /* Assets */,
 				E01DF7201E30879E00EA003D /* Storyboards */,
 				E01DF71F1E30878F00EA003D /* Xibs */,
-				AD5734AE1F0C920B00C20D1E /* File.swift */,
 			);
 			name = Resource;
 			sourceTree = "<group>";
@@ -2836,6 +2847,7 @@
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
 				1140A0821EA4B8E200185200 /* MoreView.swift in Sources */,
 				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,
+				114D6EE21F2B0B7F000D0817 /* DataCache.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				116B90A31F14B41D00336E3B /* SOSController.swift in Sources */,
 				11EAC30C1E6D7B14002906F1 /* UUMessageFrame.swift in Sources */,
@@ -2904,7 +2916,6 @@
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				113F2E401E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift in Sources */,
-				AD5734AF1F0C920B00C20D1E /* File.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
@@ -2944,6 +2955,7 @@
 				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
 				116B90A71F14B44300336E3B /* LocationHistoryVC.swift in Sources */,
 				113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */,
+				114D6EE41F2B2DC4000D0817 /* DataCacheManager.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				FF1CA44E1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
