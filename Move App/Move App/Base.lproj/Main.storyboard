@@ -86,7 +86,7 @@
         <!--Chose device-->
         <scene sceneID="vRY-Hx-DJU">
             <objects>
-                <tableViewController title="Chose device" hidesBottomBarWhenPushed="YES" id="a0j-e4-V0x" customClass="ChoseDeviceController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChoseDeviceController" title="Chose device" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a0j-e4-V0x" customClass="ChoseDeviceController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="1" sectionFooterHeight="9" id="utf-RF-rST">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1682,7 +1682,7 @@
         <!--Me-->
         <scene sceneID="Rus-8m-cLK">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="b5A-LV-Bcq" customClass="MeLogoutController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeLogout" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b5A-LV-Bcq" customClass="MeLogoutController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Gg-eI-uoi"/>
                         <viewControllerLayoutGuide type="bottom" id="OOw-2H-Rlf"/>
@@ -2246,7 +2246,7 @@
         <!--Feedback-->
         <scene sceneID="Kae-aF-xgL">
             <objects>
-                <viewController title="Feedback" id="1ql-n8-fZr" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Feedback" title="Feedback" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1ql-n8-fZr" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lpH-Sh-akR"/>
                         <viewControllerLayoutGuide type="bottom" id="aMM-ZH-XeJ"/>
@@ -2405,7 +2405,7 @@
         <!--Contact us-->
         <scene sceneID="6KQ-hi-IIU">
             <objects>
-                <tableViewController id="GuX-MJ-td2" customClass="ContactUsController" customModule="Move_App" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContactUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GuX-MJ-td2" customClass="ContactUsController" customModule="Move_App" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Nt-Iw-uYc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
