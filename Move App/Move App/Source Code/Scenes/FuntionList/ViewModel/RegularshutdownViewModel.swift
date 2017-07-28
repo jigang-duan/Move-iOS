@@ -54,7 +54,7 @@ class RegularshutdownViewModel {
         let fetchAutoOnOff = manager.fetchoAutopoweronoff()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
-        self.autoOnOffEnable = Driver.of(fetchAutoOnOff,input.autoOnOff).merge()
+        self.autoOnOffEnable = Driver.of(fetchAutoOnOff,input.autoOnOff.skip(1)).merge()
         
         
         let down = Driver.combineLatest(input.bootTime,input.shutdownTime,input.autoOnOff) { ($0, $1, $2) }
