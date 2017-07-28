@@ -207,7 +207,7 @@
                                         <rect key="frame" x="30" y="120.5" width="77" height="65"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_1" translatesAutoresizingMaskIntoConstraints="NO" id="A0W-Cm-wSV">
-                                        <rect key="frame" x="220" y="41.5" width="115" height="220"/>
+                                        <rect key="frame" x="220" y="41" width="115" height="220.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="HDV-kk-w3A"/>
                                             <constraint firstAttribute="width" constant="115" id="kT3-5T-egY"/>
@@ -517,13 +517,13 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qr_ic2" translatesAutoresizingMaskIntoConstraints="NO" id="Uk7-r4-0NE">
-                                <rect key="frame" x="292" y="197.5" width="15" height="15"/>
+                                <rect key="frame" x="291" y="197.5" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="5hl-fY-hef"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put QR code into box to scan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSx-bI-vMl">
-                                <rect key="frame" x="94" y="196.5" width="187.5" height="17"/>
+                                <rect key="frame" x="94" y="196.5" width="187" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -627,7 +627,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If there is no &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is wrong, press below &quot;APN setting&quot; to set APN" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-hT-VjF">
-                                <rect key="frame" x="30" y="274" width="315" height="54"/>
+                                <rect key="frame" x="15" y="274" width="345" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -636,7 +636,7 @@
                                 <rect key="frame" x="107.5" y="84" width="160" height="160"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZn-Oq-hbp">
-                                <rect key="frame" x="45" y="368" width="285" height="44"/>
+                                <rect key="frame" x="45" y="603" width="285" height="44"/>
                                 <color key="backgroundColor" red="0.98039215690000003" green="0.68627450980000004" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="aPQ-uO-WUb"/>
@@ -693,16 +693,16 @@
                             <constraint firstItem="pMA-oC-DKd" firstAttribute="top" secondItem="tOP-ZE-njY" secondAttribute="top" id="FSi-Uq-o1O"/>
                             <constraint firstItem="ekr-hT-VjF" firstAttribute="top" secondItem="Juq-pd-B70" secondAttribute="bottom" constant="30" id="G1w-DV-sT2"/>
                             <constraint firstItem="Juq-pd-B70" firstAttribute="centerX" secondItem="tOP-ZE-njY" secondAttribute="centerX" id="OAk-dF-IZm"/>
-                            <constraint firstItem="ekr-hT-VjF" firstAttribute="leading" secondItem="tOP-ZE-njY" secondAttribute="leading" constant="30" id="TW7-re-u6C"/>
+                            <constraint firstItem="ekr-hT-VjF" firstAttribute="leading" secondItem="tOP-ZE-njY" secondAttribute="leading" constant="15" id="TW7-re-u6C"/>
                             <constraint firstAttribute="trailing" secondItem="AWv-OS-Tv2" secondAttribute="trailing" id="YF7-za-i7a"/>
                             <constraint firstAttribute="trailing" secondItem="RZn-Oq-hbp" secondAttribute="trailing" constant="45" id="cRj-Uf-l2t"/>
-                            <constraint firstItem="RZn-Oq-hbp" firstAttribute="top" secondItem="ekr-hT-VjF" secondAttribute="bottom" constant="40" id="eML-GT-hcV"/>
                             <constraint firstItem="AWv-OS-Tv2" firstAttribute="leading" secondItem="tOP-ZE-njY" secondAttribute="leading" id="gRj-aX-lUU"/>
                             <constraint firstAttribute="trailing" secondItem="pMA-oC-DKd" secondAttribute="trailing" id="imw-i3-9LZ"/>
                             <constraint firstItem="0ov-13-lDZ" firstAttribute="top" secondItem="AWv-OS-Tv2" secondAttribute="bottom" id="jD4-GL-hAb"/>
                             <constraint firstItem="AWv-OS-Tv2" firstAttribute="top" secondItem="tOP-ZE-njY" secondAttribute="top" id="lqV-tJ-sZz"/>
                             <constraint firstItem="pMA-oC-DKd" firstAttribute="leading" secondItem="tOP-ZE-njY" secondAttribute="leading" id="nJB-ff-2aa"/>
-                            <constraint firstAttribute="trailing" secondItem="ekr-hT-VjF" secondAttribute="trailing" constant="30" id="rw0-fW-xyo"/>
+                            <constraint firstAttribute="trailing" secondItem="ekr-hT-VjF" secondAttribute="trailing" constant="15" id="rw0-fW-xyo"/>
+                            <constraint firstItem="0ov-13-lDZ" firstAttribute="top" secondItem="RZn-Oq-hbp" secondAttribute="bottom" constant="20" id="t8L-q9-UVI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Can't pair" id="F6X-Xi-NfI">
@@ -1238,7 +1238,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6l-bn-MvA">
-                                            <rect key="frame" x="66" y="0.0" width="309" height="1"/>
+                                            <rect key="frame" x="66" y="0.0" width="254" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="M4d-zc-PYT"/>
@@ -1257,7 +1257,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-av-BeT">
-                                            <rect key="frame" x="66" y="5.5" width="209" height="44"/>
+                                            <rect key="frame" x="66" y="5.5" width="154" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="qKv-2R-9Kb"/>
                                             </constraints>
@@ -1269,7 +1269,7 @@
                                             </connections>
                                         </textField>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="general_tick" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-zj-2sl">
-                                            <rect key="frame" x="347" y="21" width="12" height="12"/>
+                                            <rect key="frame" x="292" y="21" width="12" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="1vb-x7-Adk"/>
                                                 <constraint firstAttribute="width" constant="12" id="nXV-Um-KVM"/>
@@ -1403,7 +1403,7 @@
                                 <rect key="frame" x="107.5" y="84" width="160" height="160"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buJ-Iy-irB">
-                                <rect key="frame" x="45" y="432" width="285" height="44"/>
+                                <rect key="frame" x="45" y="603" width="285" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="LQs-4t-gun"/>
@@ -1422,7 +1422,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K24-xb-SfL">
-                                <rect key="frame" x="45" y="368" width="285" height="44"/>
+                                <rect key="frame" x="45" y="539" width="285" height="44"/>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.68627450980392157" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="TAj-6L-twr"/>
@@ -1440,8 +1440,8 @@
                                     <action selector="yesClick:" destination="hZ8-Ro-6rk" eventType="touchUpInside" id="dEf-5Z-Ezy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Power on the watch and check to make sure 3G/G/R is displayed on the status bar and that the time displayed is correct" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-FJ-Qrb">
-                                <rect key="frame" x="30" y="274" width="315" height="54"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Power on the watch and check to make sure 3G/G/R is displayed on the status bar and that the time displayed is correct" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-FJ-Qrb">
+                                <rect key="frame" x="15" y="274" width="345" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1452,12 +1452,14 @@
                             <constraint firstItem="K24-xb-SfL" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" constant="45" id="AqX-UJ-KSo"/>
                             <constraint firstItem="s8f-As-YFL" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" id="HyF-TH-apF"/>
                             <constraint firstItem="5hc-FJ-Qrb" firstAttribute="top" secondItem="NPB-7P-DLp" secondAttribute="bottom" constant="30" id="JHH-fQ-5tW"/>
-                            <constraint firstAttribute="trailing" secondItem="5hc-FJ-Qrb" secondAttribute="trailing" constant="30" id="MOA-k7-o4y"/>
+                            <constraint firstAttribute="trailing" secondItem="5hc-FJ-Qrb" secondAttribute="trailing" constant="15" id="MOA-k7-o4y"/>
                             <constraint firstItem="buJ-Iy-irB" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" constant="45" id="PVO-rx-VSb"/>
                             <constraint firstItem="NPB-7P-DLp" firstAttribute="top" secondItem="s8f-As-YFL" secondAttribute="bottom" constant="20" id="VRk-Mx-IiA"/>
                             <constraint firstItem="NPB-7P-DLp" firstAttribute="centerX" secondItem="KKS-uK-mhn" secondAttribute="centerX" id="VWg-SV-ASJ"/>
                             <constraint firstItem="2II-lr-Ddd" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" id="WEU-7H-NfO"/>
                             <constraint firstItem="s8f-As-YFL" firstAttribute="top" secondItem="KKS-uK-mhn" secondAttribute="top" id="cVI-7p-YPr"/>
+                            <constraint firstItem="K24-xb-SfL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5hc-FJ-Qrb" secondAttribute="bottom" constant="10" id="ctK-hF-65V"/>
+                            <constraint firstAttribute="bottom" secondItem="buJ-Iy-irB" secondAttribute="bottom" constant="20" id="dMl-hg-3fT"/>
                             <constraint firstItem="buJ-Iy-irB" firstAttribute="top" secondItem="K24-xb-SfL" secondAttribute="bottom" constant="20" id="dTE-bv-yaA"/>
                             <constraint firstAttribute="trailing" secondItem="K24-xb-SfL" secondAttribute="trailing" constant="45" id="ek0-Iu-x1Q"/>
                             <constraint firstAttribute="trailing" secondItem="2II-lr-Ddd" secondAttribute="trailing" id="hfZ-RQ-mit"/>
@@ -1465,8 +1467,7 @@
                             <constraint firstAttribute="bottom" secondItem="2II-lr-Ddd" secondAttribute="bottom" id="pwy-jB-uaL"/>
                             <constraint firstAttribute="trailing" secondItem="buJ-Iy-irB" secondAttribute="trailing" constant="45" id="rYS-mO-PZn"/>
                             <constraint firstItem="2II-lr-Ddd" firstAttribute="top" secondItem="KKS-uK-mhn" secondAttribute="top" id="tXv-Fj-jdS"/>
-                            <constraint firstItem="5hc-FJ-Qrb" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" constant="30" id="w5x-z3-jRv"/>
-                            <constraint firstItem="K24-xb-SfL" firstAttribute="top" secondItem="5hc-FJ-Qrb" secondAttribute="bottom" constant="40" id="x28-am-uwj"/>
+                            <constraint firstItem="5hc-FJ-Qrb" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" constant="15" id="w5x-z3-jRv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Can't pair" id="R1N-jK-ahy">
@@ -1572,7 +1573,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5z-YR-KjO">
-                                            <rect key="frame" x="15" y="0.0" width="360" height="1"/>
+                                            <rect key="frame" x="15" y="0.0" width="305" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="dnk-X3-NLh"/>
@@ -1836,7 +1837,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAg-1l-CPl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Logout">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

@@ -114,7 +114,7 @@ class UpdatePwdController: TranslucentNavBarController {
     private func initializeI18N() {
         self.title = R.string.localizable.id_password_recovery()
         
-        helpLabel.text = R.string.localizable.id_sent_email_success_tint() + self.email!
+        helpLabel.text = R.string.localizable.id_sent_email_success_tint() + " " + self.email!
         vcodeTf.placeholder = R.string.localizable.id_verification_code()
         sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
         passwordTf.placeholder = R.string.localizable.id_new_password()
