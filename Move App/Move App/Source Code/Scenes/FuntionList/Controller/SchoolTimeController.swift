@@ -59,7 +59,7 @@ class SchoolTimeController: UIViewController {
     
     func saveAction() {
         if !weekOutlet.weekSelected.contains(true){
-            let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_school_time_date_empty(), preferredStyle: .alert)
+            let alertController = UIAlertController(title: "", message: R.string.localizable.id_school_time_date_empty(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
             
             alertController.addAction(okAction)
@@ -342,7 +342,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date > self.amEndTime{
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_morning_time_later_end(), preferredStyle: .alert)
+                let alertController = UIAlertController(title: "", message: R.string.localizable.id_morning_time_later_end(), preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
@@ -363,7 +363,7 @@ class SchoolTimeController: UIViewController {
                 else
                 {
               if datepicke.date < self.amStartTime{
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_morning_time_later_end(), preferredStyle: .alert)
+                let alertController = UIAlertController(title: "", message: R.string.localizable.id_morning_time_later_end(), preferredStyle: .alert)
                 let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                 alertController.addAction(okActiojn)
                 self.present(alertController, animated: true)
@@ -385,7 +385,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date > self.pmEndTime{
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_afternoon_time_later_end(), preferredStyle: .alert)
+                let alertController = UIAlertController(title: "", message: R.string.localizable.id_afternoon_time_later_end(), preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)
@@ -408,7 +408,7 @@ class SchoolTimeController: UIViewController {
             else
             {
             if datepicke.date < self.pmStartTime{
-                let alertController = UIAlertController(title: R.string.localizable.id_warming(), message: R.string.localizable.id_afternoon_time_later_end(), preferredStyle: .alert)
+                let alertController = UIAlertController(title: "", message: R.string.localizable.id_afternoon_time_later_end(), preferredStyle: .alert)
                                         let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
                                         alertController.addAction(okActiojn)
                                         self.present(alertController, animated: true)

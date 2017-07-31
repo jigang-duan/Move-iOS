@@ -307,7 +307,7 @@ extension AccountKidsRulesuserController {
             }else{
                 tip = R.string.localizable.id_unbind()
             }
-            let alert = UIAlertController(title: R.string.localizable.id_warming(), message: tip, preferredStyle: .alert)
+            let alert = UIAlertController(title: "", message: tip, preferredStyle: .alert)
             let action1 = UIAlertAction(title: R.string.localizable.id_still_unpaired(), style: .default, handler: { [weak self] _ in
                 self?.unpairWatch()
             })

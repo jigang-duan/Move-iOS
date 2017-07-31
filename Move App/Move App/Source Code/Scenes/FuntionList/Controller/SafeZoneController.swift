@@ -156,7 +156,7 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
             bun.closureSwitch = { [unowned self] isOn in
                 if isOn{
                     if self.autopositioningBool == false {
-                        let alertController = UIAlertController(title: nil, message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "", message: R.string.localizable.id_safe_zone_admin(), preferredStyle: .alert)
                         
                         let notOpen = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                         
