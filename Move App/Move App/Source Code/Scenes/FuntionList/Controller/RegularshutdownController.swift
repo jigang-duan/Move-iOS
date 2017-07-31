@@ -226,7 +226,7 @@ extension RegularshutdownController {
             let selectTime = Double(datePicker.date.timeIntervalSince1970)
             let currTime = Double(shutdownTimeVariable.value.timeIntervalSince1970)
             let result = selectTime - currTime
-            if (datePicker.date == shutdownTimeVariable.value) ||  (fabsf(Float(result)) <= 600) {
+            if (datePicker.date == shutdownTimeVariable.value) ||  (fabsf(Float(result)) <= 540) {
                 
                 self.alertSeting(message: R.string.localizable.id_time_interval_too_short(), preferredStyle: .alert)
                 
@@ -242,7 +242,7 @@ extension RegularshutdownController {
             let selectTime = Double(datePicker.date.timeIntervalSince1970)
             let currTime = Double(bootTimeVariable.value.timeIntervalSince1970)
             let result = selectTime - currTime
-            if (datePicker.date == bootTimeVariable.value) || (fabsf(Float(result)) <= 600) {
+            if (datePicker.date == bootTimeVariable.value) || (fabsf(Float(result)) <= 540) {
                 
                 self.alertSeting(message: R.string.localizable.id_time_interval_too_short(), preferredStyle: .alert)
                 
