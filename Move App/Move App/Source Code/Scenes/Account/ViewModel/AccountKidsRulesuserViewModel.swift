@@ -14,6 +14,7 @@ class AccountKidsRulesuserViewModel {
     // outputs {
     let autoAnswereEnable: Driver<Bool>
     let autoPosistionEnable: Driver<Bool>
+    let selectAutoPosistion: Driver<Bool>
     
     let saveFinish: Driver<Bool>
     let activityIn: Driver<Bool>
@@ -49,10 +50,9 @@ class AccountKidsRulesuserViewModel {
             .asDriver(onErrorJustReturn: false)
         
         let stringOnTrankingMode = R.string.localizable.id_turn_on_auto_position()
-        
         let stringOffTrankingMode = R.string.localizable.id_turn_off_auto_position()
-        let selectAutoPosistion = input.autoPosistion
-            .flatMapLatest { (turning) in
+        selectAutoPosistion = input.autoPosistion
+            .flatMapLatest { turning in
                 wireframe.promptYHFor(turning ? stringOnTrankingMode : stringOffTrankingMode,
                                     cancelAction: CommonResult.cancel, action: CommonResult.ok)
                     .map{ $0.isOK }
@@ -69,6 +69,9 @@ class AccountKidsRulesuserViewModel {
                 manager.updateAnswerAndPosition(autoanswer, autoPosition: autoPosistion)
                     .trackActivity(activitying)
                     .asDriver(onErrorJustReturn: false)
+            }
+            .flatMapLatest{ (ok) in
+                fetchautoPosistion.map{_ in ok }
             }
     }
    

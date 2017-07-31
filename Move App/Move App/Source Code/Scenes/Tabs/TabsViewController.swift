@@ -30,19 +30,19 @@ class TabsViewController: UITabBarController {
             //R.storyboard.social.instantiateInitialViewController()!
         ]
         
-        let hasDevice = RxStore.shared.deviceInfosState.asObservable()
-            .map({ $0.count > 0 })
-        
-        hasDevice.bindNext({[weak self] in
-                self?.viewControllers?[0].tabBarItem.isEnabled = $0
-            })
-            .addDisposableTo(bag)
-
-        hasDevice.filter { !$0 }
-            .bindNext { [weak self] _ in
-                self?.selectedIndex = 1
-            }
-            .addDisposableTo(bag)
+//        let hasDevice = RxStore.shared.deviceInfosState.asObservable()
+//            .map({ $0.count > 0 })
+//        
+//        hasDevice.bindNext({[weak self] in
+//                self?.viewControllers?[0].tabBarItem.isEnabled = $0
+//            })
+//            .addDisposableTo(bag)
+//
+//        hasDevice.filter { !$0 }
+//            .bindNext { [weak self] _ in
+//                self?.selectedIndex = 1
+//            }
+//            .addDisposableTo(bag)
         
         MessageServer.share.syncDataInitalization(disposeBag: bag)
         MessageServer.share.subscribe().addDisposableTo(bag)
@@ -61,7 +61,7 @@ class TabsViewController: UITabBarController {
                 devices.filter({ $0.deviceId == id }).first?.deviceId
             }
             .filter { $0 == nil }
-            .flatMapLatest { (_) in
+            .flatMapLatest { _ in
                 DeviceManager.shared.fetchDevices().map{ $0.first?.deviceId }.catchErrorJustReturn(nil).filterNil()
             }
             .bindTo(RxStore.shared.currentDeviceId)

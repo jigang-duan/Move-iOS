@@ -36,12 +36,33 @@ class DataCacheManager {
         return Observable.collection(from: ticker).map{ $0.first?.value }.filterNil()
     }
     
+    func get(key: String, default value: String) -> Observable<String> {
+        return self.get(key: key).startWith(value)
+    }
+    
     func set(key: String, value: String) {
-        let ticker = DataCache()
-        ticker.key = key
-        ticker.value = value
+        let dataCache = DataCache()
+        dataCache.key = key
+        dataCache.value = value
         try? realm.write {
-            realm.add(ticker, update: true)
+            realm.add(dataCache, update: true)
+        }
+    }
+    
+    func getBool(key: String) -> Observable<Bool> {
+        return self.get(key: key).map{ Bool($0) }.filterNil()
+    }
+    
+    func getBool(key: String, default value: Bool) -> Observable<Bool> {
+        return self.getBool(key: key).startWith(value)
+    }
+    
+    func set(key: String, value: Bool) {
+        let dataCache = DataCache()
+        dataCache.key = key
+        dataCache.value = String(value)
+        try? realm.write {
+            realm.add(dataCache, update: true)
         }
     }
 }

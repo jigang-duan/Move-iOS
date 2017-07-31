@@ -32,24 +32,9 @@ class MessageServer {
             
             let syncObject = realm.objects(SynckeyEntity.self).filter("uid == %@", uid)
             
-//            let syncData = Observable<Int>.timer(2.0, period: 30.0, scheduler: MainScheduler.instance)
-//                .flatMapFirst { _ in IMManager.shared.checkSyncKey().catchErrorJustReturn(false) }
-//                .filter { $0 }
-//                .flatMapLatest { _ in
-//                    IMManager.shared.syncData()
-//                        .catchErrorJustReturn( (synckey: nil,
-//                                                messages: nil,
-//                                                members: nil,
-//                                                groups: nil,
-//                                                notices: nil,
-//                                                chatops: nil) )
-//                }
-//                .shareReplay(1)
-            
             let completedReSyncSubject = PublishSubject<Int>()
             let syncData = Observable.merge(Observable<Int>.timer(2.0, period: 35.0, scheduler: MainScheduler.instance),
                              completedReSyncSubject.asObservable().delay(3.0, scheduler: MainScheduler.instance))
-//            let syncData = Observable<Int>.timer(2.0, period: 25.0, scheduler: MainScheduler.instance)
                 .flatMapFirst { _ in
                     IMManager.shared.checkSyncData()
                         .do(onCompleted: { completedReSyncSubject.onNext(1) })
@@ -96,10 +81,15 @@ class MessageServer {
             let netNotice = reNotice.filter { $0.imType.needSave }.filter { ($0.to == nil) || ($0.to == uid) }
             
             // 检查固件通知
-            let singleDevs = Observable.just(()).delay(30.0, scheduler: MainScheduler.instance)
+            let singleDevs = Observable.just(()).delay(20.0, scheduler: MainScheduler.instance)
                 .flatMapLatest { RxStore.shared.deviceInfosObservable }
                 .take(1)
-                .flatMapLatest{ Observable.from($0) }
+                .flatMapLatest{
+                    Observable.from($0)
+                        .flatMapWithIndex{
+                            Observable.just($0).delay(RxTimeInterval(($1 + 1) * 10), scheduler: MainScheduler.instance)
+                        }
+                }
                 .filter { $0.user?.isAdmin(uid: uid) ?? false }
                 .share()
             let deviceUpdateNotice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(),
