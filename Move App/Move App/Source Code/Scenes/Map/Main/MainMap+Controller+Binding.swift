@@ -50,6 +50,7 @@ extension MainMapController {
             .addDisposableTo(disposeBag)
         
         viewModel.authorized.drive(noGeolocationView.rx.isHidden).addDisposableTo(disposeBag)
+        RxStore.shared.deviceInfosObservable.map{ $0.count > 0 }.bindTo(noDeviceView.rx.isHidden).addDisposableTo(disposeBag)
         
         viewModel.callTelprompt.drive(onNext: { wireframe.open(url: $0) }).addDisposableTo(disposeBag)
         
@@ -129,6 +130,12 @@ extension MainMapController {
         Driver.combineLatest(viewModel.online, viewModel.autoPosistion, netNoReachable) {!$0 || $1 || $2}
             .map{ $0 ? 54.0 : 15.0 }
             .drive(floatMenuTopConstraint.rx.constant)
+            .addDisposableTo(disposeBag)
+        
+        offTrackingModeOutlet.rx.tap.asObservable()
+            .withLatestFrom(RxStore.shared.deviceIdObservable)
+            .map { ("mark:select.auto.posistion-\($0)", false) }
+            .bindTo(DataCacheManager.shared.rx.setBool())
             .addDisposableTo(disposeBag)
         
         viewModel.activityIn.drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible).addDisposableTo(disposeBag)

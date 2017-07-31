@@ -85,12 +85,14 @@ class AccountKidsRulesuserController: UITableViewController {
         
         viewModel.autoAnswereEnable.drive(autoAnswerSwitch.rx.on).addDisposableTo(disposeBag)
         viewModel.autoPosistionEnable.drive(autoPositionSwitch.rx.on).addDisposableTo(disposeBag)
+        Observable.combineLatest(RxStore.shared.deviceIdObservable, viewModel.selectAutoPosistion.asObservable()) { ("mark:select.auto.posistion-\($0)", $1) }
+            .bindTo(DataCacheManager.shared.rx.setBool()).addDisposableTo(disposeBag)
         
         viewModel.activityIn
             .map({ !$0 })
             .drive(onNext: {[weak self] in
-            self?.userInteractionEnabled(enable: $0)
-        })
+                self?.userInteractionEnabled(enable: $0)
+            })
             .addDisposableTo(disposeBag)
         
         RxStore.shared.currentDevice
@@ -102,7 +104,7 @@ class AccountKidsRulesuserController: UITableViewController {
         let property = RxStore.shared.deviceIdObservable
             .flatMapLatest { id -> Observable<DeviceProperty> in
                 DeviceManager.shared.getProperty(deviceId: id).catchErrorJustReturn(DeviceProperty()).filter({ $0.power != nil })
-        }
+            }
         property.bindNext { RxStore.shared.bind(property: $0) }.addDisposableTo(disposeBag)
         
         RxStore.shared.currentDevice

@@ -22,6 +22,8 @@ class MainMapController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet var noGeolocationView: UIView!
+    @IBOutlet var noDeviceView: UIView!
+    
     @IBOutlet weak var openPreferencesBtn: UIButton!
     
     @IBOutlet weak var callOutlet: UIButton!
@@ -88,6 +90,8 @@ class MainMapController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        self.view.dismissFeatureGuide()
         self.isAtThisPage.value = false
     }
     
@@ -107,7 +111,9 @@ class MainMapController: UIViewController {
         trackingTitleOutlet.text = NSLocalizedString("Daily tracking mode will consume more power, tap to close.", comment: "")
         
         noGeolocationView.frame = view.bounds
+        noDeviceView.frame = view.bounds
         view.addSubview(noGeolocationView)
+        view.addSubview(noDeviceView)
     }
     
         

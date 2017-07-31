@@ -372,6 +372,7 @@
                         <outlet property="mapView" destination="EZI-JX-nJk" id="4Mq-dd-Cqv"/>
                         <outlet property="messageOutlet" destination="BJv-uG-4Cf" id="Iiq-gU-JI4"/>
                         <outlet property="nameOutle" destination="fzE-4h-zm9" id="uZ9-9c-EM3"/>
+                        <outlet property="noDeviceView" destination="o4O-Aj-DIp" id="yl5-1d-7oz"/>
                         <outlet property="noGeolocationView" destination="qq8-s0-eFv" id="AQV-eU-Bf7"/>
                         <outlet property="noticeOutlet" destination="wZG-pb-3Ev" id="y0o-jN-D0v"/>
                         <outlet property="offTrackingModeOutlet" destination="j9l-Yt-adv" id="gPy-0W-htE"/>
@@ -393,6 +394,23 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdP-O1-Vd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view hidden="YES" contentMode="scaleToFill" id="o4O-Aj-DIp">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISt-gP-wcM">
+                            <rect key="frame" x="125" y="285" width="125" height="33.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                            <color key="textColor" red="0.94901960780000005" green="0.32549019610000002" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="ISt-gP-wcM" firstAttribute="centerX" secondItem="o4O-Aj-DIp" secondAttribute="centerX" id="6MX-SM-p9v"/>
+                        <constraint firstItem="ISt-gP-wcM" firstAttribute="centerY" secondItem="o4O-Aj-DIp" secondAttribute="centerY" id="Xhi-cD-e65"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" id="qq8-s0-eFv">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -440,7 +458,7 @@
                 </view>
                 <tapGestureRecognizer id="xsd-xS-KJU"/>
             </objects>
-            <point key="canvasLocation" x="2372" y="1778"/>
+            <point key="canvasLocation" x="2932" y="1755"/>
         </scene>
         <!--Data Source-->
         <scene sceneID="0XR-iv-C57">
@@ -836,7 +854,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1056" y="2789"/>
+            <point key="canvasLocation" x="1073" y="2612"/>
         </scene>
         <!--Safe Zone Address SearchVC-->
         <scene sceneID="JeL-zy-KNt">
@@ -942,7 +960,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RB6-SU-Y7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1626" y="2789"/>
+            <point key="canvasLocation" x="1753" y="2612"/>
         </scene>
         <!--All Kids Location-->
         <scene sceneID="o21-tY-rna">
@@ -1029,7 +1047,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMR-Sl-hHn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1754" y="1778"/>
+            <point key="canvasLocation" x="1753" y="1755"/>
         </scene>
         <!--System notification-->
         <scene sceneID="L4M-If-OHT">
@@ -1115,7 +1133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbM-9g-3zz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2956" y="1778"/>
+            <point key="canvasLocation" x="3618" y="1755"/>
         </scene>
         <!--Notification-->
         <scene sceneID="eht-vI-J2c">
@@ -1168,7 +1186,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3504" y="1778"/>
+            <point key="canvasLocation" x="4282" y="1755"/>
         </scene>
     </scenes>
     <resources>

@@ -85,8 +85,8 @@ class MainMapViewModel {
         
         let deviceManager = dependency.deviceManager
         let locationManager = dependency.locationManager
-        let settingsManager = dependency.settingsManager
-        let wireframe = dependency.wireframe
+//        let settingsManager = dependency.settingsManager
+//        let wireframe = dependency.wireframe
         let isAtThisPage = input.isAtThisPage.asObservable()
         
         let activitying = ActivityIndicator()
@@ -258,37 +258,14 @@ class MainMapViewModel {
         let fetchAutoPosistion = Driver.merge(currentDevice.distinctUntilChanged{ $0.deviceId == $1.deviceId },
                                               enter.withLatestFrom(currentDevice))
             .withLatestFrom(userID.asDriver(onErrorJustReturn: "").filterEmpty()) { ($0.user?.owner == $1) ? $0 : nil }
+            .map{ $0?.deviceId }
             .filterNil()
             .flatMapLatest {
-                settingsManager.fetchautoPosistion(devID: $0.deviceId)
-                    .trackActivity(activitying)
-                    .asDriver(onErrorJustReturn: false)
+                DataCacheManager.shared.getBool(key: "mark:select.auto.posistion-\($0)", default: false)
+                    .asDriver(onErrorJustReturn: false).debug()
             }
         
-        let offTrackingMode = input.offTrackingModeTap
-            .flatMapLatest{
-                wireframe.promptYHFor("Turning off Daily tracking mode, the Safezone loction information will be not timely",
-                                      cancelAction: CommonResult.cancel,
-                                      action: CommonResult.ok)
-                    .filter { $0.isOK }
-                    .asDriver(onErrorJustReturn: .cancel)
-            }
-            .flatMapLatest { _ in
-                settingsManager.update(autoPosistion: false)
-                    .trackActivity(activitying)
-                    .asDriver(onErrorJustReturn: false)
-            }
-            .filter { $0 }
-            .withLatestFrom(currentDevice.map{ $0.deviceId }.filterNil())
-            .flatMapLatest {
-                settingsManager.fetchautoPosistion(devID: $0)
-                    .trackActivity(activitying)
-                    .asDriver(onErrorJustReturn: false)
-            }
-        
-        autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false },
-                                     fetchAutoPosistion,
-                                     offTrackingMode)
+        autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false }, fetchAutoPosistion)
         
         let realm = try! Realm()
         let gidsObservable = RxStore.shared.deviceInfosObservable.filterEmpty().map{ $0.flatMap{ $0.user?.gid } }

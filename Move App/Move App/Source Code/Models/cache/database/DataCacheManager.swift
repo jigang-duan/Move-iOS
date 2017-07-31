@@ -60,4 +60,22 @@ extension Reactive where Base: DataCacheManager {
         }).asObserver()
     }
     
+    func set(key: String) -> AnyObserver<String> {
+        return DataCacheObserver(binding: { (dataCacheManager, element) in
+            dataCacheManager.set(key: key, value: element)
+        }).asObserver()
+    }
+    
+    func setBool() -> AnyObserver<(String, Bool)> {
+        return DataCacheObserver(binding: { (dataCacheManager, element) in
+            dataCacheManager.set(key: element.0, value: element.1)
+        }).asObserver()
+    }
+    
+    func setBool(key: String) -> AnyObserver<Bool> {
+        return DataCacheObserver(binding: { (dataCacheManager, element) in
+            dataCacheManager.set(key: key, value: element)
+        }).asObserver()
+    }
+    
 }
