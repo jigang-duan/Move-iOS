@@ -152,14 +152,9 @@ class AccountAndChoseDeviceController: UIViewController {
         }
     }
     
-    func settingUserInfo(with info: UserInfo.Profile) -> Observable<ValidationResult>{
-        return UserManager.shared.setUserInfo(userInfo: info).map{ flag -> ValidationResult in
-            if flag {
-                return ValidationResult.ok(message: "OK")
-            }else{
-                return ValidationResult.failed(message: "failed")
-            }
-        }
+    func settingUserInfo(with info: UserInfo.Profile) -> Observable<ValidationResult> {
+        return UserManager.shared.setUserInfo(userInfo: info)
+            .map{ $0 ? .ok(message: "OK") : .failed(message: "failed") }
     }
     
 }
@@ -171,9 +166,16 @@ extension AccountAndChoseDeviceController {
             switch target {
             case .kidInformation, .familyMember, .friendList,.updata :
                 showAccountKidsRulesuserController()
+            case .addDevice:
+                sshowPairWatchController()
+                Distribution.shared.target = nil
             default: ()
             }
         }
+    }
+    
+    fileprivate func sshowPairWatchController() {
+        self.performSegue(withIdentifier: R.segue.accountAndChoseDeviceController.showPairWatch, sender: nil)
     }
     
     fileprivate func showAccountKidsRulesuserController() {

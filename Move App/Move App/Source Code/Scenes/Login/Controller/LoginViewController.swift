@@ -147,20 +147,15 @@ class LoginViewController: TranslucentNavBarController {
         
         viewModel.loginEnabled.drive(loginOutlet.rx.enabled).addDisposableTo(disposeBag)
         
-        viewModel.logedIn
+        let loginResult = Driver.merge(viewModel.logedIn, viewModel.thirdLoginResult)
+        
+        loginResult
             .drive(onNext: { [weak self] in
                 self?.loginOnValidation($0)
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.thirdLoginResult
-            .drive(onNext: { [weak self] in
-                self?.loginOnValidation($0)
-            })
-            .addDisposableTo(disposeBag)
-        
-        
-        
+        loginResult.map{ $0.isEmpty }.filter{ $0 }.drive(AlertServer.share.emptyOfLoginVariable).addDisposableTo(disposeBag)
     }
     
     @IBAction func eyeButtonClick(_ sender: UIButton) {
@@ -219,7 +214,7 @@ extension LoginViewController {
             }else{
                 self.showAccountError(message)
             }
-        case .ok:
+        case .ok, .empty:
             retractionKeyboard()
             Distribution.shared.showMainScreen()
         default: ()

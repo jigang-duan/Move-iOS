@@ -262,7 +262,7 @@ class MainMapViewModel {
             .filterNil()
             .flatMapLatest {
                 DataCacheManager.shared.getBool(key: "mark:select.auto.posistion-\($0)", default: false)
-                    .asDriver(onErrorJustReturn: false).debug()
+                    .asDriver(onErrorJustReturn: false)
             }
         
         autoPosistion = Driver.merge(currentDevice.map{ $0.deviceId }.distinctUntilChanged().filterNil().map{_ in false }, fetchAutoPosistion)

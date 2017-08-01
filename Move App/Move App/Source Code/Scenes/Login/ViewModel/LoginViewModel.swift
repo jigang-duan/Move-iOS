@@ -66,15 +66,14 @@ class LoginViewModel {
         let emailAndPassword = Driver.combineLatest(input.email, input.passwd) { ($0, $1) }
         
         self.logedIn = input.loginTaps.withLatestFrom(emailAndPassword)
-            .flatMapLatest({ (email, password) in
+            .flatMapLatest{ (email, password) in
                 userManager.login(email: email, password: password)
                     .trackActivity(signingIn)
-                    .map { _ in
-                        UserDefaults.standard.setValue(email, forKey: lastLoginAccount)
-                        return ValidationResult.ok(message: "Login Success.")
-                    }
+                    .do(onNext: { _ in UserDefaults.standard.setValue(email, forKey: lastLoginAccount) })
+                    .map { _ in .ok(message: "Login Success.") }
                     .asDriver(onErrorRecover: errorRecover)
-            })
+            }
+            .flatMapLatest(selector)
         
         self.loginEnabled = Driver.combineLatest(
             validatedEmail,
@@ -89,15 +88,16 @@ class LoginViewModel {
         
         let third = input.thirdLogin.filter { $0 != MoveApiUserWorker.LoginType.none }
         
-        self.thirdLoginResult = third.flatMapLatest({ type in
-            ShareSDK.rx.authorize(SSDKPlatformType: type.ssdkPlatformType)
-                .flatMap { user -> Observable<ValidationResult> in
-                    userManager.tplogin(platform: type, openld: type.openid(user: user) , secret: type.secret(user: user))
-                        .trackActivity(signingIn)
-                        .map { _ in ValidationResult.ok(message: "Login Success.") }
-                }
-                .asDriver(onErrorRecover: commonErrorRecover)
-            })
+        self.thirdLoginResult = third.flatMapLatest { type in
+                ShareSDK.rx.authorize(SSDKPlatformType: type.ssdkPlatformType)
+                    .flatMap { user -> Observable<ValidationResult> in
+                        userManager.tplogin(platform: type, openld: type.openid(user: user) , secret: type.secret(user: user))
+                            .trackActivity(signingIn)
+                            .map { _ in ValidationResult.ok(message: "Login Success.") }
+                    }
+                    .asDriver(onErrorRecover: commonErrorRecover)
+            }
+            .flatMapLatest(selector)
         
     }
     
@@ -184,4 +184,16 @@ fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> 
     
     let msg = WorkerError.verifyErrorTransform(from: _error)
     return Driver.just(ValidationResult.failed(message: msg))
+}
+
+func selector(result: ValidationResult) -> Driver<ValidationResult> {
+    switch result {
+    case .ok:
+        return DeviceManager.shared.fetchDevices()
+            .takeLast(1)
+            .map { $0.count > 0 ? .ok(message: "Login Success.") : .empty }
+            .asDriver(onErrorRecover: commonErrorRecover)
+    default:
+        return Driver.just(result)
+    }
 }
