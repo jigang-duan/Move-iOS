@@ -41,6 +41,7 @@ class MainMapController: UIViewController {
     @IBOutlet weak var voltameterImageOutlet: UIImageView!
 
     @IBOutlet weak var remindLocationOutlet: UIButton!
+    @IBOutlet weak var addDeviceOutle: UIButton!
     
     @IBOutlet weak var remindActivityOutlet: ActivityImageView!
     
@@ -135,6 +136,8 @@ class MainMapController: UIViewController {
         openPreferencesBtn.rx.tap.bindNext { _ in wireframe.openSettings() }.addDisposableTo(disposeBag)
         
         messageOutlet.rx.tap.asObservable().bindTo(rx.segueChat).addDisposableTo(disposeBag)
+        addDeviceOutle.rx.tap.asObservable().bindNext { _ in Distribution.shared.propelToAddDevice() }.addDisposableTo(disposeBag)
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -27,6 +27,7 @@ class AlertServer {
     
     let navigateLocationSubject = PublishSubject<NavigateLocation>()
     let unpiredSubject = PublishSubject<Void>()
+    let emptyOfLoginVariable = Variable(false)
     
     func subscribe(disposeBag: DisposeBag) {
         
@@ -272,7 +273,12 @@ class AlertServer {
         Observable.merge(enterUpdataPage, goToDeviceUpdataPage).bindNext{_ in Distribution.shared.propelToUpdataPage()}.addDisposableTo(disposeBag)
         enterMainPage.bindNext{_ in Distribution.shared.backToMainMap()}.addDisposableTo(disposeBag)
         enterAccountPage.bindNext{_ in Distribution.shared.backToTabAccount()}.addDisposableTo(disposeBag)
-    
+        
+        
+        emptyOfLoginVariable.asObservable()
+            .filter{ $0 }
+            .delay(2.0, scheduler: MainScheduler.instance)
+            .bindNext { _ in Distribution.shared.propelToAddDevice()}.addDisposableTo(disposeBag)
     }
 }
 

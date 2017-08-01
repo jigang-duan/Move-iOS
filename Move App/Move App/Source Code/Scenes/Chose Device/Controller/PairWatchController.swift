@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PairWatchController: UIViewController {
+    
+    var disposeBag = DisposeBag()
 
     @IBOutlet weak var scanBun: UIButton!
     @IBOutlet weak var tipBun: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var skipBtn: UIButton!
     
     
     @IBOutlet weak var tipBottomCons: NSLayoutConstraint!
@@ -36,9 +42,20 @@ class PairWatchController: UIViewController {
         }else{
             tipBottomCons.constant = 30
         }
+        
+        let emptyOfLogin = AlertServer.share.emptyOfLoginVariable.asObservable()
+        emptyOfLogin.map{!$0}.bindTo(skipBtn.rx.isHidden).addDisposableTo(disposeBag)
+        emptyOfLogin.bindTo(backBtn.rx.isHidden).addDisposableTo(disposeBag)
+        
+        let skip = skipBtn.rx.tap.asDriver()
+        skip.drive(onNext: {
+                Distribution.shared.backToMainMap()
+            })
+            .addDisposableTo(disposeBag)
+        skip.map{ false }.drive(AlertServer.share.emptyOfLoginVariable).addDisposableTo(disposeBag)
+        
+        
     }
-
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

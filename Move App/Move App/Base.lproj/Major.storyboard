@@ -364,6 +364,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addDeviceOutle" destination="ZX9-wR-J68" id="UcV-eL-9ie"/>
                         <outlet property="addressScrollLabel" destination="4Yc-vY-xhQ" id="5N1-NJ-cy9"/>
                         <outlet property="callOutlet" destination="Hpy-90-pyP" id="ddV-9q-P9j"/>
                         <outlet property="floatMenuTopConstraint" destination="swX-Ne-zAV" id="xBr-ZW-tmA"/>
@@ -394,21 +395,39 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdP-O1-Vd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view hidden="YES" contentMode="scaleToFill" id="o4O-Aj-DIp">
+                <view contentMode="scaleToFill" id="o4O-Aj-DIp">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Device" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISt-gP-wcM">
-                            <rect key="frame" x="125" y="285" width="125" height="33.5"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                            <color key="textColor" red="0.94901960780000005" green="0.32549019610000002" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZX9-wR-J68">
+                            <rect key="frame" x="102" y="306.5" width="170" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="4aX-NB-sXI"/>
+                                <constraint firstAttribute="width" constant="170" id="GmX-WK-8mm"/>
+                            </constraints>
+                            <state key="normal" title="Add you device"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_add_device" translatesAutoresizingMaskIntoConstraints="NO" id="XWz-Mh-mqP">
+                            <rect key="frame" x="92" y="86.5" width="190" height="190"/>
+                        </imageView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="ISt-gP-wcM" firstAttribute="centerX" secondItem="o4O-Aj-DIp" secondAttribute="centerX" id="6MX-SM-p9v"/>
-                        <constraint firstItem="ISt-gP-wcM" firstAttribute="centerY" secondItem="o4O-Aj-DIp" secondAttribute="centerY" id="Xhi-cD-e65"/>
+                        <constraint firstItem="ZX9-wR-J68" firstAttribute="centerX" secondItem="o4O-Aj-DIp" secondAttribute="centerX" id="JH4-8s-sCe"/>
+                        <constraint firstItem="ZX9-wR-J68" firstAttribute="top" secondItem="XWz-Mh-mqP" secondAttribute="bottom" constant="30" id="PBS-b4-Jsh"/>
+                        <constraint firstItem="XWz-Mh-mqP" firstAttribute="centerX" secondItem="o4O-Aj-DIp" secondAttribute="centerX" id="iga-x2-CpE"/>
+                        <constraint firstItem="XWz-Mh-mqP" firstAttribute="centerY" secondItem="o4O-Aj-DIp" secondAttribute="centerY" constant="-120" id="l00-31-7o4"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" id="qq8-s0-eFv">
@@ -1193,6 +1212,7 @@
         <image name="general_back_dis" width="20" height="20"/>
         <image name="general_backli" width="20" height="20"/>
         <image name="general_next_dis" width="20" height="20"/>
+        <image name="home_add_device" width="190" height="190"/>
         <image name="home_btn_exchange_nor" width="15" height="15"/>
         <image name="home_btn_exchange_pre" width="15" height="15"/>
         <image name="home_btn_locatio_nor" width="41" height="41"/>

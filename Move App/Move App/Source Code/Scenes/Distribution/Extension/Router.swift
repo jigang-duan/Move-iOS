@@ -112,6 +112,7 @@ class Distribution {
         case friendList
         case chatMessage(Int)
         case updata
+        case addDevice
     }
     
     func propelToKidInformation() {
@@ -173,6 +174,18 @@ class Distribution {
             return
         }
         backToMainMap()
+    }
+    
+    func propelToAddDevice() {
+        guard let current = self.currentViewCotroller else {
+            return
+        }
+        target = .addDevice
+        if let current = current as? AccountAndChoseDeviceController {
+            current.propelToTargetController()
+            return
+        }
+        popToTabAccount(current: current)
     }
     
     

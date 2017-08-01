@@ -28,6 +28,17 @@ extension ValidationResult {
     }
 }
 
+extension ValidationResult {
+    var isEmpty: Bool {
+        switch self {
+        case .empty:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 extension ValidationResult: CustomStringConvertible {
     var description: String {
         switch self {
