@@ -76,7 +76,7 @@ class RemindersCell: UITableViewCell {
         {
             s = R.string.localizable.id_week_school_day()
         }
-       else if s == R.string.localizable.id_week_sunday()+" "+R.string.localizable.id_week_monday()+" "+R.string.localizable.id_week_tuesday()+" "+R.string.localizable.id_week_wednesday()+" "+R.string.localizable.id_week_thurday()+R.string.localizable.id_week_friday()+" "+R.string.localizable.id_week_saturday()+" "
+       else if s == R.string.localizable.id_week_sunday()+" "+R.string.localizable.id_week_monday()+" "+R.string.localizable.id_week_tuesday()+" "+R.string.localizable.id_week_wednesday()+" "+R.string.localizable.id_week_thurday()+" "+R.string.localizable.id_week_friday()+" "+R.string.localizable.id_week_saturday()+" "
             
         {
             s = R.string.localizable.id_week_everyday()
