@@ -29,9 +29,10 @@ class SetYourBirthdayController: UIViewController {
         self.initializeI18N()
         
         // Do any additional setup after loading the view.
+        datePicker.minimumDate = Date(timeIntervalSince1970: -2209017600)
         datePicker.maximumDate = Date()
         if let d = selectedDate {
-            datePicker.date = d
+            datePicker.date = d > datePicker.minimumDate! ? d:datePicker.minimumDate!
         }
         
     }

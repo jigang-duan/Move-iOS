@@ -2777,7 +2777,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="School time" id="p9l-sD-KKe">
                         <barButtonItem key="backBarButtonItem" title=" " id="aUv-SC-CaJ"/>
-                        <barButtonItem key="rightBarButtonItem" title="ITem" id="FLA-jN-Ypo"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="FLA-jN-Ypo"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -2794,7 +2794,6 @@
                         <outlet property="pmEndTimeOutlet" destination="vDL-nF-JZK" id="8Kd-cB-jw2"/>
                         <outlet property="pmStartTimeOutlet" destination="lcC-HY-lWX" id="Ny5-XM-J1H"/>
                         <outlet property="saveItemQutlet" destination="FLA-jN-Ypo" id="zxe-41-2Dc"/>
-                        <outlet property="schooltimeTitleItem" destination="p9l-sD-KKe" id="Dvh-Mu-DNX"/>
                         <outlet property="weekOutlet" destination="RUh-hR-ucg" id="dmT-Xf-osj"/>
                     </connections>
                 </viewController>

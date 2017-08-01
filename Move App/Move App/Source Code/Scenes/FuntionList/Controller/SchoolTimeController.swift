@@ -13,8 +13,7 @@ import RxCocoa
 
 
 class SchoolTimeController: UIViewController {
-    //internationalization
-    @IBOutlet weak var schooltimeTitleItem: UINavigationItem!
+    
     @IBOutlet weak var saveItemQutlet: UIBarButtonItem!
     @IBOutlet weak var openschooltimeLabel: UILabel!
  
@@ -45,11 +44,10 @@ class SchoolTimeController: UIViewController {
     var viewModel: SchoolTimeViewModel!
     
     private func internationalization() {
-        schooltimeTitleItem.title = R.string.localizable.id_school_time()
+        self.title = R.string.localizable.id_school_time()
         saveItemQutlet.title = R.string.localizable.id_save()
         
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
-        NullQutlet.setTitle(R.string.localizable.id_is_null(), for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
        
@@ -223,7 +221,7 @@ class SchoolTimeController: UIViewController {
     /// MARK: -- Private
     //
     
- private  func helpView() {
+    private func helpView() {
         let view = Bundle.main.loadNibNamed("schoolTimeHelp", owner: nil, options: nil)?[0] as! UIView
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         let window = UIApplication.shared.windows[0]

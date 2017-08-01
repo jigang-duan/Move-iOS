@@ -230,7 +230,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
             }
         case IndexPath(row: 3, section: 1):
             cell?.textLabel?.text = R.string.localizable.id_birthday()
-            if let b = birthday, b > Date(timeIntervalSince1970: -2209017600) {
+            if let b = birthday, b > Date(timeIntervalSince1970: -2209017601) {
                 cell?.detailTextLabel?.text = b.stringYearMonthDay
             }else{
                 cell?.detailTextLabel?.text = R.string.localizable.id_not_specified()
@@ -299,7 +299,7 @@ extension MeSettingController: UITableViewDelegate, UITableViewDataSource {
                 self.present(vc, animated: true)
             case 3:
                 let vc = R.storyboard.kidInformation.setYourBirthdayController()!
-                if let b = birthday, b > Date(timeIntervalSince1970: -2209017600) {
+                if let b = birthday, b > Date(timeIntervalSince1970: -2209017601) {
                     vc.selectedDate = b
                 }else{
                     vc.selectedDate = defaultProfile.birthday
