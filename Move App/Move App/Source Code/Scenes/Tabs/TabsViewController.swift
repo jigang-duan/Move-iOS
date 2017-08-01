@@ -30,6 +30,9 @@ class TabsViewController: UITabBarController {
             //R.storyboard.social.instantiateInitialViewController()!
         ]
         
+        viewControllers?.first?.tabBarItem.title = R.string.localizable.id_button_menu_home()
+        viewControllers?.last?.tabBarItem.title = R.string.localizable.id_button_menu_account()
+        
 //        let hasDevice = RxStore.shared.deviceInfosState.asObservable()
 //            .map({ $0.count > 0 })
 //        
