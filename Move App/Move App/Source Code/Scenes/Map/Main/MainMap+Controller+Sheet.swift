@@ -11,9 +11,10 @@ import Foundation
 extension MainMapController {
     
     func showFeatureGudieView() {
-        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
-            return
-        }
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else { return }
+        guard self.noGeolocationView.isHidden else { return }
+        guard self.noDeviceView.isHidden else { return }
+        
         let headItem = EAFeatureItem(focus: headPortraitOutlet,
                                      focusCornerRadius: headPortraitOutlet.frame.width/2 ,
                                      focus: .zero)
@@ -25,12 +26,13 @@ extension MainMapController {
                                         focus: .zero)
             navItem?.actionTitle = R.string.localizable.id_first_entry_tips()
             navItem?.introduce = R.string.localizable.id_layout_guide_location_navigate()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+                guard self.noGeolocationView.isHidden else { return }
+                guard self.noDeviceView.isHidden else { return }
                 self.view.show(with: [navItem!], saveKeyName: "mark:main_map:nav", inVersion: version)
             }
         }
         self.view.show(with: [headItem!], saveKeyName: "mark:main_map:head", inVersion: version)
-        
     }
     
     func showNavigationSheetView(locationInfo: AlertServer.NavigateLocation) {
