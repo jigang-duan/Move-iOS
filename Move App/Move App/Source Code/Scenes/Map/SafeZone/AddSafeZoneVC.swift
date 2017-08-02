@@ -26,18 +26,14 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     var blPinChBegin = false
     
     var item: UIBarButtonItem?
-//    var nameTextField : UITextField!
     
     var disposeBag = DisposeBag()
     var isOpenList : Bool? = false
     
     @IBOutlet var circleBorderView: NoEventView!
     
-    @IBOutlet weak var nameTitleL: UILabel!
-    @IBOutlet weak var addressTitleL: UILabel!
-    
     @IBOutlet weak var kidnameTF: UITextField!
-    @IBOutlet weak var kidaddressTF: UITextField!
+    @IBOutlet weak var addressLab: UILabel!
     
     @IBOutlet weak var mainMapView: MKMapView!
     
@@ -48,7 +44,6 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     @IBOutlet weak var mapTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mapBottomContraint: NSLayoutConstraint!
     
-    @IBOutlet weak var showaddressBtn: UIButton!
     var adminBool: Bool? = false
 
     
@@ -58,12 +53,9 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
     
     
     private func internationalization(){
-//        nameTitleL.text = R.string.localizable.id_name()
         kidnameTF.placeholder = R.string.localizable.id_name()
         
-//        addressTitleL.text = R.string.localizable.id_address()
-        
-        
+        RadiusL.text = R.string.localizable.id_range() + ": " + "200m~1000m"
     }
     
     
@@ -87,13 +79,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             //编辑
             self.title = self.editFenceDataSounrce?.name
             self.kidnameTF.text = self.editFenceDataSounrce?.name
-            self.kidaddressTF.text = self.editFenceDataSounrce?.location?.address
+            self.addressLab.text = self.editFenceDataSounrce?.location?.address
             self.fencelocation = CLLocationCoordinate2D(latitude: (self.editFenceDataSounrce?.location?.location?.latitude)!, longitude: (self.editFenceDataSounrce?.location?.location?.longitude)!)
             let region = MKCoordinateRegionMakeWithDistance( self.fencelocation!, 1500, 1500)
             self.mainMapView.setRegion(region, animated: true)
             safeZoneSlider.value = Float((self.editFenceDataSounrce?.radius)!)
 //            self.currentRadius = (self.editFenceDataSounrce?.radius)!
-            RadiusL.text = String.init(format: R.string.localizable.id_range() + ":" + "%.fm"+"(200m~1000m)", safeZoneSlider.value)
+            RadiusL.text = String(format: R.string.localizable.id_range() + ": " + "%.fm"+"(200m~1000m)", safeZoneSlider.value)
             self.mainMapView.removeAnnotations(self.mainMapView.annotations)
             self.currentRadius = Double(safeZoneSlider.value)
 //            self.drawOverlay(radius: self.currentRadius)
@@ -123,7 +115,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
             self.title = R.string.localizable.id_add_safe_zone()
             let getaddressdata = MoveApi.Location.getNew(deviceId: Me.shared.currDeviceID!)
                 .map({
-                    self.kidaddressTF.text = $0.location?.addr
+                    self.addressLab.text = $0.location?.addr
                     self.fencelocation = CLLocationCoordinate2D(latitude: ($0.location?.lat)!, longitude: ($0.location?.lng)!)
                     let region = MKCoordinateRegionMakeWithDistance(self.fencelocation!, 1500, 1500)
                     self.mainMapView.setRegion(region, animated: true)
@@ -236,18 +228,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         
     }
     
-    @IBAction func SearchBtnClick(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SafeZoneAddressSearchVC")  as! SafeZoneAddressSearchVC
-        vc.delegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     func actionFenceRadiusValueChanged(_ slider:UISlider) {
         
         self.currentRadius = Double(slider.value)
 
         self.drawOverlay(radius: self.currentRadius)
-        RadiusL.text = String.init(format: "Radius:"+"%.fm"+"(200m~1000m)", safeZoneSlider.value)
+        RadiusL.text = String(format:  R.string.localizable.id_range() + ": " + "%.fm" + "(200m~1000m)", safeZoneSlider.value)
         
     }
     
@@ -304,7 +291,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         let currentLocation = CLLocation(latitude: (self.fencelocation?.latitude)!, longitude: (self.fencelocation?.longitude)!)
         
         if CLLocationDegrees.minimum(mainMapView.region.span.latitudeDelta, mainMapView.region.span.longitudeDelta) > 30.0 {
-            self.kidaddressTF.text = nil
+            self.addressLab.text = nil
             return
         }
 
@@ -335,7 +322,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         
                     }
                     
-                    self.kidaddressTF.text = address
+                    self.addressLab.text = address
                     
                 } else {
                     print("No placemarks!")
@@ -351,6 +338,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         return mainMapView.convertRegion(region, toRectTo: self.circleBorderView)
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.addSafeZoneVC.showAddressSearch(segue: segue)?.destination {
+            vc.delegate = self
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -375,7 +369,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         if (item.placemark.thoroughfare != nil) {
             address?.append(item.placemark.thoroughfare!)
         }
-        self.kidaddressTF.text = address
+        self.addressLab.text = address
         let region = MKCoordinateRegionMakeWithDistance(self.fencelocation!, 1500, 1500)
         self.mainMapView.setRegion(region, animated: true)
     }
@@ -398,7 +392,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
 //                        }
 //                    }
 //                    if issame == false {
-//                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+//                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.addressLab.text)
 //                        let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : self.editFenceDataSounrce?.ids ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : true)
 //                        let fencereq = MoveApi.FenceReq(fence : fenceinfo)
 //                        MoveApi.ElectronicFence.settingFence(fenceId : (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq)
@@ -426,13 +420,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     if issame == false {
                         
                         
-                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+                        let fenceloc : MoveApi.Fencelocation = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.addressLab.text)
                         let fenceinfo : MoveApi.FenceInfo = MoveApi.FenceInfo(id : nil ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : false)
                         let fencereq = MoveApi.FenceReq(fence : fenceinfo)
                         
                         
                         
-                        let currentfence = KidSate.ElectronicFence(ids: nil, name: fenceinfo.name, radius: fenceinfo.radius, active: true, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo.location?.lat)!, longitude: (fenceinfo.location?.lng)!), address: self.kidaddressTF.text))
+                        let currentfence = KidSate.ElectronicFence(ids: nil, name: fenceinfo.name, radius: fenceinfo.radius, active: true, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo.location?.lat)!, longitude: (fenceinfo.location?.lng)!), address: self.addressLab.text))
                         
                         
                         if !positioningRangeOverlap(fences: self.fences, currentfence: currentfence){
@@ -451,7 +445,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         
                         else
                         {
-                            self.errorshow(message: "Please don’t create a overlapping safezone")
+                            self.errorshow(message: R.string.localizable.id_safe_zone_overlap())
                             
                             self.item?.isEnabled = true
                         }
@@ -498,13 +492,13 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     if (self.fencelocation?.latitude == self.editFenceDataSounrce?.location?.location?.latitude )&&(self.fencelocation?.longitude == self.editFenceDataSounrce?.location?.location?.longitude){
                         fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.editFenceDataSounrce?.location?.address)
                     }else{
-                        fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.kidaddressTF.text)
+                        fenceloc = MoveApi.Fencelocation(lat : self.fencelocation?.latitude,lng : self.fencelocation?.longitude, addr : self.addressLab.text)
                     }
                     fenceinfo = MoveApi.FenceInfo(id : (self.editFenceDataSounrce?.ids)! ,name : self.kidnameTF.text , location : fenceloc , radius : self.currentRadius , active : self.editFenceDataSounrce?.active)
                     fencereq = MoveApi.FenceReq(fence : fenceinfo)
                     
                    
-                    let currentfence = KidSate.ElectronicFence(ids: fenceinfo?.id!, name: fenceinfo?.name, radius: fenceinfo?.radius!, active: fenceinfo?.active, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo?.location?.lat)!, longitude: (fenceinfo?.location?.lng)!), address: self.kidaddressTF.text))
+                    let currentfence = KidSate.ElectronicFence(ids: fenceinfo?.id!, name: fenceinfo?.name, radius: fenceinfo?.radius!, active: fenceinfo?.active, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo?.location?.lat)!, longitude: (fenceinfo?.location?.lng)!), address: self.addressLab.text))
                 
                     
                    if !positioningRangeOverlap(fences: self.fences, currentfence: currentfence){
@@ -523,7 +517,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                    else
                    {    //重叠了
                     
-                         self.errorshow(message: "Please don’t create a overlapping safezone")
+                         self.errorshow(message: R.string.localizable.id_safe_zone_overlap())
                     }
                     
                 }

@@ -14,7 +14,6 @@ import RxOptional
 
 class LanguageViewController: UIViewController {
     
-    @IBOutlet weak var languageforwatchTitleItem: UINavigationItem!
     @IBOutlet weak var tableview: UITableView!
     
     let disposeBag = DisposeBag()
@@ -22,7 +21,7 @@ class LanguageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableview.contentInset = UIEdgeInsets(top: -32, left: 0, bottom: 0, right: 0)
+        self.title = R.string.localizable.id_language_for_watch()
         
         let selected = tableview.rx.itemSelected.asDriver()
             .map({ [weak self] in

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFM-eW-Glx" userLabel="Quite">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFM-eW-Glx">
                     <rect key="frame" x="40" y="50" width="240" height="380.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you turn on the School Time,all functions below will be turned off." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akN-uT-2We">
@@ -63,6 +63,9 @@
                 <constraint firstItem="veV-lj-g36" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="snu-h5-xyw"/>
                 <constraint firstItem="LFM-eW-Glx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="u73-dJ-vzw"/>
             </constraints>
+            <connections>
+                <outlet property="helpLab" destination="akN-uT-2We" id="WBQ-nz-H9A"/>
+            </connections>
             <point key="canvasLocation" x="-48" y="-2"/>
         </view>
     </objects>

@@ -27,16 +27,19 @@ class RepeatViewController: UITableViewController {
     var selectCell: String = ""
     
     private func internationalization() {
-        self.navigationItem.title = R.string.localizable.id_setting_my_clock_repeat()
+        self.title = R.string.localizable.id_setting_my_clock_repeat()
         NeverLabel.text = R.string.localizable.id_never()
         everydayLabel.text = R.string.localizable.id_everyday()
         everyweekhLabel.text = R.string.localizable.id_everyweek()
-    everymonthLabel.text = R.string.localizable.id_everymonth()
+        everymonthLabel.text = R.string.localizable.id_everymonth()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.internationalization()
+        
         switch selectCell {
         case R.string.localizable.id_never():
             nevercell?.accessoryType = .checkmark

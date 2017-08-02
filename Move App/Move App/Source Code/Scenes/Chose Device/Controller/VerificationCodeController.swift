@@ -72,7 +72,7 @@ class VerificationCodeController: UIViewController {
         cantPairLab.text = R.string.localizable.id_verification_code_help()
         
         let helpAttributeString = NSAttributedString(string: R.string.localizable.id_help(),
-                                                     attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+                                                     attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSForegroundColorAttributeName: UIColor.white])
         helpBun.setAttributedTitle(helpAttributeString, for: .normal)
 //        helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
         

@@ -12,7 +12,7 @@ import RxSwift
 
 class ToDoListController: UITableViewController {
     //internationalization
-    @IBOutlet weak var todolistTitleItem: UINavigationItem!
+  
     @IBOutlet weak var saveItemQutlet: UIBarButtonItem!
 
     @IBOutlet weak var titleTextFieldQutle: UITextField!
@@ -22,7 +22,6 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var repeatLabel: UILabel!
     
 
-    @IBOutlet weak var repeatCell: UITableViewCell!
     @IBOutlet weak var repeatStateQutlet: UILabel!
     
     
@@ -32,8 +31,6 @@ class ToDoListController: UITableViewController {
     @IBOutlet weak var comfirmQutle: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var DatePickerView: UIView!
-
-    @IBOutlet weak var back: UIButton!
     
     
     var beginTimeVariable = Variable(DateUtility.today18())
@@ -50,15 +47,15 @@ class ToDoListController: UITableViewController {
     
     //国际化
     private func internationalization()  {
-            todolistTitleItem.title = R.string.localizable.id_todolist()
-            saveItemQutlet.title = R.string.localizable.id_save()
-            titleTextFieldQutle.placeholder = R.string.localizable.id_title()
-            remarkTextFieldQutlet.placeholder = R.string.localizable.id_remarks()
-            beginLabel.text = R.string.localizable.id_begin()
-            endLabel.text = R.string.localizable.id_end()
-            repeatLabel.text = R.string.localizable.id_setting_my_clock_repeat()
-            cancelQutle.setTitle(R.string.localizable.id_cancel(), for: .normal)
-            comfirmQutle.setTitle(R.string.localizable.id_confirm(), for: .normal)
+        self.title = R.string.localizable.id_reminder()
+        saveItemQutlet.title = R.string.localizable.id_save()
+        titleTextFieldQutle.placeholder = R.string.localizable.id_title()
+        remarkTextFieldQutlet.placeholder = R.string.localizable.id_remarks()
+        beginLabel.text = R.string.localizable.id_begin()
+        endLabel.text = R.string.localizable.id_end()
+        repeatLabel.text = R.string.localizable.id_setting_my_clock_repeat()
+        cancelQutle.setTitle(R.string.localizable.id_cancel(), for: .normal)
+        comfirmQutle.setTitle(R.string.localizable.id_confirm(), for: .normal)
     }
     
     override func viewDidLoad() {
@@ -66,7 +63,7 @@ class ToDoListController: UITableViewController {
         
         internationalization()
         self.isOldTodo = false
-        back.isHidden = false
+       
         tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         
         if todo != nil{
@@ -128,24 +125,15 @@ class ToDoListController: UITableViewController {
         
         
     }
+   
     
-    //xib连线
-    @IBAction func backAction(_ sender: Any) {
-            _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.view.endEditing(true)
-        
-        let cell = tableView.cellForRow(at: indexPath)
-        let vc = R.storyboard.account.repeatViewController()!
-        if cell == repeatCell {
-            print("test")
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = R.segue.toDoListController.showRepeatTime(segue: segue)?.destination {
             vc.repeatBlock = { [weak self] repea in
                 self?.repeatStateVariable.value = repea
             }
             vc.selectCell = repeatStateQutlet.text ?? R.string.localizable.id_never()
-            self.navigationController?.show(vc, sender: nil)
+
         }
     }
     
@@ -373,68 +361,4 @@ extension ToDoListController {
 
 }
 
-//rx
-extension ToDoListController {
-    
-    //        let viewModel = ToDoListViewModel(
-    //            input: (
-    //                save: saveQutlet.rx.tap.asDriver(),
-    //                topic: titleTextFieldQutle.rx.text.orEmpty.asDriver(),
-    //                content: remarkTextFieldQutlet.rx.text.orEmpty.asDriver(),
-    //                startime: beginTimeVariable.asDriver(),
-    //                endtime: endTimeVariabel.asDriver(),
-    //                repeatcount: repeatStateVariable.asDriver().map(repeatcount).debug()
-    //            ),
-    //            dependency: (
-    //                kidSettingsManager: KidSettingsManager.shared,
-    //                validation: DefaultValidation.shared,
-    //                wireframe: DefaultWireframe.sharedInstance))
-    //
-    //        viewModel.saveFinish
-    //            .drive(onNext: {[weak self] finish in
-    //
-    //                if self?.beginTime == self?.endTime{
-    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time not the same as end time", preferredStyle: .alert)
-    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                    alertController.addAction(okActiojn)
-    //                    self?.present(alertController, animated: true)
-    //
-    //                } else if (self?.beginTime)! < Date()
-    //                {
-    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "begin time later than the system time", preferredStyle: .alert)
-    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                    alertController.addAction(okActiojn)
-    //                    self?.present(alertController, animated: true)
-    //                }else if ((self?.titleTextFieldQutle.text?.characters.count)! > 20 || ((self?.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
-    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title should not exceed 20 bytes, remark can't more than 50 bytes", preferredStyle: .alert)
-    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                    alertController.addAction(okActiojn)
-    //                    self?.present(alertController, animated: true)
-    //                }else if self?.titleTextFieldQutle.text == "" || self?.remarkTextFieldQutlet.text == ""{
-    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "The title and remark can't Null", preferredStyle: .alert)
-    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                    alertController.addAction(okActiojn)
-    //                    self?.present(alertController, animated: true)
-    //                }else if (self?.beginTime)! > (self?.endTime)! {
-    //                    let alertController = UIAlertController(title: R.string.localizable.warming(), message: "Start time later than the end of time", preferredStyle: .alert)
-    //                    let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
-    //                    alertController.addAction(okActiojn)
-    //                    self?.present(alertController, animated: true)
-    //
-    //                }
-    //                else if finish {
-    //                    let _ = self?.navigationController?.popViewController(animated: true)
-    //                }
-    //
-    //
-    //            })
-    //            .addDisposableTo(disposeBag)
-    //
-    //        viewModel.activityIn
-    //            .map({ !$0 })
-    //            .drive(saveQutlet.rx.isEnabled)
-    //            .addDisposableTo(disposeBag)
-    
-    
-    
-}
+
