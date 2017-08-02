@@ -10,11 +10,18 @@ import UIKit
 
 class schoolTimeHelp: UIView {
     
-    @IBOutlet weak var helpDescribeLabel: UILabel!
+  
+    @IBOutlet weak var helpLab: UILabel!
 
     @IBAction func removeView(_ sender: Any) {
         removeFromSuperview()
     }
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        helpLab.text = R.string.localizable.id_school_time_on()
+    }
     
 }

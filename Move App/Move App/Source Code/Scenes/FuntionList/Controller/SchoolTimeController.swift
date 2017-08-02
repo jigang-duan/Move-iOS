@@ -47,6 +47,7 @@ class SchoolTimeController: UIViewController {
         self.title = R.string.localizable.id_school_time()
         saveItemQutlet.title = R.string.localizable.id_save()
         
+        openschooltimeLabel.text = R.string.localizable.id_school_time()
         confirmOutlet.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
