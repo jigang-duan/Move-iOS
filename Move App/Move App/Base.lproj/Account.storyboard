@@ -234,10 +234,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Piq-5F-fJK" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="37.5" width="40" height="20"/>
+                                                    <rect key="frame" x="325" y="36.5" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="DEl-8a-uZA"/>
-                                                        <constraint firstAttribute="height" constant="20" id="s0e-9F-QAd"/>
+                                                        <constraint firstAttribute="height" constant="22" id="s0e-9F-QAd"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="general_btn_on"/>
@@ -286,9 +286,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsr-hp-mRT" customClass="SwitchButton" customModule="CustomViews">
-                                                    <rect key="frame" x="325" y="37.5" width="40" height="20"/>
+                                                    <rect key="frame" x="325" y="36.5" width="40" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="Xwn-1T-3s9"/>
+                                                        <constraint firstAttribute="height" constant="22" id="Xwn-1T-3s9"/>
                                                         <constraint firstAttribute="width" constant="40" id="gED-Lq-N0P"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>

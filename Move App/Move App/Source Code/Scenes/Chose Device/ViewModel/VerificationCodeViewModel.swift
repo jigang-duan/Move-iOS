@@ -13,6 +13,7 @@ import RxOptional
 
 
 class VerificationCodeViewModel {
+    var firstEnter: Driver<ValidationResult>?
     
     let vcodeInvalidte: Driver<ValidationResult>
     var sendEnabled: Driver<Bool>?
@@ -48,10 +49,10 @@ class VerificationCodeViewModel {
         
         self.nextEnabled = vcodeInvalidte.map({$0.isValid})
         
-        let firstEnter = userManager.sendVcode(to: input.imei).map({[weak self] sid in
+        firstEnter = userManager.sendVcode(to: input.imei).map({[weak self] sid in
             self?.sid = sid.sid
             return ValidationResult.ok(message: "Send Success")
-        }).asDriver(onErrorRecover: commonErrorRecover)
+        }).asDriver(onErrorRecover: errorRecover)
      
         self.sendResult = input.sendTaps
             .flatMapLatest({ _ in
@@ -60,11 +61,11 @@ class VerificationCodeViewModel {
                         self.sid = info.sid
                         return  ValidationResult.ok(message: "Send Success")
                     })
-                    .asDriver(onErrorRecover: commonErrorRecover)
+                    .asDriver(onErrorRecover: errorRecover)
             })
         
         
-        self.sendEnabled = Driver.of(firstEnter, sendResult!).merge().map{ !$0.isValid }
+        self.sendEnabled = Driver.of(firstEnter!, sendResult!).merge().map{ !$0.isValid }
         
         
         self.nextResult = input.nextTaps.withLatestFrom(input.vcode)
@@ -79,3 +80,16 @@ class VerificationCodeViewModel {
     
 }
 
+fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> {
+    guard let _error = error as?  WorkerError else {
+        return Driver.just(ValidationResult.empty)
+    }
+    
+    if case WorkerError.webApi(let id, _, let msg) = _error {
+        if id == 6 && msg == "Not found" {
+            return Driver.just(ValidationResult.failed(message: "Can't connect to this watch"))
+        }
+    }
+    
+    return commonErrorRecover(error)
+}
