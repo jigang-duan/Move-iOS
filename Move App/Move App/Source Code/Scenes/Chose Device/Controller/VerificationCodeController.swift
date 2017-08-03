@@ -74,7 +74,6 @@ class VerificationCodeController: UIViewController {
         let helpAttributeString = NSAttributedString(string: R.string.localizable.id_help(),
                                                      attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSForegroundColorAttributeName: UIColor.white])
         helpBun.setAttributedTitle(helpAttributeString, for: .normal)
-//        helpBun.setTitle(R.string.localizable.id_help(), for: .normal)
         
     }
     
@@ -99,6 +98,17 @@ class VerificationCodeController: UIViewController {
             )
         )
         
+        viewModel.vcodeInvalidte
+            .drive(onNext: { [weak self] result in
+                switch result{
+                case .failed(let message):
+                    self?.showValidateError(message)
+                default:
+                    self?.revertValidateError()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
         viewModel.sendEnabled?
             .drive(onNext: { [unowned self] valid in
                 self.sendBun.isEnabled = valid
@@ -117,9 +127,20 @@ class VerificationCodeController: UIViewController {
         viewModel.nextEnabled.drive(nextBun.rx.enabled).addDisposableTo(disposeBag)
         
         
+        viewModel.firstEnter?
+            .drive(onNext: { [weak self] sendResult in
+                switch sendResult {
+                case .failed(let message):
+                    self?.showValidateError(message)
+                default:
+                    self?.revertValidateError()
+                }
+            })
+            .addDisposableTo(disposeBag)
+        
         viewModel.sendResult?
-            .drive(onNext: { [weak self] doneResult in
-                switch doneResult {
+            .drive(onNext: { [weak self] sendResult in
+                switch sendResult {
                 case .failed(let message):
                     self?.showValidateError(message)
                 default:
@@ -153,22 +174,6 @@ class VerificationCodeController: UIViewController {
         }else{
             self.sendBun.setTitle(R.string.localizable.id_resend() + "(\(timeCount)s)", for: UIControlState.normal)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.vcodeInvalidte
-            .drive(onNext: { [weak self] result in
-                switch result{
-                case .failed(let message):
-                    self?.showValidateError(message)
-                default:
-                    self?.revertValidateError()
-                }
-            })
-            .addDisposableTo(disposeBag)
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
