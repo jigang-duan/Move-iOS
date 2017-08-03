@@ -25,6 +25,7 @@ class MessageServer {
     
     var lowBattery: Observable<Void>!
     var manuallyLocate: Observable<KidSate.LocationInfo>!
+    var configChanged: Observable<Void>!
     
     func syncDataInitalization(disposeBag: DisposeBag) {
         let realm = try! Realm()
@@ -76,7 +77,7 @@ class MessageServer {
             
             lowBattery = reNotice.filter{ $0.imType == .lowBatteryAlert }.map{_ in Void() }
             manuallyLocate = reNotice.filter{ $0.imType == .manuallyLocate }.map{ $0.content }.filterNil().map{ KidSate.LocationInfo(content: $0) }
-            
+            configChanged = reNotice.filter{ $0.imType == .configChanged }.mapVoid()
             
             let netNotice = reNotice.filter { $0.imType.needSave }.filter { ($0.to == nil) || ($0.to == uid) }
             

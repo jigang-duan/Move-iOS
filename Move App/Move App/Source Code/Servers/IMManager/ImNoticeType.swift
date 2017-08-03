@@ -122,6 +122,8 @@ enum ImNoticeType {
     case progressDownload
     
     case manuallyLocate
+    
+    case configChanged
  
     case unknown
 }
@@ -167,7 +169,7 @@ extension ImNoticeType {
     
     var atNotiicationPage: Bool {
         switch self {
-        case .unknown, .newFirmwareUpdate, .firmwareUpdateState, .firmwareUpdate, .appUpdate:
+        case .unknown, .configChanged, .newFirmwareUpdate, .firmwareUpdateState, .firmwareUpdate, .appUpdate:
             return false
         default:
             return true
@@ -179,7 +181,7 @@ extension ImNoticeType {
         case .unknown, .kidsAddANewFriend,
              .generalUnpairWatch, .familyPhoneNumberChanged,
              .watchOnlineOffline, .watchChangeSIMCard,
-             .manuallyLocate, .firmwareUpdateState:
+             .manuallyLocate, .firmwareUpdateState, .configChanged:
             return false
         default:
             return true
@@ -187,7 +189,7 @@ extension ImNoticeType {
     }
     
     var needSave: Bool {
-        return (self != .progressDownload) && (self != .manuallyLocate) && (self != .unknown)
+        return (self != .progressDownload) && (self != .manuallyLocate) && (self != .configChanged) && (self != .unknown)
     }
     
 }
@@ -269,7 +271,7 @@ extension ImNoticeType {
             return .default
         case .progressDownload:
             return .default
-        case .manuallyLocate:
+        case .manuallyLocate, .configChanged:
             return .default
         case .unknown:
             return .default
@@ -344,7 +346,7 @@ extension ImNoticeType {
             self = .firmwareUpdate
         
         case .deviceConfigurationUpdated:
-            self = .unknown
+            self = .configChanged
         case .deviceWear:
             self = .unknown
         case .deviceLoss:

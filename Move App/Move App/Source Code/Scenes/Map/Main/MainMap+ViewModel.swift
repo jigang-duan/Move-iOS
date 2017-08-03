@@ -151,14 +151,17 @@ class MainMapViewModel {
                     .do(onError: { errorSubject.onNext($0) })
                     .catchErrorJustReturn(false)
             }
-            .share()
+            .do(onNext: { remindActivitying.onNext($0) })
+            .filter{ $0 }
+            .shareReplay(1)
         
         let remindLocation = remindSuccess
-            .flatMapLatest { _ in MessageServer.share.manuallyLocate }
+            .flatMapLatest { _ in MessageServer.share.manuallyLocate.catchErrorEmpty() }
             .do(onNext: { _ in remindActivitying.onNext(false) })
-            .share()
+            .shareReplay(1).debug()
         
-        let remindTimeOut = remindSuccess.flatMapLatest{ _ in
+        let remindTimeOut = remindSuccess
+            .flatMapLatest{ _ in
                 Observable.just(())
                     .delay(60.0, scheduler: MainScheduler.instance)
                     .withLatestFrom(remindActivitying.asObservable())
@@ -191,12 +194,16 @@ class MainMapViewModel {
             .shareReplay(1)
         
         kidLocation = Observable.merge(currentLocation, remindLocation)
-            .distinctUntilChanged { $0.time?.timeIntervalSince1970 == $1.time?.timeIntervalSince1970 }
+//            .distinctUntilChanged { $0.time?.timeIntervalSince1970 == $1.time?.timeIntervalSince1970 }
             .map{ $0.location }
             .filterNil()
             .do(onNext: { _ in remindActivitying.onNext(false) })
-            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
-            .share()
+//            .distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
+            .withLatestFrom(remindActivitying.asObservable()) { ($0, $1) }
+            .flatMapLatest { (coordinate, isremind) in
+                isremind ? Observable.just(coordinate) : Observable.just(coordinate).distinctUntilChanged { $0.latitude == $1.latitude && $0.longitude == $1.longitude }
+            }
+            .shareReplay(1)
         
         kidAddress = Observable.merge(currentLocation, remindLocation).map{ $0.address }.filterNil()
         kidType = Observable.merge(currentLocation, remindLocation).map{ $0.type }.filterNil()

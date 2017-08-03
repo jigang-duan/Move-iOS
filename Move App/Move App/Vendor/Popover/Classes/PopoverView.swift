@@ -371,7 +371,6 @@ class PopoverView: UIView {
     var hideClosure: (()->Void)?
     
     deinit {
-        print("PopoverView dealloced")
     }
 }
 
