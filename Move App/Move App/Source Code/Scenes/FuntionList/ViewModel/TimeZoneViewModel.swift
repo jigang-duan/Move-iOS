@@ -16,7 +16,7 @@ class TimeZoneViewModel {
     let hourformEnable: Driver<Bool>
     let autotimeEnable: Driver<Bool>
     let summertimeEnable: Driver<Bool>
-    let fetchtimezoneDate: Driver<String>
+    let timezoneDate: Driver<String>
     
     let saveFinish: Driver<Bool>
     
@@ -33,6 +33,7 @@ class TimeZoneViewModel {
         dependency: (
         settingsManager: WatchSettingsManager,
         validation: DefaultValidation,
+        configChanged: Observable<Void>,
         wireframe: Wireframe
         )
         ) {
@@ -52,9 +53,13 @@ class TimeZoneViewModel {
             .asDriver(onErrorJustReturn: true)
         self.autotimeEnable = Driver.of(fetchAutotime, input.autotime).merge()
         
-        fetchtimezoneDate = manager.fetchTimezone()
-            .trackActivity(activitying)
-            .asDriver(onErrorJustReturn: "" )
+        timezoneDate = dependency.configChanged.asDriver(onErrorJustReturn: ())
+            .startWith(())
+            .flatMapLatest {
+                manager.fetchTimezone()
+                    .trackActivity(activitying)
+                    .asDriver(onErrorJustReturn: "" )
+            }
 
         let fetchsummertime = manager.fetchSummerTime()
             .trackActivity(activitying)

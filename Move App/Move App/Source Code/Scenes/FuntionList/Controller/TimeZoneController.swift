@@ -87,6 +87,7 @@ class TimeZoneController: UITableViewController {
             dependency: (
                 settingsManager: WatchSettingsManager.share,
                 validation: DefaultValidation.shared,
+                configChanged: MessageServer.share.configChanged,
                 wireframe: DefaultWireframe.sharedInstance
             )
         )
@@ -97,7 +98,7 @@ class TimeZoneController: UITableViewController {
 
         viewModel.hourformEnable.drive(hourFormatQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on).addDisposableTo(disposeBag)
-        viewModel.fetchtimezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
+        viewModel.timezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
         viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.autotimeEnable.drive(onNext: {[weak self] bool in
             self?.enableView(bool)
