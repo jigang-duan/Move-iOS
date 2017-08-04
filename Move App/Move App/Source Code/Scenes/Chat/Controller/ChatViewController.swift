@@ -361,9 +361,7 @@ extension ChatViewController: UITableViewDelegate {
     }
     
     fileprivate func tableViewScrollToBottom() {
-        guard messageFramesVariable.value.count > 0 else {
-            return
-        }
+        guard messageFramesVariable.value.count > 0 else { return }
         let indexPath = IndexPath(row: messageFramesVariable.value.count - 1, section: 0)
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
