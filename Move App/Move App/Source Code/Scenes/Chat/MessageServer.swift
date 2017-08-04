@@ -56,9 +56,7 @@ class MessageServer {
             messageObservable
                 .do(onNext: { vibration(messages: $0, uid: uid) })
                 .subscribe(onNext: { (messages) in
-                    guard let sync = syncObject.first else {
-                        return
-                    }
+                    guard let sync = syncObject.first else { return }
                     classifiedSave(messages: messages, realm: realm, sync: sync, uid: uid)
                 })
                 .addDisposableTo(disposeBag)
@@ -101,11 +99,7 @@ class MessageServer {
             
             Observable.merge(netNotice, deviceUpdateNotice)
                 .subscribe(onNext: { (notice) in
-                    guard
-                        let sync = syncObject.first,
-                        let _ = notice.from else {
-                        return
-                    }
+                    guard let sync = syncObject.first, let _ = notice.from else { return }
                     
                     if let gid = notice.groupId, gid != "" {
                         let _group = sync.groups.filter{ $0.id == gid }.first
@@ -130,9 +124,7 @@ class MessageServer {
             syncData.map { $0.synckey }
                 .filterNil()
                 .subscribe(onNext: { item in
-                    guard let sync = syncObject.first else {
-                        return
-                    }
+                    guard let sync = syncObject.first else { return }
                     try? realm.write {
                         sync.contact = item.contact
                         sync.group = item.group
