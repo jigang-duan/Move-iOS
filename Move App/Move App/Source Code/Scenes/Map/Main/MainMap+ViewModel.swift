@@ -158,7 +158,7 @@ class MainMapViewModel {
         let remindLocation = remindSuccess
             .flatMapLatest { _ in MessageServer.share.manuallyLocate.catchErrorEmpty() }
             .do(onNext: { _ in remindActivitying.onNext(false) })
-            .shareReplay(1).debug()
+            .shareReplay(1)
         
         let remindTimeOut = remindSuccess
             .flatMapLatest{ _ in

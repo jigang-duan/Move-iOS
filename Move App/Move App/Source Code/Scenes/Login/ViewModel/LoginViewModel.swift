@@ -67,13 +67,13 @@ class LoginViewModel {
         
         self.logedIn = input.loginTaps.withLatestFrom(emailAndPassword)
             .flatMapLatest{ (email, password) in
-                userManager.login(email: email, password: password)
+                userManager.login(email: email, password: password).debug()
                     .trackActivity(signingIn)
                     .do(onNext: { _ in UserDefaults.standard.setValue(email, forKey: lastLoginAccount) })
                     .map { _ in .ok(message: "Login Success.") }
                     .asDriver(onErrorRecover: errorRecover)
             }
-            .flatMapLatest(selector)
+            .flatMapLatest(selector).debug()
         
         self.loginEnabled = Driver.combineLatest(
             validatedEmail,
@@ -179,7 +179,7 @@ fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> 
     }
     
     guard let _error = error as?  WorkerError else {
-        return Driver.just(ValidationResult.empty)
+        return Driver.just(ValidationResult.failed(message: "network failed."))
     }
     
     let msg = WorkerError.verifyErrorTransform(from: _error)
