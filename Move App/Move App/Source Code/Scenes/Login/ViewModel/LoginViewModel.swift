@@ -67,13 +67,13 @@ class LoginViewModel {
         
         self.logedIn = input.loginTaps.withLatestFrom(emailAndPassword)
             .flatMapLatest{ (email, password) in
-                userManager.login(email: email, password: password).debug()
+                userManager.login(email: email, password: password)
                     .trackActivity(signingIn)
                     .do(onNext: { _ in UserDefaults.standard.setValue(email, forKey: lastLoginAccount) })
                     .map { _ in .ok(message: "Login Success.") }
                     .asDriver(onErrorRecover: errorRecover)
             }
-            .flatMapLatest(selector).debug()
+            .flatMapLatest(selector)
         
         self.loginEnabled = Driver.combineLatest(
             validatedEmail,

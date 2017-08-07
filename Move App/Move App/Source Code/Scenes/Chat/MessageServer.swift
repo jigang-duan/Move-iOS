@@ -84,18 +84,18 @@ class MessageServer {
                 .flatMapLatest { RxStore.shared.deviceInfosObservable }
                 .take(1)
                 .flatMapLatest{
-                    Observable.from($0)
+                    Observable.from($0 + [DeviceInfo()])
                         .flatMapWithIndex{
                             Observable.just($0).delay(RxTimeInterval(($1 + 1) * 10), scheduler: MainScheduler.instance)
                         }
                 }
                 .filter { $0.user?.isAdmin(uid: uid) ?? false }
                 .share()
-            let deviceUpdateNotice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(),
+            let deviceUpdateNotice = Observable.combineLatest(singleDevs.map{ $0.deviceId }.filterNil(),
                                                     RxStore.shared.uidObservable,
                                                     singleDevs.map{ $0.user?.uid }.filterNil(),
                                                     singleDevs.map{ $0.user?.nickname }.filterNil() ) { ($0, $1, $2, $3) }
-                .flatMapLatest { UpdateServer.shared.deviceUpdateNoctice(device: $0, uid: $1, devUID: $2, name: $3) }
+                .flatMap { UpdateServer.shared.deviceUpdateNoctice(device: $0, uid: $1, devUID: $2, name: $3) }
             
             Observable.merge(netNotice, deviceUpdateNotice)
                 .subscribe(onNext: { (notice) in

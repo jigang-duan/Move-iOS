@@ -250,8 +250,7 @@ class MainMapViewModel {
             }
             .filterTrue()
         
-        let battery = Observable.merge(MessageServer.share.lowBattery,
-                                   uploadPower)
+        let battery = Observable.merge(MessageServer.share.lowBattery, uploadPower)
             .flatMapLatest{
                 deviceManager.power
                     .trackActivity(activitying)
