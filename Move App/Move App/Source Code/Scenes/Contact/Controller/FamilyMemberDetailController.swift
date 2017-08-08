@@ -43,6 +43,10 @@ class FamilyMemberDetailController: UIViewController {
     @IBOutlet weak var countryCodeBun: UIButton!
     @IBOutlet weak var phonePreLab: UILabel!
     
+    
+    @IBOutlet weak var photoNext: UIImageView!
+    @IBOutlet weak var titleNext: UIImageView!
+    
     private var photoVariable:Variable<UIImage?> = Variable(nil)
     private var identityVariable:Variable<Relation?> = Variable(nil)
     
@@ -222,6 +226,9 @@ class FamilyMemberDetailController: UIViewController {
                 selectPhotoBun.isHidden = true
                 selectRelationBun.isHidden = true
                 selectPhoneBun.isHidden = true
+                photoNext.isHidden = true
+                titleNext.isHidden = true
+                countryCodeBun.isEnabled = false
                 numberTf.isEnabled = false
                 saveBun.isEnabled = false
             }
@@ -304,6 +311,7 @@ class FamilyMemberDetailController: UIViewController {
                 self?.photoImgV.image = relation.image
             }
         }
+        vc.selectedRelation = self.identityVariable.value
         self.navigationController?.show(vc, sender: nil)
     }
     

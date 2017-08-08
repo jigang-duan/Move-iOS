@@ -158,6 +158,7 @@ class FamilyMemberAddController: UIViewController {
                 self?.photoImgV.image = relation.image
             }
         }
+        vc.selectedRelation = self.identityVariable.value
         self.navigationController?.show(vc, sender: nil)
     }
     
