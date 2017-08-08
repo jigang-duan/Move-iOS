@@ -364,7 +364,7 @@
 "id_confirm_password" = "Confirmation";
 "id_connecting" = "Connexion…";
 "id_verification_code_prompt" = "Saisir le code affiché sur votre montre";
-"id_verification_code_help" = "Impossible d’appairer avec la montre ?";
+"id_verification_code_help" = "Appairage avec la montre indisponible ? Veuillez vous référer à l'Aide.";
 "id_phone_number" = "Numéro de téléphone";
 "id_confirm" = "Confirmer";
 "id_where_is_qr_cord" = "Où se trouve le code QR ?";
@@ -386,7 +386,7 @@
 "id_watch_friends" = "Amis sur la montre";
 "id_family_member_prompt" = "L’utilisateur peut ajouter jusqu’à 10 membres de la famille et marquer en favori jusqu’à 3 d’entre eux. Lorsqu’un appel d’urgence est passé depuis la montre, cette dernière appelle les membres de la famille en favori un à un.";
 "id_master" = "Maître";
-"id_emergency_number_tips" = "Par exemple : 110 999…";
+"id_emergency_number_tips" = "Note: Saisir un numéro d'urgence valide (ex: 112)";
 "id_login_failed" = "Connexion impossible";
 "id_logging_please_wait" = "Patientez pendant la connexion…";
 "id_exception" = "Exception";
@@ -586,7 +586,7 @@
 "id_new_version_for_watch" = "Nouvelle version disponible pour la montre de %@";
 "id_no_notification_here" = "Aucune notification ici";
 "id_delete_fence" = "Supprimer la zone de sécurité virtuelle";
-"id_delete_this_fence" = "Supprimer cette zone de sécurité virtuelle ?";
+"id_delete_this_fence" = "Supprimer cette limitation ? Supprimer cette zone de sécurité ?";
 "id_add_safe_zone" = "Ajouter une zone de sécurité";
 "id_today" = "Aujourd’hui";
 "id_tomorrow" = "Demain";
@@ -627,7 +627,7 @@
 "id_no_qr_code_detected" = "Aucun code QR lu";
 "id_code_has_expired" = "ou code QR expiré ou non valide.";
 "id_bluetooth_connect_watch" = "Activer le Bluetooth pour permettre à TCLMOVE de se connecter à la montre";
-"id_is_null" = "Erreur";
+"id_is_null" = "Aucun";
 "id_begin_time_same_end" = "Heures de début et de fin identiques";
 "id_begin_time_later_system" = "Heure de début dans le passé";
 "id_title_can_not_null" = "Titre et remarque obligatoires";
@@ -645,3 +645,6 @@
 "id_history_date" = "Vous ne pouvez pas sélectionner de date dans le futur !";
 "id_apn_system_ble_disable" = "Bluetooth système non valide ; redémarrer le portable";
 "id_login_access_expired_error" = "L’autorisation d’accès a expiré.";
+"id_old_password_error" = "Ancien mot de passe incorrect";
+"id_country_code_location" = "Location";
+"id_country_code_none" = "Aucun";

@@ -78,8 +78,7 @@ class PhoneNumberController: UIViewController {
     
     private func initializeI18N() {
         titleLab.text = R.string.localizable.id_phone_number()
-        //缺 Your own Phone number
-//        phoneTf.placeholder = R.string.localizable.id_phone_number()
+        phoneTf.placeholder = R.string.localizable.id_your_own_phone_number()
         phoneTf.placeholder = "Your own Phone number"
         
         nextBun.setTitle(R.string.localizable.id_phone_number_next(), for: .normal)

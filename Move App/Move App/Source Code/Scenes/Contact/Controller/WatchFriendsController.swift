@@ -21,6 +21,7 @@ class WatchFriendsController: UIViewController {
     
     @IBOutlet weak var deleteBun: UIButton!
     
+    var deleteSubject: PublishSubject<Void>?
     
     var friendInfo: DeviceFriend?
     
@@ -55,16 +56,33 @@ class WatchFriendsController: UIViewController {
         
         let manager = DeviceManager.shared
         
-        let taps = deleteBun.rx.tap.asDriver()
-        let result = taps.flatMapLatest({ _ -> SharedSequence<DriverSharingStrategy, ValidationResult> in
-            return manager.deleteWatchFriend(deviceId: (manager.currentDevice?.deviceId)!, uid: (self.friendInfo?.uid)!)
-                .map({ _ in
-                    return ValidationResult.ok(message: "Delete success")
-            }).asDriver(onErrorJustReturn: ValidationResult.failed(message: "Delete failed"))
+        deleteBun.rx.tap.asObservable()
+            .bindNext { [weak self] in
+                let vc = UIAlertController(title: nil, message: "Delete this friend?", preferredStyle: .alert)
+                let action1 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
+                let action2 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
+                    self?.deleteSubject?.onNext()
+                }
+                vc.addAction(action1)
+                vc.addAction(action2)
+                self?.present(vc, animated: true)
+            }
+            .addDisposableTo(disposeBag)
+    
+        
+        let result = deleteSubject?.asDriver(onErrorJustReturn: ())
+                .flatMapLatest({ _ -> Driver<ValidationResult> in
+                    manager.deleteWatchFriend(deviceId: (manager.currentDevice?.deviceId)!, uid: (self.friendInfo?.uid)!)
+                        .map({ _ in
+                            ValidationResult.ok(message: "Delete success"
+                        )
+                })
+                .asDriver(onErrorJustReturn: ValidationResult.failed(message: "Delete failed"))
         })
         
-    
-        result
+        
+        deleteSubject?.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(result!)
             .drive(onNext: { [weak self] rs in
                 if rs.isValid {
                     _ = self?.navigationController?.popViewController(animated: true)
@@ -73,6 +91,9 @@ class WatchFriendsController: UIViewController {
                 }
             })
             .addDisposableTo(disposeBag)
+        
+    
+        
         
     }
     

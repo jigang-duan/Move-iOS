@@ -568,8 +568,11 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1100"/>
                     <connections>
+                        <outlet property="step1Lab" destination="nFY-KM-dgt" id="MSU-vb-zPR"/>
                         <outlet property="step1TextLab" destination="i0p-pG-4Xg" id="X3S-E8-3WQ"/>
+                        <outlet property="step2Lab" destination="CZs-jN-jjP" id="PCv-JJ-rpp"/>
                         <outlet property="step2TextLab" destination="UKP-Vj-qtl" id="894-LS-PEO"/>
+                        <outlet property="step3Lab" destination="tG9-55-RDN" id="YOa-Jd-NB4"/>
                         <outlet property="step3TextLab" destination="OlS-iQ-K99" id="i8R-Bw-8tz"/>
                         <outlet property="tipLab" destination="xE6-7n-dwh" id="fx2-4B-2K2"/>
                     </connections>

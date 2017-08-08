@@ -364,7 +364,7 @@
 "id_confirm_password" = "Passwort bestätigen";
 "id_connecting" = "Verbindung wird hergestellt…";
 "id_verification_code_prompt" = "Geben Sie den Code ein, der auf der Uhr angezeigt wird.";
-"id_verification_code_help" = "Kopplung mit Watch nicht möglich?";
+"id_verification_code_help" = "Kopplung mit Uhr fehlgeschlagen? Siehe Hilfe";
 "id_phone_number" = "Telefonnummer";
 "id_confirm" = "Bestätigen";
 "id_where_is_qr_cord" = "Wo ist der QR-Code?";
@@ -386,7 +386,7 @@
 "id_watch_friends" = "Watch-Freunde";
 "id_family_member_prompt" = "Der Benutzer kann bis zu 10 Familienmitglieder hinzufügen und bis zu 3 Mitglieder als bevorzugt festlegen. Wenn ein Notruf über die Watch getätigt wird, ruft die Watch die bevorzugten Familienmitglieder der Reihe nach an.";
 "id_master" = "Master";
-"id_emergency_number_tips" = "Beispiel: 110,112…";
+"id_emergency_number_tips" = "Bitte beachten: Eine gültige Notrufnummer eintragen (z.B 112)";
 "id_login_failed" = "Anmelden fehlgeschlagen";
 "id_logging_please_wait" = "Anmeldung läuft, bitte warten…";
 "id_exception" = "Ausnahme";
@@ -586,7 +586,7 @@
 "id_new_version_for_watch" = "Neue Version für die Watch von %@ verfügbar.";
 "id_no_notification_here" = "Keine Benachrichtigung vorhanden.";
 "id_delete_fence" = "Sichere Zone löschen";
-"id_delete_this_fence" = "Diese sichere Zone löschen?";
+"id_delete_this_fence" = "Diesen sicheren Bereich löschen? Löschen Sie diese sichere Zone?";
 "id_add_safe_zone" = "Sicheren Bereich hinzufügen";
 "id_today" = "Heute";
 "id_tomorrow" = "Morgen";
@@ -627,7 +627,7 @@
 "id_no_qr_code_detected" = "Kein QR-Code erkannt";
 "id_code_has_expired" = "oder QR-Code abgelaufen/ungültig";
 "id_bluetooth_connect_watch" = "Aktivieren Sie Bluetooth, um eine Verbindung zwischen \"TCLMOVE\" und der Watch zu ermöglichen.";
-"id_is_null" = "Fehler";
+"id_is_null" = "Null";
 "id_begin_time_same_end" = "Die Uhrzeit für Start und Ende darf nicht identisch sein.";
 "id_begin_time_later_system" = "Die Startzeit liegt in der Vergangenheit.";
 "id_title_can_not_null" = "Titel und Anmerkung dürfen nicht leer sein.";
@@ -645,3 +645,6 @@
 "id_history_date" = "Das ausgewählte Datum darf nicht nach dem aktuellen Datum liegen.";
 "id_apn_system_ble_disable" = "System-Bluetooth ungültig. Mobiltelefon neu starten";
 "id_login_access_expired_error" = "Die Zugriffsberechtigung ist abgelaufen.";
+"id_old_password_error" = "Altes Passwort ist falsch";
+"id_country_code_location" = "Standort";
+"id_country_code_none" = "Keiner";

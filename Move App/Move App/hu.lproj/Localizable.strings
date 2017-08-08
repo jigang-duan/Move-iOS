@@ -23,7 +23,7 @@
 "id_everymonth" = "Minden hónapban";
 "id_todolist" = "EMLÉKEZTETŐK";
 "id_about" = "A szolgáltatásról";
-"id_about_fail" = "nincsenek a verzióra vonatkozó információk";
+"id_about_fail" = "Nincsenek a verzióra vonatkozó információk";
 "id_monday_short" = "H";
 "id_tuesday_short" = "K";
 "id_wednesday_short" = "Sze.";
@@ -364,7 +364,7 @@
 "id_confirm_password" = "Jelszó megerősítése";
 "id_connecting" = "Csatlakozás…";
 "id_verification_code_prompt" = "Adja meg az órán megjelenő kódot.";
-"id_verification_code_help" = "Nem sikerült az órával való párosítás?";
+"id_verification_code_help" = "Nem tudja párosítani az órával? Kövesse a Súgót.";
 "id_phone_number" = "Telefonszám";
 "id_confirm" = "Megerősítés";
 "id_where_is_qr_cord" = "Hol található a QR-kód?";
@@ -386,7 +386,7 @@
 "id_watch_friends" = "Barátok";
 "id_family_member_prompt" = "A felhasználó akár 10 családtagot is hozzáadhat, és akár 3 családtagot jelölhet meg kedvencként. Amikor sürgősségi hívás kerül indításra a telefonról, az óra egyenként felhívja a kedvencként megjelölt családtagokat, amíg valamelyik családtag fogadja a hívást.";
 "id_master" = "Adminisztrátor";
-"id_emergency_number_tips" = "Például: 110,999…";
+"id_emergency_number_tips" = "Megjegyzés: Írjon be egy érvényes vészhívószámot (Pl:112)";
 "id_login_failed" = "A bejelentkezés nem sikerült.";
 "id_logging_please_wait" = "Bejelentkezés folyamatban. Várjon…";
 "id_exception" = "Kivétel";
@@ -586,7 +586,7 @@
 "id_new_version_for_watch" = "Új verzió érhető el %@ órája számára.";
 "id_no_notification_here" = "Nincsenek értesítések";
 "id_delete_fence" = "Virtuális terület törlése";
-"id_delete_this_fence" = "Törli ezt a virtuális területet?";
+"id_delete_this_fence" = "Törli ezt a kerítést? Törli ezt a biztonsági zónát?";
 "id_add_safe_zone" = "Biztonsági zóna hozzáadása";
 "id_today" = "Ma";
 "id_tomorrow" = "Holnap";
@@ -627,7 +627,7 @@
 "id_no_qr_code_detected" = "Nem észlelhető QR-kód";
 "id_code_has_expired" = "vagy a QR-kód lejárt/érvénytelen.";
 "id_bluetooth_connect_watch" = "Aktiválja a Bluetooth-funkciót, hogy engedélyezze a \"TCLMOVE\" és az óra közötti kapcsolódást.";
-"id_is_null" = "Hiba";
+"id_is_null" = "Nulla";
 "id_begin_time_same_end" = "A kezdési idő nem egyezhet meg a befejezési idővel.";
 "id_begin_time_later_system" = "A kezdési idő lejárt.";
 "id_title_can_not_null" = "A Cím és a Megjegyzés mezők kitöltése kötelező.";
@@ -645,3 +645,6 @@
 "id_history_date" = "A kiválasztott dátum nem lehet későbbi a jelenlegi dátumnál.";
 "id_apn_system_ble_disable" = "A Bluetooth-funkció nem működik. Indítsa újra a mobiltelefonját.";
 "id_login_access_expired_error" = "A hozzáférési engedély lejárt.";
+"id_old_password_error" = "A régi jelszó érvénytelen";
+"id_country_code_location" = "Helyzet";
+"id_country_code_none" = "Semmi";

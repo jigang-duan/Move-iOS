@@ -23,7 +23,7 @@
 "id_everymonth" = "Todos os meses";
 "id_todolist" = "LEMBRETES";
 "id_about" = "Sobre";
-"id_about_fail" = "sem informações da versão";
+"id_about_fail" = "Sem informações da versão";
 "id_monday_short" = "S";
 "id_tuesday_short" = "T";
 "id_wednesday_short" = "Q";
@@ -364,7 +364,7 @@
 "id_confirm_password" = "Confirmar senha";
 "id_connecting" = "Conectando…";
 "id_verification_code_prompt" = "Inserir código mostrado em seu Watch";
-"id_verification_code_help" = "Não é possível emparelhar com Watch?";
+"id_verification_code_help" = "Não é possível sincronizar com o relógio? Consulte em ajuda";
 "id_phone_number" = "Número de telefone";
 "id_confirm" = "Confirmar";
 "id_where_is_qr_cord" = "Onde está o código QR?";
@@ -386,7 +386,7 @@
 "id_watch_friends" = "Amigos";
 "id_family_member_prompt" = "O usuário pode adicionar até 10 membros da família e até 3 membros como favoritos. Quando uma chamada de emergência é realizada do Watch, o Watch liga para os membros da família favoritos, um a um, até que um atenda a chamada.";
 "id_master" = "Administrador";
-"id_emergency_number_tips" = "Por exemplo: 110,999…";
+"id_emergency_number_tips" = "Nota: insira um número de emergência válido. (E.g. 112)";
 "id_login_failed" = "Não foi possível efetuar login";
 "id_logging_please_wait" = "Efetuando login, aguarde…";
 "id_exception" = "Exceção";
@@ -586,7 +586,7 @@
 "id_new_version_for_watch" = "Nova versão disponível para o Watch %@";
 "id_no_notification_here" = "Nenhuma notificação aqui";
 "id_delete_fence" = "Excluir limite";
-"id_delete_this_fence" = "Excluir este limite?";
+"id_delete_this_fence" = "Apagar esta zona segura?";
 "id_add_safe_zone" = "Adicionar zona segura";
 "id_today" = "Hoje";
 "id_tomorrow" = "Amanhã";
@@ -627,7 +627,7 @@
 "id_no_qr_code_detected" = "Nenhum código QR detectado";
 "id_code_has_expired" = "ou código QR expirado/inválido.";
 "id_bluetooth_connect_watch" = "Ativar Bluetooth para permitir ao \"TCLMOVE\" se conectar ao Watch";
-"id_is_null" = "Erro";
+"id_is_null" = "Sem validade";
 "id_begin_time_same_end" = "A hora de início não pode ser a mesma que a hora de término";
 "id_begin_time_later_system" = "A hora de início já passou";
 "id_title_can_not_null" = "O título e comentário não podem ser nulos";
@@ -645,3 +645,6 @@
 "id_history_date" = "A data selecionada não pode ser posterior à data atual!";
 "id_apn_system_ble_disable" = "Bluetooth do sistema inválido. Reinicie seu telefone celular";
 "id_login_access_expired_error" = "A permissão de acesso expirou.";
+"id_old_password_error" = "A senha antiga é incorreta";
+"id_country_code_location" = "Localização";
+"id_country_code_none" = "Nenhuma";

@@ -77,9 +77,9 @@ class KidInformationViewModel {
                     return Driver.just(nameRes)
                 }
                 
-                if phoneRes.isValid == false {
-                    return Driver.just(phoneRes)
-                }
+//                if phoneRes.isValid == false {
+//                    return Driver.just(phoneRes)
+//                }
                 
                 var f = addInfo
                 f.nickName = name
