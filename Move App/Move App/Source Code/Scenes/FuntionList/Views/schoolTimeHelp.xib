@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,30 +20,34 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFM-eW-Glx">
-                    <rect key="frame" x="40" y="50" width="240" height="380.5"/>
+                    <rect key="frame" x="40" y="65" width="240" height="350.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you turn on the School Time,all functions below will be turned off." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akN-uT-2We">
-                            <rect key="frame" x="15" y="40" width="210" height="50.5"/>
+                            <rect key="frame" x="15" y="30" width="210" height="50.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="school_time_ic" translatesAutoresizingMaskIntoConstraints="NO" id="9Ki-FC-khN">
-                            <rect key="frame" x="15" y="120.5" width="210" height="210"/>
+                            <rect key="frame" x="15" y="100.5" width="210" height="210"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="9Ki-FC-khN" firstAttribute="centerX" secondItem="LFM-eW-Glx" secondAttribute="centerX" id="1EN-ZH-ljY"/>
                         <constraint firstItem="akN-uT-2We" firstAttribute="leading" secondItem="LFM-eW-Glx" secondAttribute="leading" constant="15" id="Fk8-GK-jZs"/>
-                        <constraint firstItem="akN-uT-2We" firstAttribute="top" secondItem="LFM-eW-Glx" secondAttribute="top" constant="40" id="M5k-rK-Kdm"/>
-                        <constraint firstItem="9Ki-FC-khN" firstAttribute="top" secondItem="akN-uT-2We" secondAttribute="bottom" constant="30" id="Pd5-Oq-4sF"/>
+                        <constraint firstItem="akN-uT-2We" firstAttribute="top" secondItem="LFM-eW-Glx" secondAttribute="top" constant="30" id="M5k-rK-Kdm"/>
+                        <constraint firstItem="9Ki-FC-khN" firstAttribute="top" secondItem="akN-uT-2We" secondAttribute="bottom" constant="20" id="Pd5-Oq-4sF"/>
                         <constraint firstAttribute="trailing" secondItem="akN-uT-2We" secondAttribute="trailing" constant="15" id="eCV-wW-5UL"/>
-                        <constraint firstAttribute="bottom" secondItem="9Ki-FC-khN" secondAttribute="bottom" constant="50" id="nhe-OG-oZU"/>
+                        <constraint firstAttribute="bottom" secondItem="9Ki-FC-khN" secondAttribute="bottom" constant="40" id="nhe-OG-oZU"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bua-tZ-CrG">
-                    <rect key="frame" x="143.5" y="445.5" width="33" height="33"/>
+                    <rect key="frame" x="152" y="430.5" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="RYj-L2-cBa"/>
+                        <constraint firstAttribute="height" constant="16" id="vvF-s7-NpP"/>
+                    </constraints>
                     <state key="normal" image="school_time_help"/>
                     <connections>
                         <action selector="removeView:" destination="iN0-l3-epB" eventType="touchUpInside" id="TUd-j4-O75"/>
