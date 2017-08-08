@@ -110,7 +110,7 @@ class SignUpViewController: TranslucentNavBarController {
         
         emailTf.placeholder = R.string.localizable.id_email()
         passwordTf.placeholder = R.string.localizable.id_password()
-        rePasswordTf.placeholder = R.string.localizable.id_register_confirm_hint()
+        rePasswordTf.placeholder = R.string.localizable.id_confirm_password()
         signUpBtn.setTitle(R.string.localizable.id_sign_up(), for: .normal)
         
         

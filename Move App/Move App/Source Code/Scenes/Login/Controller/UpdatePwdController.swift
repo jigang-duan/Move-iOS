@@ -118,7 +118,7 @@ class UpdatePwdController: TranslucentNavBarController {
         vcodeTf.placeholder = R.string.localizable.id_verification_code()
         sendBun.setTitle(R.string.localizable.id_resend(), for: .normal)
         passwordTf.placeholder = R.string.localizable.id_new_password()
-        rePasswordTf.placeholder = R.string.localizable.id_confirm_new_password()
+        rePasswordTf.placeholder = R.string.localizable.id_confirm_password()
         
         doneBun.setTitle(R.string.localizable.id_done(), for: .normal)
     }

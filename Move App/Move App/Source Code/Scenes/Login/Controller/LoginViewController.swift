@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 let lastLoginAccount = "lastLoginAccount"
+let lastLoginPassword = "lastLoginPassword"
 
 class LoginViewController: TranslucentNavBarController {
     
@@ -70,6 +71,9 @@ class LoginViewController: TranslucentNavBarController {
         
         if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
             emailOutlet.text = email
+            if let password = UserDefaults.standard.value(forKey: lastLoginPassword) as? String {
+                passwordOutlet.text = password
+            }
         }
     }
     

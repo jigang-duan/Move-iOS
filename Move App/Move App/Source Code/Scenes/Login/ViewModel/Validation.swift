@@ -208,15 +208,15 @@ class DefaultValidation {
             return .failed(message: R.string.localizable.id_register_password_hint())
         }
         
-//        let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
-//        if letterRegex.evaluate(with: password) {
-//            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
-//        }
-//        
-//        let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
-//        if lnumberRegex.evaluate(with: password) {
-//            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
-//        }
+        let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
+        if letterRegex.evaluate(with: password) {
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
+        }
+        
+        let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        if lnumberRegex.evaluate(with: password) {
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
+        }
         
         
         return .ok(message: "Password acceptable")
@@ -236,15 +236,15 @@ class DefaultValidation {
             return .failed(message: R.string.localizable.id_register_password_hint())
         }
         
-//        let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
-//        if letterRegex.evaluate(with: password) {
-//            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
-//        }
-//        
-//        let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
-//        if lnumberRegex.evaluate(with: password) {
-//            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
-//        }
+        let letterRegex = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z]+$")
+        if letterRegex.evaluate(with: password) {
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
+        }
+        
+        let lnumberRegex = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        if lnumberRegex.evaluate(with: password) {
+            return .failed(message: R.string.localizable.id_password_8_16_letters_or_numbers())
+        }
         
         
         return .ok(message: "Password acceptable")

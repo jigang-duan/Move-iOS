@@ -68,7 +68,7 @@ class ApplicationManager {
         self.initImageDownloader()
         
         // NetworkReachability
-        self.listenNetwor()
+        self.listenNetwork()
         
         Logger.verbose(NSHomeDirectory())
         
@@ -168,7 +168,7 @@ extension ApplicationManager {
 // MARK: NetworkReachability
 extension ApplicationManager {
 
-    fileprivate func listenNetwor() {
+    fileprivate func listenNetwork() {
         networkReachability = NetworkReachabilityManager()
         networkReachability?.listener = { status in
             print("Network Status Changed: \(status)")

@@ -45,15 +45,9 @@ class SignUpViewModel {
         let validation = dependency.validation
         let _ = dependency.wireframe
         
-        validatedEmail = input.email
-            .map { email in
-                return validation.validateEmail(email)
-        }
+        validatedEmail = input.email.map(validation.validateEmail)
         
-        validatedPassword = input.passwd
-            .map { password in
-                return validation.validatePassword(password)
-        }
+        validatedPassword = input.passwd.map(validation.validatePassword)
         
         validatedRePassword = Driver.combineLatest(input.passwd, input.rePasswd){
             return validation.validateRePassword($0, rePasswd: $1)
