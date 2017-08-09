@@ -89,6 +89,10 @@ class KidInformationViewModel {
                     f.number = "\(phonePrefix)@\(phone)"
                 }
                 
+                if f.number == f.phone {
+                    return Driver.just(ValidationResult.failed(message: "Watch's phone number can not be same as your phone number"))
+                }
+                
                 if self.isForSetting == true {
                     if let photo = input.photo.value {
                         return FSManager.shared.uploadPngImage(with: photo)

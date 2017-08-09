@@ -71,9 +71,12 @@ class VerificationCodeController: UIViewController {
         nextBun.setTitle(R.string.localizable.id_confirm(), for: .normal)
         cantPairLab.text = R.string.localizable.id_verification_code_help()
         
-        let helpAttributeString = NSAttributedString(string: R.string.localizable.id_help(),
-                                                     attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue, NSForegroundColorAttributeName: UIColor.white])
-        helpBun.setAttributedTitle(helpAttributeString, for: .normal)
+        let help = NSMutableAttributedString(string: "q" + R.string.localizable.id_help())
+        help.addAttributes([NSForegroundColorAttributeName: UIColor.clear], range: NSRange(location: 0, length: 1))
+        help.addAttributes([NSForegroundColorAttributeName: UIColor.white], range: NSRange(location: 1, length: help.length - 1))
+        help.addAttributes([NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue], range: NSRange.init(location: 0, length: help.length))
+        
+        helpBun.setAttributedTitle(help, for: .normal)
         
     }
     

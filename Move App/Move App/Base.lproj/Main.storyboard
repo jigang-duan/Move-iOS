@@ -973,7 +973,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-NY-CaF">
-                                <rect key="frame" x="254" y="614" width="32" height="25"/>
+                                <rect key="frame" x="248" y="614" width="32" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="EAy-o4-Bfi"/>
                                 </constraints>
@@ -999,7 +999,7 @@
                             <constraint firstItem="dRU-Un-dRe" firstAttribute="trailing" secondItem="59S-vP-hfg" secondAttribute="trailing" id="L0U-bM-T1C"/>
                             <constraint firstItem="n75-Sz-36j" firstAttribute="top" secondItem="OoE-sQ-T7L" secondAttribute="top" id="MAm-zQ-gfg"/>
                             <constraint firstItem="GR2-RM-Mei" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" id="N75-bY-0Qd"/>
-                            <constraint firstItem="rEP-NY-CaF" firstAttribute="leading" secondItem="1mr-GJ-WAd" secondAttribute="trailing" constant="8" id="RuZ-r2-Qdv"/>
+                            <constraint firstItem="rEP-NY-CaF" firstAttribute="leading" secondItem="1mr-GJ-WAd" secondAttribute="trailing" constant="2" id="RuZ-r2-Qdv"/>
                             <constraint firstItem="GR2-RM-Mei" firstAttribute="top" secondItem="OoE-sQ-T7L" secondAttribute="top" id="XMB-Nn-G5Y"/>
                             <constraint firstAttribute="trailing" secondItem="evq-pB-sEQ" secondAttribute="trailing" constant="15" id="csE-Nr-qDK"/>
                             <constraint firstAttribute="trailing" secondItem="GR2-RM-Mei" secondAttribute="trailing" id="eUI-Cj-BJG"/>
