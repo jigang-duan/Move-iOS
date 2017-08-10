@@ -15,8 +15,8 @@ extension MainMapController {
         if let target = Distribution.shared.target {
             switch target {
             case .chatMessage(let index):
-                showChat(index: index)
                 Distribution.shared.target = nil
+                showChat(index: index)
             default: ()
             }
         }

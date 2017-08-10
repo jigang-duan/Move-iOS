@@ -91,10 +91,8 @@ class MessageServer {
                 }
                 .filter { $0.user?.isAdmin(uid: uid) ?? false }
                 .share()
-            let deviceUpdateNotice = Observable.combineLatest(singleDevs.map{ $0.deviceId }.filterNil(),
-                                                    RxStore.shared.uidObservable,
-                                                    singleDevs.map{ $0.user?.uid }.filterNil(),
-                                                    singleDevs.map{ $0.user?.nickname }.filterNil() ) { ($0, $1, $2, $3) }
+            let singleDevice = Observable.zip(singleDevs.map{ $0.deviceId }.filterNil(), singleDevs.map{ $0.user?.uid }.filterNil(), singleDevs.map{ $0.user?.nickname }.filterNil())
+            let deviceUpdateNotice = Observable.combineLatest(RxStore.shared.uidObservable, singleDevice) { ($1.0, $0, $1.1, $1.2) }
                 .flatMap { UpdateServer.shared.deviceUpdateNoctice(device: $0, uid: $1, devUID: $2, name: $3) }
             
             Observable.merge(netNotice, deviceUpdateNotice)

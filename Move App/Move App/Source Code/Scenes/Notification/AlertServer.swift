@@ -41,13 +41,12 @@ class AlertServer {
             .map { $0.filter { $0.imType.isShowPopup } }
             .map { $0.filter{ $0.isUnRead }.first }
             .filterNil()
+            .distinctUntilChanged{ $0.id == $1.id }
             .filter { $0.imType.isShowPopup }
             .withLatestFrom(RxStore.shared.deviceInfosObservable, resultSelector: resultSelector)
             .flatMapLatest { (notice, device) -> Observable<AlertResult> in
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
-                guard NoticeType(rawValue: notice.type) != nil else {
-                    return Observable.empty()
-                }
+                guard NoticeType(rawValue: notice.type) != nil else { return Observable.empty() }
                 let confirm = notice.imType.style.hasConfirm ? AlertResult.confirm(parcel: notice) : nil
                 return AlertWireframe.shared.prompt(notice.content ?? "",
                                                     title: notice.imType.title,

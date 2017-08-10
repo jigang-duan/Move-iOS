@@ -49,12 +49,9 @@ class AccountKidsRulesuserController: UITableViewController {
 
     private let disposeBag = DisposeBag()
     
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         propelToTargetController()
-      
     }
 
     override func viewDidLoad() {
@@ -230,17 +227,17 @@ extension AccountKidsRulesuserController {
         if let target = Distribution.shared.target {
             switch target {
             case .kidInformation:
+                Distribution.shared.target = nil
                 showKidInformationController()
-                Distribution.shared.target = nil
             case .familyMember:
+                Distribution.shared.target = nil
                 showFamilyMemberController()
-                Distribution.shared.target = nil
             case .friendList:
+                Distribution.shared.target = nil
                 showFriendListController()
-                Distribution.shared.target = nil
             case .updata:
-                showUpdataController()
                 Distribution.shared.target = nil
+                showUpdataController()
             default: ()
             }
         }

@@ -99,11 +99,13 @@ class AccountAndChoseDeviceController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enterSubject.onNext(true)
-        
-        propelToTargetController()
         self.navigationController?.navigationBar.isHidden = false
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        propelToTargetController()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -167,14 +169,14 @@ extension AccountAndChoseDeviceController {
             case .kidInformation, .familyMember, .friendList,.updata :
                 showAccountKidsRulesuserController()
             case .addDevice:
-                sshowPairWatchController()
                 Distribution.shared.target = nil
+                showPairWatchController()
             default: ()
             }
         }
     }
     
-    fileprivate func sshowPairWatchController() {
+    fileprivate func showPairWatchController() {
         self.performSegue(withIdentifier: R.segue.accountAndChoseDeviceController.showPairWatch, sender: nil)
     }
     
