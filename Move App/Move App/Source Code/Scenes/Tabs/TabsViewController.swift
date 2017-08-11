@@ -59,14 +59,17 @@ class TabsViewController: UITabBarController {
             })
             .addDisposableTo(bag)
         
+        let cacheDevID = RxStore.shared.deviceInfosState.asObservable().filterEmpty()
+            .withLatestFrom(DataCacheManager.shared.rx.get(key: "key.id.device.current", default: "")) { (devices, id) in
+                devices.filter{ $0.deviceId == id }.first?.deviceId ?? devices.first?.deviceId
+            }
         RxStore.shared.deviceInfosState.asObservable()
             .withLatestFrom(RxStore.shared.currentDeviceId.asObservable()) { (devices, id) in
-                devices.filter({ $0.deviceId == id }).first?.deviceId
+                devices.filter{ $0.deviceId == id }.first?.deviceId
             }
             .filter { $0 == nil }
-            .flatMapLatest { _ in
-                DeviceManager.shared.fetchDevices().map{ $0.first?.deviceId }.catchErrorJustReturn(nil).filterNil()
-            }
+            .flatMapLatest { _ in cacheDevID.asDriver(onErrorJustReturn: nil).filterNil() }
+            .distinctUntilChanged()
             .bindTo(RxStore.shared.currentDeviceId)
             .addDisposableTo(bag)
         
@@ -75,6 +78,10 @@ class TabsViewController: UITabBarController {
             .bindTo(RxStore.shared.deviceInfosState)
             .addDisposableTo(bag)
         
+        RxStore.shared.deviceIdObservable.debug()
+            .distinctUntilChanged()
+            .subscribe(DataCacheManager.shared.rx.set(key: "key.id.device.current"))
+            .addDisposableTo(bag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

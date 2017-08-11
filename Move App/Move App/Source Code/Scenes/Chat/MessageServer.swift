@@ -160,11 +160,11 @@ class MessageServer {
     func subscribe() -> Disposable {
         let realm = try! Realm()
         return RxStore.shared.deviceInfosState.asObservable()
-            .map({ $0.flatMap({$0.deviceId}).sorted() })
-            .distinctUntilChanged({ $0.0 == $0.1 })
+            .map { $0.flatMap({$0.deviceId}).sorted() }
+            .distinctUntilChanged { $0.0 == $0.1 }
             .withLatestFrom(RxStore.shared.userId.asObservable())
             .filterNil()
-            .map({ realm.object(ofType: SynckeyEntity.self, forPrimaryKey: $0) })
+            .map { realm.object(ofType: SynckeyEntity.self, forPrimaryKey: $0) }
             //.filter { $0 == nil }
             .flatMapLatest { _ -> Observable<SynckeyEntity> in
                 IMManager.shared.initSyncKey()

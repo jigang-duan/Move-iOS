@@ -2,80 +2,43 @@
 //  DataCacheManager.swift
 //  Move App
 //
-//  Created by jiang.duan on 2017/7/28.
+//  Created by jiang.duan on 2017/8/11.
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 
 import Foundation
-import RxSwift
+import Realm
+import RealmSwift
 
-class DataCacheObserver<E>: ObserverType {
+class DataCacheManager {
     
-    var manager: DataCacheManager?
+    static let shared = DataCacheManager()
     
-    let binding: (DataCacheManager, E) -> Void
+    let realm: Realm
     
-    init(manager: DataCacheManager = DataCacheManager.shared, binding: @escaping (DataCacheManager, E) -> Void) {
-        self.manager = manager
-        self.binding = binding
+    private init() {
+        realm = try! Realm()
     }
     
-    /**
-     Binds next element
-     */
-    func on(_ event: Event<E>) {
-        switch event {
-        case .next(let element):
-            if let manager = manager {
-                binding(manager, element)
-            }
-        case .error:
-            manager = nil
-        case .completed:
-            manager = nil
+    func get(key: String) -> Results<DataCache> {
+        return realm.objects(DataCache.self).filter("key == %@", key)
+    }
+    
+    func set(key: String, value: String) {
+        let dataCache = DataCache()
+        dataCache.key = key
+        dataCache.value = value
+        try? realm.write {
+            realm.add(dataCache, update: true)
         }
     }
     
-    /**
-     Erases the type of observer
-     
-     - returns: AnyObserver, type erased observer
-     */
-    func asObserver() -> AnyObserver<E> {
-        return AnyObserver(eventHandler: on)
+    func set(key: String, value: Bool) {
+        let dataCache = DataCache()
+        dataCache.key = key
+        dataCache.value = String(value)
+        try? realm.write {
+            realm.add(dataCache, update: true)
+        }
     }
-    
-    deinit {
-        manager = nil
-    }
-}
-
-extension DataCacheManager: ReactiveCompatible { }
-
-extension Reactive where Base: DataCacheManager {
-    
-    func set() -> AnyObserver<(String, String)> {
-        return DataCacheObserver(binding: { (dataCacheManager, element) in
-            dataCacheManager.set(key: element.0, value: element.1)
-        }).asObserver()
-    }
-    
-    func set(key: String) -> AnyObserver<String> {
-        return DataCacheObserver(binding: { (dataCacheManager, element) in
-            dataCacheManager.set(key: key, value: element)
-        }).asObserver()
-    }
-    
-    func setBool() -> AnyObserver<(String, Bool)> {
-        return DataCacheObserver(binding: { (dataCacheManager, element) in
-            dataCacheManager.set(key: element.0, value: element.1)
-        }).asObserver()
-    }
-    
-    func setBool(key: String) -> AnyObserver<Bool> {
-        return DataCacheObserver(binding: { (dataCacheManager, element) in
-            dataCacheManager.set(key: key, value: element)
-        }).asObserver()
-    }
-    
 }

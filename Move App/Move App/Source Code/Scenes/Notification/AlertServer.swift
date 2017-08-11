@@ -273,7 +273,6 @@ class AlertServer {
         enterMainPage.bindNext{_ in Distribution.shared.backToMainMap()}.addDisposableTo(disposeBag)
         enterAccountPage.bindNext{_ in Distribution.shared.backToTabAccount()}.addDisposableTo(disposeBag)
         
-        
         emptyOfLoginVariable.asObservable()
             .filter{ $0 }
             .delay(2.0, scheduler: MainScheduler.instance)

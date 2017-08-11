@@ -43,12 +43,13 @@
 		114D075E1E8F9FEA00349742 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D075D1E8F9FEA00349742 /* MessageModel.swift */; };
 		114D6EDF1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */; };
 		114D6EE21F2B0B7F000D0817 /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EE11F2B0B7F000D0817 /* DataCache.swift */; };
-		114D6EE41F2B2DC4000D0817 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EE31F2B2DC4000D0817 /* DataCacheManager.swift */; };
+		114D6EE41F2B2DC4000D0817 /* DataCacheManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D6EE31F2B2DC4000D0817 /* DataCacheManager+Rx.swift */; };
 		114D961B1EB83F71000D2809 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */; };
 		114D961D1EB842F3000D2809 /* FamilyMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D961C1EB842F3000D2809 /* FamilyMembersController.swift */; };
 		1154AB9C1EFBD16800920F68 /* DevicePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */; };
 		1154AB9E1EFCB88E00920F68 /* WatchSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */; };
 		1154ABA01EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */; };
+		11551FCF1F3D55DD005D311D /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11551FCE1F3D55DD005D311D /* DataCacheManager.swift */; };
 		1158D1E21EBC1D7E00525865 /* PulsingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */; };
 		115964961F0DCBEA00D3748A /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3131E6D7B24002906F1 /* UUProgressHUD.m */; };
 		115964991F0E37F600D3748A /* UIImage+RTTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115964981F0E37F600D3748A /* UIImage+RTTint.swift */; };
@@ -415,12 +416,13 @@
 		114D075D1E8F9FEA00349742 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageModel.swift; path = Chat/Controller/MessageModel.swift; sourceTree = "<group>"; };
 		114D6EDE1F26E5EB000D0817 /* HeadPortraitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeadPortraitAnnotationView.swift; path = Map/Annotation/HeadPortraitAnnotationView.swift; sourceTree = "<group>"; };
 		114D6EE11F2B0B7F000D0817 /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataCache.swift; path = cache/database/DataCache.swift; sourceTree = "<group>"; };
-		114D6EE31F2B2DC4000D0817 /* DataCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataCacheManager.swift; path = cache/database/DataCacheManager.swift; sourceTree = "<group>"; };
+		114D6EE31F2B2DC4000D0817 /* DataCacheManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DataCacheManager+Rx.swift"; path = "cache/database/DataCacheManager+Rx.swift"; sourceTree = "<group>"; };
 		114D961A1EB83F71000D2809 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMemberCell.swift; path = Chat/Controller/FamilyMemberCell.swift; sourceTree = "<group>"; };
 		114D961C1EB842F3000D2809 /* FamilyMembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyMembersController.swift; path = Chat/Controller/FamilyMembersController.swift; sourceTree = "<group>"; };
 		1154AB9B1EFBD16800920F68 /* DevicePermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DevicePermissions.swift; path = Shared/Common/Utils/DevicePermissions.swift; sourceTree = "<group>"; };
 		1154AB9D1EFCB88E00920F68 /* WatchSettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchSettingsManager.swift; path = KidSettingManager/WatchSettingsManager.swift; sourceTree = "<group>"; };
 		1154AB9F1EFCB99F00920F68 /* MoveApiWatchSettingsWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoveApiWatchSettingsWorker.swift; path = KidSettingManager/MoveApiWatchSettingsWorker.swift; sourceTree = "<group>"; };
+		11551FCE1F3D55DD005D311D /* DataCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataCacheManager.swift; path = cache/database/DataCacheManager.swift; sourceTree = "<group>"; };
 		1158D1E11EBC1D7E00525865 /* PulsingAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PulsingAnnotationView.swift; path = AnnotationView/PulsingAnnotationView.swift; sourceTree = "<group>"; };
 		115964981F0E37F600D3748A /* UIImage+RTTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+RTTint.swift"; path = "Vendor/RTTint/UIImage+RTTint.swift"; sourceTree = "<group>"; };
 		1159649A1F0F38BF00D3748A /* MoyaProvider+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MoyaProvider+Configuration.swift"; path = "Account/MoyaProvider+Configuration.swift"; sourceTree = "<group>"; };
@@ -943,7 +945,8 @@
 			isa = PBXGroup;
 			children = (
 				114D6EE11F2B0B7F000D0817 /* DataCache.swift */,
-				114D6EE31F2B2DC4000D0817 /* DataCacheManager.swift */,
+				114D6EE31F2B2DC4000D0817 /* DataCacheManager+Rx.swift */,
+				11551FCE1F3D55DD005D311D /* DataCacheManager.swift */,
 			);
 			name = database;
 			sourceTree = "<group>";
@@ -2745,6 +2748,7 @@
 				E0C228EB1E349CC200BCF83D /* RxMKMapViewDelegateProxy.swift in Sources */,
 				11EAC30E1E6D7B14002906F1 /* UUMessageCell.swift in Sources */,
 				11A0C63B1E9B282600AFB71F /* RxStore.swift in Sources */,
+				11551FCF1F3D55DD005D311D /* DataCacheManager.swift in Sources */,
 				E0931F271E30C05300755B4A /* Logger.swift in Sources */,
 				FF0859171E72A38800EB81D9 /* MoveIM+ImApi.swift in Sources */,
 				E03B1C5E1E53EE47006EDB7B /* RxPopover.swift in Sources */,
@@ -2955,7 +2959,7 @@
 				110528EE1E7903C200FE97A8 /* Notice.swift in Sources */,
 				116B90A71F14B44300336E3B /* LocationHistoryVC.swift in Sources */,
 				113F2E421E9E06DC00B3628C /* URL+Parameters.swift in Sources */,
-				114D6EE41F2B2DC4000D0817 /* DataCacheManager.swift in Sources */,
+				114D6EE41F2B2DC4000D0817 /* DataCacheManager+Rx.swift in Sources */,
 				E0FA029E1E5C05A6004A55BA /* UserManager.swift in Sources */,
 				FF1CA44E1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift in Sources */,
 				E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */,
@@ -3287,7 +3291,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3313,8 +3317,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "81a4f223-4808-4922-804b-d502967fee7b";
-				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Distribution";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

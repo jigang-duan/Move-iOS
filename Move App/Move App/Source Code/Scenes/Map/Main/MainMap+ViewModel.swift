@@ -267,7 +267,7 @@ class MainMapViewModel {
             .map{ $0?.deviceId }
             .filterNil()
             .flatMapLatest {
-                DataCacheManager.shared.getBool(key: "mark:select.auto.posistion-\($0)", default: false)
+                DataCacheManager.shared.rx.getBool(key: "mark:select.auto.posistion-\($0)", default: false)
                     .asDriver(onErrorJustReturn: false)
             }
         
