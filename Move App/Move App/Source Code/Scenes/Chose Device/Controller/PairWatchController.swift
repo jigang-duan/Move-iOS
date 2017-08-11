@@ -25,6 +25,7 @@ class PairWatchController: UIViewController {
     private func initializeI18N() {
         scanBun.setTitle(R.string.localizable.id_scan_qr_code(), for: .normal)
         tipBun.setTitle(R.string.localizable.id_where_is_qr_cord(), for: .normal)
+        skipBtn.setTitle(R.string.localizable.id_skip(), for: .normal)
     }
     
     override func viewDidLoad() {

@@ -35,7 +35,7 @@ class OtherSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let alert = UIAlertController(title: nil, message: R.string.localizable.id_cache_clean(), preferredStyle: .alert)
-            let action = UIAlertAction(title: R.string.localizable.id_confirm(), style: .default) { _ in
+            let action = UIAlertAction(title: R.string.localizable.id_yes(), style: .default) { _ in
                 SynckeyEntity.clearMessages()
                 _ = clearCache(path: NSTemporaryDirectory())
             }
