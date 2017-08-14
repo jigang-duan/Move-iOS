@@ -213,7 +213,7 @@ extension RegularshutdownController {
     fileprivate func alertSeting(message: String,preferredStyle: UIAlertControllerStyle)
     {
         let alertController = UIAlertController(title: "", message: message, preferredStyle: preferredStyle)
-        let okActiojn = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let okActiojn = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
         alertController.addAction(okActiojn)
         
         self.present(alertController, animated: true)

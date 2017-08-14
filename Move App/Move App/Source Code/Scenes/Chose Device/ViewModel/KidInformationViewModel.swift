@@ -90,7 +90,7 @@ class KidInformationViewModel {
                 }
                 
                 if f.number == f.phone {
-                    return Driver.just(ValidationResult.failed(message: "Watch's phone number can not be same as your phone number"))
+                    return Driver.just(ValidationResult.failed(message: R.string.localizable.id_admin_phone_not_same_child()))
                 }
                 
                 if self.isForSetting == true {

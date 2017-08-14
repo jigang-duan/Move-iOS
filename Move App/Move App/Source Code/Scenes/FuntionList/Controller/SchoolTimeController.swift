@@ -52,6 +52,7 @@ class SchoolTimeController: UIViewController {
         cancelDatePickeOutlet.setTitle(R.string.localizable.id_cancel(), for: .normal)
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
        
+        NullQutlet.setTitle(R.string.localizable.id_is_null(), for: .normal)
     }
 
     
@@ -64,7 +65,11 @@ class SchoolTimeController: UIViewController {
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
-        if self.amStartTimeOutlet.titleLabel?.text == "Null" || self.amEndTimeOutlet.titleLabel?.text == "Null" || self.pmStartTimeOutlet.titleLabel?.text == "Null" || self.pmEndTimeOutlet.titleLabel?.text == "Null"
+        let textNull = R.string.localizable.id_is_null()
+        if self.amStartTimeOutlet.titleLabel?.text == textNull
+            || self.amEndTimeOutlet.titleLabel?.text == textNull
+            || self.pmStartTimeOutlet.titleLabel?.text == textNull
+            || self.pmEndTimeOutlet.titleLabel?.text == textNull
         {
             let alertController = UIAlertController(title: nil, message: "time error", preferredStyle: .alert)
             let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
@@ -464,7 +469,7 @@ extension SchoolTimeController {
     
     private func zoneDateString(form date: Date) -> String {
         if date == Date(timeIntervalSince1970: 0){
-            return "Null"
+            return R.string.localizable.id_is_null()
         }
         else
         {

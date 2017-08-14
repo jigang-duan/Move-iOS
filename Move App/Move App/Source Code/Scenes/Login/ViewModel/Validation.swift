@@ -165,12 +165,12 @@ class DefaultValidation {
         }
         
         if imei.characters.count != 15 {
-            return .failed(message: "15 numbers only")
+            return .failed(message: R.string.localizable.id_number_only_15())
         }
         
         let prdImei = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
         if !prdImei.evaluate(with: imei) {
-            return .failed(message: "15 numbers only")
+            return .failed(message: R.string.localizable.id_number_only_15())
         }
         
         return .ok(message: "IMEI available")
@@ -182,12 +182,12 @@ class DefaultValidation {
         }
         
         if vcode.characters.count != 6 {
-            return .failed(message: "6 numbers only")
+            return .failed(message: R.string.localizable.id_number_only_6())
         }
         
         let prdCode = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
         if !prdCode.evaluate(with: vcode) {
-            return .failed(message: "6 numbers only")
+            return .failed(message: R.string.localizable.id_number_only_6())
         }
         
         return .ok(message: "Vcode available")

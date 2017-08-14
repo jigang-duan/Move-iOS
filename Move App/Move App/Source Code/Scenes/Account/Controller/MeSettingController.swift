@@ -113,7 +113,7 @@ class MeSettingController: UIViewController {
             .drive(onNext: { [unowned self] result in
                 switch result {
                 case .failed:
-                    self.showMessage("Logout failed")
+                    self.showMessage(R.string.localizable.id_logout_failed())
                 case .ok:
                     Distribution.shared.popToLoginScreen()
                 default:

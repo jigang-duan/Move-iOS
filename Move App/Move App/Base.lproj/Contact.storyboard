@@ -757,7 +757,7 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="For example: 110,999..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mv8-ta-BEO">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mv8-ta-BEO">
                                         <rect key="frame" x="110" y="52.5" width="265" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="fI6-OB-9Bg"/>
@@ -815,6 +815,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="noteLab" destination="5WZ-b5-PxP" id="nDU-eJ-ZWC"/>
                         <outlet property="numberLab" destination="FM1-2e-Cup" id="zTq-v8-Eh0"/>
                         <outlet property="numberTf" destination="mv8-ta-BEO" id="HmQ-YN-hNB"/>
                         <outlet property="photoLab" destination="hla-KL-E1v" id="bcE-5S-sXC"/>

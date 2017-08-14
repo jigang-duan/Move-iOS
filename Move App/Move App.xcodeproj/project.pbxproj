@@ -724,6 +724,8 @@
 		FFB543B01E7175DD00E11F5A /* MeSettingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeSettingController.swift; sourceTree = "<group>"; };
 		FFB811FD1E63E5590049D85C /* IputIMEIViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IputIMEIViewModel.swift; sourceTree = "<group>"; };
 		FFB811FE1E63E5590049D85C /* VerificationCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewModel.swift; sourceTree = "<group>"; };
+		FFCBC6021F419AF200BFF912 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = "Move App/ru.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FFCBC6031F419AF200BFF912 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FFD06D021EEFAF3B0073CD48 /* TranslucentNavBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TranslucentNavBarController.swift; path = Shared/App/Theme/TranslucentNavBarController.swift; sourceTree = "<group>"; };
 		FFE4B63E1EFA492900E48BB1 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = "Move App/cs.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FFE4B63F1EFA493300E48BB1 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = "Move App/hu.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -2455,6 +2457,7 @@
 				el,
 				tr,
 				"pt-BR",
+				ru,
 			);
 			mainGroup = E01DF6D91E3059A800EA003D;
 			productRefGroup = E01DF6E31E3059A800EA003D /* Products */;
@@ -3062,6 +3065,7 @@
 				FFE4B6411EFA494F00E48BB1 /* el */,
 				FFE4B6421EFA524100E48BB1 /* tr */,
 				FFA9D4F01F1EEB4200364281 /* pt-BR */,
+				FFCBC6021F419AF200BFF912 /* ru */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -3133,6 +3137,7 @@
 				FFE4B6601EFCAFE600E48BB1 /* el */,
 				FFE4B6611EFCAFE700E48BB1 /* tr */,
 				FFA9D4F11F1EEB4200364281 /* pt-BR */,
+				FFCBC6031F419AF200BFF912 /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

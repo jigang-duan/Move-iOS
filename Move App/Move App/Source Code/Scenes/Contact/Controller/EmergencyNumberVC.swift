@@ -21,6 +21,7 @@ class EmergencyNumberVC: UIViewController {
     @IBOutlet weak var numberTf: UITextField!
     @IBOutlet weak var validate: UILabel!
 
+    @IBOutlet weak var noteLab: UILabel!
     
     
     var viewModel: EmergencyNumberViewModel!
@@ -35,7 +36,7 @@ class EmergencyNumberVC: UIViewController {
         saveBun.title = R.string.localizable.id_save()
         photoLab.text = R.string.localizable.id_photo()
         numberLab.text = R.string.localizable.id_number()
-        numberTf.placeholder = R.string.localizable.id_emergency_number_tips()
+        noteLab.text = R.string.localizable.id_emergency_number_tips()
     }
     
     func showValidateError(_ text: String) {
