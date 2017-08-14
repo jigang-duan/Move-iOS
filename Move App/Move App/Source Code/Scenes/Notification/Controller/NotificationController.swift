@@ -236,7 +236,7 @@ extension NotificationController: DZNEmptyDataSetSource {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No notification here"
+        let text = R.string.localizable.id_no_notification_here()
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
                           NSForegroundColorAttributeName: UIColor.lightGray]
         return NSAttributedString(string: text, attributes: attributes)

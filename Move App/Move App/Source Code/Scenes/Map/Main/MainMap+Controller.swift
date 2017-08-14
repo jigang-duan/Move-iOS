@@ -108,6 +108,7 @@ class MainMapController: UIViewController {
         self.navigationController?.tabBarItem.title = R.string.localizable.id_button_menu_home()
         callOutlet.setTitle(R.string.localizable.id_location_call(), for: .normal)
         messageOutlet.setTitle(R.string.localizable.id_location_message(), for: .normal)
+        addDeviceOutle.setTitle(R.string.localizable.id_no_devices_bound(), for: .normal)
         
         trackingTitleOutlet.text = NSLocalizedString("Daily tracking mode will consume more power, tap to close.", comment: "")
         
