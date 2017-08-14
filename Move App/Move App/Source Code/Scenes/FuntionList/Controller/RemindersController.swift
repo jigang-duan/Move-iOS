@@ -266,7 +266,7 @@ extension RemindersController:UITableViewDelegate,UITableViewDataSource {
                 {
                     let alertController = UIAlertController(title: R.string.localizable.id_title_repeats_to(), message: "", preferredStyle: preferredStyle)
                     let cancelAction = UIAlertAction(title: R.string.localizable.id_cancel(), style: .cancel, handler: nil)
-                    let deletThis = UIAlertAction(title: R.string.localizable.id_delete_this_fence(), style: .destructive, handler: { (UIAlertAction) in
+                    let deletThis = UIAlertAction(title: R.string.localizable.id_delect_todolist(), style: .destructive, handler: { (UIAlertAction) in
                         var inde: Int?
                         for i in 0 ..< (self.todos?.count)!
                         {
