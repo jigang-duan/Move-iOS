@@ -123,7 +123,7 @@ extension MainMapController {
             .drive(offlineModeOutlet.rx.isHidden)
             .addDisposableTo(disposeBag)
         
-        netNoReachable.map{ $0 ? "Network disconnected. Check network." : R.string.localizable.id_location_offline() }
+        netNoReachable.map{ $0 ? R.string.localizable.id_location_no_network() : R.string.localizable.id_location_offline() }
             .drive(offlineTitleOutlet.rx.text)
             .addDisposableTo(disposeBag)
         
