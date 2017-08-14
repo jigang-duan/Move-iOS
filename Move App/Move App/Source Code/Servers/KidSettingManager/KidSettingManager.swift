@@ -16,10 +16,10 @@ protocol KidSettingsWorkerProtocl {
     func updateSchoolTime(id: String, _ schoolTime: KidSetting.SchoolTime) -> Observable<Bool>
     
     func updateAlarm(deviceId: String, old : KidSetting.Reminder.Alarm, new: KidSetting.Reminder.Alarm) -> Observable<Bool>
-    func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool>
+    func addAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool>
     
     func updateTodoList(deviceId: String, old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
-    func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>
+    func addTodo(deviceId: String, _ todo: KidSetting.Reminder.ToDo) -> Observable<Bool>
     
     func fetchreminder(id: String) -> Observable<KidSetting.Reminder>
     func updateReminder(id: String, _ reminder: KidSetting.Reminder) -> Observable<Bool>
@@ -57,11 +57,11 @@ class KidSettingsManager {
         return worker.updateAlarm(deviceId: deviceId, old: old, new: new)
     }
     
-    func creadAlarm(_ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
+    func addAlarm(_ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
-        return worker.creadAlarm(deviceId: deviceId, alarm)
+        return worker.addAlarm(deviceId: deviceId, alarm)
     }
     
     func updateTodoList(_ old : KidSetting.Reminder.ToDo, new: KidSetting.Reminder.ToDo) -> Observable<Bool>
@@ -72,12 +72,12 @@ class KidSettingsManager {
         return worker.updateTodoList(deviceId: deviceId, old: old, new: new)
     }
    
-    func creadTodoLis( _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>
+    func addTodo( _ todo: KidSetting.Reminder.ToDo) -> Observable<Bool>
     {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<Bool>.empty()
         }
-        return worker.creadTodoLis(deviceId: deviceId, todolist)
+        return worker.addTodo(deviceId: deviceId, todo)
     }
    
     func fetchreminder() -> Observable<KidSetting.Reminder>{

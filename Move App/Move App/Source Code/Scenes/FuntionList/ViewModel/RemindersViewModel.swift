@@ -12,20 +12,18 @@ import RxCocoa
 import RxOptional
 
 class RemindersViewModel {
-    // outputs {
-    
-    let reminderVariable: Variable<KidSetting.Reminder> = Variable(KidSetting.Reminder())
+
+    let reminderVariable = Variable(KidSetting.Reminder())
     
     let fetchReminder: Driver<KidSetting.Reminder>
     
     let activityIn: Driver<Bool>
     
-    // }
     
     init(
         input: (
         update: Driver<Void>,
-        delect: Driver<Void>,
+        delete: Driver<Void>,
         empty: Void
         ),
         dependency: (
@@ -40,11 +38,8 @@ class RemindersViewModel {
         let activitying = ActivityIndicator()
         self.activityIn = activitying.asDriver()
         
-//        let reminderInfomation = manager.fetchreminder()
-//            .trackActivity(activitying)
-//            .asDriver(onErrorRecover: { _ in Driver.empty() })
         
-        let delectReminder = input.delect
+        let deleteReminder = input.delete
             .withLatestFrom(reminderVariable.asDriver())
             .flatMapLatest({
                 manager.updateReminder($0)
@@ -63,7 +58,7 @@ class RemindersViewModel {
                     .asDriver(onErrorRecover: { _ in Driver.empty() })
             })
         
-        fetchReminder = Driver.of(updateReminder, delectReminder).merge()
+        fetchReminder = Driver.of(updateReminder, deleteReminder).merge()
      
 
 

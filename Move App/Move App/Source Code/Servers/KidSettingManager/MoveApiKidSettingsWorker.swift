@@ -79,7 +79,7 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
     }
 
     
-    func creadAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
+    func addAlarm(deviceId: String, _ alarm: KidSetting.Reminder.Alarm) -> Observable<Bool> {
         return MoveApi.Device
             .getSetting(deviceId: deviceId)
             .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
@@ -98,7 +98,7 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
     }
     
     
-    func creadTodoLis(deviceId: String, _ todolist: KidSetting.Reminder.ToDo) -> Observable<Bool>{
+    func addTodo(deviceId: String, _ todo: KidSetting.Reminder.ToDo) -> Observable<Bool>{
         return MoveApi.Device
             .getSetting(deviceId: deviceId)
             .flatMapLatest({ settings -> Observable<MoveApi.ApiError> in
@@ -109,7 +109,7 @@ class MoveApiKidSettingsWorker: KidSettingsWorkerProtocl {
                 if _setting.reminder?.todo == nil {
                     _setting.reminder?.todo = []
                 }
-                _setting.reminder?.todo?.append(self.unwrapping(todo: todolist))
+                _setting.reminder?.todo?.append(self.unwrapping(todo: todo))
                 return MoveApi.Device.setting(deviceId: deviceId, settingInfo: _setting)
             })
             .map(errorTransform)

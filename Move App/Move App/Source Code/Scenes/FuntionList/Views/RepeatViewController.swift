@@ -9,6 +9,26 @@
 import UIKit
 
 
+enum RepeatCount: Int{
+    case never  = 0
+    case day    = 1
+    case week   = 2
+    case month  = 3
+    
+    func description() -> String {
+        switch self {
+        case .never:
+            return R.string.localizable.id_never()
+        case .day:
+            return R.string.localizable.id_everyday()
+        case .week:
+            return R.string.localizable.id_everyweek()
+        case .month:
+            return R.string.localizable.id_everymonth()
+        }
+    }
+}
+
 
 class RepeatViewController: UITableViewController {
      //internationalization
@@ -23,8 +43,8 @@ class RepeatViewController: UITableViewController {
     @IBOutlet weak var everyweekcell: UITableViewCell!
     @IBOutlet weak var everymonthcell: UITableViewCell!
     
-    var repeatBlock: ((String) -> Void)?
-    var selectCell: String = ""
+    var repeatBlock: ((RepeatCount) -> Void)?
+    var selectedRepeat: RepeatCount?
     
     private func internationalization() {
         self.title = R.string.localizable.id_setting_my_clock_repeat()
@@ -40,24 +60,16 @@ class RepeatViewController: UITableViewController {
         
         self.internationalization()
         
-        switch selectCell {
-        case R.string.localizable.id_never():
+        switch selectedRepeat ?? .never {
+        case .never:
             nevercell?.accessoryType = .checkmark
-            break
-        case R.string.localizable.id_everyday():
+        case .day:
             everydaycell?.accessoryType = .checkmark
-            break
-        case R.string.localizable.id_everyweek():
+        case .week:
             everyweekcell?.accessoryType = .checkmark
-            break
-        case R.string.localizable.id_everymonth():
+        case .month:
             everymonthcell?.accessoryType = .checkmark
-            break
-        default:
-            break
         }
-        
-      self.tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
     }
 
 }
@@ -73,10 +85,12 @@ extension RepeatViewController {
         
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
-//        self.delegate?.selectedRepeat!((cell?.textLabel?.text)!)
-        self.repeatBlock!((cell?.textLabel?.text)!)
         
-      _ = self.navigationController?.popViewController(animated: true)
+        if repeatBlock != nil {
+            self.repeatBlock!(RepeatCount(rawValue: indexPath.row)!)
+        }
+        
+        _ = self.navigationController?.popViewController(animated: true)
         
     }
 

@@ -11,17 +11,16 @@ import RxCocoa
 import RxSwift
 
 class ToDoListController: UITableViewController {
-    //internationalization
-  
+    
     @IBOutlet weak var saveItemQutlet: UIBarButtonItem!
-
+    
     @IBOutlet weak var titleTextFieldQutle: UITextField!
     @IBOutlet weak var remarkTextFieldQutlet: UITextField!
     @IBOutlet weak var beginLabel: UILabel!
     @IBOutlet weak var endLabel: UILabel!
     @IBOutlet weak var repeatLabel: UILabel!
     
-
+    
     @IBOutlet weak var repeatStateQutlet: UILabel!
     
     
@@ -36,14 +35,13 @@ class ToDoListController: UITableViewController {
     var beginTimeVariable = Variable(DateUtility.today18())
     var endTimeVariabel = Variable(DateUtility.today18half())
     
-    var todo: NSDictionary?
-    var todos: [NSDictionary?] = []
-    var isSame : Bool?
-    var isOldTodo: Bool?
+    var todo: KidSetting.Reminder.ToDo?
+    
+    var isForAdd = false
     
     var disposeBag = DisposeBag()
     
-    var repeatStateVariable = Variable("Never")
+    var repeatStateVariable = Variable(RepeatCount.never)
     
     //国际化
     private func internationalization()  {
@@ -62,22 +60,28 @@ class ToDoListController: UITableViewController {
         super.viewDidLoad()
         
         internationalization()
-        self.isOldTodo = false
-       
+        
         tableView.contentInset = UIEdgeInsetsMake(-32, 0, 0, 0)
         
-        if todo != nil{
-            titleTextFieldQutle.text = todo?["topic"] as? String
-            remarkTextFieldQutlet.text = todo?["content"] as? String
+        if isForAdd == false {
+            titleTextFieldQutle.text = todo?.topic
+            remarkTextFieldQutlet.text = todo?.content
             
-            beginTimeVariable.value = (todo?["start"] as? Date)!
-            endTimeVariabel.value = (todo?["end"] as? Date)!
-         
-            repeatStateVariable.value = repeatcountInt(Intt: (todo?["repeat"] as? Int)!)
-            self.isOldTodo = true
+            if let start = todo?.start {
+                beginTimeVariable.value = start
+            }
+            if let end = todo?.end {
+                endTimeVariabel.value = end
+            }
+            
+            repeatStateVariable.value = RepeatCount(rawValue: (todo?.repeatCount ?? 0))!
         }
         
-        repeatStateVariable.asDriver().drive(repeatStateQutlet.rx.text).addDisposableTo(disposeBag)
+        repeatStateVariable.asDriver()
+            .drive(onNext: {[weak self] rc in
+                self?.repeatStateQutlet.text = rc.description()
+            })
+            .addDisposableTo(disposeBag)
         
         beginTimeVariable.asDriver()
             .drive(onNext: {[weak self] date in
@@ -97,7 +101,7 @@ class ToDoListController: UITableViewController {
                 self?.endTime = date
             })
             .addDisposableTo(disposeBag)
-
+        
         self.endTimeQutle.rx.tap
             .asDriver()
             .drive(onNext: {[weak self] in
@@ -125,15 +129,14 @@ class ToDoListController: UITableViewController {
         
         
     }
-   
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.toDoListController.showRepeatTime(segue: segue)?.destination {
             vc.repeatBlock = { [weak self] repea in
                 self?.repeatStateVariable.value = repea
             }
-            vc.selectCell = repeatStateQutlet.text ?? R.string.localizable.id_never()
-
+            vc.selectedRepeat = repeatStateVariable.value
         }
     }
     
@@ -155,59 +158,47 @@ extension ToDoListController {
     
     //保存
     fileprivate func saveAction() {
-        
-        self.saveItemQutlet.isEnabled = false
-        
         if self.beginTime == self.endTime{
             self.alertSeting(message: R.string.localizable.id_begin_time_same_end(), preferredStyle: .alert)
             
-        } else if (self.beginTime) < Date()
-        {
+        } else if (self.beginTime) < Date(){
             self.alertSeting(message: R.string.localizable.id_begin_time_later_system(), preferredStyle: .alert)
             
         }else if ((self.titleTextFieldQutle.text?.characters.count)! > 20 || ((self.remarkTextFieldQutlet.text?.characters.count)! > 50)) {
-            
             self.alertSeting(message: R.string.localizable.id_reminder_remarks_characters() + " or " + R.string.localizable.id_reminder_title_characters(), preferredStyle: .alert)
             
         }else if self.titleTextFieldQutle.text == "" {
-            
             self.alertSeting(message: R.string.localizable.id_title_can_not_null(), preferredStyle: .alert)
             self.saveItemQutlet.isEnabled = true
             
         }else if (self.beginTime) > (self.endTime) {
-            
             self.alertSeting(message: R.string.localizable.id_end_less_than_start_time(), preferredStyle: .alert)
             self.saveItemQutlet.isEnabled = true
             
+        }else{
+            self.saveItemQutlet.isEnabled = false
             
-        }else
-        {
-            
-            let _  = isOldTodo! ? KidSettingsManager.shared.updateTodoList(KidSetting.Reminder.ToDo(topic: todo?["topic"] as? String, content: todo?["content"] as? String, start: (todo?["start"] as? Date)!, end: (todo?["end"] as? Date)!, repeatCount: repeatcount(name: repeatcountInt(Intt: (todo?["repeat"] as? Int)!))), new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
-            { [weak self] in
-                print($0)
-                if $0 {
-                    let _ = self?.navigationController?.popViewController(animated: true)
-                }else{
-                    print("网络错误重新")
-                    self?.saveItemQutlet.isEnabled = true
-                }
-            }).addDisposableTo(self.disposeBag)
-                
-                
-                :
-                KidSettingsManager.shared.creadTodoLis(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount: repeatcount(name: self.repeatStateVariable.value))).subscribe(onNext:
-                    { [weak self] in
-                        print($0)
+            if isForAdd == true {
+                KidSettingsManager.shared.addTodo(KidSetting.Reminder.ToDo(topic: self.titleTextFieldQutle.text ?? "", content: self.remarkTextFieldQutlet.text ?? "", start: beginTime, end: endTime, repeatCount:  self.repeatStateVariable.value.rawValue))
+                    .subscribe(onNext:{ [weak self] in
                         if $0 {
                             let _ = self?.navigationController?.popViewController(animated: true)
                         }else{
-                            print("网络错误重新")
                             self?.saveItemQutlet.isEnabled = true
                         }
-                }).addDisposableTo(self.disposeBag)
-            
-            
+                    })
+                    .addDisposableTo(self.disposeBag)
+            }else{
+                KidSettingsManager.shared.updateTodoList(todo!, new: KidSetting.Reminder.ToDo(topic: titleTextFieldQutle.text, content: remarkTextFieldQutlet.text, start: beginTimeVariable.value, end: endTimeVariabel.value, repeatCount: self.repeatStateVariable.value.rawValue))
+                    .subscribe(onNext:{ [weak self] in
+                        if $0 {
+                            let _ = self?.navigationController?.popViewController(animated: true)
+                        }else{
+                            self?.saveItemQutlet.isEnabled = true
+                        }
+                    })
+                    .addDisposableTo(self.disposeBag)
+            }
         }
         
     }
@@ -215,17 +206,14 @@ extension ToDoListController {
 
 extension ToDoListController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      if textField == titleTextFieldQutle
-      {
-        remarkTextFieldQutlet.becomeFirstResponder()
-        }else
-      {
-        view.endEditing(true)
-        
+        if textField == titleTextFieldQutle
+        {
+            remarkTextFieldQutlet.becomeFirstResponder()
+        }else{
+            view.endEditing(true)
         }
         
-        
-         return true
+        return true
     }
 }
 
@@ -241,9 +229,8 @@ extension ToDoListController {
         self.DatePickerView.isHidden = false
         if (UIScreen.main.bounds.height-64) < self.tableView.contentSize.height{
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)
-        }else
-        {
-           self.DatePickerView.frame.origin.y = 400
+        }else{
+            self.DatePickerView.frame.origin.y = 400
             print(DatePickerView.frame.origin.y)
         }
         view.endEditing(true)
@@ -260,8 +247,7 @@ extension ToDoListController {
         self.DatePickerView.isHidden = false
         if (UIScreen.main.bounds.height-64) < self.tableView.contentSize.height{
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height), animated: true)}
-        else
-        {
+        else{
             self.DatePickerView.frame.origin.y = 400
         }
         
@@ -284,7 +270,7 @@ extension ToDoListController {
         if beginTimeQutle.isSelected {
             beginTimeQutle.isSelected = false
             beginTimeVariable.value = datePicker.date
-            if DateUtility.getDay(date: beginTimeVariable.value as NSDate) != DateUtility.getDay(date: endTimeVariabel.value as NSDate){
+            if DateUtility.getDay(date: beginTimeVariable.value) != DateUtility.getDay(date: endTimeVariabel.value){
                 endTimeVariabel.value = beginTimeVariable.value
             }
             
@@ -297,24 +283,7 @@ extension ToDoListController {
         
         DatePickerView.isHidden = true
     }
-
-
-}
-
-//repeat转换
-extension ToDoListController {
     
-   fileprivate func repeatcount(name: String) -> Int {
-        
-        return [R.string.localizable.id_never():0, R.string.localizable.id_week_everyday():1, R.string.localizable.id_everyweek() : 2, R.string.localizable.id_everymonth():3][name] ?? 0
-        
-    }
-   fileprivate func repeatcountInt(Intt: Int) -> String {
-        
-        let InttString = String(Intt)
-        return ["0": R.string.localizable.id_never(),"1": R.string.localizable.id_week_everyday(),"2": R.string.localizable.id_everyweek(),"3": R.string.localizable.id_everymonth() ][InttString]!
-    }
-
     
 }
 
@@ -335,7 +304,7 @@ extension ToDoListController {
         let dateStr = dformatter.string(from: date)
         return dateStr
     }
-
+    
     
     
     fileprivate var beginTime: Date {
@@ -356,9 +325,9 @@ extension ToDoListController {
             endTimeQutle.setTitle(DateString(form: newValue), for: .normal)
         }
     }
-
     
-
+    
+    
 }
 
 

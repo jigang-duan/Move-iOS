@@ -17,7 +17,7 @@ class SafeZoneAddressSearchVC: UIViewController {
     
     var delegate : SearchVCdelegate? = nil
     
-    @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var cancelBun: UIButton!
     @IBOutlet weak var addressTableView: UITableView!
 
     @IBOutlet weak var searchTextField: UITextField!
@@ -40,15 +40,14 @@ class SafeZoneAddressSearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addressTableView.contentInset = UIEdgeInsetsMake(-33, 0, 0, 0)
-        backButton()
-//
+   
         self.title = R.string.localizable.id_search_position()
         searchTextField.placeholder = R.string.localizable.id_address_is_empty()
+        cancelBun.setTitle(R.string.localizable.id_cancel(), for: .normal)
+        
         searchTextField.addTarget(self, action: #selector(textDidChange), for: UIControlEvents.editingChanged)
         self.addressTableView.delegate = self
         resultArr = NSMutableArray()
-        // Do any additional setup after loading the view.
     }
     
     func textDidChange() {
@@ -76,11 +75,9 @@ class SafeZoneAddressSearchVC: UIViewController {
         })
     }
     
-    func back(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    func backButton() {
-        backBtn.addTarget(self, action: #selector(SafeZoneAddressSearchVC.back), for: .touchUpInside)
+    
+    @IBAction func cancelClick(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
   
 }
@@ -108,20 +105,12 @@ extension SafeZoneAddressSearchVC:UITableViewDelegate,UITableViewDataSource {
         let item : MKMapItem = resultArr?.object(at: indexPath.row) as! MKMapItem
         cell?.textLabel?.text = item.placemark.name
         
-        var address : String? = ""
-        if (item.placemark.country != nil) {
-            address?.append(item.placemark.country!)
-        }
-        if (item.placemark.locality != nil) {
-            address?.append(item.placemark.locality!)
-        }
-        if (item.placemark.subLocality != nil) {
-            address?.append(item.placemark.subLocality!)
-        }
-        if (item.placemark.thoroughfare != nil) {
-            address?.append(item.placemark.thoroughfare!)
-        }
-        cell?.detailTextLabel?.text = address
+        let country = item.placemark.country ?? ""
+        let locality = item.placemark.locality ?? ""
+        let subLocality = item.placemark.subLocality ?? ""
+        let thoroughfare = item.placemark.thoroughfare ?? ""
+        
+        cell?.detailTextLabel?.text = country + locality + subLocality + thoroughfare
         return cell!
     }
     

@@ -49,6 +49,7 @@ class ScanCodeController: UIViewController {
     var qrCodeFrameView = UIView()
     
     private func initializeI18N() {
+        self.title = R.string.localizable.id_qr_code()
         titleLab.text = R.string.localizable.id_qr_code()
         albumBun.setTitle(R.string.localizable.id_title_album(), for: .normal)
         tipLab.text = R.string.localizable.id_scan_hint()

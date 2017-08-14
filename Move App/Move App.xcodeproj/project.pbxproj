@@ -254,7 +254,6 @@
 		E9735EC41E69432000C0B944 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBD1E69432000C0B944 /* RemindersController.swift */; };
 		E9735EC51E69432000C0B944 /* SafeZoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBE1E69432000C0B944 /* SafeZoneController.swift */; };
 		E9735EC61E69432000C0B944 /* SchoolTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */; };
-		E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735EC91E69434300C0B944 /* AlarmViewModel.swift */; };
 		E9735ECE1E69434300C0B944 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */; };
 		E9735ECF1E69434300C0B944 /* RegularshutdownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */; };
 		E9735ED01E69434300C0B944 /* SchoolTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */; };
@@ -653,7 +652,6 @@
 		E9735EBD1E69432000C0B944 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
 		E9735EBE1E69432000C0B944 /* SafeZoneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeZoneController.swift; sourceTree = "<group>"; };
 		E9735EBF1E69432000C0B944 /* SchoolTimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeController.swift; sourceTree = "<group>"; };
-		E9735EC91E69434300C0B944 /* AlarmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
 		E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
 		E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularshutdownViewModel.swift; sourceTree = "<group>"; };
 		E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTimeViewModel.swift; sourceTree = "<group>"; };
@@ -2157,7 +2155,6 @@
 		E9735EC81E69434300C0B944 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				E9735EC91E69434300C0B944 /* AlarmViewModel.swift */,
 				E9735ECA1E69434300C0B944 /* LanguageViewModel.swift */,
 				E9735ECB1E69434300C0B944 /* RegularshutdownViewModel.swift */,
 				E9735ECC1E69434300C0B944 /* SchoolTimeViewModel.swift */,
@@ -2850,7 +2847,6 @@
 				117577DA1E8B8D59007B2254 /* Rx+UIButton.swift in Sources */,
 				D2D661251E4F139900E46F41 /* UpdatePwdController.swift in Sources */,
 				1140A0821EA4B8E200185200 /* MoreView.swift in Sources */,
-				E9735ECD1E69434300C0B944 /* AlarmViewModel.swift in Sources */,
 				114D6EE21F2B0B7F000D0817 /* DataCache.swift in Sources */,
 				E0C229111E35E65900BCF83D /* Example.swift in Sources */,
 				116B90A31F14B41D00336E3B /* SOSController.swift in Sources */,

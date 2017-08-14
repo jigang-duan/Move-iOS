@@ -43,14 +43,14 @@ class ToDoListViewModel {
         
         
         
-        let newtodolist = Driver.combineLatest(input.topic,input.content,input.startime,input.endtime,input.repeatcount) {
+        let newTodo = Driver.combineLatest(input.topic,input.content,input.startime,input.endtime,input.repeatcount) {
             KidSetting.Reminder.ToDo(topic: $0, content: $1, start: $2, end: $3, repeatCount: $4)
             
         }
-        self.saveFinish = input.save.withLatestFrom(newtodolist).asObservable()
-            .flatMapLatest({ todolist -> Observable<Bool> in
+        self.saveFinish = input.save.withLatestFrom(newTodo).asObservable()
+            .flatMapLatest({ todo -> Observable<Bool> in
                 return
-                    manager.creadTodoLis( todolist).trackActivity(activitying)
+                    manager.addTodo(todo).trackActivity(activitying)
             })
             .asDriver(onErrorJustReturn: false)
 

@@ -963,17 +963,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can 't pair with Watch?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mr-GJ-WAd">
-                                <rect key="frame" x="97" y="616" width="149" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="dnK-Qj-o0q"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can 't pair with Watch?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mr-GJ-WAd">
+                                <rect key="frame" x="97" y="620" width="149" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-NY-CaF">
-                                <rect key="frame" x="248" y="614" width="32" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-NY-CaF">
+                                <rect key="frame" x="248" y="616" width="32" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="EAy-o4-Bfi"/>
                                 </constraints>
@@ -987,6 +984,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rEP-NY-CaF" secondAttribute="trailing" constant="10" id="1JX-1H-tNi"/>
                             <constraint firstItem="evq-pB-sEQ" firstAttribute="top" secondItem="n75-Sz-36j" secondAttribute="bottom" constant="20" id="2Es-gV-6oh"/>
                             <constraint firstAttribute="trailing" secondItem="59S-vP-hfg" secondAttribute="trailing" constant="45" id="3N0-jQ-L3U"/>
                             <constraint firstItem="dRU-Un-dRe" firstAttribute="top" secondItem="59S-vP-hfg" secondAttribute="bottom" constant="8" id="3a2-S2-bg9"/>
@@ -997,6 +995,7 @@
                             <constraint firstItem="UFl-j8-7TJ" firstAttribute="top" secondItem="1mr-GJ-WAd" secondAttribute="bottom" constant="30" id="Jwv-Wg-GXM"/>
                             <constraint firstItem="1mr-GJ-WAd" firstAttribute="centerX" secondItem="GR2-RM-Mei" secondAttribute="centerX" constant="-16" id="Kjp-6y-KsG"/>
                             <constraint firstItem="dRU-Un-dRe" firstAttribute="trailing" secondItem="59S-vP-hfg" secondAttribute="trailing" id="L0U-bM-T1C"/>
+                            <constraint firstItem="1mr-GJ-WAd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OoE-sQ-T7L" secondAttribute="leading" constant="10" id="LRn-pM-SSx"/>
                             <constraint firstItem="n75-Sz-36j" firstAttribute="top" secondItem="OoE-sQ-T7L" secondAttribute="top" id="MAm-zQ-gfg"/>
                             <constraint firstItem="GR2-RM-Mei" firstAttribute="leading" secondItem="OoE-sQ-T7L" secondAttribute="leading" id="N75-bY-0Qd"/>
                             <constraint firstItem="rEP-NY-CaF" firstAttribute="leading" secondItem="1mr-GJ-WAd" secondAttribute="trailing" constant="2" id="RuZ-r2-Qdv"/>

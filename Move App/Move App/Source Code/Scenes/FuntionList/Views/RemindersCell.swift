@@ -11,28 +11,24 @@ import CustomViews
 import RxSwift
 
 protocol RemindersCellDelegate {
-    func switchDid(cell: RemindersCell, model: NSDictionary)
+    func switchDid(cell: RemindersCell, model: KidSetting.Reminder.Alarm)
 }
 
-
 class RemindersCell: UITableViewCell {
-    
     var delegate: RemindersCellDelegate?
-    
-   
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailtitleLabel: UILabel!
     @IBOutlet weak var accviewBtn: SwitchButton!
     var disposeBag = DisposeBag()
     
-    var model: NSDictionary? = nil {
+    var model: KidSetting.Reminder.Alarm? {
         didSet  {
-            titleLabel.text = DateUtility.dateTostringHHmm(date: model?["alarms"] as? Date)
-            detailtitleLabel.text = timeToType(weeks: model?["dayFromWeek"] as! [Bool])
+            titleLabel.text = DateUtility.dateTostringHHmm(date: model?.alarmAt)
+            detailtitleLabel.text = timeToType(repeatDays: (model?.day ?? [false,false,false,false,false,false,false])!)
             accviewBtn.isHidden = false
-            accviewBtn.isOn = model?["active"] as! Bool
+            accviewBtn.isOn = model?.active ?? false
         }
-    
     }
     
     override func awakeFromNib() {
@@ -40,56 +36,47 @@ class RemindersCell: UITableViewCell {
         
         accviewBtn.closureSwitch = { [unowned self] isOn in
             if let model = self.model {
+                self.delegate?.switchDid(cell: self, model: model)
                 
-                //把vomdel 的所有信息导，和isOn
-                let vmodel = model
-                print(isOn)
-                print(vmodel)
-                self.delegate?.switchDid(cell: self, model: vmodel)
-                let _ = KidSettingsManager.shared.updateAlarm(KidSetting.Reminder.Alarm(alarmAt: (vmodel["alarms"] as? Date ?? nil)!, day: (vmodel["dayFromWeek"] as? [Bool])!, active: vmodel["active"] as? Bool), new: KidSetting.Reminder.Alarm(alarmAt: (vmodel["alarms"] as? Date ?? nil)!, day: (vmodel["dayFromWeek"] as? [Bool])!, active: isOn))
-                    .subscribe(onNext:
-                        {
-                            print($0)
-                            if $0 {
-                                
-                            }else{
-                                
-                            }
-                    }).addDisposableTo(self.disposeBag)
+                 _ = KidSettingsManager.shared.updateAlarm(model, new: KidSetting.Reminder.Alarm(alarmAt:model.alarmAt, day: model.day, active: isOn))
+                    .subscribe(onNext:{ _ in
+                        
+                    })
+                    .addDisposableTo(self.disposeBag)
             }
         }
     }
 
-    func timeToType(weeks : [Bool]) -> String {
-        // 7 tian , every day ,schooltime
-        let week : [String] = [R.string.localizable.id_week_sunday(),R.string.localizable.id_week_monday(),R.string.localizable.id_week_tuesday(),R.string.localizable.id_week_wednesday(),R.string.localizable.id_week_thurday(),R.string.localizable.id_week_friday(),R.string.localizable.id_week_saturday(),R.string.localizable.id_week_everyday(),R.string.localizable.id_week_school_day()]
-        var s : String = ""
-        var weekss = weeks
-//        weekss.insert(weeks.last!, at: 0)
-        for index in 0 ... 6{
-            if weekss[index]{
-                s += week[index]
-                s += " "
+    func timeToType(repeatDays : [Bool]) -> String {
+        let week : [String] = [R.string.localizable.id_week_sunday(),
+                               R.string.localizable.id_week_monday(),
+                               R.string.localizable.id_week_tuesday(),
+                               R.string.localizable.id_week_wednesday(),
+                               R.string.localizable.id_week_thurday(),
+                               R.string.localizable.id_week_friday(),
+                               R.string.localizable.id_week_saturday()
+                              ]
+        
+        if repeatDays.contains(false) == false {
+            return R.string.localizable.id_week_everyday()
+        }
+        
+        if repeatDays == [false,true,true,true,true,true,false] {
+            return R.string.localizable.id_week_school_day()
+        }
+        
+        if repeatDays == [true,false,false,false,false,false,true] {
+            return R.string.localizable.id_week_weekend()
+        }
+        
+        var s = ""
+        for index in 0..<repeatDays.count {
+            if repeatDays[index] == true {
+                s += week[index] + " "
             }
         }
-        if s == R.string.localizable.id_week_monday()+" "+R.string.localizable.id_week_tuesday()+" "+R.string.localizable.id_week_wednesday()+" "+R.string.localizable.id_week_thurday()+" "+R.string.localizable.id_week_friday()+" "
-        {
-            s = R.string.localizable.id_week_school_day()
-        }
-       else if s == R.string.localizable.id_week_sunday()+" "+R.string.localizable.id_week_monday()+" "+R.string.localizable.id_week_tuesday()+" "+R.string.localizable.id_week_wednesday()+" "+R.string.localizable.id_week_thurday()+" "+R.string.localizable.id_week_friday()+" "+R.string.localizable.id_week_saturday()+" "
-            
-        {
-            s = R.string.localizable.id_week_everyday()
-        }
-       else if s == R.string.localizable.id_week_sunday()+" "+R.string.localizable.id_week_saturday()+" "
-        {
-            s = R.string.localizable.id_week_weekend()
-        }
-       else if s == ""
-        {
-            s = R.string.localizable.id_week_no_repeat()
-        }
-        return s
+        
+        return s == "" ? R.string.localizable.id_week_no_repeat():s
     }
 
     
