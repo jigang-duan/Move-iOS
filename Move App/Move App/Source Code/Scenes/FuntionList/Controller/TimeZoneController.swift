@@ -72,7 +72,7 @@ class TimeZoneController: UITableViewController {
             self?.enableView($0)
         }).addDisposableTo(disposeBag)
         
-        selectedTimeZone.asDriver()
+        selectedTimeZone.asDriver().filterEmpty().debug()
             .map({ " \($0)" })
             .drive(timezoneCityQutlet.rx.text)
             .addDisposableTo(disposeBag)
@@ -98,7 +98,7 @@ class TimeZoneController: UITableViewController {
 
         viewModel.hourformEnable.drive(hourFormatQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.autotimeEnable.drive(autoGetTimeQutlet.rx.on).addDisposableTo(disposeBag)
-        viewModel.timezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
+//        viewModel.timezoneDate.drive(selectedTimeZone).addDisposableTo(disposeBag)
         viewModel.summertimeEnable.drive(summerTimeQutlet.rx.on).addDisposableTo(disposeBag)
         viewModel.autotimeEnable.drive(onNext: {[weak self] bool in
             self?.enableView(bool)
@@ -110,7 +110,7 @@ class TimeZoneController: UITableViewController {
             })
             .addDisposableTo(disposeBag)
 
-
+        viewModel.timezoneDate.map({ " \($0)" }).debug().drive(timezoneCityQutlet.rx.text).addDisposableTo(disposeBag)
     }
     
     func userInteractionEnabled(_ enable: Bool) {
