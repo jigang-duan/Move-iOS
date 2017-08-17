@@ -49,7 +49,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="MVn-kv-pro">
                         <nil key="title"/>
-                        <barButtonItem key="backBarButtonItem" title=" " id="lsm-kx-d2O"/>
+                        <barButtonItem key="leftBarButtonItem" image="backArrow1" id="Pwf-YM-Cy0"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="r2l-Zi-dyA">
                             <rect key="frame" x="88.5" y="7" width="198" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -79,6 +79,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backOutlet" destination="Pwf-YM-Cy0" id="uBu-cO-ngr"/>
                         <outlet property="chatIconBtn" destination="4kq-5c-ahc" id="ByH-aG-JSL"/>
                         <outlet property="familyChatView" destination="49I-oy-LSF" id="Fkw-03-SGq"/>
                         <outlet property="page0LeadConstraint" destination="MNm-eG-3sn" id="QKD-yf-N1r"/>

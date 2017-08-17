@@ -22,6 +22,7 @@ class ChatViewController: UIViewController {
     var isFamilyChat = true
     let selectedSubject = PublishSubject<Bool>()
     let hasUnReadSubject = PublishSubject<Bool>()
+    let cancelEditingSubject = PublishSubject<Void>()
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ifView: UUInputView!
@@ -34,6 +35,7 @@ class ChatViewController: UIViewController {
     let deleteMessageSubject = PublishSubject<Int>()
     
     let enterSubject = PublishSubject<Bool>()
+    let isMoreEditingSubject = PublishSubject<Bool>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -244,6 +246,10 @@ class ChatViewController: UIViewController {
             }
             .addDisposableTo(bag)
         
+        cancelEditingSubject.asObservable()
+            .bindNext { [weak self] in self?.isMoreEditing = false }
+            .addDisposableTo(bag)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -303,12 +309,8 @@ extension ChatViewController: MoreViewDelegate {
     }
    
     func complete(moreView: MoreView) {
-        if tableView.isEditing {
-            tableView.allowsMultipleSelectionDuringEditing = false
-            tableView.isEditing = false
-            moreView.isHidden = true
-            ifView.isHidden = false
-        }
+        isMoreEditing = false
+        isMoreEditingSubject.onNext(false)
     }
 }
 
@@ -328,11 +330,23 @@ extension ChatViewController: UUMessageCellMenuDelegate {
     }
     
     private func more() {
-        if !tableView.isEditing {
-            tableView.allowsMultipleSelectionDuringEditing = true
-            tableView.isEditing = true
-            moreView.isHidden = false
-            ifView.isHidden = true
+        isMoreEditing = true
+        isMoreEditingSubject.onNext(true)
+    }
+}
+
+extension ChatViewController {
+    
+    var isMoreEditing: Bool {
+        get {
+            return tableView.isEditing
+        }
+        set {
+            guard tableView.isEditing != newValue else { return }
+            tableView.allowsMultipleSelectionDuringEditing = newValue
+            tableView.isEditing = newValue
+            moreView.isHidden = !newValue
+            ifView.isHidden = newValue
         }
     }
 }

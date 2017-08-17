@@ -16,6 +16,7 @@ class ChatController: UIViewController {
     @IBOutlet weak var familyChatView: UIView!
     @IBOutlet weak var singleChatView: UIView!
     @IBOutlet weak var page0LeadConstraint: NSLayoutConstraint!
+    @IBOutlet weak var backOutlet: UIBarButtonItem!
     
     var disposeBag = DisposeBag()
     
@@ -24,6 +25,7 @@ class ChatController: UIViewController {
     @IBOutlet weak var chatIconBtn: UIButton!
     
     var selectedIndexVariable = Variable(0)
+    var isMoreEditingVariable = Variable(false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +75,27 @@ class ChatController: UIViewController {
                 self?.performSegue(withIdentifier: R.segue.chatController.showFamilyMembers, sender: nil)
             })
             .addDisposableTo(disposeBag)
+        
+        let tap = backOutlet.rx.tap.asObservable()
+            .withLatestFrom(isMoreEditingVariable.asObservable())
+            .shareReplay(1)
+        
+        tap.map{ !$0 }.bindTo(isMoreEditingVariable).addDisposableTo(disposeBag)
+        
+        tap.filter{ !$0 }.mapVoid()
+            .bindNext { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .addDisposableTo(disposeBag)
+        
+        isMoreEditingVariable.asObservable()
+            .bindTo(backOutlet.rx.isMoreEditing)
+            .addDisposableTo(disposeBag)
+        
+        selectedIndexVariable.asObservable()
+            .map{ _ in false }
+            .bindTo(isMoreEditingVariable)
+            .addDisposableTo(disposeBag)
     }
  
     override func didReceiveMemoryWarning() {
@@ -92,11 +115,15 @@ extension ChatController {
             familyChat.isFamilyChat = true
             selectedIndexVariable.asObservable().map{ $0 == 0 }.bindTo(familyChat.selectedSubject).addDisposableTo(disposeBag)
             familyChat.hasUnReadSubject.asObservable().map{!$0}.bindTo(segmentedOutlet.rx.isLeftBadgeHidden).addDisposableTo(disposeBag)
+            familyChat.isMoreEditingSubject.asObservable().bindTo(isMoreEditingVariable).addDisposableTo(disposeBag)
+            isMoreEditingVariable.asObservable().filter{ !$0 }.mapVoid().bindTo(familyChat.cancelEditingSubject).addDisposableTo(disposeBag)
         }
         if let singleChat = R.segue.chatController.showSingleChat(segue: segue)?.destination {
             singleChat.isFamilyChat = false
             selectedIndexVariable.asObservable().map{ $0 == 1 }.bindTo(singleChat.selectedSubject).addDisposableTo(disposeBag)
             singleChat.hasUnReadSubject.asObservable().map{!$0}.bindTo(segmentedOutlet.rx.isRightBadgeHidden).addDisposableTo(disposeBag)
+            singleChat.isMoreEditingSubject.asObservable().bindTo(isMoreEditingVariable).addDisposableTo(disposeBag)
+            isMoreEditingVariable.asObservable().filter{ !$0 }.mapVoid().bindTo(singleChat.cancelEditingSubject).addDisposableTo(disposeBag)
         }
     }
     
@@ -122,3 +149,13 @@ fileprivate extension Reactive where Base: UIButton {
     
 }
 
+fileprivate extension Reactive where Base: UIBarButtonItem {
+    
+    var isMoreEditing: UIBindingObserver<Base, Bool> {
+        return UIBindingObserver(UIElement: self.base) { item, isEditing in
+            item.image = isEditing ? nil : R.image.backArrow1()
+            item.title = isEditing ? R.string.localizable.id_cancel() : nil
+        }
+    }
+    
+}
