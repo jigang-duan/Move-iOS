@@ -69,6 +69,17 @@ class APNSettingVC: UITableViewController {
     }
     
     
+    func canEditApn(flag: Bool) {
+        plmnTf.isEnabled = flag
+        apnTf.isEnabled = flag
+        spnTf.isEnabled = flag
+        userTf.isEnabled = flag
+        passwordTf.isEnabled = flag
+        proxyAddTf.isEnabled = flag
+        proxyPortTf.isEnabled = flag
+        authSegment.isEnabled = flag
+    }
+    
     
     @IBAction func sendAPNSettings(_ sender: UIBarButtonItem) {
         
@@ -81,6 +92,8 @@ class APNSettingVC: UITableViewController {
             proxyAddTf.text = ""
             proxyPortTf.text = ""
             authSegment.selectedSegmentIndex = 0
+            
+            self.canEditApn(flag: true)
             
             sender.title = R.string.localizable.id_save()
             
@@ -100,6 +113,8 @@ class APNSettingVC: UITableViewController {
         let data = str?.data(using: String.Encoding.utf8)
         
         if let d = data {
+            self.canEditApn(flag: false)
+            
             self.view.endEditing(true)
             
             activity.startAnimating()
@@ -156,6 +171,7 @@ class APNSettingVC: UITableViewController {
                     self.activity.stopAnimating()
                     self.saveBun.isEnabled = true
                     self.saveBun.tintColor?.withAlphaComponent(1)
+                    self.canEditApn(flag: true)
                 case .sendDone:
                     print("APN 数据发送完成")
                 case .error:
@@ -163,6 +179,7 @@ class APNSettingVC: UITableViewController {
                     self.activity.stopAnimating()
                     self.saveBun.isEnabled = true
                     self.saveBun.tintColor?.withAlphaComponent(1)
+                    self.canEditApn(flag: true)
                 case .sending:
                     print("APN 发送数据中...")
                 case .disconnect:
