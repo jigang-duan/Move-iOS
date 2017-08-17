@@ -31,6 +31,8 @@ class SchoolTimeController: UIViewController {
     @IBOutlet weak var pmStartTimeOutlet: UIButton!
     @IBOutlet weak var pmEndTimeOutlet: UIButton!
     
+    @IBOutlet weak var amLab: UILabel!
+    @IBOutlet weak var pmLab: UILabel!
     
     @IBOutlet weak var weekOutlet: WeekView!
     
@@ -53,6 +55,9 @@ class SchoolTimeController: UIViewController {
         helpBtnQutlet.setTitle(R.string.localizable.id_help(), for: .normal)
        
         NullQutlet.setTitle(R.string.localizable.id_is_null(), for: .normal)
+        
+        amLab.text = R.string.localizable.id_time_am()
+        pmLab.text = R.string.localizable.id_time_pm()
     }
 
     

@@ -58,6 +58,10 @@ class PwdRecoveryController: TranslucentNavBarController {
         
         emailValidation.isHidden = true
         
+        if let email = UserDefaults.standard.value(forKey: lastLoginAccount) as? String {
+            emailTf.text = email
+        }
+        
         viewModel = PwdRecoveryViewModel(
             input:(
                 email: emailTf.rx.text.orEmpty.asDriver(),

@@ -12,7 +12,7 @@ import SafariServices
 fileprivate let TermsConditionsURLString = "http://www.tcl-move.com/help/#/mt30_terms_and_conditions/"
 fileprivate let PrivacyPolicyURLString = "http://www.tcl-move.com/help/#/mt30_privacy_policy/"
 fileprivate let UserManualURLString = "http://www.tcl-move.com/help/url.html#/mt30/um/generic/"
-fileprivate let FaqURLString = "http://www.tcl-move.com/help/#/mt30/faqs/en"
+fileprivate let FaqURLString = "http://www.tcl-move.com/help/#/mt30/faqs/"
 
 class HelpController: UITableViewController {
 
