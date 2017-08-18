@@ -27,6 +27,7 @@ protocol WatchSettingWorkerProtocl {
     func fetchoAutopoweronoff(id: String) -> Observable<Bool>
     func updateTime(id: String, bootTime: Date, shuntTime: Date,Autopoweronoff: Bool) -> Observable<Bool>
     
+    
     func fetchUsePermission(id: String) -> Observable<[Bool]>
     func upUsePermission(id: String, btns: [Bool]) -> Observable<Bool>
     
@@ -34,7 +35,7 @@ protocol WatchSettingWorkerProtocl {
     func fetchGetTimeAuto(id: String) -> Observable<Bool>
     func fetchTimezone(id:String) -> Observable<String>
     func fetchSummerTime(id: String) -> Observable<Bool>
-    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool>
+    func updateTimezones(id: String, hourformat: Bool?, autotime: Bool?, timezone: String?, summertime: Bool?) -> Observable<Bool>
     
     func fetchEmergencyNumbers(id: String) ->  Observable<[String]>
     func updateEmergencyNumbers(id: String, numbers: [String]) ->  Observable<Bool>
@@ -179,13 +180,21 @@ class WatchSettingsManager  {
         }
         return self.worker.fetchSummerTime(id: deviceId)
     }
-    func updateTimezones(_ hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool>{
-        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
-            return Observable<Bool>.empty()
-        }
-        return self.worker.updateTimezones(id: deviceId, hourformat: hourformat, autotime: autotime, timezone: timezone, summertime: summertime)
-    }
     
+    func updateTimezones(hourformat: Bool? = nil,
+                         autotime: Bool? = nil,
+                         timezone: String? = nil,
+                         summertime: Bool? = nil) -> Observable<Bool>{
+        guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
+            return Observable.empty()
+        }
+        return self.worker.updateTimezones(id: deviceId,
+                                           hourformat: hourformat,
+                                           autotime: autotime,
+                                           timezone: timezone,
+                                           summertime: summertime)
+    }
+
     func fetchEmergencyNumbers() ->  Observable<[String]> {
         guard let deviceId = DeviceManager.shared.currentDevice?.deviceId  else {
             return Observable<[String]>.empty()

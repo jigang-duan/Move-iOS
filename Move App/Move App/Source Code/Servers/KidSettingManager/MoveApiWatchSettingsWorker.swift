@@ -156,20 +156,23 @@ class MoveApiWatchSettingsWorker: WatchSettingWorkerProtocl {
             .catchError(errorHandle)
     }
     
-    func updateTimezones(id: String, hourformat: Bool, autotime: Bool,timezone: String, summertime: Bool) -> Observable<Bool> {
+    func updateTimezones(id: String,
+                         hourformat: Bool? = nil,
+                         autotime: Bool? = nil,
+                         timezone: String? = nil,
+                         summertime: Bool? = nil) -> Observable<Bool> {
         return MoveApi.Device.getSetting(deviceId: id)
             .flatMapLatest({  setting -> Observable<MoveApi.ApiError> in
                 var _setting = setting
-                _setting.dst = summertime
-                _setting.auto_time = autotime
-                _setting.hour24 = hourformat
-                _setting.timezone = timezone
+                _setting.dst = summertime ?? setting.dst
+                _setting.auto_time = autotime ?? setting.auto_time
+                _setting.hour24 = hourformat ?? setting.hour24
+                _setting.timezone = timezone ?? setting.timezone
                 return MoveApi.Device.setting(deviceId: id, settingInfo: _setting)
             })
             .map(errorTransform)
             .catchError(errorHandle)
     }
-    
 }
 
 fileprivate func wrappbool(perint: [Int]?) -> [Bool] {
