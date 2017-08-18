@@ -19,7 +19,7 @@ public class NoEventView: UIView {
     }
     
     @IBInspectable
-    public var strokeColor: UIColor = UIColor(red:0.0, green:0.62, blue:1.0, alpha:1.0)
+    public var strokeColor: UIColor = #colorLiteral(red:0.0, green:0.62, blue:1.0, alpha:1.0)
     
     override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         return self.superview

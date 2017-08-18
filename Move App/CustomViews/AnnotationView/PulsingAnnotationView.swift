@@ -10,8 +10,8 @@ import UIKit
 import MapKit
 
 
-//public let defaultDotColor = UIColor(red: 0.992156863212585, green: 0.737254917621613, blue: 0.0, alpha: 1.0)
-public let defaultDotColor = UIColor(red: 0.0, green: 0.62, blue: 1.0, alpha: 1.0)
+//public let defaultDotColor = #colorLiteral(red: 0.992156863212585, green: 0.737254917621613, blue: 0.0, alpha: 1.0)
+public let defaultDotColor = #colorLiteral(red: 0.0, green: 0.62, blue: 1.0, alpha: 1.0)
 let offlineDotColor = UIColor.gray
 
 public class PulsingAnnotationView: MKAnnotationView {
@@ -24,7 +24,7 @@ public class PulsingAnnotationView: MKAnnotationView {
         }
     }
     
-    public var annotationColor: UIColor = UIColor(red: 0, green: 0.478, blue: 1.00, alpha: 1.0) {
+    public var annotationColor: UIColor = #colorLiteral(red: 0, green: 0.478, blue: 1.00, alpha: 1.0) {
         didSet {
             if self.superview != nil {
                 self.rebuildLayers()

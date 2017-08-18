@@ -24,9 +24,10 @@ class MoreView: UIView {
     lazy var clearAllBtn: UIButton = {
         let $ = UIButton(type: .custom)
         $.frame = CGRect(x: 5, y: 5, width: 90, height: 30)
-        $.setTitleColor(UIColor(red: 0.25882, green: 0.25882, blue: 0.25882, alpha: 1.0), for: .normal)
-        $.setTitleColor(UIColor(red: 0.25882, green: 0.25882, blue: 0.25882, alpha: 0.5), for: .highlighted)
+        $.setTitleColor(#colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 1), for: .normal)
+        $.setTitleColor(#colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 0.5), for: .highlighted)
         $.setTitle(R.string.localizable.id_delete_all(), for: .normal)
+        $.sizeToFit()
         return $
     }()
     

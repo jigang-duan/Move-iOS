@@ -34,13 +34,13 @@ public class YHAlertView : UIView{
             if newValue == true {
                 _effectView.backgroundColor = UIColor.clear
             }else {
-                _effectView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 102.0/255)
+                _effectView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 102.0/255)
             }
         }
         
     }
     // backgroudColor visual
-    public var visualBGColor = UIColor(red: 0, green: 0, blue: 0, alpha: 102.0/255) {
+    public var visualBGColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 102.0/255) {
         willSet(newValue){
              _effectView.backgroundColor = newValue
         }
@@ -332,15 +332,15 @@ public class YHAlertView : UIView{
     private func _button(frame:CGRect,title:String,target:Any,action:Selector) -> UIButton{
         let button = UIButton(type: .custom)
         button.frame = frame
-        button.setTitleColor(UIColor.init(red: 70.0/255, green: 130.0/255, blue: 233.0/255, alpha: 1.0), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 70.0/255, green: 130.0/255, blue: 233.0/255, alpha: 1.0), for: .normal)
         button.setTitle(title, for: .normal)
-        button.setBackgroundImage(_image(color: UIColor.init(red: 235.0/255, green: 235.0/255, blue: 235.0/255, alpha: 1.0)), for: .highlighted)
+        button.setBackgroundImage(_image(color: #colorLiteral(red: 235.0/255, green: 235.0/255, blue: 235.0/255, alpha: 1.0)), for: .highlighted)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(target, action: action, for: .touchUpInside)
         let lineUp = UIView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 0.5))
-        lineUp.backgroundColor = UIColor.init(red: 219.0/255, green: 219.0/255, blue: 219.0/255, alpha: 1.0)
+        lineUp.backgroundColor = #colorLiteral(red: 219.0/255, green: 219.0/255, blue: 219.0/255, alpha: 1.0)
         let lineRight = UIView(frame: CGRect(x: frame.size.width, y:  0, width: 0.5, height: frame.size.height))
-        lineRight.backgroundColor = UIColor.init(red: 219.0/255, green: 219.0/255, blue: 219.0/255, alpha: 1.0)
+        lineRight.backgroundColor = #colorLiteral(red: 219.0/255, green: 219.0/255, blue: 219.0/255, alpha: 1.0)
         button.addSubview(lineUp)
         button.addSubview(lineRight)
         return button
