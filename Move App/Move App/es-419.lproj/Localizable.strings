@@ -63,8 +63,8 @@
 "id_safe_zone" = "Zona segura";
 "id_school_time" = "Horario escolar";
 "id_reminder" = "Recordatorio";
-"id_regular_shutdown" = "Cierre normal";
-"id_auto_answer_call" = "Contestar la llamada automáticamente";
+"id_regular_shutdown" = "Programar Encendido/Apagado";
+"id_auto_answer_call" = "Contestar llamada automáticamente";
 "id_auto_answer_call_describe" = "Si su hijo no contesta a la llamada entrante en 10 segundos, se contestará automáticamente.";
 "id_save_power" = "Ahorro de energía";
 "id_save_power_describe" = "Cuando la batería del reloj sea inferior al 10%, se desactivará Mis amigos, el Chat de grupo y las funciones de entretenimiento.";
@@ -99,7 +99,7 @@
 "id_delete_title" = "Eliminar número";
 "id_delete_description" = "¿Eliminar este número familiar?";
 "id_about_official_phone_call" = "Llamar a Línea Directa";
-"id_phone_call_desc" = "¿Llamar al %@?";
+"id_phone_call_desc" = "¿Llamar a %@?";
 "id_permission_phone_call" = "Permitir acceso a su teléfono para activar las llamadas.";
 "id_user_name" = "Usuario";
 "id_password" = "Contraseña";
@@ -181,7 +181,7 @@
 "id_my_friends" = "Mis amigos";
 "id_call_to_friends" = "Llamar a amigos";
 "id_group_chat" = "Conversación en grupo";
-"id_voice_changer" = "Grabadora de voz";
+"id_voice_changer" = "Cambiador de voz";
 "id_playing_hamster" = "Jugar a Hamster";
 "id_use_permission_tint" = "Si están desactivadas, su hijo no podrá utilizar estas funciones.";
 "id_recorder_timeout" = "El tiempo máximo de grabación es de %d segundos.";
@@ -383,7 +383,7 @@
 "id_location_history" = "Historial de ubicaciones";
 "id_select_time_error" = "La hora seleccionada es incorrecta";
 "id_family_member" = "Miembro de la familia";
-"id_watch_friends" = "Amigos del reloj";
+"id_watch_friends" = "Amigos";
 "id_family_member_prompt" = "El usuario puede añadir hasta 10 miembros de la familia y tener hasta 3 miembros favoritos. Cuando se hace una llamada de emergencia desde el reloj, el reloj llamará a los miembros de la familia favoritos de uno en uno.";
 "id_master" = "Administrador";
 "id_emergency_number_tips" = "Nota: Ingrese un número de emergencia válido. (Ejemplo 112)";
@@ -411,8 +411,8 @@
 "id_delete_ok" = "Eliminado";
 "id_delete_no" = "No se pudo eliminar";
 "id_automatic_power_on_off" = "Encendido/apagado automático";
-"id_boot_time" = "Tiempo de arranque";
-"id_shutdown_time" = "Tiempo de apagado";
+"id_boot_time" = "Hora de encendido";
+"id_shutdown_time" = "Hora de apagado";
 "id_help_apn" = "Si no aparece el señal \"3G\",\"G\" o \"R\" y la hora es incorrecta, toque \"Ajustes APN\" para establecer el APN.";
 "id_apn_setting" = "Ajustes de APN";
 "id_cant_pair" = "No se puede vincular.";
@@ -452,7 +452,7 @@
 "id_week_saturday" = "Sáb";
 "id_week_sunday" = "Dom";
 "id_warming" = "Advertencia";
-"id_still_unpaired" = "Sigue desvinculado";
+"id_still_unpaired" = "Desvincular";
 "id_unbind_admin" = "Como administrador, al desvincular el reloj restablecerá los valores predeterminados de fábrica del reloj. Todos los demás usuarios también se desvincularán del reloj.";
 "id_master_share_qr" = "El administrador puede compartir este código QR para que otros usuarios se vinculen con el reloj";
 "id_safety_reason" = "Por motivos de seguridad, este código QR sólo será válido durante 1 hora";
@@ -474,7 +474,7 @@
 "id_protocol_access_type_ipv6" = "IPv6";
 "id_protocol_access_type_ipv4_or_ipv6" = "IPv4 e IPv6";
 "id_delete_all_message" = "¿Eliminar todos los mensajes?";
-"id_delete_message" = "¿Eliminar los mensajes seleccionados?";
+"id_delete_message" = "¿Eliminar mensajes seleccionados?";
 "id_network_cannot_work" = "Red no disponible. Inténtelo de nuevo más tarde.";
 "id_not_specified" = "Sin especificar";
 "id_nick_length_tint" = "El nombre de usuario es demasiado largo";

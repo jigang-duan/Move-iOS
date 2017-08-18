@@ -212,7 +212,7 @@ extension AccountKidsRulesuserController {
         languageforthiswatchLabel.text = R.string.localizable.id_language_for_watch()
         apnLabel.text = R.string.localizable.id_apn()
         updateLabel.text = R.string.localizable.id_update()
-        updateNewLab.text = R.string.localizable.id_update_new()
+        updateNewLab.text = "   " + R.string.localizable.id_update_new() + "   "
         unpairedWithLabel.text = R.string.localizable.id_unpaired_with_watch()
     }
     

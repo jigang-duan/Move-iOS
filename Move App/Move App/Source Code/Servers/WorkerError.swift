@@ -135,8 +135,10 @@ extension WorkerError {
                 switch field ?? "" {
                 case "password":
                     errorMessage = R.string.localizable.id_password_not_same()
-                case "vcode":
-                    errorMessage = R.string.localizable.id_vcode_incorrect()
+                case "Invalid":
+                    if msg == "vcode" {
+                        errorMessage = R.string.localizable.id_vcode_incorrect()
+                    }
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }

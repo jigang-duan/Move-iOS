@@ -136,7 +136,7 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
         cell?.detailTextLabel?.text = model.location?.address
         
         if adminBool == false {
-            let lab = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+            let lab = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 20))
             lab.textColor = UIColor.lightGray
             lab.textAlignment = .right
             if model.active == true {
@@ -146,7 +146,7 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
             }
             cell?.accessoryView = lab
         }else{
-            let bun = SwitchButton(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
+            let bun = SwitchButton(frame: CGRect(x: 0, y: 0, width: 40, height: 22))
             bun.onImage = R.image.general_btn_on()!
             bun.offImage = R.image.general_btn_off()!
             

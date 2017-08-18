@@ -87,6 +87,7 @@ class LocationHistoryVC: UIViewController {
         self.title = R.string.localizable.id_location_history()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: R.image.nav_location_nor(), style: .plain, target: self, action: #selector(rightBarButtonClick))
         noLocatlonDescribeOutlet.text = R.string.localizable.id_history_no_day()
+        noLocatlonDescribeOutlet.adjustsFontSizeToFitWidth = true
         
         calendar.select(calendar.today)
         calendar.placeholderType = .none

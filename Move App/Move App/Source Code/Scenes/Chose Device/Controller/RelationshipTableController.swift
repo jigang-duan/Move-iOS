@@ -66,6 +66,10 @@ class RelationshipTableController: UIViewController {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
+        
+        if let identity = selectedRelation {
+            self.relationBlock?(identity)
+        }
     }
     
     override func viewDidLoad() {
@@ -106,8 +110,8 @@ class RelationshipTableController: UIViewController {
         otherTf.becomeFirstResponder()
         otherBadge.isHidden = false
         
-        
         self.clearCellSelected()
+        selectedRelation = Relation.other(value: R.string.localizable.id_other())
     }
     
     
@@ -201,6 +205,7 @@ extension RelationshipTableController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         otherBadge.isHidden = false
         self.clearCellSelected()
+        selectedRelation = Relation.other(value: R.string.localizable.id_other())
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
