@@ -27,7 +27,7 @@ class TimeZoneViewModel {
         input: (
         hourform: Driver<Bool>,
         autotime: Driver<Bool>,
-        timezone: Driver<String>,
+        selectedTimezone: Driver<String>,
         summertime: Driver<Bool>
         ),
         dependency: (
@@ -46,11 +46,13 @@ class TimeZoneViewModel {
         let fetchHourform = manager.fetchHoursFormat()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: true)
+        
         self.hourformEnable = Driver.of(fetchHourform, input.hourform).merge()
         
         let fetchAutotime = manager.fetchGetTimeAuto()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: true)
+        
         self.autotimeEnable = Driver.of(fetchAutotime, input.autotime).merge()
         
         timezoneDate = dependency.configChanged.asDriver(onErrorJustReturn: ())
@@ -65,18 +67,48 @@ class TimeZoneViewModel {
         let fetchsummertime = manager.fetchSummerTime()
             .trackActivity(activitying)
             .asDriver(onErrorJustReturn: false)
+        
         self.summertimeEnable = Driver.of(fetchsummertime, input.summertime).merge()
         
+//        let down = Driver.combineLatest(hourformEnable,
+//                                        autotimeEnable,
+//                                        input.selectedTimezone,
+//                                        summertimeEnable) { ($0, $1, $2, $3) }
+//            .filter{ $0.2 != "" }
+//        
+//        self.saveFinish = down
+//            .flatMapLatest { (hourform, autotime, timezone, summertime) in
+//                manager.updateTimezones(hourformat: hourform,
+//                                        autotime: autotime,
+//                                        timezone: timezone,
+//                                        summertime: autotime ? !autotime : summertime)
+//                    .trackActivity(activitying)
+//                    .asDriver(onErrorJustReturn: false)
+//            }
         
-        let down = Driver.combineLatest(hourformEnable , autotimeEnable, input.timezone, summertimeEnable) { ($0, $1, $2, $3) }
-            .filter{ $0.2 != "" }
-        
-        self.saveFinish = down
-            .flatMapLatest { (hourform, autotime, timezone, summertime) in
-                manager.updateTimezones(hourform, autotime: autotime, timezone: timezone, summertime: summertime)
-                    .trackActivity(activitying)
-                    .asDriver(onErrorJustReturn: false)
+        let updateHourform = input.hourform
+            .flatMapLatest {
+                manager.updateTimezones(hourformat: $0).trackActivity(activitying).asDriver(onErrorJustReturn: false)
             }
+        
+        let updateAutotime = input.autotime
+            .flatMapLatest {
+                manager.updateTimezones(autotime: $0, summertime: $0 ? !$0 : nil).trackActivity(activitying).asDriver(onErrorJustReturn: false)
+            }
+        
+        let updateSelectedTimezone = input.selectedTimezone
+            .filterEmpty()
+            .flatMapLatest {
+                manager.updateTimezones(timezone: $0).trackActivity(activitying).asDriver(onErrorJustReturn: false)
+            }
+        
+        let updateSummertime = input.summertime
+//            .withLatestFrom(autotimeEnable) { $1 ? !$1 : $0 }
+            .flatMapLatest {
+                manager.updateTimezones(summertime: $0).trackActivity(activitying).asDriver(onErrorJustReturn: false)
+            }
+        
+        saveFinish = Driver.merge(updateHourform, updateAutotime, updateSelectedTimezone, updateSummertime)
     }
     
 }

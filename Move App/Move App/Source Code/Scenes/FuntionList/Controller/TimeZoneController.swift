@@ -31,9 +31,10 @@ class TimeZoneController: UITableViewController {
     @IBOutlet weak var backQutlet: UIBarButtonItem!
     //var selectTimeZoneController: SelectTimeZoneController?
     
-    var selectedTimeZone = Variable("")
+//    let selectedTimeZone = Variable("")
+    let selectedTimeZoneSubject = PublishSubject<String>();
     
-    var disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
     private func internationalization() {
         timezoneTitleItem.title = R.string.localizable.id_time_zone()
@@ -54,10 +55,6 @@ class TimeZoneController: UITableViewController {
             //发送一个请求关闭，且不能用
             self.summerTimeQutlet.isEnabled = false
             self.summerTimeQutlet.isOn = false
-            let _ = WatchSettingsManager.share.updateTimezones(hourFormatQutlet.isOn, autotime: autoGetTimeQutlet.isOn, timezone: selectedTimeZone.value, summertime: false).subscribe(onNext:
-            { [weak self] in
-                print($0)
-            }).addDisposableTo(self.disposeBag)
         }
     }
     
@@ -72,16 +69,16 @@ class TimeZoneController: UITableViewController {
             self?.enableView($0)
         }).addDisposableTo(disposeBag)
         
-        selectedTimeZone.asDriver().filterEmpty().debug()
-            .map({ " \($0)" })
-            .drive(timezoneCityQutlet.rx.text)
-            .addDisposableTo(disposeBag)
+//        selectedTimeZone.asDriver().filterEmpty().debug()
+//            .map({ " \($0)" })
+//            .drive(timezoneCityQutlet.rx.text)
+//            .addDisposableTo(disposeBag)
         
         let viewModel = TimeZoneViewModel(
             input: (
                 hourform: hourFormatQutlet.rx.value.asDriver(),
                 autotime: autoGetTimeQutlet.rx.value.asDriver(),
-                timezone: selectedTimeZone.asDriver(),
+                selectedTimezone: selectedTimeZoneSubject.asDriver(onErrorJustReturn: ""),
                 summertime: summerTimeQutlet.rx.value.asDriver()
             ),
             dependency: (
@@ -93,7 +90,8 @@ class TimeZoneController: UITableViewController {
         )
         
         viewModel.saveFinish
-            .drive(onNext: {_ in
+            .drive(onNext: {a in
+                print("%@",a);
             }).addDisposableTo(disposeBag)
 
         viewModel.hourformEnable.drive(hourFormatQutlet.rx.on).addDisposableTo(disposeBag)
@@ -103,6 +101,7 @@ class TimeZoneController: UITableViewController {
         viewModel.autotimeEnable.drive(onNext: {[weak self] bool in
             self?.enableView(bool)
         }).addDisposableTo(disposeBag)
+        
         viewModel.activityIn
             .map{ !$0 }
             .drive(onNext: {[weak self] in
@@ -121,7 +120,7 @@ class TimeZoneController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = R.segue.timeZoneController.showSelectTimeZone(segue: segue)?.destination {
             vc.selectedTimezone = { [weak self] index in
-                self?.selectedTimeZone.value = index
+                self?.selectedTimeZoneSubject.onNext(index)
             }
         }
     }
