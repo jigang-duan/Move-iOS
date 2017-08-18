@@ -22,6 +22,7 @@ protocol MoreViewDelegate {
 class MoreView: UIView {
     
     lazy var clearAllBtn: UIButton = {
+        let $ = UIButton(type: .custom)
         $.frame = CGRect(x: 5, y: 5, width: 90, height: 30)
         $.setTitleColor(#colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 1), for: .normal)
         $.setTitleColor(#colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 0.5), for: .highlighted)
