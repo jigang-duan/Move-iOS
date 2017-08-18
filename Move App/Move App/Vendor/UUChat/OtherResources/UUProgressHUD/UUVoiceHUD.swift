@@ -241,7 +241,7 @@ extension UUVoiceHUD.State: CustomStringConvertible {
         case .default:
             return R.string.localizable.id_slide_cancel()
         case .succeed:
-            return "Success"
+            return ""
         }
     }
     

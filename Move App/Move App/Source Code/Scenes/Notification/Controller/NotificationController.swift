@@ -158,8 +158,8 @@ extension NotificationController {
                 let featureItem = EAFeatureItem(focus: cell.btnContent,
                                                 focusCornerRadius: 6 ,
                                                 focus: UIEdgeInsets.zero)
-                featureItem?.actionTitle = "I Know"
-                featureItem?.introduce = "Long press to delete"
+                featureItem?.actionTitle = R.string.localizable.id_first_entry_tips()
+                featureItem?.introduce = R.string.localizable.id_long_press_to_delete()
                 self.view.show(with: [featureItem!], saveKeyName: "mark:notification:cell:content", inVersion: version)
             }
         }
