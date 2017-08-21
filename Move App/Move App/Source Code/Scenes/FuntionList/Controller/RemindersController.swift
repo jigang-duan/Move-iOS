@@ -381,8 +381,7 @@ extension RemindersController {
     }
     
     fileprivate func calenderConversion(from : Date , to : Date) -> Int {
-        let gregorian = Calendar(identifier: Calendar.Identifier.chinese)
-        let result = gregorian.dateComponents([Calendar.Component.day], from: from, to: to)
+        let result = Calendar.current.dateComponents([.day], from: from, to: to)
         return result.day!
     }
     
@@ -391,10 +390,9 @@ extension RemindersController {
 //日历控件代理方法
 extension RemindersController: FSCalendarDelegate,FSCalendarDelegateAppearance {
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition)
-    {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let time = self.calenderConversion(from: calendar.today!, to: date)
-        self .changeBtnType(time: time , date : date)
+        self.changeBtnType(time: time , date : date)
     }
     
 }
