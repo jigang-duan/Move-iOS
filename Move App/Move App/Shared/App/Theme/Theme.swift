@@ -140,8 +140,13 @@ struct ThemeManager {
         UISwitch.appearance().thumbTintColor = theme.mainColor
         
         UITableView.appearance().backgroundColor = UIColor.groupTableViewBackground
+        
+        if #available(iOS 9.0, *) {
+            UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = theme.mainColor
+        } else {
+            // Fallback on earlier versions
+        }
   }
-    
     
     static func applyNavigationBar(theme: Theme) {
         UINavigationBar.appearance().barStyle = theme.barStyle

@@ -332,7 +332,7 @@ public class YHAlertView : UIView{
     private func _button(frame:CGRect,title:String,target:Any,action:Selector) -> UIButton{
         let button = UIButton(type: .custom)
         button.frame = frame
-        button.setTitleColor(#colorLiteral(red: 70.0/255, green: 130.0/255, blue: 233.0/255, alpha: 1.0), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.0, green: 0.619607865810394, blue: 1.0, alpha: 1.0), for: .normal)
         button.setTitle(title, for: .normal)
         button.setBackgroundImage(_image(color: #colorLiteral(red: 235.0/255, green: 235.0/255, blue: 235.0/255, alpha: 1.0)), for: .highlighted)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
