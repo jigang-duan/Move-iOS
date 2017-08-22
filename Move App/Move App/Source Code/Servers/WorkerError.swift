@@ -153,6 +153,8 @@ extension WorkerError {
                 switch field ?? "" {
                 case "username":
                     errorMessage = R.string.localizable.id_account_used()
+                case "phone":
+                    errorMessage = R.string.localizable.id_phone_error_add()
                 default:
                     errorMessage = "\(field ?? "") \(msg ?? "")"
                 }

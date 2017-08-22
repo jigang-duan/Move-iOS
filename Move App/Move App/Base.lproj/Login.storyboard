@@ -334,8 +334,8 @@
                                     <constraint firstAttribute="height" constant="0.5" id="dkR-vu-3V4"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email not valid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-zE-x5k">
-                                <rect key="frame" x="45" y="145.5" width="87.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email not valid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-zE-x5k">
+                                <rect key="frame" x="45" y="145.5" width="285" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="CC2-qZ-8UV"/>
                                 </constraints>
@@ -373,6 +373,7 @@
                             <constraint firstItem="cYJ-5l-Gw0" firstAttribute="leading" secondItem="zPQ-6v-s9g" secondAttribute="trailing" constant="15" id="ICC-aj-ab1"/>
                             <constraint firstItem="vib-9P-zPz" firstAttribute="top" secondItem="cYJ-5l-Gw0" secondAttribute="bottom" id="MZC-hf-lt3"/>
                             <constraint firstItem="cYJ-5l-Gw0" firstAttribute="top" secondItem="uwO-Kw-wqf" secondAttribute="bottom" constant="40" id="PSo-Lj-oI3"/>
+                            <constraint firstItem="RZU-zE-x5k" firstAttribute="trailing" secondItem="vib-9P-zPz" secondAttribute="trailing" id="RdW-AV-M9S"/>
                             <constraint firstItem="uwO-Kw-wqf" firstAttribute="top" secondItem="fMV-RK-IGH" secondAttribute="bottom" constant="36" id="UZS-sW-0yl"/>
                             <constraint firstItem="xSX-HF-EmY" firstAttribute="leading" secondItem="kQw-jt-LYW" secondAttribute="leading" constant="45" id="Z1N-gH-VHP"/>
                             <constraint firstItem="zPQ-6v-s9g" firstAttribute="leading" secondItem="vib-9P-zPz" secondAttribute="leading" constant="5" id="mue-ep-QEZ"/>
@@ -457,8 +458,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email not valid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Prf-eB-X9M">
-                                <rect key="frame" x="45" y="145.5" width="87.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email not valid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Prf-eB-X9M">
+                                <rect key="frame" x="45" y="145.5" width="285" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="edR-wR-Lwn"/>
                                 </constraints>
@@ -475,6 +476,7 @@
                             <constraint firstItem="zYi-Ed-HlJ" firstAttribute="top" secondItem="zL5-qI-7nc" secondAttribute="bottom" constant="40" id="7DC-0G-uHM"/>
                             <constraint firstAttribute="trailing" secondItem="zL5-qI-7nc" secondAttribute="trailing" constant="20" id="Ele-CK-zNJ"/>
                             <constraint firstItem="VhK-LQ-Hs2" firstAttribute="leading" secondItem="8yw-OF-W2u" secondAttribute="leading" constant="45" id="SaJ-qP-6An"/>
+                            <constraint firstItem="Prf-eB-X9M" firstAttribute="trailing" secondItem="LwM-1v-9ga" secondAttribute="trailing" id="Vc2-zR-wmM"/>
                             <constraint firstItem="zL5-qI-7nc" firstAttribute="leading" secondItem="8yw-OF-W2u" secondAttribute="leading" constant="20" id="YQg-hD-Ap2"/>
                             <constraint firstItem="Prf-eB-X9M" firstAttribute="leading" secondItem="LwM-1v-9ga" secondAttribute="leading" id="afd-Xo-9kN"/>
                             <constraint firstItem="Prf-eB-X9M" firstAttribute="top" secondItem="LwM-1v-9ga" secondAttribute="bottom" constant="5" id="dcz-Ms-tnc"/>
@@ -556,7 +558,7 @@
                                     <constraint firstAttribute="height" constant="0.5" id="Ibz-pL-3Bf"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vcode incorrect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMB-pM-kr9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vcode incorrect" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMB-pM-kr9">
                                 <rect key="frame" x="45" y="145.5" width="285" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -581,7 +583,7 @@
                                     <constraint firstAttribute="height" constant="0.5" id="Xfc-fY-5JN"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not valid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F00-mJ-tYW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not valid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F00-mJ-tYW">
                                 <rect key="frame" x="45" y="209.5" width="285" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -606,7 +608,7 @@
                                     <constraint firstAttribute="height" constant="0.5" id="BK6-x8-1j8"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPV-sX-19w">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not correct" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPV-sX-19w">
                                 <rect key="frame" x="45" y="273.5" width="285" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

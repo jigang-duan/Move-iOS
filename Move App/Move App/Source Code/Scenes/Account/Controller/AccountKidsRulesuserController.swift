@@ -213,7 +213,7 @@ extension AccountKidsRulesuserController {
         apnLabel.text = R.string.localizable.id_apn()
         updateLabel.text = R.string.localizable.id_update()
         updateNewLab.text = "   " + R.string.localizable.id_update_new() + "   "
-        unpairedWithLabel.text = R.string.localizable.id_unpaired_with_watch()
+        unpairedWithLabel.text = R.string.localizable.id_still_unpaired()
     }
     
 }
@@ -305,8 +305,10 @@ extension AccountKidsRulesuserController {
             }else{
                 tip = R.string.localizable.id_unbind()
             }
-            let alert = UIAlertController(title: "", message: tip, preferredStyle: .alert)
-            let action1 = UIAlertAction(title: R.string.localizable.id_still_unpaired(), style: .default, handler: { [weak self] _ in
+            let alert = UIAlertController(title: R.string.localizable.id_warming(), message: tip, preferredStyle: .alert)
+            let upairStr = R.string.localizable.id_still_unpaired()
+            let isEnglish = Bundle.main.preferredLocalizations[0] == "en"
+            let action1 = UIAlertAction(title: isEnglish ? upairStr.uppercased():upairStr, style: .default, handler: { [weak self] _ in
                 self?.unpairWatch()
             })
             let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)

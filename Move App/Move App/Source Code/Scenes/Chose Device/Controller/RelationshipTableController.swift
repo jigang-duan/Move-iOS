@@ -279,10 +279,6 @@ fileprivate func errorRecover(_ error: Error) -> String? {
         return R.string.localizable.id_watch_existed()
     }
     
-    if WorkerError.webApi(id: 7, field: "phone", msg: "Exists") == _error {
-        return R.string.localizable.id_phone_error_add()
-    }
-    
     let msg = WorkerError.apiErrorTransform(from: _error)
     return msg
 }
