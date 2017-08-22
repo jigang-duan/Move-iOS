@@ -198,8 +198,7 @@ class UpgradeController: UIViewController {
             .subscribe(onNext: { [weak self] property in
                 RxStore.shared.bind(property: property)
                 
-                self?.batteryImgV.image = UIImage(named: "home_ic_battery\((property.power ?? 0)/10)")
-                
+                self?.batteryImgV.image = property.power?.battery.image
                 
                 var checkInfo = DeviceVersionCheck(deviceId: deviceId, mode: "2", cktp: "2", curef: property.device_model, cltp: "10", type: "Firmware", fv: "")
                 if let fv = property.firmware_version, fv.characters.count > 6 {

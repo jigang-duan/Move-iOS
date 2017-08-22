@@ -371,3 +371,30 @@ extension Relation: CustomStringConvertible {
         }
     }
 }
+
+
+final class Battery {
+    public let power: Int
+    public init(_ power: Int) {
+        self.power = power
+    }
+}
+
+extension Int {
+    var battery: Battery {
+        get {
+            return Battery(self)
+        }
+    }
+}
+
+extension Battery {
+    
+    var image: UIImage? {
+        guard self.power < 99 else {
+            return R.image.home_ic_battery10()
+        }
+        return UIImage(named: "home_ic_battery\(self.power/10)")
+    }
+    
+}
