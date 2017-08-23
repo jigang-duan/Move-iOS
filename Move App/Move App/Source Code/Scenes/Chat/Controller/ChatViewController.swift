@@ -27,6 +27,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var ifView: UUInputView!
     @IBOutlet var moreView: MoreView!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     let bag = DisposeBag()
     var messageFramesVariable: Variable<[UUMessageFrame]> = Variable([])
@@ -243,6 +244,7 @@ class ChatViewController: UIViewController {
         ifView.rx.unfold.asObservable()
             .bindNext { [weak self] (unfold) in
                 unfold ? self?.tableView.addGestureRecognizer(tapGesture) : self?.tableView.removeGestureRecognizer(tapGesture)
+                self?.tableView(unfold: unfold)
             }
             .addDisposableTo(bag)
         
@@ -250,6 +252,10 @@ class ChatViewController: UIViewController {
             .bindNext { [weak self] in self?.isMoreEditing = false }
             .addDisposableTo(bag)
         
+//        ifView.rx.unfold.asObservable()
+//            .map { $0 ? Unfold_Height : Default_Height }
+//            .bindTo(bottomConstraint.rx.constant)
+//            .addDisposableTo(bag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -390,6 +396,15 @@ extension ChatViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         ifView.shrinkEmoji()
+    }
+    
+    func tableView(unfold: Bool) {
+        bottomConstraint.constant = unfold ? Unfold_Height : Default_Height
+        UIView.animate(withDuration: 0.6, animations: { [unowned self] in
+            self.view.layoutIfNeeded()
+        }) { [unowned self] _ in
+            self.tableViewScrollToBottom()
+        }
     }
 }
 

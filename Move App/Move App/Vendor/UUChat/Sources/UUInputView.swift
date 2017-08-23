@@ -206,7 +206,7 @@ extension UUInputView: AmrRecorderDelegate {
 extension UUInputView: ISEmojiViewDelegate {
     
     func emojiViewDidSelectEmoji(emojiView: ISEmojiView, emoji: EmojiType) {
-        unfoldEmoji()
+//        unfoldEmoji()
         self.delegate?.UUInputView?(self, sendEmoji: emoji.rawValue)
     }
     
@@ -242,7 +242,7 @@ fileprivate let unfoldFrame  = CGRect(x: 0, y: Main_Screen_Height - Unfold_Heigh
 
 let Edge_R: CGFloat = 15.0
 fileprivate let Top_Nav_Height: CGFloat = 44.0 + 20.0
-fileprivate let Default_Height: CGFloat = 53.0
-fileprivate let Unfold_Height: CGFloat = Default_Height + 150.0
+let Default_Height: CGFloat = 53.0
+let Unfold_Height: CGFloat = Default_Height + 150.0
 fileprivate let Main_Screen_Height = UIScreen.main.bounds.size.height
 fileprivate let Main_Screen_Width = UIScreen.main.bounds.size.width
