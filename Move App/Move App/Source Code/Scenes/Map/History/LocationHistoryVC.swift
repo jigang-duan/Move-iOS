@@ -178,6 +178,9 @@ class LocationHistoryVC: UIViewController {
             self.locationMap.addAnnotations(self.annotationArr)
             self.timePointSelect(index: index)
             locationMap.setCenter(annotationArr[index].coordinate, animated: true)
+
+            let region : MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(annotationArr[index].coordinate, 350, 350);
+            locationMap .setRegion(region, animated: true)
         }
     }
     
