@@ -58,8 +58,7 @@ extension MoveIM {
         final class func sendChatMessage(messageInfo: ImMessage) -> Observable<ImMesageRsp> {
             var info = messageInfo
             if info.locaId == nil {
-                let date = info.ctime ?? Date()
-                info.locaId = Int(date.timeIntervalSince1970).description + Random.numberStr(scope: 4)
+                info.locaId = (info.ctime ?? Date()).timeIntervalSince1970.description
             }
             return request(.sendChatMessage(message: IMMessage(message: info))).mapMoveObject(ImMesageRsp.self)
         }

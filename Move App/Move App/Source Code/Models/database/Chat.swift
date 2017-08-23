@@ -73,7 +73,7 @@ extension GroupEntity {
                 self.messages.insert(message, at: indexSame)
             }
         } else if let indexOld = self.messages.index(where: {
-            $0.createDate?.timeIntervalSince1970 == message.createDate?.timeIntervalSince1970
+            $0.createDate == message.createDate
         }) {
             let old = self.messages[indexOld]
             try? realm.write {

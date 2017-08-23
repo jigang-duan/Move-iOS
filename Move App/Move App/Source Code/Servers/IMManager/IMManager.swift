@@ -358,7 +358,7 @@ fileprivate extension MoveIM.ImMessage {
         self.content_status = 0
         self.ctime = meoji.ctime
         
-        self.locaId = Int(ctime!.timeIntervalSince1970).description
+        self.locaId = ctime!.timeIntervalSince1970.description
     }
 }
 
@@ -376,7 +376,7 @@ fileprivate extension MoveIM.ImMessage {
         self.duration = voice.duration
         self.ctime = voice.ctime
         
-        self.locaId = Int(ctime!.timeIntervalSince1970).description
+        self.locaId = ctime!.timeIntervalSince1970.description
     }
 }
 

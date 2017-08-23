@@ -386,6 +386,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="cI9-w8-bUv" id="gJ0-As-TKC"/>
                         <outlet property="ifView" destination="srb-GD-rWH" id="chh-CI-a4E"/>
                         <outlet property="moreView" destination="qYj-zk-abQ" id="DIA-Es-4Yi"/>
                         <outlet property="tableView" destination="qat-C3-6yT" id="tI4-ly-vH2"/>
