@@ -22,7 +22,6 @@ class VerificationCodeController: UIViewController {
     @IBOutlet weak var titleLab: UILabel!
     @IBOutlet weak var tipLab: UILabel!
     @IBOutlet weak var inputTip: UILabel!
-    @IBOutlet weak var cantPairLab: UILabel!
     @IBOutlet weak var helpBun: UIButton!
     
     
@@ -69,12 +68,9 @@ class VerificationCodeController: UIViewController {
         vcodeTf.placeholder = R.string.localizable.id_verification_code()
         sendBun.setTitle(R.string.localizable.id_resend(), for: UIControlState.normal)
         nextBun.setTitle(R.string.localizable.id_confirm(), for: .normal)
-        cantPairLab.text = R.string.localizable.id_verification_code_help()
         
-        let help = NSMutableAttributedString(string: "q" + R.string.localizable.id_help())
-        help.addAttributes([NSForegroundColorAttributeName: UIColor.clear], range: NSRange(location: 0, length: 1))
-        help.addAttributes([NSForegroundColorAttributeName: UIColor.white], range: NSRange(location: 1, length: help.length - 1))
-        help.addAttributes([NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue], range: NSRange.init(location: 0, length: help.length))
+        let help = NSMutableAttributedString(string: R.string.localizable.id_verification_code_help())
+        help.addAttributes([NSForegroundColorAttributeName: UIColor.white, NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue], range: NSRange(location: 0, length: help.length))
         
         helpBun.setAttributedTitle(help, for: .normal)
         

@@ -46,7 +46,7 @@ class PhoneNumberViewModel {
                 
                 return DeviceManager.shared.checkBindPhone(deviceId: (input.info.deviceId)!, phone: phone)
                     .map({ type in
-                        if type == -1 {
+                        if type == -1 || type == 0 {
                             return ValidationResult.ok(message: "")
                         }else{
                             return ValidationResult.failed(message: R.string.localizable.id_phone_error_add())
