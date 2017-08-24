@@ -713,6 +713,8 @@
 		FF4ABDB21E669CA30029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Contact.storyboard; sourceTree = "<group>"; };
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FF517A291EA498C80014E53F /* countryphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = countryphone.plist; path = Resource/countryphone.plist; sourceTree = "<group>"; };
+		FF778C561F4ECCD300806B61 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = "Move App/ar.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FF778C571F4ECCD300806B61 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FF836FD61F0B62890025C60B /* HelpForPairVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpForPairVC.swift; sourceTree = "<group>"; };
 		FF83B0701ECA956400E39C74 /* countryCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = countryCode.plist; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
@@ -2458,6 +2460,7 @@
 				tr,
 				"pt-BR",
 				ru,
+				ar,
 			);
 			mainGroup = E01DF6D91E3059A800EA003D;
 			productRefGroup = E01DF6E31E3059A800EA003D /* Products */;
@@ -3066,6 +3069,7 @@
 				FFE4B6421EFA524100E48BB1 /* tr */,
 				FFA9D4F01F1EEB4200364281 /* pt-BR */,
 				FFCBC6021F419AF200BFF912 /* ru */,
+				FF778C561F4ECCD300806B61 /* ar */,
 			);
 			name = Localizable.strings;
 			path = ..;
@@ -3138,6 +3142,7 @@
 				FFE4B6611EFCAFE700E48BB1 /* tr */,
 				FFA9D4F11F1EEB4200364281 /* pt-BR */,
 				FFCBC6031F419AF200BFF912 /* ru */,
+				FF778C571F4ECCD300806B61 /* ar */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
