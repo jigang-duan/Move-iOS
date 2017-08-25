@@ -24,6 +24,7 @@ class MainMapController: UIViewController {
     @IBOutlet var noGeolocationView: UIView!
     @IBOutlet var noDeviceView: UIView!
     
+    @IBOutlet weak var geoLocationTipLab: UILabel!
     @IBOutlet weak var openPreferencesBtn: UIButton!
     
     @IBOutlet weak var callOutlet: UIButton!
@@ -49,13 +50,11 @@ class MainMapController: UIViewController {
     
     @IBOutlet weak var trackingModeOutlet: UIView!
     @IBOutlet weak var trackingTitleOutlet: UILabel!
-    @IBOutlet weak var trackingModeHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var offTrackingModeOutlet: UIButton!
     
     @IBOutlet weak var offlineModeOutlet: UIView!
     @IBOutlet weak var offlineTitleOutlet: UILabel!
-    @IBOutlet weak var offlineModeHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet var tapAddressOutlet: UITapGestureRecognizer!
     @IBOutlet weak var floatMenuTopConstraint: NSLayoutConstraint!
@@ -84,9 +83,6 @@ class MainMapController: UIViewController {
         
         propelToTargetController()
         
-        offlineModeHeightConstraint.constant = offlineTitleOutlet.bounds.height + 14.0
-        trackingModeHeightConstraint.constant = trackingTitleOutlet.bounds.height + 14.0
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,6 +95,9 @@ class MainMapController: UIViewController {
     
     override func initUIs() {
         timeOutlet.adjustsFontSizeToFitWidth = true
+        
+        geoLocationTipLab.text = R.string.localizable.id_geolocation_unable()
+        openPreferencesBtn.setTitle("  " + R.string.localizable.id_open_geolocation_title() + "  ", for: .normal)
         
         self.addressScrollLabel.addObaserverNotification()
         addressScrollLabel.textFont = UIFont.systemFont(ofSize: 15.0)

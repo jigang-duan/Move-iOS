@@ -86,7 +86,7 @@ fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> 
     
     if case WorkerError.webApi(let id, _, let msg) = _error {
         if id == 6 && msg == "Not found" {
-            return Driver.just(ValidationResult.failed(message: "Can't find this Email"))
+            return Driver.just(ValidationResult.failed(message: R.string.localizable.id_not_found_email()))
         }
     }
     

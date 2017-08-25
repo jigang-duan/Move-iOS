@@ -19,18 +19,6 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     private var imageSize = CGSize(width: 0, height: 0)
     
     
-    func getCurrentLanguage() -> String {
-        let preferredLang = Bundle.main.preferredLocalizations.first! as NSString
-        switch String(describing: preferredLang) {
-        case "en-US", "en-CN":
-            return "en"//英文
-        case "zh-Hans-US","zh-Hans-CN","zh-Hant-CN","zh-TW","zh-HK","zh-Hans":
-            return "cn"//中文
-        default:
-            return "en"
-        }
-    }
-    
     func selectPhoto(with target: UIViewController, soureType: UIImagePickerControllerSourceType, size: CGSize = CGSize(width: 0, height: 0), callback: @escaping (((UIImage) -> Void))) {
         self.target = target
         self.photoCallback = callback
@@ -45,13 +33,12 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
                 self.target?.present(imagePickerController, animated: true)
             }
         }else{
-            
-            let strLanguage = self.getCurrentLanguage()
-            var strAlertTitle :String = ""
-            if  strLanguage == "cn"{
-                strAlertTitle = "没有相机/照片访问权限"
-            }else{
+            var strAlertTitle = ""
+          
+            if soureType == .camera {
                 strAlertTitle = R.string.infoPlist.nSCameraUsageDescription()
+            }else{
+                strAlertTitle = R.string.infoPlist.nSPhotoLibraryUsageDescription()
             }
             
             let vc = UIAlertController(title: nil, message: strAlertTitle, preferredStyle: UIAlertControllerStyle.alert)

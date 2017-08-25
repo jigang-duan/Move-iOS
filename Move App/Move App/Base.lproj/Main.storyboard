@@ -207,7 +207,7 @@
                                         <rect key="frame" x="30" y="120.5" width="77" height="65"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_1" translatesAutoresizingMaskIntoConstraints="NO" id="A0W-Cm-wSV">
-                                        <rect key="frame" x="220" y="41.5" width="115" height="220"/>
+                                        <rect key="frame" x="220" y="41.5" width="115" height="220.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="HDV-kk-w3A"/>
                                             <constraint firstAttribute="width" constant="115" id="kT3-5T-egY"/>
@@ -242,7 +242,7 @@
                                 <rect key="frame" x="0.0" y="301.5" width="375" height="301.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_2" translatesAutoresizingMaskIntoConstraints="NO" id="cKk-cH-2Zl">
-                                        <rect key="frame" x="220" y="41.5" width="115" height="220"/>
+                                        <rect key="frame" x="220" y="41" width="115" height="220"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="IjV-vg-uvC"/>
                                             <constraint firstAttribute="width" constant="115" id="tjO-RR-e1r"/>
@@ -1295,7 +1295,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6l-bn-MvA">
-                                            <rect key="frame" x="66" y="0.0" width="309" height="1"/>
+                                            <rect key="frame" x="66" y="0.0" width="254" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="M4d-zc-PYT"/>
@@ -1314,7 +1314,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-av-BeT">
-                                            <rect key="frame" x="66" y="5.5" width="209" height="44"/>
+                                            <rect key="frame" x="66" y="5.5" width="154" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="qKv-2R-9Kb"/>
                                             </constraints>
@@ -1326,7 +1326,7 @@
                                             </connections>
                                         </textField>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="general_tick" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-zj-2sl">
-                                            <rect key="frame" x="347" y="21" width="12" height="12"/>
+                                            <rect key="frame" x="292" y="21" width="12" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="1vb-x7-Adk"/>
                                                 <constraint firstAttribute="width" constant="12" id="nXV-Um-KVM"/>
@@ -1456,7 +1456,7 @@
                                     <constraint firstItem="Omk-5f-9MA" firstAttribute="centerX" secondItem="s8f-As-YFL" secondAttribute="centerX" id="xZc-WV-tEx"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannot_pair_3g" translatesAutoresizingMaskIntoConstraints="NO" id="NPB-7P-DLp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" image="cannot_pair_3g" translatesAutoresizingMaskIntoConstraints="NO" id="NPB-7P-DLp">
                                 <rect key="frame" x="107.5" y="84" width="160" height="160"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buJ-Iy-irB">
@@ -1497,7 +1497,7 @@
                                     <action selector="yesClick:" destination="hZ8-Ro-6rk" eventType="touchUpInside" id="dEf-5Z-Ezy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Power on the watch and check to make sure 3G/G/R is displayed on the status bar and that the time displayed is correct" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-FJ-Qrb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Power on the watch and check to make sure 3G/G/R is displayed on the status bar and that the time displayed is correct" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hc-FJ-Qrb">
                                 <rect key="frame" x="15" y="274" width="345" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1508,7 +1508,7 @@
                         <constraints>
                             <constraint firstItem="K24-xb-SfL" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" constant="45" id="AqX-UJ-KSo"/>
                             <constraint firstItem="s8f-As-YFL" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" id="HyF-TH-apF"/>
-                            <constraint firstItem="5hc-FJ-Qrb" firstAttribute="top" secondItem="NPB-7P-DLp" secondAttribute="bottom" constant="30" id="JHH-fQ-5tW"/>
+                            <constraint firstItem="5hc-FJ-Qrb" firstAttribute="top" secondItem="NPB-7P-DLp" secondAttribute="bottom" priority="750" constant="30" id="JHH-fQ-5tW"/>
                             <constraint firstAttribute="trailing" secondItem="5hc-FJ-Qrb" secondAttribute="trailing" constant="15" id="MOA-k7-o4y"/>
                             <constraint firstItem="buJ-Iy-irB" firstAttribute="leading" secondItem="KKS-uK-mhn" secondAttribute="leading" constant="45" id="PVO-rx-VSb"/>
                             <constraint firstItem="NPB-7P-DLp" firstAttribute="top" secondItem="s8f-As-YFL" secondAttribute="bottom" constant="20" id="VRk-Mx-IiA"/>
@@ -1630,7 +1630,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5z-YR-KjO">
-                                            <rect key="frame" x="15" y="0.0" width="360" height="1"/>
+                                            <rect key="frame" x="15" y="0.0" width="305" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="dnk-X3-NLh"/>
@@ -1894,7 +1894,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAg-1l-CPl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Logout">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

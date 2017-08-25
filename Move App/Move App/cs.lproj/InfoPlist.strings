@@ -1,20 +1,14 @@
-/* 
-  InfoPlist.strings
-  Move App
+/*
+ InfoPlist.strings
+ Move App
+ 
+ Created by Wuju Zheng on 2017/6/23.
+ Copyright © 2017年 TCL Com. All rights reserved.
+ */
 
-  Created by Wuju Zheng on 2017/6/23.
-  Copyright © 2017年 TCL Com. All rights reserved.
-*/
-
-//蓝牙
-"NSBluetoothPeripheralUsageDescription" = "";
-//相机
-"NSCameraUsageDescription" = "We need access to your phone's camera to scan QR code";
-//定位
-"NSLocationWhenInUseUsageDescription" = "We need access to your phone's location information to positioning";
-//麦克风
-"NSMicrophoneUsageDescription" = "We need access to your phone's microphone to record voice messages";
-//相册
-"NSPhotoLibraryUsageDescription" = "We need access to your phone's album to Use a photo";
-//通讯录
-"NSContactsUsageDescription" = "";
+"NSMicrophoneUsageDescription" = "Povolit aplikaci TCLMOVE přístup k mikrofonu, aby mohla nahrávat hlasové zprávy?";
+"NSCameraUsageDescription" = "Povolit aplikaci TCLMOVE přístup k fotoaparátu, aby mohla nahrávat fotografie?";
+"NSPhotoLibraryUsageDescription" = "Povolit aplikaci TCLMOVE přístup k fotografiím/galerii, aby mohla nahrávat fotografie?";
+"NSLocationWhenInUseUsageDescription" = "Povolit aplikaci TCLMOVE přístup k informacím o poloze, aby mohla zjišťovat vaši polohu?";
+"NSBluetoothPeripheralUsageDescription" = "Povolit aplikaci TCLMOVE přístup k rozhraní Bluetooth, aby mohla spárovat vaše hodinky?";
+"NSContactsUsageDescription" = "Povolit aplikaci TCLMOVE přístup ke kontaktům, aby mohla přidávat kontakty?";

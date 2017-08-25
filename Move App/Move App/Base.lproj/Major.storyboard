@@ -102,7 +102,7 @@
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Yc-vY-xhQ" customClass="ScrollLabelView">
-                                        <rect key="frame" x="63" y="34" width="278" height="24"/>
+                                        <rect key="frame" x="63" y="34" width="272" height="24"/>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="xsd-xS-KJU" appends="YES" id="KYy-EQ-HUr"/>
@@ -118,7 +118,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tx3-nC-fyZ">
-                                        <rect key="frame" x="335" y="28" width="30" height="30"/>
+                                        <rect key="frame" x="335" y="32" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="Jbs-w0-ggo"/>
                                             <constraint firstAttribute="height" constant="30" id="Pzp-xm-QTK"/>
@@ -146,9 +146,9 @@
                                     <constraint firstItem="4Yc-vY-xhQ" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="12" id="S68-hd-ccJ"/>
                                     <constraint firstItem="qVH-Ns-GUh" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="top" constant="11" id="Uq3-9f-dUH"/>
                                     <constraint firstItem="GI0-OT-WGr" firstAttribute="leading" secondItem="mZQ-sj-e6I" secondAttribute="leading" constant="15" id="X6Y-5X-a7w"/>
-                                    <constraint firstItem="Tx3-nC-fyZ" firstAttribute="leading" secondItem="4Yc-vY-xhQ" secondAttribute="trailing" constant="-6" id="XoW-XQ-O87"/>
+                                    <constraint firstItem="Tx3-nC-fyZ" firstAttribute="leading" secondItem="4Yc-vY-xhQ" secondAttribute="trailing" id="XoW-XQ-O87"/>
                                     <constraint firstItem="819-oq-ciP" firstAttribute="top" secondItem="mZQ-sj-e6I" secondAttribute="top" constant="11" id="Xpd-VL-teq"/>
-                                    <constraint firstAttribute="bottom" secondItem="Tx3-nC-fyZ" secondAttribute="bottom" constant="8" id="Ysd-iW-bAC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tx3-nC-fyZ" secondAttribute="bottom" constant="4" id="Ysd-iW-bAC"/>
                                     <constraint firstItem="819-oq-ciP" firstAttribute="leading" secondItem="jCk-Qg-6qK" secondAttribute="trailing" constant="9" id="ZyJ-k2-TAp"/>
                                     <constraint firstItem="fzE-4h-zm9" firstAttribute="leading" secondItem="GI0-OT-WGr" secondAttribute="trailing" constant="12" id="a3P-Jq-VXE"/>
                                     <constraint firstItem="cib-Ho-U1W" firstAttribute="trailing" secondItem="GI0-OT-WGr" secondAttribute="trailing" id="cYz-xF-M9K"/>
@@ -253,8 +253,11 @@
                             <view hidden="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imr-nd-beI">
                                 <rect key="frame" x="0.0" y="130" width="375" height="45"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily tracking mode will consume more power, tap to close" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MzW-Bs-kxY">
-                                        <rect key="frame" x="8" y="7.5" width="341" height="31.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily tracking mode will consume more power, tap to close" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MzW-Bs-kxY">
+                                        <rect key="frame" x="8" y="5" width="341" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="cHh-g9-vJq"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.48627450980392156" green="0.37647058823529411" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -270,12 +273,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.85876661539077759" blue="0.52351969480514526" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="MzW-Bs-kxY" secondAttribute="bottom" constant="5" id="7Dt-dT-Qxr"/>
                                     <constraint firstAttribute="trailing" secondItem="j9l-Yt-adv" secondAttribute="trailing" constant="2" id="BLw-RO-G1J"/>
                                     <constraint firstItem="MzW-Bs-kxY" firstAttribute="centerY" secondItem="imr-nd-beI" secondAttribute="centerY" id="Beg-dI-sYm"/>
                                     <constraint firstItem="j9l-Yt-adv" firstAttribute="leading" secondItem="MzW-Bs-kxY" secondAttribute="trailing" constant="2" id="Ga3-ki-70m"/>
                                     <constraint firstItem="j9l-Yt-adv" firstAttribute="centerY" secondItem="imr-nd-beI" secondAttribute="centerY" id="Gvu-vy-zBO"/>
+                                    <constraint firstItem="MzW-Bs-kxY" firstAttribute="top" secondItem="imr-nd-beI" secondAttribute="top" constant="5" id="ZMr-x6-gI6"/>
                                     <constraint firstItem="MzW-Bs-kxY" firstAttribute="leading" secondItem="imr-nd-beI" secondAttribute="leading" constant="8" id="esz-uU-Kkj"/>
-                                    <constraint firstAttribute="height" constant="45" id="hG8-k4-4rK"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -299,8 +303,11 @@
                                             <constraint firstAttribute="width" constant="18" id="bMw-ME-25j"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch offine, please check the watch's network." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OR-JA-wTP">
-                                        <rect key="frame" x="41" y="14.5" width="326" height="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch offine, please check the watch's network." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OR-JA-wTP">
+                                        <rect key="frame" x="41" y="5" width="326" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="Uto-HC-YKo"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -308,8 +315,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="5OR-JA-wTP" firstAttribute="top" secondItem="2KL-x9-XlB" secondAttribute="top" constant="5" id="8uh-Ir-gzM"/>
                                     <constraint firstItem="5OR-JA-wTP" firstAttribute="leading" secondItem="R9k-n0-Trk" secondAttribute="trailing" constant="8" id="DgI-lH-7bD"/>
-                                    <constraint firstAttribute="height" constant="45" id="Pfv-DH-Izo"/>
+                                    <constraint firstAttribute="bottom" secondItem="5OR-JA-wTP" secondAttribute="bottom" constant="5" id="FfK-cx-JTF"/>
                                     <constraint firstItem="R9k-n0-Trk" firstAttribute="leading" secondItem="2KL-x9-XlB" secondAttribute="leading" constant="15" id="iUQ-cE-wxO"/>
                                     <constraint firstItem="R9k-n0-Trk" firstAttribute="centerY" secondItem="2KL-x9-XlB" secondAttribute="centerY" id="kUd-7B-e6T"/>
                                     <constraint firstAttribute="trailing" secondItem="5OR-JA-wTP" secondAttribute="trailing" constant="8" id="ptG-MW-UNY"/>
@@ -368,6 +376,7 @@
                         <outlet property="addressScrollLabel" destination="4Yc-vY-xhQ" id="5N1-NJ-cy9"/>
                         <outlet property="callOutlet" destination="Hpy-90-pyP" id="ddV-9q-P9j"/>
                         <outlet property="floatMenuTopConstraint" destination="swX-Ne-zAV" id="xBr-ZW-tmA"/>
+                        <outlet property="geoLocationTipLab" destination="sFB-LP-DJj" id="dpe-tN-1ps"/>
                         <outlet property="guideOutlet" destination="Tx3-nC-fyZ" id="V5i-HI-F8D"/>
                         <outlet property="headPortraitOutlet" destination="GI0-OT-WGr" id="V2Q-MS-5Ek"/>
                         <outlet property="mapView" destination="EZI-JX-nJk" id="4Mq-dd-Cqv"/>
@@ -377,7 +386,6 @@
                         <outlet property="noGeolocationView" destination="qq8-s0-eFv" id="AQV-eU-Bf7"/>
                         <outlet property="noticeOutlet" destination="wZG-pb-3Ev" id="y0o-jN-D0v"/>
                         <outlet property="offTrackingModeOutlet" destination="j9l-Yt-adv" id="gPy-0W-htE"/>
-                        <outlet property="offlineModeHeightConstraint" destination="Pfv-DH-Izo" id="6VA-EP-OMq"/>
                         <outlet property="offlineModeOutlet" destination="2KL-x9-XlB" id="zgn-or-D6k"/>
                         <outlet property="offlineTitleOutlet" destination="5OR-JA-wTP" id="beP-mJ-Gu4"/>
                         <outlet property="openPreferencesBtn" destination="nZf-no-x56" id="fAq-2c-ibZ"/>
@@ -386,7 +394,6 @@
                         <outlet property="statesOutlet" destination="jCk-Qg-6qK" id="upn-8y-ixp"/>
                         <outlet property="tapAddressOutlet" destination="xsd-xS-KJU" id="hZj-Bg-eeh"/>
                         <outlet property="timeOutlet" destination="5vP-5M-IIQ" id="A0r-lR-u12"/>
-                        <outlet property="trackingModeHeightConstraint" destination="hG8-k4-4rK" id="M4U-01-EhR"/>
                         <outlet property="trackingModeOutlet" destination="imr-nd-beI" id="NNt-4O-Oa8"/>
                         <outlet property="trackingTitleOutlet" destination="MzW-Bs-kxY" id="EG7-Xn-dSF"/>
                         <outlet property="voltameterImageOutlet" destination="819-oq-ciP" id="ObD-LL-Dsn"/>
@@ -435,7 +442,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Geolocation is not enabled for this app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFB-LP-DJj">
-                            <rect key="frame" x="48" y="168.5" width="280" height="67.5"/>
+                            <rect key="frame" x="48" y="200" width="280" height="67.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="280" id="0Ew-5i-hAr"/>
                             </constraints>
@@ -443,20 +450,11 @@
                             <color key="textColor" red="0.94901960780000005" green="0.32549019610000002" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enable it in the app preferences" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rY-Ie-vjV">
-                            <rect key="frame" x="48" y="244" width="280" height="42.5"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZf-no-x56">
-                            <rect key="frame" x="88" y="316.5" width="200" height="28"/>
+                            <rect key="frame" x="96.5" y="297.5" width="182" height="28"/>
                             <color key="backgroundColor" red="0.17483745810000001" green="0.60840499159999994" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="200" id="Ysr-7G-zxq"/>
-                            </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                            <state key="normal" title="OPEN APP PREFERENCES"/>
+                            <state key="normal" title="  OPEN APP PREFERENCES  "/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="3"/>
@@ -466,13 +464,10 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="2rY-Ie-vjV" firstAttribute="top" secondItem="sFB-LP-DJj" secondAttribute="bottom" constant="8" id="18a-O8-XwX"/>
-                        <constraint firstItem="nZf-no-x56" firstAttribute="top" secondItem="2rY-Ie-vjV" secondAttribute="bottom" constant="30" id="2h6-Jx-u5m"/>
-                        <constraint firstItem="sFB-LP-DJj" firstAttribute="centerY" secondItem="qq8-s0-eFv" secondAttribute="centerY" constant="-100" id="73X-G0-n1S"/>
+                        <constraint firstItem="nZf-no-x56" firstAttribute="centerY" secondItem="qq8-s0-eFv" secondAttribute="centerY" constant="10" id="XiA-wF-mkG"/>
+                        <constraint firstItem="nZf-no-x56" firstAttribute="top" secondItem="sFB-LP-DJj" secondAttribute="bottom" constant="30" id="YgN-Lz-7wy"/>
                         <constraint firstItem="sFB-LP-DJj" firstAttribute="centerX" secondItem="qq8-s0-eFv" secondAttribute="centerX" id="gPg-ta-WUU"/>
-                        <constraint firstItem="2rY-Ie-vjV" firstAttribute="centerX" secondItem="qq8-s0-eFv" secondAttribute="centerX" id="hta-U6-Zak"/>
                         <constraint firstItem="nZf-no-x56" firstAttribute="centerX" secondItem="qq8-s0-eFv" secondAttribute="centerX" id="vJy-O6-MpD"/>
-                        <constraint firstItem="2rY-Ie-vjV" firstAttribute="width" secondItem="sFB-LP-DJj" secondAttribute="width" id="ya9-Gz-xmV"/>
                     </constraints>
                 </view>
                 <tapGestureRecognizer id="xsd-xS-KJU"/>

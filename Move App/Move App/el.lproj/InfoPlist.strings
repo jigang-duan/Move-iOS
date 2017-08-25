@@ -1,20 +1,14 @@
-/* 
-  InfoPlist.strings
-  Move App
+/*
+ InfoPlist.strings
+ Move App
+ 
+ Created by Wuju Zheng on 2017/6/23.
+ Copyright © 2017年 TCL Com. All rights reserved.
+ */
 
-  Created by Wuju Zheng on 2017/6/23.
-  Copyright © 2017年 TCL Com. All rights reserved.
-*/
-
-//蓝牙
-"NSBluetoothPeripheralUsageDescription" = "";
-//相机
-"NSCameraUsageDescription" = "We need access to your phone's camera to scan QR code";
-//定位
-"NSLocationWhenInUseUsageDescription" = "We need access to your phone's location information to positioning";
-//麦克风
-"NSMicrophoneUsageDescription" = "We need access to your phone's microphone to record voice messages";
-//相册
-"NSPhotoLibraryUsageDescription" = "We need access to your phone's album to Use a photo";
-//通讯录
-"NSContactsUsageDescription" = "";
+"NSMicrophoneUsageDescription" = "Επιτρέπετε στο TCLMOVE να αποκτήσει πρόσβαση στο Μικρόφωνο του τηλεφώνου για την ηχογράφηση φωνητικών μηνυμάτων; ";
+"NSCameraUsageDescription" = "Επιτρέπετε στο TCLMOVE να αποκτήσει πρόσβαση στην Κάμερα του τηλεφώνου για την αποστολή φωτογραφιών;";
+"NSPhotoLibraryUsageDescription" = "Επιτρέπετε στο TCLMOVE να αποκτήσει πρόσβαση στις Φωτογραφίες/τη Συλλογή του τηλεφώνου για την αποστολή φωτογραφιών;";
+"NSLocationWhenInUseUsageDescription" = "Επιτρέπετε στο TCLMOVE να αποκτήσει πρόσβαση στην Τοποθεσία του τηλεφώνου για τον προσδιορισμό της θέσης σας;";
+"NSBluetoothPeripheralUsageDescription" = "Επιτρέπετε στο TCLMOVE να αποκτήσει πρόσβαση στο Bluetooth του τηλεφώνου για την αντιστοίχιση του ρολογιού;";
+"NSContactsUsageDescription" = "Επιτρέπετε στο TCLMOVE να αποκτήσει πρόσβαση στις Επαφές του τηλεφώνου για την προσθήκη επαφών;";

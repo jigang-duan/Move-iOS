@@ -84,15 +84,6 @@ class APNSettingVC: UITableViewController {
     @IBAction func sendAPNSettings(_ sender: UIBarButtonItem) {
         
         if sender.title == R.string.localizable.id_edit(){
-            plmnTf.text = ""
-            apnTf.text = ""
-            spnTf.text = ""
-            userTf.text = ""
-            passwordTf.text = ""
-            proxyAddTf.text = ""
-            proxyPortTf.text = ""
-            authSegment.selectedSegmentIndex = 0
-            
             self.canEditApn(flag: true)
             
             sender.title = R.string.localizable.id_save()

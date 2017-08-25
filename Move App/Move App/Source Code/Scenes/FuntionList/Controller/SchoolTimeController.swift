@@ -76,7 +76,7 @@ class SchoolTimeController: UIViewController {
             || self.pmStartTimeOutlet.titleLabel?.text == textNull
             || self.pmEndTimeOutlet.titleLabel?.text == textNull
         {
-            let alertController = UIAlertController(title: nil, message: "time error", preferredStyle: .alert)
+            let alertController = UIAlertController(title: nil, message: R.string.localizable.id_time_error(), preferredStyle: .alert)
             let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
             
             alertController.addAction(okAction)

@@ -6,15 +6,10 @@
   Copyright © 2017年 TCL Com. All rights reserved.
 */
 
-//蓝牙
-"NSBluetoothPeripheralUsageDescription" = "";
-//相机
-"NSCameraUsageDescription" = "We need access to your phone's camera to scan QR code";
-//定位
-"NSLocationWhenInUseUsageDescription" = "We need access to your phone's location information to positioning";
-//麦克风
-"NSMicrophoneUsageDescription" = "We need access to your phone's microphone to record voice messages";
-//相册
-"NSPhotoLibraryUsageDescription" = "We need access to your phone's album to Use a photo";
-//通讯录
-"NSContactsUsageDescription" = "";
+
+"NSMicrophoneUsageDescription" = "Autoriser TCLMOVE à accéder au micro de votre téléphone dans le but d’enregistrer des messages vocaux ? ";
+"NSCameraUsageDescription" = "Autoriser TCLMOVE à accéder à l’appareil photo de votre téléphone dans le but d’envoyer des photos ?";
+"NSPhotoLibraryUsageDescription" = "Autoriser TCLMOVE à accéder aux photos/à la gallerie de votre téléphone dans le but d’envoyer des photos ?";
+"NSLocationWhenInUseUsageDescription" = "Autoriser TCLMOVE à accéder à la localisation de votre téléphone dans le but de vous localiser ?";
+"NSBluetoothPeripheralUsageDescription" = "Autoriser TCLMOVE à accéder à la fonction Bluetooth de votre téléphone dans le but d’appairer votre montre ?";
+"NSContactsUsageDescription" = "Autoriser TCLMOVE à accéder au contacts dans votre téléphone dans le but d’ajouter des contacts ?";
