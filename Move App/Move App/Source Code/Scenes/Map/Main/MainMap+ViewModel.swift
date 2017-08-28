@@ -128,7 +128,7 @@ class MainMapViewModel {
         online = onlineObservable.startWith(false).asDriver(onErrorJustReturn: false)
         
         let remindActivitying = BehaviorSubject<Bool>(value: false)
-        self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false)
+        self.remindActivityIn = remindActivitying.asDriver(onErrorJustReturn: false).debug()
         
         let errorSubject = PublishSubject<Error>()
         
@@ -139,10 +139,12 @@ class MainMapViewModel {
             .withLatestFrom(remindActivitying.asObservable())
             .filter { !$0 }
             .mapVoid()
+            .shareReplay(1)
         
-        remindSuccess = Observable.merge(enterForeground, input.remindLocation)
-            .startWith(())
-            .throttle(1.0, scheduler: MainScheduler.instance)
+        remindSuccess = Observable.merge(enterForeground,
+                                         input.remindLocation,
+                                         currentDeviceId.asObservable().filterNil().single().mapVoid())
+            .throttle(1.0, scheduler: MainScheduler.instance).debug()
             .withLatestFrom(currentDeviceId.asObservable().filterNil())
             .do(onNext: { _ in remindActivitying.onNext(true) })
             .flatMapLatest {
