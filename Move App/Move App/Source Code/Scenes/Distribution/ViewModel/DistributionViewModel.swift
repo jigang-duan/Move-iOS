@@ -23,6 +23,10 @@ class DistributionViewModel {
     // }
     
     init(
+        input: (
+        starTap: Observable<Void>,
+        noFirst: Bool
+        ),
         dependency: (
         deviceManager: DeviceManager,
         userManager: UserManager,
@@ -34,7 +38,8 @@ class DistributionViewModel {
         let userManager = dependency.userManager
         let deviceManger = dependency.deviceManager
         
-        let delay = Observable.just(1).delay(3, scheduler: MainScheduler.instance).share()
+        let delay = Observable.just(1).delay(3, scheduler: MainScheduler.instance).mapVoid()
+        let start = input.noFirst ? delay : input.starTap
         
 //        self.enterLogin =  delay
 //            .flatMap { _ in userManager.isValid().map { !$0 } }
@@ -44,8 +49,8 @@ class DistributionViewModel {
 //            .filter { !$0 }
 //            .flatMapLatest { _ in deviceManger.fetchDevices().asDriver(onErrorJustReturn: []) }
         
-        self.enterLogin = delay
-            .flatMapLatest{ _ in userManager.isValidNativeToken.map { !$0 } }
+        self.enterLogin = start
+            .flatMapLatest{ userManager.isValidNativeToken.map { !$0 } }
             .asDriver(onErrorJustReturn: true)
         
         self.fetchDevices = enterLogin

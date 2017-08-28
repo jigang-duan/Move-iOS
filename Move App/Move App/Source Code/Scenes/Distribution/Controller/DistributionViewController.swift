@@ -13,13 +13,28 @@ import RxCocoa
 
 class DistributionViewController: UIViewController {
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var starButton: UIButton!
+    
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        starButton.setTitle(R.string.localizable.id_start_to_use(), for: .normal)
+        
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+        let noFirstKey = "no_first:tclmove:" + version
+        let noFirst = UserDefaults.standard.bool(forKey: noFirstKey)
+        backgroundImageView.image = noFirst ? R.image.defult() : R.image.guide()
+        starButton.isHidden = noFirst
+        
         let viewModel = DistributionViewModel(
+            input: (
+                starTap: starButton.rx.tap.asObservable(),
+                noFirst: noFirst
+            ),
             dependency: (
                 deviceManager: DeviceManager.shared,
                 userManager: UserManager.shared,
@@ -30,6 +45,7 @@ class DistributionViewController: UIViewController {
         
         viewModel.enterLogin
             .drive(onNext: { [weak self] in
+                UserDefaults.standard.set(true, forKey: noFirstKey)
                 self?.enterLoginScreen(enter: $0)
             })
             .addDisposableTo(disposeBag)
