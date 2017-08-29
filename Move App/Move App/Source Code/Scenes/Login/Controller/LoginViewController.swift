@@ -213,9 +213,12 @@ extension LoginViewController {
     fileprivate func loginOnValidation(_ result: ValidationResult) {
         switch result {
         case .failed(let message):
-            if message == R.string.localizable.id_password_not_same() {
+            switch message {
+            case R.string.localizable.id_password_not_same():
                 self.showPasswordError(message)
-            }else{
+            case " Locked":
+                self.showPasswordError("You have entered the wrong password for 3 times, your account will be blocked for 15 minutes")
+            default:
                 self.showAccountError(message)
             }
         case .ok, .empty:
