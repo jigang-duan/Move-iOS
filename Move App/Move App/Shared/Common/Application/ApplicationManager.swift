@@ -160,7 +160,9 @@ extension ApplicationManager {
 extension ApplicationManager {
 
     fileprivate func initBugly () {
-        Bugly.start(withAppId: "0e5a1986b2")
+        if Configure.App.canBugly {
+            Bugly.start(withAppId: "0e5a1986b2")
+        }
     }
 }
 
