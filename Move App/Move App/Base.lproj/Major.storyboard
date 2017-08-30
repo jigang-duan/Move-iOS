@@ -407,12 +407,11 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZX9-wR-J68">
-                            <rect key="frame" x="102" y="306.5" width="170" height="36"/>
+                            <rect key="frame" x="111.5" y="306.5" width="151" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="4aX-NB-sXI"/>
-                                <constraint firstAttribute="width" constant="170" id="GmX-WK-8mm"/>
                             </constraints>
-                            <state key="normal" title="Add your device"/>
+                            <state key="normal" title="     Add your device     "/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="6"/>
