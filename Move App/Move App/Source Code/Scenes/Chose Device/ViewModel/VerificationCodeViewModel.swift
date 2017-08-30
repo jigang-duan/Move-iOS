@@ -87,7 +87,7 @@ fileprivate func errorRecover(_ error: Swift.Error) -> Driver<ValidationResult> 
     
     if case WorkerError.webApi(let id, _, let msg) = _error {
         if id == 6 && msg == "Not found" {
-            return Driver.just(ValidationResult.failed(message: "Can't connect to this watch"))
+            return Driver.just(ValidationResult.failed(message: R.string.localizable.id_connect_watch()))
         }
     }
     
