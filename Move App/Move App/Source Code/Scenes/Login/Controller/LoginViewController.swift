@@ -217,7 +217,7 @@ extension LoginViewController {
             case R.string.localizable.id_password_not_same():
                 self.showPasswordError(message)
             case " Locked":
-                self.showPasswordError("You have entered the wrong password for 3 times, your account will be blocked for 15 minutes")
+                self.showPasswordError(R.string.localizable.id_account_block_15_minute())
             default:
                 self.showAccountError(message)
             }
