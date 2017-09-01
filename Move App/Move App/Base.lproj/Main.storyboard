@@ -57,19 +57,36 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="STAR"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A 3G Family Watch  that keeps your child safe, connected, and entertained." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-2i-f05">
+                                <rect key="frame" x="16" y="510" width="343" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always Togather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-C5-agv">
+                                <rect key="frame" x="99" y="471" width="177" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tyX-9e-tfJ" firstAttribute="top" secondItem="cHL-bl-Z0Y" secondAttribute="top" id="0E6-yg-Af7"/>
                             <constraint firstItem="Cvr-dq-zMt" firstAttribute="leading" secondItem="cHL-bl-Z0Y" secondAttribute="leadingMargin" id="1U3-yr-xh3"/>
+                            <constraint firstItem="Jgg-2i-f05" firstAttribute="top" secondItem="vXf-C5-agv" secondAttribute="bottom" constant="10" id="3Fj-Xv-ZYj"/>
+                            <constraint firstItem="Jgg-2i-f05" firstAttribute="leading" secondItem="cHL-bl-Z0Y" secondAttribute="leadingMargin" id="BZG-ce-Ego"/>
+                            <constraint firstItem="Jgg-2i-f05" firstAttribute="trailing" secondItem="cHL-bl-Z0Y" secondAttribute="trailingMargin" id="G6X-Ia-Vis"/>
                             <constraint firstItem="bo7-xh-TOc" firstAttribute="top" secondItem="Cvr-dq-zMt" secondAttribute="bottom" constant="8" id="IKz-1k-RV7"/>
                             <constraint firstItem="3Wc-cG-8zR" firstAttribute="trailing" secondItem="cHL-bl-Z0Y" secondAttribute="trailingMargin" constant="-14" id="SGx-q1-Miy"/>
                             <constraint firstItem="usf-Ec-PyI" firstAttribute="top" secondItem="NlB-vB-JHk" secondAttribute="bottom" constant="8" id="ZMx-fw-6V6"/>
                             <constraint firstItem="Cvr-dq-zMt" firstAttribute="top" secondItem="usf-Ec-PyI" secondAttribute="bottom" constant="8" id="aQs-Wa-mt0"/>
                             <constraint firstItem="tyX-9e-tfJ" firstAttribute="leading" secondItem="cHL-bl-Z0Y" secondAttribute="leading" id="boW-jo-fzt"/>
+                            <constraint firstItem="vXf-C5-agv" firstAttribute="centerX" secondItem="cHL-bl-Z0Y" secondAttribute="centerX" id="dJ5-a9-Fb9"/>
                             <constraint firstAttribute="trailing" secondItem="tyX-9e-tfJ" secondAttribute="trailing" id="eoJ-wO-hCe"/>
                             <constraint firstItem="Htf-2G-0ly" firstAttribute="top" secondItem="tyX-9e-tfJ" secondAttribute="bottom" id="f6C-J0-oLX"/>
                             <constraint firstItem="usf-Ec-PyI" firstAttribute="leading" secondItem="cHL-bl-Z0Y" secondAttribute="leadingMargin" id="gfn-fA-7es"/>
+                            <constraint firstItem="3Wc-cG-8zR" firstAttribute="top" secondItem="Jgg-2i-f05" secondAttribute="bottom" constant="64" id="gr0-av-pJ3"/>
                             <constraint firstItem="Cvr-dq-zMt" firstAttribute="trailing" secondItem="cHL-bl-Z0Y" secondAttribute="trailingMargin" id="j8c-QU-rWO"/>
                             <constraint firstItem="bo7-xh-TOc" firstAttribute="trailing" secondItem="cHL-bl-Z0Y" secondAttribute="trailingMargin" id="jXE-M9-TA5"/>
                             <constraint firstItem="Htf-2G-0ly" firstAttribute="top" secondItem="3Wc-cG-8zR" secondAttribute="bottom" constant="18" id="sMR-Vm-D5R"/>
@@ -79,12 +96,14 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="tyX-9e-tfJ" id="fr4-cQ-qJH"/>
+                        <outlet property="guideDescLabel" destination="Jgg-2i-f05" id="4lD-OK-gdQ"/>
+                        <outlet property="guideTitleLabel" destination="vXf-C5-agv" id="Cdc-Et-HJ9"/>
                         <outlet property="starButton" destination="3Wc-cG-8zR" id="kwy-xT-4Fc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qpU-cX-UTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="127" y="-770"/>
+            <point key="canvasLocation" x="126.5" y="-770.5"/>
         </scene>
         <!--Login-->
         <scene sceneID="8nX-u4-D3Q">

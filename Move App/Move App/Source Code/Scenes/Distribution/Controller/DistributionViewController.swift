@@ -15,6 +15,8 @@ class DistributionViewController: UIViewController {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var starButton: UIButton!
+    @IBOutlet weak var guideTitleLabel: UILabel!
+    @IBOutlet weak var guideDescLabel: UILabel!
     
     var disposeBag = DisposeBag()
 
@@ -23,12 +25,16 @@ class DistributionViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         starButton.setTitle(R.string.localizable.id_start_to_use(), for: .normal)
+        guideTitleLabel.text = R.string.localizable.id_layout_guide_foreground_title()
+        guideDescLabel.text = R.string.localizable.id_layout_guide_foreground_text()
         
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
         let noFirstKey = "no_first:tclmove:" + version
         let noFirst = UserDefaults.standard.bool(forKey: noFirstKey)
         backgroundImageView.image = noFirst ? R.image.defult() : R.image.guide()
         starButton.isHidden = noFirst
+        guideTitleLabel.isHidden = noFirst
+        guideDescLabel.isHidden = noFirst
         
         let viewModel = DistributionViewModel(
             input: (
