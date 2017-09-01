@@ -31,10 +31,7 @@ class DistributionViewController: UIViewController {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
         let noFirstKey = "no_first:tclmove:" + version
         let noFirst = UserDefaults.standard.bool(forKey: noFirstKey)
-        backgroundImageView.image = noFirst ? R.image.defult() : R.image.guide()
-        starButton.isHidden = noFirst
-        guideTitleLabel.isHidden = noFirst
-        guideDescLabel.isHidden = noFirst
+        showGuide(noFirst)
         
         let viewModel = DistributionViewModel(
             input: (
@@ -52,6 +49,7 @@ class DistributionViewController: UIViewController {
         viewModel.enterLogin
             .drive(onNext: { [weak self] in
                 UserDefaults.standard.set(true, forKey: noFirstKey)
+                self?.showGuide(true)
                 self?.enterLoginScreen(enter: $0)
             })
             .addDisposableTo(disposeBag)
@@ -88,6 +86,13 @@ class DistributionViewController: UIViewController {
 
 
 extension DistributionViewController {
+    
+    fileprivate func showGuide(_ noFirst: Bool) {
+        backgroundImageView.image = noFirst ? R.image.defult() : R.image.guide()
+        starButton.isHidden = noFirst
+        guideTitleLabel.isHidden = noFirst
+        guideDescLabel.isHidden = noFirst
+    }
     
     fileprivate func enterLoginScreen(enter: Bool) {
         if enter {
