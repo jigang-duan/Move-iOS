@@ -59,7 +59,7 @@ class WatchFriendsController: UIViewController {
         
         deleteBun.rx.tap.asObservable()
             .bindNext { [weak self] in
-                let vc = UIAlertController(title: nil, message: "Delete this friend?", preferredStyle: .alert)
+                let vc = UIAlertController(title: nil, message: R.string.localizable.id_delete_this_friend(), preferredStyle: .alert)
                 let action1 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                 let action2 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     self?.deleteSubject.onNext()
