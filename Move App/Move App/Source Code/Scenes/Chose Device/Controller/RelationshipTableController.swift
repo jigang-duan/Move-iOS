@@ -14,6 +14,7 @@ class RelationshipTableController: UIViewController {
     
     var relationBlock: ((Relation) -> ())?
     
+    @IBOutlet weak var saveBun: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var otherTf: UITextField!
@@ -78,11 +79,19 @@ class RelationshipTableController: UIViewController {
         self.title = R.string.localizable.id_title()
         otherTf.placeholder = R.string.localizable.id_other()
         
+        self.setupRightBun()
+        
         if let relation = selectedRelation {
             if case Relation.other(let value) = relation {
                 otherTf.text = value
             }
         }
+        
+        saveBun.rx.tap.asObservable()
+            .bindNext { [weak self] in
+                self?.confirmSelectRelation()
+            }
+            .addDisposableTo(disposeBag)
         
         tableView.delegate = self
         
@@ -90,7 +99,17 @@ class RelationshipTableController: UIViewController {
         
     }
     
-    
+    func setupRightBun() {
+        if self.relationBlock != nil {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
+        if deviceAddInfo?.isMaster == true {
+            saveBun.title = R.string.localizable.id_phone_number_next()
+        }else{
+            saveBun.title = R.string.localizable.id_save()
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sg = R.segue.relationshipTableController.showKidInformation(segue: segue) {
