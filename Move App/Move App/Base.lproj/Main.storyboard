@@ -2021,27 +2021,6 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="old password invalid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMt-2j-zmJ">
-                                <rect key="frame" x="16" y="161" width="122.5" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="n4t-UQ-fz6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e3-FB-0Tl">
-                                <rect key="frame" x="15" y="185" width="110" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new password invalid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRn-XN-MMT">
-                                <rect key="frame" x="16" y="262" width="128.5" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia3-iC-GR8">
                                 <rect key="frame" x="0.0" y="113" width="375" height="40"/>
                                 <subviews>
@@ -2079,6 +2058,18 @@
                                     <constraint firstItem="3ZZ-EP-B3i" firstAttribute="leading" secondItem="vin-k7-gUf" secondAttribute="trailing" constant="10" id="oJq-iC-wCr"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="old password invalid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMt-2j-zmJ">
+                                <rect key="frame" x="16" y="161" width="343" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5e3-FB-0Tl">
+                                <rect key="frame" x="15" y="185" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qml-OK-unD">
                                 <rect key="frame" x="0.0" y="214" width="375" height="40"/>
                                 <subviews>
@@ -2113,6 +2104,12 @@
                                     <constraint firstItem="s4h-a3-kFW" firstAttribute="leading" secondItem="fQf-Hk-EEq" secondAttribute="trailing" constant="10" id="zAW-7I-fia"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new password invalid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRn-XN-MMT">
+                                <rect key="frame" x="16" y="262" width="343" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.99142116309999995" green="0.14957314729999999" blue="0.073725379999999993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -2127,7 +2124,9 @@
                             <constraint firstItem="yMt-2j-zmJ" firstAttribute="leading" secondItem="5Yb-MX-tYw" secondAttribute="leading" constant="16" id="nuH-Uh-Faw"/>
                             <constraint firstItem="yMt-2j-zmJ" firstAttribute="top" secondItem="Ia3-iC-GR8" secondAttribute="bottom" constant="8" id="pUy-Qi-clk"/>
                             <constraint firstAttribute="trailing" secondItem="Ia3-iC-GR8" secondAttribute="trailing" id="pzc-eO-Rqx"/>
+                            <constraint firstAttribute="trailing" secondItem="CRn-XN-MMT" secondAttribute="trailing" constant="16" id="q7I-u4-Bp7"/>
                             <constraint firstItem="qml-OK-unD" firstAttribute="top" secondItem="5e3-FB-0Tl" secondAttribute="bottom" constant="8" id="s3H-SK-yqT"/>
+                            <constraint firstAttribute="trailing" secondItem="yMt-2j-zmJ" secondAttribute="trailing" constant="16" id="tct-EA-MBN"/>
                             <constraint firstItem="Ia3-iC-GR8" firstAttribute="top" secondItem="eDq-EV-6LW" secondAttribute="bottom" constant="8" id="uJN-gm-0Vr"/>
                             <constraint firstAttribute="trailing" secondItem="qml-OK-unD" secondAttribute="trailing" id="yrZ-Z3-8uw"/>
                         </constraints>
@@ -2143,7 +2142,6 @@
                         <outlet property="oldLab" destination="eDq-EV-6LW" id="2u9-Az-4pg"/>
                         <outlet property="oldTf" destination="vin-k7-gUf" id="FxD-dB-1Mg"/>
                         <outlet property="oldValid" destination="yMt-2j-zmJ" id="Fe9-4d-vgg"/>
-                        <outlet property="oldValidHeiCon" destination="n4t-UQ-fz6" id="fLR-Dt-v0C"/>
                         <outlet property="saveBun" destination="F8S-xB-SJs" id="jsh-Kb-UIi"/>
                     </connections>
                 </viewController>

@@ -132,11 +132,14 @@ class AccountKidsRulesuserController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //safe zone
         if let vc = R.segue.accountKidsRulesuserController.showSafezone(segue: segue)?.destination {
-            vc.autopositioningBool = autoPositionSwitch.isOn
+            vc.isAutoposition = autoPositionSwitch.isOn
             vc.autopositioningBtn = autoPositionSwitch
             vc.adminBool = isAdmin
             vc.autoPositionBlock = {flag in
                 self.autoPositionSwitch.isOn = flag
+                if let deviceId = DeviceManager.shared.currentDevice?.deviceId {
+                    DataCacheManager.shared.set(key: "mark:select.auto.posistion-\(deviceId)", value: true)
+                }
             }
         }
         
@@ -172,13 +175,12 @@ class AccountKidsRulesuserController: UITableViewController {
         
         manager.deleteDevice(with: deviceId)
             .subscribe(onNext: { [weak self] flag in
-                if flag == false{
-                    self?.showAlert(message: R.string.localizable.id_unpaired_fail())
-                }else{
-                    _ = self?.navigationController?.popToRootViewController(animated: true)
-                    UseOfflineCache.shared.clean(containKeys: deviceId)
-                }
-                
+                    if flag == false{
+                        self?.showAlert(message: R.string.localizable.id_unpaired_fail())
+                    }else{
+                        _ = self?.navigationController?.popToRootViewController(animated: true)
+                        UseOfflineCache.shared.clean(containKeys: deviceId)
+                    }
                 }, onError: { er in
                     print(er)
                     self.showAlert(message: R.string.localizable.id_unpaired_fail())

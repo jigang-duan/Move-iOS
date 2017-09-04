@@ -45,11 +45,21 @@ class PhoneNumberViewModel {
             .flatMapLatest({ phone in
                 
                 return DeviceManager.shared.checkBindPhone(deviceId: (input.info.deviceId)!, phone: phone)
-                    .map({ type in
-                        if type == -1 || type == 0 {
-                            return ValidationResult.ok(message: "")
+                    .flatMapLatest({ type -> Observable<ValidationResult> in
+//                        联系人类型
+//                        -1 - 未添加该号码
+//                        0 - 非注册用户
+//                        1 - 注册用户
+//                        2 - 注册设备
+                        if type == -1 {
+                            return Observable.just(ValidationResult.ok(message: ""))
+                        }else if type == 0 {
+                            return DeviceManager.shared.joinGroup(joinInfo: input.info)
+                                .map({_ in
+                                    return  ValidationResult.ok(message: "join")
+                                })
                         }else{
-                            return ValidationResult.failed(message: R.string.localizable.id_phone_error_add())
+                            return Observable.just(ValidationResult.failed(message: R.string.localizable.id_phone_error_add()))
                         }
                     })
                     .asDriver(onErrorJustReturn: ValidationResult.ok(message: ""))
