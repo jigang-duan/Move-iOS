@@ -18,7 +18,6 @@ class MeSetPasswordViewController: UIViewController {
     @IBOutlet weak var newTf: UITextField!
     
     @IBOutlet weak var oldValid: UILabel!
-    @IBOutlet weak var oldValidHeiCon: NSLayoutConstraint!
     @IBOutlet weak var newValid: UILabel!
     
     
@@ -56,47 +55,33 @@ class MeSetPasswordViewController: UIViewController {
 
     
     func showOldError(_ text: String) {
-        oldValidHeiCon.constant = 16
-        oldValid.isHidden = false
-        oldValid.alpha = 0.0
         oldValid.text = text
         UIView.animate(withDuration: 0.6) { [weak self] in
             self?.oldValid.textColor = ValidationColors.errorColor
-            self?.oldValid.alpha = 1.0
             self?.view.layoutIfNeeded()
         }
     }
     
     func revertOldError() {
-        oldValidHeiCon.constant = 0
-        oldValid.isHidden = true
-        oldValid.alpha = 1.0
-        oldValid.text = ""
+        oldValid.text = " "
         UIView.animate(withDuration: 0.6) { [weak self] in
             self?.oldValid.textColor = ValidationColors.okColor
-            self?.oldValid.alpha = 0.0
             self?.view.layoutIfNeeded()
         }
     }
     
     func showNewError(_ text: String) {
-        newValid.isHidden = false
-        newValid.alpha = 0.0
         newValid.text = text
         UIView.animate(withDuration: 0.6) { [weak self] in
             self?.newValid.textColor = ValidationColors.errorColor
-            self?.newValid.alpha = 1.0
             self?.view.layoutIfNeeded()
         }
     }
     
     func revertNewError() {
-        newValid.isHidden = true
-        newValid.alpha = 1.0
-        newValid.text = ""
+        newValid.text = " "
         UIView.animate(withDuration: 0.6) { [weak self] in
             self?.newValid.textColor = ValidationColors.okColor
-            self?.newValid.alpha = 0.0
             self?.view.layoutIfNeeded()
         }
     }
@@ -112,10 +97,8 @@ class MeSetPasswordViewController: UIViewController {
         super.viewDidLoad()
         
         self.initializeI18N()
-        
-        oldValid.isHidden = true
-        oldValidHeiCon.constant = 0
-        newValid.isHidden = true
+        oldValid.text = " "
+        newValid.text = " "
         
         let oldText = oldTf.rx.observe(String.self, "text").filterNil()
         let oldDrier = oldTf.rx.text.orEmpty.asDriver()
@@ -162,7 +145,7 @@ class MeSetPasswordViewController: UIViewController {
             .drive(onNext: { [unowned self] result in
                 switch result {
                 case .failed(let message):
-                    self.showNewError(message)
+                    self.showOldError(message)
                 case .ok:
                     _ = self.navigationController?.popViewController(animated: true)
                 default:

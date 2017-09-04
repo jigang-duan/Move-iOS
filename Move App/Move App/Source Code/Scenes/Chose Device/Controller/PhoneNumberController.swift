@@ -139,8 +139,12 @@ class PhoneNumberController: UIViewController {
                 switch doneResult {
                 case .failed(let message):
                     self?.showValidateError(message)
-                case .ok:
-                    self?.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
+                case .ok(let message):
+                    if message == "join" {
+                        _ = self?.navigationController?.popToRootViewController(animated: true)
+                    }else{
+                        self?.performSegue(withIdentifier: R.segue.phoneNumberController.showRelationship, sender: nil)
+                    }
                 default:
                     self?.revertValidateError()
                 }
