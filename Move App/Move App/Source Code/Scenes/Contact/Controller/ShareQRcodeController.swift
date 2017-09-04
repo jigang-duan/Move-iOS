@@ -196,7 +196,7 @@ class ShareQRcodeController: UIViewController {
     @IBAction func shareQRImage(_ sender: UIButton) {
         let activity = UIActivity()
         
-        let vc = UIActivityViewController(activityItems: [self.screenShot()], applicationActivities: [activity])
+        let vc = UIActivityViewController(activityItems: [self.screenShot()], applicationActivities: nil)
         
         if let popover = vc.popoverPresentationController {
             popover.sourceView = sender.superview

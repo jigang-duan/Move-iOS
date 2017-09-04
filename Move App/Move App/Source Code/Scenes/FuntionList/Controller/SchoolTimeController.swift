@@ -70,20 +70,20 @@ class SchoolTimeController: UIViewController {
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
-        let textNull = R.string.localizable.id_is_null()
-        if self.amStartTimeOutlet.titleLabel?.text == textNull
-            || self.amEndTimeOutlet.titleLabel?.text == textNull
-            || self.pmStartTimeOutlet.titleLabel?.text == textNull
-            || self.pmEndTimeOutlet.titleLabel?.text == textNull
-        {
-            let alertController = UIAlertController(title: nil, message: R.string.localizable.id_time_error(), preferredStyle: .alert)
-            let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
-            
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-        
+//        let textNull = R.string.localizable.id_is_null()
+//        if self.amStartTimeOutlet.titleLabel?.text == textNull
+//            || self.amEndTimeOutlet.titleLabel?.text == textNull
+//            || self.pmStartTimeOutlet.titleLabel?.text == textNull
+//            || self.pmEndTimeOutlet.titleLabel?.text == textNull
+//        {
+//            let alertController = UIAlertController(title: nil, message: R.string.localizable.id_time_error(), preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: R.string.localizable.id_ok(), style: .default, handler: nil)
+//            
+//            alertController.addAction(okAction)
+//            self.present(alertController, animated: true, completion: nil)
+//        }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         internationalization()
@@ -93,6 +93,7 @@ class SchoolTimeController: UIViewController {
          Preferences.shared.mkSchoolTimeFirst = false
             
         }
+        
         helpBtnQutlet.rx.tap
             .asDriver()
             .drive(onNext: {[weak self] in
@@ -192,10 +193,37 @@ class SchoolTimeController: UIViewController {
                 )
         )
         
-        viewModel.amStartDateVariable.asDriver().drive(onNext: {[weak self] date in self?.amStartTime = date }).addDisposableTo(disposeBag)
-        viewModel.amEndDateVariable.asDriver() .drive(onNext: {  [weak self] date in self?.amEndTime = date }).addDisposableTo(disposeBag)
-        viewModel.pmStartDateVariable.asDriver().drive(onNext: { [weak self] date in self?.pmStartTime = date }).addDisposableTo(disposeBag)
-        viewModel.pmEndDateVariable.asDriver().drive(onNext: { [weak self] date in self?.pmEndTime = date }).addDisposableTo(disposeBag)
+        
+        let amDateDriver = Driver.combineLatest(viewModel.amStartDateVariable.asDriver(),
+                                          viewModel.amEndDateVariable.asDriver()) { ($0, $1) }
+        let nullAmDate = amDateDriver.filter{ $0.0 == nullDate }.filter{ $0.1 == nullDate }
+        nullAmDate.map{_ in R.string.localizable.id_is_null() }.drive(amStartTimeOutlet.rx.title()).addDisposableTo(disposeBag)
+        nullAmDate.map{_ in R.string.localizable.id_is_null() }.drive(amEndTimeOutlet.rx.title()).addDisposableTo(disposeBag)
+        
+        let amDate = amDateDriver.filter{ $0.0 != nullDate || $0.1 != nullDate }
+            .map{ $0.0 >= $0.1 ? ($0.0, $0.0.addingTimeInterval(60)) : ($0.0, $0.1) }
+        amDate.map{ $0.0 }
+            .drive(onNext: {[unowned self] date in self.amStartTime = date })
+            .addDisposableTo(disposeBag)
+        amDate.map{ $0.1 }
+            .drive(onNext: {[unowned self] date in self.amEndTime = date })
+            .addDisposableTo(disposeBag)
+        
+        
+        let pmDateDriver = Driver.combineLatest(viewModel.pmStartDateVariable.asDriver(),
+                                                viewModel.pmEndDateVariable.asDriver()) { ($0, $1) }
+        let nullPmDate = pmDateDriver.filter{ $0.0 == nullDate }.filter{ $0.1 == nullDate }
+        nullPmDate.map{_ in R.string.localizable.id_is_null() }.drive(pmStartTimeOutlet.rx.title()).addDisposableTo(disposeBag)
+        nullPmDate.map{_ in R.string.localizable.id_is_null() }.drive(pmEndTimeOutlet.rx.title()).addDisposableTo(disposeBag)
+        
+        let pmDate = pmDateDriver.filter{ $0.0 != nullDate || $0.1 != nullDate }
+            .map{ $0.0 >= $0.1 ? ($0.0, $0.0.addingTimeInterval(60)) : ($0.0, $0.1) }
+        pmDate.map{ $0.0 }
+            .drive(onNext: {[unowned self] date in self.pmStartTime = date })
+            .addDisposableTo(disposeBag)
+        pmDate.map{ $0.1 }
+            .drive(onNext: {[unowned self] date in self.pmEndTime = date })
+            .addDisposableTo(disposeBag)
         
         
         viewModel.saveFinish?
@@ -251,9 +279,9 @@ class SchoolTimeController: UIViewController {
     private func selectAmStartTime() {
         self.datepicke.minimumDate = self.amMin
         if self.amStartTime == Date(timeIntervalSince1970: 0) && self.amEndTime == Date(timeIntervalSince1970: 0){
-            self.datepicke.maximumDate = self.amMax;
+            self.datepicke.maximumDate = self.amMax
         }else{
-            self.datepicke.maximumDate = amEndTime
+            self.datepicke.maximumDate = amEndTime.addingTimeInterval(-60)
         }
         self.amStartTimeOutlet.isSelected = true
         self.amEndTimeOutlet.isSelected = false
@@ -280,7 +308,7 @@ class SchoolTimeController: UIViewController {
         if self.pmStartTime == Date(timeIntervalSince1970: 0) && self.pmEndTime == Date(timeIntervalSince1970: 0){
             self.datepicke.maximumDate = pmEndTime
         }else{
-            self.datepicke.maximumDate = pmMax
+            self.datepicke.maximumDate = pmMax.addingTimeInterval(-60)
         }
         
         self.amStartTimeOutlet.isSelected = false
@@ -473,22 +501,21 @@ class SchoolTimeController: UIViewController {
 extension SchoolTimeController {
     
     private func zoneDateString(form date: Date) -> String {
-        if date == Date(timeIntervalSince1970: 0){
-            return R.string.localizable.id_is_null()
-        }
-        else
-        {
-        let dformatter = DateFormatter()
-        dformatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dformatter.dateFormat = "HH:mm"
-        let dateStr = dformatter.string(from: date)
-        return dateStr
-        }
+//        if date == Date(timeIntervalSince1970: 0) {
+//            return R.string.localizable.id_is_null()
+//        }
+//        else {
+            let dformatter = DateFormatter()
+            dformatter.timeZone = TimeZone(secondsFromGMT: 0)
+            dformatter.dateFormat = "HH:mm"
+            let dateStr = dformatter.string(from: date)
+            return dateStr
+//        }
     }
     
     fileprivate var amStartTime: Date {
         get {
-            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amStartTimeOutlet.titleLabel?.text))
+            return DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amStartTimeOutlet.titleLabel?.text))
         }
         set(newValue) {
             amStartTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
@@ -497,11 +524,10 @@ extension SchoolTimeController {
     
     fileprivate var amEndTime: Date {
         get {
-            return  DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amEndTimeOutlet.titleLabel?.text))
+            return DateUtility.zoneDayOfHMS(date: DateUtility.date(from: amEndTimeOutlet.titleLabel?.text))
         }
         set(newValue) {
             amEndTimeOutlet.setTitle(zoneDateString(form: newValue), for: .normal)
-            
         }
     }
     
@@ -542,3 +568,4 @@ extension SchoolTimeController {
     
 }
 
+let nullDate = Date(timeIntervalSince1970: 0)
