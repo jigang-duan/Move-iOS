@@ -114,7 +114,11 @@ class SchoolTimeViewModel {
             .withLatestFrom(dayFromWeekVariable.asDriver())
             .filter{$0.contains(true)}
             .withLatestFrom(schoolTime)
-            .filter{$0.amStartPeriod != Date(timeIntervalSince1970: 0) && $0.amEndPeriod != Date(timeIntervalSince1970: 0) && $0.pmStartPeriod != Date(timeIntervalSince1970: 0) && $0.pmEndPeriod != Date(timeIntervalSince1970: 0)}
+//            .filter {
+//                $0.amStartPeriod != Date(timeIntervalSince1970: 0)
+//                    && $0.amEndPeriod != Date(timeIntervalSince1970: 0)
+//                    && $0.pmStartPeriod != Date(timeIntervalSince1970: 0)
+//                    && $0.pmEndPeriod != Date(timeIntervalSince1970: 0) }
             .flatMapLatest { schoolTime in
                 manager.updateSchoolTime(schoolTime)
                     .trackActivity(activitying)
