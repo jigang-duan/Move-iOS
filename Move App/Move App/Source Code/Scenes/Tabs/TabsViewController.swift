@@ -78,7 +78,7 @@ class TabsViewController: UITabBarController {
             .bindTo(RxStore.shared.deviceInfosState)
             .addDisposableTo(bag)
         
-        RxStore.shared.deviceIdObservable.debug()
+        RxStore.shared.deviceIdObservable
             .distinctUntilChanged()
             .subscribe(DataCacheManager.shared.rx.set(key: "key.id.device.current"))
             .addDisposableTo(bag)
