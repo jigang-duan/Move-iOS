@@ -2408,8 +2408,8 @@
 				TargetAttributes = {
 					E01DF6E11E3059A800EA003D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P2D3P6BGKF;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = BV28C32GBU;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
@@ -2418,7 +2418,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -3252,9 +3252,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P2D3P6BGKF;
+				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3277,10 +3278,10 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = demo.testOC1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3294,9 +3295,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P2D3P6BGKF;
+				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3319,10 +3321,10 @@
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 					"$(PROJECT_DIR)/Move\\ App/Vendor/UUChat/OtherResources/VoiceConvert",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = demo.testOC1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tclcom.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ef59e040-d586-4995-bd53-d2375a68bb4a";
+				PROVISIONING_PROFILE_SPECIFIER = "MoveApp-Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
