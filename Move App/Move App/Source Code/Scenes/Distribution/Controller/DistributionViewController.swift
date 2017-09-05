@@ -95,10 +95,7 @@ extension DistributionViewController {
     }
     
     fileprivate func enterLoginScreen(enter: Bool) {
-        if enter {
-            self.performSegue(withIdentifier: R.segue.distributionViewController.showLogin, sender: nil)
-        } else {
-            self.performSegue(withIdentifier: R.segue.distributionViewController.showMajor, sender: nil)
-        }
+        let identifier = enter ? R.segue.distributionViewController.showLogin.identifier : R.segue.distributionViewController.showMajor.identifier
+        self.performSegue(withIdentifier: identifier, sender: nil)
     }
 }
