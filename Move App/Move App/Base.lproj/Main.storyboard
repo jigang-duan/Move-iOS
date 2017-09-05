@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -945,22 +945,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59S-vP-hfg" userLabel="inputView">
                                 <rect key="frame" x="45" y="375.5" width="285" height="44"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ocz-M2-P2J">
-                                        <rect key="frame" x="5" y="3" width="202" height="38"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ocz-M2-P2J">
+                                        <rect key="frame" x="5" y="3" width="205" height="38"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dlp-eb-7qv" userLabel="line">
-                                        <rect key="frame" x="217" y="5" width="1" height="34"/>
+                                        <rect key="frame" x="220" y="5" width="1" height="34"/>
                                         <color key="backgroundColor" red="0.68627452850341797" green="0.68627452850341797" blue="0.68627452850341797" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="Cls-zf-4dA"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDF-j2-DMB">
-                                        <rect key="frame" x="228" y="4" width="52" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <rect key="frame" x="231" y="4" width="49" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Resend">
                                             <color key="titleColor" red="0.38431373238563538" green="0.38431373238563538" blue="0.38431373238563538" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -1216,7 +1216,7 @@
                                         <rect key="frame" x="61" y="0.0" width="224" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -1325,7 +1325,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6l-bn-MvA">
-                                            <rect key="frame" x="66" y="0.0" width="348" height="1"/>
+                                            <rect key="frame" x="66" y="0.0" width="309" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="M4d-zc-PYT"/>
@@ -1344,7 +1344,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hY8-av-BeT">
-                                            <rect key="frame" x="66" y="5.5" width="248" height="44"/>
+                                            <rect key="frame" x="66" y="5.5" width="209" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="qKv-2R-9Kb"/>
                                             </constraints>
@@ -1356,7 +1356,7 @@
                                             </connections>
                                         </textField>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="general_tick" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-zj-2sl">
-                                            <rect key="frame" x="386" y="21" width="12" height="12"/>
+                                            <rect key="frame" x="347" y="21" width="12" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="1vb-x7-Adk"/>
                                                 <constraint firstAttribute="width" constant="12" id="nXV-Um-KVM"/>
@@ -1662,7 +1662,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5z-YR-KjO">
-                                            <rect key="frame" x="15" y="0.0" width="399" height="1"/>
+                                            <rect key="frame" x="15" y="0.0" width="360" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="dnk-X3-NLh"/>
@@ -1926,7 +1926,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAg-1l-CPl">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Logout">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
