@@ -114,6 +114,7 @@ class PhoneNumberController: UIViewController {
         
         viewModel = PhoneNumberViewModel(
             input:(
+                phonePrefix: phonePrefix.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: ""),
                 phone: phoneTf.rx.text.orEmpty.asDriver(),
                 nextTaps: nextBun.rx.tap.asDriver(),
                 info: deviceAddInfo!

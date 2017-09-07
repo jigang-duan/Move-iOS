@@ -21,6 +21,7 @@ class PhoneNumberViewModel {
     
     init(
         input: (
+        phonePrefix: Driver<String>,
         phone: Driver<String>,
         nextTaps: Driver<Void>,
         info: DeviceBindInfo
@@ -41,10 +42,21 @@ class PhoneNumberViewModel {
         
         nextEnabled = phoneInvalidte.map({$0.isValid})
         
-        nextResult = input.nextTaps.withLatestFrom(input.phone)
-            .flatMapLatest({ phone in
+        
+        let prefixAndPhone = Driver.combineLatest(input.phonePrefix, input.phone){($0, $1)}
+        
+        nextResult = input.nextTaps.withLatestFrom(prefixAndPhone)
+            .flatMapLatest({ (prefix, phone) in
                 
-                return DeviceManager.shared.checkBindPhone(deviceId: (input.info.deviceId)!, phone: phone)
+                var checkPhone = ""
+                
+                if prefix == "" || prefix == "-" {
+                    checkPhone = phone
+                }else{
+                    checkPhone = "\(prefix)@\(phone)"
+                }
+                
+                return DeviceManager.shared.checkBindPhone(deviceId: (input.info.deviceId)!, phone: checkPhone)
                     .flatMapLatest({ type -> Observable<ValidationResult> in
 //                        联系人类型
 //                        -1 - 未添加该号码
