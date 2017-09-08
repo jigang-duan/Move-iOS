@@ -180,6 +180,9 @@ class AccountKidsRulesuserController: UITableViewController {
                     }else{
                         _ = self?.navigationController?.popToRootViewController(animated: true)
                         UseOfflineCache.shared.clean(containKeys: deviceId)
+                        if let deviceId = DeviceManager.shared.currentDevice?.deviceId {
+                            DataCacheManager.shared.set(key: "mark:select.auto.posistion-\(deviceId)", value: false)
+                        }
                     }
                 }, onError: { er in
                     print(er)
@@ -202,7 +205,8 @@ extension AccountKidsRulesuserController {
         schoolTimeLabel.text = R.string.localizable.id_school_time()
         reminderLabel.text = R.string.localizable.id_reminder()
         regularShutdownLabel.text = R.string.localizable.id_regular_shutdown()
-      
+        regularShutdownLabel.adjustsFontSizeToFitWidth = true
+        
         autoPositionLab.text = R.string.localizable.id_daily_tracking_mode()
         autoPositionIntroduceLab.text = R.string.localizable.id_tracking_mode_describe()
         
