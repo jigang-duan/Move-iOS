@@ -103,8 +103,8 @@ class WeekView: UIView {
     
     func weekAction(_ sender: UIButton) {
         if (sender.tag == 10){
-             delegate?.weekViewDidSelected?(self, selecteds: weekSelected)
-        return
+            delegate?.weekViewDidSelected?(self, selecteds: weekSelected)
+            return
         }
         let index = number(tag: WeekType(rawValue: sender.tag)!)
         weekSelected[index] = !sender.isSelected

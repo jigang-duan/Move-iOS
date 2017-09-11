@@ -41,20 +41,19 @@ class LanguageViewController: UIViewController {
         )
         
         selected.drive(viewModel.languageVariable).addDisposableTo(disposeBag)
-        viewModel.saveFinish.drive(onNext: {
-           [weak self] in
-            self?.back($0)
-        }).addDisposableTo(disposeBag)
+        viewModel.saveFinish
+            .drive(onNext: {[unowned self] in self.back($0) })
+            .addDisposableTo(disposeBag)
         
         viewModel.lauguage.drive(viewModel.languageVariable).addDisposableTo(disposeBag)
         
-        let cellData = Driver.combineLatest(viewModel.lauguages, viewModel.languageVariable.asDriver()) { data, current in data.map({ ($0, current) }) }
-        
-        cellData.drive(tableview.rx.items(cellIdentifier: R.reuseIdentifier.cellLanguage.identifier)) { index, model, cell in
-            cell.textLabel?.text = model.0
-            cell.accessoryType = (model.0 != model.1) ? .none : .checkmark
-            cell.selectionStyle = .none
-        }.addDisposableTo(disposeBag)
+        Driver.combineLatest(viewModel.lauguages, viewModel.languageVariable.asDriver()) { data, current in data.map{ ($0, current) } }
+            .drive(tableview.rx.items(cellIdentifier: R.reuseIdentifier.cellLanguage.identifier)) { index, model, cell in
+                cell.textLabel?.text = model.0
+                cell.accessoryType = (model.0 != model.1) ? .none : .checkmark
+                cell.selectionStyle = .none
+            }
+            .addDisposableTo(disposeBag)
         
     }
     

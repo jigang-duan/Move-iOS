@@ -29,17 +29,20 @@ extension Reactive where Base: UIImageView {
 extension UIImage {
     
     func grayImage() -> UIImage {
+        
         let imageRef = self.cgImage!
         let width = imageRef.width
         let height = imageRef.height
+        
         let colorSpace = CGColorSpaceCreateDeviceGray()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
+        
         let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
         let rect = CGRect(x: 0, y: 0, width: width, height: height)
         context.draw(imageRef, in: rect)
         let outPutImage = context.makeImage()!
-        let newImage = UIImage(cgImage: outPutImage, scale: self.scale, orientation: self.imageOrientation)
-        return newImage
+        
+        return UIImage(cgImage: outPutImage, scale: self.scale, orientation: self.imageOrientation)
     }
     
     func resizingStretchImage() -> UIImage {

@@ -30,8 +30,6 @@ class SelectTimeZoneController: UIViewController {
         
         tableview.delegate = self
         
-        
-        
         let allTimezones = TimeZone.knownTimeZoneIdentifiers.map { identifier in
             TimeZone(identifier: identifier)!
         }

@@ -23,7 +23,7 @@ class SafeZoneController: UIViewController {
     
     var dataISexit: Bool = true
     var isAutoposition: Bool?
-    var adminBool: Bool? = false
+    var adminBool: Bool = false
     
     var autopositioningBtn: SwitchButton?
     var disposeBag = DisposeBag()
@@ -39,7 +39,7 @@ class SafeZoneController: UIViewController {
         super.viewDidLoad()
         
         self.title = R.string.localizable.id_safe_zone()
-        self.permissionsFun(adminbool: adminBool!)
+        self.permissionsFun(adminbool: adminBool)
         
         tableView.emptyDataSetSource = self
         tableView.delegate = self
@@ -164,7 +164,7 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if self.adminBool!{
+        if self.adminBool {
             return .delete
         }else{
             return .none
@@ -211,12 +211,7 @@ extension SafeZoneController: DZNEmptyDataSetSource {
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        var text = ""
-        if self.adminBool == false {
-            text = R.string.localizable.id_no_safe_zone_not_admin()
-        }else{
-            text = R.string.localizable.id_no_safe_zone()
-        }
+        let text = adminBool ? R.string.localizable.id_no_safe_zone() : R.string.localizable.id_no_safe_zone_not_admin()
         let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0),
                           NSForegroundColorAttributeName: UIColor.lightGray]
         return NSAttributedString(string: text, attributes: attributes)

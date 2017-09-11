@@ -59,7 +59,8 @@ class AlarmController: UIViewController {
         self.saveItemOutlet.isEnabled = false
         
         if isForAdd == true {
-            KidSettingsManager.shared.addAlarm(KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: weekOutlet.weekSelected, active: true)).subscribe(onNext:{ [weak self] in
+            KidSettingsManager.shared.addAlarm(KidSetting.Reminder.Alarm(alarmAt: datePickerOulet.date, day: weekOutlet.weekSelected, active: true))
+                .subscribe(onNext:{ [weak self] in
                     if $0 {
                         _ = self?.navigationController?.popViewController(animated: true)
                     }else{

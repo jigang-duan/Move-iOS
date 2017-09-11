@@ -34,6 +34,7 @@ class NoticeAlertControoler {
     var alertTitle: String?
     var iconURL: String?
     var content: String = "The content is emptyd"
+    var contentTextColor: UIColor?
     var cancelAction = Action(title: R.string.localizable.id_cancel())
     var confirmAction: Action?
     
@@ -143,6 +144,7 @@ class NoticeAlertControoler {
         
         titleLabel.text = alertTitle
         contentLabel.text = content
+        contentLabel.textColor = contentTextColor ?? UIColor.black.withAlphaComponent(0.6)
         contentLabel.adjustsFontSizeToFitWidth = true
         
         confirmBtn.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
@@ -175,20 +177,20 @@ class NoticeAlertControoler {
     }
     
     @objc func cancelDidTap(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.4, animations: { [weak self] in
-            self?.alertView.alpha = 0.0
-            }, completion: { [weak self] _ in
-                self?.cancelAction.handler?()
-                self?.dismiss()
+        UIView.animate(withDuration: 0.4, animations: { [unowned self] in
+            self.alertView.alpha = 0.0
+            }, completion: { [unowned self] _ in
+                self.cancelAction.handler?()
+                self.dismiss()
         })
     }
     
     @objc func confirmDidTap(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.4, animations: { [weak self] in
-            self?.alertView.alpha = 0.0
-            }, completion: { [weak self] _ in
-                self?.confirmAction?.handler?()
-                self?.dismiss()
+        UIView.animate(withDuration: 0.4, animations: { [unowned self] in
+            self.alertView.alpha = 0.0
+            }, completion: { [unowned self] _ in
+                self.confirmAction?.handler?()
+                self.dismiss()
         })
     }
     

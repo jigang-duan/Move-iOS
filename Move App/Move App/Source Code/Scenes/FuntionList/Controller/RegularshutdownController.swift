@@ -163,8 +163,7 @@ class RegularshutdownController: UIViewController {
         viewModel?.saveFinish
             .drive(onNext: {[weak self] in
                 self?.back($0)
-                }
-            ).addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
         
     }

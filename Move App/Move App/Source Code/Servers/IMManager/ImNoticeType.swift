@@ -194,6 +194,18 @@ extension ImNoticeType {
     
 }
 
+extension ImNoticeType {
+    
+    var messageTextColor: UIColor {
+        switch self {
+        case .sosWarning:
+            return R.color.appColor.thirdlyText()
+        default:
+            return R.color.appColor.wrong()
+        }
+    }
+}
+
 enum NoticeAlertStyle {
     case `default`
     case navigate

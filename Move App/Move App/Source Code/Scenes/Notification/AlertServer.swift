@@ -48,7 +48,7 @@ class AlertServer {
                 let kids = notice.owners.first?.members.filter({ $0.id == notice.from }).first
                 guard NoticeType(rawValue: notice.type) != nil else { return Observable.empty() }
                 let confirm = notice.imType.style.hasConfirm ? AlertResult.confirm(parcel: notice) : nil
-                return AlertWireframe.shared.prompt(notice.content ?? "",
+                return AlertWireframe.shared.prompt(notice.content ?? "", messageTextColor: notice.imType.messageTextColor,
                                                     title: notice.imType.title,
                                                     iconURL: device?.user?.profile?.fsImageUrl ?? kids?.headPortrait?.fsImageUrl,
                                                     cancel: .ok(parcel: notice), cancelActionTitle: notice.imType.style.okDescription,
@@ -60,10 +60,10 @@ class AlertServer {
             .map(transform)
             .filterNil()
             .flatMapLatest { notice -> Observable<NoticeEntity> in
-                guard let noticeId = notice.id else {
-                    return Observable.empty()
-                }
-                return IMManager.shared.mark(notification: noticeId).map {_ in notice }.catchErrorJustReturn(notice)
+                guard let noticeId = notice.id else { return Observable.empty() }
+                return IMManager.shared.mark(notification: noticeId)
+                    .map {_ in notice }
+                    .catchErrorJustReturn(notice)
             }
             .bindNext { $0.makeRead(realm: realm) }
             .addDisposableTo(disposeBag)
@@ -276,25 +276,21 @@ class AlertServer {
         emptyOfLoginVariable.asObservable()
             .filter{ $0 }
             .delay(2.0, scheduler: MainScheduler.instance)
-            .bindNext { _ in Distribution.shared.propelToAddDevice()}.addDisposableTo(disposeBag)
+            .bindNext { _ in Distribution.shared.propelToAddDevice()}
+            .addDisposableTo(disposeBag)
     }
 }
 
 fileprivate func transform(alertResult: AlertResult) -> NoticeEntity? {
-    if let notice = alertResult.parcel as? NoticeEntity {
-        return notice
-    }
-    return nil
+    return alertResult.parcel as? NoticeEntity
 }
 
 fileprivate func resultSelector(notice: NoticeEntity, devices: [DeviceInfo]) -> (NoticeEntity, DeviceInfo?) {
-    return (notice ,devices.filter{ $0.user?.uid == notice.from }.first)
+    return (notice, devices.filter{ $0.user?.uid == notice.from }.first)
 }
 
 fileprivate func selctorNavigateLocation(deviceInfo : DeviceInfo) throws -> Observable<AlertServer.NavigateLocation> {
-    guard let deviceId = deviceInfo.deviceId else {
-        return Observable.empty()
-    }
+    guard let deviceId = deviceInfo.deviceId else { return Observable.empty() }
     return LocationManager.share.location(deviceId: deviceId).catchErrorEmpty()
         .map { AlertServer.NavigateLocation(location: $0.location, address: $0.address, name: deviceInfo.user?.nickname) }
 }

@@ -2,7 +2,7 @@
 //  RemindersController.swift
 //  Move App
 //
-//  Created by jiang.duan on 2017/2/27.
+//  Created by xiaohui on 2017/2/27.
 //  Copyright © 2017年 TCL Com. All rights reserved.
 //
 

@@ -37,18 +37,19 @@ class AlertWireframe {
         alertView.show()
     }
     
-    func prompt(_ message: String,
+    func prompt(_ message: String, messageTextColor: UIColor? = nil,
                 title: String? = nil,
                 iconURL: String? = nil,
                 cancel: AlertResult, cancelActionTitle: String? = nil,
                 confirm: AlertResult? = nil, confirmTitle: String? = nil) -> Observable<AlertResult> {
         
-        return self.promptFor(message, title: title, iconURL: iconURL,
+        return self.promptFor(message, messageTextColor: messageTextColor,
+                              title: title, iconURL: iconURL,
                               cancelAction: cancel, cancelActionTitle: cancelActionTitle ,
                               action: confirm, actionTitle: confirmTitle)
     }
     
-    func promptFor<Action : CustomStringConvertible>(_ message: String,
+    func promptFor<Action : CustomStringConvertible>(_ message: String, messageTextColor: UIColor? = nil,
                    title: String? = nil,
                    iconURL: String? = nil,
                    cancelAction: Action, cancelActionTitle: String? = nil,
@@ -69,6 +70,7 @@ class AlertWireframe {
                     observer.on(.next(_action))
                 }
             }
+            alertView.contentTextColor = messageTextColor
             alertView.show()
             
             return Disposables.create {
