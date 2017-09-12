@@ -66,7 +66,9 @@ class PhoneNumberViewModel {
                         if type == -1 {
                             return Observable.just(ValidationResult.ok(message: ""))
                         }else if type == 0 {
-                            return DeviceManager.shared.joinGroup(joinInfo: input.info)
+                            var joinInfo = input.info
+                            joinInfo.phone = checkPhone
+                            return DeviceManager.shared.joinGroup(joinInfo: joinInfo)
                                 .map({_ in
                                     return  ValidationResult.ok(message: "join")
                                 })

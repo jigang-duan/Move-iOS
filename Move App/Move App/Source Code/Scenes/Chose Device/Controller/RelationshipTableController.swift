@@ -73,11 +73,37 @@ class RelationshipTableController: UIViewController {
         }
     }
     
+    func cutString(_ text: String) -> String {
+        var length = 0
+        for char in text.characters {
+            // 判断是否中文，是中文+2 ，不是+1
+            length += "\(char)".lengthOfBytes(using: .utf8) >= 3 ? 2 : 1
+        }
+        
+        if length > 11 {
+            let str = text.characters.dropLast()
+            return cutString(String(str))
+        }
+        
+        return text
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = R.string.localizable.id_title()
         otherTf.placeholder = R.string.localizable.id_other()
+        
+        let otherText = otherTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
+        let otherDrier = otherTf.rx.text.orEmpty.asDriver()
+        let combineName = Driver.of(otherText, otherDrier).merge()
+        
+        combineName.drive(onNext: {[weak self] name in
+            if self?.otherTf.text != self?.cutString(name) {
+                self?.otherTf.text = self?.cutString(name)
+            }
+        }).addDisposableTo(disposeBag)
+        
         
         self.setupRightBun()
         
