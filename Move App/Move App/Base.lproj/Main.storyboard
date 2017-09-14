@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Distribution View Controller-->
         <scene sceneID="oO4-X0-zEH">
             <objects>
-                <viewController id="yIv-My-yQU" customClass="DistributionViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yIv-My-yQU" customClass="DistributionViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NlB-vB-JHk"/>
                         <viewControllerLayoutGuide type="bottom" id="Htf-2G-0ly"/>
@@ -58,13 +58,13 @@
                                 <state key="normal" title="STAR"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A 3G Family Watch  that keeps your child safe, connected, and entertained." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-2i-f05">
-                                <rect key="frame" x="16" y="538.5" width="343" height="38.5"/>
+                                <rect key="frame" x="16" y="557.5" width="343" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always Togather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-C5-agv">
-                                <rect key="frame" x="106" y="506" width="163" height="27"/>
+                                <rect key="frame" x="106" y="525" width="163" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -116,7 +116,7 @@
         <!--Chose device-->
         <scene sceneID="vRY-Hx-DJU">
             <objects>
-                <tableViewController storyboardIdentifier="ChoseDeviceController" title="Chose device" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a0j-e4-V0x" customClass="ChoseDeviceController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChoseDeviceController" title="Chose device" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a0j-e4-V0x" customClass="ChoseDeviceController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="1" sectionFooterHeight="9" id="utf-RF-rST">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -221,7 +221,7 @@
         <!--Help for paird-->
         <scene sceneID="z7z-15-7k8">
             <objects>
-                <viewController id="rTv-1W-PR7" customClass="HelpForPairVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rTv-1W-PR7" customClass="HelpForPairVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kLF-ky-sxO"/>
                         <viewControllerLayoutGuide type="bottom" id="PCn-F8-pPP"/>
@@ -338,7 +338,7 @@
         <!--Pair Watch Controller-->
         <scene sceneID="IRY-Rq-ifL">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="hHf-WS-pVL" customClass="PairWatchController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="hHf-WS-pVL" customClass="PairWatchController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XFY-FT-eYp"/>
                         <viewControllerLayoutGuide type="bottom" id="gKO-zL-MiT"/>
@@ -452,7 +452,7 @@
         <!--QR Code-->
         <scene sceneID="owb-lv-Mwq">
             <objects>
-                <viewController id="n92-6R-fef" customClass="ScanCodeController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="n92-6R-fef" customClass="ScanCodeController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o2g-Zh-run"/>
                         <viewControllerLayoutGuide type="bottom" id="n3O-Y8-zsU"/>
@@ -654,7 +654,7 @@
         <!--Can't pair-->
         <scene sceneID="38g-k7-esJ">
             <objects>
-                <viewController id="apW-GE-wBu" customClass="CantPairToApnVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="apW-GE-wBu" customClass="CantPairToApnVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wkq-Lw-Gq7"/>
                         <viewControllerLayoutGuide type="bottom" id="0ov-13-lDZ"/>
@@ -769,7 +769,7 @@
         <!--Input IMEI-->
         <scene sceneID="6OO-5G-D7i">
             <objects>
-                <viewController id="vIC-fE-yhZ" customClass="InputImeiVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vIC-fE-yhZ" customClass="InputImeiVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gpn-uI-B5Z"/>
                         <viewControllerLayoutGuide type="bottom" id="nRM-N7-C3J"/>
@@ -886,7 +886,7 @@
         <!--Verification Code-->
         <scene sceneID="JDu-tb-trO">
             <objects>
-                <viewController storyboardIdentifier="VerificationCodeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ICz-bk-hfQ" customClass="VerificationCodeController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerificationCodeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ICz-bk-hfQ" customClass="VerificationCodeController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="n7Z-z6-eMX"/>
                         <viewControllerLayoutGuide type="bottom" id="UFl-j8-7TJ"/>
@@ -1143,7 +1143,7 @@
         <!--Phone number-->
         <scene sceneID="zq2-NH-l2R">
             <objects>
-                <viewController storyboardIdentifier="PhoneNumberController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tlv-50-wiA" customClass="PhoneNumberController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhoneNumberController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tlv-50-wiA" customClass="PhoneNumberController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1p1-bS-naz"/>
                         <viewControllerLayoutGuide type="bottom" id="avD-Qa-Dc9"/>
@@ -1307,7 +1307,7 @@
         <!--Title-->
         <scene sceneID="16Z-uf-3wa">
             <objects>
-                <viewController storyboardIdentifier="relationshipTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="phT-Ys-gMz" customClass="RelationshipTableController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="relationshipTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="phT-Ys-gMz" customClass="RelationshipTableController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="64u-f0-DdB"/>
                         <viewControllerLayoutGuide type="bottom" id="tzJ-Va-5xy"/>
@@ -1385,7 +1385,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hOg-SB-rmr" id="Wfx-qL-rhl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1393,7 +1393,7 @@
                                         <rect key="frame" x="0.0" y="83" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6b-1q-4RH" id="S1z-Co-AU6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1444,7 +1444,7 @@
         <!--Can't pair-->
         <scene sceneID="oPH-2L-fBf">
             <objects>
-                <viewController id="hZ8-Ro-6rk" customClass="CantPairViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hZ8-Ro-6rk" customClass="CantPairViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iGl-pN-rcJ"/>
                         <viewControllerLayoutGuide type="bottom" id="xEG-g6-Q3t"/>
@@ -1576,7 +1576,7 @@
         <!--Me-->
         <scene sceneID="Pg8-VD-t1g">
             <objects>
-                <viewController id="Z5E-tj-Hb3" customClass="AccountAndChoseDeviceController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z5E-tj-Hb3" customClass="AccountAndChoseDeviceController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GGg-bO-e6I"/>
                         <viewControllerLayoutGuide type="bottom" id="neX-TS-Jry"/>
@@ -1662,7 +1662,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5z-YR-KjO">
-                                            <rect key="frame" x="15" y="0.0" width="360" height="1"/>
+                                            <rect key="frame" x="15" y="0.0" width="585" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="dnk-X3-NLh"/>
@@ -1772,7 +1772,7 @@
         <!--Me-->
         <scene sceneID="Rus-8m-cLK">
             <objects>
-                <viewController storyboardIdentifier="MeLogout" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b5A-LV-Bcq" customClass="MeLogoutController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeLogout" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b5A-LV-Bcq" customClass="MeLogoutController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Gg-eI-uoi"/>
                         <viewControllerLayoutGuide type="bottom" id="OOw-2H-Rlf"/>
@@ -1903,7 +1903,7 @@
         <!--Account-->
         <scene sceneID="WvU-SM-U5C">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="M63-DK-OWI" customClass="MeSettingController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="M63-DK-OWI" customClass="MeSettingController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Am9-Ld-uFA"/>
                         <viewControllerLayoutGuide type="bottom" id="CYL-56-KOH"/>
@@ -1926,7 +1926,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAg-1l-CPl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Logout">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1948,7 +1948,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="RbY-7R-XoE" detailTextLabel="89I-5J-JcD" style="IBUITableViewCellStyleValue1" id="lsJ-q0-MsF">
-                                        <rect key="frame" x="0.0" y="70.5" width="375" height="48"/>
+                                        <rect key="frame" x="0.0" y="71" width="375" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lsJ-q0-MsF" id="tIl-dH-JvG">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="47.5"/>
@@ -2006,7 +2006,7 @@
         <!--Change password-->
         <scene sceneID="Dpf-6n-FMp">
             <objects>
-                <viewController id="QdB-pO-wPi" customClass="MeSetPasswordViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QdB-pO-wPi" customClass="MeSetPasswordViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="T7d-C8-Cfa"/>
                         <viewControllerLayoutGuide type="bottom" id="95d-1J-heV"/>
@@ -2152,7 +2152,7 @@
         <!--Name-->
         <scene sceneID="rV2-Lh-WyH">
             <objects>
-                <viewController id="nP4-Bw-yq0" customClass="MeSetNameViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nP4-Bw-yq0" customClass="MeSetNameViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Xh-WI-NJV"/>
                         <viewControllerLayoutGuide type="bottom" id="CDw-g0-QWJ"/>
@@ -2215,7 +2215,7 @@
         <!--Settings-->
         <scene sceneID="cu7-91-1QJ">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="0Yj-y6-81N" customClass="OtherSettingsViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="0Yj-y6-81N" customClass="OtherSettingsViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QE7-Lh-WyR">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2425,7 +2425,7 @@
         <!--About-->
         <scene sceneID="pEw-hn-R8n">
             <objects>
-                <viewController id="omK-iN-6Ha" customClass="AboutViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="omK-iN-6Ha" customClass="AboutViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y4A-Ff-GKm"/>
                         <viewControllerLayoutGuide type="bottom" id="hEu-DF-4xW"/>
@@ -2493,7 +2493,7 @@
         <!--Contact us-->
         <scene sceneID="6KQ-hi-IIU">
             <objects>
-                <tableViewController storyboardIdentifier="ContactUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GuX-MJ-td2" customClass="ContactUsController" customModule="Move_App" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContactUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GuX-MJ-td2" customClass="ContactUsController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Nt-Iw-uYc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2566,7 +2566,7 @@
         <!--Contact Us-->
         <scene sceneID="nZG-18-KL4">
             <objects>
-                <viewController id="Nc5-fD-U36" customClass="OfficialNumberController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Nc5-fD-U36" customClass="OfficialNumberController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ieL-G9-CSo"/>
                         <viewControllerLayoutGuide type="bottom" id="pqL-ru-g8v"/>
@@ -2655,7 +2655,7 @@
         <!--Help-->
         <scene sceneID="DfZ-mP-Ktd">
             <objects>
-                <tableViewController id="ScT-FO-NmR" customClass="HelpController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ScT-FO-NmR" customClass="HelpController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2x0-oz-3MU">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

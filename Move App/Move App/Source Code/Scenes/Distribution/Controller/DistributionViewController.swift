@@ -88,7 +88,11 @@ class DistributionViewController: UIViewController {
 extension DistributionViewController {
     
     fileprivate func showGuide(_ noFirst: Bool) {
-        backgroundImageView.image = noFirst ? R.image.defult() : R.image.guide()
+        #if Tag_ALCATEL
+            backgroundImageView.image = noFirst ? R.image.defultAlcatel() : R.image.guide()
+        #else
+            backgroundImageView.image = noFirst ? R.image.defult() : R.image.guide()
+        #endif
         starButton.isHidden = noFirst
         guideTitleLabel.isHidden = noFirst
         guideDescLabel.isHidden = noFirst

@@ -13,7 +13,7 @@
         <!--Chat Controller-->
         <scene sceneID="e3F-7s-neS">
             <objects>
-                <viewController storyboardIdentifier="chat" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MI2-UT-FjQ" customClass="ChatController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chat" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MI2-UT-FjQ" customClass="ChatController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zt3-fT-1df"/>
                         <viewControllerLayoutGuide type="bottom" id="PzN-M2-04Z"/>
@@ -113,7 +113,7 @@
         <!--Social Controller-->
         <scene sceneID="5U4-EQ-byE">
             <objects>
-                <viewController id="DGY-Ys-Cye" customClass="SocialController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DGY-Ys-Cye" customClass="SocialController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YV5-et-t2h"/>
                         <viewControllerLayoutGuide type="bottom" id="zB7-5j-052"/>
@@ -190,7 +190,7 @@
         <!--SOS-->
         <scene sceneID="pu4-q5-w3V">
             <objects>
-                <viewController title="SOS" id="cps-06-kdy" customClass="SOSController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SOS" id="cps-06-kdy" customClass="SOSController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vqk-wE-RUF"/>
                         <viewControllerLayoutGuide type="bottom" id="n5D-h8-8DM"/>
@@ -354,7 +354,7 @@
         <!--SuperVC-->
         <scene sceneID="4TU-xw-7Fh">
             <objects>
-                <viewController title="Family Chat" id="rZW-9c-AXH" customClass="ChatViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Family Chat" id="rZW-9c-AXH" customClass="ChatViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XaM-Ji-uwv"/>
                         <viewControllerLayoutGuide type="bottom" id="t1F-Kl-udc"/>
@@ -367,7 +367,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellChat" id="r0U-Ub-5kB" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellChat" id="r0U-Ub-5kB" customClass="UUMessageCell" customModule="Alcatel_Move_" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r0U-Ub-5kB" id="mP3-AA-6Mu">
@@ -393,7 +393,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezT-nv-UXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="srb-GD-rWH" customClass="UUInputView" customModule="Move_App" customModuleProvider="target">
+                <view contentMode="scaleToFill" id="srb-GD-rWH" customClass="UUInputView" customModule="Alcatel_Move_" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="53"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -401,7 +401,7 @@
                         <outlet property="superVC" destination="rZW-9c-AXH" id="iGh-ku-Hvy"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" id="qYj-zk-abQ" customClass="MoreView" customModule="Move_App" customModuleProvider="target">
+                <view contentMode="scaleToFill" id="qYj-zk-abQ" customClass="MoreView" customModule="Alcatel_Move_" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -412,8 +412,8 @@
         <!--Family chat-->
         <scene sceneID="bwB-Uv-bqF">
             <objects>
-                <collectionViewController title="Family chat" id="2iy-ZT-ViO" customClass="FamilyMembersController" customModule="Move_App" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" id="sXf-Sk-oYD">
+                <collectionViewController title="Family chat" id="2iy-ZT-ViO" customClass="FamilyMembersController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" dataMode="prototypes" id="sXf-Sk-oYD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -424,7 +424,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellFamilyMember" id="1vV-DA-i48" customClass="FamilyMemberCell" customModule="Move_App" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellFamilyMember" id="1vV-DA-i48" customClass="FamilyMemberCell" customModule="Alcatel_Move_" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="102" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
