@@ -199,9 +199,9 @@ extension ImNoticeType {
     var messageTextColor: UIColor {
         switch self {
         case .sosWarning:
-            return R.color.appColor.thirdlyText()
-        default:
             return R.color.appColor.wrong()
+        default:
+            return R.color.appColor.thirdlyText()
         }
     }
 }
