@@ -40,9 +40,9 @@ struct Configure {
         static let LoadDataOfPeriod = 30.0
         
         //UI Debug
-        static let isDebugUI = false
+        static let isDebugUI = true
         
-        static let canBugly = false
+        static let canBugly = true
     }
     
     //
