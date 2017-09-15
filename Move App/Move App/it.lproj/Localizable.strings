@@ -63,12 +63,12 @@
 "id_safe_zone" = "Zona sicura";
 "id_school_time" = "Orario scolastico";
 "id_reminder" = "Promemoria";
-"id_regular_shutdown" = "Spegnimento regolare";
+"id_regular_shutdown" = "Accensione/Spegnimento programmato";
 "id_auto_answer_call" = "Risp. autom. chiamata";
-"id_auto_answer_call_describe" = "Se il bimbo non risponde alla chiamata in arrivo entro 10 secondi, la chiamata riceverà una risposta automatica.";
+"id_auto_answer_call_describe" = "L’orologio del bimbo accetterà automaticamente le chiamate in arrivo se il bimbo non risponde entro 10 secondi.";
 "id_save_power" = "Risparmia energia";
 "id_save_power_describe" = "Quando il livello della batteria dell\'orologio è inferiore al 10%, le funzioni Amici, Chat di gruppo e Divertimento verranno disattivate.";
-"id_use_permission" = "Usa autorizzazione";
+"id_use_permission" = "Autorizzazione funzioni addizionali";
 "id_time_zone" = "Fuso orario";
 "id_select_time_zone" = "Seleziona fuso orario";
 "id_watch_language" = "Lingua";
@@ -79,7 +79,7 @@
 "id_unknown_device" = "Dispositivo sconosciuto";
 "id_apn_description" = "Connettersi a";
 "id_update" = "Aggiorna";
-"id_unpaired_with_watch" = "Associazione all\'orologio annullata";
+"id_unpaired_with_watch" = "Ripristina orologio";
 "id_kids_name" = "Nome del bambino";
 "id_kids_phone" = "Numero di telefono orologio";
 "id_gender" = "Sesso";
@@ -182,7 +182,7 @@
 "id_call_to_friends" = "Chiama gli amici";
 "id_group_chat" = "Chat di gruppo";
 "id_voice_changer" = "Modificatore voce";
-"id_playing_hamster" = "Uso di Hamster in corso";
+"id_playing_hamster" = "Hamster";
 "id_use_permission_tint" = "Se vengono disattivate, il bambino non potrà utilizzare queste funzioni.";
 "id_recorder_timeout" = "Il tempo massimo di registrazione è %d secondi";
 "id_press_to_speak" = "Premi per parlare";
@@ -449,7 +449,7 @@
 "id_week_saturday" = "Sab.";
 "id_week_sunday" = "Dom.";
 "id_warming" = "Avviso";
-"id_still_unpaired" = "Ancora dissociato";
+"id_still_unpaired" = "Ripristina orologio";
 "id_unbind_admin" = "Se l\'amministratore annulla l\'associazione con l\'orologio, quest\'ultimo viene ripristinato sui valori predefiniti. L\'associazione dell\'orologio verrà annullata anche per tutti gli altri utenti.";
 "id_master_share_qr" = "L\'amministratore può condividere questo codice QR per consentire ad altri utenti l\'associazione all\'orologio";
 "id_safety_reason" = "Per motivi di sicurezza, questo codice QR sarà valido soltanto per 1 ora";
@@ -513,7 +513,7 @@
 "id_pairing_failed_description" = "Impossibile associare l\'orologio. Verificare di nuovo l\'orologio.";
 "id_not_amap_map" = "Mappe Amap non installate";
 "id_unbind" = "Eliminare l\'associazione dell\'orologio? Non sarà più possibile effettuare chiamate all\'orologio né visualizzarne la posizione.";
-"id_safezone_prompt" = "Quando il minore entra o esce da una zona sicura, sul telefono viene visualizzata una notifica.";
+"id_safezone_prompt" = "Ricevi una notifica sul telefono, quando il bimbo entra o esce da una zona sicura.";
 "id_no_safe_zone" = "Nessuna zona sicura. Per aggiungere zone sicure, toccare +.";
 "id_only_safe_zone" = "è possibile aggiungere solo 5 zone sicure.";
 "id_name_same" = "il nome non può essere identico.";
@@ -610,7 +610,7 @@
 "id_bluetooth_disconnected" = "Bluetooth scollegato";
 "id_daily_tracking_mode" = "Modalità Tracking giornaliero";
 "id_tracking_mode_describe" = "Aggiorna automaticamente la posizione dell\'orologio. La batteria si consumerà più rapidamente.";
-"id_tracking_mode_home_on_describe" = "Modalità Tracking giornaliero attivata. La posizione dell\'orologio verrà aggiornata automaticamente. Per disattivare la modalità Tracking giornaliero, toccare X.";
+"id_tracking_mode_home_on_describe" = "Modalità Tracking giornaliero attivata. La posizione dell’orologio verrà aggiornata automaticamente e la batteria si consumerà più rapidamente. ";
 "id_help_faq" = "Domande frequenti";
 "id_apn_for_watch" = "APN per l\'orologio";
 "id_new_message_come" = "Nuovi messaggi";

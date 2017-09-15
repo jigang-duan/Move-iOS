@@ -49,7 +49,7 @@ class FamilyMemberAddController: UIViewController {
     }
     
     private func initializeI18N() {
-        self.title = R.string.localizable.id_family_member()
+        self.title = R.string.localizable.id_family_member_input_number()
         
         saveBun.title = R.string.localizable.id_save()
         photoLab.text = R.string.localizable.id_photo()
