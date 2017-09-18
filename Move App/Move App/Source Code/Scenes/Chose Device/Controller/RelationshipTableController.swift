@@ -20,6 +20,7 @@ class RelationshipTableController: UIViewController {
     @IBOutlet weak var otherTf: UITextField!
     @IBOutlet weak var otherBadge: UIImageView!
     
+    @IBOutlet weak var tableViewBotttomCons: NSLayoutConstraint!
     
     var isKeyboardShow = false
     
@@ -55,11 +56,11 @@ class RelationshipTableController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notify:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notify:)), name: .UIKeyboardWillShow, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notify:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notify:)), name: .UIKeyboardWillHide, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidChangeFrame(notify:)), name: NSNotification.Name.UIKeyboardDidChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidChangeFrame(notify:)), name: .UIKeyboardDidChangeFrame, object: nil)
     }
     
     
@@ -68,6 +69,8 @@ class RelationshipTableController: UIViewController {
         
         NotificationCenter.default.removeObserver(self)
         
+        
+        self.otherTf.endEditing(true)
         if let identity = selectedRelation {
             self.relationBlock?(identity)
         }
@@ -162,33 +165,34 @@ class RelationshipTableController: UIViewController {
     
     func keyboardWillShow(notify: Notification) {
         isKeyboardShow = true
+        print("---keyboardWillShow")
+        
+        let frame = notify.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+        
+        tableViewBotttomCons.constant = (frame?.size.height)! + 10
+        
+        self.tableView.scrollToRow(at: IndexPath(row: self.identities.count - 1 , section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
     
     
     func keyboardWillHide(notify: Notification) {
+        print("---keyboardWillHide")
         isKeyboardShow = false
         let duration = notify.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval
         
-        let screenH = UIScreen.main.bounds.size.height
-        
         UIView.animate(withDuration: duration!) {[weak self] in
-            var ff = self?.tableView.frame
-            ff?.size.height = screenH - 64
-            self?.tableView.frame = ff!
+            self?.tableViewBotttomCons.constant = 0
         }
     }
     
     func keyboardDidChangeFrame(notify: Notification) {
+        print("---keyboardDidChangeFrame")
         if isKeyboardShow == false {
             return
         }
         let frame = notify.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
         
-        let screenH = UIScreen.main.bounds.size.height
-        
-        var ff = self.tableView.frame
-        ff.size.height = screenH - 64 - (frame?.size.height)! - 10
-        self.tableView.frame = ff
+        tableViewBotttomCons.constant = (frame?.size.height)! + 10
         
         self.tableView.scrollToRow(at: IndexPath(row: self.identities.count - 1 , section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }

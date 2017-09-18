@@ -127,7 +127,7 @@ class FamilyMemberController: UIViewController {
             }
             .addDisposableTo(disposeBag)
     
-        viewModel.heartResult?.drive(onNext: { res in
+        viewModel.heartResult?.drive(onNext: {[weak self] res in
             res.drive(onNext: { [weak self] r in
                 switch r {
                 case .failed(let message):
@@ -135,7 +135,7 @@ class FamilyMemberController: UIViewController {
                 default:
                     break
                 }
-            }).addDisposableTo(self.disposeBag)
+            }).addDisposableTo((self?.disposeBag)!)
             
         }).addDisposableTo(disposeBag)
         
