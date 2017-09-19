@@ -24,7 +24,7 @@ class DistributionViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        starButton.setTitle(R.string.localizable.id_start_to_use(), for: .normal)
+        starButton.setTitle(R.string.localizable.id_start_to_use().uppercased(), for: .normal)
         guideTitleLabel.text = R.string.localizable.id_layout_guide_foreground_title()
         guideDescLabel.text = R.string.localizable.id_layout_guide_foreground_text()
         
