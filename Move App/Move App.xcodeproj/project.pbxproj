@@ -4036,7 +4036,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-Alcatel";
 				CODE_SIGN_ENTITLEMENTS = "Move App/Move App.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BV28C32GBU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4063,8 +4063,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"Tag_ALCATEL\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alcatel.moveapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3bd015aa-dec6-4d6d-9bc8-6378a1c60206";
-				PROVISIONING_PROFILE_SPECIFIER = "alcatel move app Distribution";
+				PROVISIONING_PROFILE = "200b93b8-933e-4cbf-9dda-b7a58604bd21";
+				PROVISIONING_PROFILE_SPECIFIER = "Alcatel Move app Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Move App/Configuration/MoveApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
