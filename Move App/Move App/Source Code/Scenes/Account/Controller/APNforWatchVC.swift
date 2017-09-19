@@ -286,7 +286,7 @@ extension APNforWatchVC: CBCentralManagerDelegate {
         case .poweredOn:
             manager?.scanForPeripherals(withServices: [CBUUID(string: apnUUID)], options: nil)
         case .poweredOff:
-            let vc = UIAlertController(title: nil, message: R.string.localizable.id_bluetooth_connect_watch(), preferredStyle: .alert)
+            let vc = UIAlertController(title: nil, message: R.string.localizable.id_bluetooth_connect_watch().specifiedText, preferredStyle: .alert)
             let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { _ in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }

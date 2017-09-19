@@ -35,7 +35,7 @@ class DevicePermissions {
     }
     
     private func buildAudioPermissionsAlert() -> UIAlertController {
-        let message = R.string.infoPlist.nSMicrophoneUsageDescription()
+        let message = R.string.localizable.id_open_microphone_request().specifiedText
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let setting = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { action in
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)

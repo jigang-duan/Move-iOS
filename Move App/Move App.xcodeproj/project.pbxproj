@@ -316,7 +316,6 @@
 		11407FBB1F6A4A9F004C11D5 /* RemindersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E928BF0A1E76459800E70A57 /* RemindersCell.xib */; };
 		11407FBC1F6A4A9F004C11D5 /* sad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 112154B71EF7A5B600EBCE25 /* sad@3x.png */; };
 		11407FBD1F6A4A9F004C11D5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E0931F151E30B9A500755B4A /* Localizable.strings */; };
-		11407FBE1F6A4A9F004C11D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FFE4B6471EFCAD2D00E48BB1 /* InfoPlist.strings */; };
 		11407FBF1F6A4A9F004C11D5 /* bye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 112154B21EF7A5B600EBCE25 /* bye@3x.png */; };
 		11407FC01F6A4A9F004C11D5 /* Major.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9E3F13D1E5704CD00B01E29 /* Major.storyboard */; };
 		11407FC11F6A4A9F004C11D5 /* Contact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF4ABDB11E669CA30029C643 /* Contact.storyboard */; };
@@ -350,7 +349,6 @@
 		11407FDE1F6A4A9F004C11D5 /* appColor.clr in Resources */ = {isa = PBXBuildFile; fileRef = E0931F0E1E30A94B00755B4A /* appColor.clr */; };
 		11407FDF1F6A4A9F004C11D5 /* aweat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 112154B11EF7A5B600EBCE25 /* aweat@3x.png */; };
 		11407FE31F6A4A9F004C11D5 /* CustomViews.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E01DF7301E308D7F00EA003D /* CustomViews.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		11407FEA1F6A4E5A004C11D5 /* Info-Alcatel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11407FE91F6A4E5A004C11D5 /* Info-Alcatel.plist */; };
 		11407FEC1F6A5106004C11D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E01DF7431E3093B300EA003D /* Assets.xcassets */; };
 		11407FED1F6A510B004C11D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E01DF7431E3093B300EA003D /* Assets.xcassets */; };
 		1140A0821EA4B8E200185200 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1140A0811EA4B8E200185200 /* MoreView.swift */; };
@@ -615,6 +613,8 @@
 		FF1C4FB11E73CBFD008248FE /* MoveIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1C4FB01E73CBFD008248FE /* MoveIM.swift */; };
 		FF1CA44E1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1CA44D1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift */; };
 		FF2144151EA6FF6C00BA7C7B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */; };
+		FF22EED81F6BC73E00AE3E81 /* String+Specified.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF22EED71F6BC73E00AE3E81 /* String+Specified.swift */; };
+		FF22EED91F6BCA0500AE3E81 /* String+Specified.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF22EED71F6BC73E00AE3E81 /* String+Specified.swift */; };
 		FF2451321E5DAAD70005DD7D /* ProtectAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */; };
 		FF2451331E5DAAD70005DD7D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */; };
 		FF2951BD1E83AC7E00DC21DC /* EmergencyNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */; };
@@ -630,6 +630,8 @@
 		FF4F6EAB1E6EE11700F1BFB1 /* DateIntTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5BD5B1E6E53850037AFFF /* DateIntTransform.swift */; };
 		FF4F6EAC1E6EE16E00F1BFB1 /* TimeZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C32781E6D3609002EF0C8 /* TimeZoneViewModel.swift */; };
 		FF517A2A1EA498C80014E53F /* countryphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF517A291EA498C80014E53F /* countryphone.plist */; };
+		FF7E9CB91F6F619400F0CAF7 /* Info-Alcatel.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF7E9CB81F6F619400F0CAF7 /* Info-Alcatel.plist */; };
+		FF7E9CBC1F6F61A600F0CAF7 /* Info-AlcatelPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF7E9CBA1F6F61A600F0CAF7 /* Info-AlcatelPlist.strings */; };
 		FF836FD71F0B62890025C60B /* HelpForPairVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF836FD61F0B62890025C60B /* HelpForPairVC.swift */; };
 		FF83B0711ECA956400E39C74 /* countryCode.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF83B0701ECA956400E39C74 /* countryCode.plist */; };
 		FFA4291D1E6E8FF600CC70F0 /* ContactCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */; };
@@ -743,7 +745,6 @@
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
 		113F2E451E9E12B400B3628C /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = SOS/SOSService.swift; sourceTree = "<group>"; };
 		11407FE71F6A4A9F004C11D5 /* Alcatel Move .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Alcatel Move .app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		11407FE91F6A4E5A004C11D5 /* Info-Alcatel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Alcatel.plist"; sourceTree = "<group>"; };
 		1140A0811EA4B8E200185200 /* MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreView.swift; path = Vendor/UUChat/Sources/MoreView.swift; sourceTree = "<group>"; };
 		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
 		114437BE1ECAD1E20095E648 /* ActivityImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityImageView.swift; path = Activity/ActivityImageView.swift; sourceTree = "<group>"; };
@@ -1035,6 +1036,7 @@
 		FF1C4FB01E73CBFD008248FE /* MoveIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveIM.swift; sourceTree = "<group>"; };
 		FF1CA44D1EA85E6700058A07 /* SelectFamilyAndWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFamilyAndWatchVC.swift; sourceTree = "<group>"; };
 		FF2144141EA6FF6C00BA7C7B /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		FF22EED71F6BC73E00AE3E81 /* String+Specified.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Specified.swift"; path = "Shared/Extensisons/String/String+Specified.swift"; sourceTree = "<group>"; };
 		FF2451301E5DAAD70005DD7D /* ProtectAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectAccountViewModel.swift; sourceTree = "<group>"; };
 		FF2451311E5DAAD70005DD7D /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FF2951BC1E83AC7E00DC21DC /* EmergencyNumberVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyNumberVC.swift; sourceTree = "<group>"; };
@@ -1049,7 +1051,25 @@
 		FF4ABDBA1E66D9C00029C643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/APN.storyboard; sourceTree = "<group>"; };
 		FF517A291EA498C80014E53F /* countryphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = countryphone.plist; path = Resource/countryphone.plist; sourceTree = "<group>"; };
 		FF778C561F4ECCD300806B61 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = "Move App/ar.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		FF778C571F4ECCD300806B61 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FF7E9CB71F6F5A6700F0CAF7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FF7E9CB81F6F619400F0CAF7 /* Info-Alcatel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Alcatel.plist"; sourceTree = "<group>"; };
+		FF7E9CBB1F6F61A600F0CAF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Base.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CBD1F6F628000F0CAF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CBE1F6F628400F0CAF7 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CBF1F6F628600F0CAF7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC01F6F628700F0CAF7 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "es.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC11F6F628800F0CAF7 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "it.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC21F6F628900F0CAF7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = "nl.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC31F6F628A00F0CAF7 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC41F6F628B00F0CAF7 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC51F6F628C00F0CAF7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = "cs.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC61F6F628D00F0CAF7 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = "hu.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC71F6F628E00F0CAF7 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = "ro.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC81F6F628F00F0CAF7 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = "el.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CC91F6F629000F0CAF7 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "tr.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CCA1F6F629100F0CAF7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CCB1F6F629200F0CAF7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = "ru.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
+		FF7E9CCC1F6F629300F0CAF7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = "ar.lproj/Info-AlcatelPlist.strings"; sourceTree = "<group>"; };
 		FF836FD61F0B62890025C60B /* HelpForPairVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpForPairVC.swift; sourceTree = "<group>"; };
 		FF83B0701ECA956400E39C74 /* countryCode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = countryCode.plist; sourceTree = "<group>"; };
 		FFA4291C1E6E8FF600CC70F0 /* ContactCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCellData.swift; sourceTree = "<group>"; };
@@ -1837,7 +1857,7 @@
 			children = (
 				E0931F291E30C2DE00755B4A /* Configure.swift */,
 				E01DF6F11E3059A800EA003D /* Info.plist */,
-				11407FE91F6A4E5A004C11D5 /* Info-Alcatel.plist */,
+				FF7E9CB81F6F619400F0CAF7 /* Info-Alcatel.plist */,
 				E0931F2B1E30C44A00755B4A /* MoveApp-Bridging-Header.h */,
 			);
 			name = Configuration;
@@ -1966,6 +1986,7 @@
 			children = (
 				E0931F151E30B9A500755B4A /* Localizable.strings */,
 				FFE4B6471EFCAD2D00E48BB1 /* InfoPlist.strings */,
+				FF7E9CBA1F6F61A600F0CAF7 /* Info-AlcatelPlist.strings */,
 			);
 			name = Strings;
 			sourceTree = "<group>";
@@ -2343,6 +2364,7 @@
 			isa = PBXGroup;
 			children = (
 				E0C228E41E347EDB00BCF83D /* String+Helpers.swift */,
+				FF22EED71F6BC73E00AE3E81 /* String+Specified.swift */,
 			);
 			name = String;
 			sourceTree = "<group>";
@@ -2872,7 +2894,6 @@
 				11407FBB1F6A4A9F004C11D5 /* RemindersCell.xib in Resources */,
 				11407FBC1F6A4A9F004C11D5 /* sad@3x.png in Resources */,
 				11407FBD1F6A4A9F004C11D5 /* Localizable.strings in Resources */,
-				11407FBE1F6A4A9F004C11D5 /* InfoPlist.strings in Resources */,
 				11407FBF1F6A4A9F004C11D5 /* bye@3x.png in Resources */,
 				11407FC01F6A4A9F004C11D5 /* Major.storyboard in Resources */,
 				11407FC11F6A4A9F004C11D5 /* Contact.storyboard in Resources */,
@@ -2891,6 +2912,7 @@
 				11407FCD1F6A4A9F004C11D5 /* APN.storyboard in Resources */,
 				11407FCE1F6A4A9F004C11D5 /* KidInformation.storyboard in Resources */,
 				11407FCF1F6A4A9F004C11D5 /* Emotion_Dynamic_144 in Resources */,
+				FF7E9CBC1F6F61A600F0CAF7 /* Info-AlcatelPlist.strings in Resources */,
 				11407FD01F6A4A9F004C11D5 /* sick.gif in Resources */,
 				11407FD11F6A4A9F004C11D5 /* dizzy@3x.png in Resources */,
 				11407FD31F6A4A9F004C11D5 /* lacrimation@3x.png in Resources */,
@@ -2906,6 +2928,7 @@
 				11407FDD1F6A4A9F004C11D5 /* aweat.gif in Resources */,
 				11407FDE1F6A4A9F004C11D5 /* appColor.clr in Resources */,
 				11407FDF1F6A4A9F004C11D5 /* aweat@3x.png in Resources */,
+				FF7E9CB91F6F619400F0CAF7 /* Info-Alcatel.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2953,7 +2976,6 @@
 				115F73031ED824D700BAAF3D /* aweat.gif in Resources */,
 				E0931F101E30A97100755B4A /* appColor.clr in Resources */,
 				112154BB1EF7A5B600EBCE25 /* aweat@3x.png in Resources */,
-				11407FEA1F6A4E5A004C11D5 /* Info-Alcatel.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3415,6 +3437,7 @@
 				11407F7D1F6A4A9F004C11D5 /* DownloadableImage.swift in Sources */,
 				11407F7E1F6A4A9F004C11D5 /* MoveApi+Location.swift in Sources */,
 				11407F7F1F6A4A9F004C11D5 /* AppDelegate+URLSchema+SOS.swift in Sources */,
+				FF22EED91F6BCA0500AE3E81 /* String+Specified.swift in Sources */,
 				11407F801F6A4A9F004C11D5 /* RemindersCell.swift in Sources */,
 				11407F811F6A4A9F004C11D5 /* ChatController.swift in Sources */,
 				11407F821F6A4A9F004C11D5 /* SystemNotificationController.swift in Sources */,
@@ -3686,6 +3709,7 @@
 				E0C2290C1E35E5AE00BCF83D /* DownloadableImage.swift in Sources */,
 				D299374A1E53125800350E1C /* MoveApi+Location.swift in Sources */,
 				113F2E401E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift in Sources */,
+				FF22EED81F6BC73E00AE3E81 /* String+Specified.swift in Sources */,
 				E928BF0B1E76459800E70A57 /* RemindersCell.swift in Sources */,
 				A5ED01F81E8506BE00D2CE50 /* ChatController.swift in Sources */,
 				110528EC1E78E76300FE97A8 /* SystemNotificationController.swift in Sources */,
@@ -3892,6 +3916,30 @@
 			name = APN.storyboard;
 			sourceTree = "<group>";
 		};
+		FF7E9CBA1F6F61A600F0CAF7 /* Info-AlcatelPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF7E9CBB1F6F61A600F0CAF7 /* Base */,
+				FF7E9CBD1F6F628000F0CAF7 /* en */,
+				FF7E9CBE1F6F628400F0CAF7 /* fr */,
+				FF7E9CBF1F6F628600F0CAF7 /* de */,
+				FF7E9CC01F6F628700F0CAF7 /* es */,
+				FF7E9CC11F6F628800F0CAF7 /* it */,
+				FF7E9CC21F6F628900F0CAF7 /* nl */,
+				FF7E9CC31F6F628A00F0CAF7 /* es-419 */,
+				FF7E9CC41F6F628B00F0CAF7 /* pt-PT */,
+				FF7E9CC51F6F628C00F0CAF7 /* cs */,
+				FF7E9CC61F6F628D00F0CAF7 /* hu */,
+				FF7E9CC71F6F628E00F0CAF7 /* ro */,
+				FF7E9CC81F6F628F00F0CAF7 /* el */,
+				FF7E9CC91F6F629000F0CAF7 /* tr */,
+				FF7E9CCA1F6F629100F0CAF7 /* pt-BR */,
+				FF7E9CCB1F6F629200F0CAF7 /* ru */,
+				FF7E9CCC1F6F629300F0CAF7 /* ar */,
+			);
+			name = "Info-AlcatelPlist.strings";
+			sourceTree = "<group>";
+		};
 		FFE4B6471EFCAD2D00E48BB1 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3911,7 +3959,7 @@
 				FFE4B6611EFCAFE700E48BB1 /* tr */,
 				FFA9D4F11F1EEB4200364281 /* pt-BR */,
 				FFCBC6031F419AF200BFF912 /* ru */,
-				FF778C571F4ECCD300806B61 /* ar */,
+				FF7E9CB71F6F5A6700F0CAF7 /* ar */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

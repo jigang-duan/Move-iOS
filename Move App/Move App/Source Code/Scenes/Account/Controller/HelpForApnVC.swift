@@ -29,7 +29,7 @@ class HelpForApnVC: UIViewController {
         step2Lab.text = R.string.localizable.id_step() + " 2"
         
         step1TextLab.text = R.string.localizable.id_info_apn_not_paired_1()
-        step2TextLab.text = R.string.localizable.id_info_apn_not_paired_3()
+        step2TextLab.text = R.string.localizable.id_info_apn_not_paired_3().specifiedText
     }
     
     

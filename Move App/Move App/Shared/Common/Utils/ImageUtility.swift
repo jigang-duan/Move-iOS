@@ -36,9 +36,9 @@ class ImageUtility: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             var strAlertTitle = ""
           
             if soureType == .camera {
-                strAlertTitle = R.string.infoPlist.nSCameraUsageDescription()
+                strAlertTitle = R.string.localizable.id_open_camera_request().specifiedText
             }else{
-                strAlertTitle = R.string.infoPlist.nSPhotoLibraryUsageDescription()
+                strAlertTitle = R.string.localizable.id_open_album_request().specifiedText
             }
             
             let vc = UIAlertController(title: nil, message: strAlertTitle, preferredStyle: UIAlertControllerStyle.alert)

@@ -35,7 +35,7 @@ class AddressbookUtility: NSObject, ABPeoplePickerNavigationControllerDelegate, 
                 self.target?.present(pickController, animated: true, completion: nil)
             }
         }else{
-            let vc = UIAlertController(title: nil, message: R.string.infoPlist.nSContactsUsageDescription(), preferredStyle: UIAlertControllerStyle.alert)
+            let vc = UIAlertController(title: nil, message: R.string.localizable.id_open_contacts_request().specifiedText, preferredStyle: UIAlertControllerStyle.alert)
             let action1 = UIAlertAction(title: R.string.localizable.id_action_settings(), style: .default) { action in
                 UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
             }

@@ -104,7 +104,7 @@ class FamilyMemberDetailController: UIViewController {
         
         let masterTap = Variable(false)
         masterBun.rx.tap.asObservable()
-            .bindNext {
+            .bindNext {[weak self] _ in
                 let vc = UIAlertController(title: nil, message: R.string.localizable.id_sure_as_master(), preferredStyle: .alert)
                 let action1 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     masterTap.value = true
@@ -112,13 +112,13 @@ class FamilyMemberDetailController: UIViewController {
                 let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                 vc.addAction(action1)
                 vc.addAction(action2)
-                self.present(vc, animated: true)
+                self?.present(vc, animated: true)
             }
             .addDisposableTo(disposeBag)
         
         let deleteTap = Variable(false)
         deleteBun.rx.tap.asObservable()
-            .bindNext {
+            .bindNext {[weak self] _ in
                 let vc = UIAlertController(title: nil, message: R.string.localizable.id_delete_description(), preferredStyle: .alert)
                 let action1 = UIAlertAction(title: R.string.localizable.id_yes(), style: .default){ _ in
                     deleteTap.value = true
@@ -126,7 +126,7 @@ class FamilyMemberDetailController: UIViewController {
                 let action2 = UIAlertAction(title: R.string.localizable.id_cancel(), style: .default)
                 vc.addAction(action1)
                 vc.addAction(action2)
-                self.present(vc, animated: true)
+                self?.present(vc, animated: true)
             }
             .addDisposableTo(disposeBag)
         
