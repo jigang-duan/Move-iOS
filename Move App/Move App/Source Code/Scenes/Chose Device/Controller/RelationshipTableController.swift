@@ -22,8 +22,6 @@ class RelationshipTableController: UIViewController {
     
     @IBOutlet weak var tableViewBotttomCons: NSLayoutConstraint!
     
-    var isKeyboardShow = false
-    
     var deviceAddInfo: DeviceBindInfo?
     
     var disposeBag = DisposeBag()
@@ -59,8 +57,6 @@ class RelationshipTableController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notify:)), name: .UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notify:)), name: .UIKeyboardWillHide, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidChangeFrame(notify:)), name: .UIKeyboardDidChangeFrame, object: nil)
     }
     
     
@@ -69,8 +65,8 @@ class RelationshipTableController: UIViewController {
         
         NotificationCenter.default.removeObserver(self)
         
+        self.otherTf.resignFirstResponder()
         
-        self.otherTf.endEditing(true)
         if let identity = selectedRelation {
             self.relationBlock?(identity)
         }
@@ -97,24 +93,26 @@ class RelationshipTableController: UIViewController {
         self.title = R.string.localizable.id_title()
         otherTf.placeholder = R.string.localizable.id_other()
         
+        if let relation = selectedRelation {
+            if case Relation.other(let value) = relation {
+                otherTf.text = value
+            }
+        }
+        
         let otherText = otherTf.rx.observe(String.self, "text").filterNil().asDriver(onErrorJustReturn: "")
         let otherDrier = otherTf.rx.text.orEmpty.asDriver()
         let combineName = Driver.of(otherText, otherDrier).merge()
         
         combineName.drive(onNext: {[weak self] name in
-            if self?.otherTf.text != self?.cutString(name) {
-                self?.otherTf.text = self?.cutString(name)
+            let subStr = self?.cutString(name)
+            if self?.otherTf.text != subStr {
+                self?.otherTf.text = subStr
             }
         }).addDisposableTo(disposeBag)
         
         
         self.setupRightBun()
         
-        if let relation = selectedRelation {
-            if case Relation.other(let value) = relation {
-                otherTf.text = value
-            }
-        }
         
         saveBun.rx.tap.asObservable()
             .bindNext { [weak self] in
@@ -164,7 +162,6 @@ class RelationshipTableController: UIViewController {
     
     
     func keyboardWillShow(notify: Notification) {
-        isKeyboardShow = true
         print("---keyboardWillShow")
         
         let frame = notify.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
@@ -172,29 +169,19 @@ class RelationshipTableController: UIViewController {
         tableViewBotttomCons.constant = (frame?.size.height)! + 10
         
         self.tableView.scrollToRow(at: IndexPath(row: self.identities.count - 1 , section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+
+        self.view.layoutIfNeeded()
     }
     
     
     func keyboardWillHide(notify: Notification) {
         print("---keyboardWillHide")
-        isKeyboardShow = false
         let duration = notify.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval
         
         UIView.animate(withDuration: duration!) {[weak self] in
             self?.tableViewBotttomCons.constant = 0
+            self?.view.layoutIfNeeded()
         }
-    }
-    
-    func keyboardDidChangeFrame(notify: Notification) {
-        print("---keyboardDidChangeFrame")
-        if isKeyboardShow == false {
-            return
-        }
-        let frame = notify.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
-        
-        tableViewBotttomCons.constant = (frame?.size.height)! + 10
-        
-        self.tableView.scrollToRow(at: IndexPath(row: self.identities.count - 1 , section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
     
     
