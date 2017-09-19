@@ -13,15 +13,13 @@
 @property (nonatomic, strong) NSString *text; /**< 文字*/
 @property (nonatomic, strong) UIColor *textColor; /**< 字体颜色 默认白色  黑*/
 @property (nonatomic, strong) UIFont *textFont; /**< 字体大小 默认25  15*/
-
-@property (nonatomic, assign) CGFloat space; /**< 首尾间隔 默认25*/
-@property (nonatomic, assign) CGFloat velocity; /**< 滚动速度 pixels/second,默认30*/
+@property (nonatomic, assign) CGFloat velocity; /**< 滚动速度 pixels/second*/
 @property (nonatomic, assign) NSTimeInterval pauseTimeIntervalBeforeScroll; /**< 每次开始滚动前暂停的间隔 默认3s*/
 
 /**
  *  重新进入前台，还能滚动
  */
-- (void)addObaserverNotification;
+-(void)addObaserverNotification;
 -(void)scrollLabelIfNeed;
 
 @end

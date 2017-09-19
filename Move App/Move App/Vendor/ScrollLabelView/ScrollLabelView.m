@@ -8,23 +8,10 @@
 
 #import "ScrollLabelView.h"
 
-static void each_object(NSArray *objects, void (^block)(id object))
-{
-    for(id obj in objects){
-        block(obj);
-    }
-}
-//宏定义 给Label的属性赋值
-#define EACH_LABEL(ATTRIBUTE, VALUE) each_object(self.labels, ^(UILabel *label) {label.ATTRIBUTE = VALUE; })
-#define WIDTH self.frame.size.width
-#define HEIGHT self.frame.size.height
-
 @interface ScrollLabelView ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) NSMutableArray *labels;
-@property (nonatomic, strong) UILabel *mainLabel; /**< 没滚动就能看到的Label*/
-
+@property (nonatomic, strong) UILabel *mainLabel;
 
 @end
 
@@ -63,9 +50,7 @@ static void each_object(NSArray *objects, void (^block)(id object))
     self.textColor = [UIColor blackColor];
     
     self.velocity = 16.0;
-    self.space = 25;
-    self.pauseTimeIntervalBeforeScroll = 3.9;
-    
+    self.pauseTimeIntervalBeforeScroll = 3;
 }
 
 - (void)layoutSubviews{
@@ -84,12 +69,9 @@ static void each_object(NSArray *objects, void (^block)(id object))
     if([self.text isEqualToString:theText]) return;
     
     _text = theText;
-    EACH_LABEL(text, theText);
-    EACH_LABEL(font, self.textFont);
-    EACH_LABEL(textColor, self.textColor);
+    _mainLabel.text = theText;
     
     [self refreshLabelsFrame:theText];
-
 }
 
 /**
@@ -99,28 +81,21 @@ static void each_object(NSArray *objects, void (^block)(id object))
 {
     if(labelText.length == 0) return;
     
-    CGSize labelSize = [labelText boundingRectWithSize:CGSizeMake(MAXFLOAT, HEIGHT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.textFont} context:nil].size;
-    __block CGFloat offset = 0;
+    CGFloat height = self.frame.size.height;
+    CGFloat width = self.frame.size.width;
     
-    each_object(self.labels, ^(UILabel *label) {
-        
-        CGFloat labelWidth = (labelSize.width+10) > WIDTH ? labelSize.width + self.space : WIDTH;
-        label.frame = CGRectMake(offset, 0, labelWidth, HEIGHT);
-        offset += labelWidth;
-    });
+    
+    CGSize labelSize = [labelText boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.textFont} context:nil].size;
+    
+    _mainLabel.frame = CGRectMake(0, 0, labelSize.width, height);
     
     self.scrollView.contentSize = CGSizeZero;
     [self.scrollView.layer removeAllAnimations];
     
-    if(labelSize.width + 10 > WIDTH)
-    {
-        self.scrollView.contentSize = CGSizeMake(WIDTH + self.space + CGRectGetWidth(self.mainLabel.frame), HEIGHT);
-        
+    if(labelSize.width > width) {
+        self.scrollView.contentSize = CGSizeMake(_mainLabel.frame.size.width, height);
         [self scrollLabelIfNeed];
-    }
-    else
-    {
-        EACH_LABEL(hidden, (self.mainLabel != label));
+    }else{
         self.scrollView.contentSize = self.bounds.size;
         [self.scrollView.layer removeAllAnimations];
     }
@@ -131,7 +106,9 @@ static void each_object(NSArray *objects, void (^block)(id object))
  */
 - (void)scrollLabelIfNeed
 {
-    NSTimeInterval duration = (CGRectGetWidth(self.mainLabel.frame) - WIDTH)/self.velocity;
+    NSTimeInterval duration = (self.mainLabel.frame.size.width - self.frame.size.width)/self.velocity;
+    if (duration < 0)  return;
+    
     [self.scrollView.layer removeAllAnimations];
     //重置contentOffset 否则不会循环滚动
     self.scrollView.contentOffset = CGPointZero;
@@ -140,9 +117,8 @@ static void each_object(NSArray *objects, void (^block)(id object))
         
         self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.mainLabel.frame), 0);
     } completion:^(BOOL finished) {
-        if(finished)
-        {
-            [self performSelector:@selector(scrollLabelIfNeed) withObject:nil];
+        if(finished) {
+            [self scrollLabelIfNeed];
         }
     }];
 }
@@ -155,45 +131,28 @@ static void each_object(NSArray *objects, void (^block)(id object))
     
     //活跃状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollLabelIfNeed) name:UIApplicationDidBecomeActiveNotification object:nil];
-    //即将进入前台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollLabelIfNeed) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 #pragma mark --  getter
 
 - (UIScrollView *)scrollView
 {
-    if(!_scrollView)
-    {
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-        _scrollView.backgroundColor = [UIColor clearColor];
+    if(!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:_scrollView];
+        
+        _mainLabel = [[UILabel alloc] init];
+        _mainLabel.textAlignment = NSTextAlignmentLeft;
+        _mainLabel.font = self.textFont;
+        _mainLabel.textColor = self.textColor;
+        [self.scrollView addSubview:_mainLabel];
     }
+    
     return _scrollView;
 }
 
-- (NSMutableArray *)labels
-{
-    if(!_labels)
-    {
-        _labels = [[NSMutableArray alloc] init];
-        for(int i=0; i<2; i++)
-        {
-            UILabel *label = [[UILabel alloc] init];
-            label.textAlignment = NSTextAlignmentLeft;
-            label.backgroundColor = [UIColor clearColor];
-            [self.labels addObject:label];
-            [self.scrollView addSubview:label];
-        }
-    }
-    return _labels;
-}
 
-- (UILabel *)mainLabel
-{
-    return self.labels[0];
-}
 
 @end

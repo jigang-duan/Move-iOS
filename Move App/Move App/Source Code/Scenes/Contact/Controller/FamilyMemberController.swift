@@ -84,7 +84,7 @@ class FamilyMemberController: UIViewController {
         
     
         let selectedContact = tableView.rx.itemSelected.asDriver()
-            .map({ self.viewModel.contacts?[$0.row] })
+            .map({[weak self] in self?.viewModel.contacts?[$0.row] })
             .filterNil()
         
         viewModel = FamilyMemberViewModel(
