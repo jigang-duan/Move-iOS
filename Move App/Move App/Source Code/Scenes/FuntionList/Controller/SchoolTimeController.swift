@@ -323,7 +323,7 @@ class SchoolTimeController: UIViewController {
     }
     
     private func selectPmEndTime() {
-        self.datepicke.minimumDate = pmStartTime + 60
+        self.datepicke.minimumDate = (pmStartTime > self.pmMin ? pmStartTime  : self.pmMin) + 60
         self.datepicke.maximumDate = self.pmMax
         self.amStartTimeOutlet.isSelected = false
         self.amEndTimeOutlet.isSelected = false
