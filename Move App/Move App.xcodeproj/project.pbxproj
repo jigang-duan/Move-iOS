@@ -2697,6 +2697,7 @@
 				11407EA41F6A4A9F004C11D5 /* Sources */,
 				11407FAD1F6A4A9F004C11D5 /* Frameworks */,
 				11407FB71F6A4A9F004C11D5 /* Resources */,
+				11BDD6781F70C41A005A9C6B /* Info String */,
 				11407FE01F6A4A9F004C11D5 /* [CP] Embed Pods Frameworks */,
 				11407FE11F6A4A9F004C11D5 /* [CP] Copy Pods Resources */,
 				11407FE21F6A4A9F004C11D5 /* Embed Frameworks */,
@@ -3061,6 +3062,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Move App/Pods-Move App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		11BDD6781F70C41A005A9C6B /* Info String */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Info String";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/buildTool/info-strings.sh\" \"Info-AlcatelPlist\"";
 		};
 		1ACEDE21D34309C262F87F0B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
