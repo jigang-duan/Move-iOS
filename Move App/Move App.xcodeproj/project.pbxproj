@@ -744,7 +744,7 @@
 		113F2E3F1E9DC3E100B3628C /* AppDelegate+URLSchema+SOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AppDelegate+URLSchema+SOS.swift"; path = "Shared/Common/Application/AppDelegate+URLSchema+SOS.swift"; sourceTree = "<group>"; };
 		113F2E411E9E06DC00B3628C /* URL+Parameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+Parameters.swift"; path = "Shared/Extensisons/URL/URL+Parameters.swift"; sourceTree = "<group>"; };
 		113F2E451E9E12B400B3628C /* SOSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SOSService.swift; path = SOS/SOSService.swift; sourceTree = "<group>"; };
-		11407FE71F6A4A9F004C11D5 /* Alcatel Move .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Alcatel Move .app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		11407FE71F6A4A9F004C11D5 /* Alcatel Move.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Alcatel Move.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1140A0811EA4B8E200185200 /* MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoreView.swift; path = Vendor/UUChat/Sources/MoreView.swift; sourceTree = "<group>"; };
 		1140A0831EA4CC0D00185200 /* Rx+MoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rx+MoreView.swift"; path = "Vendor/UUChat/Rx/Rx+MoreView.swift"; sourceTree = "<group>"; };
 		114437BE1ECAD1E20095E648 /* ActivityImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityImageView.swift; path = Activity/ActivityImageView.swift; sourceTree = "<group>"; };
@@ -1795,7 +1795,7 @@
 				E01DF6F61E3059A900EA003D /* Move AppTests.xctest */,
 				E01DF7011E3059A900EA003D /* Move AppUITests.xctest */,
 				E01DF7301E308D7F00EA003D /* CustomViews.framework */,
-				11407FE71F6A4A9F004C11D5 /* Alcatel Move .app */,
+				11407FE71F6A4A9F004C11D5 /* Alcatel Move.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2688,9 +2688,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		11407E9F1F6A4A9F004C11D5 /* Alcatel Move  */ = {
+		11407E9F1F6A4A9F004C11D5 /* Alcatel Move */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 11407FE41F6A4A9F004C11D5 /* Build configuration list for PBXNativeTarget "Alcatel Move " */;
+			buildConfigurationList = 11407FE41F6A4A9F004C11D5 /* Build configuration list for PBXNativeTarget "Alcatel Move" */;
 			buildPhases = (
 				11407EA21F6A4A9F004C11D5 /* [CP] Check Pods Manifest.lock */,
 				11407EA31F6A4A9F004C11D5 /* R.swift Script */,
@@ -2707,9 +2707,9 @@
 			dependencies = (
 				11407EA01F6A4A9F004C11D5 /* PBXTargetDependency */,
 			);
-			name = "Alcatel Move ";
+			name = "Alcatel Move";
 			productName = "Move App";
-			productReference = 11407FE71F6A4A9F004C11D5 /* Alcatel Move .app */;
+			productReference = 11407FE71F6A4A9F004C11D5 /* Alcatel Move.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E01DF6E11E3059A800EA003D /* Move App */ = {
@@ -2876,7 +2876,7 @@
 			projectRoot = "";
 			targets = (
 				E01DF6E11E3059A800EA003D /* Move App */,
-				11407E9F1F6A4A9F004C11D5 /* Alcatel Move  */,
+				11407E9F1F6A4A9F004C11D5 /* Alcatel Move */,
 				E01DF6F51E3059A900EA003D /* Move AppTests */,
 				E01DF7001E3059A900EA003D /* Move AppUITests */,
 				E01DF72F1E308D7E00EA003D /* CustomViews */,
@@ -4367,7 +4367,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		11407FE41F6A4A9F004C11D5 /* Build configuration list for PBXNativeTarget "Alcatel Move " */ = {
+		11407FE41F6A4A9F004C11D5 /* Build configuration list for PBXNativeTarget "Alcatel Move" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				11407FE51F6A4A9F004C11D5 /* Debug */,
