@@ -15,7 +15,7 @@ class MoveApi {
     
     static let BaseURL: String = Configure.App.BaseURL
     
-    static let apiKey: String = "key=\(Configure.App.ApiKey)"
+    static let apiKey: String = "key=\(Configure.App.ApiKey)\(clientID)"
     
     struct ApiError {
         var id: Int?
@@ -25,6 +25,14 @@ class MoveApi {
     
     
     static let canPopToLoginScreen = true
+    
+    private static var clientID: String {
+        #if Tag_ALCATEL
+            return ";clientid=4"
+        #else
+            return ""
+        #endif
+    }
 }
 
 extension MoveApi.ApiError: Swift.Error {

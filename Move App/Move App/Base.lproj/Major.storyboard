@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nZ9-kv-znU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Tabs View Controller-->
         <scene sceneID="N4w-2g-GHl">
             <objects>
-                <tabBarController id="nZ9-kv-znU" customClass="TabsViewController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="nZ9-kv-znU" customClass="TabsViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Fhv-j7-Q1K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -45,7 +45,7 @@
         <!--Location-->
         <scene sceneID="GoP-ov-haV">
             <objects>
-                <viewController storyboardIdentifier="MainMapController" id="1qy-IZ-lOf" customClass="MainMapController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainMapController" id="1qy-IZ-lOf" customClass="MainMapController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wza-tg-GZf"/>
                         <viewControllerLayoutGuide type="bottom" id="nsS-Ls-5Dh"/>
@@ -476,7 +476,7 @@
         <!--Data Source-->
         <scene sceneID="0XR-iv-C57">
             <objects>
-                <viewController storyboardIdentifier="LocationHistoryVC" title="Location History" hidesBottomBarWhenPushed="YES" id="VGt-kf-yJX" customClass="LocationHistoryVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationHistoryVC" title="Location History" hidesBottomBarWhenPushed="YES" id="VGt-kf-yJX" customClass="LocationHistoryVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LV0-am-Hny"/>
                         <viewControllerLayoutGuide type="bottom" id="5aJ-Z8-sOQ"/>
@@ -712,7 +712,7 @@
         <!--Add Safe ZoneVC-->
         <scene sceneID="8Yy-b9-RoP">
             <objects>
-                <viewController storyboardIdentifier="AddSafeZoneVC" hidesBottomBarWhenPushed="YES" id="Ag8-PL-g1h" customClass="AddSafeZoneVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddSafeZoneVC" hidesBottomBarWhenPushed="YES" id="Ag8-PL-g1h" customClass="AddSafeZoneVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hpx-8L-dYu"/>
                         <viewControllerLayoutGuide type="bottom" id="Sam-V3-4de"/>
@@ -853,7 +853,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <pinchGestureRecognizer id="1GH-bF-gJq" customClass="CPinchGuesture" customModule="Move_App" customModuleProvider="target">
+                <pinchGestureRecognizer id="1GH-bF-gJq" customClass="CPinchGuesture" customModule="Alcatel_Move_" customModuleProvider="target">
                     <connections>
                         <action selector="PinchToChangeZoom:" destination="Ag8-PL-g1h" id="IwF-5e-fic"/>
                         <outlet property="delegate" destination="Ag8-PL-g1h" id="sfa-p2-dYE"/>
@@ -865,7 +865,7 @@
         <!--Safe Zone Address SearchVC-->
         <scene sceneID="JeL-zy-KNt">
             <objects>
-                <viewController storyboardIdentifier="SafeZoneAddressSearchVC" hidesBottomBarWhenPushed="YES" id="EGc-oA-Hya" customClass="SafeZoneAddressSearchVC" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SafeZoneAddressSearchVC" hidesBottomBarWhenPushed="YES" id="EGc-oA-Hya" customClass="SafeZoneAddressSearchVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xjs-TJ-q4y"/>
                         <viewControllerLayoutGuide type="bottom" id="RKF-MX-KH6"/>
@@ -954,7 +954,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jsP-bY-8a5" id="Wxu-3A-Ham">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -993,7 +993,7 @@
         <!--All Kids Location-->
         <scene sceneID="o21-tY-rna">
             <objects>
-                <viewController storyboardIdentifier="allKidsLocation" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="06j-ga-eoj" customClass="AllKidsLocationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="allKidsLocation" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="06j-ga-eoj" customClass="AllKidsLocationController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oQE-UK-xnj"/>
                         <viewControllerLayoutGuide type="bottom" id="MrG-a6-Umu"/>
@@ -1080,7 +1080,7 @@
         <!--System notification-->
         <scene sceneID="L4M-If-OHT">
             <objects>
-                <viewController title="System notification" hidesBottomBarWhenPushed="YES" id="I9w-bK-cLw" customClass="SystemNotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="System notification" hidesBottomBarWhenPushed="YES" id="I9w-bK-cLw" customClass="SystemNotificationController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K4y-ev-2BC"/>
                         <viewControllerLayoutGuide type="bottom" id="Kcb-k7-VD4"/>
@@ -1166,7 +1166,7 @@
         <!--Notification-->
         <scene sceneID="eht-vI-J2c">
             <objects>
-                <viewController storyboardIdentifier="notificationScene" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cfi-e5-Va2" customClass="NotificationController" customModule="Move_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notificationScene" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cfi-e5-Va2" customClass="NotificationController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uIT-Td-CUa"/>
                         <viewControllerLayoutGuide type="bottom" id="RHi-RA-YtH"/>
@@ -1179,7 +1179,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotification" id="59f-21-gYr" customClass="UUMessageCell" customModule="Move_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellNotification" id="59f-21-gYr" customClass="UUMessageCell" customModule="Alcatel_Move_" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="59f-21-gYr" id="4gR-Yn-jWS">
@@ -1208,7 +1208,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yBk-mU-alq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="ASg-qv-k6H" customClass="MoreView" customModule="Move_App" customModuleProvider="target">
+                <view contentMode="scaleToFill" id="ASg-qv-k6H" customClass="MoreView" customModule="Alcatel_Move_" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

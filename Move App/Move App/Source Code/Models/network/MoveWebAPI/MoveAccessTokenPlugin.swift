@@ -27,14 +27,6 @@ struct MoveAccessTokenPlugin: PluginType {
         return "\(MoveApi.apiKey);token=\(token);\(authenCryptorToken)"
     }
     
-    private var clientID: String {
-    #if Tag_ALCATEL
-        return ";clientid=4"
-    #else
-        return ""
-    #endif
-    }
-    
     /**
      Prepare a request by adding an authorization header if necessary.
      
@@ -50,10 +42,9 @@ struct MoveAccessTokenPlugin: PluginType {
         
         var request = request
         if let strAuth = request.allHTTPHeaderFields?["Authorization"] {
-            request.setValue("\(strAuth);token=\(token);\(authenCryptorToken)\(clientID)", forHTTPHeaderField: "Authorization")
-            
+            request.setValue("\(strAuth);token=\(token);\(authenCryptorToken)", forHTTPHeaderField: "Authorization")
         } else {
-            request.setValue(authVal+clientID, forHTTPHeaderField: "Authorization")
+            request.setValue(authVal, forHTTPHeaderField: "Authorization")
         }
         
         return request
