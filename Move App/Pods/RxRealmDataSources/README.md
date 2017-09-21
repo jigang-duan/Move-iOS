@@ -12,7 +12,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Usage
 
-This library is a light data source implementation for `RxRealm`. It allows you to easily bind an Observable sequence of Realm objects to a table or collection view.
+This library is a light data source implementation for `RxRealm`. It allows you to easily bind an Observable sequence of Realm objects to a table or a collection view. The library is both iOS and macOS compatible.
 
 ### Binding to a table view
 
@@ -32,7 +32,7 @@ let laps = Observable.changeset(from: realm.objects(Timer.self).first!.laps)
 // bind to table view
 laps
     .bindTo(tableView.rx.realmChanges(dataSource))
-    .addDisposableTo(bag)
+    .disposed(by: bag)
 ```
 
 ### Binding to a collection view
@@ -53,7 +53,18 @@ let laps = Observable.changeset(from: realm.objects(Timer.self).first!.laps)
 // bind to collection view
 laps
     .bindTo(collectionView.rx.realmChanges(dataSource))
-    .addDisposableTo(bag)
+    .disposed(by: bag)
+```
+
+### Reacting to cell taps
+
+The library adds an extension to table views and collection views, allowing you to easily subscribe to the cell selected delegate event. Here's a snippet from the example demo app:
+
+```swift
+tableView.rx.realmModelSelected(Lap.self)
+  .map({ $0.text })
+  .bind(to: rx.title)
+  .disposed(by: bag)
 ```
 
 ## Installation

@@ -26,14 +26,14 @@ class ScanCodeController: UIViewController {
     lazy var session: AVCaptureSession = AVCaptureSession()
     
     //输入设备
-    private lazy var deviceInput: AVCaptureDeviceInput = {
+    private lazy var deviceInput: AVCaptureDeviceInput? = {
         let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         do{
             let input = try AVCaptureDeviceInput(device: device)
             return input
         }catch{
             print(error)
-            return AVCaptureDeviceInput()
+            return nil
         }
         
     }()

@@ -309,7 +309,6 @@
 		11407FB31F6A4A9F004C11D5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0931F391E30DE7400755B4A /* MapKit.framework */; };
 		11407FB41F6A4A9F004C11D5 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B3E1E31E7FF8A100F12E22 /* libopencore-amrnb.a */; };
 		11407FB51F6A4A9F004C11D5 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B3E1E41E7FF8A100F12E22 /* libopencore-amrwb.a */; };
-		11407FB61F6A4A9F004C11D5 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		11407FB81F6A4A9F004C11D5 /* dizzy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FC1ED824D700BAAF3D /* dizzy.gif */; };
 		11407FB91F6A4A9F004C11D5 /* smile.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F73021ED824D700BAAF3D /* smile.gif */; };
 		11407FBA1F6A4A9F004C11D5 /* cry.gif in Resources */ = {isa = PBXBuildFile; fileRef = 115F72FB1ED824D700BAAF3D /* cry.gif */; };
@@ -432,6 +431,7 @@
 		11EAC3291E6F99DE002906F1 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC3281E6F99DE002906F1 /* SocialController.swift */; };
 		11EAC32D1E6FD50A002906F1 /* AlertWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EAC32C1E6FD50A002906F1 /* AlertWireframe.swift */; };
 		11F71CF81EA9F0360066B9FC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F71CF71EA9F0360066B9FC /* Preferences.swift */; };
+		2B749D512D1EF917B440398F /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E731807D2860715DF8F413 /* Pods_Move_App.framework */; };
 		7F62A0AB1ED5728E00ADDF9E /* MoveApns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */; };
 		7FC0A90D1F06284E00040C0E /* MapNavigateActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC0A90C1F06284E00040C0E /* MapNavigateActionSheet.swift */; };
@@ -835,7 +835,8 @@
 		141858BC35771DF061629EC7 /* Pods_Move_App_CustomViews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App_CustomViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B6315738B4AE874600BE38 /* Pods_Move_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E731807D2860715DF8F413 /* Pods_Move_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Move_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.debug.xcconfig"; sourceTree = "<group>"; };
+		54C943023A152C6F3886C19E /* Pods-Move App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.release.xcconfig"; sourceTree = "<group>"; };
+		649DCF52D65E573CB4F9694C /* Pods-Move App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.debug.xcconfig"; sourceTree = "<group>"; };
 		7F62A0AA1ED5728E00ADDF9E /* MoveApns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveApns.swift; sourceTree = "<group>"; };
 		7FC0A90C1F06284E00040C0E /* MapNavigateActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapNavigateActionSheet.swift; path = Vendor/MapNavigateActionSheet/MapNavigateActionSheet.swift; sourceTree = "<group>"; };
 		85B2640603391AC6872E01CD /* Pods-Move AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move AppTests/Pods-Move AppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -896,7 +897,6 @@
 		D2F1A4831E553AED00915D9D /* SetYourHeghtController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetYourHeghtController.swift; sourceTree = "<group>"; };
 		D2F1A4851E554EC900915D9D /* SetYourWeightController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetYourWeightController.swift; sourceTree = "<group>"; };
 		D2FE6BAA1E52F7BF000CD7B7 /* RelationshipTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipTableController.swift; sourceTree = "<group>"; };
-		D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Move App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Move App/Pods-Move App.release.xcconfig"; sourceTree = "<group>"; };
 		E01906E61E55A7E100F65852 /* OnlineProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineProvider.swift; sourceTree = "<group>"; };
 		E01DF6E21E3059A800EA003D /* Move App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Move App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E01DF6EA1E3059A800EA003D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -1138,7 +1138,6 @@
 				11407FB31F6A4A9F004C11D5 /* MapKit.framework in Frameworks */,
 				11407FB41F6A4A9F004C11D5 /* libopencore-amrnb.a in Frameworks */,
 				11407FB51F6A4A9F004C11D5 /* libopencore-amrwb.a in Frameworks */,
-				11407FB61F6A4A9F004C11D5 /* Pods_Move_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1155,6 +1154,7 @@
 				A5B3E1E81E7FF8A100F12E22 /* libopencore-amrnb.a in Frameworks */,
 				A5B3E1E91E7FF8A100F12E22 /* libopencore-amrwb.a in Frameworks */,
 				3FDF674823C652AC62EB31C0 /* Pods_Move_App.framework in Frameworks */,
+				2B749D512D1EF917B440398F /* Pods_Move_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1578,12 +1578,12 @@
 		601CEB9B915C944884D37A9C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */,
-				D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */,
 				C94468AB988512951E4D2A4B /* Pods-Move AppTests.debug.xcconfig */,
 				85B2640603391AC6872E01CD /* Pods-Move AppTests.release.xcconfig */,
 				8C4A2CD5C2A7BA27AE209FE9 /* Pods-Move AppUITests.debug.xcconfig */,
 				BBE0CFE9ADF408C18107BF0D /* Pods-Move AppUITests.release.xcconfig */,
+				649DCF52D65E573CB4F9694C /* Pods-Move App.debug.xcconfig */,
+				54C943023A152C6F3886C19E /* Pods-Move App.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2357,7 +2357,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = bluetooth;
+			name = bluetooth;
 			sourceTree = "<group>";
 		};
 		E0C228E31E347E9600BCF83D /* String */ = {
@@ -2553,7 +2553,6 @@
 				116B90931F14B13500336E3B /* ScrollLabelView+Rx.swift */,
 			);
 			name = ScrollLabelView;
-			path = "Source Code/Scenes/Tabs/Maps/MainMap/Controller/ScrollLabelView";
 			sourceTree = "<group>";
 		};
 		E9B7FA5E1E54331400F46D09 /* NoEeventView */ = {
@@ -2692,14 +2691,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11407FE41F6A4A9F004C11D5 /* Build configuration list for PBXNativeTarget "Alcatel Move" */;
 			buildPhases = (
-				11407EA21F6A4A9F004C11D5 /* [CP] Check Pods Manifest.lock */,
 				11407EA31F6A4A9F004C11D5 /* R.swift Script */,
 				11407EA41F6A4A9F004C11D5 /* Sources */,
 				11407FAD1F6A4A9F004C11D5 /* Frameworks */,
 				11407FB71F6A4A9F004C11D5 /* Resources */,
 				11BDD6781F70C41A005A9C6B /* Info String */,
-				11407FE01F6A4A9F004C11D5 /* [CP] Embed Pods Frameworks */,
-				11407FE11F6A4A9F004C11D5 /* [CP] Copy Pods Resources */,
 				11407FE21F6A4A9F004C11D5 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -3004,21 +3000,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11407EA21F6A4A9F004C11D5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		11407EA31F6A4A9F004C11D5 /* R.swift Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3032,36 +3013,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
-		};
-		11407FE01F6A4A9F004C11D5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Move App/Pods-Move App-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		11407FE11F6A4A9F004C11D5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Move App/Pods-Move App-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		11BDD6781F70C41A005A9C6B /* Info String */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3984,7 +3935,6 @@
 /* Begin XCBuildConfiguration section */
 		11407FE51F6A4A9F004C11D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4029,7 +3979,6 @@
 		};
 		11407FE61F6A4A9F004C11D5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4169,7 +4118,7 @@
 		};
 		E01DF70B1E3059A900EA003D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39ADF3D0CC8969344E54C9B4 /* Pods-Move App.debug.xcconfig */;
+			baseConfigurationReference = 649DCF52D65E573CB4F9694C /* Pods-Move App.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4212,7 +4161,7 @@
 		};
 		E01DF70C1E3059A900EA003D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D731602D8280AC649E0A395C /* Pods-Move App.release.xcconfig */;
+			baseConfigurationReference = 54C943023A152C6F3886C19E /* Pods-Move App.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

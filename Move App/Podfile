@@ -22,21 +22,21 @@ target 'Move App' do
   pod 'Bugly'
   
   #第三方分享登录
-  pod 'ShareSDK3/ShareSDKPlatforms/GooglePlus'
-  pod 'ShareSDK3/ShareSDKPlatforms/Facebook'
+  pod 'ShareSDK3/ShareSDKPlatforms/GooglePlus',  '~> 3.6.2.1'
+  pod 'ShareSDK3/ShareSDKPlatforms/Facebook',  '~> 3.6.2.1'
   pod 'FBSDKMessengerShareKit'
 
   # 网络
   # https://github.com/Moya/Moya
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'Moya'
-  pod 'Moya/RxSwift'
+  pod 'Moya/RxSwift' , '~> 8.0.5'
   
   # Observable
   # https://github.com/ReactiveX/RxSwift
   #pod 'RxSwift',    '~> 3.0'
-  pod 'RxCocoa',    '~> 3.0'
-  pod 'RxDataSources', '~> 1.0'
+  pod 'RxCocoa'
+  pod 'RxDataSources'
   pod 'RxOptional'
   # pod 'RxMKMapView'  // 有依赖冲突
   # 数据库 https://realm.io
@@ -53,7 +53,7 @@ target 'Move App' do
   
   # Gif UImage扩展
   # https://github.com/bahlo/SwiftGif
-  pod 'SwiftGifOrigin', '~> 1.6.1'
+  pod 'SwiftGifOrigin'
   
   # 空白页或者出错页封装
   pod 'DZNEmptyDataSet'

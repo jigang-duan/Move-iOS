@@ -20,7 +20,7 @@ import RxRealm
     public typealias CollectionCellFactory<E: Object> = (RxCollectionViewRealmDataSource<E>, UICollectionView, IndexPath, E) -> UICollectionViewCell
     public typealias CollectionCellConfig<E: Object, CellType: UICollectionViewCell> = (CellType, IndexPath, E) -> Void
 
-    public class RxCollectionViewRealmDataSource <E: Object>: NSObject, UICollectionViewDataSource {
+    open class RxCollectionViewRealmDataSource <E: Object>: NSObject, UICollectionViewDataSource {
         private var items: AnyRealmCollection<E>?
 
         // MARK: - Configuration
@@ -44,6 +44,11 @@ import RxRealm
                 cellConfig(cell, ip, model)
                 return cell
             }
+        }
+
+        // MARK: - Data access
+        public func model(at indexPath: IndexPath) -> E {
+            return items![indexPath.row]
         }
 
         // MARK: - UICollectionViewDataSource protocol
@@ -103,7 +108,7 @@ import Cocoa
     public typealias CollectionItemFactory<E: Object> = (RxCollectionViewRealmDataSource<E>, NSCollectionView, IndexPath, E) -> NSCollectionViewItem
     public typealias CollectionItemConfig<E: Object, ItemType: NSCollectionViewItem> = (ItemType, IndexPath, E) -> Void
 
-    public class RxCollectionViewRealmDataSource <E: Object>: NSObject, NSCollectionViewDataSource {
+    open class RxCollectionViewRealmDataSource <E: Object>: NSObject, NSCollectionViewDataSource {
 
         private var items: AnyRealmCollection<E>?
 
@@ -148,7 +153,7 @@ import Cocoa
         }
 
         // MARK: - Proxy unimplemented data source and delegate methods
-        public override func responds(to aSelector: Selector!) -> Bool {
+        open override func responds(to aSelector: Selector!) -> Bool {
             if RxCollectionViewRealmDataSource.instancesRespond(to: aSelector) {
                 return true
             } else if let delegate = delegate {
@@ -160,7 +165,7 @@ import Cocoa
             }
         }
 
-        public override func forwardingTarget(for aSelector: Selector!) -> Any? {
+        open override func forwardingTarget(for aSelector: Selector!) -> Any? {
             return delegate ?? dataSource
         }
 

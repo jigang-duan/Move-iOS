@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yIv-My-yQU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="MarkerFeltThin.ttf">
+            <string>MarkerFelt-Thin</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Distribution View Controller-->
         <scene sceneID="oO4-X0-zEH">
             <objects>
-                <viewController id="yIv-My-yQU" customClass="DistributionViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yIv-My-yQU" customClass="DistributionViewController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NlB-vB-JHk"/>
                         <viewControllerLayoutGuide type="bottom" id="Htf-2G-0ly"/>
@@ -64,7 +69,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always Togather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-C5-agv">
-                                <rect key="frame" x="106" y="525" width="163" height="27"/>
+                                <rect key="frame" x="109" y="525" width="157" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.61960786580000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -116,9 +121,9 @@
         <!--Chose device-->
         <scene sceneID="vRY-Hx-DJU">
             <objects>
-                <tableViewController storyboardIdentifier="ChoseDeviceController" title="Chose device" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a0j-e4-V0x" customClass="ChoseDeviceController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChoseDeviceController" title="Chose device" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a0j-e4-V0x" customClass="ChoseDeviceController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="1" sectionFooterHeight="9" id="utf-RF-rST">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -132,14 +137,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Family watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EIn-ne-Fuf">
-                                                    <rect key="frame" x="66" y="0.0" width="274" height="54.5"/>
+                                                    <rect key="frame" x="67" y="0.0" width="273" height="54.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="device_ic_kids" id="vVj-9Y-dTm">
-                                                    <rect key="frame" x="15" y="9" width="36" height="36"/>
+                                                    <rect key="frame" x="16" y="9" width="36" height="36"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -157,14 +162,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="MB12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tyl-ct-DVX">
-                                                    <rect key="frame" x="66" y="0.0" width="274" height="54.5"/>
+                                                    <rect key="frame" x="67" y="0.0" width="273" height="54.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="device_ic_mb12" id="kKy-Xf-5gh">
-                                                    <rect key="frame" x="15" y="9" width="36" height="36"/>
+                                                    <rect key="frame" x="16" y="9" width="36" height="36"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -182,14 +187,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="MB22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p8E-zH-O8H">
-                                                    <rect key="frame" x="66" y="0.0" width="274" height="54.5"/>
+                                                    <rect key="frame" x="67" y="0.0" width="273" height="54.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="device_ic_mb22" id="Ped-iz-jdm">
-                                                    <rect key="frame" x="15" y="9" width="36" height="36"/>
+                                                    <rect key="frame" x="16" y="9" width="36" height="36"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -221,23 +226,23 @@
         <!--Help for paird-->
         <scene sceneID="z7z-15-7k8">
             <objects>
-                <viewController id="rTv-1W-PR7" customClass="HelpForPairVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rTv-1W-PR7" customClass="HelpForPairVC" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kLF-ky-sxO"/>
                         <viewControllerLayoutGuide type="bottom" id="PCn-F8-pPP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tQY-h5-1wT">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rre-tx-Z3A">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="277"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wakeup" translatesAutoresizingMaskIntoConstraints="NO" id="sZo-Zj-CHH">
                                         <rect key="frame" x="30" y="120.5" width="77" height="65"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_1" translatesAutoresizingMaskIntoConstraints="NO" id="A0W-Cm-wSV">
-                                        <rect key="frame" x="220" y="41" width="115" height="220.5"/>
+                                        <rect key="frame" x="220" y="29" width="115" height="220.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="HDV-kk-w3A"/>
                                             <constraint firstAttribute="width" constant="115" id="kT3-5T-egY"/>
@@ -269,10 +274,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuW-Ln-FWB">
-                                <rect key="frame" x="0.0" y="301.5" width="375" height="301.5"/>
+                                <rect key="frame" x="0.0" y="277" width="375" height="277"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_2" translatesAutoresizingMaskIntoConstraints="NO" id="cKk-cH-2Zl">
-                                        <rect key="frame" x="220" y="41.5" width="115" height="220"/>
+                                        <rect key="frame" x="220" y="28.5" width="115" height="220"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="IjV-vg-uvC"/>
                                             <constraint firstAttribute="width" constant="115" id="tjO-RR-e1r"/>
@@ -338,7 +343,7 @@
         <!--Pair Watch Controller-->
         <scene sceneID="IRY-Rq-ifL">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="hHf-WS-pVL" customClass="PairWatchController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="hHf-WS-pVL" customClass="PairWatchController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XFY-FT-eYp"/>
                         <viewControllerLayoutGuide type="bottom" id="gKO-zL-MiT"/>
@@ -452,7 +457,7 @@
         <!--QR Code-->
         <scene sceneID="owb-lv-Mwq">
             <objects>
-                <viewController id="n92-6R-fef" customClass="ScanCodeController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="n92-6R-fef" customClass="ScanCodeController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o2g-Zh-run"/>
                         <viewControllerLayoutGuide type="bottom" id="n3O-Y8-zsU"/>
@@ -654,7 +659,7 @@
         <!--Can't pair-->
         <scene sceneID="38g-k7-esJ">
             <objects>
-                <viewController id="apW-GE-wBu" customClass="CantPairToApnVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="apW-GE-wBu" customClass="CantPairToApnVC" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wkq-Lw-Gq7"/>
                         <viewControllerLayoutGuide type="bottom" id="0ov-13-lDZ"/>
@@ -664,7 +669,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_bg" translatesAutoresizingMaskIntoConstraints="NO" id="AWv-OS-Tv2">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If there is no &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is wrong, press below &quot;APN setting&quot; to set APN" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-hT-VjF">
                                 <rect key="frame" x="15" y="274" width="345" height="36"/>
@@ -676,7 +681,7 @@
                                 <rect key="frame" x="107.5" y="84" width="160" height="160"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZn-Oq-hbp">
-                                <rect key="frame" x="45" y="603" width="285" height="44"/>
+                                <rect key="frame" x="45" y="554" width="285" height="44"/>
                                 <color key="backgroundColor" red="0.98039215690000003" green="0.68627450980000004" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="aPQ-uO-WUb"/>
@@ -769,7 +774,7 @@
         <!--Input IMEI-->
         <scene sceneID="6OO-5G-D7i">
             <objects>
-                <viewController id="vIC-fE-yhZ" customClass="InputImeiVC" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vIC-fE-yhZ" customClass="InputImeiVC" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gpn-uI-B5Z"/>
                         <viewControllerLayoutGuide type="bottom" id="nRM-N7-C3J"/>
@@ -798,13 +803,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where is" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9RO-Er-qd3">
-                                <rect key="frame" x="134" y="616" width="67" height="21"/>
+                                <rect key="frame" x="134" y="567" width="67" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bcB-OZ-94Y">
-                                <rect key="frame" x="206" y="616" width="42" height="23"/>
+                                <rect key="frame" x="206" y="567" width="42" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="nUX-zG-wyz"/>
                                 </constraints>
@@ -886,7 +891,7 @@
         <!--Verification Code-->
         <scene sceneID="JDu-tb-trO">
             <objects>
-                <viewController storyboardIdentifier="VerificationCodeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ICz-bk-hfQ" customClass="VerificationCodeController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerificationCodeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ICz-bk-hfQ" customClass="VerificationCodeController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="n7Z-z6-eMX"/>
                         <viewControllerLayoutGuide type="bottom" id="UFl-j8-7TJ"/>
@@ -896,7 +901,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pair_Verification_Code" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-RM-Mei">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If there is &quot;3G&quot;,&quot;G&quot; or &quot;R&quot; Singal and time is correct, press &quot;resend&quot; to  resend Verification Code." textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evq-pB-sEQ">
                                 <rect key="frame" x="15" y="84" width="345" height="31.5"/>
@@ -1008,7 +1013,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-NY-CaF">
-                                <rect key="frame" x="64" y="616" width="248" height="25"/>
+                                <rect key="frame" x="64" y="567" width="248" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="EAy-o4-Bfi"/>
                                 </constraints>
@@ -1118,7 +1123,7 @@
                     <tabBarItem key="tabBarItem" title="Me" image="tab_me_nor" id="2yB-aN-gI1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qp6-q2-omV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1143,7 +1148,7 @@
         <!--Phone number-->
         <scene sceneID="zq2-NH-l2R">
             <objects>
-                <viewController storyboardIdentifier="PhoneNumberController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tlv-50-wiA" customClass="PhoneNumberController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhoneNumberController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tlv-50-wiA" customClass="PhoneNumberController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1p1-bS-naz"/>
                         <viewControllerLayoutGuide type="bottom" id="avD-Qa-Dc9"/>
@@ -1153,7 +1158,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Phone_number" translatesAutoresizingMaskIntoConstraints="NO" id="P8T-cg-hFB">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4Z-CL-me1" userLabel="Navbar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
@@ -1307,17 +1312,17 @@
         <!--Title-->
         <scene sceneID="16Z-uf-3wa">
             <objects>
-                <viewController storyboardIdentifier="relationshipTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="phT-Ys-gMz" customClass="RelationshipTableController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="relationshipTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="phT-Ys-gMz" customClass="RelationshipTableController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="64u-f0-DdB"/>
                         <viewControllerLayoutGuide type="bottom" id="tzJ-Va-5xy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Kvr-oc-85t">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uBX-BE-ypv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="efo-6N-RiE">
@@ -1445,7 +1450,7 @@
         <!--Can't pair-->
         <scene sceneID="oPH-2L-fBf">
             <objects>
-                <viewController id="hZ8-Ro-6rk" customClass="CantPairViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hZ8-Ro-6rk" customClass="CantPairViewController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iGl-pN-rcJ"/>
                         <viewControllerLayoutGuide type="bottom" id="xEG-g6-Q3t"/>
@@ -1577,7 +1582,7 @@
         <!--Me-->
         <scene sceneID="Pg8-VD-t1g">
             <objects>
-                <viewController id="Z5E-tj-Hb3" customClass="AccountAndChoseDeviceController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z5E-tj-Hb3" customClass="AccountAndChoseDeviceController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GGg-bO-e6I"/>
                         <viewControllerLayoutGuide type="bottom" id="neX-TS-Jry"/>
@@ -1702,7 +1707,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MBI-MG-sud">
-                                                    <rect key="frame" x="66" y="13" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="66" y="10" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1773,13 +1778,13 @@
         <!--Me-->
         <scene sceneID="Rus-8m-cLK">
             <objects>
-                <viewController storyboardIdentifier="MeLogout" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b5A-LV-Bcq" customClass="MeLogoutController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeLogout" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b5A-LV-Bcq" customClass="MeLogoutController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Gg-eI-uoi"/>
                         <viewControllerLayoutGuide type="bottom" id="OOw-2H-Rlf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EkO-Ss-fcW">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3e-wL-if1">
@@ -1800,7 +1805,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="paul" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Rx-rZ-H2P">
-                                <rect key="frame" x="168" y="184" width="39" height="24"/>
+                                <rect key="frame" x="169" y="184" width="37.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1904,7 +1909,7 @@
         <!--Account-->
         <scene sceneID="WvU-SM-U5C">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="M63-DK-OWI" customClass="MeSettingController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="M63-DK-OWI" customClass="MeSettingController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Am9-Ld-uFA"/>
                         <viewControllerLayoutGuide type="bottom" id="CYL-56-KOH"/>
@@ -2007,7 +2012,7 @@
         <!--Change password-->
         <scene sceneID="Dpf-6n-FMp">
             <objects>
-                <viewController id="QdB-pO-wPi" customClass="MeSetPasswordViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QdB-pO-wPi" customClass="MeSetPasswordViewController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="T7d-C8-Cfa"/>
                         <viewControllerLayoutGuide type="bottom" id="95d-1J-heV"/>
@@ -2153,7 +2158,7 @@
         <!--Name-->
         <scene sceneID="rV2-Lh-WyH">
             <objects>
-                <viewController id="nP4-Bw-yq0" customClass="MeSetNameViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nP4-Bw-yq0" customClass="MeSetNameViewController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Xh-WI-NJV"/>
                         <viewControllerLayoutGuide type="bottom" id="CDw-g0-QWJ"/>
@@ -2216,9 +2221,9 @@
         <!--Settings-->
         <scene sceneID="cu7-91-1QJ">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="0Yj-y6-81N" customClass="OtherSettingsViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="0Yj-y6-81N" customClass="OtherSettingsViewController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QE7-Lh-WyR">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2239,7 +2244,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Clean up the cache" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rMM-Eh-9sq">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2256,7 +2261,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lu9-Rv-8gI">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2276,7 +2281,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kgX-6a-7Xp">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2296,7 +2301,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xd9-ZW-L1x">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2426,13 +2431,13 @@
         <!--About-->
         <scene sceneID="pEw-hn-R8n">
             <objects>
-                <viewController id="omK-iN-6Ha" customClass="AboutViewController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="omK-iN-6Ha" customClass="AboutViewController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y4A-Ff-GKm"/>
                         <viewControllerLayoutGuide type="bottom" id="hEu-DF-4xW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OAn-Fh-MJv">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_ic" translatesAutoresizingMaskIntoConstraints="NO" id="Dek-GN-ozm">
@@ -2494,7 +2499,7 @@
         <!--Contact us-->
         <scene sceneID="6KQ-hi-IIU">
             <objects>
-                <tableViewController storyboardIdentifier="ContactUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GuX-MJ-td2" customClass="ContactUsController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ContactUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GuX-MJ-td2" customClass="ContactUsController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7Nt-Iw-uYc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2515,7 +2520,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Official number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SpP-aa-UtJ">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2532,7 +2537,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Official website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SX4-vt-Em1">
-                                                    <rect key="frame" x="15" y="12" width="117.5" height="20.5"/>
+                                                    <rect key="frame" x="16" y="12" width="117.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2567,24 +2572,24 @@
         <!--Contact Us-->
         <scene sceneID="nZG-18-KL4">
             <objects>
-                <viewController id="Nc5-fD-U36" customClass="OfficialNumberController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Nc5-fD-U36" customClass="OfficialNumberController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ieL-G9-CSo"/>
                         <viewControllerLayoutGuide type="bottom" id="pqL-ru-g8v"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ngk-gz-tG3">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="co1-TS-Dyc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Nc5-fD-U36" id="1Kn-D4-ks0"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="29" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-Vc-Upl">
-                                <rect key="frame" x="0.0" y="44" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2656,9 +2661,9 @@
         <!--Help-->
         <scene sceneID="DfZ-mP-Ktd">
             <objects>
-                <tableViewController id="ScT-FO-NmR" customClass="HelpController" customModule="Alcatel_Move_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ScT-FO-NmR" customClass="HelpController" customModule="Alcatel_Move" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2x0-oz-3MU">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2678,7 +2683,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="FAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CkF-oW-Pul">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2695,7 +2700,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="User manual" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q1V-Rm-9iN">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2712,7 +2717,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Terms of use" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6dJ-rh-hsG">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
@@ -2729,7 +2734,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Privacy and Security" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZM6-th-vdN">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>

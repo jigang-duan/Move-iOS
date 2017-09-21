@@ -113,12 +113,13 @@ class RelationshipTableController: UIViewController {
         
         self.setupRightBun()
         
-        
-        saveBun.rx.tap.asObservable()
-            .bindNext { [weak self] in
-                self?.confirmSelectRelation()
-            }
-            .addDisposableTo(disposeBag)
+        if let rightBun = saveBun {
+            rightBun.rx.tap.asObservable()
+                .bind { [weak self] in
+                    self?.confirmSelectRelation()
+                }
+                .addDisposableTo(disposeBag)
+        }
         
         tableView.delegate = self
         
@@ -129,6 +130,7 @@ class RelationshipTableController: UIViewController {
     func setupRightBun() {
         if self.relationBlock != nil {
             self.navigationItem.rightBarButtonItem = nil
+            return
         }
         
         if deviceAddInfo?.isMaster == true {

@@ -20,7 +20,7 @@ import RxRealm
     public typealias TableCellFactory<E: Object> = (RxTableViewRealmDataSource<E>, UITableView, IndexPath, E) -> UITableViewCell
     public typealias TableCellConfig<E: Object, CellType: UITableViewCell> = (CellType, IndexPath, E) -> Void
 
-    public class RxTableViewRealmDataSource<E: Object>: NSObject, UITableViewDataSource {
+    open class RxTableViewRealmDataSource<E: Object>: NSObject, UITableViewDataSource {
 
         private var items: AnyRealmCollection<E>?
 
@@ -52,6 +52,11 @@ import RxRealm
                 cellConfig(cell, ip, model)
                 return cell
             }
+        }
+
+        // MARK: - Data access
+        public func model(at indexPath: IndexPath) -> E {
+            return items![indexPath.row]
         }
 
         // MARK: - UITableViewDataSource protocol
@@ -119,7 +124,7 @@ import RxRealm
     public typealias TableCellFactory<E: Object> = (RxTableViewRealmDataSource<E>, NSTableView, Int, E) -> NSTableCellView
     public typealias TableCellConfig<E: Object, CellType: NSTableCellView> = (CellType, Int, E) -> Void
 
-    public class RxTableViewRealmDataSource<E: Object>: NSObject, NSTableViewDataSource, NSTableViewDelegate {
+    open class RxTableViewRealmDataSource<E: Object>: NSObject, NSTableViewDataSource, NSTableViewDelegate {
 
         private var items: AnyRealmCollection<E>?
 
@@ -163,7 +168,7 @@ import RxRealm
         }
 
         // MARK: - Proxy unimplemented data source and delegate methods
-        public override func responds(to aSelector: Selector!) -> Bool {
+        open override func responds(to aSelector: Selector!) -> Bool {
             if RxTableViewRealmDataSource.instancesRespond(to: aSelector) {
                 return true
             } else if let delegate = delegate {
@@ -175,7 +180,7 @@ import RxRealm
             }
         }
 
-        public override func forwardingTarget(for aSelector: Selector!) -> Any? {
+        open override func forwardingTarget(for aSelector: Selector!) -> Any? {
             return delegate ?? dataSource
         }
 

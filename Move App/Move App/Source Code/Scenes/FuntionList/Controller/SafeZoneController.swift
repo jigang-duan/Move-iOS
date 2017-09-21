@@ -39,7 +39,13 @@ class SafeZoneController: UIViewController {
         super.viewDidLoad()
         
         self.title = R.string.localizable.id_safe_zone()
-        self.permissionsFun(adminbool: adminBool)
+        
+        if adminBool {
+            introducelLabel.text = R.string.localizable.id_safezone_prompt()
+        }else {
+            introducelLabel.text = R.string.localizable.id_safezone_prompt_not_admin()
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
         tableView.emptyDataSetSource = self
         tableView.delegate = self
@@ -49,7 +55,7 @@ class SafeZoneController: UIViewController {
     func reloadData(){
         //拉取数据
         LocationManager.share.fetchSafeZone()
-            .bindNext { [weak self] in
+            .bind { [weak self] in
                 self?.fences = $0
                 self?.tableView.reloadData()
             }
@@ -71,16 +77,6 @@ class SafeZoneController: UIViewController {
             }
         }
     }
-    
-    func permissionsFun(adminbool: Bool) {
-        introducelLabel.text = R.string.localizable.id_safezone_prompt_not_admin()
-        if adminbool {
-            introducelLabel.text = R.string.localizable.id_safezone_prompt()
-        }else {
-            self.navigationItem.rightBarButtonItem = nil
-        }
-    }
-    
     
 }
 
@@ -188,10 +184,9 @@ extension SafeZoneController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             //删除
             LocationManager.share.delectSafeZone(self.fences[indexPath.row].ids ?? "")
-                .bindNext { [weak self] in
+                .bind { [weak self] in
                 print($0)
                 self?.fences.remove(at: indexPath.row)
-//                self.tableview.deleteRows(at: [indexPath], with: .top)
                 self?.tableView.reloadData()
                 }.addDisposableTo(disposeBag)        
         }

@@ -98,10 +98,10 @@ class FamilyMemberController: UIViewController {
                 wireframe: DefaultWireframe.sharedInstance
             )
             )
-        viewModel.cellDatas?.bindTo(viewModel.cellDatasVariable).addDisposableTo(disposeBag)
+        viewModel.cellDatas?.bind(to: viewModel.cellDatasVariable).addDisposableTo(disposeBag)
         
         viewModel.cellDatasVariable.asObservable()
-            .bindTo(tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ [weak self] (row, element, cell) in
+            .bind(to: tableView.rx.items(cellIdentifier: R.reuseIdentifier.familyMemberCell.identifier, cellType: FamilyMemberTableViewCell.self)){ [weak self] (row, element, cell) in
                 cell.heartBun.setImage(element.isHeartOn ? R.image.member_heart_on() : R.image.member_heart_off(), for: .normal)
                 cell.isHeartOn = element.isHeartOn
                 
@@ -147,10 +147,12 @@ class FamilyMemberController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
-        viewModel.cellDatasVariable.asObservable()
-            .map{ $0.count < 10 }
-            .bindTo(addBun.rx.isEnabled)
-            .addDisposableTo(disposeBag)
+        if addBun != nil {
+            viewModel.cellDatasVariable.asObservable()
+                .map{ $0.count < 10 }
+                .bind(to: addBun.rx.isEnabled)
+                .addDisposableTo(disposeBag)
+        }
     }
     
     

@@ -196,7 +196,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
         viewModel.kidLocation
             .asObservable()
             .take(1)
-            .bindNext {[weak self] in
+            .bind {
                 let region = MKCoordinateRegionMakeWithDistance($0, 1500, 1500)
                 print("\(region)")
 //                self.mainMapView.setRegion(region, animated: true)
@@ -426,7 +426,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                         
                         
                         
-                        let currentfence = KidSate.ElectronicFence(ids: nil, name: fenceinfo.name, radius: fenceinfo.radius, active: true, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: (fenceinfo.location?.lat)!, longitude: (fenceinfo.location?.lng)!), address: self.addressLab.text))
+                        let currentfence = KidSate.ElectronicFence(ids: nil, name: fenceinfo.name, radius: fenceinfo.radius, active: true, location:  KidSate.Location(location: CLLocationCoordinate2D(latitude: fenceinfo.location?.lat ?? 0, longitude: fenceinfo.location?.lng ?? 0), address: self.addressLab.text))
                         
                         
                         if !positioningRangeOverlap(fences: self.fences, currentfence: currentfence){
@@ -505,7 +505,7 @@ class AddSafeZoneVC: UIViewController , SearchVCdelegate {
                     //不是重叠
                     
                     
-                    MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bindNext{
+                    MoveApi.ElectronicFence.settingFence(fenceId: (self.editFenceDataSounrce?.ids)!, fenceReq: fencereq!).bind{
                         print($0)
                         if $0.msg != "ok" {
                             self.errorshow(message: $0.field!)

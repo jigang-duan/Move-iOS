@@ -47,7 +47,8 @@ extension Response {
             throw httpError
         }
         
-        if let array = try mapJSON() as? [[String : Any]], let objects = Mapper<T>().mapArray(JSONArray: array) {
+        if let array = try mapJSON() as? [[String : Any]] {
+            let objects = Mapper<T>().mapArray(JSONArray: array)
             return objects
         }
         

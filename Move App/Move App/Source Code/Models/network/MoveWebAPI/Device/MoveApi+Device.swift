@@ -144,7 +144,7 @@ extension MoveApi {
         
 //        获取时区信息
         final class func fetchTimezones(lng: String?, lat: String?) -> Observable<[Timezone]> {
-            return request(.fetchTimezones(lng: lng, lat: lat)).mapArray(Timezone.self)
+            return request(.fetchTimezones(lng: lng, lat: lat)).mapMoveArray(Timezone.self)
         }
         
         enum API {
