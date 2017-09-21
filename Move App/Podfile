@@ -1,83 +1,101 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '8.0'
 
+
+def project_pods
+    # Pods for Move App
+    
+    # 仿Android资源文件使用
+    # https://github.com/mac-cain13/R.swift
+    pod 'R.swift'
+    
+    # 自动布局
+    # pod 'SnapKit'
+    
+    # Log
+    pod 'SwiftyBeaver'
+    
+    # 异常上报
+    # https://bugly.qq.com/
+    pod 'Bugly'
+    
+    #第三方分享登录
+    pod 'ShareSDK3/ShareSDKPlatforms/GooglePlus',  '~> 3.6.2.1'
+    pod 'ShareSDK3/ShareSDKPlatforms/Facebook',  '~> 3.6.2.1'
+    pod 'FBSDKMessengerShareKit'
+    
+    # 网络
+    # https://github.com/Moya/Moya
+    pod 'Moya-ObjectMapper/RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift' , '~> 8.0.5'
+    
+    # Observable
+    # https://github.com/ReactiveX/RxSwift
+    #pod 'RxSwift',    '~> 3.0'
+    pod 'RxCocoa'
+    pod 'RxDataSources'
+    pod 'RxOptional'
+    # pod 'RxMKMapView'  // 有依赖冲突
+    # 数据库 https://realm.io
+    pod 'RxRealm'
+    pod 'RxRealmDataSources'
+    
+    # 图片下载和缓存库，取代 SDWebImage
+    # https://github.com/onevcat/Kingfisher
+    pod 'Kingfisher', '~> 3.0'
+    
+    # 缓存库
+    # https://github.com/aschuch/AwesomeCache/tree/5.0
+    pod 'AwesomeCache'
+    
+    # Gif UImage扩展
+    # https://github.com/bahlo/SwiftGif
+    pod 'SwiftGifOrigin'
+    
+    # 空白页或者出错页封装
+    pod 'DZNEmptyDataSet'
+    
+    # 基于Swift的 OAuth 库.
+    # https://github.com/OAuthSwift/OAuthSwift
+    # pod 'OAuthSwift', '~> 1.1.0'
+    
+    # 下拉刷新
+    pod 'MJRefresh'
+    
+    # Image 扩展库
+    pod 'AFImageHelper', :path => './github/ImageHelper-3.2.1'
+    
+    # pod 'EAFeatureGuideView', :path => './github/EAFeatureGuideView-master'
+    
+    # Map Annotion View
+    pod 'SVPulsingAnnotationView'
+    
+    # 日历视图
+    # https://github.com/WenchaoD/FSCalendar
+    pod 'FSCalendar'
+
+end
+    
+
 target 'Move App' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    use_frameworks!
+    
+    project_pods
+end
 
-  # Pods for Move App
+target 'Alcatel Move' do
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    use_frameworks!
+    
+    project_pods
+end
 
-  # 仿Android资源文件使用
-  # https://github.com/mac-cain13/R.swift
-  pod 'R.swift'
-
-  # 自动布局
-  # pod 'SnapKit'
-
-  # Log
-  pod 'SwiftyBeaver'
-  
-  # 异常上报
-  # https://bugly.qq.com/
-  pod 'Bugly'
-  
-  #第三方分享登录
-  pod 'ShareSDK3/ShareSDKPlatforms/GooglePlus',  '~> 3.6.2.1'
-  pod 'ShareSDK3/ShareSDKPlatforms/Facebook',  '~> 3.6.2.1'
-  pod 'FBSDKMessengerShareKit'
-
-  # 网络
-  # https://github.com/Moya/Moya
-  pod 'Moya-ObjectMapper/RxSwift'
-  pod 'Moya'
-  pod 'Moya/RxSwift' , '~> 8.0.5'
-  
-  # Observable
-  # https://github.com/ReactiveX/RxSwift
-  #pod 'RxSwift',    '~> 3.0'
-  pod 'RxCocoa'
-  pod 'RxDataSources'
-  pod 'RxOptional'
-  # pod 'RxMKMapView'  // 有依赖冲突
-  # 数据库 https://realm.io
-  pod 'RxRealm'
-  pod 'RxRealmDataSources'
-  
-  # 图片下载和缓存库，取代 SDWebImage
-  # https://github.com/onevcat/Kingfisher
-  pod 'Kingfisher', '~> 3.0'
-  
-  # 缓存库
-  # https://github.com/aschuch/AwesomeCache/tree/5.0
-  pod 'AwesomeCache'
-  
-  # Gif UImage扩展
-  # https://github.com/bahlo/SwiftGif
-  pod 'SwiftGifOrigin'
-  
-  # 空白页或者出错页封装
-  pod 'DZNEmptyDataSet'
-  
-  # 基于Swift的 OAuth 库.
-  # https://github.com/OAuthSwift/OAuthSwift
-  # pod 'OAuthSwift', '~> 1.1.0'
-
-  # 下拉刷新
-  pod 'MJRefresh'
-  
-  # Image 扩展库
-  pod 'AFImageHelper', :path => './github/ImageHelper-3.2.1'
-  
-  # pod 'EAFeatureGuideView', :path => './github/EAFeatureGuideView-master'
-  
-  # Map Annotion View
-  pod 'SVPulsingAnnotationView'
-  
-  # 日历视图
-  # https://github.com/WenchaoD/FSCalendar
-  pod 'FSCalendar'
-  
-  target 'Move AppTests' do
+target 'Move AppTests' do
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    use_frameworks!
+    
     inherit! :search_paths
     # Pods for testing
     pod 'RxTest'
@@ -86,14 +104,17 @@ target 'Move App' do
     pod 'Moya-ObjectMapper/RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
-  end
+end
 
-  target 'Move AppUITests' do
+target 'Move AppUITests' do
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    use_frameworks!
+    
     inherit! :search_paths
     # Pods for testing
-  end
-
 end
+
+
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
