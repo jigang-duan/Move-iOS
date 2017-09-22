@@ -126,7 +126,11 @@ extension MoveApiUserWorker.LoginType {
     func openid(user: SSDKUser) -> String {
         switch self {
         case .facebook:
-            return "344365305959182"    //facebook ID
+            #if Tag_ALCATEL
+                return "173072013257368"    //facebook ID
+            #else
+                return "344365305959182"    //facebook ID
+            #endif
         case .twitter:
             return user.credential.token
         case .google:

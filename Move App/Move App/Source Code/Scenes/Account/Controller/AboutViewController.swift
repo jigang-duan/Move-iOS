@@ -12,11 +12,19 @@ import MessageUI
 class AboutViewController: UIViewController {
     
     @IBOutlet weak var versionLab: UILabel!
+    @IBOutlet weak var productNameLab: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = R.string.localizable.id_about()
+        
+        #if Tag_ALCATEL
+            productNameLab.text = "Family watch"
+        #else
+            productNameLab.text = "TCLMOVE"
+        #endif
+        
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             versionLab.text = "V \(version)"
