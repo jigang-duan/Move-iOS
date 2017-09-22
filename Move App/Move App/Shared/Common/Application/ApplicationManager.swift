@@ -131,25 +131,45 @@ extension ApplicationManager {
                                     break
                                 }
         }) { (platform : SSDKPlatformType, appInfo : NSMutableDictionary?) in
-            
-            switch platform
-            {
-            //设置Facebook应用信息，其中authType设置为只用SSO形式授权
-            case .typeFacebook:
-                appInfo?.ssdkSetupFacebook(byApiKey: "344365305959182",
-                                           appSecret : "909536c55a45ca4143139006f34900db",
-                                           authType : SSDKAuthTypeBoth)
-            //设置Twitter应用信息
-            case .typeTwitter:
-                appInfo?.ssdkSetupTwitter(byConsumerKey: "YEtbencgFOdSEAqyEQQE61T94",
-                                          consumerSecret : "KvPYYDdVCVZMLRr2yElRTtoCAVLbEWUYDvBfnLEG3HS3O7PQOo",
-                                          redirectUri : "TCLMove://")
-            //设置gooleplus应用信息
-            case .typeGooglePlus:
-                appInfo?.ssdkSetupGooglePlus(byClientID: "840509823178-rhb7j8vfqo00njo1o8cuph6cdge6kkej.apps.googleusercontent.com", clientSecret: "", redirectUri: "http://localhost");
-            default:
-                break
-            }
+            #if Tag_ALCATEL
+                switch platform
+                {
+                //设置Facebook应用信息，其中authType设置为只用SSO形式授权
+                case .typeFacebook:
+                    appInfo?.ssdkSetupFacebook(byApiKey: "173072013257368",
+                                               appSecret : "090e7e86c384f18fb2273be479548d8b",
+                                               authType : SSDKAuthTypeBoth)
+                //设置Twitter应用信息
+                case .typeTwitter:
+                    appInfo?.ssdkSetupTwitter(byConsumerKey: "rIQfGuUw2fj3zr9fFkcuT9ZPC",
+                                              consumerSecret : "WUVA6YHmt1mZawPJD4e2IkP8iXX3nbpK1rqMXdf82WiD0cvE6C",
+                                              redirectUri : "FamilyWatch://")
+                //设置gooleplus应用信息
+                case .typeGooglePlus:
+                    appInfo?.ssdkSetupGooglePlus(byClientID: "196264797599-qk49qttjgjrql58in74m33bu9a541jh7.apps.googleusercontent.com", clientSecret: "", redirectUri: "http://localhost");
+                default:
+                    break
+                }
+            #else
+                switch platform
+                {
+                //设置Facebook应用信息，其中authType设置为只用SSO形式授权
+                case .typeFacebook:
+                    appInfo?.ssdkSetupFacebook(byApiKey: "344365305959182",
+                                               appSecret : "909536c55a45ca4143139006f34900db",
+                                               authType : SSDKAuthTypeBoth)
+                //设置Twitter应用信息
+                case .typeTwitter:
+                    appInfo?.ssdkSetupTwitter(byConsumerKey: "YEtbencgFOdSEAqyEQQE61T94",
+                                              consumerSecret : "KvPYYDdVCVZMLRr2yElRTtoCAVLbEWUYDvBfnLEG3HS3O7PQOo",
+                                              redirectUri : "TCLMove://")
+                //设置gooleplus应用信息
+                case .typeGooglePlus:
+                    appInfo?.ssdkSetupGooglePlus(byClientID: "840509823178-rhb7j8vfqo00njo1o8cuph6cdge6kkej.apps.googleusercontent.com", clientSecret: "", redirectUri: "http://localhost");
+                default:
+                    break
+                }
+            #endif
             
         }
     }

@@ -2484,6 +2484,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="Fv8-lW-6SK"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="productNameLab" destination="NHx-Jd-XbP" id="OWg-DR-U0g"/>
                         <outlet property="versionLab" destination="OAG-MP-fXK" id="sJs-YW-mXW"/>
                     </connections>
                 </viewController>
