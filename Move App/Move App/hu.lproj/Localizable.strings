@@ -217,7 +217,7 @@
 "id_info_apn_has_paired_5" = "A TCLMOVE alkalmazásban: lépjen az Én > Családi óra > Elérési pont menüpontba. Válassza ki az óráját, állítsa be az elérési pontot, majd érintse meg a Mentés lehetőséget.";
 "id_info_apn_not_paired_1" = "Óra bekapcsolása";
 "id_info_apn_not_paired_2" = "Csúsztassa az ujját jobbra a kezdőképernyőről, majd érintse meg a Beállítások lehetőséget.";
-"id_info_apn_not_paired_3" = "A TCLMOVE alkalmazásban: lépjen az Én > Családi óra > Elérési pont menüpontba. Válassza ki az óráját, állítsa be az elérési pontot, majd érintse meg a Mentés lehetőséget.";
+"id_info_apn_not_paired_3" = "A TCLMOVE APP alkalmazásban menjen az Én menüpontba> Eszköz hozzáadása> QR kód beolvasása. Olvassa be a QR kódot, ami megjelenik az óráján amikor a kezdő képernyőt balra húzza. Ezután be kell írnia az ellenőrző kódot, amely megjelenik az óráján. Ha nem jelenik meg ellenőrző kód, érintse meg a „Párosítás sikertelen?” menüpontot.> Nem> APN beállítások . Kapcsolja be a Bluetooth-ot és válassza ki a Family Watch-ot az elérhető eszközök listájából. Állítsa be az APN-t és nyomjon Mentés-t.";
 "id_fitness_unit_steps" = "lépés";
 "id_fitness_unit_minutes" = "perc";
 "id_fitness_unit_hours" = "óra";
@@ -564,7 +564,7 @@
 "id_image_permission_disabled" = "Az engedély letiltásra került, a helyi kép kiválasztása nem lehetséges!";
 "id_camera_permission_disabled" = "Az engedély letiltásra került, a Kamera megnyitása nem lehetséges!";
 "id_download_failed" = "A letöltés sikertelen";
-"id_watch_existed" = "Az óra már létezik.";
+"id_watch_existed" = "Ahhoz, hogy párosítsa ezt az órát, szkennelje be a QR-kódot a rendszergazda alkalmazásából.";
 "id_layout_guide_location_chosedevice" = "Érintse meg itt az óra módosításához.";
 "id_layout_guide_location_navigate" = "Érintse meg a navigáláshoz.";
 "id_layout_guide_foreground_title" = "Mindig együtt";
@@ -656,8 +656,8 @@
 "id_connect_watch" = "Nem lehet kapcsolódni az órához";
 "id_location_no_network" = "A hálózat le van kapcsolva";
 "id_admin_phone_not_same_child" = "A telefonszám nem lehet azonos a telefonszámával";
-"id_time_am" = "De";
-"id_time_pm" = "Du";
+"id_time_am" = "Reggel";
+"id_time_pm" = "Délután";
 "id_delete_this_friend" = "Eltávolítja ezt az ismerősét?";
 "id_two_password_error" = "A jelszavak nem egyeznek meg";
 "id_name_invalid" = "Érvénytelen név";

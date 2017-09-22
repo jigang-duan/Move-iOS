@@ -217,7 +217,7 @@
 "id_info_apn_has_paired_5" = "Imposta APN nell\'applicazione";
 "id_info_apn_not_paired_1" = "Attiva orologio";
 "id_info_apn_not_paired_2" = "Scorri a destra per le impostazioni APN";
-"id_info_apn_not_paired_3" = "Imposta APN nell\'applicazione";
+"id_info_apn_not_paired_3" = "Nella applicazione TCLMOVE andare in Io > Aggiungi dispositivo > Scannerizza codice QR. Scannerizzare il codice QR che appare sull’orologio scorrendo a sinistra dalla schermata Home. Sarà poi richiesto di immettere il codice di verifica che appare sull’orologio. Se il codice non appare toccare “Non si riesce ad accoppiare? > NO > imposta APN. Accendere il Bluetooth, e selezionare il proprio Family Watch dalla lista dei disponibili. Impostare l’APN e toccare Salva";
 "id_fitness_unit_steps" = "passi";
 "id_fitness_unit_minutes" = "min";
 "id_fitness_unit_hours" = "ore";
@@ -449,7 +449,7 @@
 "id_week_saturday" = "Sab.";
 "id_week_sunday" = "Dom.";
 "id_warming" = "Avviso";
-"id_still_unpaired" = "Ripristina orologio";
+"id_still_unpaired" = "Disaccoppia";
 "id_unbind_admin" = "Se l\'amministratore annulla l\'associazione con l\'orologio, quest\'ultimo viene ripristinato sui valori predefiniti. L\'associazione dell\'orologio verrà annullata anche per tutti gli altri utenti.";
 "id_master_share_qr" = "L\'amministratore può condividere questo codice QR per consentire ad altri utenti l\'associazione all\'orologio";
 "id_safety_reason" = "Per motivi di sicurezza, questo codice QR sarà valido soltanto per 1 ora";
@@ -564,7 +564,7 @@
 "id_image_permission_disabled" = "Autorizzazione disattivata. Impossibile selezionare l\'immagine locale.";
 "id_camera_permission_disabled" = "Autorizzazione disattivata. Impossibile aprire la fotocamera.";
 "id_download_failed" = "Impossibile scaricare";
-"id_watch_existed" = "Orologio esistente";
+"id_watch_existed" = "Per collegarsi con questo dispositivo scansionare il QR code sull’app dell’amministratore.";
 "id_layout_guide_location_chosedevice" = "Toccare qui per cambiare orologio";
 "id_layout_guide_location_navigate" = "Toccare qui per navigare";
 "id_layout_guide_foreground_title" = "Sempre Insieme";
@@ -610,7 +610,7 @@
 "id_bluetooth_disconnected" = "Bluetooth scollegato";
 "id_daily_tracking_mode" = "Modalità Tracking giornaliero";
 "id_tracking_mode_describe" = "Aggiorna automaticamente la posizione dell\'orologio. La batteria si consumerà più rapidamente.";
-"id_tracking_mode_home_on_describe" = "Modalità Tracking giornaliero attivata. La posizione dell’orologio verrà aggiornata automaticamente e la batteria si consumerà più rapidamente. ";
+"id_tracking_mode_home_on_describe" = "Modalità Tracking giornaliero attivata.La posizione dell’orologio verrà aggiornata automaticamente e la batteria si consumerà più rapidamente.";
 "id_help_faq" = "Domande frequenti";
 "id_apn_for_watch" = "APN per l\'orologio";
 "id_new_message_come" = "Nuovi messaggi";
@@ -656,8 +656,8 @@
 "id_connect_watch" = "Impossibile connettersi all\'orologio";
 "id_location_no_network" = "Rete disconnessa";
 "id_admin_phone_not_same_child" = "Il numero di telefono di Watch \'s non può essere uguale a quello del tuo numero di telefono";
-"id_time_am" = "AM";
-"id_time_pm" = "PM";
+"id_time_am" = "Mattino";
+"id_time_pm" = "Pomeriggio";
 "id_delete_this_friend" = "Rimuovere questo amico?";
 "id_two_password_error" = "Le password non corrispondono";
 "id_name_invalid" = "Nome non valido";

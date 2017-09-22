@@ -217,7 +217,7 @@
 "id_info_apn_has_paired_5" = "V aplikaci TCLMOVE přejděte do nabídky Já > Rodinné hodinky > APN. Vyberte své hodinky, nastavte bod APN a stiskněte možnost Uložit.";
 "id_info_apn_not_paired_1" = "Zapněte hodinky";
 "id_info_apn_not_paired_2" = "Na úvodní obrazovce přejeďte vpravo a stiskněte možnost Nastavení.";
-"id_info_apn_not_paired_3" = "V aplikaci TCLMOVE přejděte do nabídky Já > Rodinné hodinky > APN. Vyberte své hodinky, nastavte bod APN a stiskněte možnost Uložit.";
+"id_info_apn_not_paired_3" = "V aplikaci TCLMOVE přejděte na možnost Já > Přidat zařízení > Skenovat kód QR. Načtěte  kód QR, který se objeví na vašich hodinkách, když přejedete prstem doleva z domovské obrazovky. Poté budete požádáni o zadání ověřovacího kódu, který se zobrazí ve vašich hodinkách. Pokud se nezobrazí žádný ověřovací kód, stiskněte tlačítko Nelze spárovat s hodinkami? >  Ne > Nastavení APN. Zapněte Bluetooth a vyberte ze seznamu dostupných zařízení Vaše hodinky. Nastavte položku APN a stiskněte Uložit.";
 "id_fitness_unit_steps" = "kroky";
 "id_fitness_unit_minutes" = "min.";
 "id_fitness_unit_hours" = "hod.";
@@ -564,7 +564,7 @@
 "id_image_permission_disabled" = "Oprávnění bylo zakázáno, a proto nelze vybrat místní obrázek.";
 "id_camera_permission_disabled" = "Oprávnění bylo zakázáno a fotoaparát nelze spustit.";
 "id_download_failed" = "Nelze stáhnout";
-"id_watch_existed" = "Tyto hodinky existují.";
+"id_watch_existed" = "Pro spárování s těmito hodinkami načtěte QR kód z aplikace administrátora.";
 "id_layout_guide_location_chosedevice" = "Stisknutím sem změníte hodinky.";
 "id_layout_guide_location_navigate" = "Stisknutím sem zapnete navigaci.";
 "id_layout_guide_foreground_title" = "Vždy spolu";
@@ -656,8 +656,8 @@
 "id_connect_watch" = "K hodinkám se nebylo možné připojit";
 "id_location_no_network" = "Síť odpojena";
 "id_admin_phone_not_same_child" = "Telefonní číslo sledování nemůže být stejné jako vaše telefonní číslo";
-"id_time_am" = "Dop.";
-"id_time_pm" = "Odp.";
+"id_time_am" = "Dopoledne";
+"id_time_pm" = "Odpoledne";
 "id_delete_this_friend" = "Odebrat tohoto přítele?";
 "id_two_password_error" = "Hesla se neshodují";
 "id_name_invalid" = "Neplatný název";
